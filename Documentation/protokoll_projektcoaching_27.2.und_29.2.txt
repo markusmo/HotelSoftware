@@ -1,0 +1,69 @@
+Protokoll vom 27.2.
+-------------------
+
+-Projektmanagement:
+	Kontakt:
+		+ a.hoess@bachmann.info
+		+ alexander.hoess@fhv.at
+	Wochenberichte an FHV-Adresse
+	
+	Notengebung:
+		Benotet wird der Erfahrungsbericht, eine Vorlage ist im LMS
+	
+	Ablauf des Coachings:
+		+ Wochenberichte werden besprochen und der Ablauf der kommenden Woche
+		+ Danach ein passendes Thema zum Stand des Projekts
+	
+	Ansatz des Coachings und Managements:
+		Ansatz ist der Unified Process. Vorteil ist eine klare Vorgehensweise, Struturiertheit und
+		Flexibilität
+		
+-Technisches Coaching:
+	Umsetzungs-, Analyse- und Implementierungsteil
+	Will auch eine Zeiterfassung um Aufwand zu schätzen
+	
+	Aufgabenstellung aus Pflichtenheft sollte beim Kundengespräch allen gleich gut bekannt sein
+	Diese Aufgaben, dann in Timeboxen, aber Entscheidung ist frei, was zuerst gemacht wird.
+	
+	Einheitliche Formatierung und Versionierung der produzierten Dokumente.
+	
+	Zum Design:
+		+ eventuell muss Software ans Web gebunden werden können, MVC!
+		+ DB-Anbindung sollte einheitlich und einfach sein (ganzes Semester gleiches DB-Model?)
+	
+	Zum Anfangen einen Hack machen:
+		+ MVC umsetzen, einfach, um zu Testen, welche Techniken sich eignen.
+		+ Extremfälle ausprobieren: DB weg, Fehler aller Art, Rechte der User ...
+		
+	Wegen Server:
+		+ Lizenzen für MS, Oracle und andere sind vorhanden
+		+ DB sollte mit Mapping-Tool kommunizieren können
+		+ Transaktionen festlegen
+	
+	UML:
+		+ Geeignetes Tool finden
+	
+	Sprache:
+		+ Einheitlich
+		+ auf GUI Englisch
+		+ Benutzerfreundlich (klar verständlich)
+	
+	Eventuelle Kalkulation eines Preises der Software -> Pauschalpreis?
+
+-Usability
+	Zur Feldbeobachtung:
+		+ Wer kommt noch in Kontakt mit System?
+		+ Wieviele Klicks und Tipper braucht es normal?
+		+ Welche Gewohnheit haben die Mitarbeiter von dem vorhandenen System? 
+			-> kann man das eventuell durch ein Feature besser umsetzen?
+	
+	Zu Persona:
+		+ Zu genau gemacht, allgemeiner halten
+		+ Anhand von den Personas zur Software schließen
+			-> Modular aufbauen, Personas anschauen und Module an diese anpassen
+		+ Verhalten von Personen zu Softwarebedienung beachten
+		+ Frustrationspunkte erfragen -> Features und Verkaufsargument
+		
+	Zu Stakeholders:
+		+ Wer ist sonst noch involviert?
+		+ Wer ist kein Dauernutzer? Dieser muss auch mit der Software umgehen können.
