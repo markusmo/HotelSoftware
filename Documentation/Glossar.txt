@@ -5,7 +5,7 @@ stammdaten
 frühstücksanteil
 heizkostenzuschlag
 bedienungsentgeld
-kredietgrenze
+kreditgrenze
 stornofristen
 front-office
 back-office
