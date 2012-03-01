@@ -1,0 +1,25 @@
+Christian	Reservierung buchen
+	Reservierung ändern
+	Belegungsvorschau
+	Reservierung bestätigen
+Stefan	Reservierung stornieren
+	Optionen bearbeiten
+	Zimmerzuteilung
+	Check In
+Johannes	Aufenthalt verlängern
+	Buchen von Extraleistungen
+	Akonto buchen
+	Zimmer wechseln
+Markus	Check Out
+	Zwischenrechnung erstellen
+	Rechnung erstellen
+	Rechnung legen
+Tobias	Zimmerstatus setzen
+	Tagesabschluss
+	Monatsabschluss
+	Jahresabschluss
+Hubert	Stammdaten
+	Auswertungen
+	 -Front Office
+	 -Back Office
+	 -Journale
