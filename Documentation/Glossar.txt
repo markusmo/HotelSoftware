@@ -1,0 +1,15 @@
+journal
+akonto
+out of order
+stammdaten
+frühstücksanteil
+heizkostenzuschlag
+bedienungsentgeld
+kredietgrenze
+stornofristen
+front-office
+back-office
+statusleiste
+noShow-liste
+Belegungsliste
+direktion
