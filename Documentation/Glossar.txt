@@ -1,11 +1,11 @@
 journal
-akonto
+akonto	anzahlen
 out of order
 stammdaten
 frühstücksanteil
 heizkostenzuschlag
 bedienungsentgeld
-kredietgrenze
+kreditgrenze
 stornofristen
 front-office
 back-office
