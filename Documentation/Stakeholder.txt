@@ -2,6 +2,24 @@
 
 [Present a summary list of all the identified stakeholders.]
 
+Rezeptionist
+Finanzamt
+Hotel (Unternehmen)
+Buchhaltungssystem
+Lohnverrechnungssystem
+Steuerberechnungssystem
+Gast
+Entwickler, Programmierer, Designer
+Wartungspersonal (Instandhaltung), Systemadministrator
+Housekeeping
+	Servicetechniker
+	Zimmermädchen
+Hotel-Manager
+Kellner
+Koch
+Küchengehilfe
+
+
 template: ------------------------------------------------------------------
 Stakeholder xy
 
@@ -46,7 +64,7 @@ möglichst rasche Abwicklung der Standardprozesse (Buchung, Check-in, Check-out),
 	Gruppen: Gruppen-Check-in und -out (eine Person), eine Rechnung ermöglichen, Rabatte, Voranmeldung comfortabel (jeder einzel)
 	Einzelkunde: ...
 
-Entwickler, Programmierer, Entwerfer
+Entwickler, Programmierer, Designer
 Betreuer und Umsetzer im SW-Entwicklungs-Prozess
 Einbringung neuer Ideen, Verbesserung des bestehenden Prozesses, eliminieren von noch bestehenden Fehlern, einfaches Erweitern der SW ermöglichen
 
