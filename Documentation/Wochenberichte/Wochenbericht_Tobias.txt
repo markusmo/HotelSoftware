@@ -1,0 +1,3 @@
+Datum		Tätigkeit		Zeitaufwand
+02.03.12	Comic erstellt		30min
+03.03.12	Usecases erstellt	1h30min
