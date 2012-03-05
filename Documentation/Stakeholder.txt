@@ -10,14 +10,16 @@ Lohnverrechnungssystem
 Steuerberechnungssystem
 Gast
 Entwickler, Programmierer, Designer
-Wartungspersonal (Instandhaltung), Systemadministrator
+Wartungspersonal (Instandhaltung)
+Systemadministrator
 Housekeeping
 	Servicetechniker
 	Zimmermädchen
 Hotel-Manager
 Kellner
-Koch
-Küchengehilfe
+Küchenchef, Vertreter
+Gemeinde
+Reisebüros
 
 
 template: ------------------------------------------------------------------
@@ -61,7 +63,7 @@ Gast
 Kunde im Hotel
 möglichst rasche Abwicklung der Standardprozesse (Buchung, Check-in, Check-out), lokale Informationsquelle (Rezeption), Feedback bei der Buchung (Reservierungsbestätigung etc.) 
 	Reisebüros: verhandelbare Preise,...
-	Gruppen: Gruppen-Check-in und -out (eine Person), eine Rechnung ermöglichen, Rabatte, Voranmeldung comfortabel (jeder einzel)
+	Gruppen: Gruppen-Check-in und -out (eine Person), eine Rechnung ermöglichen, Rabatte, Voranmeldung komfortabel (jeder einzel)
 	Einzelkunde: ...
 
 Entwickler, Programmierer, Designer
