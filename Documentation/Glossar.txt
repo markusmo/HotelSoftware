@@ -13,5 +13,5 @@ statusleiste
 noShow-liste
 Belegungsliste
 direktion
-GDH
+GDH	Gast des Hauses
 Optionsdatum	
