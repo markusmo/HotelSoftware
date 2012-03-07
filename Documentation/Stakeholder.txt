@@ -98,5 +98,3 @@ Besucheranmeldungsliste, Gästeliste für Frühstück, einfache Bestellmöglichkeit d
 Küchengehilfe
 Restaurant-Mitarbeiter
 Vorbereitungsplan (Gerichte) mit minimalen Input und sehr einfach bedienbar,...
-
-
