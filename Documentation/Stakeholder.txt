@@ -2,25 +2,25 @@
 
 [Present a summary list of all the identified stakeholders.]
 
-Rezeptionist
-Finanzamt
-Hotel (Unternehmen)
-Buchhaltungssystem
-Lohnverrechnungssystem
-Steuerberechnungssystem
-Gast
-Entwickler, Programmierer, Designer
-Wartungspersonal (Instandhaltung)
-Systemadministrator
-Housekeeping
-	Servicetechniker
-	Zimmermädchen
-Hotel-Manager
-Kellner
-Küchenchef, Vertreter
-Gemeinde
-Reisebüros
+Rezeption
+Direktion
+Reservierung
+Finanzbuchhaltung
+Debitorenbuchhaltung
+Food and Beverage Verwaltung
+Leitung
 
+Gast
+	Gruppenreisender
+	Walkingast
+	Reservierungsgast    
+
+Entwickler
+Systemadministrator        
+Servicetechniker
+Reinigungsfachkraft
+Gemeinde
+Reisebüro
 
 template: ------------------------------------------------------------------
 Stakeholder xy
@@ -36,8 +36,8 @@ interessiert an
 ----------------------------------------------------------------------------
 
 Rezeptionist
-Frontdesk-MitarbeiterIn, der/die die Gäste empfängt, diese eincheckt, für Fragen zur Verfügung steht und die Kunden wieder auscheckt
-effizientes System, leicht bedienbar (Tastatur, Shortcuts), leichtes Ändern von Reservierungen möglich, schnelle Systemrückmeldungen, Informationen über diverse Veranstaltungen, Restaurants, etc.
+Frontdesk-Mitarbeiter, der die Gäste empfängt, diese eincheckt, für Fragen zur Verfügung steht und die Kunden wieder auscheckt
+schnelles System, leicht bedienbar (Tastatur, Shortcuts), leichtes Ändern von Reservierungen möglich, schnelle Systemrückmeldungen, Informationen über diverse Veranstaltungen, Restaurants, etc.
 
 Finanzamt
 Steuerbehörde, die eine sauberen Buchhaltung verlangt
@@ -97,5 +97,3 @@ Besucheranmeldungsliste, Gästeliste für Frühstück, einfache Bestellmöglichkeit d
 Küchengehilfe
 Restaurant-Mitarbeiter
 Vorbereitungsplan (Gerichte) mit minimalen Input und sehr einfach bedienbar,...
-
-
