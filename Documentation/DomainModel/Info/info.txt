@@ -1,5 +1,0 @@
-http://en.wikipedia.org/wiki/Domain_model
-
-http://c2.com/doc/crc/draw.html
-
-http://de.wikipedia.org/wiki/Class-Responsibility-Collaboration-Karten
