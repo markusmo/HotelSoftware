@@ -11,17 +11,16 @@ Food and Beverage Verwaltung
 Leitung
 
 Gast
-	Einzelreisende -> walkin / reservierung (unterteilung ??)
-	Gruppenreisende
-	Reisegruppemenschen   -> sind einzelreisende???
+	Gruppenreisender
 	Walkingast
 	Reservierungsgast    
 
-Entwickler, Analyst, Designer  
+Entwickler
 Systemadministrator        
 Servicetechniker
 Reinigungsfachkraft
 Gemeinde
+Reisebüro
 
 template: ------------------------------------------------------------------
 Stakeholder xy
