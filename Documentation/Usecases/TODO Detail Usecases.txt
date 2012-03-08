@@ -1,21 +1,33 @@
-Detail Use Cases:
+Christian:
 Reservierung stornieren
 Optionen bearbeiten
 Stammdaten eingeben
+
+Hubert:
 Stammdaten bearbeiten
 Check-Out
 Rechnung erstellen
+
+Johannes:
 Zwischenrechnung erstellen
 Rechnung legen
 Tagesabschluss
+
+Markus:
 Reservierung buchen
 Aufenthalt verlängern
 Buchen von Extraleistungen
+
+Stefan:
 Akonto buchen
 Zimmer wechseln
 Zimmerzuteilung
-Check In
--Gruppen, Walk In, Reservierungen
+
+Tobias:
+Check In für
+-Gruppen
+-Walk In
+-Kunden mit Reservierung
 
 Vorerst nicht:
 Front / Back - Office Auswertung
