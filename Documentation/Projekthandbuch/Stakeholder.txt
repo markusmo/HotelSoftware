@@ -11,8 +11,8 @@ Food and Beverage Verwaltung
 Leitung
 
 Gast
-	Gruppenreisender
-	Walkingast
+	Gruppenreisende/r
+	Walk-in-Gast
 	Reservierungsgast    
 
 Entwickler
