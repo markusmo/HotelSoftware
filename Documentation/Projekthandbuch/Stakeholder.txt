@@ -36,64 +36,65 @@ interessiert an
 ----------------------------------------------------------------------------
 
 Rezeptionist
-Frontdesk-Mitarbeiter, der die Gäste empfängt, diese eincheckt, für Fragen zur Verfügung steht und die Kunden wieder auscheckt
-schnelles System, leicht bedienbar (Tastatur, Shortcuts), leichtes Ändern von Reservierungen möglich, schnelle Systemrückmeldungen, Informationen über diverse Veranstaltungen, Restaurants, etc.
+empfängt Gäste, steht für Fragen zur Verfügung und checkt Kunden ein / aus.
+möchte möglichst wenig und kurz in Computer schauen müssen. 
 
-Finanzamt
-Steuerbehörde, die eine sauberen Buchhaltung verlangt
-Datenreports mehrere (sieben) Jahre zurück, saubere Führung des Hotelbetriebs (Kunden, Mitarbeiter, Zeiterfassung,...)
+Direktion 
+Stellt neue Mittarbeiter ein und Kündigungen in Auftrag gibt.
+möchte so viel Arbeit und Aufwand wie möglich einsparen.
 
-Hotel (Unternehmen)
-Betrieb, der die Software kauft
-SW, die die Mitarbeiter bestmöglich unerstützt (effizientes und fehlerfreies arbeiten, Koordinationsaufgaben, Systemanbindungen an externe Systeme, erweiterbare SW)
+Reservierung
+gibt Gruppen mögliche Zeiträume für gemeinsamme Reisen
+benötigt übersichtliche und weiträumige Auskunft über die Anzahl der bisherigen Buchungen 
 
-Buchhaltungssystem
-Abwicklung der Buchhaltung, Verarbeitung der Daten der "Hotel-SW" sowie Bereitstellung
-klare, funktionelle Anbindung (Interface) ermöglichen, aber dies ohne Änderungen am bestehenden BH-System
+Finanzbuchhaltung
+Überweist Löhne und begleicht Rechnungen für Reperaturen und Anschaffungen
+benötigt genaue Informationen über die Arbeitsstunden der Mittarbeiter
 
-Lohnverrechnungssystem
-beinhalted die Zeiterfassung, kann aber auch mögliche Trinkgelder oder leistunsorientierte Prämienzahlungen beinhalten
-tadellose Einbindung des bestehenden LVS, mit dem Weitblick für Zusatzoptionen (Anbindung ans Hotel-System)
+Debitorenbuchhaltung
+schreibt Rechnungen und Mahnungn
+Will informiert werden wenn Rechnungen oder Mahnungen geschrieben werden müssen
 
-Steuerberechnungssystem
-Dienstleistung: Steuersätze berechnen
-Klassifikation der Produkte, optional integrierbar (USA: komplexes Steuersystem)
+Food and Beverage Verwaltung
+zuständig für reichlich Essen und Getränke
+benötigt informationen über besondere Essenswünsche und Anzahl der Reservierungen
 
-Gast
-Kunde im Hotel
-möglichst rasche Abwicklung der Standardprozesse (Buchung, Check-in, Check-out), lokale Informationsquelle (Rezeption), Feedback bei der Buchung (Reservierungsbestätigung etc.) 
-	Reisebüros: verhandelbare Preise,...
-	Gruppen: Gruppen-Check-in und -out (eine Person), eine Rechnung ermöglichen, Rabatte, Voranmeldung komfortabel (jeder einzel)
-	Einzelkunde: ...
+Leitung
+zuständig dass alles im Hotel richtig läuft
+möchte dass das Personal nicht zu viel Aufwand hat
 
-Entwickler, Programmierer, Designer
+Gruppenreisender
+macht mit seiner Gruppe Urlaub
+Zimmer sollten nicht zu weit auseinander sein, Gruppenreservierung beim essen
+
+Walk-in-Gast
+unternimmt eine Städte oder Weltreise
+möchte kurzfristig ein Zimmer für einen kleinen Zeitraum buchen
+
+Reservierungsgast
+unternimmt Geschäfts- oder Private reise 
+hätte gern schnellen check-in / check-out und Informationen über Veranstaltungen
+
+Entwickler
 Betreuer und Umsetzer im SW-Entwicklungs-Prozess
-Einbringung neuer Ideen, Verbesserung des bestehenden Prozesses, eliminieren von noch bestehenden Fehlern, einfaches Erweitern der SW ermöglichen
+Software soll perfekt zum Unternehmen passen und nicht zu viel Zeit / Geld kosten
 
-Wartungspersonal (Instandhaltung), Systemadministrator
+Systemadministrator
 SW-Betreuer nach der Entwicklungsphase
-effizientes Handling (Updates, Zusatzmodule, Backup,...)
-
-Housekeeping
-Facility-Management (Reinigung, Organisation)
-Übersichtliche Anzeige der Auslastung: Wer kommt?, spezielle Vorbereitungen (System-Input), koodrinierte Reinigung der Zimmer ermöglichen (Übersicht, sehr einfach bedienbar, Redo-Fuktionen)
-
-Hotel-Manager
-Koordination und Organisation des Hotelbetriebs
-Überblick (Auslastung, frei Zimmer, saubere Zimmer), Mitarbeier-History, neue Ankünfte, VIP´s, intelligente Vorhersagen,...
+einfache Eingabe neuer Mittarbeiter, schnelle zugriffsrecht verteilung
 
 Servicetechniker
-Hausmeister
-Aulistung der Servicepartner (Handwerker,...), Todo-Listen, Reklamations-Input von Housekeeping etc., einfache Bedienbarkeit
+repariert Schäden in den Zimmer und bringt neue Sachen an
+benötigt Informationen was repariert werden soll und wo
 
-Kellner
-Restaurant-Mitarbeiter, Bedienen der Gäste, Aushilfe an der Rezeption
-sehr einfaches ein- und aus-checken, einfache Getränge- und Speisenaufnahme, einfache und komfortable Umsatz- sowie Tringeldauflistung
+Reinigungsfachkraft
+reinigt Zimmer und macht Betten
+benötigt Informationen über die Zimmer: Wann welches Zimmer wielange belegt ist
 
-Koch
-Restaurant-Mitarbeiter
-Besucheranmeldungsliste, Gästeliste für Frühstück, einfache Bestellmöglichkeit der täglich notwendigen Produkte
+Gemeinde
+überprüft Reiseinformationen der Gäste
+Benötigt Informationen Wer sich im Hotel aufhällt
 
-Küchengehilfe
-Restaurant-Mitarbeiter
-Vorbereitungsplan (Gerichte) mit minimalen Input und sehr einfach bedienbar,...
+Reisebüro
+erstellt Reiseangebote
+Möchte möglichst hohe rabatte aushandeln, um einen hohen Gewinn zu erzielen
