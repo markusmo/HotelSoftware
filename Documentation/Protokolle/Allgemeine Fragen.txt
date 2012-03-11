@@ -1,0 +1,8 @@
+Benennung Back-Office-Mitarbeiter -> Stakeholder?
+
+???????????????
+Berichtszuordnung
+Weist den periodischen Abschlüssen Berichte zu, die automatisch erstellt werden
+
+Allgemeine Fehlerbehandlung bei allen UseCases gleich -> bestimmen
+	es werden jeweils nur Optionen/Funktionen angezeigt, die der Berechtigung des Mitarbeiters entsprechen
