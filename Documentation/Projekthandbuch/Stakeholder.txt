@@ -40,24 +40,24 @@ empfängt Gäste, steht für Fragen zur Verfügung und checkt Kunden ein / aus.
 möchte möglichst wenig und kurz in Computer schauen müssen. 
 
 Direktion 
-Stellt neue Mittarbeiter ein und Kündigungen in Auftrag gibt.
+Stellt neue Mitarbeiter ein und Kündigungen in Auftrag gibt.
 möchte so viel Arbeit und Aufwand wie möglich einsparen.
 
 Reservierung
-gibt Gruppen mögliche Zeiträume für gemeinsamme Reisen
+gibt Gruppen mögliche Zeiträume für gemeinsame Reisen
 benötigt übersichtliche und weiträumige Auskunft über die Anzahl der bisherigen Buchungen 
 
 Finanzbuchhaltung
-Überweist Löhne und begleicht Rechnungen für Reperaturen und Anschaffungen
-benötigt genaue Informationen über die Arbeitsstunden der Mittarbeiter
+Überweist Löhne und begleicht Rechnungen für Reparaturen und Anschaffungen
+benötigt genaue Informationen über die Arbeitsstunden der Mitarbeiter
 
 Debitorenbuchhaltung
-schreibt Rechnungen und Mahnungn
+schreibt Rechnungen und Mahnungen
 Will informiert werden wenn Rechnungen oder Mahnungen geschrieben werden müssen
 
 Food and Beverage Verwaltung
 zuständig für reichlich Essen und Getränke
-benötigt informationen über besondere Essenswünsche und Anzahl der Reservierungen
+benötigt Informationen über besondere Essenswünsche und Anzahl der Reservierungen
 
 Leitung
 zuständig dass alles im Hotel richtig läuft
@@ -73,15 +73,15 @@ möchte kurzfristig ein Zimmer für einen kleinen Zeitraum buchen
 
 Reservierungsgast
 unternimmt Geschäfts- oder Private reise 
-hätte gern schnellen check-in / check-out und Informationen über Veranstaltungen
+hätte gern schnellen Check-in / Check-out und Informationen über Veranstaltungen
 
 Entwickler
-Betreuer und Umsetzer im SW-Entwicklungs-Prozess
+Betreuer und Umsetzer im SW-entwicklungs-Prozess
 Software soll perfekt zum Unternehmen passen und nicht zu viel Zeit / Geld kosten
 
 Systemadministrator
 SW-Betreuer nach der Entwicklungsphase
-einfache Eingabe neuer Mittarbeiter, schnelle zugriffsrecht verteilung
+einfache Eingabe neuer Mitarbeiter, schnelle Zugriffsrechteverteilung
 
 Servicetechniker
 repariert Schäden in den Zimmer und bringt neue Sachen an
@@ -89,12 +89,12 @@ benötigt Informationen was repariert werden soll und wo
 
 Reinigungsfachkraft
 reinigt Zimmer und macht Betten
-benötigt Informationen über die Zimmer: Wann welches Zimmer wielange belegt ist
+benötigt Informationen über die Zimmer: Wann welches Zimmer wie lange belegt ist
 
 Gemeinde
 überprüft Reiseinformationen der Gäste
-Benötigt Informationen Wer sich im Hotel aufhällt
+Benötigt Informationen Wer sich im Hotel aufhält
 
 Reisebüro
 erstellt Reiseangebote
-Möchte möglichst hohe rabatte aushandeln, um einen hohen Gewinn zu erzielen
+Möchte möglichst hohe Rabatte aushandeln, um einen hohen Gewinn zu erzielen
