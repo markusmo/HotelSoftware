@@ -14,4 +14,6 @@ noShow-liste
 Belegungsliste
 direktion
 GDH	Gast des Hauses
-Optionsdatum	
+Optionsdatum
+Optionen
+Walk In Gast
