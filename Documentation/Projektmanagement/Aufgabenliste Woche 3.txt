@@ -1,3 +1,5 @@
 
 Use cases strukturieren (Konsistenz)
 Allg. Fragen besprechen
+
+Ziele definieren
