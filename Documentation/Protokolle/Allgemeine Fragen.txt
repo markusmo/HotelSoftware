@@ -1,8 +1,30 @@
-Benennung Back-Office-Mitarbeiter -> Stakeholder?
-
-???????????????
-Berichtszuordnung
-Weist den periodischen Abschlüssen Berichte zu, die automatisch erstellt werden
-
 Allgemeine Fehlerbehandlung bei allen UseCases gleich -> bestimmen
 	es werden jeweils nur Optionen/Funktionen angezeigt, die der Berechtigung des Mitarbeiters entsprechen
+
+todo:
+usecases formatieren und in pflichtenheft integrieren
+domänen modell erstellen
+stakeholders, glossar integrieren in ph
+
+Systemausfall:
+- Transaktionen
+- letzes Use case des Users
+
+Use case Rechnungskorrektur (Bemerkung - Warum?)
+	Doppelbelegungs-Benachrichtigung (plus Kommentar angeben) und wieder Frei (meldung: kunde informieren, telefonnummer)
+
+Meeting: 
+Paper-Prototyping -> 1 Szenario
+davor Überblick
+und Ausschnitte aus Domänenmodell (zuerst Grobübersicht)
+Frangen stellen (Unklarheiten, aber mögliche Lösungen bereithalten) und wir müssen zeigen, dass wir es verstanden haben (Teile)
+wir haben Führung: grobe Strukturierung
+Dauer: 1h pro Team
+
+Domänenmodell (konzeptionelles Modell): 
+für Kunde -> keine Vererbung, keine Aggregation, wenn möglich
+Begriffe in Glossar aufnehmen
+weiterführend für Klassenmodell
+- Doppelbuchngen (Metainformation)
+- Kardinalitäten überarbeiten (statisch für alle): Reisegruppen
+- Auflösen von ** Beziehungen
