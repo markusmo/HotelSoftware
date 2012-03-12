@@ -2,13 +2,16 @@
 
 [Present a summary list of all the identified stakeholders.]
 
-Rezeption
-Direktion
-Reservierung
-Finanzbuchhaltung
-Debitorenbuchhaltung
 Food and Beverage Verwaltung
-Leitung
+Hotelmanagement
+
+Back-Office Mitarbeiter
+	Reservierung
+	Finanzbuchhaltung
+	Debitorenbuchhaltung	
+
+Front-Office Mitarbeiter
+	Rezeption	
 
 Gast
 	Gruppenreisende/r
@@ -39,8 +42,8 @@ Rezeptionist
 empfängt Gäste, steht für Fragen zur Verfügung und checkt Kunden ein / aus.
 möchte möglichst wenig und kurz in Computer schauen müssen. 
 
-Direktion 
-Stellt neue Mitarbeiter ein und Kündigungen in Auftrag gibt.
+Hotel Management 
+Umfasst Direktion und Leitung
 möchte so viel Arbeit und Aufwand wie möglich einsparen.
 
 Reservierung
@@ -58,10 +61,6 @@ Will informiert werden wenn Rechnungen oder Mahnungen geschrieben werden müssen
 Food and Beverage Verwaltung
 zuständig für reichlich Essen und Getränke
 benötigt Informationen über besondere Essenswünsche und Anzahl der Reservierungen
-
-Leitung
-zuständig dass alles im Hotel richtig läuft
-möchte dass das Personal nicht zu viel Aufwand hat
 
 Gruppenreisender
 macht mit seiner Gruppe Urlaub

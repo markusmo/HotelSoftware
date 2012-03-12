@@ -1,6 +1,6 @@
-Front-Office Mittarbeiter
-Arbeitet an der Information, es arbeitet immer nur eine Person am Front-Office. Der Mitarbeiter sollte den Computer möglichst wenig verwenden, verbringt nur wenige minuten vor dem Computer.
-Der Mittarbeiter muss sich durch viele klicks durch ein System arbeiten, dies soll durch shortcuts erleichtert werden  
+Front-Office Mitarbeiter
+Arbeitet an der Information, es arbeitet immer nur eine Person am Front-Office. Der Mitarbeiter sollte den Computer möglichst wenig verwenden, verbringt nur wenige Minuten vor dem Computer.
+Der Mittarbeiter muss sich durch viele Klicks durch ein System arbeiten, dies soll durch Shortcuts erleichtert werden  
 
-Back-Office Mittarbeiter
-Arbeitet im Büro. Es arbeiten unterschiedlich eine oder mehere Personen an mehreren Computern am selben System. Sie sind fast den ganzen Tag auf den Computer angewiesen. Außerdem haben sie ein Telefon um Reservierungen und Stornierungen entgegen zu nehmen. Im Moment werden Dokumente Manuel in Ordnern gespeichert. In Zukunft sollen alle benötigten Informationen schnell duch die neue Software dargestellt und Verwaltet werden.
+Back-Office Mitarbeiter
+Arbeitet im Büro. Es arbeiten unterschiedlich eine oder mehrere Personen an mehreren Computern am selben System. Sie sind fast den ganzen Tag auf den Computer angewiesen. Außerdem haben sie ein Telefon um Reservierungen und Stornierungen entgegen zu nehmen. Im Moment werden Dokumente manuell in Ordnern gespeichert. In Zukunft sollen alle benötigten Informationen schnell durch die neue Software dargestellt und Verwaltet werden.
