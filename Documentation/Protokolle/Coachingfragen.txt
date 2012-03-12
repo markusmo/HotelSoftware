@@ -7,7 +7,7 @@ Copyright - lizenz
 rose template (was ist das woher kriegen wir das)
 UseCaseVorlage ->punkt6 Technologie und Daten Variationsliste
 UseCaseVorlage ->punkt 5 / 8 - offene punkte / besondere Anforderungen
-
+Allgemeiner Usecase -> System stürzt ab
 
 Heuss (Projektmanagement):
 
