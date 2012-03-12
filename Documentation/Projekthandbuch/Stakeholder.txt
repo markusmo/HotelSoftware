@@ -2,13 +2,17 @@
 
 [Present a summary list of all the identified stakeholders.]
 
-Rezeption
-Direktion
-Reservierung
-Finanzbuchhaltung
-Debitorenbuchhaltung
 Food and Beverage Verwaltung
 Leitung
+
+Back-Office Mitarbeiter
+	Reservierung
+	Finanzbuchhaltung
+	Debitorenbuchhaltung	
+
+Front-Office Mitarbeiter
+	Rezeption	
+	Direktion
 
 Gast
 	Gruppenreisende/r
