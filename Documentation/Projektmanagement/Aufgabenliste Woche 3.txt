@@ -1,3 +1,25 @@
+BIS MITTWOCH: (Alle die keine Nachprüfungen diese Woche haben)
+ALLE UseCases durchschauen und Fragen zusammenschreiben
++ Mögliche Lösungen zu Fragen
 
-Use cases strukturieren (Konsistenz)
-Allg. Fragen besprechen
+Stefan
+Domänenmodell
+
+Hubert
+Mohanty
+Paper Prototyping
+
+Johannes
+UseCases Formatierung, Nummerierung, Aufbau vereinheitlichen
+Glossar erweitern und auf Englisch übersetzen (bis Donnerstag)
+
+Tobias
+Check In - Doppelbelegung Kommentar hinzufügen
+Check Out - Kommentar aufrufen (jeweils als Ausnahmen)
+
+Mohanty
+UseCase: Rechnungsposten stornieren
+
+Christian
+Projektziele formulieren
+Allgemeingültige Abhandlung Systemausfall (+ eventuell weitere Fehlerquellen)
