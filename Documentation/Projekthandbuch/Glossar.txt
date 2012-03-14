@@ -1,19 +1,37 @@
 journal
+
 akonto	anzahlen
+
 out of order
+
 stammdaten
+
 frühstücksanteil
+
 heizkostenzuschlag
+
 bedienungsentgeld
+
 kreditgrenze
+
 stornofristen
+
 front-office
+
 back-office
+
 statusleiste
+
 noShow-liste
+
 Belegungsliste
+
 direktion
+
 GDH	Gast des Hauses
+
 Optionsdatum
+
 Optionen
+
 Walk In Gast
