@@ -2,6 +2,12 @@ BIS MITTWOCH: (Alle die keine Nachprüfungen diese Woche haben)
 ALLE UseCases durchschauen und Fragen zusammenschreiben
 + Mögliche Lösungen zu Fragen
 
+<<<<<<< HEAD
+Use cases strukturieren (Konsistenz)
+Allg. Fragen besprechen
+
+Ziele definieren
+=======
 Stefan
 Domänenmodell
 
@@ -23,3 +29,4 @@ UseCase: Rechnungsposten stornieren
 Christian
 Projektziele formulieren
 Allgemeingültige Abhandlung Systemausfall (+ eventuell weitere Fehlerquellen)
+>>>>>>> 33e164271059b498370c107cfc0c9faf76c4ca8a
