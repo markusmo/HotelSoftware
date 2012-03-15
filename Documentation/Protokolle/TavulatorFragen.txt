@@ -1,3 +1,8 @@
 was ist eine Belegungsnummer und warum beginnt sie bei 1
 gibt es copyright / linzenz wünsche
 
+Reservierung - Paper-Prototyp:
+Suchfunktion mit automatischer Vorschalgsoption
+Allgemeine Suche (immer vorhand und verfügbar oder auf Homescreen) -> Instant
+	bestehende Reservierunge, Gäste, Rechnungen...
+Kundennummer ersichtlich?
