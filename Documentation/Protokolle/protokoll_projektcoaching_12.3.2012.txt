@@ -28,3 +28,10 @@ weiterführend für Klassenmodell
 - Doppelbuchngen (Metainformation)
 - Kardinalitäten überarbeiten (statisch für alle): Reisegruppen
 - Auflösen von ** Beziehungen
+
+Bei Zielen zu beachten:
+	-Messabar
+	-Spezifisch
+	-Erreichbar
+	-Realistisch
+	-Zeitlich einhaltbar

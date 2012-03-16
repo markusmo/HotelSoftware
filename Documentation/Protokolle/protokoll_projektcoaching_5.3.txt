@@ -1,0 +1,36 @@
+Protokoll 5.3.
+
+Projektcoaching:
+----------------
+	Usecases grob im Team besprechen
+	Pflichtenheft fertigstellen was geut und Teile löseen
+
+	Zum Start:
+	----------
+	-> Gemeinsame Vorstellung des Projekts fixieren
+	-> Informationsfluss definieren -> Meetings Wann, Wo & Wie?
+	-> Qualitätsmanagement -> Testing, Dokumentation, etc.
+	
+Usability:
+----------
+
+	Was ist ein Szenario/Usecase?
+	-> Usecase hat System im Mittelpunkt, funktionierende Voraussetzungen
+	von System/Realität
+	-> Szenario: Wie wird was im System gemacht. Wie verhalten sich die Rollen?
+	Reaktion des Systems auf User und umgekehrt.
+	
+	Stories sind auf Aktionen aufgebaut -> Software soll Aktionen ermöglichen und Story fließen
+	lassen. Kern Erfassen -> grobe Aufschlüsselung -> Flexibilität.
+	Probleme tauchen in dem Comic auf -> untertauchen des MA hinter der Theke.
+		-> Funktionen auf Tasten -> schnelle und persönlicher
+		-> Automatisierungen
+		-> unschafte Angaben des Kunden beachten
+	
+	Sichtbarkeit:
+	-------------
+	Modi vermeiden, mit Berechtigungen werden andere Teile sichbar
+	
+	Persona:
+	--------
+	Was will die Person vom System?
