@@ -1,0 +1,28 @@
+Bis Mittwoch:
+
+Hubert
+Benutzerumgebung anpassen wie 2004
+
+Stefan
+Einführung fertig schreiben
+Domänenmodell detailliert + Beschreibung
+
+Tobias
+Produktüberblick fertig stellen
+
+Markus
+Nichfunktionale Anforderungen fertig stellen
+
+Johannes
+Glossar von anderen Teams zusammenführen
+
+Christian
+Projektstrukturplan (bis am Wochenende)
+Sequenzdiagramme:
+-Check In
+-Check Out
+-Reservierung buchen
+
+Bis Dienstag:
+Alle
+UseCases Ranking überarbeiten
