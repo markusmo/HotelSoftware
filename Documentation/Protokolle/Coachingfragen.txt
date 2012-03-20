@@ -1,11 +1,10 @@
 Auer (Technisch):
 
+Domänenmodell, durchgehen
+Reisegruppe wird erfasst, gäste werden erfasst, sind gäste zwingend zu erfassen oder nicht?
 
 
-
-
-
-Heuss (Projektmanagement):
+Höss (Projektmanagement):
 
 
 
