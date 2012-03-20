@@ -1,0 +1,191 @@
+Front-Office
+	Umfasst alle Abläufe, die direkt an der Rezeption im Kontakt mit dem Gast durchgeführt werden.
+
+Back-Office
+	Umfasst alle Abläufe, die nicht direkt mit dem physischen Gast zu tun haben. Tätigkeiten vor Ankunft und nach Abreise des Gastes.
+
+Reservierung
+	Reserviert wird generell auf eine Zimmerkategorie (auf Kundenwunsch auch ein bestimmtes Zimmer)
+
+	Umfasst 3 Kategorien
+		Individual Gast
+		Firmen (Gruppen- oder Einzelreisende)
+		Reisebüro (Gruppen- oder Einzelreisende)
+
+	Besteht aus:
+		Reservierungsnummer
+		Name und Anschrift des Gastes
+		Name, Anschrift, Fax und Telefonnummer des Reservierenden
+		Anzahl der Kategorieeinheiten (Zimmer)
+		Ankunfsdatum und -uhrzeit sowie Abreisedatum bzw Aufenthaltsdauer
+		Zahlungsart
+		Stornofristen
+		Preis
+		Package (HP, VP, AI ...)
+
+Reservierung ändern
+	Ankunfts- und Abreisedatum bzw Verweildauer sowie Anzahl der Zimmer, Kategorie, Optionsdatum, Preis und Zahlungsart kann geändert werden.
+
+Belegungsvorschau - Forecast
+	Je Zimmer-Kategorie wird der Zeitraum, von 3 Tage vor und 7 Tage nach dem eingegeben Datum, angezeigt.
+
+Reservierungsbestätigung
+	Name des Gastes
+	Anzahl der Zimmer und jeweilige Kategorie
+	Preise
+	Ankunfts- und Abreisedatum
+	Zahlungsart
+	Verfallsdatum (Optionsdatum)
+	Besteller (Firma, Reisebüro)
+	Stornofristen
+
+Extraleistungen
+	Minibar, Telefon, Restaurant, Zeitungen, Auslagen ...
+
+Zwischenrechnung
+	
+	Eine Zwischenrechnung ist eine Aufstellung aller bis zu diesem Zeitpunkt angefallener Konsumationen und Akontozahlungen für einen Gast.
+
+	Bestandteile:
+	Firmenkopf, Ausstellungsdatum, Rechnungsanschrift (nicht zwingend), Zimmernummer und Name des Gastes, Positionen mit Menge und Gesamtpreis, Gesamtbetrag, Ausweisung der geleisteten Akontozahlungen (Zahlungsart und Betrag), Ausweisung des Restbetrages
+
+Rechnungsformular
+	
+	Firmenkopf, Rechnungsnummer, Ausstellungsdatum, Rechnungsanschrift und Name des Gastes(nicht zwingend), Position mit Menge und Gesamtpreis mit USt, Summenbild nach USt-Sätzen, USt-Gesamtbeträge von USt-Sätzen, USt-Gesamtbetrag, Gesamtbetrag der Rechnung, Zahlungsart mit Betrag, Bestätigung der Zahlung (außer bei Kredit)
+
+Zimmerstati
+	
+	Beschreibt die Zustände in denen sich ein Zimmer befinden sein.
+
+	Besetzt - Gereinigt
+	Besetzt - Ungereinigt
+	Frei - Gereinigt
+	Frei - Ungereinigt
+	Out of Order
+
+Betriebsdaten
+	
+	Alle Einzeldaten, die für den täglichen allgemeinen Betriebsablauf nötig sind.
+
+	(Firmen/Hotel)Name, Adresse, Telefon, Fax, E-Mail, Bankverbindungen, UID, DVR, Ortstaxe, Frühstücksanteil, Heizkostenzuschlag, Bedieungsentgelt, Kreditgrenze, Verfallsfrist des Optionsdatums
+
+Vertragspartner
+
+	Alle Daten von Firmen, die mit dem Hotel einen Beherbergungsvertrag abgeschlossen haben.
+
+	Reisebürodaten
+	Reisebüroname, Kontaktperson, Adresse, Telefon, Fax, E-Mail, Bankverbindung, UID, Preis pro Kategorie und Saison, Kontingent
+
+	Firmadaten
+	Firmenname, Kontaktperson, Adresse, Telefon, Fax, E-Mail, Bankverbindung, UID, Preis pro Kategorie
+
+Rechnung erstellen
+
+	Endgültige Rechnung die nicht mehr geändert werden kann und vom Gast mit der vorher ausgewählten Zahlungsmethode zu bezahlen ist.
+
+
+Rechnungslegung 
+	
+	Vorgang bei der die Rechnung eines Zimmers erstellt wird. Die Rechnung kann zu diesem Zeitpunkt noch  geändert werden. 
+
+Individualgast
+	
+	Gast der selbständig reserviert.
+
+Kontigent
+	
+	Das Kontigent beschreib wieviel Zimmer noch für einen Vertragspartner (zb. Reisebüro TeamAlpha) zur verfügung stehen
+
+Tagesabschluss
+
+	Mit dem Start des Tagesabschlusses werden automatisch die Zimmerpreise und eventuelle Zusatzleistungen auf die jeweiligen Zimmerrechnungen aufgebucht. Weiters wird der Zimmerstatus für belegte Zimmer auf BELEGT - UNGEREINIGT gesetz.
+
+Monatsabschluss
+
+	Mit dem Start des Monatsabschlusses werden diejenigen Berichte gerdruckt, die in den Stammdaten dem Monatsabschluss zugeordnet wurden. Vorbedingung: Tagesabschluss muss zuerst durchgefürht werden.
+
+Jahresabschluss
+
+	Mit dem Start des Jahresabschlusses werden diejenigen Berichte gedruckt, die in den Stammdaten dem Jahresabschluss zugeordnet wurden.
+
+Reservierung buchen
+
+	Belegt eine bestimmte Anzahl von Einheiten einer Kategorie für einen bestimmten Zeitraum.
+
+Reservierung bestätigen
+
+	Eine bestehende Reservierung wird bestätigt und ausgedruckt.
+
+Reservierung stornieren
+	Eine bestehende Reservierung wird gelöscht. 
+
+Optionen
+	
+	Optionen können Verlängert werden. Hat man mehrere Optionen und verfällt eine so wird die Reservierung gelöscht.
+
+	Beispiele:
+	Bestätigung bis ...
+	Anzahlung bis zum ...
+
+Optionen bearbeiten
+
+	Eine Reservierung verfügt über Optionen die binden. Mit Ablauf der der Optionsfrist wird die Option auf die tägliche Optionsliste ausgewiesen. Sollte innerhalb des Fristtages die Option nicht erfüllt werden wird die Reservierung im System gelöscht. Wenn nicht wird sie im System als erfüllt gekennzeichnet und in der Optionsliste nicht mehr ausgewiesen.
+
+Zimmerzuteilung
+
+	Beschreibt den Vorgang bei welchem dem Gast am Ankunftstag oder Zimmerwechsel ein Zimmer der gewünschten/möglichen/reservierten Kategorie zugeteilt wird.
+
+Check In
+	
+	Es gibt 3 Arten von Check-Ins
+
+	Reisegruppen
+	WalkIn
+	Reservierung
+
+	Reisegruppen
+	Hierbei sind 2 wichtige Punkte zu beachten:
+		- Es ist möglich alle Gruppenmitglieder oder nur den Gruppenleiter in die Stammdaten einzutragen
+		- Zudem ist es möglich eine beliebige Zimmernummer der Gruppe als Referenz für die Rechnung anzugeben
+
+	WalkIn
+	Bei einem WalkIn wird der Listenpreis als Standardwert vorgeschlagen, wobei dieser Wert bis zu einem Mindestwert reduziert werden kann.
+
+	Reservierung
+	Hierbei wird die Reservierungsnummer oder der Name in die Suchmaske eingegeben und eventuell lückenhafte Stammdaten können ergänzt werden.
+
+WalkIn
+	Beschreibt einen Gast der ohne Reservierung ein Zimmer wünscht.
+
+Aufenthaltsverlängerung
+	Der Aufenthalt eines eingecheckten Gastes wird verlängert, was bedeutet dass der Gaste ein neues Abreisedatum / Verweildauer erhält.
+
+CheckOut
+	Der CheckOut-Vorgang beschreibt den Abreisevorgang des Gastes. Hierfür erhält der Gast zuerst eine Zwischenrechnung zur Kontrolle der offenen Positionen und kann danach eine Zahlungsmehthode auswählen. Darauf erhält er die Endrechnung. Zudem wird nach Abreise des Gastes der Zimmerstatus auf FREI - Ungereinigt gesetzt.
+
+Akonto
+	Das Akonto bietet die Möglichkeit (mit verschiedenen Zahlungsarten) eine Anzahlung auf die Zimmerrechnung zu tätigen. Es wird Zimmernummer/Buchungsnummer der Rechnung, Zahlungsart und Höhe der Vorauszahlung angegeben. Der Kunde erhält eine Zahlungsbestätigung.
+
+Stammdaten
+	Die Stammdaten umfassen alle Daten betreffend der Gäste, Zimmer, Artikel, Warengruppen, Mehrwersteuersätze, Packages, Zusatzleistungen, Kredit- und Überbuchungsgrenzen, Verfalls- und Stornofristen, Vertragspartner sowie Mitarbeiter, Berichtszuordnung und Zahlungsarten.
+
+Journale
+	Mit dem Journal kann standardmäßig für alle oder nur für ausgewählte Mitarbeiter die Aktivitäten innerhalb eines bestimmten Zeitraums ausgegeben werden. 
+
+AKtivitäten der Mitarbeiter
+	Reservierung buchen, änder, bestätigen, stornieren
+	Check In/Out
+	Aufenthalt verlängern
+	Zimmerwechsel
+	Zimmerzuteilung
+	Akonto und Extraleistungen buchen
+	Tages- und Monatsabschluss
+	Rechnung legen, erstellen, stornieren
+
+Berechtigte 
+	Direktor und leiter der Rezeption
+
+Packages
+	Halbpension
+	Vollpesion
+	All Inclusive
