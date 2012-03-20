@@ -24,6 +24,7 @@ Servicetechniker
 Reinigungsfachkraft
 Gemeinde
 Reisebüro
+Kunde
 
 template: ------------------------------------------------------------------
 Stakeholder xy
@@ -92,8 +93,12 @@ benötigt Informationen über die Zimmer: Wann welches Zimmer wie lange belegt ist
 
 Gemeinde
 überprüft Reiseinformationen der Gäste
-Benötigt Informationen Wer sich im Hotel aufhält
+Benötigt Informationen wer sich im Hotel aufhält
 
 Reisebüro
 erstellt Reiseangebote
 Möchte möglichst hohe Rabatte aushandeln, um einen hohen Gewinn zu erzielen
+
+Kunde
+bezahlt Rechnung
+Wünscht sich eine übersichtliche und nachvollziehbare Rechnung und möchte diese mit diversen Zahlungsmitteln zahlen können. 
