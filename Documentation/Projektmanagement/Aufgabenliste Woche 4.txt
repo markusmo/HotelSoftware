@@ -32,23 +32,23 @@ UseCases Ranking überarbeiten
 
 Use cases überarbeiten:
 Christian & Tobias
-Reservierung buchen	
-Check In	
-Zimmerzuteilung	
-Rechnung erstellen
-Zimmerstatus setzen	
-Optionen bearbeiten	
-Reservierung bestätigen	
-Buchen von Extraleistungen	
+Reservierung buchen
+Check In
+-Zimmerzuteilung
+Zimmerstatus setzen
+Optionen bearbeiten
+-Reservierung bestätigen
+Buchen von Extraleistungen
 Aufenthalt verlängern
 
 Stefan & Johannes
-Stammdaten eintragen
-Reservierung ändern	
-Zwischenrechnung erstellen
-Reservierung stornieren
-Tagesabschluss	
-Check Out	
-Belegungsvorschau	
-Rechnung legen	
-Zimmer wechseln	
++Stammdaten eintragen
+-Reservierung ändern	
++Zwischenrechnung erstellen
++Reservierung stornieren
++Tagesabschluss
++Check Out
+-Belegungsvorschau
++Rechnung legen	
++Zimmer wechseln	
++Rechnung erstellen
