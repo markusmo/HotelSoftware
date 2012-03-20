@@ -2,6 +2,7 @@ Bis Mittwoch:
 
 Hubert
 Benutzerumgebung anpassen wie 2004
+Timebox Planung Einleitung (Beschreibung) und Überblick
 
 Stefan
 Einführung fertig schreiben
@@ -12,9 +13,11 @@ Produktüberblick fertig stellen
 
 Markus
 Nichfunktionale Anforderungen fertig stellen
+Use case: Rechnungposten stornieren
 
 Johannes
 Glossar von anderen Teams zusammenführen
+Zustandsdiagramm ;)
 
 Christian
 Projektstrukturplan (bis am Wochenende)
@@ -26,3 +29,26 @@ Sequenzdiagramme:
 Bis Dienstag:
 Alle
 UseCases Ranking überarbeiten
+
+Use cases überarbeiten:
+Christian & Tobias
+Reservierung buchen	
+Check In	
+Zimmerzuteilung	
+Rechnung erstellen
+Zimmerstatus setzen	
+Optionen bearbeiten	
+Reservierung bestätigen	
+Buchen von Extraleistungen	
+Aufenthalt verlängern
+
+Stefan & Johannes
+Stammdaten eintragen
+Reservierung ändern	
+Zwischenrechnung erstellen
+Reservierung stornieren
+Tagesabschluss	
+Check Out	
+Belegungsvorschau	
+Rechnung legen	
+Zimmer wechseln	
