@@ -1,0 +1,6 @@
+sqeuence diagram:
+A sequence diagram is a type of unified modeling language used in software engineering to reflect the logical path through the system.
+
+contract:
+an agreement between two or more persons for doing something specified.
+
