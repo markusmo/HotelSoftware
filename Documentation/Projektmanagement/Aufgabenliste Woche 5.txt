@@ -1,10 +1,22 @@
-TODO:
+Christian:
+PSP abändern
+Zeitplan für Timebox 1 erstellen
 
-Projekthandbuch
-- PSP abändern
-- Zeitplan erstellen
+Johannes:
+Paper Prototype für Check-In erstellen
 
-Programmieren
-- Hibernate
-- Swing
-- ...
+Markus:
+Mit Hibernate "hacken"
+--> Erste Version der Zwischenschicht zwischen System und Datenbank schreiben
+
+Stefan:
+Datenbank erstellen
+
+Tobias:
+Erste JUnit Tests für den Check In schreiben (für den Gesamterfolg des USe cases)
+Dokument dazu befindet sich im GEschützten Ordner im LMS
+
+Hubert:
+Standard Controls erstellen (Nach dem bisherigen Paper Prototype)
+also z.B. unsere Navigation, einheitliche Textfelder mit vorherigen Beschreibungen
+und was dir sonst noch so einfällt
