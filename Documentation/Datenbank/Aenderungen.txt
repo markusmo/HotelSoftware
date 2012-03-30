@@ -1,0 +1,12 @@
+Belegung eingefügt, Aufenthalt ist damit eine Leistung und beinhaltet Belegungen
+Steuersatz nicht in eigener Tabelle
+Artikel SIND Zusatzleistungen
+RoomOptions = Beschreibungen standardisiert und mit versch. Datum ausgesattet
+Keine Redundanzen
+Mitarbeiter ist eine Person
+Rechte mit Rollen, allgemein gehalten
+Steuersatz ist auf der Leistung, fällt somit bei der Rechnungsposition weg
+Rechnungspositionen werden auf den AUfenthalt und nicht auf das Zimmer gebucht
+Bezahlung IN Rechnung aufgenommen
+Zahlungsdaten werden nicht aufgenommen
+Reservierungen sind Kontingente
