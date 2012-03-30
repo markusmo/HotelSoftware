@@ -1,0 +1,10 @@
+TODO:
+
+Projekthandbuch
+- PSP abändern
+- Zeitplan erstellen
+
+Programmieren
+- Hibernate
+- Swing
+- ...
