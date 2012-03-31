@@ -4,11 +4,13 @@
  */
 package databaseconnection;
 
+import java.io.Serializable;
+
 /**
  *
  * @author mohi
  */
-public class User
+public class User implements Serializable
 {
     private String email;
     private String firstname;
