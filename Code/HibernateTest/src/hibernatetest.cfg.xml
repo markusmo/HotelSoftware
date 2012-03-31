@@ -8,6 +8,5 @@
     <property name="hibernate.connection.username">mohi</property>
     <property name="hibernate.connection.password">moh1fant</property>
     <mapping resource="user.hbm.xml"/>
-    <mapping resource="user.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
