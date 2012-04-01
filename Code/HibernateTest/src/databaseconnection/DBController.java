@@ -4,7 +4,8 @@
  */
 package databaseconnection;
 
-import java.io.Serializable;
+import hibernatetest.DBObserver;
+import hibernatetest.GUIObserver;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,12 +14,14 @@ import org.hibernate.Transaction;
  *
  * @author mohi
  */
-public class DBController
+public class DBController implements DBObserver
 {
     private Session session;
+    private GUIObserver observer;
     
-    public DBController()
+    public DBController(GUIObserver observer)
     {
+        this.observer = observer;
         initConnection();
     }
     
@@ -32,16 +35,7 @@ public class DBController
         session.close();
     }
     
-    public void insertUser(User user)
-    {
-        Transaction ts = session.beginTransaction();
-        
-        session.save(user);
-        
-        ts.commit();
-    }
-    
-    public User getUser(String firstname, String lastname)
+    public void getUser(String firstname, String lastname)
     {
         String querystring = "from User user where user.firstname" + "="+firstname
                 +" and " + "user.lastname" + "=" + lastname;
@@ -51,9 +45,22 @@ public class DBController
         
         for(User u : userlist)
         {
-            return u;
+            observer.getUser(u);
+        }        
+    }
+
+    public void insertUser(String firstname, String lastname, String email, String somedata)
+    {
+        Transaction ts = session.beginTransaction();
+        
+        User user = new User(email, firstname, lastname);
+        if(somedata != null)
+        {
+            user.setSomeData(somedata);
         }
         
-        return null;
+        session.save(user);
+        
+        ts.commit();    
     }
 }

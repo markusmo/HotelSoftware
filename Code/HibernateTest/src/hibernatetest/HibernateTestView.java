@@ -4,6 +4,8 @@
 
 package hibernatetest;
 
+import databaseconnection.DBController;
+import databaseconnection.User;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -19,7 +21,9 @@ import javax.swing.JFrame;
 /**
  * The application's main frame.
  */
-public class HibernateTestView extends FrameView {
+public class HibernateTestView extends FrameView implements GUIObserver{
+    
+    private DBObserver observer = new DBController(this);
 
     public HibernateTestView(SingleFrameApplication app) {
         super(app);
@@ -160,9 +164,19 @@ public class HibernateTestView extends FrameView {
 
         safeButton.setText(resourceMap.getString("safeButton.text")); // NOI18N
         safeButton.setName("safeButton"); // NOI18N
+        safeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                safeButtonActionPerformed(evt);
+            }
+        });
 
         getButton.setText(resourceMap.getString("getButton.text")); // NOI18N
         getButton.setName("getButton"); // NOI18N
+        getButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -283,6 +297,17 @@ public class HibernateTestView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void safeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_safeButtonActionPerformed
+    {//GEN-HEADEREND:event_safeButtonActionPerformed
+        observer.insertUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), someDataTextField.getText());
+    }//GEN-LAST:event_safeButtonActionPerformed
+
+    private void getButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_getButtonActionPerformed
+    {//GEN-HEADEREND:event_getButtonActionPerformed
+        displayTextArea.setText("");
+        observer.getUser(firstNameTextField.getText(), lastNameTextField.getText());
+    }//GEN-LAST:event_getButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea displayTextArea;
     private javax.swing.JLabel emailLabel;
@@ -311,4 +336,9 @@ public class HibernateTestView extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+
+    public void getUser(User user)
+    {
+        displayTextArea.append(user.toString());
+    }
 }
