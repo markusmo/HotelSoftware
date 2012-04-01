@@ -63,4 +63,11 @@ public class User implements Serializable
     {
         this.someData = someData;
     }
+
+    @Override
+    public String toString()
+    {
+        return "User{" + "email=" + email + ", firstname=" + firstname + ", lastname=" + lastname + ", someData=" + someData + '}';
+    }
+    
 }

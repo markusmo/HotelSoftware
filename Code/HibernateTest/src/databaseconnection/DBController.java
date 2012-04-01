@@ -5,6 +5,7 @@
 package databaseconnection;
 
 import java.io.Serializable;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -16,7 +17,12 @@ public class DBController
 {
     private Session session;
     
-    public void initConnection()
+    public DBController()
+    {
+        initConnection();
+    }
+    
+    private void initConnection()
     {
         this.session = HibernateUtilTest.getSessionFactory().openSession();
     }
@@ -28,12 +34,26 @@ public class DBController
     
     public void insertUser(User user)
     {
-        initConnection();
         Transaction ts = session.beginTransaction();
         
         session.save(user);
         
         ts.commit();
-        closeConnection();
+    }
+    
+    public User getUser(String firstname, String lastname)
+    {
+        String querystring = "from User user where user.firstname" + "="+firstname
+                +" and " + "user.lastname" + "=" + lastname;
+        Transaction ts = session.beginTransaction();
+        
+        List<User> userlist = (List<User>) session.createQuery(querystring);
+        
+        for(User u : userlist)
+        {
+            return u;
+        }
+        
+        return null;
     }
 }

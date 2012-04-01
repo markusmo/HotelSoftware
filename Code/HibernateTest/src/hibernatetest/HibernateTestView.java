@@ -101,6 +101,18 @@ public class HibernateTestView extends FrameView {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
+        firstNameTextField = new javax.swing.JTextField();
+        firstNameLabel = new javax.swing.JLabel();
+        lastNameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        someDataLabel = new javax.swing.JLabel();
+        lastNameTextField = new javax.swing.JTextField();
+        emailTextField = new javax.swing.JTextField();
+        someDataTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        displayTextArea = new javax.swing.JTextArea();
+        safeButton = new javax.swing.JButton();
+        getButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -114,20 +126,102 @@ public class HibernateTestView extends FrameView {
 
         mainPanel.setName("mainPanel"); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(hibernatetest.HibernateTestApp.class).getContext().getResourceMap(HibernateTestView.class);
+        firstNameTextField.setText(resourceMap.getString("firstNameTextField.text")); // NOI18N
+        firstNameTextField.setName("firstNameTextField"); // NOI18N
+
+        firstNameLabel.setText(resourceMap.getString("firstNameLabel.text")); // NOI18N
+        firstNameLabel.setName("firstNameLabel"); // NOI18N
+
+        lastNameLabel.setText(resourceMap.getString("lastNameLabel.text")); // NOI18N
+        lastNameLabel.setName("lastNameLabel"); // NOI18N
+
+        emailLabel.setText(resourceMap.getString("emailLabel.text")); // NOI18N
+        emailLabel.setName("emailLabel"); // NOI18N
+
+        someDataLabel.setText(resourceMap.getString("someDataLabel.text")); // NOI18N
+        someDataLabel.setName("someDataLabel"); // NOI18N
+
+        lastNameTextField.setText(resourceMap.getString("lastNameTextField.text")); // NOI18N
+        lastNameTextField.setName("lastNameTextField"); // NOI18N
+
+        emailTextField.setText(resourceMap.getString("emailTextField.text")); // NOI18N
+        emailTextField.setName("emailTextField"); // NOI18N
+
+        someDataTextField.setText(resourceMap.getString("someDataTextField.text")); // NOI18N
+        someDataTextField.setName("someDataTextField"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        displayTextArea.setColumns(20);
+        displayTextArea.setRows(5);
+        displayTextArea.setName("displayTextArea"); // NOI18N
+        jScrollPane1.setViewportView(displayTextArea);
+
+        safeButton.setText(resourceMap.getString("safeButton.text")); // NOI18N
+        safeButton.setName("safeButton"); // NOI18N
+
+        getButton.setText(resourceMap.getString("getButton.text")); // NOI18N
+        getButton.setName("getButton"); // NOI18N
+
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 400, Short.MAX_VALUE)
+            .add(mainPanelLayout.createSequentialGroup()
+                .add(160, 160, 160)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lastNameLabel)
+                    .add(firstNameLabel)
+                    .add(emailLabel)
+                    .add(someDataLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(emailTextField)
+                    .add(lastNameTextField)
+                    .add(someDataTextField)
+                    .add(firstNameTextField)
+                    .add(mainPanelLayout.createSequentialGroup()
+                        .add(safeButton)
+                        .add(18, 18, 18)
+                        .add(getButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .add(mainPanelLayout.createSequentialGroup()
+                .add(9, 9, 9)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                .add(11, 11, 11))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 252, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(firstNameLabel)
+                    .add(firstNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lastNameLabel)
+                    .add(lastNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(emailLabel)
+                    .add(emailTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(someDataLabel)
+                    .add(someDataTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(safeButton)
+                    .add(getButton))
+                .add(18, 18, 18)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(33, 33, 33))
         );
 
         menuBar.setName("menuBar"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(hibernatetest.HibernateTestApp.class).getContext().getResourceMap(HibernateTestView.class);
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
@@ -162,11 +256,11 @@ public class HibernateTestView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(statusPanelSeparator, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(statusPanelSeparator, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
             .add(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(statusMessageLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 226, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 433, Short.MAX_VALUE)
                 .add(progressBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(statusAnimationLabel)
@@ -190,9 +284,21 @@ public class HibernateTestView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea displayTextArea;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JTextField emailTextField;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JButton getButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField lastNameTextField;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton safeButton;
+    private javax.swing.JLabel someDataLabel;
+    private javax.swing.JTextField someDataTextField;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
