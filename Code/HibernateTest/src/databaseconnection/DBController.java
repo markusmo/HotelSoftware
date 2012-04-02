@@ -6,7 +6,9 @@ package databaseconnection;
 
 import hibernatetest.DBObserver;
 import hibernatetest.GUIObserver;
+import java.io.Serializable;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -22,12 +24,11 @@ public class DBController implements DBObserver
     public DBController(GUIObserver observer)
     {
         this.observer = observer;
-        initConnection();
     }
     
     private void initConnection()
     {
-        this.session = HibernateUtilTest.getSessionFactory().openSession();
+        this.session = HibernateUtil.getSessionFactory().openSession();
     }
     
     public void closeConnection()
@@ -39,28 +40,40 @@ public class DBController implements DBObserver
     {
         String querystring = "from User user where user.firstname" + "="+firstname
                 +" and " + "user.lastname" + "=" + lastname;
+        initConnection();
         Transaction ts = session.beginTransaction();
-        
-        List<User> userlist = (List<User>) session.createQuery(querystring);
-        
-        for(User u : userlist)
+        try
         {
-            observer.getUser(u);
-        }        
+            List<User> userlist = session.createQuery(querystring).list();
+            for(User u : userlist)
+            {
+                observer.getUser(u);
+            }
+
+        } catch (HibernateException e)
+        {
+            e.printStackTrace();
+            ts.rollback();
+        }finally
+        {
+            closeConnection();
+        }
     }
 
     public void insertUser(String firstname, String lastname, String email, String somedata)
     {
+        initConnection();
         Transaction ts = session.beginTransaction();
         
-        User user = new User(email, firstname, lastname);
-        if(somedata != null)
-        {
-            user.setSomeData(somedata);
-        }
+        User user = new User();
+        user.setEmail(email);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setSomeData(somedata);
         
-        session.save(user);
+        Serializable id = session.save(user);
         
-        ts.commit();    
+        ts.commit();  
+        closeConnection();
     }
 }

@@ -8,6 +8,6 @@
     <property name="hibernate.connection.username">mohi</property>
     <property name="hibernate.connection.password">moh1fant</property>
     <property name="hibernate.connection.pool_size">1000</property>
-    <mapping resource="user.hbm.xml"/>
+    <property name="hibernate.show_sql">true</property>
   </session-factory>
 </hibernate-configuration>
