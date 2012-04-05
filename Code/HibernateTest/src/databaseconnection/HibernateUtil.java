@@ -8,18 +8,22 @@ import org.hibernate.SessionFactory;
  *
  * @author mohi
  */
-public class HibernateUtilTest
+public class HibernateUtil
 {
 
     private static final SessionFactory sessionFactory;
-    
+
     static
     {
         try
         {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            sessionFactory = new AnnotationConfiguration()
+                    .configure()
+                    .addPackage("databaseconnection")
+                    .addAnnotatedClass(User.class)
+                    .buildSessionFactory();
         } catch (Throwable ex)
         {
             // Log the exception. 
@@ -27,11 +31,9 @@ public class HibernateUtilTest
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
     public static SessionFactory getSessionFactory()
     {
         return sessionFactory;
     }
-    
-    
 }
