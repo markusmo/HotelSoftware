@@ -1,0 +1,23 @@
+Christian:
+Domänenklassen schreiben (Diagramm ist im Git)
+Verbindung zu den Hibernate Klassen erstellen (Markus sollte mit diesen am Freitag fertig werden)
+
+Johannes:
+Paper Prototype in erstes GUI Modell umsetzen
+Dazu Standard Controls von Hubert verwenden
+
+Markus:
+Hibernate Mapping Klassen erstellen
+Für Testzwecke einfaches Konsoleninterface für den CheckIn schreiben
+Interface für den Checkn Controller wird von mir geliefert
+
+Stefan:
+Datenbank überarbeiten
+"Basis"-CheckIn Controller schreiben
+
+Tobias:
+JUnit Tests für den Check In (weiter)schreiben (für den Gesamterfolg des Use cases)
+Dokument dazu befindet sich im Gemeinsamen Ordner im LMS
+
+Hubert:
+An den Standard Controls weiterarbeiten
