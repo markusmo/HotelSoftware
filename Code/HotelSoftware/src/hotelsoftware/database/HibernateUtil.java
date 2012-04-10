@@ -4,6 +4,7 @@
  */
 package hotelsoftware.database;
 
+import hotelsoftware.database.model.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 
@@ -25,6 +26,38 @@ public class HibernateUtil
             // config file.
             sessionFactory = new AnnotationConfiguration()
                     .configure()
+                    .addPackage("hotelsoftware.database.model")
+                    .addAnnotatedClass(Addresses.class)
+                    .addAnnotatedClass(Companies.class)
+                    .addAnnotatedClass(Companytypes.class)
+                    .addAnnotatedClass(Countries.class)
+                    .addAnnotatedClass(Customers.class)
+                    .addAnnotatedClass(Extraservices.class)
+                    .addAnnotatedClass(Guests.class)
+                    .addAnnotatedClass(Habitations.class)
+                    .addAnnotatedClass(Invoiceitems.class)
+                    .addAnnotatedClass(InvoiceitemsPK.class)
+                    .addAnnotatedClass(Invoices.class)
+                    .addAnnotatedClass(Paymentmethods.class)
+                    .addAnnotatedClass(Permissions.class)
+                    .addAnnotatedClass(Persons.class)
+                    .addAnnotatedClass(Reservationitems.class)
+                    .addAnnotatedClass(ReservationitemsPK.class)
+                    .addAnnotatedClass(Reservationoptions.class)
+                    .addAnnotatedClass(Reservations.class)
+                    .addAnnotatedClass(Roles.class)
+                    .addAnnotatedClass(Roomcategories.class)
+                    .addAnnotatedClass(Roomcategoryprices.class)
+                    .addAnnotatedClass(RoomcategorypricesPK.class)
+                    .addAnnotatedClass(Roomoptions.class)
+                    .addAnnotatedClass(Rooms.class)
+                    .addAnnotatedClass(Roomsroomstatus.class)
+                    .addAnnotatedClass(RoomsroomstatusPK.class)
+                    .addAnnotatedClass(Roomstatus.class)
+                    .addAnnotatedClass(Seasons.class)
+                    .addAnnotatedClass(Services.class)
+                    .addAnnotatedClass(Servicetypes.class)
+                    .addAnnotatedClass(Users.class)
                     .buildSessionFactory();
         } catch(Throwable ex)
         {
