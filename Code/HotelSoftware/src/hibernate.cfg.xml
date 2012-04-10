@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer</property>
+    <property name="hibernate.connection.username">hotel</property>
+    <property name="hibernate.connection.password">R00m4n153r</property>
+    <mapping class="hotelsoftware.database.model.Addresses" file="" jar="" package="hotelsoftware.database.model" resource="addresses"/>
+    <mapping class="hotelsoftware.database.model.Companies" file="" jar="" package="hotelsoftware.database.model" resource="companies"/>
+    <mapping class="hotelsoftware.database.model.Companytypes" package="hotelsoftware.database.model" resource="companytypes"/>
+    <mapping class="hotelsoftware.database.model.Countries" package="hotelsoftware.database.model" resource="countries"/>
+    <mapping class="hotelsoftware.database.model.Customers" file="" jar="" package="hotelsoftware.database.model" resource="costumers"/>
+    <mapping class="hotelsoftware.database.model.Extraservices" package="hotelsoftware.database.model" resource="extraservices"/>
+    <mapping class="hotelsoftware.database.model.Guests" package="hotelsoftware.database.model" resource="guests"/>
+    <mapping class="hotelsoftware.database.model.Habitations" package="hotelsoftware.database.model" resource="habitations"/>
+    <mapping class="hotelsoftware.database.model.Invoiceitems" package="hotelsoftware.database.model" resource="invoiceitems"/>
+    <mapping class="hotelsoftware.database.model.InvoiceitemsPK" package="hotelsoftware.database.model" resource="invoiceitemspk"/>
+    <mapping class="hotelsoftware.database.model.Invoices" package="hotelsoftware.database.model" resource="invoices"/>
+    <mapping class="hotelsoftware.database.model.Paymentmethods" package="hotelsoftware.database.model" resource="paymentmethods"/>
+    <mapping class="hotelsoftware.database.model.Permissions" package="hotelsoftware.database.model" resource="permissions"/>
+    <mapping class="hotelsoftware.database.model.Persons" package="hotelsoftware.database.model" resource="persons"/>
+    <mapping class="hotelsoftware.database.model.Reservationitems" package="hotelsoftware.database.model" resource="reservationitem"/>
+    <mapping class="hotelsoftware.database.model.ReservationitemsPK" package="hotelsoftware.database.model" resource="reservationitemspk"/>
+    <mapping class="hotelsoftware.database.model.Reservationoptions" package="hotelsoftware.database.model" resource="reservationoptions"/>
+    <mapping class="hotelsoftware.database.model.Reservations" package="hotelsoftware.database.model" resource="reservations"/>
+    <mapping class="hotelsoftware.database.model.Roles" package="hotelsoftware.database.model" resource="roles"/>
+    <mapping class="hotelsoftware.database.model.Roomcategories" package="hotelsoftware.database.model" resource="roomcategories"/>
+    <mapping class="hotelsoftware.database.model.Roomcategoryprices" package="hotelsoftware.database.model" resource="roomcategoryprices"/>
+    <mapping class="hotelsoftware.database.model.RoomcategorypricesPK" package="hotelsoftware.database.model" resource="roomcategorypricespk"/>
+    <mapping class="hotelsoftware.database.model.Roomoptions" package="hotelsoftware.database.model" resource="roomoptions"/>
+    <mapping class="hotelsoftware.database.model.Rooms" package="hotelsoftware.database.model" resource="rooms"/>
+    <mapping class="hotelsoftware.database.model.Roomsroomstatus" package="hotelsoftware.database.model" resource="roomsroomstatus"/>
+    <mapping class="hotelsoftware.database.model.RoomsroomstatusPK" package="hotelsoftware.database.model" resource="roomsroomstatuspk"/>
+    <mapping class="hotelsoftware.database.model.Roomstatus" package="hotelsoftware.database.model" resource="roomstatus"/>
+    <mapping class="hotelsoftware.database.model.Seasons" package="hotelsoftware.database.model" resource="seasons"/>
+    <mapping class="hotelsoftware.database.model.Services" package="hotelsoftware.database.model" resource="services"/>
+    <mapping class="hotelsoftware.database.model.Servicetypes" package="hotelsoftware.database.model" resource="servicetypes"/>
+    <mapping class="hotelsoftware.database.model.Users" package="hotelsoftware.database.model" resource="users"/>
+  </session-factory>
+</hibernate-configuration>
