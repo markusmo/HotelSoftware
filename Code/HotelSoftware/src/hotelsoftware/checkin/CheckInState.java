@@ -1,5 +1,11 @@
 package hotelsoftware.checkin;
 
+import hotelsoftware.domain.parties.Address;
+import hotelsoftware.domain.parties.Guest;
+import hotelsoftware.domain.reservation.Reservation;
+import hotelsoftware.domain.room.Category;
+import hotelsoftware.domain.room.Room;
+import hotelsoftware.domain.service.ExtraService;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
