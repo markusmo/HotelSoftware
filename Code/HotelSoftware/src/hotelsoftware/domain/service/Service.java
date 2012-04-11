@@ -4,9 +4,7 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.domain.invoice.InvoiceItem;
 import java.math.BigDecimal;
-import java.util.Collection;
 
 /**
  *
@@ -15,7 +13,6 @@ import java.util.Collection;
 public class Service
 {
     protected String name;
-    protected BigDecimal price;            
-    private Collection<InvoiceItem> invoiceItemCollection;
+    protected BigDecimal price;    
     private ServiceType serviceType;
 }

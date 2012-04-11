@@ -18,5 +18,4 @@ public class Category
     private BigDecimal price;
     private BigDecimal minPrice;
     private int bedAmount;
-    private Collection<ReservationItem> reservationItemCollection;
 }

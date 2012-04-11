@@ -5,6 +5,7 @@
 package hotelsoftware.domain.invoice;
 
 
+import hotelsoftware.domain.service.Service;
 import java.util.Date;
 
 /**
@@ -15,4 +16,5 @@ public class InvoiceItem
 {
     private int amount;
     private Date created;
+    private Service service;
 }

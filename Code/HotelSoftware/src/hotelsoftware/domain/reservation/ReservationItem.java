@@ -4,6 +4,8 @@
  */
 package hotelsoftware.domain.reservation;
 
+import hotelsoftware.domain.room.Category;
+
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
@@ -11,4 +13,5 @@ package hotelsoftware.domain.reservation;
 public class ReservationItem
 {
     private int amount;
+    private Category reservedCategory;
 }

@@ -4,6 +4,7 @@
  */
 package hotelsoftware.domain.parties;
 
+import hotelsoftware.domain.service.Habitation;
 import java.util.Date;
 
 /**
@@ -13,5 +14,5 @@ import java.util.Date;
 public class Guest extends Party
 {
     private Date birthday;
-    
+    private Habitation habitation;
 }

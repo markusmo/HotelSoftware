@@ -4,6 +4,7 @@
  */
 package hotelsoftware.domain.reservation;
 
+import hotelsoftware.domain.parties.Party;
 import java.util.Collection;
 import java.util.Date;
 
@@ -18,7 +19,8 @@ public class Reservation
     private String comment;
     private Date created;
     private Collection<Option> optionCollection;
-    
+    private Party party;
+    private Collection<ReservationItem> reservationItemCollection;
 }
 
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 public class Room
 {
     private int number;
-    private Collection<RoomOptions> options;
+    private Collection<RoomOption> options;
     private Category category;
     private Collection<Habitation> habitationCollection;
     private Collection<RoomStatus> status;
