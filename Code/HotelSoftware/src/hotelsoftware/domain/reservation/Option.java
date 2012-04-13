@@ -4,9 +4,13 @@
  */
 package hotelsoftware.domain.reservation;
 
+import hotelsoftware.database.model.Reservationoptions;
+import hotelsoftware.database.model.Reservations;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +29,22 @@ public class Option
     public static Option newOption()
     {
         return new Option();
+    }
+
+    private Option(Reservationoptions r)
+    {
+        this.expiration = r.getExpiration();
+        this.fulfilled = r.getFulfilled();
+        this.prepayment = r.getPrepayment();
+    }
+    
+    public static List<Option> getOptionList(Reservations r){
+        List<Option> list = new LinkedList<Option>();
+        for (Reservationoptions option :  r.getReservationoptionsCollection())
+        {
+           list.add(new Option(option));
+        }
+        return list;
     }
 
     public Date getExpiration()

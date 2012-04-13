@@ -7,6 +7,8 @@ package hotelsoftware.database.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reservations.findByStart", query = "SELECT r FROM Reservations r WHERE r.start = :start"),
     @NamedQuery(name = "Reservations.findByEnd", query = "SELECT r FROM Reservations r WHERE r.end = :end"),
     @NamedQuery(name = "Reservations.findByComment", query = "SELECT r FROM Reservations r WHERE r.comment = :comment"),
-    @NamedQuery(name = "Reservations.findByCreated", query = "SELECT r FROM Reservations r WHERE r.created = :created")
+    @NamedQuery(name = "Reservations.findByCreated", query = "SELECT r FROM Reservations r WHERE r.created = :created"),
+    @NamedQuery(name = "Reservations.findByName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
+    @NamedQuery(name = "Reservations.findByName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)")
 })
 public class Reservations implements Serializable
 {
@@ -107,7 +111,11 @@ public class Reservations implements Serializable
     {
         return new Reservations();
     }
-
+    public static List<Reservations> getReservationsByFName(String Fname)
+    {   
+        //TODO: Implement
+        return new LinkedList<Reservations>();
+    }
     public static Reservations newReservations(Integer id)
     {
         return new Reservations(id);

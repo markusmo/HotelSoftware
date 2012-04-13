@@ -4,9 +4,12 @@
  */
 package hotelsoftware.domain.reservation;
 
+import hotelsoftware.database.model.Reservations;
 import hotelsoftware.domain.parties.Party;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -25,10 +28,24 @@ public class Reservation
     private Reservation()
     {
     }
-    
+    private Reservation(Reservations r){
+        this.comment = r.getComment();
+        this.created = r.getCreated();
+        this.end = r.getEnd();
+        this.optionCollection = Option.getOptionList(r);
+        this.start = r.getStart();
+        //TODO
+    }
     public static Reservation newReservation()
     {
         return new Reservation();
+    }
+
+    public static List<Reservation> getReservationsByName(String fname)
+    {
+        List<Reservation> list = new LinkedList<Reservation>();
+        Reservations.getReservationsByFName(fname);
+        return list;
     }
 
     public String getComment()
@@ -36,19 +53,9 @@ public class Reservation
         return comment;
     }
 
-    public void setComment(String comment)
-    {
-        this.comment = comment;
-    }
-
     public Date getCreated()
     {
         return created;
-    }
-
-    public void setCreated(Date created)
-    {
-        this.created = created;
     }
 
     public Date getEnd()
@@ -56,19 +63,9 @@ public class Reservation
         return end;
     }
 
-    public void setEnd(Date end)
-    {
-        this.end = end;
-    }
-
     public Collection<Option> getOptionCollection()
     {
         return optionCollection;
-    }
-
-    public void setOptionCollection(Collection<Option> optionCollection)
-    {
-        this.optionCollection = optionCollection;
     }
 
     public Party getParty()
@@ -76,19 +73,9 @@ public class Reservation
         return party;
     }
 
-    public void setParty(Party party)
-    {
-        this.party = party;
-    }
-
     public Collection<ReservationItem> getReservationItemCollection()
     {
         return reservationItemCollection;
-    }
-
-    public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
-    {
-        this.reservationItemCollection = reservationItemCollection;
     }
 
     public Date getStart()
@@ -96,7 +83,37 @@ public class Reservation
         return start;
     }
 
-    public void setStart(Date start)
+    private void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
+    private void setCreated(Date created)
+    {
+        this.created = created;
+    }
+
+    private void setEnd(Date end)
+    {
+        this.end = end;
+    }
+
+    private void setOptionCollection(Collection<Option> optionCollection)
+    {
+        this.optionCollection = optionCollection;
+    }
+
+    private void setParty(Party party)
+    {
+        this.party = party;
+    }
+
+    private void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
+    {
+        this.reservationItemCollection = reservationItemCollection;
+    }
+
+    private void setStart(Date start)
     {
         this.start = start;
     }
