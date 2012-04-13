@@ -85,22 +85,37 @@ public class Reservations implements Serializable
     @ManyToOne(optional = false)
     private Persons idPersons;
 
-    public Reservations()
+    private Reservations()
     {
     }
 
-    public Reservations(Integer id)
+    private Reservations(Integer id)
     {
         this.id = id;
     }
 
-    public Reservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    private Reservations(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
         this.id = id;
         this.reserationNumber = reserationNumber;
         this.start = start;
         this.end = end;
         this.created = created;
+    }
+
+    public static Reservations newReservations()
+    {
+        return new Reservations();
+    }
+
+    public static Reservations newReservations(Integer id)
+    {
+        return new Reservations(id);
+    }
+
+    public static Reservations newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    {
+        return new Reservations(id, reserationNumber, start, end, created);
     }
 
     public Integer getId()
@@ -217,12 +232,12 @@ public class Reservations implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Reservations))
+        if (!(object instanceof Reservations))
         {
             return false;
         }
         Reservations other = (Reservations) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -234,5 +249,4 @@ public class Reservations implements Serializable
     {
         return "hotelsoftware.database.model.Reservations[ id=" + id + " ]";
     }
-    
 }

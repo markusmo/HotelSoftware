@@ -45,8 +45,12 @@ public class Reservationitems implements Serializable
     @ManyToOne(optional = false)
     private Reservations reservations;
 
-    public Reservationitems()
+    private Reservationitems()
     {
+    }
+    public static Reservationitems newReservationitems()
+    {
+        return new Reservationitems();
     }
 
     public Reservationitems(ReservationitemsPK reservationitemsPK)
