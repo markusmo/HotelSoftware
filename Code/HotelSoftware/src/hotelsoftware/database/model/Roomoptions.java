@@ -42,6 +42,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Roomoptions implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    public static void safeNewRoomOption(String name)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public static void getRoomoptions()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

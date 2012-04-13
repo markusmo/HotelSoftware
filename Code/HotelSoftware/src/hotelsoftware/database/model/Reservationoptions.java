@@ -60,21 +60,36 @@ public class Reservationoptions implements Serializable
     @ManyToOne(optional = false)
     private Reservations idReservations;
 
-    public Reservationoptions()
+    private Reservationoptions()
     {
     }
 
-    public Reservationoptions(Integer id)
+    private Reservationoptions(Integer id)
     {
         this.id = id;
     }
 
-    public Reservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    private Reservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
     {
         this.id = id;
         this.expiration = expiration;
         this.prepayment = prepayment;
         this.fulfilled = fulfilled;
+    }
+
+    public static Reservationoptions newReservationoptions()
+    {
+        return new Reservationoptions();
+    }
+
+    public static Reservationoptions newReservationoptions(Integer id)
+    {
+        return new Reservationoptions(id);
+    }
+
+    public static Reservationoptions newReservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    {
+        return new Reservationoptions(id, expiration, prepayment, fulfilled);
     }
 
     public Integer getId()
@@ -139,12 +154,12 @@ public class Reservationoptions implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Reservationoptions))
+        if (!(object instanceof Reservationoptions))
         {
             return false;
         }
         Reservationoptions other = (Reservationoptions) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -156,5 +171,4 @@ public class Reservationoptions implements Serializable
     {
         return "hotelsoftware.database.model.Reservationoptions[ id=" + id + " ]";
     }
-    
 }
