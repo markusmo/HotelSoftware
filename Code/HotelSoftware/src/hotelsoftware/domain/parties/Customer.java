@@ -4,9 +4,7 @@
  */
 package hotelsoftware.domain.parties;
 
-
-import hotelsoftware.domain.invoice.Invoice;
-import java.util.Collection;
+import hotelsoftware.database.model.Customers;
 
 /**
  * 
@@ -14,7 +12,16 @@ import java.util.Collection;
  */
 public class Customer extends Party {
     
-    protected Address invoiceAddress;    
-    protected Collection<Invoice> invoiceCollection;
+    protected Address invoiceAddress; 
+    protected Customers costumerModel;
+
+    public Customer(Customers costumers)
+    {
+        this.costumerModel = costumers;
+    }
     
+    public Customers getCostumerModel()
+    {
+        return costumerModel;
+    }
 }

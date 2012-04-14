@@ -4,8 +4,10 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,6 +20,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -36,6 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Invoiceitems implements Serializable
 {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected InvoiceitemsPK invoiceitemsPK;
@@ -150,6 +157,47 @@ public class Invoiceitems implements Serializable
         this.idHabitations = idHabitations;
     }
 
+    /**
+     * communicates with the database and retrieves all invoiceitems for an invoice
+     * @param invoice
+     * the invoice, which owns these items
+     * @return
+     * a list of invoice items
+     * @throws HibernateException 
+     */
+    public static List<Invoiceitems> getInvoiceItemsByInvoice(Invoices invoice) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        List<Invoiceitems> retList = session.createCriteria(Invoiceitems.class).add(
+                Restrictions.eq("idInvoice", invoice)).list();
+        session.close();
+
+        return retList;
+    }
+
+    /**
+     * communicates with the database and retrieves all invoiceitems for a habitation
+     * @param habitation
+     * the habitation, which owns the invoiceitems
+     * @return
+     * a list of invoiceitems
+     * @throws HibernateException 
+     */
+    public static List<Invoiceitems> getInvoiceItemsByHabitation(
+            Habitations habitation) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        List<Invoiceitems> retList = session.createCriteria(Invoiceitems.class).add(
+                Restrictions.eq("idHabitations", habitation)).list();
+        session.close();
+
+        return retList;
+    }
+
     @Override
     public int hashCode()
     {
@@ -162,12 +210,13 @@ public class Invoiceitems implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Invoiceitems))
+        if (!(object instanceof Invoiceitems))
         {
             return false;
         }
         Invoiceitems other = (Invoiceitems) object;
-        if((this.invoiceitemsPK == null && other.invoiceitemsPK != null) || (this.invoiceitemsPK != null && !this.invoiceitemsPK.equals(other.invoiceitemsPK)))
+        if ((this.invoiceitemsPK == null && other.invoiceitemsPK != null) || (this.invoiceitemsPK != null && !this.invoiceitemsPK.equals(
+                other.invoiceitemsPK)))
         {
             return false;
         }
@@ -179,5 +228,4 @@ public class Invoiceitems implements Serializable
     {
         return "hotelsoftware.database.model.Invoiceitems[ invoiceitemsPK=" + invoiceitemsPK + " ]";
     }
-    
 }
