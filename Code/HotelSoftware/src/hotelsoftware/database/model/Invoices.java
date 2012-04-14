@@ -4,6 +4,8 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -26,6 +28,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -52,6 +58,7 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Invoices implements Serializable
 {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,7 +103,22 @@ public class Invoices implements Serializable
         this.id = id;
     }
 
-    public Invoices(Integer id, String invoiceNumber, Date expiration, boolean fulfilled, Date created)
+    public Invoices(String invoiceNumber, BigDecimal discount, Date expiration,
+            boolean fulfilled, Date created, Paymentmethods idpaymentMethods,
+            Users idUsers, Customers idCustomers)
+    {
+        this.invoiceNumber = invoiceNumber;
+        this.discount = discount;
+        this.expiration = expiration;
+        this.fulfilled = fulfilled;
+        this.created = created;
+        this.idpaymentMethods = idpaymentMethods;
+        this.idUsers = idUsers;
+        this.idCustomers = idCustomers;
+    }
+
+    public Invoices(Integer id, String invoiceNumber, Date expiration,
+            boolean fulfilled, Date created)
     {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
@@ -171,7 +193,8 @@ public class Invoices implements Serializable
         return invoiceitemsCollection;
     }
 
-    public void setInvoiceitemsCollection(Collection<Invoiceitems> invoiceitemsCollection)
+    public void setInvoiceitemsCollection(
+            Collection<Invoiceitems> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }
@@ -206,6 +229,52 @@ public class Invoices implements Serializable
         this.idCustomers = idCustomers;
     }
 
+    /**
+     * communicates with the database and retrieves a single invoice, by assuming
+     * that all invoicenumbers are unique.
+     * @param invoicenumber
+     * a unique invoicenumber
+     * @return
+     * a invoice
+     * @throws HibernateException 
+     */
+    public static Invoices getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Invoices retInvoices = (Invoices) session.createCriteria(Invoices.class).add(Restrictions.eq(
+                "invoiceNumber",
+                invoicenumber)).uniqueResult();
+        session.close();
+        return retInvoices;
+    }
+
+    /**
+     * communicates with the database and saves a invoice
+     * @param invoice
+     * the invoice to be saved
+     * @throws FailedToSaveToDatabaseException 
+     */
+    public static void saveInvoice(Invoices invoice) throws FailedToSaveToDatabaseException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        try
+        {
+            session.save(invoice);
+            ts.commit();
+        } catch (HibernateException e)
+        {
+            ts.rollback();
+            throw new FailedToSaveToDatabaseException();
+        } finally
+        {
+            session.close();
+        }
+    }
+
     @Override
     public int hashCode()
     {
@@ -218,12 +287,13 @@ public class Invoices implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Invoices))
+        if (!(object instanceof Invoices))
         {
             return false;
         }
         Invoices other = (Invoices) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
+                other.id)))
         {
             return false;
         }
@@ -235,5 +305,4 @@ public class Invoices implements Serializable
     {
         return "hotelsoftware.database.model.Invoices[ id=" + id + " ]";
     }
-    
 }

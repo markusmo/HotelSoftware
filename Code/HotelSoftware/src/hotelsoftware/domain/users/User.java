@@ -14,6 +14,7 @@ public class User
 {
     private String username;
     private Permission permission;
+    private Users model;
 
     public User(String username, Permission permission)
     {
@@ -24,7 +25,13 @@ public class User
         //everytime creating new user to ask permissions etc.?
     }
     
+    public User(Users user)
+    {
+        this.model = user;
+    }
     
-
-    
+    public Users getModel()
+    {
+        return model;
+    }
 }

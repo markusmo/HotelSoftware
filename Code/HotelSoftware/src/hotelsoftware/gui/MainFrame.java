@@ -138,13 +138,11 @@ public class MainFrame extends javax.swing.JFrame
     }//GEN-LAST:event_jButton11ActionPerformed
     
     private void Init(){
-        jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
         jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
+        jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
     }
     public static void CreateGui()
     {
-     
-        
         MainFrame frame = new MainFrame();
         frame.Init();
         //Display the window.

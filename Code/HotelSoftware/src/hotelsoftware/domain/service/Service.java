@@ -4,6 +4,7 @@
  */
 package hotelsoftware.domain.service;
 
+import hotelsoftware.database.model.Services;
 import java.math.BigDecimal;
 
 /**
@@ -15,4 +16,8 @@ public class Service
     protected String name;
     protected BigDecimal price;    
     private ServiceType serviceType;
+    
+    public Service(Services service)
+    {
+    }
 }
