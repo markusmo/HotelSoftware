@@ -14,19 +14,27 @@ import java.util.Map;
  *
  * @author Dunst
  */
-public interface CheckInState
+public abstract class CheckInState
 {
-    /**
-     * Startet einen CheckIn Vorgang
-     */
-    void start();
+    protected CheckInController context;
+    
+    protected Date startDate;
+    protected Date endDate;
+    
+    public CheckInState(CheckInController context)
+    {
+        this.context = context;
+    }
     
     /**
      * Sucht nach einer Reservierung
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
      * @return Die zur Reservierungsnummer gehörende Reservierung 
      */
-    Reservation search(int reservationNr);
+    public Reservation search(int reservationNr)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Sucht anhand des Namen der Person die reserviert hat nach einer Reservierung
@@ -34,7 +42,19 @@ public interface CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    List<Reservation> search(String firstName, String lastName);
+    public List<Reservation> search(String firstName, String lastName)
+    {
+        throw new IllegalStateException();
+    }
+    
+    /**
+     * Wählt eine Reservierung aus die abgearbeitet werden soll
+     * @param reservation Die Reservierung die abgearbeitet werden soll
+     */
+    public void workWithReservation(Reservation reservation)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Startet einen Check In Vorgang für einen Walk In Gast
@@ -42,14 +62,20 @@ public interface CheckInState
      * @param end Das Enddatum des Aufenthalts
      * @param amount Die Anzahl an Personen
      */
-    void createWalkIn(Date start, Date end, int amount);
+    public void createWalkIn(Date start, Date end, int amount)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Startet einen Check In Vorgang für einen Walk In Gast
      * @param days Die Aufenthaltsdauer in Tagen
      * @param amount Die Anzahl an Personen
      */
-    void createWalkIn(int days, int amount);
+    public void createWalkIn(int days, int amount)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Ändert die Informationen, betreffend des aktuellen Check In Vorgangs
@@ -57,13 +83,19 @@ public interface CheckInState
      * @param end Das neue Enddatum
      * @param amount Die neue Anzahl an Personen
      */
-    void changeInformation(Date start, Date end, int amount);
+    public void changeInformation(Date start, Date end, int amount)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
      * @return Alle bereits erfassten Gäste die einchecken
      */
-    List<Guest> getGuests();
+    public List<Guest> getGuests()
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Ändert die Daten eines ausgewählten Gastes
@@ -74,7 +106,10 @@ public interface CheckInState
      * @param address Die Adresse des Gastes
      * @return Der Gast mit den geänderten Daten
      */
-    Guest chanceGuestData(Guest guest, String firstName, String lastName, Date birthday, Address address);
+    public Guest changeGuestData(Guest guest, String firstName, String lastName, Date birthday, Address address)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Legt einen neuen Gast an
@@ -84,20 +119,29 @@ public interface CheckInState
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    Guest addGuest(String firstName, String lastName, Date birthday, Address address);
+    public Guest addGuest(String firstName, String lastName, Date birthday, Address address)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Teilt einem Gast ein bestimmtes Zimmer zu
      * @param guest Der Gast der zugeteilt werden soll
      * @param room Das Zimmer das dem Gast zugeteilt wird
      */
-    void assignRoom(Guest guest, Room room);
+    public void assignRoom(Guest guest, Room room)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Erstellt eine zusätzliche Option um ein Zimmer zuzuweisen
      * @return Der index der Zimmerauswahl
      */
-    int addRoomSelection();
+    public int addRoomSelection()
+    {
+        throw new IllegalStateException();
+    }
     
     //Eine Liste aus Kategorien aus denen ein Zimmer ausgewählt werden kann
     
@@ -105,7 +149,10 @@ public interface CheckInState
      * Entfernt die angegebene Zimmerauswahl
      * @param selectionIndex Der index der zu entfernenden Asuwahl
      */
-    void removeRoomSelection(int selectionIndex);
+    public void removeRoomSelection(int selectionIndex)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Ändert die ausgewählte Kategorie einer bestimmten Zimmerauswahl
@@ -113,40 +160,45 @@ public interface CheckInState
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    List<Room> changeRoomCategory(int selectionIndex, Category category);
+    public List<Room> changeRoomCategory(int selectionIndex, Category category)
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Rählt ein anderes Zimmer aus
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
      * @param roomNumber Die ausgewählte Zimmernummer
      */
-    void changeRoom(int selectionIndex, int roomNumber);
+    public void changeRoom(int selectionIndex, int roomNumber)
+    {
+        throw new IllegalStateException();
+    }
 
     /**
      * Programmiert die Zimmerschlüssel
      * (throw new NotImplementedException()...)
      */
-    void initKeys();
+    public void initKeys()
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Gibt eine Liste der möglichen Extraleistungen aus
      * @return Die Liste mit den Extrleistungen
      */
-    List<ExtraService> getServices();
+    public List<ExtraService> getServices()
+    {
+        throw new IllegalStateException();
+    }
     
     /**
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    void selectServices(Map<ExtraService, Integer> services);
-    
-    /**
-     * Ruft den nächsten Schritt auf
-     */
-    void nextStep();
-    
-    /**
-     * Geht einen Schritt zurück
-     */
-    void previousStep();
+    public void selectServices(Map<ExtraService, Integer> services)
+    {
+        throw new IllegalStateException();
+    }
 }

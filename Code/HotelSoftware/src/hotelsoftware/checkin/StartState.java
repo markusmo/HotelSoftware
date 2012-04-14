@@ -1,0 +1,92 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package hotelsoftware.checkin;
+
+import hotelsoftware.domain.reservation.Reservation;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *
+ * @author Dunst
+ */
+public class StartState extends CheckInState
+{
+
+    /**
+     * Sucht nach einer Reservierung
+     * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
+     * @return Die zur Reservierungsnummer gehörende Reservierung 
+     */
+    public Reservation search(int reservationNr)
+    {
+        return Reservation.getReservationByNumber(reservationNr);
+    }
+    
+    /**
+     * Sucht anhand des Namen der Person die reserviert hat nach einer Reservierung
+     * @param firstName Der Vorname der Person
+     * @param lastName Der Nachname der Person
+     * @return Eine Liste mit allen zur Suche passenden Reservierungen
+     */
+    public List<Reservation> search(String firstName, String lastName)
+    {
+        return Reservation.getReservationsByName(firstName, lastName);
+    }
+    
+    /**
+     * Wählt eine Reservierung aus die abgearbeitet werden soll
+     * @param reservation Die Reservierung die abgearbeitet werden soll
+     */
+    public void workWithReservation(Reservation reservation)
+    {
+        this.startDate = reservation.getStart();
+        this.endDate = reservation.getEnd();
+        
+        context.setState(new ChangeDataState());
+    }
+    
+    /**
+     * Startet einen Check In Vorgang für einen Walk In Gast
+     * @param start Das Startdatum des Aufenthalts
+     * @param end Das Enddatum des Aufenthalts
+     * @param amount Die Anzahl an Personen
+     */
+    @Override
+    public void createWalkIn(Date start, Date end, int amount)
+    {
+        this.startDate = start;
+        this.endDate = end;
+    }
+    
+    /**
+     * Startet einen Check In Vorgang für einen Walk In Gast
+     * @param days Die Aufenthaltsdauer in Tagen
+     * @param amount Die Anzahl an Personen
+     */
+    @Override
+    public void createWalkIn(int days, int amount)
+    {
+        Calendar cal = Calendar.getInstance();
+        this.startDate = cal.getTime();
+        
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        this.endDate = cal.getTime();
+    }
+    
+    @Override
+    public void nextStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void previousStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+}
