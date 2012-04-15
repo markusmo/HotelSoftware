@@ -4,8 +4,12 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.Exceptions.FaildToDeleteFromDatabaseException;
+import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +25,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -77,6 +86,10 @@ public class Permissions implements Serializable
         this.name = name;
     }
 
+    public Permissions(String name) {
+        this.name = name;
+    }
+    
     public Integer getId()
     {
         return id;
@@ -136,6 +149,103 @@ public class Permissions implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Permissions[ id=" + id + " ]";
+    }
+    
+    /**
+     * establishes a connection to the database and retrieves all permissions
+     * available in the database
+     * @return
+     * a list of permissions
+     * @throws HibernateException 
+     */
+    public static List<Permissions> getPermissions() throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(Permissions.class);
+        List<Permissions> retList = criteria.list();
+        session.close();
+
+        return retList;
+    }
+    
+    /**
+     * establishes a connection to the database and retrieves a single permission
+     * by name
+     * @param permission
+     * the permission to be fetched
+     * @return
+     * a model class of permissions
+     * @throws HibernateException 
+     */
+    public static Permissions getPermissionByName(String permission) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(Permissions.class);
+        List<Permissions> retList = criteria.list();
+        session.close();
+
+        for (Permissions permissions : retList)
+        {
+            if (permissions.getName().equals(permission))
+            {
+                return permissions;
+            }
+        }
+        return null;
+    }
+    
+     /**
+     * establishes a connection to the database and creates a new permission
+     * in the database
+     * @param name
+     * the new permission to be created
+     * @throws HibernateException
+     * @throws FailedToSaveToDatabaseException 
+     */
+    public static void savePermission(String name) throws FailedToSaveToDatabaseException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        try
+        {
+            session.save(new Permissions(name));
+            ts.commit();
+        } catch (HibernateException e)
+        {
+            ts.rollback();
+            throw new FailedToSaveToDatabaseException();
+        } finally
+        {
+            session.close();
+        }
+    }
+    
+    /**
+     * deletes a permission from the database
+     * @param name
+     * the name of the permission to delete
+     * @throws FaildToDeleteFromDatabaseException 
+     */
+    public static void deletePermission(String name) throws FaildToDeleteFromDatabaseException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        try
+        {
+            Permissions permission = (Permissions) session.createCriteria(
+                    Permissions.class).add(Restrictions.like("name", name)).uniqueResult();
+            session.delete(permission);
+        } catch (HibernateException ex)
+        {
+            ts.rollback();
+            throw new FaildToDeleteFromDatabaseException();
+        }
     }
     
 }

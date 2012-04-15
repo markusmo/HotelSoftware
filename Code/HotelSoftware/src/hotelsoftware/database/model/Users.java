@@ -4,8 +4,10 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +25,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -207,4 +213,22 @@ public class Users implements Serializable
         return "hotelsoftware.database.model.Users[ id=" + id + " ]";
     }
     
+    /**
+     * establishes a connection to the database and retrieves all users
+     * available in the database
+     * @return
+     * a list of users
+     * @throws HibernateException 
+     */
+    public static List<Users> getUsers() throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(Users.class);
+        List<Users> retList = criteria.list();
+        session.close();
+
+        return retList;
+    }
 }
