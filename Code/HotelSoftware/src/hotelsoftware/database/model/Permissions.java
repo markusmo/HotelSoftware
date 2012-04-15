@@ -29,6 +29,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -197,6 +198,8 @@ public class Permissions implements Serializable
         }
         return null;
     }
+    
+
     
      /**
      * establishes a connection to the database and creates a new permission

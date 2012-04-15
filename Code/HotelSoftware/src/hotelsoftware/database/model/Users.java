@@ -4,6 +4,7 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
@@ -29,6 +30,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -97,6 +99,21 @@ public class Users implements Serializable
         this.username = username;
         this.password = password;
     }
+
+    public Users(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Users(String username, String password, Collection<Roles> rolesCollection)
+    {
+        this.username = username;
+        this.password = password;
+        this.rolesCollection = rolesCollection;
+    }
+    
+    
 
     public Integer getId()
     {
@@ -217,7 +234,7 @@ public class Users implements Serializable
      * establishes a connection to the database and retrieves all users
      * available in the database
      * @return
-     * a list of users
+     * a list of usersc
      * @throws HibernateException 
      */
     public static List<Users> getUsers() throws HibernateException
@@ -231,4 +248,51 @@ public class Users implements Serializable
 
         return retList;
     }
+    
+     /**
+     * establishes a connection to the database and creates a new user
+     * in the database
+     * @param username
+     * the new user to be created
+     * @throws HibernateException
+     * @throws FailedToSaveToDatabaseException 
+     */
+    public static void saveUsers(Users users) throws FailedToSaveToDatabaseException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        try
+        {
+            session.save(users);
+            ts.commit();
+        } catch (HibernateException e)
+        {
+            ts.rollback();
+            throw new FailedToSaveToDatabaseException();
+        } finally
+        {
+            session.close();
+        }
+    }
+    
+    /**
+     * Communicates with the database and returns a user with the specified name
+     * @param username
+     * @return Users-Object
+     * @throws HibernateException 
+     */
+    public static Users getUserByUsername(String username) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Users retUser = (Users) session.createCriteria(Users.class).add(Restrictions.eq(
+                "username", username)).uniqueResult();
+        session.close();
+        return retUser;
+    }
+    
+     
+
 }

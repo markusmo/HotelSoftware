@@ -39,7 +39,7 @@ public class Permission
     public Permission(Permissions permissions)
     {
         this.permission = permissions.getName();
-        this.model = permissions;
+        this.model = permissions;        
     }
     
     public Permissions getModel()
@@ -53,7 +53,7 @@ public class Permission
      * @return 
      * a linked list of permissions on domain-level
      */
-    public static LinkedList<Permission> getPaymentMethods()
+    public static LinkedList<Permission> getPermissions()
     {
         LinkedList<Permission> retList = new LinkedList<Permission>();
         try
@@ -78,7 +78,7 @@ public class Permission
      * @return
      * a domain level permission
      */
-    public static Permission getPaymentMethodByName(String permission)
+    public static Permission getPermissionByName(String permission)
     {
         //exception handling?
         Permissions retMethod = Permissions.getPermissionByName(permission);
@@ -123,4 +123,6 @@ public class Permission
             //deleting failed
         }
     }
+    
+    
 }
