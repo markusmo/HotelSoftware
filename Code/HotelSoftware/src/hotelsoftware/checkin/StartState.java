@@ -21,7 +21,7 @@ public class StartState extends CheckInState
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
      * @return Die zur Reservierungsnummer gehörende Reservierung 
      */
-    public Reservation search(int reservationNr)
+    public ReservationData search(int reservationNr)
     {
         return Reservation.getReservationByNumber(reservationNr);
     }
@@ -32,16 +32,24 @@ public class StartState extends CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public List<Reservation> search(String firstName, String lastName)
+    public List<ReservationData> search(String firstName, String lastName)
     {
-        return Reservation.getReservationsByName(firstName, lastName);
+        List<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+        List<ReservationData> reservationData = new LinkedList<ReservationData>();
+        
+        for (Reservation reservation: reservations)
+        {
+            reservationData.add(reservation);
+        }
+        
+        return reservationData;
     }
     
     /**
      * Wählt eine Reservierung aus die abgearbeitet werden soll
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
-    public void workWithReservation(Reservation reservation)
+    public void workWithReservation(ReservationData reservation)
     {
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
@@ -60,6 +68,8 @@ public class StartState extends CheckInState
     {
         this.startDate = start;
         this.endDate = end;
+        
+        context.setState(new ChangeDataState());
     }
     
     /**
@@ -75,18 +85,7 @@ public class StartState extends CheckInState
         
         cal.add(Calendar.DAY_OF_YEAR, days);
         this.endDate = cal.getTime();
-    }
-    
-    @Override
-    public void nextStep()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void previousStep()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
+        
+        context.setState(new ChangeDataState());
+    }    
 }

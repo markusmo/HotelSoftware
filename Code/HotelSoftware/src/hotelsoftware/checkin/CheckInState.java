@@ -6,6 +6,7 @@ import hotelsoftware.domain.reservation.Reservation;
 import hotelsoftware.domain.room.Category;
 import hotelsoftware.domain.room.Room;
 import hotelsoftware.domain.service.ExtraService;
+import hotelsoftware.domain.service.Habitation;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,9 @@ public abstract class CheckInState
     
     protected Date startDate;
     protected Date endDate;
+    
+    protected Habitation habitation;
+    protected Reservation reservation;
     
     public CheckInState(CheckInController context)
     {

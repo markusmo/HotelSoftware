@@ -15,30 +15,32 @@ import java.util.List;
  *
  * @author Dunst
  */
-public class ChangeDataState extends CheckInState
-{
+public abstract class ChangeDataState extends CheckInState
+{    
     @Override
-    public List<Guest> getGuests()
+    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, Address address)
     {
-        throw new IllegalStateException();
+        Guest g = (Guest)GuestData;
+        g.setFirstName(firstName);
+        g.setLasttName(lastName);
+        g.setBirthday(birthday);
+        g.setAddress(address);
     }
     
     @Override
-    public Guest changeGuestData(Guest guest, String firstName, String lastName, Date birthday, Address address)
+    public GuestData addGuest(String firstName, String lastName, Date birthday, AddressData address)
     {
-        throw new IllegalStateException();
+        GuestData guest = new Guest(firstName, lastName, birthday, address);
+        
+        //TODO save somehow
+        
+        return guest;
     }
     
     @Override
-    public Guest addGuest(String firstName, String lastName, Date birthday, Address address)
+    public void assignRoom(GuestData guest, RoomData room)
     {
-        throw new IllegalStateException();
-    }
-    
-    @Override
-    public void assignRoom(Guest guest, Room room)
-    {
-        throw new IllegalStateException();
+        room.addGuest(guest);
     }
     
     @Override
@@ -54,9 +56,10 @@ public class ChangeDataState extends CheckInState
     }
     
     @Override
-    public List<Room> changeRoomCategory(int selectionIndex, Category category)
+    public List<RoomData> changeRoomCategory(int selectionIndex, Category category)
     {
-        throw new IllegalStateException();
+        //TODO umwandeln
+        category.getAllRooms();
     }
     
     @Override
