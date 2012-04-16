@@ -89,7 +89,7 @@ public class Reservations implements Serializable
     @ManyToOne(optional = false)
     private Persons idPersons;
 
-    private Reservations()
+    public Reservations()
     {
     }
 

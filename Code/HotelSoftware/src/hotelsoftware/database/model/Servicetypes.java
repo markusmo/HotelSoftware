@@ -57,8 +57,6 @@ public class Servicetypes implements Serializable
     @Basic(optional = false)
     @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
     private BigDecimal taxRate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")
-    private Collection<Services> servicesCollection;
 
     public Servicetypes()
     {
@@ -104,17 +102,6 @@ public class Servicetypes implements Serializable
     public void setTaxRate(BigDecimal taxRate)
     {
         this.taxRate = taxRate;
-    }
-
-    @XmlTransient
-    public Collection<Services> getServicesCollection()
-    {
-        return servicesCollection;
-    }
-
-    public void setServicesCollection(Collection<Services> servicesCollection)
-    {
-        this.servicesCollection = servicesCollection;
     }
 
     @Override

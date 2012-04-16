@@ -4,8 +4,8 @@
  */
 package hotelsoftware.database.model;
 
-import hotelsoftware.database.Exceptions.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
@@ -29,7 +29,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -62,15 +61,6 @@ public class DBPermission implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @JoinTable(name = "rolepermissions", joinColumns =
-    {
-        @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
-    private Collection<DBRole> rolesCollection;
 
     public DBPermission()
     {
@@ -109,17 +99,6 @@ public class DBPermission implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<DBRole> getRolesCollection()
-    {
-        return rolesCollection;
-    }
-
-    public void setRolesCollection(Collection<DBRole> rolesCollection)
-    {
-        this.rolesCollection = rolesCollection;
     }
 
     @Override

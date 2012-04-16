@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.users;
 
-import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.database.model.DBPermission;
 import hotelsoftware.database.model.DBUser;

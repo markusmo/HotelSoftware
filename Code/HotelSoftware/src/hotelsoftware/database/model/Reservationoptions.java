@@ -60,7 +60,7 @@ public class Reservationoptions implements Serializable
     @ManyToOne(optional = false)
     private Reservations idReservations;
 
-    private Reservationoptions()
+    public Reservationoptions()
     {
     }
 

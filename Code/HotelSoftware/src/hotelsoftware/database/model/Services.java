@@ -49,8 +49,6 @@ public class Services implements Serializable
     @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Servicetypes idServiceTypes;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServices")
-    private Collection<Habitations> habitationsCollection;
 
     public Services()
     {
@@ -101,17 +99,6 @@ public class Services implements Serializable
     public void setIdServiceTypes(Servicetypes idServiceTypes)
     {
         this.idServiceTypes = idServiceTypes;
-    }
-
-    @XmlTransient
-    public Collection<Habitations> getHabitationsCollection()
-    {
-        return habitationsCollection;
-    }
-
-    public void setHabitationsCollection(Collection<Habitations> habitationsCollection)
-    {
-        this.habitationsCollection = habitationsCollection;
     }
 
     @Override

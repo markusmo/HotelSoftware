@@ -51,8 +51,6 @@ public class DBRole implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
     @ManyToMany(mappedBy = "rolesCollection")
-    private Collection<DBUser> usersCollection;
-    @ManyToMany(mappedBy = "rolesCollection")
     private Collection<DBPermission> permissionsCollection;
 
     public DBRole()
@@ -88,17 +86,6 @@ public class DBRole implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<DBUser> getUsersCollection()
-    {
-        return usersCollection;
-    }
-
-    public void setUsersCollection(Collection<DBUser> usersCollection)
-    {
-        this.usersCollection = usersCollection;
     }
 
     @XmlTransient

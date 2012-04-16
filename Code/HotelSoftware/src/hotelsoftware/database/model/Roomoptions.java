@@ -60,8 +60,6 @@ public class Roomoptions implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @ManyToMany(mappedBy = "roomoptionsCollection")
-    private Collection<Rooms> roomsCollection;
 
     public Roomoptions()
     {
@@ -96,17 +94,6 @@ public class Roomoptions implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Rooms> getRoomsCollection()
-    {
-        return roomsCollection;
-    }
-
-    public void setRoomsCollection(Collection<Rooms> roomsCollection)
-    {
-        this.roomsCollection = roomsCollection;
     }
 
     @Override

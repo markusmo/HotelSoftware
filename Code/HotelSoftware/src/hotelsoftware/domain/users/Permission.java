@@ -4,8 +4,8 @@
  */
 package hotelsoftware.domain.users;
 
-import hotelsoftware.database.Exceptions.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.model.DBPermission;
 import java.util.Collection;
 import java.util.LinkedList;

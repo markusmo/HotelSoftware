@@ -23,7 +23,7 @@ public class InvoiceItem
     private User user;
     private Habitation habitation;
 
-    private InvoiceItem(Service service, int amount, User user,
+    public InvoiceItem(Service service, int amount, User user,
             Habitation habitation)
     {
         this.amount = amount;
@@ -76,19 +76,7 @@ public class InvoiceItem
     public static LinkedList<InvoiceItem> getInvoiceItemByInvoice(
             Invoice invoice)
     {
-        List<Invoiceitems> invoiceitems = Invoiceitems.getInvoiceItemsByInvoice(
-                invoice.getModel());
-        LinkedList<InvoiceItem> retInvoiceItems = new LinkedList<InvoiceItem>();
-
-        for (Invoiceitems invoiceitem : invoiceitems)
-        {
-            retInvoiceItems.add(new InvoiceItem(new Service(
-                    invoiceitem.getServices()), invoiceitem.getAmount(),
-                    new User(invoiceitem.getIdUsers()),
-                    new Habitation(invoiceitem.getIdHabitations())));
-        }
-
-        return retInvoiceItems;
+        return null;
     }
 
     /**
@@ -101,18 +89,6 @@ public class InvoiceItem
     public static LinkedList<InvoiceItem> getInvoiceItemsByHabitation(
             Habitation habitation)
     {
-                List<Invoiceitems> invoiceitems = Invoiceitems.getInvoiceItemsByHabitation(
-                        habitation.getModel());
-        LinkedList<InvoiceItem> retInvoiceItems = new LinkedList<InvoiceItem>();
-
-        for (Invoiceitems invoiceitem : invoiceitems)
-        {
-            retInvoiceItems.add(new InvoiceItem(new Service(
-                    invoiceitem.getServices()), invoiceitem.getAmount(),
-                    new User(invoiceitem.getIdUsers()),
-                    new Habitation(invoiceitem.getIdHabitations())));
-        }
-
-        return retInvoiceItems;
+       return null;
     }
 }

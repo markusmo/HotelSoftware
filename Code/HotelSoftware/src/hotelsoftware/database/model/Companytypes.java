@@ -51,8 +51,6 @@ public class Companytypes implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompanyTypes")
-    private Collection<Companies> companiesCollection;
 
     public Companytypes()
     {
@@ -87,17 +85,6 @@ public class Companytypes implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Companies> getCompaniesCollection()
-    {
-        return companiesCollection;
-    }
-
-    public void setCompaniesCollection(Collection<Companies> companiesCollection)
-    {
-        this.companiesCollection = companiesCollection;
     }
 
     @Override

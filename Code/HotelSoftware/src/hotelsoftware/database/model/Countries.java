@@ -59,8 +59,6 @@ public class Countries implements Serializable
     @Basic(optional = false)
     @Column(name = "nameShort", nullable = false, length = 2)
     private String nameShort;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountries")
-    private Collection<Addresses> addressesCollection;
 
     public Countries()
     {
@@ -106,17 +104,6 @@ public class Countries implements Serializable
     public void setNameShort(String nameShort)
     {
         this.nameShort = nameShort;
-    }
-
-    @XmlTransient
-    public Collection<Addresses> getAddressesCollection()
-    {
-        return addressesCollection;
-    }
-
-    public void setAddressesCollection(Collection<Addresses> addressesCollection)
-    {
-        this.addressesCollection = addressesCollection;
     }
 
     @Override

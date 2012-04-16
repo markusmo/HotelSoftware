@@ -51,8 +51,6 @@ public class Roomstatus implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus")
-    private Collection<Roomsroomstatus> roomsroomstatusCollection;
 
     public Roomstatus()
     {
@@ -87,17 +85,6 @@ public class Roomstatus implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Roomsroomstatus> getRoomsroomstatusCollection()
-    {
-        return roomsroomstatusCollection;
-    }
-
-    public void setRoomsroomstatusCollection(Collection<Roomsroomstatus> roomsroomstatusCollection)
-    {
-        this.roomsroomstatusCollection = roomsroomstatusCollection;
     }
 
     @Override

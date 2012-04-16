@@ -4,13 +4,12 @@
  */
 package hotelsoftware.database.model;
 
-import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +20,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -75,14 +73,6 @@ public class DBUser implements Serializable
     })
     @ManyToMany
     private Collection<DBRole> rolesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Collection<Invoiceitems> invoiceitemsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Collection<Invoices> invoicesCollection;
-    @OneToMany(mappedBy = "idUsers")
-    private Collection<Reservations> reservationsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Collection<Habitations> habitationsCollection;
 
     public DBUser()
     {
@@ -154,50 +144,6 @@ public class DBUser implements Serializable
     public void setRolesCollection(Collection<DBRole> rolesCollection)
     {
         this.rolesCollection = rolesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitemsCollection()
-    {
-        return invoiceitemsCollection;
-    }
-
-    public void setInvoiceitemsCollection(Collection<Invoiceitems> invoiceitemsCollection)
-    {
-        this.invoiceitemsCollection = invoiceitemsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Invoices> getInvoicesCollection()
-    {
-        return invoicesCollection;
-    }
-
-    public void setInvoicesCollection(Collection<Invoices> invoicesCollection)
-    {
-        this.invoicesCollection = invoicesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Reservations> getReservationsCollection()
-    {
-        return reservationsCollection;
-    }
-
-    public void setReservationsCollection(Collection<Reservations> reservationsCollection)
-    {
-        this.reservationsCollection = reservationsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Habitations> getHabitationsCollection()
-    {
-        return habitationsCollection;
-    }
-
-    public void setHabitationsCollection(Collection<Habitations> habitationsCollection)
-    {
-        this.habitationsCollection = habitationsCollection;
     }
 
     @Override

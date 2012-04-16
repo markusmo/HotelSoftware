@@ -4,7 +4,7 @@
  */
 package hotelsoftware.database.model;
 
-import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;

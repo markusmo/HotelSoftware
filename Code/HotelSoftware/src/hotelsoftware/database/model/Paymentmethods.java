@@ -4,7 +4,8 @@
  */
 package hotelsoftware.database.model;
 
-import hotelsoftware.database.Exceptions.*;
+import hotelsoftware.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
@@ -60,8 +61,6 @@ public class Paymentmethods implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaymentMethods")
-    private Collection<Invoices> invoicesCollection;
 
     public Paymentmethods()
     {
@@ -101,17 +100,6 @@ public class Paymentmethods implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Invoices> getInvoicesCollection()
-    {
-        return invoicesCollection;
-    }
-
-    public void setInvoicesCollection(Collection<Invoices> invoicesCollection)
-    {
-        this.invoicesCollection = invoicesCollection;
     }
 
     /**

@@ -5,9 +5,7 @@
 package hotelsoftware.database.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,10 +56,6 @@ public class Addresses implements Serializable
     private String phone;
     @Column(name = "fax", length = 255)
     private String fax;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
-    private Collection<Customers> customersCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
-    private Collection<Persons> personsCollection;
     @JoinColumn(name = "idCountries", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Countries idCountries;
@@ -145,28 +137,6 @@ public class Addresses implements Serializable
     public void setFax(String fax)
     {
         this.fax = fax;
-    }
-
-    @XmlTransient
-    public Collection<Customers> getCustomersCollection()
-    {
-        return customersCollection;
-    }
-
-    public void setCustomersCollection(Collection<Customers> customersCollection)
-    {
-        this.customersCollection = customersCollection;
-    }
-
-    @XmlTransient
-    public Collection<Persons> getPersonsCollection()
-    {
-        return personsCollection;
-    }
-
-    public void setPersonsCollection(Collection<Persons> personsCollection)
-    {
-        this.personsCollection = personsCollection;
     }
 
     public Countries getIdCountries()
