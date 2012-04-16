@@ -54,6 +54,8 @@ public class StartState extends CheckInState
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
         
+        
+        
         context.setState(new ChangeDataState());
     }
     

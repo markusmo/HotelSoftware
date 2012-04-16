@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class ChangeDataState extends CheckInState
 {    
     @Override
-    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, Address address)
+    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, AddressData address)
     {
         Guest g = (Guest)GuestData;
         g.setFirstName(firstName);
