@@ -4,7 +4,6 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Services;
 
 /**
  *
@@ -12,8 +11,13 @@ import hotelsoftware.database.model.Services;
  */
 public class ExtraService extends Service
 {
-    public ExtraService(Services service)
+    String name;
+    public ExtraService(String name)
     {
-        super(service);
+        this.name = name;
+    }
+    
+    public ExtraService()
+    {
     }
 }
