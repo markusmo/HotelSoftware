@@ -28,7 +28,7 @@ public class Reservation
     private Reservation()
     {
     }
-    private Reservation(Reservations r){
+    private Reservation(){
         this.comment = r.getComment();
         this.created = r.getCreated();
         this.end = r.getEnd();

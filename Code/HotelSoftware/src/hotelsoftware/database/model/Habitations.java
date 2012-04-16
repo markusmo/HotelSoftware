@@ -150,23 +150,23 @@ public class Habitations implements Serializable
     }
 
     @XmlTransient
-    public Collection<Guests> getGuestsCollection()
+    public Collection<Guests> getGuests()
     {
         return guestsCollection;
     }
 
-    public void setGuestsCollection(Collection<Guests> guestsCollection)
+    public void setGuests(Collection<Guests> guestsCollection)
     {
         this.guestsCollection = guestsCollection;
     }
 
     @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitemsCollection()
+    public Collection<Invoiceitems> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
-    public void setInvoiceitemsCollection(Collection<Invoiceitems> invoiceitemsCollection)
+    public void setInvoiceitems(Collection<Invoiceitems> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }

@@ -108,12 +108,12 @@ public class Rooms implements Serializable
     }
 
     @XmlTransient
-    public Collection<Roomoptions> getRoomoptionsCollection()
+    public Collection<Roomoptions> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptionsCollection(Collection<Roomoptions> roomoptionsCollection)
+    public void setRoomoptions(Collection<Roomoptions> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
@@ -129,23 +129,23 @@ public class Rooms implements Serializable
     }
 
     @XmlTransient
-    public Collection<Habitations> getHabitationsCollection()
+    public Collection<Habitations> getHabitations()
     {
         return habitationsCollection;
     }
 
-    public void setHabitationsCollection(Collection<Habitations> habitationsCollection)
+    public void setHabitations(Collection<Habitations> habitationsCollection)
     {
         this.habitationsCollection = habitationsCollection;
     }
 
     @XmlTransient
-    public Collection<Roomsroomstatus> getRoomsroomstatusCollection()
+    public Collection<Roomsroomstatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatusCollection(Collection<Roomsroomstatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<Roomsroomstatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }

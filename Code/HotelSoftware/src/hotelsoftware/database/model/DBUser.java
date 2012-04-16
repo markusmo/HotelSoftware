@@ -136,12 +136,12 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRole> getRolesCollection()
+    public Collection<DBRole> getRoles()
     {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Collection<DBRole> rolesCollection)
+    public void setRoles(Collection<DBRole> rolesCollection)
     {
         this.rolesCollection = rolesCollection;
     }

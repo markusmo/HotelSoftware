@@ -1,5 +1,7 @@
 package hotelsoftware.util;
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -24,11 +26,11 @@ public class DynamicMapper
      * 
      * Die Getter und Setter müssen getXYZ bzw setXYZ heißen und public sein
      */
-    static public Object map(Object urObject, Class newObjectClass)
+    public static <T, U> U map(T urObject, Class newObjectClass)
     {
         try
         {
-            Object returnvalue = newObjectClass.newInstance();
+            U returnvalue = (U)newObjectClass.newInstance();
             for (Method m : returnvalue.getClass().getMethods())
             {
                 if (m.getName().startsWith("set"))
@@ -36,11 +38,30 @@ public class DynamicMapper
                     Method m2 = getMethod(m, urObject);
                     if (m2 != null)
                     {
-                        m.invoke(returnvalue, m2.invoke(urObject, null));
+                        m.invoke(returnvalue, m2.invoke(urObject));
                     }
                 }
             }
             return returnvalue;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+    
+    public static <T, U> Collection<U> mapCollection(Collection<T> urCollection, Class newObjectClass)
+    {
+        try
+        {
+            Collection<U> returnValue = new LinkedList<U>();
+            
+            for (T obj : urCollection)
+            {
+                returnValue.add((U) map(obj, newObjectClass));
+            }
+            
+            return returnValue;
         }
         catch (Exception e)
         {
@@ -53,12 +74,12 @@ public class DynamicMapper
      * @param o das Objekt in deren Klasse die zu überprüfende Methode sein sollte.
      * @return 
      */
-    private static Method getMethod(Method m, Object o)
+    private static <T> Method getMethod(Method m, T o)
     {
         Method m2 = null;
         try
         {
-            m2 = o.getClass().getMethod(m.getName().replace("set", "get"), null);
+            m2 = o.getClass().getMethod(m.getName().replace("set", "get"));
         }
         catch (NoSuchMethodException e)
         {
@@ -78,5 +99,5 @@ public class DynamicMapper
         System.out.println(s.getPassword());
         System.out.println(s.getUsername());
 
-    }/*
+    }*/
 }

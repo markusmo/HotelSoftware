@@ -7,8 +7,9 @@ package hotelsoftware.domain.users;
 import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.database.model.DBPermission;
-import hotelsoftware.database.model.DBUser;
 import hotelsoftware.database.model.DBRole;
+import hotelsoftware.database.model.DBUser;
+import hotelsoftware.util.DynamicMapper;
 import java.util.Collection;
 import java.util.LinkedList;
 import org.hibernate.HibernateException;
@@ -36,7 +37,7 @@ public class UserSaver
         private static final UserSaver INSTANCE = new UserSaver();
     }
     
-    public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions)
+    public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -46,59 +47,74 @@ public class UserSaver
         {
             for (User user : users)
             {
-                DBUser dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("username", 
-                        user.getUsername())).uniqueResult();
-
-                if (dbu == null)
+                DBUser dbu;
+            
+                if (user.getId() != null)
+                {
+                    dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
+                        user.getId())).uniqueResult();
+                }
+                else
                 {
                     dbu = new DBUser();
-                    dbu.setUsername(user.getUsername());
                 }
 
+                dbu.setUsername(user.getUsername());
                 dbu.setPassword(user.getPassword());
-                Collection<DBRole> newRoles = new LinkedList<DBRole>();
+                /*Collection<DBRole> newRoles = new LinkedList<DBRole>();
                 for (Role role : user.getAllRoles())
                 {
                     newRoles.add((DBRole)DynamicMapper.map(role, DBRole.class));
-                }
-                dbu.setRolesCollection(newRoles);
+                }*/
+                
+                Collection<DBRole> newRoles = DynamicMapper.mapCollection(user.getRoles(), DBRole.class);
+                dbu.setRoles(newRoles);
 
                 session.saveOrUpdate(dbu);
+                user.setId(dbu.getId());
             }
 
             for (Role role : roles)
             {
-                DBRole dbr = (DBRole) session.createCriteria(DBRole.class).add(Restrictions.eq("name", 
-                        role.getName())).uniqueResult();
-
-                if (dbr == null)
+                DBRole dbr;
+                
+                if (role.getId() != null)
+                {
+                    dbr = (DBRole) session.createCriteria(DBRole.class).add(Restrictions.eq("id", 
+                        role.getId())).uniqueResult();
+                }
+                else
                 {
                     dbr = new DBRole();
-                    dbr.setName(role.getName());
                 }
+                
+                dbr.setName(role.getName());
 
-                Collection<DBPermission> newPermissions = new LinkedList<DBPermission>();
-                for (Permission permission : role.getPermissions())
-                {
-                    newPermissions.add((DBPermission)DynamicMapper.map(permission, DBPermission.class));
-                }
-                dbr.setPermissionsCollection(newPermissions);
+                Collection<DBPermission> newPermissions = DynamicMapper.mapCollection(role.getPermissions(), DBPermission.class);
+                dbr.setPermissions(newPermissions);
 
                 session.saveOrUpdate(dbr);
+                role.setId(dbr.getId());
             }
 
             for (Permission permission : permissions)
             {
-                DBPermission dbp = (DBPermission) session.createCriteria(DBPermission.class).add(Restrictions.eq("name", 
-                        permission.getPermission())).uniqueResult();
-
-                if (dbp == null)
+                DBPermission dbp;
+                
+                if (permission.getId() != null)
+                {
+                    dbp = (DBPermission) session.createCriteria(DBPermission.class).add(Restrictions.eq("id", 
+                        permission.getId())).uniqueResult();
+                }
+                else
                 {
                     dbp = new DBPermission();
-                    dbp.setName(permission.getPermission());
                 }
+                
+                dbp.setName(permission.getPermission());
 
                 session.saveOrUpdate(dbp);
+                permission.setId(dbp.getId());
             }
 
             ts.commit();

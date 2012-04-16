@@ -6,8 +6,8 @@ package hotelsoftware.domain.users;
 
 import hotelsoftware.database.model.DBPermission;
 import hotelsoftware.database.model.DBUser;
+import hotelsoftware.util.DynamicMapper;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  *
@@ -29,23 +29,21 @@ public class UserFacade
         private static final UserFacade INSTANCE = new UserFacade();
     }
     
-    public User login(String username, String password)
+    public User login(String username, String password) throws LoginFailureException
     {
         DBUser dbuser = DBUser.login(username, password);
         
-        return new User(dbuser.getUsername(), dbuser.getPassword());
+        if (dbuser == null)
+        {
+            throw new LoginFailureException();
+        }
+        
+        return DynamicMapper.map(dbuser, User.class);
     }
     
     public Collection<Permission> getAllPermissions()
     {
-        Collection<Permission> permissions = new LinkedList<Permission>();
-        
-        for (DBPermission p : DBPermission.getPermissions())
-        {
-            permissions.add(new Permission(p.getName()));
-        }
-        
-        return permissions;
+        return DynamicMapper.mapCollection(DBPermission.getPermissions(), Permission.class);
     }
     
     public Permission getPermissionByName(String name) throws PermissionNotFoundException
@@ -57,6 +55,6 @@ public class UserFacade
             throw new PermissionNotFoundException();
         }
         
-        return new Permission(p.getName());
+        return DynamicMapper.map(p, Permission.class);
     }
 }

@@ -48,10 +48,6 @@ public class Services implements Serializable
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "services")
-    private Collection<Invoiceitems> invoiceitemsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServices")
-    private Collection<Extraservices> extraservicesCollection;
     @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Servicetypes idServiceTypes;
@@ -73,28 +69,6 @@ public class Services implements Serializable
     public void setId(Integer id)
     {
         this.id = id;
-    }
-
-    @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitemsCollection()
-    {
-        return invoiceitemsCollection;
-    }
-
-    public void setInvoiceitemsCollection(Collection<Invoiceitems> invoiceitemsCollection)
-    {
-        this.invoiceitemsCollection = invoiceitemsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Extraservices> getExtraservicesCollection()
-    {
-        return extraservicesCollection;
-    }
-
-    public void setExtraservicesCollection(Collection<Extraservices> extraservicesCollection)
-    {
-        this.extraservicesCollection = extraservicesCollection;
     }
 
     public Servicetypes getIdServiceTypes()

@@ -89,12 +89,12 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBPermission> getPermissionsCollection()
+    public Collection<DBPermission> getPermissions()
     {
         return permissionsCollection;
     }
 
-    public void setPermissionsCollection(Collection<DBPermission> permissionsCollection)
+    public void setPermissions(Collection<DBPermission> permissionsCollection)
     {
         this.permissionsCollection = permissionsCollection;
     }

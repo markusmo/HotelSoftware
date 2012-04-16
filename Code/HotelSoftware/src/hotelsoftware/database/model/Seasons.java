@@ -125,12 +125,12 @@ public class Seasons implements Serializable
     }
 
     @XmlTransient
-    public Collection<Roomcategoryprices> getRoomcategorypricesCollection()
+    public Collection<Roomcategoryprices> getRoomcategoryprices()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategorypricesCollection(Collection<Roomcategoryprices> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Collection<Roomcategoryprices> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
