@@ -68,47 +68,53 @@ public class UserSaver
                 }*/
                 
                 Collection<DBRole> newRoles = DynamicMapper.mapCollection(user.getRoles(), DBRole.class);
-                
-                dbu.setRolesCollection(newRoles);
+                dbu.setRoles(newRoles);
 
                 session.saveOrUpdate(dbu);
-                
                 user.setId(dbu.getId());
             }
 
             for (Role role : roles)
             {
-                DBRole dbr = (DBRole) session.createCriteria(DBRole.class).add(Restrictions.eq("name", 
-                        role.getName())).uniqueResult();
-
-                if (dbr == null)
+                DBRole dbr;
+                
+                if (role.getId() != null)
+                {
+                    dbr = (DBRole) session.createCriteria(DBRole.class).add(Restrictions.eq("id", 
+                        role.getId())).uniqueResult();
+                }
+                else
                 {
                     dbr = new DBRole();
-                    dbr.setName(role.getName());
                 }
+                
+                dbr.setName(role.getName());
 
-                Collection<DBPermission> newPermissions = new LinkedList<DBPermission>();
-                for (Permission permission : role.getPermissions())
-                {
-                    newPermissions.add((DBPermission)DynamicMapper.map(permission, DBPermission.class));
-                }
-                dbr.setPermissionsCollection(newPermissions);
+                Collection<DBPermission> newPermissions = DynamicMapper.mapCollection(role.getPermissions(), DBPermission.class);
+                dbr.setPermissions(newPermissions);
 
                 session.saveOrUpdate(dbr);
+                role.setId(dbr.getId());
             }
 
             for (Permission permission : permissions)
             {
-                DBPermission dbp = (DBPermission) session.createCriteria(DBPermission.class).add(Restrictions.eq("name", 
-                        permission.getPermission())).uniqueResult();
-
-                if (dbp == null)
+                DBPermission dbp;
+                
+                if (permission.getId() != null)
+                {
+                    dbp = (DBPermission) session.createCriteria(DBPermission.class).add(Restrictions.eq("id", 
+                        permission.getId())).uniqueResult();
+                }
+                else
                 {
                     dbp = new DBPermission();
-                    dbp.setName(permission.getPermission());
                 }
+                
+                dbp.setName(permission.getPermission());
 
                 session.saveOrUpdate(dbp);
+                permission.setId(dbp.getId());
             }
 
             ts.commit();
