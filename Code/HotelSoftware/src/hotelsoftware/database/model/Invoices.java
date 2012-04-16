@@ -89,7 +89,7 @@ public class Invoices implements Serializable
     private Paymentmethods idpaymentMethods;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Users idUsers;
+    private DBUser idUsers;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Customers idCustomers;
@@ -105,7 +105,7 @@ public class Invoices implements Serializable
 
     public Invoices(String invoiceNumber, BigDecimal discount, Date expiration,
             boolean fulfilled, Date created, Paymentmethods idpaymentMethods,
-            Users idUsers, Customers idCustomers)
+            DBUser idUsers, Customers idCustomers)
     {
         this.invoiceNumber = invoiceNumber;
         this.discount = discount;
@@ -209,12 +209,12 @@ public class Invoices implements Serializable
         this.idpaymentMethods = idpaymentMethods;
     }
 
-    public Users getIdUsers()
+    public DBUser getIdUsers()
     {
         return idUsers;
     }
 
-    public void setIdUsers(Users idUsers)
+    public void setIdUsers(DBUser idUsers)
     {
         this.idUsers = idUsers;
     }

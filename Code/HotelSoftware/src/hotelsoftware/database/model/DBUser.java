@@ -52,7 +52,7 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
 })
-public class Users implements Serializable
+public class DBUser implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,7 +74,7 @@ public class Users implements Serializable
         @JoinColumn(name = "idRole", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<Roles> rolesCollection;
+    private Collection<DBRole> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
     private Collection<Invoiceitems> invoiceitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
@@ -84,29 +84,29 @@ public class Users implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
     private Collection<Habitations> habitationsCollection;
 
-    public Users()
+    public DBUser()
     {
     }
 
-    public Users(Integer id)
+    public DBUser(Integer id)
     {
         this.id = id;
     }
 
-    public Users(Integer id, String username, String password)
+    public DBUser(Integer id, String username, String password)
     {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public Users(String username, String password)
+    public DBUser(String username, String password)
     {
         this.username = username;
         this.password = password;
     }
 
-    public Users(String username, String password, Collection<Roles> rolesCollection)
+    public DBUser(String username, String password, Collection<DBRole> rolesCollection)
     {
         this.username = username;
         this.password = password;
@@ -146,12 +146,12 @@ public class Users implements Serializable
     }
 
     @XmlTransient
-    public Collection<Roles> getRolesCollection()
+    public Collection<DBRole> getRolesCollection()
     {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Collection<Roles> rolesCollection)
+    public void setRolesCollection(Collection<DBRole> rolesCollection)
     {
         this.rolesCollection = rolesCollection;
     }
@@ -212,11 +212,11 @@ public class Users implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Users))
+        if(!(object instanceof DBUser))
         {
             return false;
         }
-        Users other = (Users) object;
+        DBUser other = (DBUser) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -237,13 +237,13 @@ public class Users implements Serializable
      * a list of usersc
      * @throws HibernateException 
      */
-    public static List<Users> getUsers() throws HibernateException
+    public static List<DBUser> getUsers() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(Users.class);
-        List<Users> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBUser.class);
+        List<DBUser> retList = criteria.list();
         session.close();
 
         return retList;
@@ -257,7 +257,7 @@ public class Users implements Serializable
      * @throws HibernateException
      * @throws FailedToSaveToDatabaseException 
      */
-    public static void saveUsers(Users users) throws FailedToSaveToDatabaseException
+    public static void saveUsers(DBUser users) throws FailedToSaveToDatabaseException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -282,13 +282,13 @@ public class Users implements Serializable
      * @return Users-Object
      * @throws HibernateException 
      */
-    public static Users getUserByUsername(String username) throws HibernateException
+    public static DBUser login(String username, String password) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Users retUser = (Users) session.createCriteria(Users.class).add(Restrictions.eq(
-                "username", username)).uniqueResult();
+        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq(
+                "username", username)).add(Restrictions.eq("password", password)).uniqueResult();
         session.close();
         return retUser;
     }

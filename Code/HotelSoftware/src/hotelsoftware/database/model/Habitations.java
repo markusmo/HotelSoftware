@@ -76,7 +76,7 @@ public class Habitations implements Serializable
     private Rooms idRooms;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Users idUsers;
+    private DBUser idUsers;
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Services idServices;
@@ -181,12 +181,12 @@ public class Habitations implements Serializable
         this.idRooms = idRooms;
     }
 
-    public Users getIdUsers()
+    public DBUser getIdUsers()
     {
         return idUsers;
     }
 
-    public void setIdUsers(Users idUsers)
+    public void setIdUsers(DBUser idUsers)
     {
         this.idUsers = idUsers;
     }

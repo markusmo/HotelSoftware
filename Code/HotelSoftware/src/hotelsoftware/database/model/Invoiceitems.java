@@ -61,7 +61,7 @@ public class Invoiceitems implements Serializable
     private Invoices invoices;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Users idUsers;
+    private DBUser idUsers;
     @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Habitations idHabitations;
@@ -137,12 +137,12 @@ public class Invoiceitems implements Serializable
         this.invoices = invoices;
     }
 
-    public Users getIdUsers()
+    public DBUser getIdUsers()
     {
         return idUsers;
     }
 
-    public void setIdUsers(Users idUsers)
+    public void setIdUsers(DBUser idUsers)
     {
         this.idUsers = idUsers;
     }

@@ -51,7 +51,7 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Permissions.findById", query = "SELECT p FROM Permissions p WHERE p.id = :id"),
     @NamedQuery(name = "Permissions.findByName", query = "SELECT p FROM Permissions p WHERE p.name = :name")
 })
-public class Permissions implements Serializable
+public class DBPermission implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,24 +70,24 @@ public class Permissions implements Serializable
         @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<Roles> rolesCollection;
+    private Collection<DBRole> rolesCollection;
 
-    public Permissions()
+    public DBPermission()
     {
     }
 
-    public Permissions(Integer id)
+    public DBPermission(Integer id)
     {
         this.id = id;
     }
 
-    public Permissions(Integer id, String name)
+    public DBPermission(Integer id, String name)
     {
         this.id = id;
         this.name = name;
     }
 
-    public Permissions(String name) {
+    public DBPermission(String name) {
         this.name = name;
     }
     
@@ -112,12 +112,12 @@ public class Permissions implements Serializable
     }
 
     @XmlTransient
-    public Collection<Roles> getRolesCollection()
+    public Collection<DBRole> getRolesCollection()
     {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Collection<Roles> rolesCollection)
+    public void setRolesCollection(Collection<DBRole> rolesCollection)
     {
         this.rolesCollection = rolesCollection;
     }
@@ -134,11 +134,11 @@ public class Permissions implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Permissions))
+        if(!(object instanceof DBPermission))
         {
             return false;
         }
-        Permissions other = (Permissions) object;
+        DBPermission other = (DBPermission) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -159,13 +159,13 @@ public class Permissions implements Serializable
      * a list of permissions
      * @throws HibernateException 
      */
-    public static List<Permissions> getPermissions() throws HibernateException
+    public static List<DBPermission> getPermissions() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(Permissions.class);
-        List<Permissions> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBPermission.class);
+        List<DBPermission> retList = criteria.list();
         session.close();
 
         return retList;
@@ -180,16 +180,16 @@ public class Permissions implements Serializable
      * a model class of permissions
      * @throws HibernateException 
      */
-    public static Permissions getPermissionByName(String permission) throws HibernateException
+    public static DBPermission getPermissionByName(String permission) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(Permissions.class);
-        List<Permissions> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBPermission.class);
+        List<DBPermission> retList = criteria.list();
         session.close();
 
-        for (Permissions permissions : retList)
+        for (DBPermission permissions : retList)
         {
             if (permissions.getName().equals(permission))
             {
@@ -216,7 +216,7 @@ public class Permissions implements Serializable
         ts.begin();
         try
         {
-            session.save(new Permissions(name));
+            session.save(new DBPermission(name));
             ts.commit();
         } catch (HibernateException e)
         {
@@ -241,8 +241,8 @@ public class Permissions implements Serializable
         ts.begin();
         try
         {
-            Permissions permission = (Permissions) session.createCriteria(
-                    Permissions.class).add(Restrictions.like("name", name)).uniqueResult();
+            DBPermission permission = (DBPermission) session.createCriteria(
+                    DBPermission.class).add(Restrictions.like("name", name)).uniqueResult();
             session.delete(permission);
         } catch (HibernateException ex)
         {

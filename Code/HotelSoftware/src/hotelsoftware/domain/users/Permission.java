@@ -6,7 +6,8 @@ package hotelsoftware.domain.users;
 
 import hotelsoftware.database.Exceptions.FaildToDeleteFromDatabaseException;
 import hotelsoftware.database.Exceptions.FailedToSaveToDatabaseException;
-import hotelsoftware.database.model.Permissions;
+import hotelsoftware.database.model.DBPermission;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -18,75 +19,43 @@ import org.hibernate.HibernateException;
 public class Permission
 {
     private String permission;
-    private Permissions model;
 
     public String getPermission()
     {
         return permission;
     }
 
-    public void setPermission(String permission)
+    private void setPermission(String permission)
     {
         this.permission = permission;
     }
     
-    private Permission(String permission, Permissions model)
+    public Permission(String permission)
     {
         this.permission = permission;
-        this.model = model;
-    }
-    
-    public Permission(Permissions permissions)
-    {
-        this.permission = permissions.getName();
-        this.model = permissions;        
-    }
-    
-    public Permissions getModel()
-    {
-        return model;
-    }
-    
+    }    
 
     /**
      * Communicates with the model and creates a linked list of permission
      * @return 
      * a linked list of permissions on domain-level
      */
-    public static LinkedList<Permission> getPermissions()
+    public static Collection<Permission> getAllPermissions()
     {
-        LinkedList<Permission> retList = new LinkedList<Permission>();
-        try
-        {
-            List<Permissions> permissions = Permissions.getPermissions();
-            for (Permissions permission : permissions)
-            {
-                retList.add(new Permission(permission.getName(),permission));
-            }
-        } catch (HibernateException e)
-        {
-            //connection failed ...
-        }
-        return retList;
+        return UserFacade.getInstance().getAllPermissions();
     }
 
     /**
      * Communicates with the model and retrieves a single permission on domain
      * level by name
-     * @param permission
+     * @param name
      * the name of the permission
      * @return
      * a domain level permission
      */
-    public static Permission getPermissionByName(String permission)
+    public static Permission getPermissionByName(String name) throws PermissionNotFoundException
     {
-        //exception handling?
-        Permissions retMethod = Permissions.getPermissionByName(permission);
-        if(retMethod != null)
-        {
-            return new Permission(retMethod.getName(), retMethod);
-        }
-        return null;
+        return UserFacade.getInstance().getPermissionByName(name);
     }
 
     /**
@@ -98,7 +67,7 @@ public class Permission
     {
         try
         {
-            Permissions.savePermission(permission);
+            DBPermission.savePermission(permission);
         } catch (HibernateException ex)
         {
             //connection faild
@@ -117,7 +86,7 @@ public class Permission
     {
         try
         {
-            Permissions.deletePermission(permission);
+            DBPermission.deletePermission(permission);
         } catch (FaildToDeleteFromDatabaseException ex)
         {
             //deleting failed

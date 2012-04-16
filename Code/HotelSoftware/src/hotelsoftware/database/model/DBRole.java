@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
     @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name")
 })
-public class Roles implements Serializable
+public class DBRole implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,20 +51,20 @@ public class Roles implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
     @ManyToMany(mappedBy = "rolesCollection")
-    private Collection<Users> usersCollection;
+    private Collection<DBUser> usersCollection;
     @ManyToMany(mappedBy = "rolesCollection")
-    private Collection<Permissions> permissionsCollection;
+    private Collection<DBPermission> permissionsCollection;
 
-    public Roles()
+    public DBRole()
     {
     }
 
-    public Roles(Integer id)
+    public DBRole(Integer id)
     {
         this.id = id;
     }
 
-    public Roles(Integer id, String name)
+    public DBRole(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -91,23 +91,23 @@ public class Roles implements Serializable
     }
 
     @XmlTransient
-    public Collection<Users> getUsersCollection()
+    public Collection<DBUser> getUsersCollection()
     {
         return usersCollection;
     }
 
-    public void setUsersCollection(Collection<Users> usersCollection)
+    public void setUsersCollection(Collection<DBUser> usersCollection)
     {
         this.usersCollection = usersCollection;
     }
 
     @XmlTransient
-    public Collection<Permissions> getPermissionsCollection()
+    public Collection<DBPermission> getPermissionsCollection()
     {
         return permissionsCollection;
     }
 
-    public void setPermissionsCollection(Collection<Permissions> permissionsCollection)
+    public void setPermissionsCollection(Collection<DBPermission> permissionsCollection)
     {
         this.permissionsCollection = permissionsCollection;
     }
@@ -124,11 +124,11 @@ public class Roles implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Roles))
+        if(!(object instanceof DBRole))
         {
             return false;
         }
-        Roles other = (Roles) object;
+        DBRole other = (DBRole) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

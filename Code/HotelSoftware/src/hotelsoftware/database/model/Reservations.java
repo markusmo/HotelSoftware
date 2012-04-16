@@ -84,7 +84,7 @@ public class Reservations implements Serializable
     private Collection<Reservationoptions> reservationoptionsCollection;
     @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne
-    private Users idUsers;
+    private DBUser idUsers;
     @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Persons idPersons;
@@ -208,12 +208,12 @@ public class Reservations implements Serializable
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
 
-    public Users getIdUsers()
+    public DBUser getIdUsers()
     {
         return idUsers;
     }
 
-    public void setIdUsers(Users idUsers)
+    public void setIdUsers(DBUser idUsers)
     {
         this.idUsers = idUsers;
     }

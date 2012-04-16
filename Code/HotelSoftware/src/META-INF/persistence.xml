@@ -11,13 +11,11 @@
     <class>hotelsoftware.database.model.Addresses</class>
     <class>hotelsoftware.database.model.Roomcategoryprices</class>
     <class>hotelsoftware.database.model.Guests</class>
-    <class>hotelsoftware.database.model.Roles</class>
     <class>hotelsoftware.database.model.Roomstatus</class>
     <class>hotelsoftware.database.model.Extraservices</class>
     <class>hotelsoftware.database.model.Reservations</class>
     <class>hotelsoftware.database.model.Companies</class>
     <class>hotelsoftware.database.model.Reservationoptions</class>
-    <class>hotelsoftware.database.model.Users</class>
     <class>hotelsoftware.database.model.Roomsroomstatus</class>
     <class>hotelsoftware.database.model.Rooms</class>
     <class>hotelsoftware.database.model.Reservationitems</class>
@@ -26,9 +24,11 @@
     <class>hotelsoftware.database.model.Paymentmethods</class>
     <class>hotelsoftware.database.model.Servicetypes</class>
     <class>hotelsoftware.database.model.Persons</class>
-    <class>hotelsoftware.database.model.Permissions</class>
     <class>hotelsoftware.database.model.Services</class>
     <class>hotelsoftware.database.model.Seasons</class>
+    <class>hotelsoftware.database.model.DBPermission</class>
+    <class>hotelsoftware.database.model.DBUser</class>
+    <class>hotelsoftware.database.model.DBRole</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer"/>
       <property name="javax.persistence.jdbc.password" value="R00m4n153r"/>
