@@ -13,27 +13,18 @@ import java.math.BigDecimal;
  */
 public abstract class Service
 {
-    private String name;
-    private BigDecimal price;    
-    private ServiceType serviceType;
+    protected BigDecimal price;    
+    protected ServiceType serviceType;
     
-    public Service(Services service)
+    private Service()
     {
     }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    
+    private Service(String name, BigDecimal price, ServiceType serviceType){
+        this.price = price;
+        this.serviceType = serviceType;
     }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+    
 
     /**
      * @return the price

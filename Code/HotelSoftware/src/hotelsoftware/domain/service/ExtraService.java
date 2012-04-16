@@ -4,6 +4,8 @@
  */
 package hotelsoftware.domain.service;
 
+import java.math.BigDecimal;
+
 
 /**
  *
@@ -12,12 +14,22 @@ package hotelsoftware.domain.service;
 public class ExtraService extends Service
 {
     String name;
-    public ExtraService(String name)
+    private ExtraService(String name, BigDecimal price, ServiceType type)
     {
         this.name = name;
+        this.price = price;
+        this.serviceType = type;
     }
     
-    public ExtraService()
+    private ExtraService()
     {
+    }
+    
+    public static ExtraService createExtraService(String name, BigDecimal price, ServiceType type){
+        return new ExtraService(name, price, type);
+    }
+    
+    public static getAllServices(){
+        
     }
 }

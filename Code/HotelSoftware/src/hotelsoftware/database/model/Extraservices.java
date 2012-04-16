@@ -150,7 +150,7 @@ public class Extraservices implements Serializable
         return retList;
     }
     
-    public static Extraservices getExtraServicesByName(String name) throws HibernateException
+    public static Extraservices getServiceByName(String name) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
