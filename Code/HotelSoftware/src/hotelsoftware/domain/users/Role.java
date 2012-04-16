@@ -5,7 +5,7 @@
 package hotelsoftware.domain.users;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 /**
  *
@@ -13,6 +13,7 @@ import java.util.LinkedList;
  */
 public class Role
 {
+    private Integer id;
     private String name;
     private Collection<Permission> permissions;
 
@@ -20,25 +21,52 @@ public class Role
     {
         return permissions;
     }
+    
+    void setPermissions(Collection<Permission> permissions)
+    {
+        this.permissions = permissions;
+    }
 
     public String getName()
     {
         return name;
     }
 
-    private void setName(String name)
+    void setName(String name)
     {
         this.name = name;
     }
     
-    public Role(String name)
+    public Integer getId()
     {
-        this(name, new LinkedList<Permission>());
+        return id;
+    }
+
+    void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
     }
     
-    public Role(String name, Collection<Permission> permissions)
+    Role()
+    {
+    }
+    
+    private Role(String name)
+    {
+        this(name, new HashSet<Permission>());
+    }
+    
+    private Role(String name, Collection<Permission> permissions)
     {
         this.name = name;
         this.permissions = permissions;
-    } 
+    }
+
+    public static Role create(String name, Collection<Permission> permissions)
+    {
+        return new Role(name, permissions);
+    }
 }

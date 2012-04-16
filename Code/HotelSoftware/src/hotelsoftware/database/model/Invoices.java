@@ -188,12 +188,12 @@ public class Invoices implements Serializable
     }
 
     @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitemsCollection()
+    public Collection<Invoiceitems> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
-    public void setInvoiceitemsCollection(
+    public void setInvoiceitems(
             Collection<Invoiceitems> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;

@@ -99,12 +99,12 @@ public class Guests implements Serializable
     }
 
     @XmlTransient
-    public Collection<Habitations> getHabitationsCollection()
+    public Collection<Habitations> getHabitations()
     {
         return habitationsCollection;
     }
 
-    public void setHabitationsCollection(Collection<Habitations> habitationsCollection)
+    public void setHabitations(Collection<Habitations> habitationsCollection)
     {
         this.habitationsCollection = habitationsCollection;
     }

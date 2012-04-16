@@ -103,12 +103,12 @@ public class Persons implements Serializable
     }
 
     @XmlTransient
-    public Collection<Companies> getCompaniesCollection()
+    public Collection<Companies> getCompanies()
     {
         return companiesCollection;
     }
 
-    public void setCompaniesCollection(Collection<Companies> companiesCollection)
+    public void setCompanies(Collection<Companies> companiesCollection)
     {
         this.companiesCollection = companiesCollection;
     }
@@ -144,12 +144,12 @@ public class Persons implements Serializable
     }
 
     @XmlTransient
-    public Collection<Reservations> getReservationsCollection()
+    public Collection<Reservations> getReservationsCollectio()
     {
         return reservationsCollection;
     }
 
-    public void setReservationsCollection(Collection<Reservations> reservationsCollection)
+    public void setReservations(Collection<Reservations> reservationsCollection)
     {
         this.reservationsCollection = reservationsCollection;
     }

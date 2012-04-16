@@ -18,16 +18,21 @@ import java.util.logging.Logger;
  */
 public class User
 {
+    private Integer id;
     private String username;
     private String password;
     private Collection<Role> roles;
 
-    User(String username, String password)
+    User()
+    {        
+    }
+    
+    private User(String username, String password)
     {
         this(username, password, new LinkedList<Role>());
     }
 
-    User(String username, String password, Collection<Role> roles)
+    private User(String username, String password, Collection<Role> roles)
     {
         this.username = username;
         this.password = password;
@@ -38,10 +43,43 @@ public class User
     {
         return password;
     }
-
+    
+    void setPassword(String password)
+    {
+        this.password = password;
+    }
+    
+    public Collection<Role> getRoles()
+    {
+        return roles;
+    }
+    
+    void setRoles(Collection<Role> roles)
+    {
+        this.roles = roles;
+    }
+    
     public String getUsername()
     {
         return username;
+    }
+
+    void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
     }
 
     public static User login(String username, String password) throws LoginFailureException
@@ -83,7 +121,7 @@ public class User
         Collection<Permission> permissions = new HashSet<Permission>();
 
         // adding permissions
-        for (Role role : this.getAllRoles())
+        for (Role role : this.getRoles())
         {
             Collection<Permission> rolePermissions = role.getPermissions();
 
@@ -93,17 +131,6 @@ public class User
             }
         }
         return permissions;
-    }
-
-    /**
-     * converts permission to roles
-     *
-     * @param permissions
-     * @return Collection of roles
-     */
-    public Collection<Role> getAllRoles()
-    {
-        return roles;
     }
     
     public boolean hasPermission(Permission permission)

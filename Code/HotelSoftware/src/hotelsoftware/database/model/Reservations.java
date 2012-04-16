@@ -187,23 +187,23 @@ public class Reservations implements Serializable
     }
 
     @XmlTransient
-    public Collection<Reservationitems> getReservationitemsCollection()
+    public Collection<Reservationitems> getReservationitems()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitemsCollection(Collection<Reservationitems> reservationitemsCollection)
+    public void setReservationitems(Collection<Reservationitems> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
     @XmlTransient
-    public Collection<Reservationoptions> getReservationoptionsCollection()
+    public Collection<Reservationoptions> getReservationoptions()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptionsCollection(Collection<Reservationoptions> reservationoptionsCollection)
+    public void setReservationoptions(Collection<Reservationoptions> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }

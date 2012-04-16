@@ -95,12 +95,12 @@ public class Companies implements Serializable
     }
 
     @XmlTransient
-    public Collection<Persons> getPersonsCollection()
+    public Collection<Persons> getContactPersons()
     {
         return personsCollection;
     }
 
-    public void setPersonsCollection(Collection<Persons> personsCollection)
+    public void setContactPersons(Collection<Persons> personsCollection)
     {
         this.personsCollection = personsCollection;
     }

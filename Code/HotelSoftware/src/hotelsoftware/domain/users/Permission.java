@@ -8,8 +8,6 @@ import hotelsoftware.database.FaildToDeleteFromDatabaseException;
 import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.model.DBPermission;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import org.hibernate.HibernateException;
 
 /**
@@ -18,22 +16,45 @@ import org.hibernate.HibernateException;
  */
 public class Permission
 {
-    private String permission;
+    private Integer id;
+    private String name;
 
     public String getPermission()
     {
-        return permission;
+        return name;
     }
 
-    private void setPermission(String permission)
+    void setPermission(String permission)
     {
-        this.permission = permission;
+        this.name = permission;
     }
     
-    public Permission(String permission)
+    public Integer getId()
     {
-        this.permission = permission;
-    }    
+        return id;
+    }
+
+    void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
+    }
+    
+    Permission()
+    {
+    }
+    
+    private Permission(String name)
+    {
+        this.name = name;
+    }
+
+    public static Permission create(String name)
+    {
+        return new Permission(name);
+    }
 
     /**
      * Communicates with the model and creates a linked list of permission

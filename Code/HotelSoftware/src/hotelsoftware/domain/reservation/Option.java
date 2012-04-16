@@ -37,15 +37,6 @@ public class Option
         this.fulfilled = r.getFulfilled();
         this.prepayment = r.getPrepayment();
     }
-    
-    public static List<Option> getOptionList(Reservations r){
-        List<Option> list = new LinkedList<Option>();
-        for (Reservationoptions option :  r.getReservationoptionsCollection())
-        {
-           list.add(new Option(option));
-        }
-        return list;
-    }
 
     public Date getExpiration()
     {

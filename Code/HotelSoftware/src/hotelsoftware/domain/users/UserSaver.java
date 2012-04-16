@@ -7,8 +7,9 @@ package hotelsoftware.domain.users;
 import hotelsoftware.database.FailedToSaveToDatabaseException;
 import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.database.model.DBPermission;
-import hotelsoftware.database.model.DBUser;
 import hotelsoftware.database.model.DBRole;
+import hotelsoftware.database.model.DBUser;
+import hotelsoftware.util.DynamicMapper;
 import java.util.Collection;
 import java.util.LinkedList;
 import org.hibernate.HibernateException;
@@ -36,7 +37,7 @@ public class UserSaver
         private static final UserSaver INSTANCE = new UserSaver();
     }
     
-    public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions)
+    public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -46,24 +47,33 @@ public class UserSaver
         {
             for (User user : users)
             {
-                DBUser dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("username", 
-                        user.getUsername())).uniqueResult();
-
-                if (dbu == null)
+                DBUser dbu;
+            
+                if (user.getId() != null)
+                {
+                    dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
+                        user.getId())).uniqueResult();
+                }
+                else
                 {
                     dbu = new DBUser();
-                    dbu.setUsername(user.getUsername());
                 }
 
+                dbu.setUsername(user.getUsername());
                 dbu.setPassword(user.getPassword());
-                Collection<DBRole> newRoles = new LinkedList<DBRole>();
+                /*Collection<DBRole> newRoles = new LinkedList<DBRole>();
                 for (Role role : user.getAllRoles())
                 {
                     newRoles.add((DBRole)DynamicMapper.map(role, DBRole.class));
-                }
+                }*/
+                
+                Collection<DBRole> newRoles = DynamicMapper.mapCollection(user.getRoles(), DBRole.class);
+                
                 dbu.setRolesCollection(newRoles);
 
                 session.saveOrUpdate(dbu);
+                
+                user.setId(dbu.getId());
             }
 
             for (Role role : roles)
