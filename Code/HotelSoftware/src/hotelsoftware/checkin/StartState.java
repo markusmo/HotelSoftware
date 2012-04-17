@@ -4,7 +4,7 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.domain.reservation.Reservation;
+import hotelsoftware.model.domain.reservation.Reservation;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

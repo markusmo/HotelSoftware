@@ -4,7 +4,7 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.ExtraService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
