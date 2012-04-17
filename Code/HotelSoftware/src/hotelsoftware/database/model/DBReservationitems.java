@@ -30,46 +30,46 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
     @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
 })
-public class Reservationitems implements Serializable
+public class DBReservationitems implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected ReservationitemsPK reservationitemsPK;
+    protected DBReservationitemsPK reservationitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private int amount;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Roomcategories roomcategories;
+    private DBRoomcategories roomcategories;
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Reservations reservations;
+    private DBReservations reservations;
 
-    public Reservationitems()
+    public DBReservationitems()
     {
     }
-    public Reservationitems(ReservationitemsPK reservationitemsPK)
+    public DBReservationitems(DBReservationitemsPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
 
-    public Reservationitems(ReservationitemsPK reservationitemsPK, int amount)
+    public DBReservationitems(DBReservationitemsPK reservationitemsPK, int amount)
     {
         this.reservationitemsPK = reservationitemsPK;
         this.amount = amount;
     }
 
-    public Reservationitems(int idReservations, int idRoomCategories)
+    public DBReservationitems(int idReservations, int idRoomCategories)
     {
-        this.reservationitemsPK = new ReservationitemsPK(idReservations, idRoomCategories);
+        this.reservationitemsPK = new DBReservationitemsPK(idReservations, idRoomCategories);
     }
 
-    public ReservationitemsPK getReservationitemsPK()
+    public DBReservationitemsPK getReservationitemsPK()
     {
         return reservationitemsPK;
     }
 
-    public void setReservationitemsPK(ReservationitemsPK reservationitemsPK)
+    public void setReservationitemsPK(DBReservationitemsPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
@@ -84,22 +84,22 @@ public class Reservationitems implements Serializable
         this.amount = amount;
     }
 
-    public Roomcategories getRoomcategories()
+    public DBRoomcategories getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(Roomcategories roomcategories)
+    public void setRoomcategories(DBRoomcategories roomcategories)
     {
         this.roomcategories = roomcategories;
     }
 
-    public Reservations getReservations()
+    public DBReservations getReservations()
     {
         return reservations;
     }
 
-    public void setReservations(Reservations reservations)
+    public void setReservations(DBReservations reservations)
     {
         this.reservations = reservations;
     }
@@ -116,11 +116,11 @@ public class Reservationitems implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Reservationitems))
+        if(!(object instanceof DBReservationitems))
         {
             return false;
         }
-        Reservationitems other = (Reservationitems) object;
+        DBReservationitems other = (DBReservationitems) object;
         if((this.reservationitemsPK == null && other.reservationitemsPK != null) || (this.reservationitemsPK != null && !this.reservationitemsPK.equals(other.reservationitemsPK)))
         {
             return false;

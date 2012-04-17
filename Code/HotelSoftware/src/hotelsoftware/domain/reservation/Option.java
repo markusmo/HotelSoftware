@@ -4,8 +4,8 @@
  */
 package hotelsoftware.domain.reservation;
 
-import hotelsoftware.database.model.Reservationoptions;
-import hotelsoftware.database.model.Reservations;
+import hotelsoftware.database.model.DBReservationoptions;
+import hotelsoftware.database.model.DBReservations;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class Option
         return new Option();
     }
 
-    private Option(Reservationoptions r)
+    private Option(DBReservationoptions r)
     {
         this.expiration = r.getExpiration();
         this.fulfilled = r.getFulfilled();

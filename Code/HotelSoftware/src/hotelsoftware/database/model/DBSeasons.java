@@ -6,6 +6,7 @@ package hotelsoftware.database.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -26,26 +29,23 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "countries", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "seasons", catalog = "roomanizer", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
         "name"
-    }),
-    @UniqueConstraint(columnNames =
-    {
-        "nameShort"
     })
 })
 @XmlRootElement
 @NamedQueries(
 {
-    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
-    @NamedQuery(name = "Countries.findById", query = "SELECT c FROM Countries c WHERE c.id = :id"),
-    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
-    @NamedQuery(name = "Countries.findByNameShort", query = "SELECT c FROM Countries c WHERE c.nameShort = :nameShort")
+    @NamedQuery(name = "Seasons.findAll", query = "SELECT s FROM Seasons s"),
+    @NamedQuery(name = "Seasons.findById", query = "SELECT s FROM Seasons s WHERE s.id = :id"),
+    @NamedQuery(name = "Seasons.findByName", query = "SELECT s FROM Seasons s WHERE s.name = :name"),
+    @NamedQuery(name = "Seasons.findByStart", query = "SELECT s FROM Seasons s WHERE s.start = :start"),
+    @NamedQuery(name = "Seasons.findByEnd", query = "SELECT s FROM Seasons s WHERE s.end = :end")
 })
-public class Countries implements Serializable
+public class DBSeasons implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,23 +57,31 @@ public class Countries implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
     @Basic(optional = false)
-    @Column(name = "nameShort", nullable = false, length = 2)
-    private String nameShort;
+    @Column(name = "start", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date start;
+    @Basic(optional = false)
+    @Column(name = "end", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date end;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons")
+    private Collection<DBRoomcategoryprices> roomcategorypricesCollection;
 
-    public Countries()
+    public DBSeasons()
     {
     }
 
-    public Countries(Integer id)
+    public DBSeasons(Integer id)
     {
         this.id = id;
     }
 
-    public Countries(Integer id, String name, String nameShort)
+    public DBSeasons(Integer id, String name, Date start, Date end)
     {
         this.id = id;
         this.name = name;
-        this.nameShort = nameShort;
+        this.start = start;
+        this.end = end;
     }
 
     public Integer getId()
@@ -96,14 +104,35 @@ public class Countries implements Serializable
         this.name = name;
     }
 
-    public String getNameShort()
+    public Date getStart()
     {
-        return nameShort;
+        return start;
     }
 
-    public void setNameShort(String nameShort)
+    public void setStart(Date start)
     {
-        this.nameShort = nameShort;
+        this.start = start;
+    }
+
+    public Date getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(Date end)
+    {
+        this.end = end;
+    }
+
+    @XmlTransient
+    public Collection<DBRoomcategoryprices> getRoomcategoryprices()
+    {
+        return roomcategorypricesCollection;
+    }
+
+    public void setRoomcategoryprices(Collection<DBRoomcategoryprices> roomcategorypricesCollection)
+    {
+        this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
 
     @Override
@@ -118,11 +147,11 @@ public class Countries implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Countries))
+        if(!(object instanceof DBSeasons))
         {
             return false;
         }
-        Countries other = (Countries) object;
+        DBSeasons other = (DBSeasons) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -133,7 +162,7 @@ public class Countries implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Countries[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Seasons[ id=" + id + " ]";
     }
     
 }

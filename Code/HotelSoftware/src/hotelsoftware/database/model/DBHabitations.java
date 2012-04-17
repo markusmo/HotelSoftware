@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Habitations.findByPrice", query = "SELECT h FROM Habitations h WHERE h.price = :price"),
     @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created")
 })
-public class Habitations implements Serializable
+public class DBHabitations implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,29 +68,29 @@ public class Habitations implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     @ManyToMany(mappedBy = "habitationsCollection")
-    private Collection<Guests> guestsCollection;
+    private Collection<DBGuests> guestsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
-    private Collection<Invoiceitems> invoiceitemsCollection;
+    private Collection<DBInvoiceitems> invoiceitemsCollection;
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Rooms idRooms;
+    private DBRooms idRooms;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Services idServices;
+    private DBServices idServices;
 
-    public Habitations()
+    public DBHabitations()
     {
     }
 
-    public Habitations(Integer id)
+    public DBHabitations(Integer id)
     {
         this.id = id;
     }
 
-    public Habitations(Integer id, Date start, Date end, BigDecimal price, Date created)
+    public DBHabitations(Integer id, Date start, Date end, BigDecimal price, Date created)
     {
         this.id = id;
         this.start = start;
@@ -150,33 +150,33 @@ public class Habitations implements Serializable
     }
 
     @XmlTransient
-    public Collection<Guests> getGuests()
+    public Collection<DBGuests> getGuests()
     {
         return guestsCollection;
     }
 
-    public void setGuests(Collection<Guests> guestsCollection)
+    public void setGuests(Collection<DBGuests> guestsCollection)
     {
         this.guestsCollection = guestsCollection;
     }
 
     @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitems()
+    public Collection<DBInvoiceitems> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
-    public void setInvoiceitems(Collection<Invoiceitems> invoiceitemsCollection)
+    public void setInvoiceitems(Collection<DBInvoiceitems> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
-    public Rooms getIdRooms()
+    public DBRooms getIdRooms()
     {
         return idRooms;
     }
 
-    public void setIdRooms(Rooms idRooms)
+    public void setIdRooms(DBRooms idRooms)
     {
         this.idRooms = idRooms;
     }
@@ -191,12 +191,12 @@ public class Habitations implements Serializable
         this.idUsers = idUsers;
     }
 
-    public Services getIdServices()
+    public DBServices getIdServices()
     {
         return idServices;
     }
 
-    public void setIdServices(Services idServices)
+    public void setIdServices(DBServices idServices)
     {
         this.idServices = idServices;
     }
@@ -213,11 +213,11 @@ public class Habitations implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Habitations))
+        if(!(object instanceof DBHabitations))
         {
             return false;
         }
-        Habitations other = (Habitations) object;
+        DBHabitations other = (DBHabitations) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

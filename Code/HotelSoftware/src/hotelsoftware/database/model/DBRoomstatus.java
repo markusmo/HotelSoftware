@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomstatus.findById", query = "SELECT r FROM Roomstatus r WHERE r.id = :id"),
     @NamedQuery(name = "Roomstatus.findByName", query = "SELECT r FROM Roomstatus r WHERE r.name = :name")
 })
-public class Roomstatus implements Serializable
+public class DBRoomstatus implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,16 +52,16 @@ public class Roomstatus implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    public Roomstatus()
+    public DBRoomstatus()
     {
     }
 
-    public Roomstatus(Integer id)
+    public DBRoomstatus(Integer id)
     {
         this.id = id;
     }
 
-    public Roomstatus(Integer id, String name)
+    public DBRoomstatus(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -99,11 +99,11 @@ public class Roomstatus implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Roomstatus))
+        if(!(object instanceof DBRoomstatus))
         {
             return false;
         }
-        Roomstatus other = (Roomstatus) object;
+        DBRoomstatus other = (DBRoomstatus) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

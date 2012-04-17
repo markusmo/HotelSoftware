@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Services;
+import hotelsoftware.database.model.DBServices;
 import java.math.BigDecimal;
 
 /**

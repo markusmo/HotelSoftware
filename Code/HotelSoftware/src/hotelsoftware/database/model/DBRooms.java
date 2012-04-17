@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rooms.findById", query = "SELECT r FROM Rooms r WHERE r.id = :id"),
     @NamedQuery(name = "Rooms.findByRoomNumber", query = "SELECT r FROM Rooms r WHERE r.roomNumber = :roomNumber")
 })
-public class Rooms implements Serializable
+public class DBRooms implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,25 +63,25 @@ public class Rooms implements Serializable
         @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<Roomoptions> roomoptionsCollection;
+    private Collection<DBRoomoptions> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Roomcategories idRoomCategories;
+    private DBRoomcategories idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
-    private Collection<Habitations> habitationsCollection;
+    private Collection<DBHabitations> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    private Collection<Roomsroomstatus> roomsroomstatusCollection;
+    private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
 
-    public Rooms()
+    public DBRooms()
     {
     }
 
-    public Rooms(Integer id)
+    public DBRooms(Integer id)
     {
         this.id = id;
     }
 
-    public Rooms(Integer id, int roomNumber)
+    public DBRooms(Integer id, int roomNumber)
     {
         this.id = id;
         this.roomNumber = roomNumber;
@@ -108,44 +108,44 @@ public class Rooms implements Serializable
     }
 
     @XmlTransient
-    public Collection<Roomoptions> getRoomoptions()
+    public Collection<DBRoomoptions> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptions(Collection<Roomoptions> roomoptionsCollection)
+    public void setRoomoptions(Collection<DBRoomoptions> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
 
-    public Roomcategories getIdRoomCategories()
+    public DBRoomcategories getIdRoomCategories()
     {
         return idRoomCategories;
     }
 
-    public void setIdRoomCategories(Roomcategories idRoomCategories)
+    public void setIdRoomCategories(DBRoomcategories idRoomCategories)
     {
         this.idRoomCategories = idRoomCategories;
     }
 
     @XmlTransient
-    public Collection<Habitations> getHabitations()
+    public Collection<DBHabitations> getHabitations()
     {
         return habitationsCollection;
     }
 
-    public void setHabitations(Collection<Habitations> habitationsCollection)
+    public void setHabitations(Collection<DBHabitations> habitationsCollection)
     {
         this.habitationsCollection = habitationsCollection;
     }
 
     @XmlTransient
-    public Collection<Roomsroomstatus> getRoomsroomstatus()
+    public Collection<DBRoomsroomstatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatus(Collection<Roomsroomstatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<DBRoomsroomstatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }
@@ -162,11 +162,11 @@ public class Rooms implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Rooms))
+        if(!(object instanceof DBRooms))
         {
             return false;
         }
-        Rooms other = (Rooms) object;
+        DBRooms other = (DBRooms) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

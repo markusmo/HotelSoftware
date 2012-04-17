@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persons.findByFname", query = "SELECT p FROM Persons p WHERE p.fname = :fname"),
     @NamedQuery(name = "Persons.findByLname", query = "SELECT p FROM Persons p WHERE p.lname = :lname")
 })
-public class Persons implements Serializable
+public class DBPersons implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,23 +51,23 @@ public class Persons implements Serializable
     @Column(name = "lname", length = 255)
     private String lname;
     @ManyToMany(mappedBy = "personsCollection")
-    private Collection<Companies> companiesCollection;
+    private Collection<DBCompanies> companiesCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idPersons")
-    private Guests guests;
+    private DBGuests guests;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Customers idCustomers;
+    private DBCustomers idCustomers;
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Addresses idAddresses;
+    private DBAddresses idAddresses;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersons")
-    private Collection<Reservations> reservationsCollection;
+    private Collection<DBReservations> reservationsCollection;
 
-    public Persons()
+    public DBPersons()
     {
     }
 
-    public Persons(Integer id)
+    public DBPersons(Integer id)
     {
         this.id = id;
     }
@@ -103,53 +103,53 @@ public class Persons implements Serializable
     }
 
     @XmlTransient
-    public Collection<Companies> getCompanies()
+    public Collection<DBCompanies> getCompanies()
     {
         return companiesCollection;
     }
 
-    public void setCompanies(Collection<Companies> companiesCollection)
+    public void setCompanies(Collection<DBCompanies> companiesCollection)
     {
         this.companiesCollection = companiesCollection;
     }
 
-    public Guests getGuests()
+    public DBGuests getGuests()
     {
         return guests;
     }
 
-    public void setGuests(Guests guests)
+    public void setGuests(DBGuests guests)
     {
         this.guests = guests;
     }
 
-    public Customers getIdCustomers()
+    public DBCustomers getIdCustomers()
     {
         return idCustomers;
     }
 
-    public void setIdCustomers(Customers idCustomers)
+    public void setIdCustomers(DBCustomers idCustomers)
     {
         this.idCustomers = idCustomers;
     }
 
-    public Addresses getIdAddresses()
+    public DBAddresses getIdAddresses()
     {
         return idAddresses;
     }
 
-    public void setIdAddresses(Addresses idAddresses)
+    public void setIdAddresses(DBAddresses idAddresses)
     {
         this.idAddresses = idAddresses;
     }
 
     @XmlTransient
-    public Collection<Reservations> getReservationsCollectio()
+    public Collection<DBReservations> getReservationsCollectio()
     {
         return reservationsCollection;
     }
 
-    public void setReservations(Collection<Reservations> reservationsCollection)
+    public void setReservations(Collection<DBReservations> reservationsCollection)
     {
         this.reservationsCollection = reservationsCollection;
     }
@@ -166,11 +166,11 @@ public class Persons implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Persons))
+        if(!(object instanceof DBPersons))
         {
             return false;
         }
-        Persons other = (Persons) object;
+        DBPersons other = (DBPersons) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

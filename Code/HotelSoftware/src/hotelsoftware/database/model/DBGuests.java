@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Guests.findById", query = "SELECT g FROM Guests g WHERE g.id = :id"),
     @NamedQuery(name = "Guests.findByBirthday", query = "SELECT g FROM Guests g WHERE g.birthday = :birthday")
 })
-public class Guests implements Serializable
+public class DBGuests implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,16 +64,16 @@ public class Guests implements Serializable
         @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<Habitations> habitationsCollection;
+    private Collection<DBHabitations> habitationsCollection;
     @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
     @OneToOne(optional = false)
-    private Persons idPersons;
+    private DBPersons idPersons;
 
-    public Guests()
+    public DBGuests()
     {
     }
 
-    public Guests(Integer id)
+    public DBGuests(Integer id)
     {
         this.id = id;
     }
@@ -99,22 +99,22 @@ public class Guests implements Serializable
     }
 
     @XmlTransient
-    public Collection<Habitations> getHabitations()
+    public Collection<DBHabitations> getHabitations()
     {
         return habitationsCollection;
     }
 
-    public void setHabitations(Collection<Habitations> habitationsCollection)
+    public void setHabitations(Collection<DBHabitations> habitationsCollection)
     {
         this.habitationsCollection = habitationsCollection;
     }
 
-    public Persons getIdPersons()
+    public DBPersons getIdPersons()
     {
         return idPersons;
     }
 
-    public void setIdPersons(Persons idPersons)
+    public void setIdPersons(DBPersons idPersons)
     {
         this.idPersons = idPersons;
     }
@@ -131,11 +131,11 @@ public class Guests implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Guests))
+        if(!(object instanceof DBGuests))
         {
             return false;
         }
-        Guests other = (Guests) object;
+        DBGuests other = (DBGuests) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

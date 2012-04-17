@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.parties;
 
-import hotelsoftware.database.model.Customers;
+import hotelsoftware.database.model.DBCustomers;
 import java.util.Collection;
 
 /**
@@ -16,7 +16,7 @@ public class Company extends Customer
     private String name;    
     private CompanyType type;
     
-    public Company(Customers costumer)
+    public Company(DBCustomers costumer)
     {
         super(costumer);
     }

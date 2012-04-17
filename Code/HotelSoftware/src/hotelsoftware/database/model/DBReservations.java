@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reservations.findByFName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
     @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)")
 })
-public class Reservations implements Serializable
+public class DBReservations implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,26 +79,26 @@ public class Reservations implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
-    private Collection<Reservationitems> reservationitemsCollection;
+    private Collection<DBReservationitems> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
-    private Collection<Reservationoptions> reservationoptionsCollection;
+    private Collection<DBReservationoptions> reservationoptionsCollection;
     @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne
     private DBUser idUsers;
     @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Persons idPersons;
+    private DBPersons idPersons;
 
-    public Reservations()
+    public DBReservations()
     {
     }
 
-    private Reservations(Integer id)
+    private DBReservations(Integer id)
     {
         this.id = id;
     }
 
-    private Reservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    private DBReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
         this.id = id;
         this.reserationNumber = reserationNumber;
@@ -107,23 +107,23 @@ public class Reservations implements Serializable
         this.created = created;
     }
 
-    public static Reservations newReservations()
+    public static DBReservations newReservations()
     {
-        return new Reservations();
+        return new DBReservations();
     }
-    public static List<Reservations> getReservationsByFName(String Fname)
+    public static List<DBReservations> getReservationsByFName(String Fname)
     {   
         //TODO: Implement
-        return new LinkedList<Reservations>();
+        return new LinkedList<DBReservations>();
     }
-    public static Reservations newReservations(Integer id)
+    public static DBReservations newReservations(Integer id)
     {
-        return new Reservations(id);
+        return new DBReservations(id);
     }
 
-    public static Reservations newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    public static DBReservations newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
-        return new Reservations(id, reserationNumber, start, end, created);
+        return new DBReservations(id, reserationNumber, start, end, created);
     }
 
     public Integer getId()
@@ -187,23 +187,23 @@ public class Reservations implements Serializable
     }
 
     @XmlTransient
-    public Collection<Reservationitems> getReservationitems()
+    public Collection<DBReservationitems> getReservationitems()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitems(Collection<Reservationitems> reservationitemsCollection)
+    public void setReservationitems(Collection<DBReservationitems> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
     @XmlTransient
-    public Collection<Reservationoptions> getReservationoptions()
+    public Collection<DBReservationoptions> getReservationoptions()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptions(Collection<Reservationoptions> reservationoptionsCollection)
+    public void setReservationoptions(Collection<DBReservationoptions> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
@@ -218,12 +218,12 @@ public class Reservations implements Serializable
         this.idUsers = idUsers;
     }
 
-    public Persons getIdPersons()
+    public DBPersons getIdPersons()
     {
         return idPersons;
     }
 
-    public void setIdPersons(Persons idPersons)
+    public void setIdPersons(DBPersons idPersons)
     {
         this.idPersons = idPersons;
     }
@@ -240,11 +240,11 @@ public class Reservations implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reservations))
+        if (!(object instanceof DBReservations))
         {
             return false;
         }
-        Reservations other = (Reservations) object;
+        DBReservations other = (DBReservations) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

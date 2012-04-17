@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.parties;
 
-import hotelsoftware.database.model.Customers;
+import hotelsoftware.database.model.DBCustomers;
 
 /**
  * 
@@ -13,14 +13,14 @@ import hotelsoftware.database.model.Customers;
 public class Customer extends Party {
     
     protected Address invoiceAddress; 
-    protected Customers costumerModel;
+    protected DBCustomers costumerModel;
 
-    public Customer(Customers costumers)
+    public Customer(DBCustomers costumers)
     {
         this.costumerModel = costumers;
     }
     
-    public Customers getCostumerModel()
+    public DBCustomers getCostumerModel()
     {
         return costumerModel;
     }

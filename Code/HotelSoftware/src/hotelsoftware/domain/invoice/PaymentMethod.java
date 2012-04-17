@@ -2,7 +2,7 @@ package hotelsoftware.domain.invoice;
 
 import hotelsoftware.database.FaildToDeleteFromDatabaseException;
 import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.model.Paymentmethods;
+import hotelsoftware.database.model.DBPaymentmethods;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.HibernateException;

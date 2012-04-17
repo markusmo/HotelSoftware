@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Addresses.findByPhone", query = "SELECT a FROM Addresses a WHERE a.phone = :phone"),
     @NamedQuery(name = "Addresses.findByFax", query = "SELECT a FROM Addresses a WHERE a.fax = :fax")
 })
-public class Addresses implements Serializable
+public class DBAddresses implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,13 +58,13 @@ public class Addresses implements Serializable
     private String fax;
     @JoinColumn(name = "idCountries", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Countries idCountries;
+    private DBCountries idCountries;
 
-    public Addresses()
+    public DBAddresses()
     {
     }
 
-    public Addresses(Integer id)
+    public DBAddresses(Integer id)
     {
         this.id = id;
     }
@@ -139,12 +139,12 @@ public class Addresses implements Serializable
         this.fax = fax;
     }
 
-    public Countries getIdCountries()
+    public DBCountries getIdCountries()
     {
         return idCountries;
     }
 
-    public void setIdCountries(Countries idCountries)
+    public void setIdCountries(DBCountries idCountries)
     {
         this.idCountries = idCountries;
     }
@@ -161,11 +161,11 @@ public class Addresses implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Addresses))
+        if(!(object instanceof DBAddresses))
         {
             return false;
         }
-        Addresses other = (Addresses) object;
+        DBAddresses other = (DBAddresses) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Companies.findById", query = "SELECT c FROM Companies c WHERE c.id = :id"),
     @NamedQuery(name = "Companies.findByName", query = "SELECT c FROM Companies c WHERE c.name = :name")
 })
-public class Companies implements Serializable
+public class DBCompanies implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,24 +51,24 @@ public class Companies implements Serializable
         @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<Persons> personsCollection;
+    private Collection<DBPersons> personsCollection;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Customers idCustomers;
+    private DBCustomers idCustomers;
     @JoinColumn(name = "idCompanyTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Companytypes idCompanyTypes;
+    private DBCompanytypes idCompanyTypes;
 
-    public Companies()
+    public DBCompanies()
     {
     }
 
-    public Companies(Integer id)
+    public DBCompanies(Integer id)
     {
         this.id = id;
     }
 
-    public Companies(Integer id, String name)
+    public DBCompanies(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -95,32 +95,32 @@ public class Companies implements Serializable
     }
 
     @XmlTransient
-    public Collection<Persons> getContactPersons()
+    public Collection<DBPersons> getContactPersons()
     {
         return personsCollection;
     }
 
-    public void setContactPersons(Collection<Persons> personsCollection)
+    public void setContactPersons(Collection<DBPersons> personsCollection)
     {
         this.personsCollection = personsCollection;
     }
 
-    public Customers getIdCustomers()
+    public DBCustomers getIdCustomers()
     {
         return idCustomers;
     }
 
-    public void setIdCustomers(Customers idCustomers)
+    public void setIdCustomers(DBCustomers idCustomers)
     {
         this.idCustomers = idCustomers;
     }
 
-    public Companytypes getIdCompanyTypes()
+    public DBCompanytypes getIdCompanyTypes()
     {
         return idCompanyTypes;
     }
 
-    public void setIdCompanyTypes(Companytypes idCompanyTypes)
+    public void setIdCompanyTypes(DBCompanytypes idCompanyTypes)
     {
         this.idCompanyTypes = idCompanyTypes;
     }
@@ -137,11 +137,11 @@ public class Companies implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Companies))
+        if(!(object instanceof DBCompanies))
         {
             return false;
         }
-        Companies other = (Companies) object;
+        DBCompanies other = (DBCompanies) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

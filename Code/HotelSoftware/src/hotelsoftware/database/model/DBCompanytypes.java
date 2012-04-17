@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Companytypes.findById", query = "SELECT c FROM Companytypes c WHERE c.id = :id"),
     @NamedQuery(name = "Companytypes.findByName", query = "SELECT c FROM Companytypes c WHERE c.name = :name")
 })
-public class Companytypes implements Serializable
+public class DBCompanytypes implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,16 +52,16 @@ public class Companytypes implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    public Companytypes()
+    public DBCompanytypes()
     {
     }
 
-    public Companytypes(Integer id)
+    public DBCompanytypes(Integer id)
     {
         this.id = id;
     }
 
-    public Companytypes(Integer id, String name)
+    public DBCompanytypes(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -99,11 +99,11 @@ public class Companytypes implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Companytypes))
+        if(!(object instanceof DBCompanytypes))
         {
             return false;
         }
-        Companytypes other = (Companytypes) object;
+        DBCompanytypes other = (DBCompanytypes) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

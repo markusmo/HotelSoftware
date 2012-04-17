@@ -40,7 +40,7 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Extraservices.findByName", query = "SELECT e FROM Extraservices e WHERE e.name = :name"),
     @NamedQuery(name = "Extraservices.findByPrice", query = "SELECT e FROM Extraservices e WHERE e.price = :price")
 })
-public class Extraservices implements Serializable
+public class DBExtraservices implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,18 +57,18 @@ public class Extraservices implements Serializable
     private BigDecimal price;
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Services idServices;
+    private DBServices idServices;
 
-    public Extraservices()
+    public DBExtraservices()
     {
     }
 
-    public Extraservices(Integer id)
+    public DBExtraservices(Integer id)
     {
         this.id = id;
     }
 
-    public Extraservices(Integer id, String name, BigDecimal price)
+    public DBExtraservices(Integer id, String name, BigDecimal price)
     {
         this.id = id;
         this.name = name;
@@ -105,12 +105,12 @@ public class Extraservices implements Serializable
         this.price = price;
     }
 
-    public Services getIdServices()
+    public DBServices getIdServices()
     {
         return idServices;
     }
 
-    public void setIdServices(Services idServices)
+    public void setIdServices(DBServices idServices)
     {
         this.idServices = idServices;
     }
@@ -127,11 +127,11 @@ public class Extraservices implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Extraservices))
+        if(!(object instanceof DBExtraservices))
         {
             return false;
         }
-        Extraservices other = (Extraservices) object;
+        DBExtraservices other = (DBExtraservices) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -139,25 +139,25 @@ public class Extraservices implements Serializable
         return true;
     }
     
-    public static List<Extraservices> getExtraServices() throws HibernateException
+    public static List<DBExtraservices> getExtraServices() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(Extraservices.class);
-        List<Extraservices> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBExtraservices.class);
+        List<DBExtraservices> retList = criteria.list();
         session.close();
 
         return retList;
     }
     
-    public static Extraservices getServiceByName(String name) throws HibernateException
+    public static DBExtraservices getServiceByName(String name) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(Extraservices.class);
-        Extraservices extraService = (Extraservices) session.createCriteria(Extraservices.class).add(Restrictions.eq(
+        Criteria criteria = session.createCriteria(DBExtraservices.class);
+        DBExtraservices extraService = (DBExtraservices) session.createCriteria(DBExtraservices.class).add(Restrictions.eq(
                 "name", name)).uniqueResult();
         session.close();
 

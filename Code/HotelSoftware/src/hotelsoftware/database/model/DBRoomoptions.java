@@ -4,61 +4,76 @@
  */
 package hotelsoftware.database.model;
 
-import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author mohi
  */
 @Entity
-@Table(name = "services", catalog = "roomanizer", schema = "")
+@Table(name = "roomoptions", catalog = "roomanizer", schema = "", uniqueConstraints =
+{
+    @UniqueConstraint(columnNames =
+    {
+        "name"
+    })
+})
 @XmlRootElement
 @NamedQueries(
 {
-    @NamedQuery(name = "Services.findAll", query = "SELECT s FROM Services s"),
-    @NamedQuery(name = "Services.findById", query = "SELECT s FROM Services s WHERE s.id = :id")
+    @NamedQuery(name = "Roomoptions.findAll", query = "SELECT r FROM Roomoptions r"),
+    @NamedQuery(name = "Roomoptions.findById", query = "SELECT r FROM Roomoptions r WHERE r.id = :id"),
+    @NamedQuery(name = "Roomoptions.findByName", query = "SELECT r FROM Roomoptions r WHERE r.name = :name")
 })
-public class Services implements Serializable
+public class DBRoomoptions implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    public static void safeNewRoomOption(String name)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public static void getRoomoptions()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private Servicetypes idServiceTypes;
+    @Basic(optional = false)
+    @Column(name = "name", nullable = false, length = 255)
+    private String name;
 
-    public Services()
+    public DBRoomoptions()
     {
     }
 
-    public Services(Integer id)
+    public DBRoomoptions(Integer id)
     {
         this.id = id;
+    }
+
+    public DBRoomoptions(Integer id, String name)
+    {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId()
@@ -71,14 +86,14 @@ public class Services implements Serializable
         this.id = id;
     }
 
-    public Servicetypes getIdServiceTypes()
+    public String getName()
     {
-        return idServiceTypes;
+        return name;
     }
 
-    public void setIdServiceTypes(Servicetypes idServiceTypes)
+    public void setName(String name)
     {
-        this.idServiceTypes = idServiceTypes;
+        this.name = name;
     }
 
     @Override
@@ -93,24 +108,22 @@ public class Services implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Services))
+        if(!(object instanceof DBRoomoptions))
         {
             return false;
         }
-        Services other = (Services) object;
+        DBRoomoptions other = (DBRoomoptions) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
         return true;
     }
-    
-    
 
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Services[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
     }
     
 }

@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Extraservices;
+import hotelsoftware.database.model.DBExtraservices;
 import java.util.Collection;
 import java.util.LinkedList;
 

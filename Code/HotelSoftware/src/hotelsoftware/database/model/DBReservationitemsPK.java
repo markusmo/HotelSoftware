@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author mohi
  */
 @Embeddable
-public class ReservationitemsPK implements Serializable
+public class DBReservationitemsPK implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "idReservations", nullable = false)
@@ -23,11 +23,11 @@ public class ReservationitemsPK implements Serializable
     @Column(name = "idRoomCategories", nullable = false)
     private int idRoomCategories;
 
-    public ReservationitemsPK()
+    public DBReservationitemsPK()
     {
     }
 
-    public ReservationitemsPK(int idReservations, int idRoomCategories)
+    public DBReservationitemsPK(int idReservations, int idRoomCategories)
     {
         this.idReservations = idReservations;
         this.idRoomCategories = idRoomCategories;
@@ -66,11 +66,11 @@ public class ReservationitemsPK implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof ReservationitemsPK))
+        if(!(object instanceof DBReservationitemsPK))
         {
             return false;
         }
-        ReservationitemsPK other = (ReservationitemsPK) object;
+        DBReservationitemsPK other = (DBReservationitemsPK) object;
         if(this.idReservations != other.idReservations)
         {
             return false;

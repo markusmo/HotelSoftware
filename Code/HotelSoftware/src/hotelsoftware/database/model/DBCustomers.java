@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c"),
     @NamedQuery(name = "Customers.findById", query = "SELECT c FROM Customers c WHERE c.id = :id")
 })
-public class Customers implements Serializable
+public class DBCustomers implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,20 +43,20 @@ public class Customers implements Serializable
     @Column(name = "id", nullable = false)
     private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
-    private Collection<Invoices> invoicesCollection;
+    private Collection<DBInvoices> invoicesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
-    private Collection<Companies> companiesCollection;
+    private Collection<DBCompanies> companiesCollection;
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Addresses idAddresses;
+    private DBAddresses idAddresses;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
-    private Collection<Persons> personsCollection;
+    private Collection<DBPersons> personsCollection;
 
-    public Customers()
+    public DBCustomers()
     {
     }
 
-    public Customers(Integer id)
+    public DBCustomers(Integer id)
     {
         this.id = id;
     }
@@ -72,44 +72,44 @@ public class Customers implements Serializable
     }
 
     @XmlTransient
-    public Collection<Invoices> getInvoices()
+    public Collection<DBInvoices> getInvoices()
     {
         return invoicesCollection;
     }
 
-    public void setInvoices(Collection<Invoices> invoicesCollection)
+    public void setInvoices(Collection<DBInvoices> invoicesCollection)
     {
         this.invoicesCollection = invoicesCollection;
     }
 
     @XmlTransient
-    public Collection<Companies> getCompanies()
+    public Collection<DBCompanies> getCompanies()
     {
         return companiesCollection;
     }
 
-    public void setCompanies(Collection<Companies> companiesCollection)
+    public void setCompanies(Collection<DBCompanies> companiesCollection)
     {
         this.companiesCollection = companiesCollection;
     }
 
-    public Addresses getIdAddresses()
+    public DBAddresses getIdAddresses()
     {
         return idAddresses;
     }
 
-    public void setIdAddresses(Addresses idAddresses)
+    public void setIdAddresses(DBAddresses idAddresses)
     {
         this.idAddresses = idAddresses;
     }
 
     @XmlTransient
-    public Collection<Persons> getPersons()
+    public Collection<DBPersons> getPersons()
     {
         return personsCollection;
     }
 
-    public void setPersons(Collection<Persons> personsCollection)
+    public void setPersons(Collection<DBPersons> personsCollection)
     {
         this.personsCollection = personsCollection;
     }
@@ -126,11 +126,11 @@ public class Customers implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Customers))
+        if(!(object instanceof DBCustomers))
         {
             return false;
         }
-        Customers other = (Customers) object;
+        DBCustomers other = (DBCustomers) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

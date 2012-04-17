@@ -56,7 +56,7 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Invoices.findByFulfilled", query = "SELECT i FROM Invoices i WHERE i.fulfilled = :fulfilled"),
     @NamedQuery(name = "Invoices.findByCreated", query = "SELECT i FROM Invoices i WHERE i.created = :created")
 })
-public class Invoices implements Serializable
+public class DBInvoices implements Serializable
 {
 
     private static final long serialVersionUID = 1L;
@@ -83,29 +83,29 @@ public class Invoices implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
-    private Collection<Invoiceitems> invoiceitemsCollection;
+    private Collection<DBInvoiceitems> invoiceitemsCollection;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Paymentmethods idpaymentMethods;
+    private DBPaymentmethods idpaymentMethods;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Customers idCustomers;
+    private DBCustomers idCustomers;
 
-    public Invoices()
+    public DBInvoices()
     {
     }
 
-    public Invoices(Integer id)
+    public DBInvoices(Integer id)
     {
         this.id = id;
     }
 
-    public Invoices(String invoiceNumber, BigDecimal discount, Date expiration,
-            boolean fulfilled, Date created, Paymentmethods idpaymentMethods,
-            DBUser idUsers, Customers idCustomers)
+    public DBInvoices(String invoiceNumber, BigDecimal discount, Date expiration,
+            boolean fulfilled, Date created, DBPaymentmethods idpaymentMethods,
+            DBUser idUsers, DBCustomers idCustomers)
     {
         this.invoiceNumber = invoiceNumber;
         this.discount = discount;
@@ -117,7 +117,7 @@ public class Invoices implements Serializable
         this.idCustomers = idCustomers;
     }
 
-    public Invoices(Integer id, String invoiceNumber, Date expiration,
+    public DBInvoices(Integer id, String invoiceNumber, Date expiration,
             boolean fulfilled, Date created)
     {
         this.id = id;
@@ -188,23 +188,23 @@ public class Invoices implements Serializable
     }
 
     @XmlTransient
-    public Collection<Invoiceitems> getInvoiceitems()
+    public Collection<DBInvoiceitems> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
     public void setInvoiceitems(
-            Collection<Invoiceitems> invoiceitemsCollection)
+            Collection<DBInvoiceitems> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
-    public Paymentmethods getIdpaymentMethods()
+    public DBPaymentmethods getIdpaymentMethods()
     {
         return idpaymentMethods;
     }
 
-    public void setIdpaymentMethods(Paymentmethods idpaymentMethods)
+    public void setIdpaymentMethods(DBPaymentmethods idpaymentMethods)
     {
         this.idpaymentMethods = idpaymentMethods;
     }
@@ -219,12 +219,12 @@ public class Invoices implements Serializable
         this.idUsers = idUsers;
     }
 
-    public Customers getIdCustomers()
+    public DBCustomers getIdCustomers()
     {
         return idCustomers;
     }
 
-    public void setIdCustomers(Customers idCustomers)
+    public void setIdCustomers(DBCustomers idCustomers)
     {
         this.idCustomers = idCustomers;
     }
@@ -238,12 +238,12 @@ public class Invoices implements Serializable
      * a invoice
      * @throws HibernateException 
      */
-    public static Invoices getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
+    public static DBInvoices getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Invoices retInvoices = (Invoices) session.createCriteria(Invoices.class).add(Restrictions.eq(
+        DBInvoices retInvoices = (DBInvoices) session.createCriteria(DBInvoices.class).add(Restrictions.eq(
                 "invoiceNumber",
                 invoicenumber)).uniqueResult();
         session.close();
@@ -256,7 +256,7 @@ public class Invoices implements Serializable
      * the invoice to be saved
      * @throws FailedToSaveToDatabaseException 
      */
-    public static void saveInvoice(Invoices invoice) throws FailedToSaveToDatabaseException
+    public static void saveInvoice(DBInvoices invoice) throws FailedToSaveToDatabaseException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -287,11 +287,11 @@ public class Invoices implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Invoices))
+        if (!(object instanceof DBInvoices))
         {
             return false;
         }
-        Invoices other = (Invoices) object;
+        DBInvoices other = (DBInvoices) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
                 other.id)))
         {
