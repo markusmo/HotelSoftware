@@ -5,6 +5,7 @@
 package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.service.ExtraService;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +25,10 @@ public class OptionsState extends CheckInState
     }
     
     @Override
-    public List<ExtraServiceData> getServices()
+    public Collection<ExtraServiceData> getServices()
     {
-        List<ExtraService> services = Service.getAllServices();
-        List<ExtraServiceData> serviceData = new LinkedList<ExtraServiceData>();
+        Collection<ExtraService> services = Service.getAllServices();
+        Collection<ExtraServiceData> serviceData = new LinkedList<ExtraServiceData>();
         
         for (service : services)
         {
@@ -38,7 +39,7 @@ public class OptionsState extends CheckInState
     }
     
     @Override
-    public void selectServices(Map<ExtraService, Integer> services)
+    public void selectServices(Map<ExtraServiceData, Integer> services)
     {
         for (Entry<ExtraService, Integer> entry : services.entrySet())
         {

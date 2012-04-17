@@ -4,6 +4,8 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.datainterfaces.GuestData;
+import hotelsoftware.model.domain.parties.Guest;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ChangeReservationDataState extends ChangeDataState
         List<Guest> guests = reservation.getAllGuests();
         List<GuestData> guestData = new LinkedList<GuestData>();
         
-        for (guest : guests)
+        for (Guest guest : guests)
         {
             guestData.add(guest);
         }
