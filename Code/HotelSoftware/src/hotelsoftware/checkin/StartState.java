@@ -6,6 +6,7 @@ package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.reservation.Reservation;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import java.util.List;
  */
 public class StartState extends CheckInState
 {
-
     /**
      * Sucht nach einer Reservierung
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
@@ -32,10 +32,10 @@ public class StartState extends CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public List<ReservationData> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName)
     {
-        List<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-        List<ReservationData> reservationData = new LinkedList<ReservationData>();
+        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
         
         for (Reservation reservation: reservations)
         {
@@ -53,10 +53,8 @@ public class StartState extends CheckInState
     {
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
-        
-        
-        
-        context.setState(new ChangeDataState());
+                
+        context.setState(new ChangeReservationDataState());
     }
     
     /**
@@ -71,7 +69,7 @@ public class StartState extends CheckInState
         this.startDate = start;
         this.endDate = end;
         
-        context.setState(new ChangeDataState());
+        context.setState(new ChangeWalkInDataState());
     }
     
     /**
@@ -88,6 +86,6 @@ public class StartState extends CheckInState
         cal.add(Calendar.DAY_OF_YEAR, days);
         this.endDate = cal.getTime();
         
-        context.setState(new ChangeDataState());
+        context.setState(new ChangeWalkInDataState());
     }    
 }

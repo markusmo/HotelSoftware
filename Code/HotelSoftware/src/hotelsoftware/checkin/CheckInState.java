@@ -1,5 +1,6 @@
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -7,6 +8,7 @@ import hotelsoftware.model.domain.room.Category;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.Habitation;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,7 @@ public abstract class CheckInState
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
      * @return Die zur Reservierungsnummer gehörende Reservierung 
      */
-    public Reservation search(int reservationNr)
+    public ReservationData search(int reservationNr)
     {
         throw new IllegalStateException();
     }
@@ -46,7 +48,7 @@ public abstract class CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public List<Reservation> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName)
     {
         throw new IllegalStateException();
     }
@@ -55,7 +57,7 @@ public abstract class CheckInState
      * Wählt eine Reservierung aus die abgearbeitet werden soll
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
-    public void workWithReservation(Reservation reservation)
+    public void workWithReservation(ReservationData reservation)
     {
         throw new IllegalStateException();
     }
@@ -96,7 +98,7 @@ public abstract class CheckInState
      * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
      * @return Alle bereits erfassten Gäste die einchecken
      */
-    public List<Guest> getGuests()
+    public Collection<GuestData> getGuests()
     {
         throw new IllegalStateException();
     }
@@ -110,7 +112,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der Gast mit den geänderten Daten
      */
-    public Guest changeGuestData(Guest guest, String firstName, String lastName, Date birthday, Address address)
+    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, Address address)
     {
         throw new IllegalStateException();
     }
@@ -123,7 +125,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    public Guest addGuest(String firstName, String lastName, Date birthday, Address address)
+    public GuestData addGuest(String firstName, String lastName, Date birthday, AddressData address)
     {
         throw new IllegalStateException();
     }
@@ -133,7 +135,7 @@ public abstract class CheckInState
      * @param guest Der Gast der zugeteilt werden soll
      * @param room Das Zimmer das dem Gast zugeteilt wird
      */
-    public void assignRoom(Guest guest, Room room)
+    public void assignRoom(GuestData guest, RoomData room)
     {
         throw new IllegalStateException();
     }
@@ -164,7 +166,7 @@ public abstract class CheckInState
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public List<Room> changeRoomCategory(int selectionIndex, Category category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
         throw new IllegalStateException();
     }
@@ -192,7 +194,7 @@ public abstract class CheckInState
      * Gibt eine Liste der möglichen Extraleistungen aus
      * @return Die Liste mit den Extrleistungen
      */
-    public List<ExtraService> getServices()
+    public Collection<ExtraServiceData> getServices()
     {
         throw new IllegalStateException();
     }
@@ -201,7 +203,7 @@ public abstract class CheckInState
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Map<ExtraService, Integer> services)
+    public void selectServices(Map<ExtraServiceData, Integer> services)
     {
         throw new IllegalStateException();
     }
