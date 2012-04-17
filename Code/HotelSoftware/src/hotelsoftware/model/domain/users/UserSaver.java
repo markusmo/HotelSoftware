@@ -36,49 +36,64 @@ public class UserSaver
     {
         private static final UserSaver INSTANCE = new UserSaver();
     }
-    
+
     public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
+        Session session = null;
+        Transaction ts = null;
+                
         try
         {
-            for (Permission permission : permissions)
-            {                
-                DBPermission dbp = (DBPermission) DynamicMapper.map(permission);
-
-                session.saveOrUpdate(dbp);
-                permission.setId(dbp.getId());
-            }
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            ts = session.beginTransaction();
+            ts.begin();
+        
+            saveOrUpdate(session, users, roles, permissions);
             
-            for (Role role : roles)
-            {
-                DBRole dbr = (DBRole) DynamicMapper.map(role);
-
-                session.saveOrUpdate(dbr);
-                role.setId(dbr.getId());
-            }
-            
-            for (User user : users)
-            {
-                DBUser dbu = (DBUser) DynamicMapper.map(user);
-
-                session.saveOrUpdate(dbu);
-                user.setId(dbu.getId());
-            }
-
             ts.commit();
         }
         catch (HibernateException ex)
         {
-            ts.rollback();
+            if (ts != null)
+            {
+                ts.rollback();
+            }
+            
             throw new FailedToSaveToDatabaseException();
         }
         finally
         {
-            session.close();
+            if (session != null)
+            {
+                session.close();
+            }
+        }
+    }
+    
+    public void saveOrUpdate(Session session, Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
+    {
+        for (Permission permission : permissions)
+        {                
+            DBPermission dbp = (DBPermission) DynamicMapper.map(permission);
+
+            session.saveOrUpdate(dbp);
+            permission.setId(dbp.getId());
+        }
+
+        for (Role role : roles)
+        {
+            DBRole dbr = (DBRole) DynamicMapper.map(role);
+
+            session.saveOrUpdate(dbr);
+            role.setId(dbr.getId());
+        }
+
+        for (User user : users)
+        {
+            DBUser dbu = (DBUser) DynamicMapper.map(user);
+
+            session.saveOrUpdate(dbu);
+            user.setId(dbu.getId());
         }
     }
     
