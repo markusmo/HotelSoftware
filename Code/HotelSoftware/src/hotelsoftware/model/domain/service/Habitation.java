@@ -4,35 +4,74 @@
  */
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.users.User;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Habitation
+public class Habitation extends Service
 {
+    private Integer id;
     private Date start;
     private Date end;
     private Date created;
-    private DBHabitation model;
-    private List<InvoiceItem> invoiceItem;
-    private List<Room> rooms;
-    private List<Guest> guests;
+    private Collection<Guest> guestsCollection;
+    private Room idRooms;
+    private User idUsers;
+    private Collection<InvoiceItem> invoiceItems;
 
-    public Habitation(DBHabitation habitation)
-    {
-        this.model = habitation;
+    
+    public Habitation(){
+        
+    }
+    
+    private Habitation(Date start, Date end){
+        this.start = start;
+        this.end = end;
+    }
+    
+    private Habitation(Date start, Date end, Date created, BigDecimal price, Room room, User user){
+        super();
+        this.start = start;
+        this.end = end;
+        this.created = created;
+        super.setPrice(price);
+        this.idRooms = room;
+        this.guestsCollection = new LinkedList<Guest>();
+        this.idUsers = user;
+        this.invoiceItems = new LinkedList<InvoiceItem>();
+    }
+    
+    public static Habitation createHabitation(Date start, Date end){
+        return new Habitation(start, end);
+    }
+    
+    public static Habitation createWithReservationData(Reservation reservation){
+        Habitation habitation = new Habitation();
+        habitation.setStart(reservation.getStart());
+        habitation.setEnd(reservation.getEnd());
+        habitation.setIdUsers(LoginController.getInstance().getCurrentUser());
+        return habitation;
+    }
+    
+     public Integer getId() {
+        return id;
     }
 
-    public DBHabitation getModel()
-    {
-        return model;
+    public void setId(Integer id) {
+        if (id == null){
+            this.id = id;
+        } 
     }
 
     /**
@@ -64,6 +103,20 @@ public class Habitation
     }
 
     /**
+     * @return the price
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    /**
      * @return the created
      */
     public Date getCreated() {
@@ -78,63 +131,66 @@ public class Habitation
     }
 
     /**
-     * @param model the model to set
+     * @return the guestsCollection
      */
-    public void setModel(DBHabitation model) {
-        this.model = model;
+    public Collection<Guest> getGuestsCollection() {
+        return guestsCollection;
     }
 
     /**
-     * @return the guest
+     * @param guestsCollection the guestsCollection to set
      */
-    public List<InvoiceItem> getInvoiceItem() {
-        return invoiceItem;
+    public void setGuestsCollection(Collection<Guest> guestsCollection) {
+        this.guestsCollection = guestsCollection;
     }
 
     /**
-     * @param guest the guest to set
+     * @return the idRooms
      */
-    public void setInvoiceItem(List<InvoiceItem> InvoiceItem) {
-        this.setInvoiceItem(InvoiceItem);
+    public Room getIdRooms() {
+        return idRooms;
     }
 
     /**
-     * @param invoiceItem the invoiceItem to set
+     * @param idRooms the idRooms to set
      */
-
-    /**
-     * @return the rooms
-     */
-    public List<Room> getRooms() {
-        return rooms;
+    public void setIdRooms(Room idRooms) {
+        this.idRooms = idRooms;
     }
 
     /**
-     * @param rooms the rooms to set
+     * @return the idUsers
      */
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public User getIdUsers() {
+        return idUsers;
     }
 
     /**
-     * @return the guests
+     * @param idUsers the idUsers to set
      */
-    public List<Guest> getGuests() {
-        return guests;
+    public void setIdUsers(User idUsers) {
+        this.idUsers = idUsers;
     }
 
     /**
-     * @param guests the guests to set
+     * @return the invoiceItems
      */
-    public void setGuests(List<Guest> guests) {
-        this.guests = guests;
+    public Collection<InvoiceItem> getInvoiceItems() {
+        return invoiceItems;
     }
-    
-    public void addGuest(Guest newGuest){
-        guests.add(newGuest);
+
+    /**
+     * @param invoiceItems the invoiceItems to set
+     */
+    public void setInvoiceItems(Collection<InvoiceItem> invoiceItems) {
+        this.invoiceItems = invoiceItems;
     }
     
     public void addInvoiceItem(InvoiceItem newInvoiceItem){
-        invoiceItem.add(newInvoiceItem);
+        invoiceItems.add(newInvoiceItem);
+    }
+    
+    public void addGuest(Guest guest){
+        guestsCollection.add(guest);
     }
 }

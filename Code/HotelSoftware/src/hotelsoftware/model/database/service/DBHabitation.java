@@ -4,33 +4,22 @@
  */
 package hotelsoftware.model.database.service;
 
+import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.database.room.DBRooms;
-import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.invoice.DBInvoiceitems;
+import hotelsoftware.model.domain.parties.Guest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -46,7 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Habitations.findByStart", query = "SELECT h FROM Habitations h WHERE h.start = :start"),
     @NamedQuery(name = "Habitations.findByEnd", query = "SELECT h FROM Habitations h WHERE h.end = :end"),
     @NamedQuery(name = "Habitations.findByPrice", query = "SELECT h FROM Habitations h WHERE h.price = :price"),
-    @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created")
+    @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created"),
+    @NamedQuery(name = "Habitations.findByGuest", query = "Select * "
+                + "From habitations h inner join allocation a on h.id = a.idHabitations "
+                + "inner join guests g on a.idGuests = g.id "
+                + "where g.id = :guestId AND"
+                + "h.start >= CURRENT_DATE")
 })
 public class DBHabitation implements Serializable
 {
@@ -74,8 +68,6 @@ public class DBHabitation implements Serializable
     private Date created;
     @ManyToMany(mappedBy = "habitationsCollection")
     private Collection<DBGuest> guestsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
-    private Collection<DBInvoiceitems> invoiceitemsCollection;
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRooms idRooms;
@@ -85,6 +77,9 @@ public class DBHabitation implements Serializable
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBService idServices;
+    @OneToMany
+    @JoinColumn(name = "idInvoiceItemCollection", referencedColumnName = "idHabitations")
+    private Collection<DBInvoiceitems> invoiceItemCollection;
 
     public DBHabitation()
     {
@@ -168,12 +163,12 @@ public class DBHabitation implements Serializable
     @XmlTransient
     public Collection<DBInvoiceitems> getInvoiceitems()
     {
-        return invoiceitemsCollection;
+        return invoiceItemCollection;
     }
 
     public void setInvoiceitems(Collection<DBInvoiceitems> invoiceitemsCollection)
     {
-        this.invoiceitemsCollection = invoiceitemsCollection;
+        this.invoiceItemCollection = invoiceitemsCollection;
     }
 
     public DBRooms getIdRooms()
@@ -236,4 +231,16 @@ public class DBHabitation implements Serializable
         return "hotelsoftware.database.model.Habitations[ id=" + id + " ]";
     }
     
+    public static DBHabitation getActualHabitationByGuest(DBGuest guest){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Query namedQuery = session.getNamedQuery("Habitations.findByGuest");
+        
+        namedQuery.setString("guestId", guest.getId().toString());
+        DBHabitation habitation = (DBHabitation)namedQuery.uniqueResult();
+        session.close();
+        
+        return habitation;
+    }
 }

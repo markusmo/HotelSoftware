@@ -7,6 +7,7 @@ package hotelsoftware.model.database.service;
 import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -151,17 +152,24 @@ public class DBExtraService implements Serializable
         return retList;
     }
     
-    public static DBExtraService getServiceByName(String name) throws HibernateException
+    public static DBExtraService getExtraServiceByName(String name) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(DBExtraService.class);
-        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq(
-                "name", name)).uniqueResult();
+        DBExtraService extraService = (DBExtraService)session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
         session.close();
-
         return extraService;
+    }
+    
+    public static Collection<DBExtraService> getAllExtraServices()throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Collection<DBExtraService> extraServices = (Collection<DBExtraService>)session.createCriteria(DBExtraService.class).list();
+        session.close();
+        return extraServices;
     }
     
     @Override

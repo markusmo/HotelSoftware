@@ -28,6 +28,7 @@ public class Reservation
     private Reservation()
     {
     }
+    
     public static Reservation newReservation()
     {
         return new Reservation();
@@ -109,4 +110,6 @@ public class Reservation
     {
         this.start = start;
     }
+    
+    private Invoice getInvoice
 }

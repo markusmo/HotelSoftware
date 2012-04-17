@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.database.service;
 
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -21,6 +22,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -134,4 +138,12 @@ public class DBServiceType implements Serializable
         return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
     }
     
+    public static Collection<DBServiceType> getAllServiceTypes(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Collection<DBServiceType> serviceType = (Collection<DBServiceType>)session.createCriteria(DBServiceType.class).list();
+        session.close();
+        return serviceType;
+    }
 }
