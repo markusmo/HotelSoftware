@@ -4,6 +4,8 @@
  */
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.service.DBExtraService;
 import java.math.BigDecimal;
 import java.util.Collection;
 
@@ -15,14 +17,22 @@ public class ExtraService extends Service
 {
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ExtraService()
+    {
+    }
+    
     private ExtraService(String name, BigDecimal price, ServiceType type)
     {
         super(price, type);
         this.name = name;
-    }
-
-    private ExtraService()
-    {
     }
 
     public static ExtraService createExtraService(String name, BigDecimal price, ServiceType type)
@@ -32,6 +42,17 @@ public class ExtraService extends Service
 
     public static Collection<ExtraService> getAllExtraServices()
     {
-        return null;
+        Collection<ExtraService> extraServices = (Collection<ExtraService>)DynamicMapper.map(DBExtraService.getAllExtraServices());
+        return extraServices;
+    }
+    
+    public static ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException {
+        ExtraService extraService = (ExtraService)DynamicMapper.map(DBExtraService.getExtraServiceByName(name));
+        
+        if (extraService == null){
+            throw new ServiceNotFoundException();
+        }
+        
+        return extraService;
     }
 }

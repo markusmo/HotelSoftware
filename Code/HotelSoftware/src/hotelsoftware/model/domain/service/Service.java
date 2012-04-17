@@ -13,11 +13,28 @@ import java.math.BigDecimal;
  */
 public abstract class Service
 {
+    private Integer id;
     protected BigDecimal price;    
     protected ServiceType serviceType;
     
     Service()
     {
+    }
+    
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        if (id == null){
+            this.id = id;
+        } 
     }
     
     protected Service(BigDecimal price, ServiceType serviceType){
@@ -53,4 +70,5 @@ public abstract class Service
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
+
 }
