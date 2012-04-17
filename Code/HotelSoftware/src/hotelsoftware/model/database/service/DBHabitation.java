@@ -4,17 +4,11 @@
  */
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.database.room.DBRooms;
-<<<<<<< HEAD
-import hotelsoftware.model.database.invoice.DBInvoiceitems;
-import hotelsoftware.model.domain.parties.Guest;
-=======
-import hotelsoftware.model.database.service.DBService;
+import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.invoice.DBInvoiceitem;
->>>>>>> created and moved files
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -73,11 +67,8 @@ public class DBHabitation implements Serializable
     private Date created;
     @ManyToMany(mappedBy = "habitationsCollection")
     private Collection<DBGuest> guestsCollection;
-<<<<<<< HEAD
-=======
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
     private Collection<DBInvoiceitem> invoiceitemsCollection;
->>>>>>> created and moved files
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRooms idRooms;
@@ -89,7 +80,7 @@ public class DBHabitation implements Serializable
     private DBService idServices;
     @OneToMany
     @JoinColumn(name = "idInvoiceItemCollection", referencedColumnName = "idHabitations")
-    private Collection<DBInvoiceitems> invoiceItemCollection;
+    private Collection<DBInvoiceitem> invoiceItemCollection;
 
     public DBHabitation()
     {

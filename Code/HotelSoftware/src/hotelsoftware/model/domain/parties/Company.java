@@ -4,16 +4,8 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.database.parties.DBCustomer;
-import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.UserFacade;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 

@@ -5,6 +5,7 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.database.reservation.DBReservations;
+import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Party;
 import java.util.Collection;
 import java.util.Date;
@@ -111,5 +112,5 @@ public class Reservation
         this.start = start;
     }
     
-    private Invoice getInvoice
+    private Invoice getInvoice;
 }

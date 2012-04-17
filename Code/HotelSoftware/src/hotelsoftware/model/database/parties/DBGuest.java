@@ -4,8 +4,8 @@
  */
 package hotelsoftware.model.database.parties;
 
-import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -29,6 +29,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -183,7 +187,7 @@ public class DBGuest implements Serializable
 		List<DBGuest> retList = criteria.list();
 		session.close();
 
-		
+		return retList;
 	}
     
 }

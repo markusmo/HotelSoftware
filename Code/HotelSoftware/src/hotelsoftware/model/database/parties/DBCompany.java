@@ -4,16 +4,9 @@
  */
 package hotelsoftware.model.database.parties;
 
-import hotelsoftware.database.HibernateUtil;
-import hotelsoftware.model.database.users.Criteria;
-import hotelsoftware.model.database.users.DBPermission;
-import hotelsoftware.model.database.users.HibernateException;
-import hotelsoftware.model.database.users.Session;
-import hotelsoftware.model.database.users.Transaction;
-
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,6 +21,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * 
@@ -146,7 +144,7 @@ public class DBCompany implements Serializable {
 		ts.begin();
 		Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(
                 "name", name));
-		return criteria.uniqueResult();
+		return (DBCompany) criteria.uniqueResult();
 	}
 
 }

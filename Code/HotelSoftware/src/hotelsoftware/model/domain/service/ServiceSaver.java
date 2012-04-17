@@ -4,12 +4,11 @@
  */
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBServiceType;
-import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
