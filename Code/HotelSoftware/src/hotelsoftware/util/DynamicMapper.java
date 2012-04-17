@@ -26,19 +26,29 @@ public class DynamicMapper
      * 
      * Die Getter und Setter müssen getXYZ bzw setXYZ heißen und public sein
      */
-    public static <T, U> U map(T urObject, Class newObjectClass)
+    public static Object map(Object urObject)
     {
         try
         {
-            U returnvalue = (U)newObjectClass.newInstance();
+            Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
+            Object returnvalue = newClass.newInstance();
+            
             for (Method m : returnvalue.getClass().getMethods())
             {
                 if (m.getName().startsWith("set"))
                 {
                     Method m2 = getMethod(m, urObject);
+                    
                     if (m2 != null)
                     {
-                        m.invoke(returnvalue, m2.invoke(urObject));
+                        if (m2.getReturnType().equals(Collection.class))
+                        {
+                            m.invoke(returnvalue, mapCollection((Collection)m2.invoke(urObject)));
+                        }
+                        else
+                        {
+                            m.invoke(returnvalue, m2.invoke(urObject));
+                        }
                     }
                 }
             }
@@ -50,15 +60,32 @@ public class DynamicMapper
         }
     }
     
-    public static <T, U> Collection<U> mapCollection(Collection<T> urCollection, Class newObjectClass)
+    private static String convertClassName(String name)
+    {
+        int index = name.lastIndexOf('.') + 1;
+        String pkg = name.substring(0, index);
+        String cls = name.substring(index);
+        
+        if (cls.startsWith("DB"))
+        {
+            return "hotelsoftware.domain.users." + cls.substring("DB".length());
+        }
+        else
+        {
+            return "hotelsoftware.database.model." + "DB" + cls;
+        }
+    }
+    
+    public static Collection mapCollection(Collection urCollection)
     {
         try
         {
-            Collection<U> returnValue = new LinkedList<U>();
+            Collection returnValue = new LinkedList();
             
-            for (T obj : urCollection)
+            for (Object obj : urCollection)
             {
-                returnValue.add((U) map(obj, newObjectClass));
+                //Class newClass = Class.forName(convertClassName(obj.getClass().getName()));
+                returnValue.add(map(obj));
             }
             
             return returnValue;
