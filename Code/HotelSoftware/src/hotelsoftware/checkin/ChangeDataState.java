@@ -4,6 +4,7 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.room.Category;
@@ -20,7 +21,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, AddressData address)
     {
-        Guest g = (Guest)GuestData;
+        Guest g = (Guest)guest;
         g.setFirstName(firstName);
         g.setLasttName(lastName);
         g.setBirthday(birthday);

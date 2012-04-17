@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Date;
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Guest extends Party
+public class Guest extends Party implements GuestData
 {
     private Date birthday;
     private Collection<Habitation> habitations;

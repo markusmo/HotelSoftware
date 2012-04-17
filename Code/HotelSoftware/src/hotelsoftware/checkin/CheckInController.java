@@ -28,19 +28,4 @@ public class CheckInController
     {
         state = new StartState();
     }
-    
-    /**
-     * Ruft den nächsten Schritt auf
-     */
-    public abstract void nextStep();
-    
-    /**
-     * Geht einen Schritt zurück
-     */
-    public abstract void previousStep();
-    
-    void setState(CheckInState state)
-    {
-        this.state = state;
-    }
 }
