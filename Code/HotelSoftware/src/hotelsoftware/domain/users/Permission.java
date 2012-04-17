@@ -24,7 +24,7 @@ public class Permission
         return name;
     }
 
-    void setPermission(String permission)
+    void setName(String permission)
     {
         this.name = permission;
     }

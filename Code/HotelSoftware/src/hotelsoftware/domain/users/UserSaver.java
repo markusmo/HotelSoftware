@@ -129,4 +129,57 @@ public class UserSaver
             session.close();
         }
     }
+    
+    public void rollback(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        for (User user : users)
+        {
+            DBUser dbu;
+
+            if (user.getId() != null)
+            {
+                dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
+                    user.getId())).uniqueResult();
+                
+                user.setUsername(dbu.getUsername());
+                user.setPassword(dbu.getPassword());
+
+                Collection<Role> newRoles = DynamicMapper.mapCollection(dbu.getRoles(), Role.class);
+                user.setRoles(newRoles);
+            }
+        }
+        
+        for (Role role : roles)
+        {
+            DBRole dbr;
+
+            if (role.getId() != null)
+            {
+                dbr = (DBRole) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
+                    role.getId())).uniqueResult();
+                
+                role.setName(dbr.getName());
+
+                Collection<Permission> newRoles = DynamicMapper.mapCollection(dbr.getPermissions(), Permission.class);
+                role.setPermissions(newRoles);
+            }
+        }
+        
+        for (Permission permission : permissions)
+        {
+            DBPermission dbp;
+
+            if (permission.getId() != null)
+            {
+                dbp = (DBPermission) session.createCriteria(DBRole.class).add(Restrictions.eq("id", 
+                    permission.getId())).uniqueResult();
+                
+                permission.setName(dbp.getName());
+            }
+        }
+    }
 }
