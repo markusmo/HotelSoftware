@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Habitations;
+import hotelsoftware.database.model.DBHabitations;
 import hotelsoftware.domain.invoice.InvoiceItem;
 import hotelsoftware.domain.parties.Guest;
 import hotelsoftware.domain.room.Room;
@@ -20,17 +20,17 @@ public class Habitation
     private Date start;
     private Date end;
     private Date created;
-    private Habitations model;
+    private DBHabitations model;
     private List<InvoiceItem> invoiceItem;
     private List<Room> rooms;
     private List<Guest> guests;
 
-    public Habitation(Habitations habitation)
+    public Habitation(DBHabitations habitation)
     {
         this.model = habitation;
     }
 
-    public Habitations getModel()
+    public DBHabitations getModel()
     {
         return model;
     }
@@ -80,7 +80,7 @@ public class Habitation
     /**
      * @param model the model to set
      */
-    public void setModel(Habitations model) {
+    public void setModel(DBHabitations model) {
         this.model = model;
     }
 

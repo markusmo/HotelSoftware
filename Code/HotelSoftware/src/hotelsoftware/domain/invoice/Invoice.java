@@ -1,7 +1,7 @@
 package hotelsoftware.domain.invoice;
 
 import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.model.Invoices;
+import hotelsoftware.database.model.DBInvoices;
 import hotelsoftware.domain.parties.Customer;
 import hotelsoftware.domain.users.User;
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ public class Invoice
     private PaymentMethod paymentMethod;
     private Customer Customer;
     private User user;
-    private Invoices model;
+    private DBInvoices model;
     private Collection<InvoiceItem> items;
 
     public Invoice(String invoiceNr, BigDecimal discount, Date expiration,
@@ -48,7 +48,7 @@ public class Invoice
         return items;
     }
 
-    public Invoices getModel()
+    public DBInvoices getModel()
     {
         return model;
     }

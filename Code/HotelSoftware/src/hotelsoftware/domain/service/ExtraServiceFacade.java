@@ -4,9 +4,9 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Extraservices;
+import hotelsoftware.database.model.DBExtraservices;
+import hotelsoftware.util.DynamicMapper;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  *
@@ -27,16 +27,18 @@ public class ExtraServiceFacade {
     }
     
     public Collection<ExtraService> getAllExtraServices(){
-        Collection<ExtraService> extraServices = new LinkedList<ExtraService>();
-        
-        for (Extraservices p : Extraservices.getExtraServices())
-        {
-            extraServices.add(new ExtraService(p.getName()));
-        }
-        return extraServices;
+        return DynamicMapper.mapCollection(DBExtraservices.getExtraServices(), ExtraService.class);
     }
     
     public ExtraService getExtraServiceByName(String name){
-        return (ExtraService)Extraservices.getExtraServices();
+        
+        DBExtraservices p = DBExtraservices.getServiceByName(name);
+        
+        if (p == null){
+            
+            throw new ServiceNotFoundException();
+            
+        }
+        return DynamicMapper.map(p, ExtraService.class);
     }
 }

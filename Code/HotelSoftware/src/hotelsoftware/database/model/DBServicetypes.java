@@ -5,16 +5,18 @@
 package hotelsoftware.database.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "roomoptions", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "servicetypes", catalog = "roomanizer", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -35,23 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries(
 {
-    @NamedQuery(name = "Roomoptions.findAll", query = "SELECT r FROM Roomoptions r"),
-    @NamedQuery(name = "Roomoptions.findById", query = "SELECT r FROM Roomoptions r WHERE r.id = :id"),
-    @NamedQuery(name = "Roomoptions.findByName", query = "SELECT r FROM Roomoptions r WHERE r.name = :name")
+    @NamedQuery(name = "Servicetypes.findAll", query = "SELECT s FROM Servicetypes s"),
+    @NamedQuery(name = "Servicetypes.findById", query = "SELECT s FROM Servicetypes s WHERE s.id = :id"),
+    @NamedQuery(name = "Servicetypes.findByName", query = "SELECT s FROM Servicetypes s WHERE s.name = :name"),
+    @NamedQuery(name = "Servicetypes.findByTaxRate", query = "SELECT s FROM Servicetypes s WHERE s.taxRate = :taxRate")
 })
-public class Roomoptions implements Serializable
+public class DBServicetypes implements Serializable
 {
     private static final long serialVersionUID = 1L;
-
-    public static void safeNewRoomOption(String name)
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public static void getRoomoptions()
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -60,20 +53,25 @@ public class Roomoptions implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
+    private BigDecimal taxRate;
 
-    public Roomoptions()
+    public DBServicetypes()
     {
     }
 
-    public Roomoptions(Integer id)
+    public DBServicetypes(Integer id)
     {
         this.id = id;
     }
 
-    public Roomoptions(Integer id, String name)
+    public DBServicetypes(Integer id, String name, BigDecimal taxRate)
     {
         this.id = id;
         this.name = name;
+        this.taxRate = taxRate;
     }
 
     public Integer getId()
@@ -96,6 +94,16 @@ public class Roomoptions implements Serializable
         this.name = name;
     }
 
+    public BigDecimal getTaxRate()
+    {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate)
+    {
+        this.taxRate = taxRate;
+    }
+
     @Override
     public int hashCode()
     {
@@ -108,11 +116,11 @@ public class Roomoptions implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Roomoptions))
+        if(!(object instanceof DBServicetypes))
         {
             return false;
         }
-        Roomoptions other = (Roomoptions) object;
+        DBServicetypes other = (DBServicetypes) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -123,7 +131,7 @@ public class Roomoptions implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
     }
     
 }

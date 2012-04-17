@@ -40,12 +40,12 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Invoiceitems.findByAmount", query = "SELECT i FROM Invoiceitems i WHERE i.amount = :amount"),
     @NamedQuery(name = "Invoiceitems.findByCreated", query = "SELECT i FROM Invoiceitems i WHERE i.created = :created")
 })
-public class Invoiceitems implements Serializable
+public class DBInvoiceitems implements Serializable
 {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected InvoiceitemsPK invoiceitemsPK;
+    protected DBInvoiceitemsPK invoiceitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private int amount;
@@ -55,44 +55,44 @@ public class Invoiceitems implements Serializable
     private Date created;
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Services services;
+    private DBServices services;
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Invoices invoices;
+    private DBInvoices invoices;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
     @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Habitations idHabitations;
+    private DBHabitations idHabitations;
 
-    public Invoiceitems()
+    public DBInvoiceitems()
     {
     }
 
-    public Invoiceitems(InvoiceitemsPK invoiceitemsPK)
+    public DBInvoiceitems(DBInvoiceitemsPK invoiceitemsPK)
     {
         this.invoiceitemsPK = invoiceitemsPK;
     }
 
-    public Invoiceitems(InvoiceitemsPK invoiceitemsPK, int amount, Date created)
+    public DBInvoiceitems(DBInvoiceitemsPK invoiceitemsPK, int amount, Date created)
     {
         this.invoiceitemsPK = invoiceitemsPK;
         this.amount = amount;
         this.created = created;
     }
 
-    public Invoiceitems(int idServices, int idInvoice)
+    public DBInvoiceitems(int idServices, int idInvoice)
     {
-        this.invoiceitemsPK = new InvoiceitemsPK(idServices, idInvoice);
+        this.invoiceitemsPK = new DBInvoiceitemsPK(idServices, idInvoice);
     }
 
-    public InvoiceitemsPK getInvoiceitemsPK()
+    public DBInvoiceitemsPK getInvoiceitemsPK()
     {
         return invoiceitemsPK;
     }
 
-    public void setInvoiceitemsPK(InvoiceitemsPK invoiceitemsPK)
+    public void setInvoiceitemsPK(DBInvoiceitemsPK invoiceitemsPK)
     {
         this.invoiceitemsPK = invoiceitemsPK;
     }
@@ -117,22 +117,22 @@ public class Invoiceitems implements Serializable
         this.created = created;
     }
 
-    public Services getServices()
+    public DBServices getServices()
     {
         return services;
     }
 
-    public void setServices(Services services)
+    public void setServices(DBServices services)
     {
         this.services = services;
     }
 
-    public Invoices getInvoices()
+    public DBInvoices getInvoices()
     {
         return invoices;
     }
 
-    public void setInvoices(Invoices invoices)
+    public void setInvoices(DBInvoices invoices)
     {
         this.invoices = invoices;
     }
@@ -147,12 +147,12 @@ public class Invoiceitems implements Serializable
         this.idUsers = idUsers;
     }
 
-    public Habitations getIdHabitations()
+    public DBHabitations getIdHabitations()
     {
         return idHabitations;
     }
 
-    public void setIdHabitations(Habitations idHabitations)
+    public void setIdHabitations(DBHabitations idHabitations)
     {
         this.idHabitations = idHabitations;
     }
@@ -165,12 +165,12 @@ public class Invoiceitems implements Serializable
      * a list of invoice items
      * @throws HibernateException 
      */
-    public static List<Invoiceitems> getInvoiceItemsByInvoice(Invoices invoice) throws HibernateException
+    public static List<DBInvoiceitems> getInvoiceItemsByInvoice(DBInvoices invoice) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        List<Invoiceitems> retList = session.createCriteria(Invoiceitems.class).add(
+        List<DBInvoiceitems> retList = session.createCriteria(DBInvoiceitems.class).add(
                 Restrictions.eq("idInvoice", invoice)).list();
         session.close();
 
@@ -185,13 +185,13 @@ public class Invoiceitems implements Serializable
      * a list of invoiceitems
      * @throws HibernateException 
      */
-    public static List<Invoiceitems> getInvoiceItemsByHabitation(
-            Habitations habitation) throws HibernateException
+    public static List<DBInvoiceitems> getInvoiceItemsByHabitation(
+            DBHabitations habitation) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        List<Invoiceitems> retList = session.createCriteria(Invoiceitems.class).add(
+        List<DBInvoiceitems> retList = session.createCriteria(DBInvoiceitems.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
         session.close();
 
@@ -210,11 +210,11 @@ public class Invoiceitems implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Invoiceitems))
+        if (!(object instanceof DBInvoiceitems))
         {
             return false;
         }
-        Invoiceitems other = (Invoiceitems) object;
+        DBInvoiceitems other = (DBInvoiceitems) object;
         if ((this.invoiceitemsPK == null && other.invoiceitemsPK != null) || (this.invoiceitemsPK != null && !this.invoiceitemsPK.equals(
                 other.invoiceitemsPK)))
         {

@@ -1,6 +1,6 @@
 package hotelsoftware.domain.invoice;
 
-import hotelsoftware.database.model.Invoiceitems;
+import hotelsoftware.database.model.DBInvoiceitems;
 import hotelsoftware.domain.service.Habitation;
 import hotelsoftware.domain.service.Service;
 import hotelsoftware.domain.users.User;

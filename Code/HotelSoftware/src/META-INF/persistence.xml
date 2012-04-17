@@ -2,33 +2,33 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="HotelSoftwarePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>hotelsoftware.database.model.Invoiceitems</class>
-    <class>hotelsoftware.database.model.Habitations</class>
-    <class>hotelsoftware.database.model.Customers</class>
-    <class>hotelsoftware.database.model.Invoices</class>
-    <class>hotelsoftware.database.model.Roomcategories</class>
-    <class>hotelsoftware.database.model.Roomoptions</class>
-    <class>hotelsoftware.database.model.Addresses</class>
-    <class>hotelsoftware.database.model.Roomcategoryprices</class>
-    <class>hotelsoftware.database.model.Guests</class>
-    <class>hotelsoftware.database.model.Roomstatus</class>
-    <class>hotelsoftware.database.model.Extraservices</class>
-    <class>hotelsoftware.database.model.Reservations</class>
-    <class>hotelsoftware.database.model.Companies</class>
-    <class>hotelsoftware.database.model.Reservationoptions</class>
-    <class>hotelsoftware.database.model.Roomsroomstatus</class>
-    <class>hotelsoftware.database.model.Rooms</class>
-    <class>hotelsoftware.database.model.Reservationitems</class>
-    <class>hotelsoftware.database.model.Companytypes</class>
-    <class>hotelsoftware.database.model.Countries</class>
-    <class>hotelsoftware.database.model.Paymentmethods</class>
-    <class>hotelsoftware.database.model.Servicetypes</class>
-    <class>hotelsoftware.database.model.Persons</class>
-    <class>hotelsoftware.database.model.Services</class>
-    <class>hotelsoftware.database.model.Seasons</class>
     <class>hotelsoftware.database.model.DBPermission</class>
     <class>hotelsoftware.database.model.DBUser</class>
     <class>hotelsoftware.database.model.DBRole</class>
+    <class>hotelsoftware.database.model.DBAddresses</class>
+    <class>hotelsoftware.database.model.DBCompanies</class>
+    <class>hotelsoftware.database.model.DBCompanytypes</class>
+    <class>hotelsoftware.database.model.DBCountries</class>
+    <class>hotelsoftware.database.model.DBCustomers</class>
+    <class>hotelsoftware.database.model.DBExtraservices</class>
+    <class>hotelsoftware.database.model.DBGuests</class>
+    <class>hotelsoftware.database.model.DBHabitations</class>
+    <class>hotelsoftware.database.model.DBInvoiceitems</class>
+    <class>hotelsoftware.database.model.DBInvoices</class>
+    <class>hotelsoftware.database.model.DBPaymentmethods</class>
+    <class>hotelsoftware.database.model.DBPersons</class>
+    <class>hotelsoftware.database.model.DBReservationitems</class>
+    <class>hotelsoftware.database.model.DBReservationoptions</class>
+    <class>hotelsoftware.database.model.DBReservations</class>
+    <class>hotelsoftware.database.model.DBRoomcategories</class>
+    <class>hotelsoftware.database.model.DBRoomcategoryprices</class>
+    <class>hotelsoftware.database.model.DBRoomoptions</class>
+    <class>hotelsoftware.database.model.DBRooms</class>
+    <class>hotelsoftware.database.model.DBRoomsroomstatus</class>
+    <class>hotelsoftware.database.model.DBRoomstatus</class>
+    <class>hotelsoftware.database.model.DBSeasons</class>
+    <class>hotelsoftware.database.model.DBServices</class>
+    <class>hotelsoftware.database.model.DBServicetypes</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer"/>
       <property name="javax.persistence.jdbc.password" value="R00m4n153r"/>

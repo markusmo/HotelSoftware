@@ -32,11 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Roomcategoryprices.findByPrice", query = "SELECT r FROM Roomcategoryprices r WHERE r.price = :price"),
     @NamedQuery(name = "Roomcategoryprices.findByPriceMin", query = "SELECT r FROM Roomcategoryprices r WHERE r.priceMin = :priceMin")
 })
-public class Roomcategoryprices implements Serializable
+public class DBRoomcategoryprices implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected RoomcategorypricesPK roomcategorypricesPK;
+    protected DBRoomcategorypricesPK roomcategorypricesPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
@@ -46,38 +46,38 @@ public class Roomcategoryprices implements Serializable
     private BigDecimal priceMin;
     @JoinColumn(name = "idSeason", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Seasons seasons;
+    private DBSeasons seasons;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Roomcategories roomcategories;
+    private DBRoomcategories roomcategories;
 
-    public Roomcategoryprices()
+    public DBRoomcategoryprices()
     {
     }
 
-    public Roomcategoryprices(RoomcategorypricesPK roomcategorypricesPK)
+    public DBRoomcategoryprices(DBRoomcategorypricesPK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
 
-    public Roomcategoryprices(RoomcategorypricesPK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
+    public DBRoomcategoryprices(DBRoomcategorypricesPK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
         this.price = price;
         this.priceMin = priceMin;
     }
 
-    public Roomcategoryprices(int idRoomCategories, int idSeason)
+    public DBRoomcategoryprices(int idRoomCategories, int idSeason)
     {
-        this.roomcategorypricesPK = new RoomcategorypricesPK(idRoomCategories, idSeason);
+        this.roomcategorypricesPK = new DBRoomcategorypricesPK(idRoomCategories, idSeason);
     }
 
-    public RoomcategorypricesPK getRoomcategorypricesPK()
+    public DBRoomcategorypricesPK getRoomcategorypricesPK()
     {
         return roomcategorypricesPK;
     }
 
-    public void setRoomcategorypricesPK(RoomcategorypricesPK roomcategorypricesPK)
+    public void setRoomcategorypricesPK(DBRoomcategorypricesPK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
@@ -102,22 +102,22 @@ public class Roomcategoryprices implements Serializable
         this.priceMin = priceMin;
     }
 
-    public Seasons getSeasons()
+    public DBSeasons getSeasons()
     {
         return seasons;
     }
 
-    public void setSeasons(Seasons seasons)
+    public void setSeasons(DBSeasons seasons)
     {
         this.seasons = seasons;
     }
 
-    public Roomcategories getRoomcategories()
+    public DBRoomcategories getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(Roomcategories roomcategories)
+    public void setRoomcategories(DBRoomcategories roomcategories)
     {
         this.roomcategories = roomcategories;
     }
@@ -134,11 +134,11 @@ public class Roomcategoryprices implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Roomcategoryprices))
+        if(!(object instanceof DBRoomcategoryprices))
         {
             return false;
         }
-        Roomcategoryprices other = (Roomcategoryprices) object;
+        DBRoomcategoryprices other = (DBRoomcategoryprices) object;
         if((this.roomcategorypricesPK == null && other.roomcategorypricesPK != null) || (this.roomcategorypricesPK != null && !this.roomcategorypricesPK.equals(other.roomcategorypricesPK)))
         {
             return false;

@@ -5,7 +5,6 @@
 package hotelsoftware.database.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,22 +26,26 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "servicetypes", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "countries", catalog = "roomanizer", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
         "name"
+    }),
+    @UniqueConstraint(columnNames =
+    {
+        "nameShort"
     })
 })
 @XmlRootElement
 @NamedQueries(
 {
-    @NamedQuery(name = "Servicetypes.findAll", query = "SELECT s FROM Servicetypes s"),
-    @NamedQuery(name = "Servicetypes.findById", query = "SELECT s FROM Servicetypes s WHERE s.id = :id"),
-    @NamedQuery(name = "Servicetypes.findByName", query = "SELECT s FROM Servicetypes s WHERE s.name = :name"),
-    @NamedQuery(name = "Servicetypes.findByTaxRate", query = "SELECT s FROM Servicetypes s WHERE s.taxRate = :taxRate")
+    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
+    @NamedQuery(name = "Countries.findById", query = "SELECT c FROM Countries c WHERE c.id = :id"),
+    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
+    @NamedQuery(name = "Countries.findByNameShort", query = "SELECT c FROM Countries c WHERE c.nameShort = :nameShort")
 })
-public class Servicetypes implements Serializable
+public class DBCountries implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,25 +56,24 @@ public class Servicetypes implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
-    private BigDecimal taxRate;
+    @Column(name = "nameShort", nullable = false, length = 2)
+    private String nameShort;
 
-    public Servicetypes()
+    public DBCountries()
     {
     }
 
-    public Servicetypes(Integer id)
+    public DBCountries(Integer id)
     {
         this.id = id;
     }
 
-    public Servicetypes(Integer id, String name, BigDecimal taxRate)
+    public DBCountries(Integer id, String name, String nameShort)
     {
         this.id = id;
         this.name = name;
-        this.taxRate = taxRate;
+        this.nameShort = nameShort;
     }
 
     public Integer getId()
@@ -94,14 +96,14 @@ public class Servicetypes implements Serializable
         this.name = name;
     }
 
-    public BigDecimal getTaxRate()
+    public String getNameShort()
     {
-        return taxRate;
+        return nameShort;
     }
 
-    public void setTaxRate(BigDecimal taxRate)
+    public void setNameShort(String nameShort)
     {
-        this.taxRate = taxRate;
+        this.nameShort = nameShort;
     }
 
     @Override
@@ -116,11 +118,11 @@ public class Servicetypes implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof Servicetypes))
+        if(!(object instanceof DBCountries))
         {
             return false;
         }
-        Servicetypes other = (Servicetypes) object;
+        DBCountries other = (DBCountries) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -131,7 +133,7 @@ public class Servicetypes implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Countries[ id=" + id + " ]";
     }
     
 }

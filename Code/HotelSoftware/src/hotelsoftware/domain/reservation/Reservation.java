@@ -4,7 +4,7 @@
  */
 package hotelsoftware.domain.reservation;
 
-import hotelsoftware.database.model.Reservations;
+import hotelsoftware.database.model.DBReservations;
 import hotelsoftware.domain.parties.Party;
 import java.util.Collection;
 import java.util.Date;
@@ -44,7 +44,7 @@ public class Reservation
     public static List<Reservation> getReservationsByName(String fname)
     {
         List<Reservation> list = new LinkedList<Reservation>();
-        Reservations.getReservationsByFName(fname);
+        DBReservations.getReservationsByFName(fname);
         return list;
     }
 
