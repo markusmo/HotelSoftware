@@ -38,12 +38,12 @@ public class UserFacade
             throw new LoginFailureException();
         }
         
-        return DynamicMapper.map(dbuser, User.class);
+        return (User) DynamicMapper.map(dbuser);
     }
     
     public Collection<Permission> getAllPermissions()
     {
-        return DynamicMapper.mapCollection(DBPermission.getPermissions(), Permission.class);
+        return DynamicMapper.mapCollection(DBPermission.getPermissions());
     }
     
     public Permission getPermissionByName(String name) throws PermissionNotFoundException
@@ -55,6 +55,6 @@ public class UserFacade
             throw new PermissionNotFoundException();
         }
         
-        return DynamicMapper.map(p, Permission.class);
+        return (Permission) DynamicMapper.map(p);
     }
 }

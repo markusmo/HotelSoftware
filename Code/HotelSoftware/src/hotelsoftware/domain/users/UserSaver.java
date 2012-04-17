@@ -46,20 +46,8 @@ public class UserSaver
         try
         {
             for (Permission permission : permissions)
-            {
-                DBPermission dbp;
-                
-                if (permission.getId() != null)
-                {
-                    dbp = (DBPermission) session.createCriteria(DBPermission.class).add(Restrictions.eq("id", 
-                        permission.getId())).uniqueResult();
-                }
-                else
-                {
-                    dbp = new DBPermission();
-                }
-                
-                dbp.setName(permission.getPermission());
+            {                
+                DBPermission dbp = (DBPermission) DynamicMapper.map(permission);
 
                 session.saveOrUpdate(dbp);
                 permission.setId(dbp.getId());
@@ -67,22 +55,7 @@ public class UserSaver
             
             for (Role role : roles)
             {
-                DBRole dbr;
-                
-                if (role.getId() != null)
-                {
-                    dbr = (DBRole) session.createCriteria(DBRole.class).add(Restrictions.eq("id", 
-                        role.getId())).uniqueResult();
-                }
-                else
-                {
-                    dbr = new DBRole();
-                }
-                
-                dbr.setName(role.getName());
-
-                Collection<DBPermission> newPermissions = DynamicMapper.mapCollection(role.getPermissions(), DBPermission.class);
-                dbr.setPermissions(newPermissions);
+                DBRole dbr = (DBRole) DynamicMapper.map(role);
 
                 session.saveOrUpdate(dbr);
                 role.setId(dbr.getId());
@@ -90,28 +63,7 @@ public class UserSaver
             
             for (User user : users)
             {
-                DBUser dbu;
-            
-                if (user.getId() != null)
-                {
-                    dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
-                        user.getId())).uniqueResult();
-                }
-                else
-                {
-                    dbu = new DBUser();
-                }
-
-                dbu.setUsername(user.getUsername());
-                dbu.setPassword(user.getPassword());
-                /*Collection<DBRole> newRoles = new LinkedList<DBRole>();
-                for (Role role : user.getAllRoles())
-                {
-                    newRoles.add((DBRole)DynamicMapper.map(role, DBRole.class));
-                }*/
-                
-                Collection<DBRole> newRoles = DynamicMapper.mapCollection(user.getRoles(), DBRole.class);
-                dbu.setRoles(newRoles);
+                DBUser dbu = (DBUser) DynamicMapper.map(user);
 
                 session.saveOrUpdate(dbu);
                 user.setId(dbu.getId());
@@ -145,11 +97,10 @@ public class UserSaver
                 dbu = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
                     user.getId())).uniqueResult();
                 
-                user.setUsername(dbu.getUsername());
-                user.setPassword(dbu.getPassword());
-
-                Collection<Role> newRoles = DynamicMapper.mapCollection(dbu.getRoles(), Role.class);
-                user.setRoles(newRoles);
+                User temp = (User) DynamicMapper.map(dbu);
+                user.setPassword(temp.getPassword());
+                user.setUsername(temp.getUsername());
+                user.setRoles(temp.getRoles());
             }
         }
         
@@ -162,10 +113,9 @@ public class UserSaver
                 dbr = (DBRole) session.createCriteria(DBUser.class).add(Restrictions.eq("id", 
                     role.getId())).uniqueResult();
                 
-                role.setName(dbr.getName());
-
-                Collection<Permission> newRoles = DynamicMapper.mapCollection(dbr.getPermissions(), Permission.class);
-                role.setPermissions(newRoles);
+                Role temp = (Role) DynamicMapper.map(dbr);
+                role.setName(temp.getName());
+                role.setPermissions(temp.getPermissions());
             }
         }
         
@@ -178,7 +128,8 @@ public class UserSaver
                 dbp = (DBPermission) session.createCriteria(DBRole.class).add(Restrictions.eq("id", 
                     permission.getId())).uniqueResult();
                 
-                permission.setName(dbp.getName());
+                Permission temp = (Permission) DynamicMapper.map(dbp);
+                permission.setName(temp.getName());
             }
         }
     }

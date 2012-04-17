@@ -19,7 +19,7 @@ public class Permission
     private Integer id;
     private String name;
 
-    public String getPermission()
+    public String getName()
     {
         return name;
     }
