@@ -4,7 +4,8 @@
  */
 package hotelsoftware.domain.service;
 
-import hotelsoftware.database.model.Services;
+import java.math.BigDecimal;
+
 
 /**
  *
@@ -12,8 +13,23 @@ import hotelsoftware.database.model.Services;
  */
 public class ExtraService extends Service
 {
-    public ExtraService(Services service)
+    String name;
+    private ExtraService(String name, BigDecimal price, ServiceType type)
     {
-        super(service);
+        this.name = name;
+        this.price = price;
+        this.serviceType = type;
+    }
+    
+    private ExtraService()
+    {
+    }
+    
+    public static ExtraService createExtraService(String name, BigDecimal price, ServiceType type){
+        return new ExtraService(name, price, type);
+    }
+    
+    public static getAllServices(){
+        
     }
 }

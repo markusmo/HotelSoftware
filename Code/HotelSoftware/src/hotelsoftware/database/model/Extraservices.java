@@ -4,8 +4,10 @@
  */
 package hotelsoftware.database.model;
 
+import hotelsoftware.database.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -131,7 +138,32 @@ public class Extraservices implements Serializable
         }
         return true;
     }
+    
+    public static List<Extraservices> getExtraServices() throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(Extraservices.class);
+        List<Extraservices> retList = criteria.list();
+        session.close();
 
+        return retList;
+    }
+    
+    public static Extraservices getServiceByName(String name) throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(Extraservices.class);
+        Extraservices extraService = (Extraservices) session.createCriteria(Extraservices.class).add(Restrictions.eq(
+                "name", name)).uniqueResult();
+        session.close();
+
+        return extraService;
+    }
+    
     @Override
     public String toString()
     {
