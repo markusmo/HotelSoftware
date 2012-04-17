@@ -1,11 +1,9 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.database.invoice.DBPaymentmethods;
-import java.util.LinkedList;
-import java.util.List;
-import org.hibernate.HibernateException;
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.invoice.DBPaymentmethod;
+import hotelsoftware.model.domain.invoice.PaymentMethod;
+import java.util.Collection;
 
 /**
  *
@@ -14,8 +12,12 @@ import org.hibernate.HibernateException;
  */
 public class PaymentMethod
 {
-
+    private Integer id;
     private String method;
+
+    public PaymentMethod()
+    {
+    }
 
     public PaymentMethod(String method)
     {
@@ -27,26 +29,45 @@ public class PaymentMethod
         return method;
     }
 
-    /**
-     * Communicates with the model and creates a linked list of paymentmethods
-     * @return 
-     * a linked list of paymentmethods on domain-level
-     */
-    public static LinkedList<PaymentMethod> getPaymentMethods()
+    public Integer getId()
     {
-        return null;
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        if (this.id == null)
+        {
+            this.id = id;
+        }
+    }
+
+    public void setMethod(String method)
+    {
+        this.method = method;
     }
 
     /**
-     * Communicates with the model and retrieves a single paymentmethod on domain
-     * level by name
+     * Gibt eine Liste von allen Zahlungsmethoden aus
+     * @return 
+     * eine Collection aus allen Zahlungsmethoden
+     */
+    public static Collection<PaymentMethod> getAllPaymentMethods()
+    {
+        Collection<DBPaymentmethod> dbpm = DBPaymentmethod.getPaymentMethods();
+        return (Collection<PaymentMethod>)DynamicMapper.map(dbpm);
+    }
+
+    /**
+     * Gibt eine spezifische Zahlungsmethode aus
      * @param method
-     * the name of the paymentmethod
+     * die gesuchte Methode
      * @return
-     * a domain level paymentmethod
+     * das Zahlungsmethoden Objekt
      */
     public static PaymentMethod getPaymentMethodByName(String method)
     {
-        return null;
+        DBPaymentmethod dbpm = DBPaymentmethod.getPaymentMethodByName(method);
+        return (PaymentMethod)DynamicMapper.map(dbpm);
     }
 }

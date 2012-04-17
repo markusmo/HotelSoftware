@@ -4,14 +4,12 @@
  */
 package hotelsoftware.model.database.invoice;
 
-import hotelsoftware.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.HibernateUtil;
+import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -49,7 +45,7 @@ import org.hibernate.criterion.Restrictions;
     @NamedQuery(name = "Paymentmethods.findById", query = "SELECT p FROM Paymentmethods p WHERE p.id = :id"),
     @NamedQuery(name = "Paymentmethods.findByName", query = "SELECT p FROM Paymentmethods p WHERE p.name = :name")
 })
-public class DBPaymentmethods implements Serializable
+public class DBPaymentmethod implements Serializable
 {
 
     private static final long serialVersionUID = 1L;
@@ -62,21 +58,21 @@ public class DBPaymentmethods implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    public DBPaymentmethods()
+    public DBPaymentmethod()
     {
     }
 
-    public DBPaymentmethods(Integer id)
+    public DBPaymentmethod(Integer id)
     {
         this.id = id;
     }
 
-    public DBPaymentmethods(String name)
+    public DBPaymentmethod(String name)
     {
         this.name = name;
     }
 
-    public DBPaymentmethods(Integer id, String name)
+    public DBPaymentmethod(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -109,13 +105,13 @@ public class DBPaymentmethods implements Serializable
      * a list of paymentmethods
      * @throws HibernateException 
      */
-    public static List<DBPaymentmethods> getPaymentMethods() throws HibernateException
+    public static List<DBPaymentmethod> getPaymentMethods() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(DBPaymentmethods.class);
-        List<DBPaymentmethods> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBPaymentmethod.class);
+        List<DBPaymentmethod> retList = criteria.list();
         session.close();
 
         return retList;
@@ -130,16 +126,16 @@ public class DBPaymentmethods implements Serializable
      * a model class of paymentmethods
      * @throws HibernateException 
      */
-    public static DBPaymentmethods getPaymentMethodByName(String method) throws HibernateException
+    public static DBPaymentmethod getPaymentMethodByName(String method) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(DBPaymentmethods.class);
-        List<DBPaymentmethods> retList = criteria.list();
+        Criteria criteria = session.createCriteria(DBPaymentmethod.class);
+        List<DBPaymentmethod> retList = criteria.list();
         session.close();
 
-        for (DBPaymentmethods paymentmethods : retList)
+        for (DBPaymentmethod paymentmethods : retList)
         {
             if (paymentmethods.getName().equals(method))
             {
@@ -164,7 +160,7 @@ public class DBPaymentmethods implements Serializable
         ts.begin();
         try
         {
-            session.save(new DBPaymentmethods(name));
+            session.save(new DBPaymentmethod(name));
             ts.commit();
         } catch (HibernateException e)
         {
@@ -189,8 +185,8 @@ public class DBPaymentmethods implements Serializable
         ts.begin();
         try
         {
-            DBPaymentmethods method = (DBPaymentmethods) session.createCriteria(
-                    DBPaymentmethods.class).add(Restrictions.like("name", name)).uniqueResult();
+            DBPaymentmethod method = (DBPaymentmethod) session.createCriteria(
+                    DBPaymentmethod.class).add(Restrictions.like("name", name)).uniqueResult();
             session.delete(method);
         } catch (HibernateException ex)
         {
@@ -211,11 +207,11 @@ public class DBPaymentmethods implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBPaymentmethods))
+        if (!(object instanceof DBPaymentmethod))
         {
             return false;
         }
-        DBPaymentmethods other = (DBPaymentmethods) object;
+        DBPaymentmethod other = (DBPaymentmethod) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
                 other.id)))
         {

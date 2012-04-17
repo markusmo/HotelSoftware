@@ -1,8 +1,10 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.database.invoice.DBInvoices;
+import hotelsoftware.login.LoginController;
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -16,46 +18,38 @@ import java.util.LinkedList;
  */
 public class Invoice
 {
-
-    private String invoiceNr;
+    private Integer id;
+    private String invoiceNumber;
     private BigDecimal discount;
     private Date expiration;
     private boolean fulfilled;
     private Date created;
-    private PaymentMethod paymentMethod;
-    private Customer Customer;
-    private User user;
-    private DBInvoices model;
-    private Collection<InvoiceItem> items;
+    private PaymentMethod idpaymentMethods;
+    private Customer idCustomers;
+    private User idUsers;
+    private Collection<InvoiceItem> invoiceitemsCollection;
 
-    public Invoice(String invoiceNr, BigDecimal discount, Date expiration,
-            boolean fulfilled, Date created, PaymentMethod paymentMethod,
+    public Invoice()
+    {
+    }
+
+    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, boolean fulfilled, PaymentMethod paymentmethod, Customer customer)
+    {
+        return new Invoice(invoiceNr, discount, expiration, fulfilled, paymentmethod, customer, LoginController.getInstance().getCurrentUser());
+    }
+
+    private Invoice(String invoiceNr, BigDecimal discount, Date expiration,
+            boolean fulfilled, PaymentMethod paymentMethod,
             Customer customer, User user)
     {
-        this.invoiceNr = invoiceNr;
+        this.invoiceNumber = invoiceNr;
         this.discount = discount;
         this.expiration = expiration;
         this.fulfilled = fulfilled;
-        this.created = created;
-        this.paymentMethod = paymentMethod;
-        this.Customer = customer;
-        this.user = user;
-        this.items = new LinkedList<InvoiceItem>();
-    }
-    
-    public Collection<InvoiceItem> getItems()
-    {
-        return items;
-    }
-
-    public DBInvoices getModel()
-    {
-        return model;
-    }
-
-    public Customer getCustomer()
-    {
-        return Customer;
+        this.idpaymentMethods = paymentMethod;
+        this.idCustomers = customer;
+        this.idUsers = user;
+        this.invoiceitemsCollection = new LinkedList<InvoiceItem>();
     }
 
     public Date getCreated()
@@ -78,34 +72,126 @@ public class Invoice
         return fulfilled;
     }
 
-    public String getInvoiceNr()
+    public Integer getId()
     {
-        return invoiceNr;
+        return id;
     }
 
-    public PaymentMethod getPaymentMethod()
+    public Customer getIdCustomers()
     {
-        return paymentMethod;
+        return idCustomers;
     }
 
-    public User getUser()
+    public User getIdUsers()
     {
-        return user;
+        return idUsers;
+    }
+
+    public PaymentMethod getIdpaymentMethods()
+    {
+        return idpaymentMethods;
+    }
+
+    public String getInvoiceNumber()
+    {
+        return invoiceNumber;
+    }
+
+    public Collection<InvoiceItem> getInvoiceitems()
+    {
+        return invoiceitemsCollection;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
+    }
+
+    public void setDiscount(BigDecimal discount)
+    {
+        this.discount = discount;
+    }
+
+    public void setExpiration(Date expiration)
+    {
+        this.expiration = expiration;
+    }
+
+    public void setFulfilled(boolean fulfilled)
+    {
+        this.fulfilled = fulfilled;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public void setIdCustomers(Customer idCustomers)
+    {
+        this.idCustomers = idCustomers;
+    }
+
+    public void setIdUsers(User idUsers)
+    {
+        this.idUsers = idUsers;
+    }
+
+    public void setIdpaymentMethods(PaymentMethod idpaymentMethods)
+    {
+        this.idpaymentMethods = idpaymentMethods;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber)
+    {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public void setInvoiceitems(Collection<InvoiceItem> invoiceitemsCollection)
+    {
+        this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
     public String getPaymentMethodName()
     {
-        return paymentMethod.getMethod();
+        return idpaymentMethods.getMethod();
     }
 
     /**
-     * Communicates with the model and returns a invoice to its number
+     * Gibt eine neue Rechnung aus, die die Rechnungspositionen zu einer jeweiligen Belegung ausgibt.
+     * @param habitation
+     * die Belegung auf die gebucht wurde
+     * @return
+     * eine neue Rechnung auf eine Belegung
+     */
+    public Invoice getInvoiceByHabitation(Habitation habitation)
+    {
+        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethods, idCustomers);
+        LinkedList<InvoiceItem> items = new LinkedList<InvoiceItem>();
+
+        for (InvoiceItem item : this.invoiceitemsCollection)
+        {
+            if (item.getHabitation().equals(habitation))
+            {
+                items.add(item);
+            }
+        }
+        this.invoiceitemsCollection.removeAll(items);
+        invoice.setInvoiceitems(items);
+
+        return invoice;
+    }
+
+    /**
+     * Sucht eine Rechung nach der Rechungsnummer und gibt diese zurück
      * @param invoicenumber
-     * a unique invoicenumber
+     * eine eindeutige Rechungsnummer
      * @return 
+     * die Rechung mit der Rechungsnummer
      */
     public static Invoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
-        return null;
+        DBInvoice dbi = DBInvoice.getInvoiceByInvoiceNumber(invoicenumber);
+        return (Invoice) DynamicMapper.map(dbi);
     }
 }

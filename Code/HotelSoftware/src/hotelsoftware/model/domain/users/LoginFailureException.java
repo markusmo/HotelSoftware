@@ -8,7 +8,7 @@ package hotelsoftware.model.domain.users;
  *
  * @author Dunst
  */
-class LoginFailureException extends Exception
+public class LoginFailureException extends Exception
 {
 
     public LoginFailureException()

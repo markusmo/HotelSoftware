@@ -1,6 +1,6 @@
 package hotelsoftware.checkin.console;
 
-import hotelsoftware.database.HibernateUtil;
+import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.users.DBUser;
 import java.util.List;
 import org.hibernate.Session;

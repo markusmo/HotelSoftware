@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.database;
+package hotelsoftware.util;
 
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.room.DBRoomcategories;
@@ -23,15 +23,15 @@ import hotelsoftware.model.database.invoice.DBInvoiceitemsPK;
 import hotelsoftware.model.database.room.DBRoomstatus;
 import hotelsoftware.model.database.parties.DBCountry;
 import hotelsoftware.model.database.service.DBServiceType;
-import hotelsoftware.model.database.invoice.DBInvoices;
+import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.room.DBRoomoptions;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.users.DBRole;
 import hotelsoftware.model.database.parties.DBCustomer;
 import hotelsoftware.model.database.reservation.DBReservationitems;
-import hotelsoftware.model.database.invoice.DBInvoiceitems;
+import hotelsoftware.model.database.invoice.DBInvoiceitem;
 import hotelsoftware.model.database.parties.DBPerson;
-import hotelsoftware.model.database.invoice.DBPaymentmethods;
+import hotelsoftware.model.database.invoice.DBPaymentmethod;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.room.DBRoomsroomstatusPK;
 import hotelsoftware.model.database.users.DBUser;
@@ -65,10 +65,10 @@ public class HibernateUtil
                     .addAnnotatedClass(DBExtraService.class)
                     .addAnnotatedClass(DBGuest.class)
                     .addAnnotatedClass(DBHabitation.class)
-                    .addAnnotatedClass(DBInvoiceitems.class)
+                    .addAnnotatedClass(DBInvoiceitem.class)
                     .addAnnotatedClass(DBInvoiceitemsPK.class)
-                    .addAnnotatedClass(DBInvoices.class)
-                    .addAnnotatedClass(DBPaymentmethods.class)
+                    .addAnnotatedClass(DBInvoice.class)
+                    .addAnnotatedClass(DBPaymentmethod.class)
                     .addAnnotatedClass(DBPermission.class)
                     .addAnnotatedClass(DBPerson.class)
                     .addAnnotatedClass(DBReservationitems.class)

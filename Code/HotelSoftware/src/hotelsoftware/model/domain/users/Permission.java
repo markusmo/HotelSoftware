@@ -4,8 +4,8 @@
  */
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.FailedToSaveToDatabaseException;
+import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.users.DBPermission;
 import java.util.Collection;
 import org.hibernate.HibernateException;

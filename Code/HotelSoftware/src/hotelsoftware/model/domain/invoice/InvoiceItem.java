@@ -1,13 +1,10 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.database.invoice.DBInvoiceitems;
+import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.Service;
 import hotelsoftware.model.domain.users.User;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -16,20 +13,29 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class InvoiceItem
 {
-
     private int amount;
     private Date created;
     private Service service;
-    private User user;
-    private Habitation habitation;
+    private User idUser;
+    private Habitation idHabitation;
+    private InvoiceitemsPK pk;
 
-    public InvoiceItem(Service service, int amount, User user,
+    public InvoiceItem()
+    {
+    }
+
+    private InvoiceItem(Service service, int amount, User user,
             Habitation habitation)
     {
         this.amount = amount;
         this.service = service;
-        this.user = user;
-        this.habitation = habitation;
+        this.idUser = user;
+        this.idHabitation = habitation;
+    }
+
+    public static InvoiceItem createInvoiceItem(Service service, int amount, Habitation habitation)
+    {
+        return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
 
     public int getAmount()
@@ -44,7 +50,7 @@ public class InvoiceItem
 
     public Habitation getHabitation()
     {
-        return habitation;
+        return idHabitation;
     }
 
     public Service getService()
@@ -54,41 +60,53 @@ public class InvoiceItem
 
     public User getUser()
     {
-        return user;
+        return idUser;
     }
-    
+
+    public void setAmount(int amount)
+    {
+        this.amount = amount;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
+    }
+
+    public void setIdHabitation(Habitation habitation)
+    {
+        this.idHabitation = habitation;
+    }
+
+    public void setService(Service service)
+    {
+        this.service = service;
+    }
+
+    public void setIdUser(User user)
+    {
+        this.idUser = user;
+    }
+
+    public InvoiceitemsPK getInvoiceitemsPK()
+    {
+        return this.pk;
+    }
+
+    public void setInvoiceitemsPK(InvoiceitemsPK invoiceitemsPK)
+    {
+        if (this.pk == null)
+        {
+            this.pk = invoiceitemsPK;
+        }
+    }
+
     /**
-     * not yet implemented
+     * Gibt den Preis für eine Rechungsposition aus.
      * @return 
      */
     public double getTotalPrice()
     {
-        throw new NotImplementedException();
-    }
-
-    /**
-     * communicates with the model and retrieves all invoiceitems for a invoice
-     * @param invoice
-     * the invoice, which owns the invoiceitems
-     * @return
-     * a linked list of invoiceitems
-     */
-    public static LinkedList<InvoiceItem> getInvoiceItemByInvoice(
-            Invoice invoice)
-    {
-        return null;
-    }
-
-    /**
-     * communicates with the model and retrieves all invoiceitems for a habitation
-     * @param habitation
-     * the habitation, which owns the invoices
-     * @return 
-     * a linked list of invoiceitems
-     */
-    public static LinkedList<InvoiceItem> getInvoiceItemsByHabitation(
-            Habitation habitation)
-    {
-       return null;
+        return this.getAmount() * this.getTotalPrice();
     }
 }

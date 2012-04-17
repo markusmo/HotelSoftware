@@ -4,8 +4,8 @@
  */
 package hotelsoftware.model.database.users;
 
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.HibernateUtil;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;

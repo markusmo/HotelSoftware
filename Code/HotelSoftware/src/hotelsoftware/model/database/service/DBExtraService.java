@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.database.HibernateUtil;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;

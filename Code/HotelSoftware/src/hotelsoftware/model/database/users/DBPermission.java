@@ -4,9 +4,9 @@
  */
 package hotelsoftware.model.database.users;
 
-import hotelsoftware.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.HibernateUtil;
+import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;

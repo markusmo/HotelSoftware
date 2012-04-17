@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.database.parties;
 
-import hotelsoftware.model.database.invoice.DBInvoices;
+import hotelsoftware.model.database.invoice.DBInvoice;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -44,7 +44,7 @@ public class DBCustomer implements Serializable
     @Column(name = "id", nullable = false)
     private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
-    private Collection<DBInvoices> invoicesCollection;
+    private Collection<DBInvoice> invoicesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
     private Collection<DBCompany> companiesCollection;
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
@@ -73,12 +73,12 @@ public class DBCustomer implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoices> getInvoices()
+    public Collection<DBInvoice> getInvoices()
     {
         return invoicesCollection;
     }
 
-    public void setInvoices(Collection<DBInvoices> invoicesCollection)
+    public void setInvoices(Collection<DBInvoice> invoicesCollection)
     {
         this.invoicesCollection = invoicesCollection;
     }
