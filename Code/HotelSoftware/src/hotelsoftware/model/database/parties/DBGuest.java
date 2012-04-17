@@ -4,10 +4,13 @@
  */
 package hotelsoftware.model.database.parties;
 
+import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.database.service.DBHabitation;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -149,5 +152,38 @@ public class DBGuest implements Serializable
     {
         return "hotelsoftware.database.model.Guests[ id=" + id + " ]";
     }
+
+	public static Collection<DBGuest> getGuestsByName(String firstName, String lastName) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction ts = session.beginTransaction();
+		ts.begin();
+		Criteria criteria = session.createCriteria(DBGuest.class);
+		
+		if (firstName.isEmpty() && lastName.isEmpty())
+		{
+			return null;
+		}
+		if (firstName.isEmpty())
+		{
+			criteria = criteria.add(Restrictions.eq(
+	                "lname", lastName));
+		}
+		else if (lastName.isEmpty())
+		{
+			criteria = criteria.add(Restrictions.eq(
+	                "fname", firstName));
+		}
+		else
+		{
+			criteria = criteria.add(Restrictions.eq(
+	                "lname", lastName)).add(Restrictions.eq(
+	    	                "fname", firstName));
+		}
+		
+		List<DBGuest> retList = criteria.list();
+		session.close();
+
+		
+	}
     
 }
