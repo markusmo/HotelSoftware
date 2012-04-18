@@ -21,6 +21,7 @@ public class Option
     private Date expiration;
     private BigDecimal prepayment;
     private boolean fulfilled;
+    private Integer id;
 
     private Option()
     {
@@ -77,5 +78,17 @@ public class Option
     public void setPrepayment(BigDecimal prepayment)
     {
         this.prepayment = prepayment;
+    }
+    public Integer getId()
+    {
+        return id;
+    }
+
+    void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
     }
 }

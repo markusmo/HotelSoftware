@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -95,6 +96,26 @@ public class DBReservations implements Serializable
     {
     }
 
+    public Collection<DBReservationitems> getReservationitemsCollection()
+    {
+        return reservationitemsCollection;
+    }
+
+    public void setReservationitemsCollection(Collection<DBReservationitems> reservationitemsCollection)
+    {
+        this.reservationitemsCollection = reservationitemsCollection;
+    }
+
+    public Collection<DBReservationoptions> getReservationoptionsCollection()
+    {
+        return reservationoptionsCollection;
+    }
+
+    public void setReservationoptionsCollection(Collection<DBReservationoptions> reservationoptionsCollection)
+    {
+        this.reservationoptionsCollection = reservationoptionsCollection;
+    }
+
     private DBReservations(Integer id)
     {
         this.id = id;
@@ -113,10 +134,9 @@ public class DBReservations implements Serializable
     {
         return new DBReservations();
     }
-    public static List<DBReservations> getReservationsByFName(String Fname)
+    public static Collection<DBReservations> getReservationsByFName(String Fname)
     {   
-        //TODO: Implement
-        return new LinkedList<DBReservations>();
+         throw new UnsupportedOperationException("Not yet implemented");
     }
     public static DBReservations newReservations(Integer id)
     {

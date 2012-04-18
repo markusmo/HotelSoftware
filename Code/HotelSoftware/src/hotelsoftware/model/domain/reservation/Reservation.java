@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservations;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Party;
@@ -25,22 +26,18 @@ public class Reservation
     private Collection<Option> optionCollection;
     private Party party;
     private Collection<ReservationItem> reservationItemCollection;
+    private Integer id;
 
-    private Reservation()
+    Reservation()
     {
     }
-    
-    public static Reservation newReservation()
+
+    public static Reservation newInstance()
     {
         return new Reservation();
     }
 
-    public static List<Reservation> getReservationsByName(String fname)
-    {
-        List<Reservation> list = new LinkedList<Reservation>();
-        DBReservations.getReservationsByFName(fname);
-        return list;
-    }
+    
 
     public String getComment()
     {
@@ -77,40 +74,52 @@ public class Reservation
         return start;
     }
 
-    private void setComment(String comment)
+    public void setComment(String comment)
     {
         this.comment = comment;
     }
 
-    private void setCreated(Date created)
+    public void setCreated(Date created)
     {
         this.created = created;
     }
 
-    private void setEnd(Date end)
+    public void setEnd(Date end)
     {
         this.end = end;
     }
 
-    private void setOptionCollection(Collection<Option> optionCollection)
+    public void setOptionCollection(Collection<Option> optionCollection)
     {
         this.optionCollection = optionCollection;
     }
 
-    private void setParty(Party party)
+    public void setParty(Party party)
     {
         this.party = party;
     }
 
-    private void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
+    public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
     {
         this.reservationItemCollection = reservationItemCollection;
     }
 
-    private void setStart(Date start)
+    public void setStart(Date start)
     {
         this.start = start;
     }
-    
     private Invoice getInvoice;
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
+    }
 }
