@@ -7,10 +7,11 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Guest;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.util.HelperFunctions;
+import java.util.*;
 
 /**
  *
