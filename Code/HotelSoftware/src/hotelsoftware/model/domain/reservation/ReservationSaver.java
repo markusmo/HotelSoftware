@@ -9,14 +9,7 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.reservation.DBReservationitems;
 import hotelsoftware.model.database.reservation.DBReservationoptions;
 import hotelsoftware.model.database.reservation.DBReservations;
-import hotelsoftware.model.database.users.DBPermission;
-import hotelsoftware.model.database.users.DBRole;
-import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.domain.users.Permission;
-import hotelsoftware.model.domain.users.Role;
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HibernateUtil;
-import java.math.BigDecimal;
 import java.util.Collection;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -99,7 +92,9 @@ public class ReservationSaver
             DBReservationitems dbi = (DBReservationitems) DynamicMapper.map(item);
 
             session.saveOrUpdate(dbi);
-            // reservationItems.setId(dbi.getId());
+            
+            ReservationItemPK pk = (ReservationItemPK)DynamicMapper.map(dbi.getReservationitemsPK());
+            item.setReservationitemsPK(pk);
         }
 
     }
@@ -139,13 +134,13 @@ public class ReservationSaver
                         option.getId())).uniqueResult();
                 Option temp = (Option) DynamicMapper.map(dbo);
                 option.setExpiration(temp.getExpiration());
-                option.setFulfilled(temp.getFulfilled());
+                option.setFulfilled(temp.isFulfilled());
                 option.setPrepayment(temp.getPrepayment());
             }
         }
         for (ReservationItem item : reservationItems)
         {
-            
+           //TODO Implement
         }
     }
 }
