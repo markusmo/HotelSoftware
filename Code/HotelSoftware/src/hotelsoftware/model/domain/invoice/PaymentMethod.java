@@ -2,7 +2,6 @@ package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBPaymentmethod;
-import hotelsoftware.model.domain.invoice.PaymentMethod;
 import java.util.Collection;
 
 /**

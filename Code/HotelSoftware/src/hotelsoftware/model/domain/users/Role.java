@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -17,11 +18,12 @@ public class Role implements RoleData
     private String name;
     private Collection<Permission> permissions;
 
-    @Override
     public Collection<Permission> getPermissions()
     {
         return permissions;
     }
+    
+    public
     
     void setPermissions(Collection<Permission> permissions)
     {
@@ -70,5 +72,11 @@ public class Role implements RoleData
     public static Role create(String name, Collection<Permission> permissions)
     {
         return new Role(name, permissions);
+    }
+       
+
+    public Collection<PermissionData> getPermissionsData()
+    {
+        return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getPermissions());
     }
 }

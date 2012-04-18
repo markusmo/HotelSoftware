@@ -4,14 +4,11 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.domain.reservation.Reservation;
-import java.util.Collection;
-
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Party {
+public abstract class Party implements PartyData {
 	
 	protected Address address;
 	protected Integer id;

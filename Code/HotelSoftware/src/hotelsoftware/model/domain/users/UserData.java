@@ -11,21 +11,10 @@ import java.util.Collection;
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface UserData
-{
-    // location of interfaces in the domain subpackage like in the most java frameworks
-    //FIXME change return-types of methods to interfaces (discuss)
-    //--> sometimes casts on contoller-level neccessary (but most of the time you create new instances there)
-    
+{    
+    Collection<PermissionData> getAllPermissionsData();
 
-    /**
-     * converts roles from model to permissions in the domainclass
-     *
-     * @param permissions
-     * @return Collection of permission
-     */
-    Collection<Permission> getAllPermissions();
-
-    Collection<Role> getRoles();
+    Collection<RoleData> getRolesData();
 
     String getUsername();
 

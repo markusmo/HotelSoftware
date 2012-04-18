@@ -6,10 +6,15 @@ package hotelsoftware.model.domain.service;
 
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.invoice.InvoiceItemData;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +24,7 @@ import java.util.LinkedList;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Habitation extends Service
+public class Habitation extends Service implements HabitationData
 {
     private Integer id;
     private Date start;
@@ -64,10 +69,12 @@ public class Habitation extends Service
         return habitation;
     }
     
+    @Override
      public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         if (id == null){
             this.id = id;
@@ -77,6 +84,7 @@ public class Habitation extends Service
     /**
      * @return the start
      */
+    @Override
     public Date getStart() {
         return start;
     }
@@ -91,6 +99,7 @@ public class Habitation extends Service
     /**
      * @return the end
      */
+    @Override
     public Date getEnd() {
         return end;
     }
@@ -105,6 +114,7 @@ public class Habitation extends Service
     /**
      * @return the price
      */
+    @Override
     public BigDecimal getPrice() {
         return price;
     }
@@ -112,6 +122,7 @@ public class Habitation extends Service
     /**
      * @param price the price to set
      */
+    @Override
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
@@ -119,6 +130,7 @@ public class Habitation extends Service
     /**
      * @return the created
      */
+    @Override
     public Date getCreated() {
         return created;
     }
@@ -192,5 +204,30 @@ public class Habitation extends Service
     
     public void addGuest(Guest guest){
         guestsCollection.add(guest);
+    }
+
+    public Collection<GuestData> getGuestsCollectionData()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public RoomData getIdRoomsData()
+    {
+        return (RoomData) getIdRooms();
+    }
+
+    public UserData getIdUsersData()
+    {
+        return (UserData) getIdUsers();
+    }
+
+    public Collection<InvoiceItemData> getInvoiceItemsData()
+    {
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
+    }
+
+    public ServiceTypeData getServiceTypeData()
+    {
+        return (ServiceType) getServiceType();
     }
 }

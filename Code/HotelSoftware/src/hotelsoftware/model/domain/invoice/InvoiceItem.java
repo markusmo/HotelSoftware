@@ -2,8 +2,11 @@ package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.model.domain.service.Service;
+import hotelsoftware.model.domain.service.ServiceData;
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.UserData;
 import java.util.Date;
 
 /**
@@ -50,19 +53,16 @@ public class InvoiceItem implements InvoiceItemData
         return created;
     }
 
-    @Override
     public Habitation getHabitation()
     {
         return idHabitation;
     }
 
-    @Override
     public Service getService()
     {
         return service;
     }
 
-    @Override
     public User getUser()
     {
         return idUser;
@@ -114,5 +114,20 @@ public class InvoiceItem implements InvoiceItemData
     public double getTotalPrice()
     {
         return this.getAmount() * this.getTotalPrice();
+    }
+
+    public HabitationData getHabitationData()
+    {
+        return (HabitationData) getHabitation();
+    }
+
+    public ServiceData getServiceData()
+    {
+        return (ServiceData) getService();
+    }
+
+    public UserData getUserData()
+    {
+        return (UserData) getUser();
     }
 }

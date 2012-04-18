@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.util.HelperFunctions;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -163,6 +164,16 @@ public class User implements UserData
     public boolean hasPermission(PermissionData permission)
     {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Collection<PermissionData> getAllPermissionsData()
+    {
+        return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getAllPermissions());
+    }
+
+    public Collection<RoleData> getRolesData()
+    {
+        return new HelperFunctions<RoleData, Role>().castCollectionUp(getRoles());
     }
 
 }

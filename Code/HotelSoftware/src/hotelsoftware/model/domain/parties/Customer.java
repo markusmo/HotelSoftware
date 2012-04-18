@@ -4,18 +4,15 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import java.awt.List;
+import hotelsoftware.model.domain.invoice.Invoice;
 import java.util.Collection;
 import java.util.LinkedList;
-
-import hotelsoftware.model.database.parties.DBCustomer;
-import hotelsoftware.model.domain.invoice.Invoice;
 
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Customer extends Party {
+public abstract class Customer extends Party implements CustomerData {
 
 	protected Address invoiceAddress;
 	protected Collection<Invoice> invoices;
@@ -32,8 +29,6 @@ public abstract class Customer extends Party {
 	 */
 
 	Customer(){}
-	
-	public abstract String getName();
 
 	public Address getInvoiceAddress() {
 		return invoiceAddress;

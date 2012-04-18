@@ -8,7 +8,7 @@ package hotelsoftware.model.domain.parties;
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Address {
+public class Address implements AddressData {
 
 	private Integer id;
 	private String street;
@@ -40,6 +40,7 @@ public class Address {
 
 	}
 
+    @Override
 	public String getStreet() {
 		return street;
 	}
@@ -48,6 +49,7 @@ public class Address {
 		this.street = street;
 	}
 
+    @Override
 	public String getCity() {
 		return city;
 	}
@@ -56,6 +58,7 @@ public class Address {
 		this.city = city;
 	}
 
+    @Override
 	public String getZip() {
 		return zip;
 	}
@@ -64,6 +67,7 @@ public class Address {
 		this.zip = zip;
 	}
 
+    @Override
 	public String getEmail() {
 		return email;
 	}
@@ -72,6 +76,7 @@ public class Address {
 		this.email = email;
 	}
 
+    @Override
 	public String getPhone() {
 		return phone;
 	}
@@ -80,6 +85,7 @@ public class Address {
 		this.phone = phone;
 	}
 
+    @Override
 	public String getFax() {
 		return fax;
 	}
@@ -88,6 +94,7 @@ public class Address {
 		this.fax = fax;
 	}
 
+    @Override
 	public String getCountry() {
 		return country;
 	}

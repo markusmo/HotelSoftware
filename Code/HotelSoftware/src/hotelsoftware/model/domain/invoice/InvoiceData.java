@@ -4,9 +4,8 @@
  */
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.parties.CustomerData;
+import hotelsoftware.model.domain.users.UserData;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,25 +21,19 @@ public interface InvoiceData
 
     Date getExpiration();
 
-    Customer getIdCustomers();
+    CustomerData getIdCustomersData();
 
-    User getIdUsers();
+    UserData getIdUsersData();
 
-    PaymentMethod getIdpaymentMethods();
+    PaymentMethodData getIdpaymentMethodsData();
 
-    /**
-     * Gibt eine neue Rechnung aus, die die Rechnungspositionen zu einer jeweiligen Belegung ausgibt.
-     * @param habitation
-     * die Belegung auf die gebucht wurde
-     * @return
-     * eine neue Rechnung auf eine Belegung
-     */
-    Invoice getInvoiceByHabitation(Habitation habitation);
+    // not needed
+    //InvoiceData getInvoiceByHabitationData(HabitationData habitation);
 
     String getInvoiceNumber();
 
    
-    Collection<InvoiceItem> getInvoiceitems();
+    Collection<InvoiceItemData> getInvoiceitemsData();
 
     String getPaymentMethodName();
 

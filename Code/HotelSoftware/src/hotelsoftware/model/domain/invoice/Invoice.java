@@ -4,8 +4,11 @@ import hotelsoftware.login.LoginController;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.CustomerData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -80,19 +83,16 @@ public class Invoice implements InvoiceData
         return id;
     }
 
-    @Override
     public Customer getIdCustomers()
     {
         return idCustomers;
     }
 
-    @Override
     public User getIdUsers()
     {
         return idUsers;
     }
 
-    @Override
     public PaymentMethod getIdpaymentMethods()
     {
         return idpaymentMethods;
@@ -104,7 +104,6 @@ public class Invoice implements InvoiceData
         return invoiceNumber;
     }
 
-    @Override
     public Collection<InvoiceItem> getInvoiceitems()
     {
         return invoiceitemsCollection;
@@ -173,7 +172,6 @@ public class Invoice implements InvoiceData
      * @return
      * eine neue Rechnung auf eine Belegung
      */
-    @Override
     public Invoice getInvoiceByHabitation(Habitation habitation)
     {
         Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethods, idCustomers);
@@ -203,5 +201,25 @@ public class Invoice implements InvoiceData
     {
         DBInvoice dbi = DBInvoice.getInvoiceByInvoiceNumber(invoicenumber);
         return (Invoice) DynamicMapper.map(dbi);
+    }
+
+    public CustomerData getIdCustomersData()
+    {
+        return (CustomerData) getIdCustomers();
+    }
+
+    public UserData getIdUsersData()
+    {
+        return (UserData) getIdUsers();
+    }
+
+    public PaymentMethodData getIdpaymentMethodsData()
+    {
+        return (PaymentMethodData) getIdpaymentMethods();
+    }
+
+    public Collection<InvoiceItemData> getInvoiceitemsData()
+    {
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
     }
 }

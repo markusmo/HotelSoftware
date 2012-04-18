@@ -6,8 +6,11 @@ package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.domain.invoice.InvoiceitemsPK;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.model.domain.service.Service;
+import hotelsoftware.model.domain.service.ServiceData;
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.UserData;
 import java.util.Date;
 
 /**
@@ -21,9 +24,9 @@ public interface InvoiceItemData
 
     Date getCreated();
 
-    Habitation getHabitation();
+    HabitationData getHabitationData();
 
-    Service getService();
+    ServiceData getServiceData();
 
     /**
      * Gibt den Preis für eine Rechungsposition aus.
@@ -31,6 +34,6 @@ public interface InvoiceItemData
      */
     double getTotalPrice();
 
-    User getUser();
+    UserData getUserData();
     
 }

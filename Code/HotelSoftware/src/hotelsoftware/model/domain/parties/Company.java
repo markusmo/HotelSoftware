@@ -4,6 +4,9 @@
  */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.invoice.Invoice;
+import hotelsoftware.model.domain.invoice.InvoiceData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -11,7 +14,7 @@ import java.util.LinkedList;
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Company extends Customer {
+public class Company extends Customer implements CompanyData {
 	private String companyname;
 	private CompanyType type;
 	private Collection<Party> contactPersons;
@@ -72,4 +75,29 @@ public class Company extends Customer {
 			throws CompanyNotFoundException {
 		return PartyFacade.getInstance().getCompanyByName(name);
 	}
+
+    public Collection<PartyData> getContactPersonsData()
+    {
+        return new HelperFunctions<PartyData, Party>().castCollectionUp(getContactPersons());
+    }
+
+    public CompanyTypeData getTypeData()
+    {
+        return (CompanyTypeData) getType();
+    }
+
+    public AddressData getAddressData()
+    {
+        return (AddressData) getAddress();
+    }
+
+    public AddressData getInvoiceAddressData()
+    {
+        return (AddressData) getInvoiceAddress();
+    }
+
+    public Collection<InvoiceData> getInvoicesData()
+    {
+        return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(getInvoices());
+    }
 }

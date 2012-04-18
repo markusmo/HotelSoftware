@@ -12,7 +12,7 @@ import java.util.Collection;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ServiceType
+public class ServiceType implements ServiceTypeData
 {
     private String type;
     private Integer id;
@@ -55,6 +55,7 @@ public class ServiceType
     /**
      * @return the type
      */
+    @Override
     public String getType()
     {
         return type;

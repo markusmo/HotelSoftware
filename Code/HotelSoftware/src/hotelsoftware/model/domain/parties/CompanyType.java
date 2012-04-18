@@ -10,15 +10,10 @@ import java.util.Collection;
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class CompanyType {
+public class CompanyType implements CompanyTypeData {
 
 	private Integer id;
 	private String typ;
-
-	public static Collection<CompanyType> getAllTypes() {
-
-		return PartyFacade.getInstance().getAllTypes();
-	}
 
 	public CompanyType create(String typ) {
 		return new CompanyType(typ);
@@ -37,11 +32,17 @@ public class CompanyType {
 			this.id = id;
 	}
 
-	public String getTyp() {
-		return typ;
-	}
-
 	public void setTyp(String typ) {
 		this.typ = typ;
 	}
+
+    @Override
+        public String getTyp()
+        {
+            return typ;
+        }
+        
+        
+        
+        
 }

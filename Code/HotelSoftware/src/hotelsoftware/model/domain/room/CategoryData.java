@@ -2,19 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.domain.users;
+package hotelsoftware.model.domain.room;
 
-import java.util.Collection;
+import java.math.BigDecimal;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface RoleData
+public interface CategoryData
 {
+
+    int getBedAmount();
+
+    BigDecimal getMinPrice();
 
     String getName();
 
-    Collection<PermissionData> getPermissionsData();
+    BigDecimal getPrice();
     
 }

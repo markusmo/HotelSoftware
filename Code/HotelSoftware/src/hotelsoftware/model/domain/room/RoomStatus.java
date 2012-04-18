@@ -8,8 +8,20 @@ package hotelsoftware.model.domain.room;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public enum RoomStatus
+public class RoomStatus implements RoomStatusData
 {
-    //FIXME dynamic
-    //OCCUPIED-CLEAN = 1, "VACCANT-CLEAN", "VACCANT-DIRTY", "OUT OF ORDER", "OCCUPIED-DIRTY";
+    private String statusName;
+
+    @Override
+    public String getStatusName()
+    {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName)
+    {
+        this.statusName = statusName;
+    }
+    
+    
 }

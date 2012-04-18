@@ -8,6 +8,8 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservations;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Party;
+import hotelsoftware.model.domain.parties.PartyData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -17,7 +19,7 @@ import java.util.List;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Reservation
+public class Reservation implements ReservationData
 {
     private Date start;
     private Date end;
@@ -39,16 +41,19 @@ public class Reservation
 
     
 
+    @Override
     public String getComment()
     {
         return comment;
     }
 
+    @Override
     public Date getCreated()
     {
         return created;
     }
 
+    @Override
     public Date getEnd()
     {
         return end;
@@ -69,6 +74,7 @@ public class Reservation
         return reservationItemCollection;
     }
 
+    @Override
     public Date getStart()
     {
         return start;
@@ -121,5 +127,20 @@ public class Reservation
         {
             this.id = id;
         }
+    }
+
+    public Collection<OptionData> getOptionCollectionData()
+    {
+        return new HelperFunctions<OptionData, Option>().castCollectionUp(getOptionCollection());
+    }
+
+    public PartyData getPartyData()
+    {
+        return (PartyData) getParty();
+    }
+
+    public Collection<ReservationItemData> getReservationItemCollectionData()
+    {
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationItemCollection());
     }
 }

@@ -6,6 +6,8 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.HabitationData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -22,6 +24,7 @@ public class Guest extends Party implements GuestData {
 	private Character gender;
 	private Collection<Habitation> habitations;
 
+    @Override
 	public String getFname() {
 		return fname;
 	}
@@ -30,6 +33,7 @@ public class Guest extends Party implements GuestData {
 		this.fname = fname;
 	}
 
+    @Override
 	public String getLname() {
 		return lname;
 	}
@@ -38,6 +42,7 @@ public class Guest extends Party implements GuestData {
 		this.lname = lname;
 	}
 
+    @Override
 	public Character getGender() {
 		return gender;
 	}
@@ -58,6 +63,7 @@ public class Guest extends Party implements GuestData {
 		this.habitations = habitations;
 	}
 
+    @Override
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -100,4 +106,14 @@ public class Guest extends Party implements GuestData {
 			throws CompanyNotFoundException {
 		return PartyFacade.getInstance().getGuestByName(fname, lname);
 	}
+
+    public Collection<HabitationData> getCurrentHabitationsData()
+    {
+        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getCurrentHabitations());
+    }
+
+    public Collection<HabitationData> getHabitationsData()
+    {
+        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
+    }
 }

@@ -13,10 +13,11 @@ import java.util.Collection;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ExtraService extends Service
+public class ExtraService extends Service implements ExtraServiceData
 {
     private String name;
 
+    @Override
     public String getName() {
         return name;
     }
@@ -54,5 +55,10 @@ public class ExtraService extends Service
         }
         
         return extraService;
+    }
+
+    public ServiceTypeData getServiceTypeData()
+    {
+        return (ServiceTypeData) getServiceType();
     }
 }

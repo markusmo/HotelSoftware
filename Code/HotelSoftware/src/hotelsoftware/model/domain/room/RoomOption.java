@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class RoomOption
+public class RoomOption implements RoomOptionData
 {    
     private String name;
 
@@ -21,6 +21,7 @@ public class RoomOption
         DBRoomoptions.safeNewRoomOption(name);
     }
 
+    @Override
     public String getName()
     {
         return name;

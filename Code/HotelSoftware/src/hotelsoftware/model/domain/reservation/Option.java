@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Option
+public class Option implements OptionData
 {
     private Date expiration;
     private BigDecimal prepayment;
@@ -39,6 +39,7 @@ public class Option
         this.prepayment = r.getPrepayment();
     }
 
+    @Override
     public Date getExpiration()
     {
         return expiration;
@@ -60,6 +61,7 @@ public class Option
         expiration = new Date(millis);
     }
 
+    @Override
     public boolean isFulfilled()
     {
         return fulfilled;
@@ -70,6 +72,7 @@ public class Option
         this.fulfilled = fulfilled;
     }
 
+    @Override
     public BigDecimal getPrepayment()
     {
         return prepayment;

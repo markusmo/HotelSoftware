@@ -4,14 +4,13 @@
  */
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.database.service.DBService;
 import java.math.BigDecimal;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Service
+public abstract class Service implements ServiceData
 {
     private Integer id;
     protected BigDecimal price;    
@@ -46,6 +45,7 @@ public abstract class Service
     /**
      * @return the price
      */
+    @Override
     public BigDecimal getPrice() {
         return price;
     }
