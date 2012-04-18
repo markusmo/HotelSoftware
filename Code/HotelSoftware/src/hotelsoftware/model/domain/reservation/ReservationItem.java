@@ -26,9 +26,7 @@ public class ReservationItem implements ReservationItemData
         return new ReservationItem();
     }
 
-<<<<<<< HEAD
-    @Override
-=======
+
     public ReservationItemPK getReservationitemsPK()
     {
         return reservationItemPK;
@@ -42,7 +40,6 @@ public class ReservationItem implements ReservationItemData
         }
     }
 
->>>>>>> 700b64afb366cf9febc6535ac1d55e337e78d13b
     public int getAmount()
     {
         return amount;
