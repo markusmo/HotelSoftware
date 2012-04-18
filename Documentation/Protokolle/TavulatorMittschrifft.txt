@@ -1,0 +1,31 @@
+Zimmerpreise sind je nach berechtigung änderbar und richten sich nach Saison.
+
+Rechnungen müssen nach Wunsch aufteilbar sein.
+Rechnungen bestehen nur aus Leistungen! (übernachtung - telefon ist alles leistung)
+Rechnung geht zum "Kunde"
+Gast muss von Kunde unterschieden werden.
+
+Reservierungen haben optionsdaten, die mit einer anzahlung verbunden sein können, und sagen bis wann die Reservierung verfällt.
+Eine minimale Reservierung besteht aus: name, von-bis, personen/zimmer, rechnungsaddresse
+Optionseingabe und Kommentareingabe bei Reservierung benötigt!
+
+Checkin 
+1. Reservierung Anzeigen,
+2. Zimmer anzeigen (die möglich sind)
+3. Zimmer auswählen die vergeben werden sollen
+
+10%mwst -> bei restaurant besuch
+belegungsnummer ist für identifikaiton verschiedener sich fremder gäste in einem zimmer
+
+contigent ist eine großreservierung mehrer zimmer von denen eine gewünschte anzahl an zimmern gebucht werden
+contingent definiert auch einen oder mehrere zeiträume
+
+PRO:
+Paperprototype
+
+Contra:
+Technische planungsmöglichkeiten vorschlagen (techn. möglichikeiten)
+Überblick hat gefehlt
+Domänenmodell duchsprechen (vorlesen)
+
+Der Kunde soll über die Edv und die Edv über den Kundne lernen.
