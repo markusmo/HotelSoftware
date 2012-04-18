@@ -14,6 +14,7 @@ public class ReservationItem
 {
     private int amount;
     private Category reservedCategory;
+    private ReservationItemPK reservationItemPK;
 
     private ReservationItem()
     {
@@ -22,6 +23,19 @@ public class ReservationItem
     public static ReservationItem newReservationItem()
     {
         return new ReservationItem();
+    }
+
+    public ReservationItemPK getReservationitemsPK()
+    {
+        return reservationItemPK;
+    }
+
+    public void setReservationitemsPK(ReservationItemPK reservationItemPK)
+    {
+        if (this.reservationItemPK == null)
+        {
+            this.reservationItemPK = reservationItemPK;
+        }
     }
 
     public int getAmount()
