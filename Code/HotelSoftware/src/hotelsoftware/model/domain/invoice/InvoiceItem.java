@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author mohi
  */
-public class InvoiceItem
+public class InvoiceItem implements InvoiceItemData
 {
     private int amount;
     private Date created;
@@ -38,26 +38,31 @@ public class InvoiceItem
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
 
+    @Override
     public int getAmount()
     {
         return amount;
     }
 
+    @Override
     public Date getCreated()
     {
         return created;
     }
 
+    @Override
     public Habitation getHabitation()
     {
         return idHabitation;
     }
 
+    @Override
     public Service getService()
     {
         return service;
     }
 
+    @Override
     public User getUser()
     {
         return idUser;
@@ -100,11 +105,12 @@ public class InvoiceItem
             this.pk = invoiceitemsPK;
         }
     }
-
+    
     /**
      * Gibt den Preis für eine Rechungsposition aus.
      * @return 
      */
+    @Override
     public double getTotalPrice()
     {
         return this.getAmount() * this.getTotalPrice();

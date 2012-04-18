@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author mohi
  */
-public class Invoice
+public class Invoice implements InvoiceData
 {
     private Integer id;
     private String invoiceNumber;
@@ -52,6 +52,7 @@ public class Invoice
         this.invoiceitemsCollection = new LinkedList<InvoiceItem>();
     }
 
+    @Override
     public Date getCreated()
     {
         return created;
@@ -62,11 +63,13 @@ public class Invoice
         return discount;
     }
 
+    @Override
     public Date getExpiration()
     {
         return expiration;
     }
 
+    @Override
     public boolean isFulfilled()
     {
         return fulfilled;
@@ -77,26 +80,31 @@ public class Invoice
         return id;
     }
 
+    @Override
     public Customer getIdCustomers()
     {
         return idCustomers;
     }
 
+    @Override
     public User getIdUsers()
     {
         return idUsers;
     }
 
+    @Override
     public PaymentMethod getIdpaymentMethods()
     {
         return idpaymentMethods;
     }
 
+    @Override
     public String getInvoiceNumber()
     {
         return invoiceNumber;
     }
 
+    @Override
     public Collection<InvoiceItem> getInvoiceitems()
     {
         return invoiceitemsCollection;
@@ -152,6 +160,7 @@ public class Invoice
         this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
+    @Override
     public String getPaymentMethodName()
     {
         return idpaymentMethods.getMethod();
@@ -164,6 +173,7 @@ public class Invoice
      * @return
      * eine neue Rechnung auf eine Belegung
      */
+    @Override
     public Invoice getInvoiceByHabitation(Habitation habitation)
     {
         Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethods, idCustomers);

@@ -11,12 +11,13 @@ import java.util.HashSet;
  *
  * @author Dunst
  */
-public class Role
+public class Role implements RoleData
 {
     private Integer id;
     private String name;
     private Collection<Permission> permissions;
 
+    @Override
     public Collection<Permission> getPermissions()
     {
         return permissions;
@@ -27,6 +28,7 @@ public class Role
         this.permissions = permissions;
     }
 
+    @Override
     public String getName()
     {
         return name;

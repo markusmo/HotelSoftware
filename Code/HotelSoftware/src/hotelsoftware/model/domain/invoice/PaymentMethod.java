@@ -10,7 +10,7 @@ import java.util.Collection;
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author mohi
  */
-public class PaymentMethod
+public class PaymentMethod implements PaymentMethodData
 {
     private Integer id;
     private String method;
@@ -24,6 +24,7 @@ public class PaymentMethod
         this.method = method;
     }
 
+    @Override
     public String getMethod()
     {
         return method;

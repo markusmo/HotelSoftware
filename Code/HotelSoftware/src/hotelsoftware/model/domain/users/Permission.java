@@ -14,11 +14,12 @@ import org.hibernate.HibernateException;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Permission
+public class Permission implements PermissionData
 {
     private Integer id;
     private String name;
 
+    @Override
     public String getName()
     {
         return name;

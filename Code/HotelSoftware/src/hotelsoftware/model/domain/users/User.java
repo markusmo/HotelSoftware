@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class User
+public class User implements UserData
 {
     private Integer id;
     private String username;
@@ -48,6 +48,7 @@ public class User
     {
         this.password = password;
     }
+    
     
     public Collection<Role> getRoles()
     {
@@ -115,7 +116,7 @@ public class User
      *
      * @param permissions
      * @return Collection of permission
-     */
+     */   
     public Collection<Permission> getAllPermissions()
     {
         Collection<Permission> permissions = new HashSet<Permission>();
@@ -133,6 +134,7 @@ public class User
         return permissions;
     }
     
+   
     public boolean hasPermission(Permission permission)
     {
         return getAllPermissions().contains(permission);
@@ -155,4 +157,12 @@ public class User
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
+    
+    public boolean hasPermission(PermissionData permission)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
