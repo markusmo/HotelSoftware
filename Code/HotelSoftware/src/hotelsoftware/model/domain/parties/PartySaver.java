@@ -4,25 +4,18 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.database.FailedToSaveToDatabaseException;
-import hotelsoftware.database.HibernateUtil;
 import hotelsoftware.model.database.parties.DBAddress;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.parties.DBPrivateCustomer;
-import hotelsoftware.model.database.users.DBPermission;
-import hotelsoftware.model.database.users.DBRole;
-import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.DynamicMapper;
 import java.util.Collection;
-import java.util.LinkedList;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import hotelsoftware.util.HibernateUtil;
-import hotelsoftware.model.database;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 /**
  * 

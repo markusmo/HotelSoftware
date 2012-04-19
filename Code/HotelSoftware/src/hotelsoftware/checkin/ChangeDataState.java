@@ -7,7 +7,7 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.room.Category;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.Room;
 import java.util.Collection;
 import java.util.Date;
@@ -58,7 +58,7 @@ public abstract class ChangeDataState extends CheckInState
     }
     
     @Override
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, Category category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategory category)
     {
         //TODO umwandeln
         category.getAllRooms();

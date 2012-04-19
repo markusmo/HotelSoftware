@@ -7,7 +7,7 @@ package hotelsoftware.gui.checkin;
 import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.room.Category;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.service.ExtraService;
 import java.util.Collection;
@@ -46,12 +46,12 @@ public class CheckInGuiControler
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Collection<Category> getCategories()
+    public Collection<RoomCategory> getCategories()
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Collection<Room> getFreeRoomsInCategory(Category c)
+    public Collection<Room> getFreeRoomsInCategory(RoomCategory c)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }

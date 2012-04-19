@@ -4,7 +4,7 @@ import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.room.Category;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.Habitation;

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Category implements CategoryData
+public class RoomCategory implements CategoryData
 {
     private String name;
     private BigDecimal price;
