@@ -11,6 +11,7 @@ package hotelsoftware.model.domain.room;
 public class RoomStatus implements RoomStatusData
 {
     private String statusName;
+    private int id;
 
     @Override
     public String getStatusName()
@@ -22,6 +23,20 @@ public class RoomStatus implements RoomStatusData
     {
         this.statusName = statusName;
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    
+    
+
+   
     
     
 }
