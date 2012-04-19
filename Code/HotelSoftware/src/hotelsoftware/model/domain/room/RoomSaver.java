@@ -7,8 +7,8 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.database.room.DBRoomoption;
-import hotelsoftware.model.database.room.DBRoomstatus;
+import hotelsoftware.model.database.room.DBRoomOption;
+import hotelsoftware.model.database.room.DBRoomStatus;
 import hotelsoftware.model.domain.room.Category.RoomCategory;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
@@ -80,7 +80,7 @@ public class RoomSaver
         
         for (RoomOption option : options)
         {
-            DBRoomoption dbOpt = (DBRoomoption) DynamicMapper.map(option);
+            DBRoomOption dbOpt = (DBRoomOption) DynamicMapper.map(option);
 
             session.saveOrUpdate(dbOpt);
             option.setId(dbOpt.getId());
@@ -88,7 +88,7 @@ public class RoomSaver
         
         for (RoomStatus stat : status)
         {
-            DBRoomstatus dbStat = (DBRoomstatus) DynamicMapper.map(stat);
+            DBRoomStatus dbStat = (DBRoomStatus) DynamicMapper.map(stat);
 
             session.saveOrUpdate(dbStat);
             stat.setId(dbStat.getId());

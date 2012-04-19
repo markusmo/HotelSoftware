@@ -68,14 +68,14 @@ public class DBRoom implements Serializable
         @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<DBRoomoption> roomoptionsCollection;
+    private Collection<DBRoomOption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRoomCategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
+    private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
 
     public DBRoom()
     {
@@ -113,12 +113,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomoption> getRoomoptions()
+    public Collection<DBRoomOption> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptions(Collection<DBRoomoption> roomoptionsCollection)
+    public void setRoomoptions(Collection<DBRoomOption> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
@@ -145,12 +145,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomsroomstatus> getRoomsroomstatus()
+    public Collection<DBRoomsRoomStatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatus(Collection<DBRoomsroomstatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }

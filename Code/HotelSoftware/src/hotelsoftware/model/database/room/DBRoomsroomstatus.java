@@ -24,11 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Roomsroomstatus.findByStart", query = "SELECT r FROM Roomsroomstatus r WHERE r.start = :start"),
     @NamedQuery(name = "Roomsroomstatus.findByEnd", query = "SELECT r FROM Roomsroomstatus r WHERE r.end = :end")
 })
-public class DBRoomsroomstatus implements Serializable
+public class DBRoomsRoomStatus implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBRoomsroomstatusPK roomsroomstatusPK;
+    protected DBRoomsRoomStatusPK roomsroomstatusPK;
     @Basic(optional = false)
     @Column(name = "start", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -39,38 +39,38 @@ public class DBRoomsroomstatus implements Serializable
     private Date end;
     @JoinColumn(name = "idRoomStatus", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRoomstatus roomstatus;
+    private DBRoomStatus roomstatus;
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBRoom rooms;
 
-    public DBRoomsroomstatus()
+    public DBRoomsRoomStatus()
     {
     }
 
-    public DBRoomsroomstatus(DBRoomsroomstatusPK roomsroomstatusPK)
+    public DBRoomsRoomStatus(DBRoomsRoomStatusPK roomsroomstatusPK)
     {
         this.roomsroomstatusPK = roomsroomstatusPK;
     }
 
-    public DBRoomsroomstatus(DBRoomsroomstatusPK roomsroomstatusPK, Date start, Date end)
+    public DBRoomsRoomStatus(DBRoomsRoomStatusPK roomsroomstatusPK, Date start, Date end)
     {
         this.roomsroomstatusPK = roomsroomstatusPK;
         this.start = start;
         this.end = end;
     }
 
-    public DBRoomsroomstatus(int idRooms, int idRoomStatus)
+    public DBRoomsRoomStatus(int idRooms, int idRoomStatus)
     {
-        this.roomsroomstatusPK = new DBRoomsroomstatusPK(idRooms, idRoomStatus);
+        this.roomsroomstatusPK = new DBRoomsRoomStatusPK(idRooms, idRoomStatus);
     }
 
-    public DBRoomsroomstatusPK getRoomsroomstatusPK()
+    public DBRoomsRoomStatusPK getRoomsroomstatusPK()
     {
         return roomsroomstatusPK;
     }
 
-    public void setRoomsroomstatusPK(DBRoomsroomstatusPK roomsroomstatusPK)
+    public void setRoomsroomstatusPK(DBRoomsRoomStatusPK roomsroomstatusPK)
     {
         this.roomsroomstatusPK = roomsroomstatusPK;
     }
@@ -95,12 +95,12 @@ public class DBRoomsroomstatus implements Serializable
         this.end = end;
     }
 
-    public DBRoomstatus getRoomstatus()
+    public DBRoomStatus getRoomstatus()
     {
         return roomstatus;
     }
 
-    public void setRoomstatus(DBRoomstatus roomstatus)
+    public void setRoomstatus(DBRoomStatus roomstatus)
     {
         this.roomstatus = roomstatus;
     }
@@ -127,11 +127,11 @@ public class DBRoomsroomstatus implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomsroomstatus))
+        if(!(object instanceof DBRoomsRoomStatus))
         {
             return false;
         }
-        DBRoomsroomstatus other = (DBRoomsroomstatus) object;
+        DBRoomsRoomStatus other = (DBRoomsRoomStatus) object;
         if((this.roomsroomstatusPK == null && other.roomsroomstatusPK != null) || (this.roomsroomstatusPK != null && !this.roomsroomstatusPK.equals(other.roomsroomstatusPK)))
         {
             return false;

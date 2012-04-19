@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoomoption;
+import hotelsoftware.model.database.room.DBRoomOption;
 import java.util.Collection;
 
 /**
@@ -18,7 +18,7 @@ public class RoomOption implements RoomOptionData {
 
 	private RoomOption(String name) {
 		this.name = name;
-		DBRoomoption.safeNewRoomOption(name);
+		DBRoomOption.safeNewRoomOption(name);
 	}
 
 	public RoomOption create(String name) {
@@ -44,7 +44,7 @@ public class RoomOption implements RoomOptionData {
 	}
 
 	public static Collection<RoomOption> getRoomOptions() {
-		Collection<DBRoomoption> dbro = DBRoomoption.getRoomOptions();
+		Collection<DBRoomOption> dbro = DBRoomOption.getRoomOptions();
 		return (Collection<RoomOption>) DynamicMapper.map(dbro);
 	}
 }

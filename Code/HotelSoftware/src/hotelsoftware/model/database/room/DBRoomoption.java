@@ -31,7 +31,7 @@ import org.hibernate.Transaction;
     @NamedQuery(name = "Roomoptions.findById", query = "SELECT r FROM Roomoptions r WHERE r.id = :id"),
     @NamedQuery(name = "Roomoptions.findByName", query = "SELECT r FROM Roomoptions r WHERE r.name = :name")
 })
-public class DBRoomoption implements Serializable
+public class DBRoomOption implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -53,16 +53,16 @@ public class DBRoomoption implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    public DBRoomoption()
+    public DBRoomOption()
     {
     }
 
-    public DBRoomoption(Integer id)
+    public DBRoomOption(Integer id)
     {
         this.id = id;
     }
 
-    public DBRoomoption(Integer id, String name)
+    public DBRoomOption(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -100,11 +100,11 @@ public class DBRoomoption implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomoption))
+        if(!(object instanceof DBRoomOption))
         {
             return false;
         }
-        DBRoomoption other = (DBRoomoption) object;
+        DBRoomOption other = (DBRoomOption) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -118,13 +118,13 @@ public class DBRoomoption implements Serializable
         return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
     }
     
-    public static Collection<DBRoomoption> getRoomOptions()
+    public static Collection<DBRoomOption> getRoomOptions()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        Collection<DBRoomoption> options = session.createCriteria(DBRoomoption.class).list();
+        Collection<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
         
         session.close();
         

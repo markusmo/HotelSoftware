@@ -28,7 +28,7 @@ public class DBRoomCategoryPrice implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBRoomcategorypricePK roomcategorypricesPK;
+    protected DBRoomCategoryPricePK roomcategorypricesPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
@@ -47,12 +47,12 @@ public class DBRoomCategoryPrice implements Serializable
     {
     }
 
-    public DBRoomCategoryPrice(DBRoomcategorypricePK roomcategorypricesPK)
+    public DBRoomCategoryPrice(DBRoomCategoryPricePK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
 
-    public DBRoomCategoryPrice(DBRoomcategorypricePK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
+    public DBRoomCategoryPrice(DBRoomCategoryPricePK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
         this.price = price;
@@ -61,15 +61,15 @@ public class DBRoomCategoryPrice implements Serializable
 
     public DBRoomCategoryPrice(int idRoomCategories, int idSeason)
     {
-        this.roomcategorypricesPK = new DBRoomcategorypricePK(idRoomCategories, idSeason);
+        this.roomcategorypricesPK = new DBRoomCategoryPricePK(idRoomCategories, idSeason);
     }
 
-    public DBRoomcategorypricePK getRoomcategorypricesPK()
+    public DBRoomCategoryPricePK getRoomcategorypricesPK()
     {
         return roomcategorypricesPK;
     }
 
-    public void setRoomcategorypricesPK(DBRoomcategorypricePK roomcategorypricesPK)
+    public void setRoomcategorypricesPK(DBRoomCategoryPricePK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
