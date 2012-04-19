@@ -81,6 +81,7 @@ public class CheckInMain extends javax.swing.JPanel
                 false, false, false, true, false, false, false
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex)
             {
                 return canEdit[columnIndex];
@@ -383,16 +384,16 @@ public class CheckInMain extends javax.swing.JPanel
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         // Search Button
-       /*
-         * try
-         * {
-         * reservations = cigc.searchReservations(textBoxFname.getText() , textBoxLname.getText(), textBoxReservationNumber.getText());
-         * }
-         * catch (InvalidInputException ex)
-         * {
-         * Logger.getLogger(CheckInMain.class.getName()).log(Level.SEVERE, null, ex);
-         * }
-         */
+
+        try
+        {
+            reservations = cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
+        }
+        catch (InvalidInputException ex)
+        {
+            Logger.getLogger(CheckInMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

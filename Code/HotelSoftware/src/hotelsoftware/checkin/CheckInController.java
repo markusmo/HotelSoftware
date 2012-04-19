@@ -18,23 +18,25 @@ import java.util.*;
  */
 public class CheckInController
 {
-    private static CheckInController controller = null;
+    private static class CheckInControllerHolder
+    {
+        private static final CheckInController INSTANCE = new CheckInController();
+    }
     
     public static CheckInController getInstance()
     {
-        if (controller == null)
-        {
-            controller = new CheckInController();
-        }
-        
-        return controller;
+        return CheckInControllerHolder.INSTANCE;
     }
     
     private CheckInState state;
     
     private CheckInController()
     {
-        state = new StartState(this);
+    }
+    
+    public void start()
+    {
+        state = new StartState(null);
     }
     
     void setState(CheckInState state)

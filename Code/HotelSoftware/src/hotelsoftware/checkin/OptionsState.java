@@ -9,7 +9,6 @@ import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -25,7 +24,7 @@ public class OptionsState extends CheckInState
     @Override
     public void initKeys()
     {
-        throw new NotImplementedException();
+        throw new IllegalStateException();
     }
     
     @Override

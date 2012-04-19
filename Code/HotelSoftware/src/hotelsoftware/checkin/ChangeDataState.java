@@ -79,7 +79,8 @@ public abstract class ChangeDataState extends CheckInState
     {
         RoomCategory cat = (RoomCategory)category;
         
-        return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(startDate, endDate));
+        //return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(startDate, endDate));
+        return null;
     }
     
     @Override
@@ -94,7 +95,8 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<CategoryData> getAllCategories()
     {        
-        return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategories());
+        //return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategories());
+        return null;
     }
     
     @Override

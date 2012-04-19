@@ -20,18 +20,16 @@ import java.util.LinkedList;
  */
 public class CheckInGuiControler
 {
-    private CheckInController cic = CheckInController.getInstance();
-    private static CheckInGuiControler controller = null;
+
+    private static class CheckInGuiControllerHolder
+    {
+        private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
+    }
     private ReservationData selectedReservation;
 
     public static CheckInGuiControler getInstance()
     {
-        if (controller == null)
-        {
-            controller = new CheckInGuiControler();
-        }
-
-        return controller;
+        return CheckInGuiControllerHolder.INSTANCE;
     }
 
     public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
@@ -39,17 +37,19 @@ public class CheckInGuiControler
         Collection<ReservationData> dafuq = new LinkedList<ReservationData>();
         try
         {
-            ReservationData reservation = cic.search(Integer.parseInt(reservationNumber));
+            CheckInController cic = CheckInController.getInstance();
+            cic.start();
+            if (reservationNumber.length() > 0)
+            {
+                ReservationData reservation = cic.search(Integer.parseInt(reservationNumber));
 
-            if (reservation != null)
-            {
-                dafuq.add(reservation);
+                if (reservation != null)
+                {
+                    dafuq.add(reservation);
+                }
             }
-            else
-            {
-                dafuq.addAll(cic.search(fname, lname));
-            }
-            
+            dafuq.addAll(CheckInController.getInstance().search(fname, lname));
+
             return dafuq;
         }
         catch (NumberFormatException ex)
@@ -60,7 +60,7 @@ public class CheckInGuiControler
 
     public Collection<ReservationData> getAllReservations()
     {
-        return cic.getAllReservations();
+        return CheckInController.getInstance().getAllReservations();
     }
 
     public ReservationData getSelectedReservation()
@@ -70,12 +70,12 @@ public class CheckInGuiControler
 
     public Collection<CategoryData> getCategories()
     {
-        return cic.getAllCategories();
+        return CheckInController.getInstance().getAllCategories();
     }
 
     public Collection<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
     {
-        return cic.changeRoomCategory(index, c);
+        return CheckInController.getInstance().changeRoomCategory(index, c);
     }
 
     public GuestData getGuest(String fname, String lname, String street, String city, String zip, String email, String phone, String fax, String country)
@@ -85,17 +85,31 @@ public class CheckInGuiControler
 
     public Collection<ExtraServiceData> getExtraservices()
     {
-        return cic.getServices();
+        return CheckInController.getInstance().getServices();
     }
 
     void setSelectedReservation(ReservationData selectedReservation)
     {
-       this.selectedReservation = selectedReservation;
+        this.selectedReservation = selectedReservation;
     }
 
     int addRoom()
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    public void changeRoom(int selectionIndex, String roomNumber)
+    {
+        CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
+    }
     
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    {
+        return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
+    }
+
+    public RoomData getRoomData(int roomIndex)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

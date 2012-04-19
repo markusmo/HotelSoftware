@@ -42,22 +42,22 @@ public class CheckinTwo extends javax.swing.JPanel
      * Creates new form GUInr2
      */
     public CheckinTwo()
-    {
-        reservation = cigc.getSelectedReservation();
+    { 
         initComponents();
-        init();
+        //init();
     }
     int i;
 
-    private void init()
+    public void init()
     {
         //################### Set TextBoxes
+        reservation = cigc.getSelectedReservation();
         SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
         textAreaComment.setText(reservation.getComment());
         textBoxArrival.setText(df.format(reservation.getStart()));
         textBoxDeparture.setText(df.format(reservation.getEnd()));
         //textBoxNumberOfGuests.setText(reservation.get);
-        textBoxReservationNumber.setText(reservation.getIndex());
+        textBoxReservationNumber.setText(reservation.getId() + "");
 
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())

@@ -9,6 +9,7 @@ import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.RoomData;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -53,14 +54,23 @@ public class RoomPanel extends javax.swing.JPanel
             private void updateComboBoxRooms(String string)
             {
                 ComboBoxFreeRooms.removeAll();
-                for (CategoryData data : cigc.ge())
+                CategoryData cd = cigc.getCategories().toArray(new CategoryData[0])[ComboBoxCategories.getSelectedIndex()];
+                for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
                 {
-                    ComboBoxCategories.addItem(data.getName());
+                    ComboBoxCategories.addItem(data.getNumber());
                 }
             }
         });
+
+        ComboBoxCategories.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                cigc.changeRoom(roomIndex, (String) ComboBoxFreeRooms.getSelectedItem());
+            }
+        });
         //############ Guests
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedAmount(); i++)
         {
             TabbedPaneGuests.addTab("Guest " + (i + 1), new GuestPanel());
             TabbedPaneGuests.setTabComponentAt(i, new ButtonTabComponent(TabbedPaneGuests));
