@@ -75,7 +75,7 @@ public class DBRoom implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
+    private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
 
     public DBRoom()
     {
@@ -145,12 +145,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomsroomstatus> getRoomsroomstatus()
+    public Collection<DBRoomsRoomStatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatus(Collection<DBRoomsroomstatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }

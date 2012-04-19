@@ -11,7 +11,7 @@ import hotelsoftware.model.database.reservation.DBReservationoption;
 import hotelsoftware.model.database.room.DBSeason;
 import hotelsoftware.model.database.parties.DBAddress;
 import hotelsoftware.model.database.service.DBService;
-import hotelsoftware.model.database.room.DBRoomsroomstatus;
+import hotelsoftware.model.database.room.DBRoomsRoomStatus;
 import hotelsoftware.model.database.room.DBRoomCategoryPrice;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBExtraService;
@@ -20,7 +20,7 @@ import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.reservation.DBReservationitemPK;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.invoice.DBInvoiceitemPK;
-import hotelsoftware.model.database.room.DBRoomstatus;
+import hotelsoftware.model.database.room.DBRoomStatus;
 import hotelsoftware.model.database.parties.DBCountry;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.model.database.invoice.DBInvoice;
@@ -33,7 +33,7 @@ import hotelsoftware.model.database.invoice.DBInvoiceitem;
 import hotelsoftware.model.database.parties.DBPerson;
 import hotelsoftware.model.database.invoice.DBPaymentmethod;
 import hotelsoftware.model.database.users.DBPermission;
-import hotelsoftware.model.database.room.DBRoomsroomstatusPK;
+import hotelsoftware.model.database.room.DBRoomsRoomStatusPK;
 import hotelsoftware.model.database.users.DBUser;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
@@ -81,9 +81,9 @@ public class HibernateUtil
                     .addAnnotatedClass(DBRoomCategoryPricePK.class)
                     .addAnnotatedClass(DBRoomOption.class)
                     .addAnnotatedClass(DBRoom.class)
-                    .addAnnotatedClass(DBRoomsroomstatus.class)
-                    .addAnnotatedClass(DBRoomsroomstatusPK.class)
-                    .addAnnotatedClass(DBRoomstatus.class)
+                    .addAnnotatedClass(DBRoomsRoomStatus.class)
+                    .addAnnotatedClass(DBRoomsRoomStatusPK.class)
+                    .addAnnotatedClass(DBRoomStatus.class)
                     .addAnnotatedClass(DBSeason.class)
                     .addAnnotatedClass(DBService.class)
                     .addAnnotatedClass(DBServiceType.class)
