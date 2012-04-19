@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.invoice.DBPaymentmethod;
+import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.domain.invoice.PaymentMethod;
 

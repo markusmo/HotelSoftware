@@ -29,6 +29,7 @@ public class Reservation implements ReservationData
     private Party party;
     private Collection<ReservationItem> reservationItemCollection;
     private Integer id;
+    private String reservationNumber;
 
     Reservation()
     {
@@ -160,5 +161,15 @@ public class Reservation implements ReservationData
     public static Collection<Reservation> getAllReservations()
     {
         return ReservationFacade.getInstance().getAllReservations();
+    }
+    
+    public void setReservationNumber(String reservationNumber)
+    {
+        this.reservationNumber = reservationNumber;
+    }
+
+    public String getReservationNumber()
+    {
+        return this.reservationNumber;
     }
 }

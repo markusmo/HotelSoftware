@@ -106,9 +106,9 @@ public class DBReservation implements Serializable
     @Column(name = "comment", length = 255)
     private String comment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
-    private Collection<DBReservationitem> reservationitemsCollection;
+    private Collection<DBReservationItem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
-    private Collection<DBReservationoption> reservationoptionsCollection;
+    private Collection<DBReservationOption> reservationoptionsCollection;
     @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne
     private DBUser idUsers;
@@ -120,22 +120,22 @@ public class DBReservation implements Serializable
     {
     }
 
-    public Collection<DBReservationitem> getReservationitemsCollection()
+    public Collection<DBReservationItem> getReservationitemsCollection()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitemsCollection(Collection<DBReservationitem> reservationitemsCollection)
+    public void setReservationitemsCollection(Collection<DBReservationItem> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
-    public Collection<DBReservationoption> getReservationoptionsCollection()
+    public Collection<DBReservationOption> getReservationoptionsCollection()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptionsCollection(Collection<DBReservationoption> reservationoptionsCollection)
+    public void setReservationoptionsCollection(Collection<DBReservationOption> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
@@ -261,23 +261,23 @@ public class DBReservation implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservationitem> getReservationitems()
+    public Collection<DBReservationItem> getReservationitems()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitems(Collection<DBReservationitem> reservationitemsCollection)
+    public void setReservationitems(Collection<DBReservationItem> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
     @XmlTransient
-    public Collection<DBReservationoption> getReservationoptions()
+    public Collection<DBReservationOption> getReservationoptions()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptions(Collection<DBReservationoption> reservationoptionsCollection)
+    public void setReservationoptions(Collection<DBReservationOption> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
@@ -330,16 +330,6 @@ public class DBReservation implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Reservations[ id=" + id + " ]";
-    }
-
-    public String getReserationNumber()
-    {
-        return reserationNumber;
-    }
-
-    public void setReserationNumber(String reserationNumber)
-    {
-        this.reserationNumber = reserationNumber;
     }
 
     public Date getStart()

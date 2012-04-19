@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -60,21 +62,17 @@ public class DBRoom implements Serializable
     @Basic(optional = false)
     @Column(name = "roomNumber", nullable = false)
     private String roomNumber;
-    @JoinTable(name = "roomsroomoptions", joinColumns =
-    {
-        @JoinColumn(name = "idRoom", referencedColumnName = "id", nullable = false)
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
+
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "roomsroomoptions", joinColumns = { @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })  
     private Collection<DBRoomOption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRoomCategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
+    @OneToMany(mappedBy="rooms", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
     private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
 
     public DBRoom()
