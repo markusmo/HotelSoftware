@@ -6,19 +6,7 @@ package hotelsoftware.model.database.users;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -61,7 +49,15 @@ public class DBRole implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @ManyToMany(mappedBy = "rolesCollection")
+    
+    @JoinTable(name = "rolePermissions", joinColumns =
+    {
+        @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
+    }, inverseJoinColumns =
+    {
+        @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<DBPermission> permissionsCollection;
 
     public DBRole()
