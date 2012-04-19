@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -41,14 +43,27 @@ public class DBPrivateCustomer implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "fname")
+    @Column(name = "fname", nullable = false, length = 255)
     private String fname;
     @Basic(optional = false)
-    @Column(name = "lname")
+    @Column(name = "lname", nullable = false, length = 255)
     private String lname;
+    @JoinColumn(name = "customers_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private DBCustomer customersId;
+
+    public DBCustomer getCustomersId()
+    {
+        return customersId;
+    }
+
+    public void setCustomersId(DBCustomer customersId)
+    {
+        this.customersId = customersId;
+    }
 
     public DBPrivateCustomer()
     {

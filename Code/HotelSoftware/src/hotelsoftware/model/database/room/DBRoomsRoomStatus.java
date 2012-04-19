@@ -26,9 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class DBRoomsRoomStatus implements Serializable
 {
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DBRoomsRoomStatusPK roomsroomstatusPK;
     @Basic(optional = false)
     @Column(name = "start", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -37,6 +34,9 @@ public class DBRoomsRoomStatus implements Serializable
     @Column(name = "end", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected DBRoomsRoomStatusPK roomsroomstatusPK;
     @JoinColumn(name = "idRoomStatus", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBRoomStatus roomstatus;
@@ -73,26 +73,6 @@ public class DBRoomsRoomStatus implements Serializable
     public void setRoomsroomstatusPK(DBRoomsRoomStatusPK roomsroomstatusPK)
     {
         this.roomsroomstatusPK = roomsroomstatusPK;
-    }
-
-    public Date getStart()
-    {
-        return start;
-    }
-
-    public void setStart(Date start)
-    {
-        this.start = start;
-    }
-
-    public Date getEnd()
-    {
-        return end;
-    }
-
-    public void setEnd(Date end)
-    {
-        this.end = end;
     }
 
     public DBRoomStatus getRoomstatus()
@@ -143,6 +123,26 @@ public class DBRoomsRoomStatus implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roomsroomstatus[ roomsroomstatusPK=" + roomsroomstatusPK + " ]";
+    }
+
+    public Date getStart()
+    {
+        return start;
+    }
+
+    public void setStart(Date start)
+    {
+        this.start = start;
+    }
+
+    public Date getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(Date end)
+    {
+        this.end = end;
     }
     
 }

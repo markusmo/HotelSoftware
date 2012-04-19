@@ -60,6 +60,14 @@ import org.hibernate.criterion.Restrictions;
 })
 public class DBInvoice implements Serializable
 {
+    @Basic(optional = false)
+    @Column(name = "expiration")
+    @Temporal(TemporalType.DATE)
+    private Date expiration;
+    @Basic(optional = false)
+    @Column(name = "created")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,27 +82,19 @@ public class DBInvoice implements Serializable
     @Column(name = "discount", precision = 4, scale = 2)
     private BigDecimal discount;
     @Basic(optional = false)
-    @Column(name = "expiration", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date expiration;
-    @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
-    @Basic(optional = false)
-    @Column(name = "created", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
     private Collection<DBInvoiceitem> invoiceitemsCollection;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBPaymentmethod idpaymentMethods;
-    @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private DBUser idUsers;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBCustomer idCustomers;
+    @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private DBUser idUsers;
 
     public DBInvoice()
     {
@@ -103,6 +103,16 @@ public class DBInvoice implements Serializable
     public DBInvoice(Integer id)
     {
         this.id = id;
+    }
+
+    public Collection<DBInvoiceItem> getInvoiceitemsCollection()
+    {
+        return invoiceitemsCollection;
+    }
+
+    public void setInvoiceitemsCollection(Collection<DBInvoiceItem> invoiceitemsCollection)
+    {
+        this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
     public DBInvoice(String invoiceNumber, BigDecimal discount, Date expiration,
@@ -159,16 +169,6 @@ public class DBInvoice implements Serializable
         this.discount = discount;
     }
 
-    public Date getExpiration()
-    {
-        return expiration;
-    }
-
-    public void setExpiration(Date expiration)
-    {
-        this.expiration = expiration;
-    }
-
     public boolean getFulfilled()
     {
         return fulfilled;
@@ -177,16 +177,6 @@ public class DBInvoice implements Serializable
     public void setFulfilled(boolean fulfilled)
     {
         this.fulfilled = fulfilled;
-    }
-
-    public Date getCreated()
-    {
-        return created;
-    }
-
-    public void setCreated(Date created)
-    {
-        this.created = created;
     }
 
     @XmlTransient
@@ -306,5 +296,25 @@ public class DBInvoice implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Invoices[ id=" + id + " ]";
+    }
+
+    public Date getExpiration()
+    {
+        return expiration;
+    }
+
+    public void setExpiration(Date expiration)
+    {
+        this.expiration = expiration;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
     }
 }
