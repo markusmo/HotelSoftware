@@ -5,8 +5,10 @@
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.reservation.DBReservationitem;
+import hotelsoftware.model.domain.room.RoomCategory;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -159,6 +161,21 @@ public class DBRoomCategory implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roomcategories[ id=" + id + " ]";
+    }
+    
+    public static DBRoomCategory getRoomCategoryByName(String name)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+    public static Collection<DBRoomCategory> getAllCategorys()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+    public static Collection<RoomCategory> getFreeRooms(RoomCategory aThis, Date start, Date ende)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }
