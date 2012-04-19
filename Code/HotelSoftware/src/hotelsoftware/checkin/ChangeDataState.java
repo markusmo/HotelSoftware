@@ -8,9 +8,9 @@ import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.room.Category;
 import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -63,7 +63,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public int addRoomSelection()
     {
-        roomSelections.put(counter++, new RoomSelection(new Category(), new Room()));
+        roomSelections.put(counter++, new RoomSelection(new RoomCategory(), new Room()));
         
         return counter;
     }
@@ -77,7 +77,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
-        Category cat = (Category)category;
+        RoomCategory cat = (RoomCategory)category;
         
         return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(startDate, endDate));
     }
@@ -94,6 +94,12 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<CategoryData> getAllCategories()
     {        
-        return new HelperFunctions<CategoryData, Category>().castCollectionUp(Category.getAllCategories());
+        return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategories());
+    }
+    
+    @Override
+    public RoomData getRoomData(int selectionIndex)
+    {
+        return roomSelections.get(selectionIndex).getRoom();
     }
 }

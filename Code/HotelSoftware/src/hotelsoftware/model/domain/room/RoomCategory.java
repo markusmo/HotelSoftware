@@ -25,6 +25,10 @@ public class RoomCategory implements CategoryData
     private BigDecimal minPrice;
     private int bedAmount;
 
+    public RoomCategory()
+    {
+    }
+
     public void setBedAmount(int bedAmount)
     {
         this.bedAmount = bedAmount;
