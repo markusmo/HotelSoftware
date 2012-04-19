@@ -4,12 +4,11 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.ExtraServiceData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -18,6 +17,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class OptionsState extends CheckInState
 {
+    public OptionsState(CheckInController context)
+    {
+        super(context);
+    }
+    
     @Override
     public void initKeys()
     {
@@ -27,23 +31,18 @@ public class OptionsState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getServices()
     {
-        Collection<ExtraService> services = Service.getAllServices();
-        Collection<ExtraServiceData> serviceData = new LinkedList<ExtraServiceData>();
+        Collection<ExtraService> services = ExtraService.getAllExtraServices();
         
-        for (service : services)
-        {
-            serviceData.add(service);
-        }
-        
-        return serviceData;
+        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
     }
     
     @Override
-    public void selectServices(Map<ExtraServiceData, Integer> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
-        for (Entry<ExtraService, Integer> entry : services.entrySet())
+        for (ExtraServiceData entry : services)
         {
-            habitation.addExtraService(entry.getKey(), entry.getValue());
+            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, habitation);
+            habitation.addInvoiceItem(item);
         }
     }
 }

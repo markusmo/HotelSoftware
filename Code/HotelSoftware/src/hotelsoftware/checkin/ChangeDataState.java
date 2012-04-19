@@ -4,14 +4,18 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.parties.GuestData;
+import hotelsoftware.model.domain.room.Category;
+import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  *
@@ -19,20 +23,31 @@ import java.util.List;
  */
 public abstract class ChangeDataState extends CheckInState
 {    
-    @Override
-    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, AddressData address)
+    public ChangeDataState(CheckInController context)
     {
-        Guest g = (Guest)guest;
-        g.setFirstName(firstName);
-        g.setLasttName(lastName);
-        g.setBirthday(birthday);
-        g.setAddress(address);
+        super(context);
+        
+        roomSelections = new HashMap<Integer, RoomSelection>();
+        counter = 0;
     }
     
     @Override
-    public GuestData addGuest(String firstName, String lastName, Date birthday, AddressData address)
+    public GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        GuestData guest = new Guest(firstName, lastName, birthday, address);
+        Guest g = (Guest)guest;
+        g.setFname(firstName);
+        g.setLname(lastName);
+        g.setGender(gender);
+        g.setBirthday(birthday);
+        g.setAddress((Address)address);
+        
+        return g;
+    }
+    
+    @Override
+    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
+    {
+        GuestData guest = Guest.create(lastName, lastName, gender, birthday, null);
         
         //TODO save somehow
         
@@ -42,13 +57,15 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void assignRoom(GuestData guest, RoomData room)
     {
-        room.addGuest(guest);
+        //TODO
     }
     
     @Override
     public int addRoomSelection()
     {
-        throw new IllegalStateException();
+        roomSelections.put(counter++, new RoomSelection(new Category(), new Room()));
+        
+        return counter;
     }
     
     @Override
@@ -58,15 +75,25 @@ public abstract class ChangeDataState extends CheckInState
     }
     
     @Override
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategory category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
-        //TODO umwandeln
-        category.getAllRooms();
+        Category cat = (Category)category;
+        
+        return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(startDate, endDate));
     }
     
     @Override
-    public void changeRoom(int selectionIndex, int roomNumber)
+    public void changeRoom(int selectionIndex, String roomNumber)
     {
-        throw new IllegalStateException();
+        RoomSelection sel = roomSelections.get(selectionIndex);
+        Room room = Room.getRoomByNumber(roomNumber);
+        
+        sel.setRoom(room);
+    }
+    
+    @Override
+    public Collection<CategoryData> getAllCategories()
+    {        
+        return new HelperFunctions<CategoryData, Category>().castCollectionUp(Category.getAllCategories());
     }
 }

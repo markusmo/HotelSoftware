@@ -5,10 +5,11 @@
 package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.reservation.ReservationData;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  *
@@ -16,11 +17,17 @@ import java.util.List;
  */
 public class StartState extends CheckInState
 {
+    public StartState(CheckInController context)
+    {
+        super(context);
+    }
+    
     /**
      * Sucht nach einer Reservierung
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
      * @return Die zur Reservierungsnummer gehörende Reservierung 
      */
+    @Override
     public ReservationData search(int reservationNr)
     {
         return Reservation.getReservationByNumber(reservationNr);
@@ -32,14 +39,15 @@ public class StartState extends CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
+    @Override
     public Collection<ReservationData> search(String firstName, String lastName)
     {
         Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
         Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
         
-        for (Reservation reservation: reservations)
+        for (Reservation res : reservations)
         {
-            reservationData.add(reservation);
+            reservationData.add(res);
         }
         
         return reservationData;
@@ -49,12 +57,13 @@ public class StartState extends CheckInState
      * Wählt eine Reservierung aus die abgearbeitet werden soll
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
+    @Override
     public void workWithReservation(ReservationData reservation)
     {
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
                 
-        context.setState(new ChangeReservationDataState());
+        context.setState(new ChangeReservationDataState(context));
     }
     
     /**
@@ -69,7 +78,7 @@ public class StartState extends CheckInState
         this.startDate = start;
         this.endDate = end;
         
-        context.setState(new ChangeWalkInDataState());
+        context.setState(new ChangeWalkInDataState(context));
     }
     
     /**
@@ -86,6 +95,6 @@ public class StartState extends CheckInState
         cal.add(Calendar.DAY_OF_YEAR, days);
         this.endDate = cal.getTime();
         
-        context.setState(new ChangeWalkInDataState());
+        context.setState(new ChangeWalkInDataState(context));
     }    
 }
