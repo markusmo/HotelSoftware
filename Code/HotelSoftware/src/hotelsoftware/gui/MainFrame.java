@@ -175,9 +175,9 @@ public class MainFrame extends javax.swing.JFrame
         jButton14.setIcon(new ImageIcon("src/resources/images/logout-icon.png"));
         jButton13.setIcon(new ImageIcon("src/resources/images/Maps-icon.png"));
         jButton15.setIcon(new ImageIcon("src/resources/images/Address-Book-icon.png"));
-        
-        jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
         jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
+        jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
+        
         
     }
    
