@@ -4,13 +4,12 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.datainterfaces.GuestData;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.UserData;
-import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.model.domain.parties.AddressData;
+import hotelsoftware.model.domain.parties.GuestData;
+import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.service.ExtraServiceData;
 import java.util.*;
 
 /**
@@ -35,7 +34,7 @@ public class CheckInController
     
     private CheckInController()
     {
-        state = new StartState();
+        state = new StartState(this);
     }
     
     void setState(CheckInState state)
@@ -107,11 +106,11 @@ public class CheckInController
     
     /**
      * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
-     * @return Alle bereits erfassten Gäste die einchecken
+     * @return Der Gast der die Reservierung angelegt hat
      */
-    public Collection<GuestData> getGuests()
+    public GuestData getGuests()
     {
-        return state.getGuests();
+        return state.getGuest();
     }
     
     /**
@@ -123,9 +122,9 @@ public class CheckInController
      * @param address Die Adresse des Gastes
      * @return Der Gast mit den geänderten Daten
      */
-    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, Address address)
+    public GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        return state.changeGuestData(guest, firstName, lastName, birthday, address);
+        return state.changeGuestData(guest, firstName, lastName, gender, birthday, address);
     }
     
     /**
@@ -136,9 +135,9 @@ public class CheckInController
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    public GuestData addGuest(String firstName, String lastName, Date birthday, AddressData address)
+    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        return state.addGuest(firstName, lastName, birthday, address);
+        return state.addGuest(firstName, lastName, gender, birthday, address);
     }
     
     /**
@@ -159,9 +158,7 @@ public class CheckInController
     {
         return state.addRoomSelection();
     }
-    
-    //Eine Liste aus Kategorien aus denen ein Zimmer ausgewählt werden kann
-    
+        
     /**
      * Entfernt die angegebene Zimmerauswahl
      * @param selectionIndex Der index der zu entfernenden Asuwahl
@@ -169,6 +166,11 @@ public class CheckInController
     public void removeRoomSelection(int selectionIndex)
     {
         state.removeRoomSelection(selectionIndex);
+    }
+    
+    public Collection<CategoryData> getAllCategories()
+    {
+        return state.getAllCategories();
     }
     
     /**
@@ -187,7 +189,7 @@ public class CheckInController
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
      * @param roomNumber Die ausgewählte Zimmernummer
      */
-    public void changeRoom(int selectionIndex, int roomNumber)
+    public void changeRoom(int selectionIndex, String roomNumber)
     {
         state.changeRoom(selectionIndex, roomNumber);
     }
@@ -214,7 +216,7 @@ public class CheckInController
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Map<ExtraServiceData, Integer> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
         state.selectServices(services);
     }

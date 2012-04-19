@@ -4,10 +4,9 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.parties.Guest;
-import java.util.LinkedList;
-import java.util.List;
+import hotelsoftware.model.domain.parties.GuestData;
+import hotelsoftware.model.domain.parties.PartyData;
 
 /**
  *
@@ -15,17 +14,21 @@ import java.util.List;
  */
 public class ChangeReservationDataState extends ChangeDataState
 {
-    @Override
-    public List<GuestData> getGuests()
+    public ChangeReservationDataState(CheckInController context)
     {
-        List<Guest> guests = reservation.getAllGuests();
-        List<GuestData> guestData = new LinkedList<GuestData>();
+        super(context);
+    }
+    
+    @Override
+    public GuestData getGuest()
+    {
+        PartyData guest = reservation.getPartyData();
         
-        for (Guest guest : guests)
+        if (guest instanceof Guest)
         {
-            guestData.add(guest);
+            return (GuestData) guest;
         }
         
-        return guestData;
+        return null;
     }
 }

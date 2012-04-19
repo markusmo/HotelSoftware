@@ -10,5 +10,8 @@ package hotelsoftware.checkin;
  */
 public class ChangeWalkInDataState extends ChangeDataState
 {
-    
+    public ChangeWalkInDataState(CheckInController context)
+    {
+        super(context);
+    }
 }

@@ -5,12 +5,15 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.parties.GuestData;
+import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.room.Category;
-import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.service.ExtraServiceData;
+import java.text.ParseException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -31,39 +34,58 @@ public class CheckInGuiControler
         return controller;
     }
 
-    public Collection<Reservation> searchReservations(String fname, String lname, String reservationNumber)
+    public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
+    {
+        Collection<ReservationData> dafuq = new LinkedList<ReservationData>();
+        try
+        {
+            ReservationData reservation = cic.search(Integer.parseInt(reservationNumber));
+
+            if (reservation != null)
+            {
+                dafuq.add(reservation);
+            }
+            else
+            {
+                dafuq.addAll(cic.search(fname, lname));
+            }
+            
+            return dafuq;
+        }
+        catch (NumberFormatException ex)
+        {
+            throw new InvalidInputException(reservationNumber);
+        }
+    }
+
+    public Collection<ReservationData> getAllReservations()
+    {
+        return cic.getAllReservations();
+    }
+
+    public ReservationData getSelectedReservation(int index)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Collection<Reservation> getAllReservations()
+    public Collection<CategoryData> getCategories()
+    {
+        return cic.getAllCategories();
+    }
+
+    public Collection<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
+    {
+        return cic.changeRoomCategory(index, c);
+    }
+
+    public GuestData getGuest(String fname, String lname, String street, String city, String zip, String email, String phone, String fax, String country)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Reservation getSelectedReservation(int index)
+    public Collection<ExtraServiceData> getExtraservices()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public Collection<Category> getCategories()
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public Collection<Room> getFreeRoomsInCategory(Category c)
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public Guest getGuest(String fname, String lname, String street, String city, String zip, String email, String phone, String fax, String country)
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public Collection<ExtraService> getExtraservices()
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return cic.getServices();
     }
     
 }
