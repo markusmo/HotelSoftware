@@ -9,12 +9,16 @@ import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
+import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.reservation.ReservationItemData;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -31,11 +35,15 @@ import javax.swing.event.ChangeListener;
  */
 public class CheckinTwo extends javax.swing.JPanel
 {
+    private ReservationData reservation;
+    private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
+
     /**
      * Creates new form GUInr2
      */
     public CheckinTwo()
     {
+        reservation = cigc.getSelectedReservation();
         initComponents();
         init();
     }
@@ -43,20 +51,34 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void init()
     {
+        //################### Set TextBoxes
+        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+        textAreaComment.setText(reservation.getComment());
+        textBoxArrival.setText(df.format(reservation.getStart()));
+        textBoxDeparture.setText(df.format(reservation.getEnd()));
+        //textBoxNumberOfGuests.setText(reservation.get);
+        textBoxReservationNumber.setText(reservation.getIndex());
 
-        for (i = 0; i < 3; i++)
+        //################### Create Panels
+        for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
-            TabbedPaneRooms.addTab("Room " + (i + 1), new RoomPanel());
-            TabbedPaneRooms.setTabComponentAt(i,
-                    new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));
-            //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
+            int oldi = i;
+            for (i = oldi; i < data.getAmount(); i++)
+            {
+                RoomPanel room = new RoomPanel();
+                room.setRoomIndex(cigc.addRoom());
+                TabbedPaneRooms.addTab("Room " + (i + 1),room);
+                TabbedPaneRooms.setTabComponentAt(i,
+                        new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));
+                //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
+            }
         }
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);
         TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
                 new ButtonTabComponentPlus(TabbedPaneRooms, RoomPanel.class, "Room", new ImageIcon("src/resources/images/gh1.png")));
         TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
-        
+
         TabbedPaneRooms.addChangeListener(new ChangeListener()
         {
             public void stateChanged(ChangeEvent e)
@@ -99,14 +121,14 @@ public class CheckinTwo extends javax.swing.JPanel
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        textBoxArrival = new javax.swing.JTextField();
+        textBoxReservationNumber = new javax.swing.JTextField();
+        textBoxNumberOfGuests = new javax.swing.JTextField();
+        textBoxDeparture = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        textAreaComment = new javax.swing.JTextArea();
         TabbedPaneRooms = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
 
@@ -123,27 +145,27 @@ public class CheckinTwo extends javax.swing.JPanel
 
         jLabel4.setText("Number of guests:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        textBoxArrival.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                textBoxArrivalActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        textBoxReservationNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                textBoxReservationNumberActionPerformed(evt);
             }
         });
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        textBoxNumberOfGuests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                textBoxNumberOfGuestsActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        textBoxDeparture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                textBoxDepartureActionPerformed(evt);
             }
         });
 
@@ -151,9 +173,9 @@ public class CheckinTwo extends javax.swing.JPanel
 
         jLabel5.setText("Departure:");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        textAreaComment.setColumns(20);
+        textAreaComment.setRows(5);
+        jScrollPane2.setViewportView(textAreaComment);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -169,19 +191,19 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textBoxArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(79, 79, 79)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(256, 256, 256))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textBoxDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,19 +212,19 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textBoxArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textBoxDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -275,25 +297,24 @@ public class CheckinTwo extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxReservationNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_textBoxReservationNumberActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void textBoxArrivalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxArrivalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_textBoxArrivalActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void textBoxDepartureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxDepartureActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_textBoxDepartureActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void textBoxNumberOfGuestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxNumberOfGuestsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_textBoxNumberOfGuestsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -314,11 +335,11 @@ public class CheckinTwo extends javax.swing.JPanel
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextArea textAreaComment;
+    private javax.swing.JTextField textBoxArrival;
+    private javax.swing.JTextField textBoxDeparture;
+    private javax.swing.JTextField textBoxNumberOfGuests;
+    private javax.swing.JTextField textBoxReservationNumber;
     // End of variables declaration//GEN-END:variables
 
     public void persist(Object object)

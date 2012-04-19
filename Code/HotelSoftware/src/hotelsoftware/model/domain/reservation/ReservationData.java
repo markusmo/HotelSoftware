@@ -29,5 +29,7 @@ public interface ReservationData
     Collection<ReservationItemData> getReservationItemCollectionData();
 
     Date getStart();
+
+    public String getIndex();
     
 }

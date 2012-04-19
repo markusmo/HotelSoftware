@@ -22,6 +22,7 @@ public class CheckInGuiControler
 {
     private CheckInController cic = CheckInController.getInstance();
     private static CheckInGuiControler controller = null;
+    private ReservationData selectedReservation;
 
     public static CheckInGuiControler getInstance()
     {
@@ -62,9 +63,9 @@ public class CheckInGuiControler
         return cic.getAllReservations();
     }
 
-    public ReservationData getSelectedReservation(int index)
+    public ReservationData getSelectedReservation()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return selectedReservation;
     }
 
     public Collection<CategoryData> getCategories()
@@ -85,6 +86,16 @@ public class CheckInGuiControler
     public Collection<ExtraServiceData> getExtraservices()
     {
         return cic.getServices();
+    }
+
+    void setSelectedReservation(ReservationData selectedReservation)
+    {
+       this.selectedReservation = selectedReservation;
+    }
+
+    int addRoom()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

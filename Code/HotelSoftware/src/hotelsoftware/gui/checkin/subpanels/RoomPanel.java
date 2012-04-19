@@ -4,8 +4,11 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
+import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.room.CategoryData;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,11 +20,16 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class RoomPanel extends javax.swing.JPanel
 {
+    private ReservationData reservation;
+    private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
+    private int roomIndex;
+
     /**
      * Creates new form RoomPanel
      */
     public RoomPanel()
     {
+        reservation = cigc.getSelectedReservation();
         initComponents();
         init();
     }
@@ -29,6 +37,29 @@ public class RoomPanel extends javax.swing.JPanel
 
     private void init()
     {
+        //############# DropDowns
+        ComboBoxCategories.removeAllItems();
+        for (CategoryData data : cigc.getCategories())
+        {
+            ComboBoxCategories.addItem(data.getName());
+        }
+        ComboBoxCategories.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem());
+            }
+
+            private void updateComboBoxRooms(String string)
+            {
+                ComboBoxFreeRooms.removeAll();
+                for (CategoryData data : cigc.ge())
+                {
+                    ComboBoxCategories.addItem(data.getName());
+                }
+            }
+        });
+        //############ Guests
         for (i = 0; i < 3; i++)
         {
             TabbedPaneGuests.addTab("Guest " + (i + 1), new GuestPanel());
@@ -41,6 +72,16 @@ public class RoomPanel extends javax.swing.JPanel
 
     }
 
+    public int getRoomIndex()
+    {
+        return roomIndex;
+    }
+
+    public void setRoomIndex(int roomIndex)
+    {
+        this.roomIndex = roomIndex;
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -51,15 +92,15 @@ public class RoomPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox2 = new javax.swing.JComboBox();
+        ComboBoxFreeRooms = new javax.swing.JComboBox();
         TabbedPaneGuests = new javax.swing.JTabbedPane();
-        jComboBox1 = new javax.swing.JComboBox();
+        ComboBoxCategories = new javax.swing.JComboBox();
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxFreeRooms.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         TabbedPaneGuests.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxCategories.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,9 +111,9 @@ public class RoomPanel extends javax.swing.JPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TabbedPaneGuests, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ComboBoxCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ComboBoxFreeRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -81,16 +122,16 @@ public class RoomPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboBoxCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxFreeRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(TabbedPaneGuests, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox ComboBoxCategories;
+    private javax.swing.JComboBox ComboBoxFreeRooms;
     private javax.swing.JTabbedPane TabbedPaneGuests;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     // End of variables declaration//GEN-END:variables
 }
