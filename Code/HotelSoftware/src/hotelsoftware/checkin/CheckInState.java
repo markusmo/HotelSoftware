@@ -4,10 +4,7 @@ import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
-import hotelsoftware.model.domain.room.Category;
-import hotelsoftware.model.domain.room.CategoryData;
-import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.*;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
@@ -152,9 +149,7 @@ public abstract class CheckInState
     {
         throw new IllegalStateException();
     }
-    
-    //Eine Liste aus Kategorien aus denen ein Zimmer ausgewählt werden kann
-    
+        
     /**
      * Entfernt die angegebene Zimmerauswahl
      * @param selectionIndex Der index der zu entfernenden Asuwahl
@@ -221,24 +216,29 @@ public abstract class CheckInState
     {
         throw new IllegalStateException();
     }
+
+    public RoomData getRoomData(int selectionIndex)
+    {
+        throw new IllegalStateException();
+    }
     
     protected class RoomSelection
     {
-        private Category category;
+        private RoomCategory category;
         private Room room;
         
-        public RoomSelection(Category category, Room room)
+        public RoomSelection(RoomCategory category, Room room)
         {
             this.category = category;
             this.room = room;
         }
         
-        public Category getCategory()
+        public RoomCategory getCategory()
         {
             return category;
         }
 
-        public void setCategory(Category category)
+        public void setCategory(RoomCategory category)
         {
             this.category = category;
         }

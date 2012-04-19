@@ -150,6 +150,11 @@ public class CheckInController
         state.assignRoom(guest, room);
     }
     
+    public RoomData getRoomData(int selectionIndex)
+    {
+        return state.getRoomData(selectionIndex);
+    }
+    
     /**
      * Erstellt eine zusätzliche Option um ein Zimmer zuzuweisen
      * @return Der index der Zimmerauswahl

@@ -36,6 +36,10 @@ public class RoomCategory implements CategoryData
         this.id = id;
     }
 
+    public RoomCategory()
+    {
+    }
+
     public void setBedAmount(int bedAmount)
     {
         this.bedAmount = bedAmount;
