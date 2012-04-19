@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
+<<<<<<< HEAD
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.room.Category;
@@ -12,6 +13,13 @@ import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import java.text.ParseException;
+=======
+import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.service.ExtraService;
+>>>>>>> f691635ff1877864b8b81a3e5b46bc9ead6ff6e6
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -68,12 +76,20 @@ public class CheckInGuiControler
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+<<<<<<< HEAD
     public Collection<CategoryData> getCategories()
+=======
+    public Collection<RoomCategory> getCategories()
+>>>>>>> f691635ff1877864b8b81a3e5b46bc9ead6ff6e6
     {
         return cic.getAllCategories();
     }
 
+<<<<<<< HEAD
     public Collection<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
+=======
+    public Collection<Room> getFreeRoomsInCategory(RoomCategory c)
+>>>>>>> f691635ff1877864b8b81a3e5b46bc9ead6ff6e6
     {
         return cic.changeRoomCategory(index, c);
     }

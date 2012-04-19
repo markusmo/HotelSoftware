@@ -7,18 +7,7 @@ package hotelsoftware.model.database.room;
 import hotelsoftware.model.database.reservation.DBReservationitem;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -42,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomcategories.findByName", query = "SELECT r FROM Roomcategories r WHERE r.name = :name"),
     @NamedQuery(name = "Roomcategories.findByBedCount", query = "SELECT r FROM Roomcategories r WHERE r.bedCount = :bedCount")
 })
-public class DBRoomcategory implements Serializable
+public class DBRoomCategory implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,18 +50,18 @@ public class DBRoomcategory implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories")
     private Collection<DBRoom> roomsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
-    private Collection<DBRoomcategoryprice> roomcategorypricesCollection;
+    private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
-    public DBRoomcategory()
+    public DBRoomCategory()
     {
     }
 
-    public DBRoomcategory(Integer id)
+    public DBRoomCategory(Integer id)
     {
         this.id = id;
     }
 
-    public DBRoomcategory(Integer id, String name, int bedCount)
+    public DBRoomCategory(Integer id, String name, int bedCount)
     {
         this.id = id;
         this.name = name;
@@ -132,12 +121,12 @@ public class DBRoomcategory implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomcategoryprice> getRoomcategoryprices()
+    public Collection<DBRoomCategoryPrice> getRoomcategoryprices()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategoryprices(Collection<DBRoomcategoryprice> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
@@ -154,11 +143,11 @@ public class DBRoomcategory implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomcategory))
+        if(!(object instanceof DBRoomCategory))
         {
             return false;
         }
-        DBRoomcategory other = (DBRoomcategory) object;
+        DBRoomCategory other = (DBRoomCategory) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

@@ -4,6 +4,9 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.room.DBRoom;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
@@ -17,16 +20,30 @@ public class Room implements RoomData
 {
     private int number; //FIXME maybe String (DB???)
     private Collection<RoomOption> options;
-    private Category category;
+    private RoomCategory category;
+    private RoomStatus currentStatus;
     private Collection<Habitation> habitationCollection;
     private Collection<RoomStatus> status;
 
-    public Category getCategory()
+    private Room(int number, RoomCategory category)
+    {
+        this.number = number;
+        this.category = category;
+    }
+            
+    public static Room create(int number, RoomCategory category)
+    {
+        return new Room(number, category);
+    }
+    
+    public Room(){}
+    
+    public RoomCategory getCategory()
     {
         return category;
     }
 
-    public void setCategory(Category category)
+    public void setCategory(RoomCategory category)
     {
         this.category = category;
     }
@@ -92,5 +109,25 @@ public class Room implements RoomData
         return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(getStatus());
     }
     
+    public static Room getRoomByNumber(int number)
+    {
+        return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
+    }
     
+    public static Collection<Room> getRoomsByCategory(RoomCategory category)
+    {
+        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
+        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
+    }
+    
+    public void changeStatus(RoomStatus status)
+    {
+        this.currentStatus = status;
+        this.status.add(status);
+    }
+    
+    public void addOption(RoomOption option)
+    {
+        this.options.add(option);
+    }
 }

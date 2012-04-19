@@ -4,6 +4,11 @@
  */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.invoice.DBPaymentmethod;
+import hotelsoftware.model.database.parties.DBCompanyType;
+import hotelsoftware.model.domain.invoice.PaymentMethod;
+
 import java.util.Collection;
 
 /**
@@ -42,7 +47,12 @@ public class CompanyType implements CompanyTypeData {
             return typ;
         }
         
-        
+        @SuppressWarnings("unchecked")
+		public static Collection<CompanyType> getAllTypes()
+        {
+        	  Collection<DBCompanyType> dbct = DBCompanyType.getAllTypes();
+              return (Collection<CompanyType>)DynamicMapper.map(dbct);
+        }
         
         
 }

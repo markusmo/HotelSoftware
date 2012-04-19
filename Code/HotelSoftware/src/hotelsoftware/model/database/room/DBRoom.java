@@ -5,6 +5,7 @@
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -25,6 +26,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -64,14 +68,14 @@ public class DBRoom implements Serializable
         @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<DBRoomoption> roomoptionsCollection;
+    private Collection<DBRoomOption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoomcategory idRoomCategories;
+    private DBRoomCategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
+    private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
 
     public DBRoom()
     {
@@ -109,22 +113,22 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomoption> getRoomoptions()
+    public Collection<DBRoomOption> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptions(Collection<DBRoomoption> roomoptionsCollection)
+    public void setRoomoptions(Collection<DBRoomOption> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
 
-    public DBRoomcategory getIdRoomCategories()
+    public DBRoomCategory getIdRoomCategories()
     {
         return idRoomCategories;
     }
 
-    public void setIdRoomCategories(DBRoomcategory idRoomCategories)
+    public void setIdRoomCategories(DBRoomCategory idRoomCategories)
     {
         this.idRoomCategories = idRoomCategories;
     }
@@ -141,12 +145,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomsroomstatus> getRoomsroomstatus()
+    public Collection<DBRoomsRoomStatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatus(Collection<DBRoomsroomstatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }
@@ -181,4 +185,27 @@ public class DBRoom implements Serializable
         return "hotelsoftware.database.model.Rooms[ id=" + id + " ]";
     }
     
+    public static DBRoom getRoomByNumber(int number)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number",number)).uniqueResult();
+        
+        session.close();
+        return room;
+    }
+    
+    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Collection<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
+        
+        session.close();
+        return rooms;
+    }
 }
