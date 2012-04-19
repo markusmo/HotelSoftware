@@ -6,12 +6,18 @@ package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.reservation.DBReservationitem;
 import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.FetchMode;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -165,17 +171,37 @@ public class DBRoomCategory implements Serializable
     
     public static DBRoomCategory getRoomCategoryByName(String name)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        DBRoomCategory cats = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
+        session.close();
+        return cats;
     }
     
-    public static Collection<DBRoomCategory> getAllCategorys()
+    public static Collection<DBRoomCategory> getAllCategories()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        Collection<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();
+        session.close();
+        return cats;
     }
     
-    public static Collection<RoomCategory> getFreeRooms(RoomCategory aThis, Date start, Date ende)
+    public static Collection<DBRoom> getFreeRooms(DBRoomCategory category, Date start, Date ende)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        Collection<DBRoom> rooms = session.createCriteria(DBRoom.class)
+                .setFetchMode("DBHabtiation", FetchMode.JOIN)
+                .add(Restrictions.and(Restrictions.not(Restrictions.eq("start", start)), Restrictions.not(Restrictions.eq("end", ende))))
+                .add(Restrictions.eq("ididRoomCategories", category))
+                .list();
+        
+        session.close();
+        return rooms;
     }
     
 }

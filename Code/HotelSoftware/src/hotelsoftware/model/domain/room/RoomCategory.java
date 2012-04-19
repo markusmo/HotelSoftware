@@ -101,21 +101,22 @@ public class RoomCategory implements CategoryData
 
     public static Collection<RoomCategory> getAllCategorys()
     {
-        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategorys();
+        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
         return (Collection<RoomCategory>) DynamicMapper.map(dbc);
     }
 
-    public Collection<RoomCategory> getFreeRooms(Date start, Date ende)
+    public Collection<Room> getFreeRooms(Date start, Date ende)
     {
-        Collection<RoomCategory> dbc = DBRoomCategory.getFreeRooms(this, start, ende);
-        return (Collection<RoomCategory>) DynamicMapper.map(dbc);
+        DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);
+        Collection<DBRoom> dbc = DBRoomCategory.getFreeRooms(cat, start, ende);
+        return (Collection<Room>) DynamicMapper.map(dbc);
     }
 
     public Collection<Room> getAllRooms()
     {
         return Room.getRoomsByCategory(this);
     }
-
+    
     public int getBedAmount()
     {
         throw new UnsupportedOperationException("Not supported yet.");
