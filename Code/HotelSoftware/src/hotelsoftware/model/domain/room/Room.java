@@ -7,7 +7,6 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.domain.room.Category.RoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
@@ -110,7 +109,7 @@ public class Room implements RoomData
         return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(getStatus());
     }
     
-    public static Room getRoomByNumber(int number)
+    public static Room getRoomByNumber(String number)
     {
         return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
     }

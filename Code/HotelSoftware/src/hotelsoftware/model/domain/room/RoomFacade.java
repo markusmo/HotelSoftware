@@ -26,7 +26,7 @@ public class RoomFacade
         private static final RoomFacade INSTANCE = new RoomFacade();
     }
     
-    public Room getRoomByNumber(int number)
+    public Room getRoomByNumber(String number)
     {
         return Room.getRoomByNumber(number);
     }

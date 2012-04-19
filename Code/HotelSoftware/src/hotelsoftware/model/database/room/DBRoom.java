@@ -185,7 +185,7 @@ public class DBRoom implements Serializable
         return "hotelsoftware.database.model.Rooms[ id=" + id + " ]";
     }
     
-    public static DBRoom getRoomByNumber(int number)
+    public static DBRoom getRoomByNumber(String number)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

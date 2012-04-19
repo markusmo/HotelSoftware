@@ -24,6 +24,17 @@ public class RoomCategory implements CategoryData
     private BigDecimal price;
     private BigDecimal minPrice;
     private int bedAmount;
+    private int id;
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
     public void setBedAmount(int bedAmount)
     {

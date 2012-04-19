@@ -9,7 +9,6 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.database.room.DBRoomOption;
 import hotelsoftware.model.database.room.DBRoomStatus;
-import hotelsoftware.model.domain.room.Category.RoomCategory;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import org.hibernate.HibernateException;
