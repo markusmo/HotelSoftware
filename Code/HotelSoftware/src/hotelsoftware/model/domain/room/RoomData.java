@@ -18,7 +18,7 @@ public interface RoomData
 
     Collection<HabitationData> getHabitationCollectionData();
 
-    int getNumber();
+    String getNumber();
 
     Collection<RoomOptionData> getOptionsData();
 

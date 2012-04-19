@@ -4,14 +4,13 @@
  */
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBRole;
 import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
-import java.util.LinkedList;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
