@@ -4,7 +4,6 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.datainterfaces.GuestData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
