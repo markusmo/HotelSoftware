@@ -114,7 +114,7 @@ public class Reservation implements ReservationData
     }
     private Invoice getInvoice;
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }

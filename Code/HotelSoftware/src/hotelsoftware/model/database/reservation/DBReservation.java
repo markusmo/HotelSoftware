@@ -5,6 +5,7 @@
 package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.parties.DBPerson;
+import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
@@ -32,10 +33,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -64,7 +62,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
     @NamedQuery(name = "Reservations.findByCreated", query = "SELECT r FROM Reservations r WHERE r.created = :created"),
     @NamedQuery(name = "Reservations.findByFName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
     @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)"),
-    @NamedQuery(name = "Reservations.findByName", query = "Select * "
+    @NamedQuery(name = "Reservations.findByName", query = "Select r "
                 + "From Reservations r INNER JOIN Persons p on r.idPersons = p.id "
                 + "INNER JOIN guests g on p.id = g.idPersons "
                 + "WHERE g.fname = :fname AND "
@@ -86,8 +84,8 @@ public class DBReservation implements Serializable
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "reserationNumber", nullable = false, length = 255)
-    private String reserationNumber;
+    @Column(name = "reservationNumber", nullable = false, length = 255)
+    private String reservationNumber;
     @Basic(optional = false)
     @Column(name = "start", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -145,7 +143,7 @@ public class DBReservation implements Serializable
     private DBReservation(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
         this.id = id;
-        this.reserationNumber = reserationNumber;
+        this.reservationNumber = reserationNumber;
         this.start = start;
         this.end = end;
         this.created = created;
@@ -162,12 +160,9 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        Query findByNameQuery = session.getNamedQuery("Reservations.findByName");
-        
-        findByNameQuery.setString("fname", fname);
-        findByNameQuery.setString("lname", lname);
-        
-        List<DBReservation> retList = findByNameQuery.list();
+        Collection<DBReservation>  retList = session.createCriteria(DBReservation.class).setFetchMode("DBPerson", FetchMode.JOIN).setFetchMode("DBGuest", FetchMode.JOIN)
+                .add(Restrictions.and(Restrictions.eq("lname", lname), Restrictions.eq("fname", fname))).list();
+       
         session.close();
 
         return retList;
@@ -180,7 +175,7 @@ public class DBReservation implements Serializable
         ts.begin();
         
         Criteria criteria = session.createCriteria(DBReservation.class);
-        criteria.add(Restrictions.eq("id", id));
+        //criteria.add(Restrictions.eq("reservationNumber", id + ""));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         session.close();
 
@@ -237,14 +232,14 @@ public class DBReservation implements Serializable
         this.id = id;
     }
 
-    public String getReserationNumber()
+    public String getReservationNumber()
     {
-        return reserationNumber;
+        return reservationNumber;
     }
 
-    public void setReserationNumber(String reserationNumber)
+    public void setReservationNumber(String reserationNumber)
     {
-        this.reserationNumber = reserationNumber;
+        this.reservationNumber = reserationNumber;
     }
 
     public Date getStart()

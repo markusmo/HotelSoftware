@@ -8,7 +8,7 @@ import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.util.HibernateUtil;
-import hotelsoftware.model.database.invoice.DBInvoiceitem;
+import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -67,8 +67,7 @@ public class DBHabitation implements Serializable
     private Date created;
     @ManyToMany(mappedBy = "habitationsCollection")
     private Collection<DBGuest> guestsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
-    private Collection<DBInvoiceitem> invoiceitemsCollection;
+    
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRoom idRooms;
@@ -78,9 +77,9 @@ public class DBHabitation implements Serializable
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBService idServices;
-    @OneToMany
-    @JoinColumn(name = "idInvoiceItemCollection", referencedColumnName = "idHabitations")
-    private Collection<DBInvoiceitem> invoiceItemCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="idHabitations")
+//    @JoinColumn(name = "id", referencedColumnName = "idHabitations")
+    private Collection<DBInvoiceItem> invoiceItemCollection;
 
     public DBHabitation()
     {
@@ -162,12 +161,12 @@ public class DBHabitation implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoiceitem> getInvoiceitems()
+    public Collection<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceItemCollection;
     }
 
-    public void setInvoiceitems(Collection<DBInvoiceitem> invoiceitemsCollection)
+    public void setInvoiceitems(Collection<DBInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceItemCollection = invoiceitemsCollection;
     }

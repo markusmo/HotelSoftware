@@ -23,7 +23,9 @@ public class CheckInMain extends javax.swing.JPanel
 
     private Object[][] getTableModel()
     {
-        // reservations.toArray(new ReservationData[0])[0].
+        Object[][] value;
+         ReservationData[] reservationsArray = reservations.toArray(new ReservationData[0]);
+         
         return null;
     }
 

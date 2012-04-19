@@ -3,11 +3,40 @@
   <persistence-unit name="HotelSoftwarePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>hotelsoftware.model.database.parties.DBPrivateCustomer</class>
+    <class>hotelsoftware.model.database.invoice.DBInvoice</class>
+    <class>hotelsoftware.model.database.invoice.DBPaymentmethod</class>
+    <class>hotelsoftware.model.database.parties.DBAddress</class>
+    <class>hotelsoftware.model.database.parties.DBCompany</class>
+    <class>hotelsoftware.model.database.parties.DBCompanyType</class>
+    <class>hotelsoftware.model.database.parties.DBCountry</class>
+    <class>hotelsoftware.model.database.parties.DBCustomer</class>
+    <class>hotelsoftware.model.database.parties.DBGuest</class>
+    <class>hotelsoftware.model.database.parties.DBPerson</class>
+    <class>hotelsoftware.model.database.reservation.DBReservation</class>
+    <class>hotelsoftware.model.database.reservation.DBReservationitem</class>
+    <class>hotelsoftware.model.database.reservation.DBReservationoption</class>
+    <class>hotelsoftware.model.database.room.DBRoom</class>
+    <class>hotelsoftware.model.database.room.DBRoomCategory</class>
+    <class>hotelsoftware.model.database.room.DBRoomCategoryPrice</class>
+    <class>hotelsoftware.model.database.room.DBRoomOption</class>
+    <class>hotelsoftware.model.database.room.DBRoomStatus</class>
+    <class>hotelsoftware.model.database.room.DBRoomsRoomStatus</class>
+    <class>hotelsoftware.model.database.room.DBSeason</class>
+    <class>hotelsoftware.model.database.service.DBExtraService</class>
+    <class>hotelsoftware.model.database.service.DBHabitation</class>
+    <class>hotelsoftware.model.database.service.DBService</class>
+    <class>hotelsoftware.model.database.service.DBServiceType</class>
+    <class>hotelsoftware.model.database.users.DBPermission</class>
+    <class>hotelsoftware.model.database.users.DBRole</class>
+    <class>hotelsoftware.model.database.users.DBUser</class>
+    <class>hotelsoftware.model.database.invoice.DBInvoiceItem</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>
       <property name="hibernate.connection.password" value=""/>
       <property name="hibernate.connection.url" value=""/>
+      <property name="hibernate.show.sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

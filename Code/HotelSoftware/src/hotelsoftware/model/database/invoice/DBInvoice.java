@@ -85,7 +85,7 @@ public class DBInvoice implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
-    private Collection<DBInvoiceitem> invoiceitemsCollection;
+    private Collection<DBInvoiceItem> invoiceitemsCollection;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBPaymentmethod idpaymentMethods;
@@ -190,13 +190,13 @@ public class DBInvoice implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoiceitem> getInvoiceitems()
+    public Collection<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
     public void setInvoiceitems(
-            Collection<DBInvoiceitem> invoiceitemsCollection)
+            Collection<DBInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }

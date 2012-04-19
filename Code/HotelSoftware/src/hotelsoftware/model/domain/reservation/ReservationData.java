@@ -30,7 +30,7 @@ public interface ReservationData
 
     Date getStart();
 
-    public int getId();
+    public Integer getId();
     
     int getGuestAmount();
     
