@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 package hotelsoftware.model.domain.reservation;
-
-import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
  *

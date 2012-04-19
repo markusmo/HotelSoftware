@@ -7,5 +7,37 @@
     <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer</property>
     <property name="hibernate.connection.username">hotel</property>
     <property name="hibernate.connection.password">R00m4n153r</property>
+    <mapping class="hotelsoftware.model.database.invoice.DBInvoice" package="hotelsoftware.model.database.invoice"/>
+    <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItem" package="hotelsoftware.model.database.invoice"/>
+    <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItemPK" package="hotelsoftware.model.database.invoice"/>
+    <mapping class="hotelsoftware.model.database.invoice.DBPaymentmethod" package="hotelsoftware.model.database.invoice"/>
+    <mapping class="hotelsoftware.model.database.parties.DBAddress" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCompany" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCompanyType" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCountry" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCustomer" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBGuest" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBPerson" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBPrivateCustomer" package="hotelsoftware.model.database.parties"/>
+    <mapping class="hotelsoftware.model.database.parties.DBReservation" package="hotelsoftware.model.database.reservation"/>
+    <mapping class="hotelsoftware.model.database.parties.DBReservationitem" package="hotelsoftware.model.database.reservation"/>
+    <mapping class="hotelsoftware.model.database.parties.DBReservationitemPK" package="hotelsoftware.model.database.reservation"/>
+    <mapping class="hotelsoftware.model.database.parties.DBReservationoption" package="hotelsoftware.model.database.reservation"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoom" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomCategory" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomCategoryPrice" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomCategoryPricePK" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomOption" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomStatus" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomsRoomStatus" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRoomsRoomStatusPK" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBSeason" package="hotelsoftware.model.database.room"/>
+    <mapping class="hotelsoftware.model.database.parties.DBExtraService" package="hotelsoftware.model.database.service"/>
+    <mapping class="hotelsoftware.model.database.parties.DBHabitation" package="hotelsoftware.model.database.service"/>
+    <mapping class="hotelsoftware.model.database.parties.DBService" package="hotelsoftware.model.database.service"/>
+    <mapping class="hotelsoftware.model.database.parties.DBServiceType" package="hotelsoftware.model.database.service"/>
+    <mapping class="hotelsoftware.model.database.parties.DBUser" package="hotelsoftware.model.database.users"/>
+    <mapping class="hotelsoftware.model.database.parties.DBRole" package="hotelsoftware.model.database.users"/>
+    <mapping class="hotelsoftware.model.database.parties.DBPermission" package="hotelsoftware.model.database.users"/>
   </session-factory>
 </hibernate-configuration>
