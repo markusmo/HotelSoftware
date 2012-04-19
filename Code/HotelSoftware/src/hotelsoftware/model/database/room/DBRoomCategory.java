@@ -53,7 +53,7 @@ public class DBRoomCategory implements Serializable
     private int bedCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Collection<DBReservationItem> reservationitemsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories", fetch= FetchType.LAZY)
     private Collection<DBRoom> roomsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;

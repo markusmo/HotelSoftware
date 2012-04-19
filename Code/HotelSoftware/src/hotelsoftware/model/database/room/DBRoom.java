@@ -68,7 +68,7 @@ public class DBRoom implements Serializable
     @JoinTable(name = "roomsroomoptions", joinColumns = { @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })  
     private Collection<DBRoomOption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch= FetchType.LAZY)
     private DBRoomCategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
