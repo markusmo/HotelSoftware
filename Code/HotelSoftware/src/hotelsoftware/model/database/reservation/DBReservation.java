@@ -5,8 +5,11 @@
 package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.parties.DBPerson;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,6 +32,11 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -47,6 +55,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 @NamedQueries(
 {
     @NamedQuery(name = "Reservations.findAll", query = "SELECT r FROM Reservations r"),
+    @NamedQuery(name = "Reservations.findAllInFuture", query = "SELECT r FROM Reservations r WHERE start >= CURRENT_DATE"),
     @NamedQuery(name = "Reservations.findById", query = "SELECT r FROM Reservations r WHERE r.id = :id"),
     @NamedQuery(name = "Reservations.findByReserationNumber", query = "SELECT r FROM Reservations r WHERE r.reserationNumber = :reserationNumber"),
     @NamedQuery(name = "Reservations.findByStart", query = "SELECT r FROM Reservations r WHERE r.start = :start"),
@@ -54,11 +63,23 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
     @NamedQuery(name = "Reservations.findByComment", query = "SELECT r FROM Reservations r WHERE r.comment = :comment"),
     @NamedQuery(name = "Reservations.findByCreated", query = "SELECT r FROM Reservations r WHERE r.created = :created"),
     @NamedQuery(name = "Reservations.findByFName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
-    @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)")
+    @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)"),
+    @NamedQuery(name = "Reservations.findByName", query = "Select * "
+                + "From Reservations r INNER JOIN Persons p on r.idPersons = p.id "
+                + "INNER JOIN guests g on p.id = g.idPersons "
+                + "WHERE g.fname = :fname AND "
+                + "g.lname = :lname AND "
+                + "r.start >= CURRENT_DATE"),
+    @NamedQuery(name = "Reservations.countGuests", query = "Select sum(ri.amount * c.bedCount) "
+                + "From Reservations r INNER JOIN ReservationItems ri on r.id = ri.idReservations "
+                + "INNER JOIN roomCategories c on ri.idRoomCategories = c.id "
+                + "WHERE r.id = :id")
+        
 })
 public class DBReservation implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -134,10 +155,68 @@ public class DBReservation implements Serializable
     {
         return new DBReservation();
     }
-    public static Collection<DBReservation> getReservationsByFName(String Fname)
-    {   
-         throw new UnsupportedOperationException("Not yet implemented");
+    
+    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Query findByNameQuery = session.getNamedQuery("Reservations.findByName");
+        
+        findByNameQuery.setString("fname", fname);
+        findByNameQuery.setString("lname", lname);
+        
+        List<DBReservation> retList = findByNameQuery.list();
+        session.close();
+
+        return retList;
     }
+    
+    public static DBReservation getReservationById(int id)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Criteria criteria = session.createCriteria(DBReservation.class);
+        criteria.add(Restrictions.eq("id", id));
+        DBReservation retList = (DBReservation) criteria.uniqueResult();
+        session.close();
+
+        return retList;
+    }
+    
+    public static Collection<DBReservation> getAllReservations()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Query findByNameQuery = session.getNamedQuery("Reservations.findAllInFuture");
+                
+        List<DBReservation> retList = findByNameQuery.list();
+        session.close();
+
+        return retList;
+    }
+    
+    public int getGuestAmount()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Query countQuery = session.getNamedQuery("Reservations.countGuests");
+        countQuery.setInteger("id", this.id);
+                
+        int count = (Integer)countQuery.uniqueResult();
+        session.close();
+
+        return count;
+    }
+    
+    /* Sollten nicht nötig sein
     public static DBReservation newReservations(Integer id)
     {
         return new DBReservation(id);
@@ -147,7 +226,7 @@ public class DBReservation implements Serializable
     {
         return new DBReservation(id, reserationNumber, start, end, created);
     }
-
+*/
     public Integer getId()
     {
         return id;

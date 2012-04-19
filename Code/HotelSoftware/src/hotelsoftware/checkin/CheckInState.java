@@ -216,6 +216,11 @@ public abstract class CheckInState
     {
         throw new IllegalStateException();
     }
+
+    public Collection<ReservationData> getAllReservations()
+    {
+        throw new IllegalStateException();
+    }
     
     protected class RoomSelection
     {

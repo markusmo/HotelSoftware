@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.model.domain.room.Category.RoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;

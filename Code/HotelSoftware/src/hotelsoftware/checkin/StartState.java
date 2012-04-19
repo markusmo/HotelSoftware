@@ -6,6 +6,7 @@ package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -20,6 +21,12 @@ public class StartState extends CheckInState
     public StartState(CheckInController context)
     {
         super(context);
+    }
+    
+    @Override
+    public Collection<ReservationData> getAllReservations()
+    {
+        return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
     }
     
     /**

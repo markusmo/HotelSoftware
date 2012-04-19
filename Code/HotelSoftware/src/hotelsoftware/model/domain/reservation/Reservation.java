@@ -141,4 +141,24 @@ public class Reservation implements ReservationData
     {
         return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationItemCollection());
     }
+    
+    public int getGuestAmount()
+    {
+        return ReservationFacade.getInstance().getGuestAmount(this);
+    }
+    
+    public static Reservation getReservationByNumber(int reservationNr)
+    {
+        return ReservationFacade.getInstance().getReservationById(reservationNr);
+    }
+    
+    public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
+    {
+        return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
+    }
+    
+    public static Collection<Reservation> getAllReservations()
+    {
+        return ReservationFacade.getInstance().getAllReservations();
+    }
 }

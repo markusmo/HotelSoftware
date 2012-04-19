@@ -21,14 +21,30 @@ public class ReservationFacade
     {
         return ReservationFacadeHolder.INSTANCE;
     }
-    
+
     private static class ReservationFacadeHolder
     {
         private static final ReservationFacade INSTANCE = new ReservationFacade();
     }
     
-    public static Collection<Reservation> getReservationsByName(String fname)
+    public Collection<Reservation> getReservationsByName(String fname, String lname)
     {
-        return (Collection<Reservation>) DynamicMapper.map(DBReservation.getReservationsByFName(fname));
+        return (Collection<Reservation>) DynamicMapper.map(DBReservation.getReservationsByName(fname, lname));
+    }
+    
+    public Reservation getReservationById(int id)
+    {
+        return (Reservation) DynamicMapper.map(DBReservation.getReservationById(id));
+    }
+    
+    public Collection<Reservation> getAllReservations()
+    {
+        return (Collection<Reservation>) DynamicMapper.map(DBReservation.getAllReservations());
+    }
+    
+    public int getGuestAmount(Reservation reservation)
+    {
+        DBReservation res = (DBReservation) DynamicMapper.map(reservation);
+        return res.getGuestAmount();
     }
 }

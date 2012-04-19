@@ -220,4 +220,9 @@ public class CheckInController
     {
         state.selectServices(services);
     }
+
+    public Collection<ReservationData> getAllReservations()
+    {
+        return state.getAllReservations();
+    }
 }

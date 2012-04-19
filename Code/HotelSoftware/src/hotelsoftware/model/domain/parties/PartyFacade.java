@@ -4,12 +4,10 @@
  */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.parties.DBGuest;
-import hotelsoftware.model.database.users.DBPermission;
-import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.DynamicMapper;
 import java.util.Collection;
 
 /**
