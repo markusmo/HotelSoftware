@@ -44,7 +44,7 @@ public class PartySaver {
 			Collection<CompanyType> companytypes, Collection<Company> companys,
 			Collection<PrivateCustomer> privateCustomers,
 			Collection<Guest> guests) throws FailedToSaveToDatabaseException {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction ts = session.beginTransaction();
 		ts.begin();
 
