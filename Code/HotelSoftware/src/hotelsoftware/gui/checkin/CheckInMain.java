@@ -7,6 +7,7 @@ package hotelsoftware.gui.checkin;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,10 +24,17 @@ public class CheckInMain extends javax.swing.JPanel
 
     private Object[][] getTableModel()
     {
-        Object[][] value;
-         ReservationData[] reservationsArray = reservations.toArray(new ReservationData[0]);
-         
-        return null;
+        int i = 0;
+        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+        Object[][] value = new Object[reservations.size()][];
+        for (ReservationData data : reservations)
+        {
+            value[i++] = new Object[]
+            {
+                data.getReservationNumber() + "", null, null, null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
+            };
+        }
+        return value;
     }
 
     /**
@@ -39,30 +47,6 @@ public class CheckInMain extends javax.swing.JPanel
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]
                 {
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
-                    {
-                        null, null, null, null, null, null, null
-                    },
                     {
                         null, null, null, null, null, null, null
                     },
@@ -390,6 +374,27 @@ public class CheckInMain extends javax.swing.JPanel
         try
         {
             reservations = cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
+            if (reservations != null)
+            {
+                jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                        getTableModel(),
+                        new String[]
+                        {
+                            "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
+                        })
+                {
+                    boolean[] canEdit = new boolean[]
+                    {
+                        false, false, false, true, false, false, false
+                    };
+
+                    @Override
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return canEdit[columnIndex];
+                    }
+                });
+            }
         }
         catch (InvalidInputException ex)
         {
