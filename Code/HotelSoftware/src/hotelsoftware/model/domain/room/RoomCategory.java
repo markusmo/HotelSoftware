@@ -7,7 +7,7 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomcategory;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.parties.CompanyType;
 
 import java.math.BigDecimal;
@@ -80,19 +80,19 @@ public class RoomCategory implements CategoryData
 
     public static RoomCategory getCategoryByName(String name)
     {
-        DBRoomcategory c = DBRoomcategory.getRoomCategoryByName(name);
+        DBRoomCategory c = DBRoomCategory.getRoomCategoryByName(name);
         return (RoomCategory) DynamicMapper.map(c);
     }
 
     public static Collection<RoomCategory> getAllCategorys()
     {
-        Collection<DBRoomcategory> dbc = DBRoomcategory.getAllCategorys();
+        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategorys();
         return (Collection<RoomCategory>) DynamicMapper.map(dbc);
     }
 
     public Collection<RoomCategory> getFreeRooms(Date start, Date ende)
     {
-        Collection<RoomCategory> dbc = DBRoomcategory.getFreeRooms(this, start, ende);
+        Collection<RoomCategory> dbc = DBRoomCategory.getFreeRooms(this, start, ende);
         return (Collection<RoomCategory>) DynamicMapper.map(dbc);
     }
 

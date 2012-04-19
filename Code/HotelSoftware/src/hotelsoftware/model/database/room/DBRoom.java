@@ -71,7 +71,7 @@ public class DBRoom implements Serializable
     private Collection<DBRoomoption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoomcategory idRoomCategories;
+    private DBRoomCategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
@@ -123,12 +123,12 @@ public class DBRoom implements Serializable
         this.roomoptionsCollection = roomoptionsCollection;
     }
 
-    public DBRoomcategory getIdRoomCategories()
+    public DBRoomCategory getIdRoomCategories()
     {
         return idRoomCategories;
     }
 
-    public void setIdRoomCategories(DBRoomcategory idRoomCategories)
+    public void setIdRoomCategories(DBRoomCategory idRoomCategories)
     {
         this.idRoomCategories = idRoomCategories;
     }
@@ -197,7 +197,7 @@ public class DBRoom implements Serializable
         return room;
     }
     
-    public static Collection<DBRoom> getRoomsByCategory(DBRoomcategory cat)
+    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

@@ -6,7 +6,7 @@ package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.database.room.DBRoomcategory;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.database.room.DBRoomoption;
 import hotelsoftware.model.database.room.DBRoomstatus;
 import hotelsoftware.model.domain.room.Category.RoomCategory;
@@ -72,7 +72,7 @@ public class RoomSaver
             
         for (RoomCategory category : categories)
         {
-            DBRoomcategory dbCat = (DBRoomcategory) DynamicMapper.map(category);
+            DBRoomCategory dbCat = (DBRoomCategory) DynamicMapper.map(category);
 
             session.saveOrUpdate(dbCat);
             category.setId(dbCat.getId());

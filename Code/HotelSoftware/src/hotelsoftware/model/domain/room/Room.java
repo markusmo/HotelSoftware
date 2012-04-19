@@ -6,7 +6,7 @@ package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomcategory;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
@@ -116,7 +116,7 @@ public class Room implements RoomData
     
     public static Collection<Room> getRoomsByCategory(RoomCategory category)
     {
-        DBRoomcategory cat = (DBRoomcategory) DynamicMapper.map(category);
+        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
         return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
     }
     

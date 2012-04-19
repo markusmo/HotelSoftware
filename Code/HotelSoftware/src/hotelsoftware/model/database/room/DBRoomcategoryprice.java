@@ -41,7 +41,7 @@ public class DBRoomCategoryPrice implements Serializable
     private DBSeason seasons;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRoomcategory roomcategories;
+    private DBRoomCategory roomcategories;
 
     public DBRoomCategoryPrice()
     {
@@ -104,12 +104,12 @@ public class DBRoomCategoryPrice implements Serializable
         this.seasons = seasons;
     }
 
-    public DBRoomcategory getRoomcategories()
+    public DBRoomCategory getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(DBRoomcategory roomcategories)
+    public void setRoomcategories(DBRoomCategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }

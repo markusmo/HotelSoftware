@@ -5,7 +5,7 @@
 package hotelsoftware.util;
 
 import hotelsoftware.model.database.parties.DBCompany;
-import hotelsoftware.model.database.room.DBRoomcategory;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.reservation.DBReservationoption;
 import hotelsoftware.model.database.room.DBSeason;
@@ -76,7 +76,7 @@ public class HibernateUtil
                     .addAnnotatedClass(DBReservationoption.class)
                     .addAnnotatedClass(DBReservation.class)
                     .addAnnotatedClass(DBRole.class)
-                    .addAnnotatedClass(DBRoomcategory.class)
+                    .addAnnotatedClass(DBRoomCategory.class)
                     .addAnnotatedClass(DBRoomCategoryPrice.class)
                     .addAnnotatedClass(DBRoomcategorypricePK.class)
                     .addAnnotatedClass(DBRoomoption.class)
