@@ -8,7 +8,10 @@ import hotelsoftware.gui.checkin.CheckinTwo;
 import hotelsoftware.gui.checkin.CheckInMain;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -35,16 +38,16 @@ public class MainFrame extends javax.swing.JFrame
     private void initComponents() {
 
         jButton11 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButton11.setText("<html> <b>Home</b> <br/> F1 </html>");
+        jButton11.setActionCommand("");
         jButton11.setMaximumSize(new java.awt.Dimension(73, 73));
         jButton11.setMinimumSize(new java.awt.Dimension(73, 73));
         jButton11.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -54,37 +57,51 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        jButton10.setText("jButton5");
-        jButton10.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton10.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton10.setPreferredSize(new java.awt.Dimension(80, 80));
-
-        jButton5.setText("jButton5");
-        jButton5.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton5.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton5.setPreferredSize(new java.awt.Dimension(80, 80));
-
-        jButton8.setText("jButton5");
-        jButton8.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton8.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton8.setPreferredSize(new java.awt.Dimension(80, 80));
-
-        jButton9.setText("jButton5");
-        jButton9.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton9.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton9.setPreferredSize(new java.awt.Dimension(80, 80));
-
-        jButton6.setText("jButton5");
-        jButton6.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton6.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton6.setPreferredSize(new java.awt.Dimension(80, 80));
-
-        jButton7.setText("jButton5");
-        jButton7.setMaximumSize(new java.awt.Dimension(73, 73));
-        jButton7.setMinimumSize(new java.awt.Dimension(73, 73));
-        jButton7.setPreferredSize(new java.awt.Dimension(80, 80));
-
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        jButton12.setText("<html> Check In <br/> F2 </html>");
+        jButton12.setActionCommand("");
+        jButton12.setMaximumSize(new java.awt.Dimension(73, 73));
+        jButton12.setMinimumSize(new java.awt.Dimension(73, 73));
+        jButton12.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setText("<html> Room Overview <br/> F4 </html>");
+        jButton13.setActionCommand("");
+        jButton13.setMaximumSize(new java.awt.Dimension(73, 73));
+        jButton13.setMinimumSize(new java.awt.Dimension(73, 73));
+        jButton13.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setText("<html> Check Out <br/> F3 </html>");
+        jButton14.setActionCommand("");
+        jButton14.setMaximumSize(new java.awt.Dimension(73, 73));
+        jButton14.setMinimumSize(new java.awt.Dimension(73, 73));
+        jButton14.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("<html> Journal <br/> F5 </html>");
+        jButton15.setActionCommand("");
+        jButton15.setMaximumSize(new java.awt.Dimension(73, 73));
+        jButton15.setMinimumSize(new java.awt.Dimension(73, 73));
+        jButton15.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,39 +110,33 @@ public class MainFrame extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 198, Short.MAX_VALUE)))
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -136,10 +147,44 @@ public class MainFrame extends javax.swing.JFrame
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.next(jPanel1);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
+    {//GEN-HEADEREND:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton13ActionPerformed
+    {//GEN-HEADEREND:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton14ActionPerformed
+    {//GEN-HEADEREND:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton15ActionPerformed
+    {//GEN-HEADEREND:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
     
     private void Init(){
+        jButton11.setIcon(new ImageIcon("src/resources/images/home-icon.png"));
+        jButton12.setIcon(new ImageIcon("src/resources/images/checkin-icon.png"));
+        jButton14.setIcon(new ImageIcon("src/resources/images/logout-icon.png"));
+        jButton13.setIcon(new ImageIcon("src/resources/images/Maps-icon.png"));
+        jButton15.setIcon(new ImageIcon("src/resources/images/Address-Book-icon.png"));
         jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
         jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
+        
+        
+        for(Component c  : getComponents())
+        {
+            if(c instanceof JTextField)
+            {
+                ((JTextField)c).setText("");
+            }
+        }
     }
     public static void CreateGui()
     {
@@ -203,13 +248,11 @@ public class MainFrame extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
