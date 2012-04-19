@@ -52,6 +52,15 @@ import org.hibernate.criterion.Restrictions;
 })
 public class DBPermission implements Serializable
 {
+    @JoinTable(name = "rolepermissions", joinColumns =
+    {
+        @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
+    }, inverseJoinColumns =
+    {
+        @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany
+    private Collection<DBRole> dBRoleCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -228,6 +237,17 @@ public class DBPermission implements Serializable
             ts.rollback();
             throw new FaildToDeleteFromDatabaseException();
         }
+    }
+
+    @XmlTransient
+    public Collection<DBRole> getDBRoleCollection()
+    {
+        return dBRoleCollection;
+    }
+
+    public void setDBRoleCollection(Collection<DBRole> dBRoleCollection)
+    {
+        this.dBRoleCollection = dBRoleCollection;
     }
     
 }

@@ -5,11 +5,15 @@
 package hotelsoftware.model.database.users;
 
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.model.database.invoice.DBInvoice;
+import hotelsoftware.model.database.reservation.DBReservation;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +24,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,6 +57,17 @@ import org.hibernate.criterion.Restrictions;
 })
 public class DBUser implements Serializable
 {
+    @ManyToMany(mappedBy = "dBUserCollection")
+    private Collection<DBRole> dBRoleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
+    private Collection<DBHabitation> dBHabitationCollection;
+    @OneToMany(mappedBy = "idUsers")
+    private Collection<DBReservation> dBReservationCollection;
+    @Basic(optional = false)
+    @Column(name = "active")
+    private boolean active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
+    private Collection<DBInvoice> dBInvoiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -237,6 +253,60 @@ public class DBUser implements Serializable
                 "username", username)).add(Restrictions.eq("password", password)).uniqueResult();
         session.close();
         return retUser;
+    }
+
+    public boolean getActive()
+    {
+        return active;
+    }
+
+    public void setActive(boolean active)
+    {
+        this.active = active;
+    }
+
+    @XmlTransient
+    public Collection<DBInvoice> getDBInvoiceCollection()
+    {
+        return dBInvoiceCollection;
+    }
+
+    public void setDBInvoiceCollection(Collection<DBInvoice> dBInvoiceCollection)
+    {
+        this.dBInvoiceCollection = dBInvoiceCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBReservation> getDBReservationCollection()
+    {
+        return dBReservationCollection;
+    }
+
+    public void setDBReservationCollection(Collection<DBReservation> dBReservationCollection)
+    {
+        this.dBReservationCollection = dBReservationCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBHabitation> getDBHabitationCollection()
+    {
+        return dBHabitationCollection;
+    }
+
+    public void setDBHabitationCollection(Collection<DBHabitation> dBHabitationCollection)
+    {
+        this.dBHabitationCollection = dBHabitationCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBRole> getDBRoleCollection()
+    {
+        return dBRoleCollection;
+    }
+
+    public void setDBRoleCollection(Collection<DBRole> dBRoleCollection)
+    {
+        this.dBRoleCollection = dBRoleCollection;
     }
     
      

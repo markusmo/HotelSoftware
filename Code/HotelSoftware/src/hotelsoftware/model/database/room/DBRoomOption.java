@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -33,6 +34,8 @@ import org.hibernate.Transaction;
 })
 public class DBRoomOption implements Serializable
 {
+    @ManyToMany(mappedBy = "dBRoomOptionCollection")
+    private Collection<DBRoom> dBRoomCollection;
     private static final long serialVersionUID = 1L;
 
     public static void safeNewRoomOption(String name)
@@ -129,5 +132,16 @@ public class DBRoomOption implements Serializable
         session.close();
         
         return options;
+    }
+
+    @XmlTransient
+    public Collection<DBRoom> getDBRoomCollection()
+    {
+        return dBRoomCollection;
+    }
+
+    public void setDBRoomCollection(Collection<DBRoom> dBRoomCollection)
+    {
+        this.dBRoomCollection = dBRoomCollection;
     }
 }

@@ -47,6 +47,8 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBCountry implements Serializable
 {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountries")
+    private Collection<DBAddress> dBAddressCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,6 +136,17 @@ public class DBCountry implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Countries[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<DBAddress> getDBAddressCollection()
+    {
+        return dBAddressCollection;
+    }
+
+    public void setDBAddressCollection(Collection<DBAddress> dBAddressCollection)
+    {
+        this.dBAddressCollection = dBAddressCollection;
     }
     
 }
