@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Code/HibernateTest/src"/>
+	<classpathentry kind="src" path="Code/HotelSoftware/src"/>
+	<classpathentry kind="src" path="Code/Netbeans/GUI1/src"/>
+	<classpathentry excluding="HibernateTest/src/|HotelSoftware/src/" kind="src" path="Code/StandardControls"/>
+	<classpathentry kind="src" path="Code/StandardControls/HibernateTest/src"/>
+	<classpathentry kind="src" path="Code/StandardControls/HotelSoftware/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="Code/StandardControls"/>
+</classpath>
