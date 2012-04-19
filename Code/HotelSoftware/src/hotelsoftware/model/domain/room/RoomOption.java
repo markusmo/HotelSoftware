@@ -5,6 +5,7 @@
 package hotelsoftware.model.domain.room;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.room.DBRoomoption;
@@ -15,6 +16,11 @@ import java.util.Collection;
 import hotelsoftware.model.database.room.DBRoomOption;
 >>>>>>> 78813edac85f434f28a193314799cd7ac88d0518
 import java.util.List;
+=======
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.room.DBRoomOption;
+import java.util.Collection;
+>>>>>>> ab2a0ab77da37d2f2224d61b9f15bb19d1ac0bef
 
 /**
  * 
@@ -63,21 +69,28 @@ public class RoomOption implements RoomOptionData
 {    
     private String name;
 
-    public RoomOption(String name)
+    public RoomOption()
+    {}
+    
+    public static RoomOption create(String name)
+    {
+        return new RoomOption(name);
+    }
+    
+    private RoomOption(String name)
     {        
         this.name = name;
-        DBRoomOption.safeNewRoomOption(name);
     }
-
+    
     @Override
     public String getName()
     {
         return name;
     }
     
-    public static List<RoomOption> getRoomOptions (){
-        // convert and return Roomoptions.getRoomoptions();
-        return null;
+    public static Collection<RoomOption> getRoomOptions ()
+    {
+        return (Collection<RoomOption>) DynamicMapper.mapCollection(DBRoomOption.getRoomOptions());
     }
     
     
