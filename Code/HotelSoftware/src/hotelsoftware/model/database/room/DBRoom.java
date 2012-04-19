@@ -68,14 +68,14 @@ public class DBRoom implements Serializable
         @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<DBRoomOption> roomoptionsCollection;
+    private Collection<DBRoomoption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoomCategory idRoomCategories;
+    private DBRoomcategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
+    private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
 
     public DBRoom()
     {
@@ -113,22 +113,22 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomOption> getRoomoptions()
+    public Collection<DBRoomoption> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptions(Collection<DBRoomOption> roomoptionsCollection)
+    public void setRoomoptions(Collection<DBRoomoption> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
 
-    public DBRoomCategory getIdRoomCategories()
+    public DBRoomcategory getIdRoomCategories()
     {
         return idRoomCategories;
     }
 
-    public void setIdRoomCategories(DBRoomCategory idRoomCategories)
+    public void setIdRoomCategories(DBRoomcategory idRoomCategories)
     {
         this.idRoomCategories = idRoomCategories;
     }
@@ -145,12 +145,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomsRoomStatus> getRoomsroomstatus()
+    public Collection<DBRoomsroomstatus> getRoomsroomstatus()
     {
         return roomsroomstatusCollection;
     }
 
-    public void setRoomsroomstatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
+    public void setRoomsroomstatus(Collection<DBRoomsroomstatus> roomsroomstatusCollection)
     {
         this.roomsroomstatusCollection = roomsroomstatusCollection;
     }
@@ -197,7 +197,7 @@ public class DBRoom implements Serializable
         return room;
     }
     
-    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
+    public static Collection<DBRoom> getRoomsByCategory(DBRoomcategory cat)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

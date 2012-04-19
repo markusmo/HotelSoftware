@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomcategories.findByName", query = "SELECT r FROM Roomcategories r WHERE r.name = :name"),
     @NamedQuery(name = "Roomcategories.findByBedCount", query = "SELECT r FROM Roomcategories r WHERE r.bedCount = :bedCount")
 })
-public class DBRoomCategory implements Serializable
+public class DBRoomcategory implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,16 +54,16 @@ public class DBRoomCategory implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
-    public DBRoomCategory()
+    public DBRoomcategory()
     {
     }
 
-    public DBRoomCategory(Integer id)
+    public DBRoomcategory(Integer id)
     {
         this.id = id;
     }
 
-    public DBRoomCategory(Integer id, String name, int bedCount)
+    public DBRoomcategory(Integer id, String name, int bedCount)
     {
         this.id = id;
         this.name = name;
@@ -145,11 +145,11 @@ public class DBRoomCategory implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomCategory))
+        if(!(object instanceof DBRoomcategory))
         {
             return false;
         }
-        DBRoomCategory other = (DBRoomCategory) object;
+        DBRoomcategory other = (DBRoomcategory) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -163,12 +163,12 @@ public class DBRoomCategory implements Serializable
         return "hotelsoftware.database.model.Roomcategories[ id=" + id + " ]";
     }
     
-    public static DBRoomCategory getRoomCategoryByName(String name)
+    public static DBRoomcategory getRoomCategoryByName(String name)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
     
-    public static Collection<DBRoomCategory> getAllCategorys()
+    public static Collection<DBRoomcategory> getAllCategorys()
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }

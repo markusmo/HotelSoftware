@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.database.reservation;
 
-import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.model.database.room.DBRoomcategory;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,7 +41,7 @@ public class DBReservationitem implements Serializable
     private int amount;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRoomCategory roomcategories;
+    private DBRoomcategory roomcategories;
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBReservation reservations;
@@ -85,12 +85,12 @@ public class DBReservationitem implements Serializable
         this.amount = amount;
     }
 
-    public DBRoomCategory getRoomcategories()
+    public DBRoomcategory getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(DBRoomCategory roomcategories)
+    public void setRoomcategories(DBRoomcategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }

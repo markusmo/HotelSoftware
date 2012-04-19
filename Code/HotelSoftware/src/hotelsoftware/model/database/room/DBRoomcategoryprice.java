@@ -28,7 +28,7 @@ public class DBRoomCategoryPrice implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBRoomCategoryPricePK roomcategorypricesPK;
+    protected DBRoomcategorypricePK roomcategorypricesPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
@@ -41,18 +41,18 @@ public class DBRoomCategoryPrice implements Serializable
     private DBSeason seasons;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRoomCategory roomcategories;
+    private DBRoomcategory roomcategories;
 
     public DBRoomCategoryPrice()
     {
     }
 
-    public DBRoomCategoryPrice(DBRoomCategoryPricePK roomcategorypricesPK)
+    public DBRoomCategoryPrice(DBRoomcategorypricePK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
 
-    public DBRoomCategoryPrice(DBRoomCategoryPricePK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
+    public DBRoomCategoryPrice(DBRoomcategorypricePK roomcategorypricesPK, BigDecimal price, BigDecimal priceMin)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
         this.price = price;
@@ -61,15 +61,15 @@ public class DBRoomCategoryPrice implements Serializable
 
     public DBRoomCategoryPrice(int idRoomCategories, int idSeason)
     {
-        this.roomcategorypricesPK = new DBRoomCategoryPricePK(idRoomCategories, idSeason);
+        this.roomcategorypricesPK = new DBRoomcategorypricePK(idRoomCategories, idSeason);
     }
 
-    public DBRoomCategoryPricePK getRoomcategorypricesPK()
+    public DBRoomcategorypricePK getRoomcategorypricesPK()
     {
         return roomcategorypricesPK;
     }
 
-    public void setRoomcategorypricesPK(DBRoomCategoryPricePK roomcategorypricesPK)
+    public void setRoomcategorypricesPK(DBRoomcategorypricePK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
@@ -104,12 +104,12 @@ public class DBRoomCategoryPrice implements Serializable
         this.seasons = seasons;
     }
 
-    public DBRoomCategory getRoomcategories()
+    public DBRoomcategory getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(DBRoomCategory roomcategories)
+    public void setRoomcategories(DBRoomcategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }
