@@ -5,7 +5,9 @@
 package hotelsoftware.model.database.parties;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +42,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class DBAddress implements Serializable
 {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
+    private Collection<DBPerson> dBPersonCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
+    private Collection<DBCustomer> dBCustomerCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -177,6 +185,28 @@ public class DBAddress implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Addresses[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<DBCustomer> getDBCustomerCollection()
+    {
+        return dBCustomerCollection;
+    }
+
+    public void setDBCustomerCollection(Collection<DBCustomer> dBCustomerCollection)
+    {
+        this.dBCustomerCollection = dBCustomerCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBPerson> getDBPersonCollection()
+    {
+        return dBPersonCollection;
+    }
+
+    public void setDBPersonCollection(Collection<DBPerson> dBPersonCollection)
+    {
+        this.dBPersonCollection = dBPersonCollection;
     }
     
 }

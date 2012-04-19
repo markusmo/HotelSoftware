@@ -48,6 +48,14 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBSeason implements Serializable
 {
+    @Basic(optional = false)
+    @Column(name = "start", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date start;
+    @Basic(optional = false)
+    @Column(name = "end", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date end;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,14 +65,6 @@ public class DBSeason implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @Basic(optional = false)
-    @Column(name = "start", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date start;
-    @Basic(optional = false)
-    @Column(name = "end", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date end;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons")
     private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
@@ -103,26 +103,6 @@ public class DBSeason implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public Date getStart()
-    {
-        return start;
-    }
-
-    public void setStart(Date start)
-    {
-        this.start = start;
-    }
-
-    public Date getEnd()
-    {
-        return end;
-    }
-
-    public void setEnd(Date end)
-    {
-        this.end = end;
     }
 
     @XmlTransient
@@ -164,6 +144,26 @@ public class DBSeason implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Seasons[ id=" + id + " ]";
+    }
+
+    public Date getStart()
+    {
+        return start;
+    }
+
+    public void setStart(Date start)
+    {
+        this.start = start;
+    }
+
+    public Date getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(Date end)
+    {
+        this.end = end;
     }
     
 }

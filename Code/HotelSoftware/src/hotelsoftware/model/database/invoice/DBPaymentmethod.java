@@ -8,8 +8,10 @@ import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,6 +60,18 @@ public class DBPaymentmethod implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaymentMethods")
+    private Collection<DBInvoice> invoicesCollection;
+
+    public Collection<DBInvoice> getInvoicesCollection()
+    {
+        return invoicesCollection;
+    }
+
+    public void setInvoicesCollection(Collection<DBInvoice> invoicesCollection)
+    {
+        this.invoicesCollection = invoicesCollection;
+    }
 
     public DBPaymentmethod()
     {

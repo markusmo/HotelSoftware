@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBCustomer implements Serializable
 {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customersId")
+    private Collection<DBPrivateCustomer> dBPrivateCustomerCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,6 +145,17 @@ public class DBCustomer implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Customers[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<DBPrivateCustomer> getDBPrivateCustomerCollection()
+    {
+        return dBPrivateCustomerCollection;
+    }
+
+    public void setDBPrivateCustomerCollection(Collection<DBPrivateCustomer> dBPrivateCustomerCollection)
+    {
+        this.dBPrivateCustomerCollection = dBPrivateCustomerCollection;
     }
     
 }
