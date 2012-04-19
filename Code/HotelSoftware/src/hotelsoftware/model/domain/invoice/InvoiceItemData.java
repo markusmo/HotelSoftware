@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.domain.invoice.InvoiceitemsPK;
+import hotelsoftware.model.domain.invoice.InvoiceitemPK;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.model.domain.service.Service;

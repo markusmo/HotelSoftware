@@ -56,7 +56,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
     @NamedQuery(name = "Reservations.findByFName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
     @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)")
 })
-public class DBReservations implements Serializable
+public class DBReservation implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -82,9 +82,9 @@ public class DBReservations implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
-    private Collection<DBReservationitems> reservationitemsCollection;
+    private Collection<DBReservationitem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
-    private Collection<DBReservationoptions> reservationoptionsCollection;
+    private Collection<DBReservationoption> reservationoptionsCollection;
     @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne
     private DBUser idUsers;
@@ -92,36 +92,36 @@ public class DBReservations implements Serializable
     @ManyToOne(optional = false)
     private DBPerson idPersons;
 
-    public DBReservations()
+    public DBReservation()
     {
     }
 
-    public Collection<DBReservationitems> getReservationitemsCollection()
+    public Collection<DBReservationitem> getReservationitemsCollection()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitemsCollection(Collection<DBReservationitems> reservationitemsCollection)
+    public void setReservationitemsCollection(Collection<DBReservationitem> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
-    public Collection<DBReservationoptions> getReservationoptionsCollection()
+    public Collection<DBReservationoption> getReservationoptionsCollection()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptionsCollection(Collection<DBReservationoptions> reservationoptionsCollection)
+    public void setReservationoptionsCollection(Collection<DBReservationoption> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
 
-    private DBReservations(Integer id)
+    private DBReservation(Integer id)
     {
         this.id = id;
     }
 
-    private DBReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    private DBReservation(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
         this.id = id;
         this.reserationNumber = reserationNumber;
@@ -130,22 +130,22 @@ public class DBReservations implements Serializable
         this.created = created;
     }
 
-    public static DBReservations newReservations()
+    public static DBReservation newReservations()
     {
-        return new DBReservations();
+        return new DBReservation();
     }
-    public static Collection<DBReservations> getReservationsByFName(String Fname)
+    public static Collection<DBReservation> getReservationsByFName(String Fname)
     {   
          throw new UnsupportedOperationException("Not yet implemented");
     }
-    public static DBReservations newReservations(Integer id)
+    public static DBReservation newReservations(Integer id)
     {
-        return new DBReservations(id);
+        return new DBReservation(id);
     }
 
-    public static DBReservations newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
+    public static DBReservation newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
     {
-        return new DBReservations(id, reserationNumber, start, end, created);
+        return new DBReservation(id, reserationNumber, start, end, created);
     }
 
     public Integer getId()
@@ -209,23 +209,23 @@ public class DBReservations implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservationitems> getReservationitems()
+    public Collection<DBReservationitem> getReservationitems()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitems(Collection<DBReservationitems> reservationitemsCollection)
+    public void setReservationitems(Collection<DBReservationitem> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
 
     @XmlTransient
-    public Collection<DBReservationoptions> getReservationoptions()
+    public Collection<DBReservationoption> getReservationoptions()
     {
         return reservationoptionsCollection;
     }
 
-    public void setReservationoptions(Collection<DBReservationoptions> reservationoptionsCollection)
+    public void setReservationoptions(Collection<DBReservationoption> reservationoptionsCollection)
     {
         this.reservationoptionsCollection = reservationoptionsCollection;
     }
@@ -262,11 +262,11 @@ public class DBReservations implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBReservations))
+        if (!(object instanceof DBReservation))
         {
             return false;
         }
-        DBReservations other = (DBReservations) object;
+        DBReservation other = (DBReservation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

@@ -8,7 +8,7 @@ import hotelsoftware.model.database.parties.DBAddress;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.parties.DBCustomer;
-import hotelsoftware.model.database.reservation.DBReservations;
+import hotelsoftware.model.database.reservation.DBReservation;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -66,7 +66,7 @@ public class DBPerson implements Serializable
     @ManyToOne(optional = false)
     private DBAddress idAddresses;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersons")
-    private Collection<DBReservations> reservationsCollection;
+    private Collection<DBReservation> reservationsCollection;
 
     public DBPerson()
     {
@@ -149,12 +149,12 @@ public class DBPerson implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservations> getReservationsCollectio()
+    public Collection<DBReservation> getReservationsCollectio()
     {
         return reservationsCollection;
     }
 
-    public void setReservations(Collection<DBReservations> reservationsCollection)
+    public void setReservations(Collection<DBReservation> reservationsCollection)
     {
         this.reservationsCollection = reservationsCollection;
     }

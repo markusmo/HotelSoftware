@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.model.database.room.DBRoomoptions;
+import hotelsoftware.model.database.room.DBRoomoption;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public class RoomOption implements RoomOptionData
     public RoomOption(String name)
     {        
         this.name = name;
-        DBRoomoptions.safeNewRoomOption(name);
+        DBRoomoption.safeNewRoomOption(name);
     }
 
     @Override

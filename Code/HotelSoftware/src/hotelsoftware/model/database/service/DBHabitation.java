@@ -6,7 +6,7 @@ package hotelsoftware.model.database.service;
 
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.database.room.DBRooms;
+import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.invoice.DBInvoiceitem;
 import java.io.Serializable;
@@ -71,7 +71,7 @@ public class DBHabitation implements Serializable
     private Collection<DBInvoiceitem> invoiceitemsCollection;
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRooms idRooms;
+    private DBRoom idRooms;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
@@ -172,12 +172,12 @@ public class DBHabitation implements Serializable
         this.invoiceItemCollection = invoiceitemsCollection;
     }
 
-    public DBRooms getIdRooms()
+    public DBRoom getIdRooms()
     {
         return idRooms;
     }
 
-    public void setIdRooms(DBRooms idRooms)
+    public void setIdRooms(DBRoom idRooms)
     {
         this.idRooms = idRooms;
     }

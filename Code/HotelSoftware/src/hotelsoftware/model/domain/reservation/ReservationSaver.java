@@ -6,9 +6,9 @@ package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.database.reservation.DBReservationitems;
-import hotelsoftware.model.database.reservation.DBReservationoptions;
-import hotelsoftware.model.database.reservation.DBReservations;
+import hotelsoftware.model.database.reservation.DBReservationitem;
+import hotelsoftware.model.database.reservation.DBReservationoption;
+import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import org.hibernate.HibernateException;
@@ -74,7 +74,7 @@ public class ReservationSaver
     {
         for (Reservation reservation : reservations)
         {
-            DBReservations dbp = (DBReservations) DynamicMapper.map(reservation);
+            DBReservation dbp = (DBReservation) DynamicMapper.map(reservation);
 
             session.saveOrUpdate(dbp);
             reservation.setId(dbp.getId());
@@ -82,14 +82,14 @@ public class ReservationSaver
 
         for (Option option : options)
         {
-            DBReservationoptions dbo = (DBReservationoptions) DynamicMapper.map(option);
+            DBReservationoption dbo = (DBReservationoption) DynamicMapper.map(option);
 
             session.saveOrUpdate(dbo);
             option.setId(dbo.getId());
         }
         for (ReservationItem item : reservationItems)
         {
-            DBReservationitems dbi = (DBReservationitems) DynamicMapper.map(item);
+            DBReservationitem dbi = (DBReservationitem) DynamicMapper.map(item);
 
             session.saveOrUpdate(dbi);
             
@@ -107,11 +107,11 @@ public class ReservationSaver
 
         for (Reservation reservation : reservations)
         {
-            DBReservations dbr;
+            DBReservation dbr;
 
             if (reservation.getId() != null)
             {
-                dbr = (DBReservations) session.createCriteria(DBReservations.class).add(Restrictions.eq("id",
+                dbr = (DBReservation) session.createCriteria(DBReservation.class).add(Restrictions.eq("id",
                         reservation.getId())).uniqueResult();
 
                 Reservation temp = (Reservation) DynamicMapper.map(dbr);
@@ -127,10 +127,10 @@ public class ReservationSaver
 
         for (Option option : options)
         {
-            DBReservationoptions dbo;
+            DBReservationoption dbo;
             if (option.getId() != null)
             {
-                dbo = (DBReservationoptions) session.createCriteria(DBReservationoptions.class).add(Restrictions.eq("id",
+                dbo = (DBReservationoption) session.createCriteria(DBReservationoption.class).add(Restrictions.eq("id",
                         option.getId())).uniqueResult();
                 Option temp = (Option) DynamicMapper.map(dbo);
                 option.setExpiration(temp.getExpiration());

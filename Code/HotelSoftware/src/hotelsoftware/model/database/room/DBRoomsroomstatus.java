@@ -52,7 +52,7 @@ public class DBRoomsroomstatus implements Serializable
     private DBRoomstatus roomstatus;
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRooms rooms;
+    private DBRoom rooms;
 
     public DBRoomsroomstatus()
     {
@@ -115,12 +115,12 @@ public class DBRoomsroomstatus implements Serializable
         this.roomstatus = roomstatus;
     }
 
-    public DBRooms getRooms()
+    public DBRoom getRooms()
     {
         return rooms;
     }
 
-    public void setRooms(DBRooms rooms)
+    public void setRooms(DBRoom rooms)
     {
         this.rooms = rooms;
     }

@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.reservation.DBReservations;
+import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.PartyData;

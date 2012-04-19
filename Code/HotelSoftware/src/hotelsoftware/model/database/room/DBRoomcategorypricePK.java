@@ -14,7 +14,7 @@ import javax.persistence.Embeddable;
  * @author mohi
  */
 @Embeddable
-public class DBRoomcategorypricesPK implements Serializable
+public class DBRoomcategorypricePK implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "idRoomCategories", nullable = false)
@@ -23,11 +23,11 @@ public class DBRoomcategorypricesPK implements Serializable
     @Column(name = "idSeason", nullable = false)
     private int idSeason;
 
-    public DBRoomcategorypricesPK()
+    public DBRoomcategorypricePK()
     {
     }
 
-    public DBRoomcategorypricesPK(int idRoomCategories, int idSeason)
+    public DBRoomcategorypricePK(int idRoomCategories, int idSeason)
     {
         this.idRoomCategories = idRoomCategories;
         this.idSeason = idSeason;
@@ -66,11 +66,11 @@ public class DBRoomcategorypricesPK implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomcategorypricesPK))
+        if(!(object instanceof DBRoomcategorypricePK))
         {
             return false;
         }
-        DBRoomcategorypricesPK other = (DBRoomcategorypricesPK) object;
+        DBRoomcategorypricePK other = (DBRoomcategorypricePK) object;
         if(this.idRoomCategories != other.idRoomCategories)
         {
             return false;

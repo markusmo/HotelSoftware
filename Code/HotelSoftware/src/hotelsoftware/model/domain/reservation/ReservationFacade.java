@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.reservation.DBReservations;
+import hotelsoftware.model.database.reservation.DBReservation;
 import java.util.Collection;
 
 /**
@@ -29,6 +29,6 @@ public class ReservationFacade
     
     public static Collection<Reservation> getReservationsByName(String fname)
     {
-        return (Collection<Reservation>) DynamicMapper.map(DBReservations.getReservationsByFName(fname));
+        return (Collection<Reservation>) DynamicMapper.map(DBReservation.getReservationsByFName(fname));
     }
 }

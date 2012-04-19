@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservationoptions.findByPrepayment", query = "SELECT r FROM Reservationoptions r WHERE r.prepayment = :prepayment"),
     @NamedQuery(name = "Reservationoptions.findByFulfilled", query = "SELECT r FROM Reservationoptions r WHERE r.fulfilled = :fulfilled")
 })
-public class DBReservationoptions implements Serializable
+public class DBReservationoption implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,18 +58,18 @@ public class DBReservationoptions implements Serializable
     private boolean fulfilled;
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBReservations idReservations;
+    private DBReservation idReservations;
 
-    public DBReservationoptions()
+    public DBReservationoption()
     {
     }
 
-    private DBReservationoptions(Integer id)
+    private DBReservationoption(Integer id)
     {
         this.id = id;
     }
 
-    private DBReservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    private DBReservationoption(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
     {
         this.id = id;
         this.expiration = expiration;
@@ -77,19 +77,19 @@ public class DBReservationoptions implements Serializable
         this.fulfilled = fulfilled;
     }
 
-    public static DBReservationoptions newReservationoptions()
+    public static DBReservationoption newReservationoptions()
     {
-        return new DBReservationoptions();
+        return new DBReservationoption();
     }
 
-    public static DBReservationoptions newReservationoptions(Integer id)
+    public static DBReservationoption newReservationoptions(Integer id)
     {
-        return new DBReservationoptions(id);
+        return new DBReservationoption(id);
     }
 
-    public static DBReservationoptions newReservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    public static DBReservationoption newReservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
     {
-        return new DBReservationoptions(id, expiration, prepayment, fulfilled);
+        return new DBReservationoption(id, expiration, prepayment, fulfilled);
     }
 
     public Integer getId()
@@ -132,12 +132,12 @@ public class DBReservationoptions implements Serializable
         this.fulfilled = fulfilled;
     }
 
-    public DBReservations getIdReservations()
+    public DBReservation getIdReservations()
     {
         return idReservations;
     }
 
-    public void setIdReservations(DBReservations idReservations)
+    public void setIdReservations(DBReservation idReservations)
     {
         this.idReservations = idReservations;
     }
@@ -154,11 +154,11 @@ public class DBReservationoptions implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBReservationoptions))
+        if (!(object instanceof DBReservationoption))
         {
             return false;
         }
-        DBReservationoptions other = (DBReservationoptions) object;
+        DBReservationoption other = (DBReservationoption) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

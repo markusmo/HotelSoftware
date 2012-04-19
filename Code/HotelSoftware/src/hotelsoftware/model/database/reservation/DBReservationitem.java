@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.database.reservation;
 
-import hotelsoftware.model.database.room.DBRoomcategories;
+import hotelsoftware.model.database.room.DBRoomcategory;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,46 +31,46 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
     @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
 })
-public class DBReservationitems implements Serializable
+public class DBReservationitem implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBReservationitemsPK reservationitemsPK;
+    protected DBReservationitemPK reservationitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private int amount;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBRoomcategories roomcategories;
+    private DBRoomcategory roomcategories;
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBReservations reservations;
+    private DBReservation reservations;
 
-    public DBReservationitems()
+    public DBReservationitem()
     {
     }
-    public DBReservationitems(DBReservationitemsPK reservationitemsPK)
+    public DBReservationitem(DBReservationitemPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
 
-    public DBReservationitems(DBReservationitemsPK reservationitemsPK, int amount)
+    public DBReservationitem(DBReservationitemPK reservationitemsPK, int amount)
     {
         this.reservationitemsPK = reservationitemsPK;
         this.amount = amount;
     }
 
-    public DBReservationitems(int idReservations, int idRoomCategories)
+    public DBReservationitem(int idReservations, int idRoomCategories)
     {
-        this.reservationitemsPK = new DBReservationitemsPK(idReservations, idRoomCategories);
+        this.reservationitemsPK = new DBReservationitemPK(idReservations, idRoomCategories);
     }
 
-    public DBReservationitemsPK getReservationitemsPK()
+    public DBReservationitemPK getReservationitemsPK()
     {
         return reservationitemsPK;
     }
 
-    public void setReservationitemsPK(DBReservationitemsPK reservationitemsPK)
+    public void setReservationitemsPK(DBReservationitemPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
@@ -85,22 +85,22 @@ public class DBReservationitems implements Serializable
         this.amount = amount;
     }
 
-    public DBRoomcategories getRoomcategories()
+    public DBRoomcategory getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(DBRoomcategories roomcategories)
+    public void setRoomcategories(DBRoomcategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }
 
-    public DBReservations getReservations()
+    public DBReservation getReservations()
     {
         return reservations;
     }
 
-    public void setReservations(DBReservations reservations)
+    public void setReservations(DBReservation reservations)
     {
         this.reservations = reservations;
     }
@@ -117,11 +117,11 @@ public class DBReservationitems implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBReservationitems))
+        if(!(object instanceof DBReservationitem))
         {
             return false;
         }
-        DBReservationitems other = (DBReservationitems) object;
+        DBReservationitem other = (DBReservationitem) object;
         if((this.reservationitemsPK == null && other.reservationitemsPK != null) || (this.reservationitemsPK != null && !this.reservationitemsPK.equals(other.reservationitemsPK)))
         {
             return false;

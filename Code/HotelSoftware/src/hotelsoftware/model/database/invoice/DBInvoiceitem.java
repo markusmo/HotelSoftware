@@ -48,7 +48,7 @@ public class DBInvoiceitem implements Serializable
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBInvoiceitemsPK invoiceitemsPK;
+    protected DBInvoiceitemPK invoiceitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private int amount;
@@ -73,12 +73,12 @@ public class DBInvoiceitem implements Serializable
     {
     }
 
-    public DBInvoiceitem(DBInvoiceitemsPK invoiceitemsPK)
+    public DBInvoiceitem(DBInvoiceitemPK invoiceitemsPK)
     {
         this.invoiceitemsPK = invoiceitemsPK;
     }
 
-    public DBInvoiceitem(DBInvoiceitemsPK invoiceitemsPK, int amount, Date created)
+    public DBInvoiceitem(DBInvoiceitemPK invoiceitemsPK, int amount, Date created)
     {
         this.invoiceitemsPK = invoiceitemsPK;
         this.amount = amount;
@@ -87,15 +87,15 @@ public class DBInvoiceitem implements Serializable
 
     public DBInvoiceitem(int idServices, int idInvoice)
     {
-        this.invoiceitemsPK = new DBInvoiceitemsPK(idServices, idInvoice);
+        this.invoiceitemsPK = new DBInvoiceitemPK(idServices, idInvoice);
     }
 
-    public DBInvoiceitemsPK getInvoiceitemsPK()
+    public DBInvoiceitemPK getInvoiceitemsPK()
     {
         return invoiceitemsPK;
     }
 
-    public void setInvoiceitemsPK(DBInvoiceitemsPK invoiceitemsPK)
+    public void setInvoiceitemsPK(DBInvoiceitemPK invoiceitemsPK)
     {
         this.invoiceitemsPK = invoiceitemsPK;
     }

@@ -4,10 +4,9 @@
  */
 package hotelsoftware.model.database.room;
 
-import hotelsoftware.model.database.room.DBRoomcategoryprices;
+import hotelsoftware.model.database.reservation.DBReservationitem;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "seasons", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "roomcategories", catalog = "roomanizer", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -40,13 +37,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries(
 {
-    @NamedQuery(name = "Seasons.findAll", query = "SELECT s FROM Seasons s"),
-    @NamedQuery(name = "Seasons.findById", query = "SELECT s FROM Seasons s WHERE s.id = :id"),
-    @NamedQuery(name = "Seasons.findByName", query = "SELECT s FROM Seasons s WHERE s.name = :name"),
-    @NamedQuery(name = "Seasons.findByStart", query = "SELECT s FROM Seasons s WHERE s.start = :start"),
-    @NamedQuery(name = "Seasons.findByEnd", query = "SELECT s FROM Seasons s WHERE s.end = :end")
+    @NamedQuery(name = "Roomcategories.findAll", query = "SELECT r FROM Roomcategories r"),
+    @NamedQuery(name = "Roomcategories.findById", query = "SELECT r FROM Roomcategories r WHERE r.id = :id"),
+    @NamedQuery(name = "Roomcategories.findByName", query = "SELECT r FROM Roomcategories r WHERE r.name = :name"),
+    @NamedQuery(name = "Roomcategories.findByBedCount", query = "SELECT r FROM Roomcategories r WHERE r.bedCount = :bedCount")
 })
-public class DBSeasons implements Serializable
+public class DBRoomcategory implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,31 +54,29 @@ public class DBSeasons implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
     @Basic(optional = false)
-    @Column(name = "start", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date start;
-    @Basic(optional = false)
-    @Column(name = "end", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date end;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons")
-    private Collection<DBRoomcategoryprices> roomcategorypricesCollection;
+    @Column(name = "bedCount", nullable = false)
+    private int bedCount;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
+    private Collection<DBReservationitem> reservationitemsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories")
+    private Collection<DBRoom> roomsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
+    private Collection<DBRoomcategoryprice> roomcategorypricesCollection;
 
-    public DBSeasons()
+    public DBRoomcategory()
     {
     }
 
-    public DBSeasons(Integer id)
+    public DBRoomcategory(Integer id)
     {
         this.id = id;
     }
 
-    public DBSeasons(Integer id, String name, Date start, Date end)
+    public DBRoomcategory(Integer id, String name, int bedCount)
     {
         this.id = id;
         this.name = name;
-        this.start = start;
-        this.end = end;
+        this.bedCount = bedCount;
     }
 
     public Integer getId()
@@ -105,33 +99,45 @@ public class DBSeasons implements Serializable
         this.name = name;
     }
 
-    public Date getStart()
+    public int getBedCount()
     {
-        return start;
+        return bedCount;
     }
 
-    public void setStart(Date start)
+    public void setBedCount(int bedCount)
     {
-        this.start = start;
-    }
-
-    public Date getEnd()
-    {
-        return end;
-    }
-
-    public void setEnd(Date end)
-    {
-        this.end = end;
+        this.bedCount = bedCount;
     }
 
     @XmlTransient
-    public Collection<DBRoomcategoryprices> getRoomcategoryprices()
+    public Collection<DBReservationitem> getReservationitems()
+    {
+        return reservationitemsCollection;
+    }
+
+    public void setReservationitems(Collection<DBReservationitem> reservationitemsCollection)
+    {
+        this.reservationitemsCollection = reservationitemsCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBRoom> getRooms()
+    {
+        return roomsCollection;
+    }
+
+    public void setRooms(Collection<DBRoom> roomsCollection)
+    {
+        this.roomsCollection = roomsCollection;
+    }
+
+    @XmlTransient
+    public Collection<DBRoomcategoryprice> getRoomcategoryprices()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategoryprices(Collection<DBRoomcategoryprices> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Collection<DBRoomcategoryprice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
@@ -148,11 +154,11 @@ public class DBSeasons implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBSeasons))
+        if(!(object instanceof DBRoomcategory))
         {
             return false;
         }
-        DBSeasons other = (DBSeasons) object;
+        DBRoomcategory other = (DBRoomcategory) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -163,7 +169,7 @@ public class DBSeasons implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Seasons[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Roomcategories[ id=" + id + " ]";
     }
     
 }

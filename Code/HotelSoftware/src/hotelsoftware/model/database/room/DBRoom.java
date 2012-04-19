@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rooms.findById", query = "SELECT r FROM Rooms r WHERE r.id = :id"),
     @NamedQuery(name = "Rooms.findByRoomNumber", query = "SELECT r FROM Rooms r WHERE r.roomNumber = :roomNumber")
 })
-public class DBRooms implements Serializable
+public class DBRoom implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,25 +64,25 @@ public class DBRooms implements Serializable
         @JoinColumn(name = "idOptions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<DBRoomoptions> roomoptionsCollection;
+    private Collection<DBRoomoption> roomoptionsCollection;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoomcategories idRoomCategories;
+    private DBRoomcategory idRoomCategories;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
     private Collection<DBHabitation> habitationsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
     private Collection<DBRoomsroomstatus> roomsroomstatusCollection;
 
-    public DBRooms()
+    public DBRoom()
     {
     }
 
-    public DBRooms(Integer id)
+    public DBRoom(Integer id)
     {
         this.id = id;
     }
 
-    public DBRooms(Integer id, int roomNumber)
+    public DBRoom(Integer id, int roomNumber)
     {
         this.id = id;
         this.roomNumber = roomNumber;
@@ -109,22 +109,22 @@ public class DBRooms implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomoptions> getRoomoptions()
+    public Collection<DBRoomoption> getRoomoptions()
     {
         return roomoptionsCollection;
     }
 
-    public void setRoomoptions(Collection<DBRoomoptions> roomoptionsCollection)
+    public void setRoomoptions(Collection<DBRoomoption> roomoptionsCollection)
     {
         this.roomoptionsCollection = roomoptionsCollection;
     }
 
-    public DBRoomcategories getIdRoomCategories()
+    public DBRoomcategory getIdRoomCategories()
     {
         return idRoomCategories;
     }
 
-    public void setIdRoomCategories(DBRoomcategories idRoomCategories)
+    public void setIdRoomCategories(DBRoomcategory idRoomCategories)
     {
         this.idRoomCategories = idRoomCategories;
     }
@@ -163,11 +163,11 @@ public class DBRooms implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRooms))
+        if(!(object instanceof DBRoom))
         {
             return false;
         }
-        DBRooms other = (DBRooms) object;
+        DBRoom other = (DBRoom) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
