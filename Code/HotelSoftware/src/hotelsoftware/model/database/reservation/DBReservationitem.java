@@ -31,11 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
     @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
 })
-public class DBReservationitem implements Serializable
+public class DBReservationItem implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBReservationitemPK reservationitemsPK;
+    protected DBReservationItemPK reservationitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private int amount;
@@ -46,31 +46,31 @@ public class DBReservationitem implements Serializable
     @ManyToOne(optional = false)
     private DBReservation reservations;
 
-    public DBReservationitem()
+    public DBReservationItem()
     {
     }
-    public DBReservationitem(DBReservationitemPK reservationitemsPK)
+    public DBReservationItem(DBReservationItemPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
 
-    public DBReservationitem(DBReservationitemPK reservationitemsPK, int amount)
+    public DBReservationItem(DBReservationItemPK reservationitemsPK, int amount)
     {
         this.reservationitemsPK = reservationitemsPK;
         this.amount = amount;
     }
 
-    public DBReservationitem(int idReservations, int idRoomCategories)
+    public DBReservationItem(int idReservations, int idRoomCategories)
     {
-        this.reservationitemsPK = new DBReservationitemPK(idReservations, idRoomCategories);
+        this.reservationitemsPK = new DBReservationItemPK(idReservations, idRoomCategories);
     }
 
-    public DBReservationitemPK getReservationitemsPK()
+    public DBReservationItemPK getReservationitemsPK()
     {
         return reservationitemsPK;
     }
 
-    public void setReservationitemsPK(DBReservationitemPK reservationitemsPK)
+    public void setReservationitemsPK(DBReservationItemPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
     }
@@ -117,11 +117,11 @@ public class DBReservationitem implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBReservationitem))
+        if(!(object instanceof DBReservationItem))
         {
             return false;
         }
-        DBReservationitem other = (DBReservationitem) object;
+        DBReservationItem other = (DBReservationItem) object;
         if((this.reservationitemsPK == null && other.reservationitemsPK != null) || (this.reservationitemsPK != null && !this.reservationitemsPK.equals(other.reservationitemsPK)))
         {
             return false;

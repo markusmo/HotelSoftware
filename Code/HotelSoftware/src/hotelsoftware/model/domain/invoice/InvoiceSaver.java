@@ -6,8 +6,8 @@ package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
-import hotelsoftware.model.database.invoice.DBInvoiceitem;
-import hotelsoftware.model.database.invoice.DBPaymentmethod;
+import hotelsoftware.model.database.invoice.DBInvoiceItem;
+import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import java.util.Collection;
 import org.hibernate.Session;
 
@@ -35,7 +35,7 @@ public class InvoiceSaver
     {
         for(PaymentMethod method : paymentmethods)
         {
-            DBPaymentmethod dbm = (DBPaymentmethod)DynamicMapper.map(method);
+            DBPaymentMethod dbm = (DBPaymentMethod)DynamicMapper.map(method);
             session.saveOrUpdate(dbm);
             method.setId(dbm.getId());
         }
@@ -49,7 +49,7 @@ public class InvoiceSaver
         
         for(InvoiceItem item : invoiceitems)
         {
-            DBInvoiceitem dbii = (DBInvoiceitem)DynamicMapper.map(item);
+            DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
             session.saveOrUpdate(dbii);
             InvoiceitemPK pk = (InvoiceitemPK)DynamicMapper.map(dbii.getInvoiceitemsPK());
             item.setInvoiceitemsPK(pk);

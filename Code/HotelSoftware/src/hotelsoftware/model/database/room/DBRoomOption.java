@@ -34,8 +34,8 @@ import org.hibernate.Transaction;
 })
 public class DBRoomOption implements Serializable
 {
-    @ManyToMany(mappedBy = "dBRoomOptionCollection")
-    private Collection<DBRoom> dBRoomCollection;
+    //@ManyToMany(mappedBy = "roomoptionsCollection", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    //private Collection<DBRoom> dBRoomCollection;
     private static final long serialVersionUID = 1L;
 
     public static void safeNewRoomOption(String name)
@@ -133,7 +133,7 @@ public class DBRoomOption implements Serializable
         
         return options;
     }
-
+/*
     @XmlTransient
     public Collection<DBRoom> getDBRoomCollection()
     {
@@ -143,5 +143,5 @@ public class DBRoomOption implements Serializable
     public void setDBRoomCollection(Collection<DBRoom> dBRoomCollection)
     {
         this.dBRoomCollection = dBRoomCollection;
-    }
+    }*/
 }

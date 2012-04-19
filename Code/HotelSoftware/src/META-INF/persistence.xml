@@ -4,8 +4,6 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>hotelsoftware.model.database.parties.DBPrivateCustomer</class>
     <class>hotelsoftware.model.database.invoice.DBInvoice</class>
-    <class>hotelsoftware.model.database.invoice.DBInvoiceitem</class>
-    <class>hotelsoftware.model.database.invoice.DBPaymentmethod</class>
     <class>hotelsoftware.model.database.parties.DBAddress</class>
     <class>hotelsoftware.model.database.parties.DBCompany</class>
     <class>hotelsoftware.model.database.parties.DBCompanyType</class>
@@ -14,8 +12,6 @@
     <class>hotelsoftware.model.database.parties.DBGuest</class>
     <class>hotelsoftware.model.database.parties.DBPerson</class>
     <class>hotelsoftware.model.database.reservation.DBReservation</class>
-    <class>hotelsoftware.model.database.reservation.DBReservationitem</class>
-    <class>hotelsoftware.model.database.reservation.DBReservationoption</class>
     <class>hotelsoftware.model.database.room.DBRoom</class>
     <class>hotelsoftware.model.database.room.DBRoomCategory</class>
     <class>hotelsoftware.model.database.room.DBRoomCategoryPrice</class>
@@ -30,6 +26,10 @@
     <class>hotelsoftware.model.database.users.DBPermission</class>
     <class>hotelsoftware.model.database.users.DBRole</class>
     <class>hotelsoftware.model.database.users.DBUser</class>
+    <class>hotelsoftware.model.database.invoice.DBInvoiceItem</class>
+    <class>hotelsoftware.model.database.invoice.DBPaymentMethod</class>
+    <class>hotelsoftware.model.database.reservation.DBReservationItem</class>
+    <class>hotelsoftware.model.database.reservation.DBReservationOption</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>

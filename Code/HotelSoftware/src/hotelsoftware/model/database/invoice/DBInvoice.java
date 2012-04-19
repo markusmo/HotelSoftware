@@ -5,29 +5,14 @@
 package hotelsoftware.model.database.invoice;
 
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.parties.DBCustomer;
 import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.HibernateException;
@@ -85,10 +70,10 @@ public class DBInvoice implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
-    private Collection<DBInvoiceitem> invoiceitemsCollection;
+    private Collection<DBInvoiceItem> invoiceitemsCollection;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBPaymentmethod idpaymentMethods;
+    private DBPaymentMethod idpaymentMethods;
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBCustomer idCustomers;
@@ -116,7 +101,7 @@ public class DBInvoice implements Serializable
     }
 
     public DBInvoice(String invoiceNumber, BigDecimal discount, Date expiration,
-            boolean fulfilled, Date created, DBPaymentmethod idpaymentMethods,
+            boolean fulfilled, Date created, DBPaymentMethod idpaymentMethods,
             DBUser idUsers, DBCustomer idCustomers)
     {
         this.invoiceNumber = invoiceNumber;
@@ -180,23 +165,22 @@ public class DBInvoice implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoiceitem> getInvoiceitems()
+    public Collection<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceitemsCollection;
     }
 
-    public void setInvoiceitems(
-            Collection<DBInvoiceitem> invoiceitemsCollection)
+    public void setInvoiceitems(Collection<DBInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
-    public DBPaymentmethod getIdpaymentMethods()
+    public DBPaymentMethod getIdpaymentMethods()
     {
         return idpaymentMethods;
     }
 
-    public void setIdpaymentMethods(DBPaymentmethod idpaymentMethods)
+    public void setIdpaymentMethods(DBPaymentMethod idpaymentMethods)
     {
         this.idpaymentMethods = idpaymentMethods;
     }
