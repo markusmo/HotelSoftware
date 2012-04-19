@@ -1,7 +1,7 @@
 package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.invoice.DBPaymentmethod;
+import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import java.util.Collection;
 
 /**
@@ -54,7 +54,7 @@ public class PaymentMethod implements PaymentMethodData
      */
     public static Collection<PaymentMethod> getAllPaymentMethods()
     {
-        Collection<DBPaymentmethod> dbpm = DBPaymentmethod.getPaymentMethods();
+        Collection<DBPaymentMethod> dbpm = DBPaymentMethod.getPaymentMethods();
         return (Collection<PaymentMethod>)DynamicMapper.map(dbpm);
     }
 
@@ -67,7 +67,7 @@ public class PaymentMethod implements PaymentMethodData
      */
     public static PaymentMethod getPaymentMethodByName(String method)
     {
-        DBPaymentmethod dbpm = DBPaymentmethod.getPaymentMethodByName(method);
+        DBPaymentMethod dbpm = DBPaymentMethod.getPaymentMethodByName(method);
         return (PaymentMethod)DynamicMapper.map(dbpm);
     }
 }

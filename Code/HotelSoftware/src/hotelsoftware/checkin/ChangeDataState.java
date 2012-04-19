@@ -94,7 +94,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<CategoryData> getAllCategories()
     {        
-        return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategories());
+        return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
     }
     
     @Override

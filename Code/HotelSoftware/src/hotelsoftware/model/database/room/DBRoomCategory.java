@@ -4,8 +4,7 @@
  */
 package hotelsoftware.model.database.room;
 
-import hotelsoftware.model.database.reservation.DBReservationitem;
-import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.database.reservation.DBReservationItem;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,7 +13,6 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.FetchMode;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -54,7 +52,7 @@ public class DBRoomCategory implements Serializable
     @Column(name = "bedCount", nullable = false)
     private int bedCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
-    private Collection<DBReservationitem> reservationitemsCollection;
+    private Collection<DBReservationItem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories")
     private Collection<DBRoom> roomsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
@@ -107,12 +105,12 @@ public class DBRoomCategory implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservationitem> getReservationitems()
+    public Collection<DBReservationItem> getReservationitems()
     {
         return reservationitemsCollection;
     }
 
-    public void setReservationitems(Collection<DBReservationitem> reservationitemsCollection)
+    public void setReservationitems(Collection<DBReservationItem> reservationitemsCollection)
     {
         this.reservationitemsCollection = reservationitemsCollection;
     }
