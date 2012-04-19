@@ -1,16 +1,17 @@
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.datainterfaces.GuestData;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.AddressData;
+import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.room.Category;
+import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +27,9 @@ public abstract class CheckInState
     
     protected Habitation habitation;
     protected Reservation reservation;
+    
+    protected Map<Integer, RoomSelection> roomSelections;
+    protected int counter;
     
     public CheckInState(CheckInController context)
     {
@@ -98,7 +102,7 @@ public abstract class CheckInState
      * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
      * @return Alle bereits erfassten Gäste die einchecken
      */
-    public Collection<GuestData> getGuests()
+    public GuestData getGuest()
     {
         throw new IllegalStateException();
     }
@@ -112,7 +116,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der Gast mit den geänderten Daten
      */
-    public Guest changeGuestData(GuestData guest, String firstName, String lastName, Date birthday, Address address)
+    public GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
         throw new IllegalStateException();
     }
@@ -125,7 +129,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    public GuestData addGuest(String firstName, String lastName, Date birthday, AddressData address)
+    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
         throw new IllegalStateException();
     }
@@ -176,7 +180,7 @@ public abstract class CheckInState
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
      * @param roomNumber Die ausgewählte Zimmernummer
      */
-    public void changeRoom(int selectionIndex, int roomNumber)
+    public void changeRoom(int selectionIndex, String roomNumber)
     {
         throw new IllegalStateException();
     }
@@ -203,8 +207,45 @@ public abstract class CheckInState
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Map<ExtraServiceData, Integer> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
         throw new IllegalStateException();
+    }
+
+    public Collection<CategoryData> getAllCategories()
+    {
+        throw new IllegalStateException();
+    }
+    
+    protected class RoomSelection
+    {
+        private Category category;
+        private Room room;
+        
+        public RoomSelection(Category category, Room room)
+        {
+            this.category = category;
+            this.room = room;
+        }
+        
+        public Category getCategory()
+        {
+            return category;
+        }
+
+        public void setCategory(Category category)
+        {
+            this.category = category;
+        }
+
+        public Room getRoom()
+        {
+            return room;
+        }
+
+        public void setRoom(Room room)
+        {
+            this.room = room;
+        }
     }
 }

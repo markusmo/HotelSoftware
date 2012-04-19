@@ -39,8 +39,6 @@ public class Reservation implements ReservationData
         return new Reservation();
     }
 
-    
-
     @Override
     public String getComment()
     {

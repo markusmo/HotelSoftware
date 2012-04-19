@@ -5,21 +5,8 @@
 package hotelsoftware.model.database.room;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomstatus.findById", query = "SELECT r FROM Roomstatus r WHERE r.id = :id"),
     @NamedQuery(name = "Roomstatus.findByName", query = "SELECT r FROM Roomstatus r WHERE r.name = :name")
 })
-public class DBRoomstatus implements Serializable
+public class DBRoomStatus implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,16 +39,16 @@ public class DBRoomstatus implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    public DBRoomstatus()
+    public DBRoomStatus()
     {
     }
 
-    public DBRoomstatus(Integer id)
+    public DBRoomStatus(Integer id)
     {
         this.id = id;
     }
 
-    public DBRoomstatus(Integer id, String name)
+    public DBRoomStatus(Integer id, String name)
     {
         this.id = id;
         this.name = name;
@@ -99,11 +86,11 @@ public class DBRoomstatus implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomstatus))
+        if(!(object instanceof DBRoomStatus))
         {
             return false;
         }
-        DBRoomstatus other = (DBRoomstatus) object;
+        DBRoomStatus other = (DBRoomStatus) object;
         if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
