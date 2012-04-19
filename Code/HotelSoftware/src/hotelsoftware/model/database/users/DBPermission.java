@@ -10,19 +10,7 @@ import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
@@ -52,15 +40,6 @@ import org.hibernate.criterion.Restrictions;
 })
 public class DBPermission implements Serializable
 {
-    @JoinTable(name = "rolepermissions", joinColumns =
-    {
-        @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
-    private Collection<DBRole> dBRoleCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -237,17 +216,5 @@ public class DBPermission implements Serializable
             ts.rollback();
             throw new FaildToDeleteFromDatabaseException();
         }
-    }
-
-    @XmlTransient
-    public Collection<DBRole> getDBRoleCollection()
-    {
-        return dBRoleCollection;
-    }
-
-    public void setDBRoleCollection(Collection<DBRole> dBRoleCollection)
-    {
-        this.dBRoleCollection = dBRoleCollection;
-    }
-    
+    }    
 }

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBRoomStatus implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBRoomStatus")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus", fetch= FetchType.LAZY)
     private Collection<DBRoomsRoomStatus> dBRoomsRoomStatusCollection;
     private static final long serialVersionUID = 1L;
     @Id
