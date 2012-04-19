@@ -46,7 +46,7 @@ import org.hibernate.criterion.Restrictions;
 public class DBInvoiceitem implements Serializable
 {
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DBInvoiceitemPK invoiceitemsPK;
     @Basic(optional = false)
@@ -56,18 +56,18 @@ private static final long serialVersionUID = 1L;
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+    @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private DBService services;
+    @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private DBInvoice invoices;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
     @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBHabitation idHabitations;
-    @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private DBInvoice invoices;
-    @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private DBService services;
 
     public DBInvoiceitem()
     {

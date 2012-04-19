@@ -43,6 +43,12 @@ import org.hibernate.Transaction;
 })
 public class DBHabitation implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false)
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "start", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -51,20 +57,14 @@ public class DBHabitation implements Serializable
     @Column(name = "end", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
-    @Basic(optional = false)
-    @Column(name = "created", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+    @Basic(optional = false)
+    @Column(name = "created", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     @ManyToMany(mappedBy = "habitationsCollection")
     private Collection<DBGuest> guestsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
@@ -110,6 +110,26 @@ public class DBHabitation implements Serializable
         this.id = id;
     }
 
+    public Date getStart()
+    {
+        return start;
+    }
+
+    public void setStart(Date start)
+    {
+        this.start = start;
+    }
+
+    public Date getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(Date end)
+    {
+        this.end = end;
+    }
+
     public BigDecimal getPrice()
     {
         return price;
@@ -118,6 +138,16 @@ public class DBHabitation implements Serializable
     public void setPrice(BigDecimal price)
     {
         this.price = price;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
     }
 
     @XmlTransient
@@ -213,35 +243,5 @@ public class DBHabitation implements Serializable
         session.close();
         
         return habitation;
-    }
-
-    public Date getStart()
-    {
-        return start;
-    }
-
-    public void setStart(Date start)
-    {
-        this.start = start;
-    }
-
-    public Date getEnd()
-    {
-        return end;
-    }
-
-    public void setEnd(Date end)
-    {
-        this.end = end;
-    }
-
-    public Date getCreated()
-    {
-        return created;
-    }
-
-    public void setCreated(Date created)
-    {
-        this.created = created;
     }
 }

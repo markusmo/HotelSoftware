@@ -5,10 +5,8 @@
 package hotelsoftware.model.database.room;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,8 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBRoomStatus implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBRoomStatus")
-    private Collection<DBRoomsRoomStatus> dBRoomsRoomStatusCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -106,17 +102,6 @@ public class DBRoomStatus implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roomstatus[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<DBRoomsRoomStatus> getDBRoomsRoomStatusCollection()
-    {
-        return dBRoomsRoomStatusCollection;
-    }
-
-    public void setDBRoomsRoomStatusCollection(Collection<DBRoomsRoomStatus> dBRoomsRoomStatusCollection)
-    {
-        this.dBRoomsRoomStatusCollection = dBRoomsRoomStatusCollection;
     }
     
 }

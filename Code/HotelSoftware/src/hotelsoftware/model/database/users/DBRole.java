@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,15 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class DBRole implements Serializable
 {
-    @JoinTable(name = "userroles", joinColumns =
-    {
-        @JoinColumn(name = "idRoles", referencedColumnName = "id", nullable = false)
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
-    private Collection<DBUser> dBUserCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -138,17 +127,6 @@ public class DBRole implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roles[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<DBUser> getDBUserCollection()
-    {
-        return dBUserCollection;
-    }
-
-    public void setDBUserCollection(Collection<DBUser> dBUserCollection)
-    {
-        this.dBUserCollection = dBUserCollection;
     }
     
 }

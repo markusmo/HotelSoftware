@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -47,8 +44,6 @@ import org.hibernate.Transaction;
 })
 public class DBServiceType implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")
-    private Collection<DBService> dBServiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -146,16 +141,5 @@ public class DBServiceType implements Serializable
         Collection<DBServiceType> serviceType = (Collection<DBServiceType>)session.createCriteria(DBServiceType.class).list();
         session.close();
         return serviceType;
-    }
-
-    @XmlTransient
-    public Collection<DBService> getDBServiceCollection()
-    {
-        return dBServiceCollection;
-    }
-
-    public void setDBServiceCollection(Collection<DBService> dBServiceCollection)
-    {
-        this.dBServiceCollection = dBServiceCollection;
     }
 }

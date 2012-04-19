@@ -78,6 +78,13 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 })
 public class DBReservation implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false)
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "reserationNumber", nullable = false, length = 255)
     private String reserationNumber;
@@ -89,22 +96,12 @@ public class DBReservation implements Serializable
     @Column(name = "end", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
+    @Column(name = "comment", length = 255)
+    private String comment;
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "reservationNumber", nullable = false, length = 255)
-    private String reservationNumber;
-    @Column(name = "comment", length = 255)
-    private String comment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
     private Collection<DBReservationitem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
@@ -250,6 +247,26 @@ public class DBReservation implements Serializable
         this.reserationNumber = reserationNumber;
     }
 
+    public Date getStart()
+    {
+        return start;
+    }
+
+    public void setStart(Date start)
+    {
+        this.start = start;
+    }
+
+    public Date getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(Date end)
+    {
+        this.end = end;
+    }
+
     public String getComment()
     {
         return comment;
@@ -258,6 +275,16 @@ public class DBReservation implements Serializable
     public void setComment(String comment)
     {
         this.comment = comment;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
     }
 
     @XmlTransient
@@ -330,45 +357,5 @@ public class DBReservation implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Reservations[ id=" + id + " ]";
-    }
-
-    public String getReserationNumber()
-    {
-        return reserationNumber;
-    }
-
-    public void setReserationNumber(String reserationNumber)
-    {
-        this.reserationNumber = reserationNumber;
-    }
-
-    public Date getStart()
-    {
-        return start;
-    }
-
-    public void setStart(Date start)
-    {
-        this.start = start;
-    }
-
-    public Date getEnd()
-    {
-        return end;
-    }
-
-    public void setEnd(Date end)
-    {
-        this.end = end;
-    }
-
-    public Date getCreated()
-    {
-        return created;
-    }
-
-    public void setCreated(Date created)
-    {
-        this.created = created;
     }
 }

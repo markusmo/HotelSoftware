@@ -6,7 +6,6 @@ package hotelsoftware.model.database.service;
 
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
@@ -43,14 +42,6 @@ import org.hibernate.Transaction;
 })
 public class DBService implements Serializable
 {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServices")
-    private Collection<DBExtraService> dBExtraServiceCollection;
-    @OneToMany(mappedBy = "idServices")
-    private Collection<DBHabitation> dBHabitationCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,38 +111,6 @@ public class DBService implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Services[ id=" + id + " ]";
-    }
-
-    public BigDecimal getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price)
-    {
-        this.price = price;
-    }
-
-    @XmlTransient
-    public Collection<DBExtraService> getDBExtraServiceCollection()
-    {
-        return dBExtraServiceCollection;
-    }
-
-    public void setDBExtraServiceCollection(Collection<DBExtraService> dBExtraServiceCollection)
-    {
-        this.dBExtraServiceCollection = dBExtraServiceCollection;
-    }
-
-    @XmlTransient
-    public Collection<DBHabitation> getDBHabitationCollection()
-    {
-        return dBHabitationCollection;
-    }
-
-    public void setDBHabitationCollection(Collection<DBHabitation> dBHabitationCollection)
-    {
-        this.dBHabitationCollection = dBHabitationCollection;
     }
     
 }

@@ -26,9 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class DBRoomCategoryPrice implements Serializable
 {
-    @JoinColumn(name = "idSeasons", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private DBSeason dBSeason;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DBRoomCategoryPricePK roomcategorypricesPK;
@@ -145,16 +142,6 @@ public class DBRoomCategoryPrice implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roomcategoryprices[ roomcategorypricesPK=" + roomcategorypricesPK + " ]";
-    }
-
-    public DBSeason getDBSeason()
-    {
-        return dBSeason;
-    }
-
-    public void setDBSeason(DBSeason dBSeason)
-    {
-        this.dBSeason = dBSeason;
     }
     
 }

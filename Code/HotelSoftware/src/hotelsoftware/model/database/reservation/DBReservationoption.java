@@ -39,18 +39,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class DBReservationoption implements Serializable
 {
-    @Basic(optional = false)
-    @Column(name = "expiration", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date expiration;
-    @Column(name = "comment", length = 255)
-    private String comment;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "expiration", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date expiration;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "prepayment", nullable = false, precision = 10, scale = 2)
@@ -102,6 +100,16 @@ public class DBReservationoption implements Serializable
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    public Date getExpiration()
+    {
+        return expiration;
+    }
+
+    public void setExpiration(Date expiration)
+    {
+        this.expiration = expiration;
     }
 
     public BigDecimal getPrepayment()
@@ -162,25 +170,5 @@ public class DBReservationoption implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Reservationoptions[ id=" + id + " ]";
-    }
-
-    public Date getExpiration()
-    {
-        return expiration;
-    }
-
-    public void setExpiration(Date expiration)
-    {
-        this.expiration = expiration;
-    }
-
-    public String getComment()
-    {
-        return comment;
-    }
-
-    public void setComment(String comment)
-    {
-        this.comment = comment;
     }
 }

@@ -51,6 +51,10 @@ public class DBPerson implements Serializable
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "fname", length = 255)
+    private String fname;
+    @Column(name = "lname", length = 255)
+    private String lname;
     @ManyToMany(mappedBy = "personsCollection")
     private Collection<DBCompany> companiesCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idPersons")
@@ -68,26 +72,6 @@ public class DBPerson implements Serializable
     {
     }
 
-    public Collection<DBCompany> getCompaniesCollection()
-    {
-        return companiesCollection;
-    }
-
-    public void setCompaniesCollection(Collection<DBCompany> companiesCollection)
-    {
-        this.companiesCollection = companiesCollection;
-    }
-
-    public Collection<DBReservation> getReservationsCollection()
-    {
-        return reservationsCollection;
-    }
-
-    public void setReservationsCollection(Collection<DBReservation> reservationsCollection)
-    {
-        this.reservationsCollection = reservationsCollection;
-    }
-
     public DBPerson(Integer id)
     {
         this.id = id;
@@ -101,6 +85,26 @@ public class DBPerson implements Serializable
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    public String getFname()
+    {
+        return fname;
+    }
+
+    public void setFname(String fname)
+    {
+        this.fname = fname;
+    }
+
+    public String getLname()
+    {
+        return lname;
+    }
+
+    public void setLname(String lname)
+    {
+        this.lname = lname;
     }
 
     @XmlTransient
