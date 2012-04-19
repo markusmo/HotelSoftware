@@ -5,7 +5,7 @@ import hotelsoftware.model.domain.invoice.InvoiceData;
 import java.util.Collection;
 
 public class PrivateCustomer extends Customer {
-
+    
 	private String fname;
 	private String lname;
 	private Character gender;
@@ -56,9 +56,9 @@ public class PrivateCustomer extends Customer {
 		this.gender = gender;
 	}
 
-	public static PrivateCustomer getPrivateCustomerByName(String name)
-			throws CompanyNotFoundException {
-		return PartyFacade.getInstance().getPrivateCustomerByName(name);
+	public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
+			throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException {
+		return PartyFacade.getInstance().getPrivateCustomerByName(firstname,lastname);
 	}
 
 	@Override

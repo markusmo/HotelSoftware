@@ -8,6 +8,7 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.parties.DBGuest;
+import hotelsoftware.model.database.parties.DBPrivateCustomer;
 import java.util.Collection;
 
 /**
@@ -44,8 +45,7 @@ public class PartyFacade {
 	public PrivateCustomer getPrivateCustomerByName(String firstName,
 			String lastName) throws PrivateCustomerNotFoundException,
 			GuestNotFoundException {
-		Collection<DBPrivateCustomer> c = DBPrivateCustomer
-				.getPrivateCustomerByName(firstName, lastName);
+		DBPrivateCustomer c = DBPrivateCustomer.getPrivateCustomerByName(firstName, lastName);
 
 		if (c == null) {
 			throw new GuestNotFoundException();
