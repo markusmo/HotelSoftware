@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.database.room;
 
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -19,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -126,4 +129,16 @@ public class DBRoomOption implements Serializable
         return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
     }
     
+    public static Collection<DBRoomOption> getRoomOptions()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Collection<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
+        
+        session.close();
+        
+        return options;
+    }
 }

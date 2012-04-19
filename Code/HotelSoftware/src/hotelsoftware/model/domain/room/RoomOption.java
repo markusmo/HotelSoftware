@@ -4,8 +4,9 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoomOption;
-import java.util.List;
+import java.util.Collection;
 
 /**
  *
@@ -15,21 +16,28 @@ public class RoomOption implements RoomOptionData
 {    
     private String name;
 
-    public RoomOption(String name)
+    public RoomOption()
+    {}
+    
+    public static RoomOption create(String name)
+    {
+        return new RoomOption(name);
+    }
+    
+    private RoomOption(String name)
     {        
         this.name = name;
-        DBRoomOption.safeNewRoomOption(name);
     }
-
+    
     @Override
     public String getName()
     {
         return name;
     }
     
-    public static List<RoomOption> getRoomOptions (){
-        // convert and return Roomoptions.getRoomoptions();
-        return null;
+    public static Collection<RoomOption> getRoomOptions ()
+    {
+        return (Collection<RoomOption>) DynamicMapper.mapCollection(DBRoomOption.getRoomOptions());
     }
     
     
