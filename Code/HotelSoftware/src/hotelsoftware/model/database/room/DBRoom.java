@@ -59,7 +59,7 @@ public class DBRoom implements Serializable
     private Integer id;
     @Basic(optional = false)
     @Column(name = "roomNumber", nullable = false)
-    private int roomNumber;
+    private String roomNumber;
     @JoinTable(name = "roomsroomoptions", joinColumns =
     {
         @JoinColumn(name = "idRoom", referencedColumnName = "id", nullable = false)
@@ -86,7 +86,7 @@ public class DBRoom implements Serializable
         this.id = id;
     }
 
-    public DBRoom(Integer id, int roomNumber)
+    public DBRoom(Integer id, String roomNumber)
     {
         this.id = id;
         this.roomNumber = roomNumber;
@@ -102,12 +102,12 @@ public class DBRoom implements Serializable
         this.id = id;
     }
 
-    public int getRoomNumber()
+    public String getRoomNumber()
     {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber)
+    public void setRoomNumber(String roomNumber)
     {
         this.roomNumber = roomNumber;
     }

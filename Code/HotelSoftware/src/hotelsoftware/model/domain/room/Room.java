@@ -19,20 +19,20 @@ import java.util.Collection;
  */
 public class Room implements RoomData
 {
-    private int number; //FIXME maybe String (DB???)
+    private String number;
     private Collection<RoomOption> options;
     private RoomCategory category;
     private RoomStatus currentStatus;
     private Collection<Habitation> habitationCollection;
     private Collection<RoomStatus> status;
 
-    private Room(int number, RoomCategory category)
+    private Room(String number, RoomCategory category)
     {
         this.number = number;
         this.category = category;
     }
             
-    public static Room create(int number, RoomCategory category)
+    public static Room create(String number, RoomCategory category)
     {
         return new Room(number, category);
     }
@@ -60,12 +60,12 @@ public class Room implements RoomData
     }
 
     @Override
-    public int getNumber()
+    public String getNumber()
     {
         return number;
     }
 
-    public void setNumber(int number)
+    public void setNumber(String number)
     {
         this.number = number;
     }
