@@ -103,7 +103,7 @@ public class Guest extends Party implements GuestData {
 	}
 
 	public static Collection<Guest> getGuestByName(String fname, String lname)
-			throws CompanyNotFoundException {
+			throws CompanyNotFoundException, GuestNotFoundException {
 		return PartyFacade.getInstance().getGuestByName(fname, lname);
 	}
 
@@ -116,4 +116,9 @@ public class Guest extends Party implements GuestData {
     {
         return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }
+
+	@Override
+	public AddressData getAddressData() {
+		return (AddressData) address;
+	}
 }

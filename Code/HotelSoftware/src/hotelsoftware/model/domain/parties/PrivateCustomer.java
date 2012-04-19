@@ -1,5 +1,9 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.invoice.InvoiceData;
+
+import java.util.Collection;
+
 public class PrivateCustomer extends Customer {
 
 	private String fname;
@@ -55,6 +59,24 @@ public class PrivateCustomer extends Customer {
 	public static PrivateCustomer getPrivateCustomerByName(String name)
 			throws CompanyNotFoundException {
 		return PartyFacade.getInstance().getPrivateCustomerByName(name);
+	}
+
+	@Override
+	public AddressData getInvoiceAddressData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<InvoiceData> getInvoicesData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AddressData getAddressData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -21,7 +21,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-
+import hotelsoftware.util.HibernateUtil;
+import hotelsoftware.model.database;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 /**
  * 
  * @author Hubert
