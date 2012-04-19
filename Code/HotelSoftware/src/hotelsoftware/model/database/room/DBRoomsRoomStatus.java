@@ -16,14 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "roomsroomstatus", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
+/*@NamedQueries(
 {
     @NamedQuery(name = "Roomsroomstatus.findAll", query = "SELECT r FROM Roomsroomstatus r"),
     @NamedQuery(name = "Roomsroomstatus.findByIdRooms", query = "SELECT r FROM Roomsroomstatus r WHERE r.roomsroomstatusPK.idRooms = :idRooms"),
     @NamedQuery(name = "Roomsroomstatus.findByIdRoomStatus", query = "SELECT r FROM Roomsroomstatus r WHERE r.roomsroomstatusPK.idRoomStatus = :idRoomStatus"),
     @NamedQuery(name = "Roomsroomstatus.findByStart", query = "SELECT r FROM Roomsroomstatus r WHERE r.start = :start"),
     @NamedQuery(name = "Roomsroomstatus.findByEnd", query = "SELECT r FROM Roomsroomstatus r WHERE r.end = :end")
-})
+})*/
 public class DBRoomsRoomStatus implements Serializable
 {
     @Basic(optional = false)

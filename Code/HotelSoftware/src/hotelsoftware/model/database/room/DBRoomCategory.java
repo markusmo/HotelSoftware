@@ -30,13 +30,13 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
+/*@NamedQueries(
 {
     @NamedQuery(name = "Roomcategories.findAll", query = "SELECT r FROM Roomcategories r"),
     @NamedQuery(name = "Roomcategories.findById", query = "SELECT r FROM Roomcategories r WHERE r.id = :id"),
     @NamedQuery(name = "Roomcategories.findByName", query = "SELECT r FROM Roomcategories r WHERE r.name = :name"),
     @NamedQuery(name = "Roomcategories.findByBedCount", query = "SELECT r FROM Roomcategories r WHERE r.bedCount = :bedCount")
-})
+})*/
 public class DBRoomCategory implements Serializable
 {
     private static final long serialVersionUID = 1L;
