@@ -142,12 +142,6 @@ public class MainFrame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
-    {//GEN-HEADEREND:event_jButton11ActionPerformed
-        CardLayout cl = (CardLayout) jPanel1.getLayout();
-        cl.next(jPanel1);
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         // TODO add your handling code here:
@@ -167,6 +161,12 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton15ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
+    {//GEN-HEADEREND:event_jButton11ActionPerformed
+        CardLayout cl = (CardLayout) jPanel1.getLayout();
+        cl.next(jPanel1);
+    }//GEN-LAST:event_jButton11ActionPerformed
     
     private void Init(){
         jButton11.setIcon(new ImageIcon("src/resources/images/home-icon.png"));
@@ -177,14 +177,6 @@ public class MainFrame extends javax.swing.JFrame
         jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
         jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
         
-        
-        for(Component c  : getComponents())
-        {
-            if(c instanceof JTextField)
-            {
-                ((JTextField)c).setText("");
-            }
-        }
     }
     public static void CreateGui()
     {

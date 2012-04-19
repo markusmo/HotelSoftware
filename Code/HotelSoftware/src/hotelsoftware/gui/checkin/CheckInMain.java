@@ -51,13 +51,13 @@ public class CheckInMain extends javax.swing.JPanel
         jButton4 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
 
-        jLabel1.setText("Lastname:");
+        jLabel1.setText("Last name:");
 
         jLabel2.setText("Customer No.:");
 
         jLabel3.setText("Reservation No.:");
 
-        jLabel4.setText("Firstname:");
+        jLabel4.setText("First name:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +151,7 @@ public class CheckInMain extends javax.swing.JPanel
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Reservation No.", "Customer No.", "Lastname", "Firstname", "Arrival", "Departure", "Number of Persons"
+                "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
             }
         ) {
             boolean[] canEdit = new boolean [] {

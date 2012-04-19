@@ -60,13 +60,13 @@ public class GuestPanel extends javax.swing.JPanel
         jLabel7 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
 
-        jLabel10.setText("Lastname:");
+        jLabel10.setText("Last name:");
 
         jLabel9.setText("Birthday:");
 
         jLabel8.setText("Street / Number:");
 
-        jLabel13.setText("Phonenumber:");
+        jLabel13.setText("Phone number:");
 
         jLabel17.setText("Country:");
 
@@ -98,7 +98,7 @@ public class GuestPanel extends javax.swing.JPanel
 
         jLabel14.setText("Extraservices:");
 
-        jLabelVorname.setText("Firstname:");
+        jLabelVorname.setText("First name:");
 
         jLabel7.setText("Fax:");
 
@@ -117,7 +117,7 @@ public class GuestPanel extends javax.swing.JPanel
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                     .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField13)
@@ -131,7 +131,7 @@ public class GuestPanel extends javax.swing.JPanel
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                     .addComponent(jTextField10)
                     .addComponent(jTextField9)
                     .addComponent(jTextField6))

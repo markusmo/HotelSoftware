@@ -47,12 +47,14 @@ public class CheckinTwo extends javax.swing.JPanel
             TabbedPaneRooms.addTab("Room " + (i + 1), new RoomPanel());
             TabbedPaneRooms.setTabComponentAt(i,
                     new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));
-            TabbedPaneRooms.setMnemonicAt(i, 48 + i);
+            //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
         }
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);
         TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
                 new ButtonTabComponentPlus(TabbedPaneRooms, RoomPanel.class, "Room", new ImageIcon("src/resources/images/gh1.png")));
+        TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
+        
         TabbedPaneRooms.addChangeListener(new ChangeListener()
         {
             public void stateChanged(ChangeEvent e)
@@ -109,7 +111,7 @@ public class CheckinTwo extends javax.swing.JPanel
         jButton3.setText("Check In");
         jButton3.setEnabled(false);
 
-        jButton4.setText("Abbrechen");
+        jButton4.setText("Abort");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservation details"));
 
@@ -117,7 +119,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
         jLabel3.setText("Reservation no.:");
 
-        jLabel4.setText("Number of guests");
+        jLabel4.setText("Number of guests:");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
