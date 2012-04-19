@@ -57,7 +57,7 @@ public class CheckinTwo extends javax.swing.JPanel
         textBoxArrival.setText(df.format(reservation.getStart()));
         textBoxDeparture.setText(df.format(reservation.getEnd()));
         //textBoxNumberOfGuests.setText(reservation.get);
-        textBoxReservationNumber.setText(reservation.getId() + "");
+        textBoxReservationNumber.setText(reservation.getReservationNumber());
 
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())

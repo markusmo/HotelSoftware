@@ -31,7 +31,7 @@ public class CheckInMain extends javax.swing.JPanel
         {
             value[i++] = new Object[]
             {
-                data.getIndex() + "", null, null, null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
+                data.getReservationNumber() + "", null, null, null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
             };
         }
         return value;
@@ -45,8 +45,7 @@ public class CheckInMain extends javax.swing.JPanel
         //reservations.to
         initComponents();
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                getTableModel()
-                /*new Object[][]
+                new Object[][]
                 {
                     {
                         null, null, null, null, null, null, null
@@ -57,7 +56,7 @@ public class CheckInMain extends javax.swing.JPanel
                     {
                         null, null, null, null, null, null, null
                     }
-                }*/,
+                },
                 new String[]
                 {
                     "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
@@ -375,6 +374,27 @@ public class CheckInMain extends javax.swing.JPanel
         try
         {
             reservations = cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
+            if (reservations != null)
+            {
+                jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                        getTableModel(),
+                        new String[]
+                        {
+                            "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
+                        })
+                {
+                    boolean[] canEdit = new boolean[]
+                    {
+                        false, false, false, true, false, false, false
+                    };
+
+                    @Override
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return canEdit[columnIndex];
+                    }
+                });
+            }
         }
         catch (InvalidInputException ex)
         {

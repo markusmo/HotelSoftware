@@ -38,7 +38,7 @@ public class CheckInGuiControler
         try
         {
             CheckInController cic = CheckInController.getInstance();
-            cic.start();
+            // cic.start();
             if (reservationNumber.length() > 0)
             {
                 ReservationData reservation = cic.search(Integer.parseInt(reservationNumber));
