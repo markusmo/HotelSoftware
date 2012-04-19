@@ -16,6 +16,7 @@ import java.util.Collection;
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
+<<<<<<< HEAD:Code/HotelSoftware/src/hotelsoftware/model/domain/room/Category.java
 public class Category implements CategoryData {
 	private Integer id;
 	private String name;
@@ -36,6 +37,14 @@ public class Category implements CategoryData {
 	public int getBedAmount() {
 		return bedAmount;
 	}
+=======
+public class RoomCategory implements CategoryData
+{
+    private String name;
+    private BigDecimal price;
+    private BigDecimal minPrice;
+    private int bedAmount;
+>>>>>>> 78813edac85f434f28a193314799cd7ac88d0518:Code/HotelSoftware/src/hotelsoftware/model/domain/room/RoomCategory.java
 
 	public void setBedAmount(int bedAmount) {
 		this.bedAmount = bedAmount;

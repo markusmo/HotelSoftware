@@ -4,18 +4,23 @@
  */
 package hotelsoftware.model.domain.room;
 
+<<<<<<< HEAD
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.room.DBRoomoption;
 import hotelsoftware.model.domain.parties.CompanyType;
 
 import java.util.Collection;
+=======
+import hotelsoftware.model.database.room.DBRoomOption;
+>>>>>>> 78813edac85f434f28a193314799cd7ac88d0518
 import java.util.List;
 
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
+<<<<<<< HEAD
 public class RoomOption implements RoomOptionData {
 	private Integer id;
 	private String name;
@@ -53,4 +58,28 @@ public class RoomOption implements RoomOptionData {
 		return (Collection<RoomOption>) DynamicMapper.map(dbro);
 	}
 
+=======
+public class RoomOption implements RoomOptionData
+{    
+    private String name;
+
+    public RoomOption(String name)
+    {        
+        this.name = name;
+        DBRoomOption.safeNewRoomOption(name);
+    }
+
+    @Override
+    public String getName()
+    {
+        return name;
+    }
+    
+    public static List<RoomOption> getRoomOptions (){
+        // convert and return Roomoptions.getRoomoptions();
+        return null;
+    }
+    
+    
+>>>>>>> 78813edac85f434f28a193314799cd7ac88d0518
 }

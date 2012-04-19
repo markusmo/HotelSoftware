@@ -5,17 +5,17 @@
 package hotelsoftware.util;
 
 import hotelsoftware.model.database.parties.DBCompany;
-import hotelsoftware.model.database.room.DBRoomcategory;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.reservation.DBReservationoption;
 import hotelsoftware.model.database.room.DBSeason;
 import hotelsoftware.model.database.parties.DBAddress;
 import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.room.DBRoomsroomstatus;
-import hotelsoftware.model.database.room.DBRoomcategoryprice;
+import hotelsoftware.model.database.room.DBRoomCategoryPrice;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBExtraService;
-import hotelsoftware.model.database.room.DBRoomcategorypricePK;
+import hotelsoftware.model.database.room.DBRoomCategoryPricePK;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.reservation.DBReservationitemPK;
 import hotelsoftware.model.database.service.DBHabitation;
@@ -24,7 +24,7 @@ import hotelsoftware.model.database.room.DBRoomstatus;
 import hotelsoftware.model.database.parties.DBCountry;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.model.database.invoice.DBInvoice;
-import hotelsoftware.model.database.room.DBRoomoption;
+import hotelsoftware.model.database.room.DBRoomOption;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.users.DBRole;
 import hotelsoftware.model.database.parties.DBCustomer;
@@ -76,10 +76,10 @@ public class HibernateUtil
                     .addAnnotatedClass(DBReservationoption.class)
                     .addAnnotatedClass(DBReservation.class)
                     .addAnnotatedClass(DBRole.class)
-                    .addAnnotatedClass(DBRoomcategory.class)
-                    .addAnnotatedClass(DBRoomcategoryprice.class)
-                    .addAnnotatedClass(DBRoomcategorypricePK.class)
-                    .addAnnotatedClass(DBRoomoption.class)
+                    .addAnnotatedClass(DBRoomCategory.class)
+                    .addAnnotatedClass(DBRoomCategoryPrice.class)
+                    .addAnnotatedClass(DBRoomCategoryPricePK.class)
+                    .addAnnotatedClass(DBRoomOption.class)
                     .addAnnotatedClass(DBRoom.class)
                     .addAnnotatedClass(DBRoomsroomstatus.class)
                     .addAnnotatedClass(DBRoomsroomstatusPK.class)

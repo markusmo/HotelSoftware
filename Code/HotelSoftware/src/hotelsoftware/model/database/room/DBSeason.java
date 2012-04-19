@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.database.room;
 
-import hotelsoftware.model.database.room.DBRoomcategoryprice;
+import hotelsoftware.model.database.room.DBRoomCategoryPrice;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -66,7 +66,7 @@ public class DBSeason implements Serializable
     @Temporal(TemporalType.DATE)
     private Date end;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons")
-    private Collection<DBRoomcategoryprice> roomcategorypricesCollection;
+    private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
     public DBSeason()
     {
@@ -126,12 +126,12 @@ public class DBSeason implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomcategoryprice> getRoomcategoryprices()
+    public Collection<DBRoomCategoryPrice> getRoomcategoryprices()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategoryprices(Collection<DBRoomcategoryprice> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
