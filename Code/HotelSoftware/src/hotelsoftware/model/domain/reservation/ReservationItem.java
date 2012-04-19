@@ -3,11 +3,6 @@
  * and open the template in the editor.
  */
 package hotelsoftware.model.domain.reservation;
-
-<<<<<<< HEAD
-import hotelsoftware.model.domain.room.RoomCategory;
-=======
->>>>>>> fadsf
 import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.RoomCategory;
 
