@@ -22,26 +22,28 @@ public class StartState extends CheckInState
     {
         super(context);
     }
-    
+
     @Override
     public Collection<ReservationData> getAllReservations()
     {
         return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
     }
-    
+
     /**
      * Sucht nach einer Reservierung
+     *
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
-     * @return Die zur Reservierungsnummer gehörende Reservierung 
+     * @return Die zur Reservierungsnummer gehörende Reservierung
      */
     @Override
     public ReservationData search(int reservationNr)
     {
         return Reservation.getReservationByNumber(reservationNr);
     }
-    
+
     /**
      * Sucht anhand des Namen der Person die reserviert hat nach einer Reservierung
+     *
      * @param firstName Der Vorname der Person
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
@@ -49,19 +51,28 @@ public class StartState extends CheckInState
     @Override
     public Collection<ReservationData> search(String firstName, String lastName)
     {
-        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
-        
-        for (Reservation res : reservations)
+        try
         {
-            reservationData.add(res);
+            return null;
         }
-        
-        return reservationData;
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+            Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
+
+            for (Reservation res : reservations)
+            {
+                reservationData.add(res);
+            }
+
+            return reservationData;
+        }
     }
-    
+
     /**
      * Wählt eine Reservierung aus die abgearbeitet werden soll
+     *
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
     @Override
@@ -69,12 +80,13 @@ public class StartState extends CheckInState
     {
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
-                
+
         context.setState(new ChangeReservationDataState(context));
     }
-    
+
     /**
      * Startet einen Check In Vorgang für einen Walk In Gast
+     *
      * @param start Das Startdatum des Aufenthalts
      * @param end Das Enddatum des Aufenthalts
      * @param amount Die Anzahl an Personen
@@ -84,12 +96,13 @@ public class StartState extends CheckInState
     {
         this.startDate = start;
         this.endDate = end;
-        
+
         context.setState(new ChangeWalkInDataState(context));
     }
-    
+
     /**
      * Startet einen Check In Vorgang für einen Walk In Gast
+     *
      * @param days Die Aufenthaltsdauer in Tagen
      * @param amount Die Anzahl an Personen
      */
@@ -98,10 +111,10 @@ public class StartState extends CheckInState
     {
         Calendar cal = Calendar.getInstance();
         this.startDate = cal.getTime();
-        
+
         cal.add(Calendar.DAY_OF_YEAR, days);
         this.endDate = cal.getTime();
-        
+
         context.setState(new ChangeWalkInDataState(context));
-    }    
+    }
 }

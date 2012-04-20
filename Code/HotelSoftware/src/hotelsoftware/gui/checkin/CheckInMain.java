@@ -26,7 +26,7 @@ public class CheckInMain extends javax.swing.JPanel
     {
         int i = 0;
         SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
-        Object[][] value = new Object[reservations.size()][];
+        Object[][] value = new Object[reservations.size()][7];
         for (ReservationData data : reservations)
         {
             value[i++] = new Object[]

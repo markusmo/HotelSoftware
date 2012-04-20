@@ -48,7 +48,7 @@ public class CheckInGuiControler
                     dafuq.add(reservation);
                 }
             }
-            dafuq.addAll(CheckInController.getInstance().search(fname, lname));
+            //dafuq.addAll(CheckInController.getInstance().search(fname, lname));
 
             return dafuq;
         }

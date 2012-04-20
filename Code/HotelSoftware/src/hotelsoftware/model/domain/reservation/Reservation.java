@@ -31,7 +31,7 @@ public class Reservation implements ReservationData
     private Integer id;
     private String reservationNumber;
 
-    Reservation()
+    public Reservation()
     {
     }
 
@@ -150,7 +150,7 @@ public class Reservation implements ReservationData
     
     public static Reservation getReservationByNumber(int reservationNr)
     {
-        return ReservationFacade.getInstance().getReservationById(reservationNr);
+        return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
     
     public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
@@ -164,6 +164,10 @@ public class Reservation implements ReservationData
     }
     
     public void setReservationNumber(String reservationNumber)
+    {
+        this.reservationNumber = reservationNumber;
+    }
+     public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
     }

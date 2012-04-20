@@ -22,6 +22,11 @@ public class ReservationFacade
         return ReservationFacadeHolder.INSTANCE;
     }
 
+    public Reservation getReservationByNumber(int reservationNr)
+    {
+        return (Reservation) DynamicMapper.map(DBReservation.getReservationByNumber(reservationNr));
+    }
+
     private static class ReservationFacadeHolder
     {
         private static final ReservationFacade INSTANCE = new ReservationFacade();
