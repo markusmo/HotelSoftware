@@ -16,14 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "roomcategoryprices", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Roomcategoryprices.findAll", query = "SELECT r FROM Roomcategoryprices r"),
-    @NamedQuery(name = "Roomcategoryprices.findByIdRoomCategories", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idRoomCategories = :idRoomCategories"),
-    @NamedQuery(name = "Roomcategoryprices.findByIdSeason", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idSeason = :idSeason"),
-    @NamedQuery(name = "Roomcategoryprices.findByPrice", query = "SELECT r FROM Roomcategoryprices r WHERE r.price = :price"),
-    @NamedQuery(name = "Roomcategoryprices.findByPriceMin", query = "SELECT r FROM Roomcategoryprices r WHERE r.priceMin = :priceMin")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Roomcategoryprices.findAll", query = "SELECT r FROM Roomcategoryprices r"),
+//    @NamedQuery(name = "Roomcategoryprices.findByIdRoomCategories", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idRoomCategories = :idRoomCategories"),
+//    @NamedQuery(name = "Roomcategoryprices.findByIdSeason", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idSeason = :idSeason"),
+//    @NamedQuery(name = "Roomcategoryprices.findByPrice", query = "SELECT r FROM Roomcategoryprices r WHERE r.price = :price"),
+//    @NamedQuery(name = "Roomcategoryprices.findByPriceMin", query = "SELECT r FROM Roomcategoryprices r WHERE r.priceMin = :priceMin")
+//})
 public class DBRoomCategoryPrice implements Serializable
 {
     @JoinColumn(name = "idSeasons", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)

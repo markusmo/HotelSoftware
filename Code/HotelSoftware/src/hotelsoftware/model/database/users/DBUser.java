@@ -48,13 +48,13 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
+//    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
+//    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
+//    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+//})
 public class DBUser implements Serializable
 {
     @ManyToMany(mappedBy = "dBUserCollection")
@@ -249,8 +249,9 @@ public class DBUser implements Serializable
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.eq(
-                "username", username)).add(Restrictions.eq("password", password)).uniqueResult();
+        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions
+                .and(Restrictions.eq("username", username),Restrictions.eq("password", password)))
+                .uniqueResult();
         session.close();
         return retUser;
     }

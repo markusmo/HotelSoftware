@@ -38,13 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
-    @NamedQuery(name = "Countries.findById", query = "SELECT c FROM Countries c WHERE c.id = :id"),
-    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
-    @NamedQuery(name = "Countries.findByNameShort", query = "SELECT c FROM Countries c WHERE c.nameShort = :nameShort")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
+//    @NamedQuery(name = "Countries.findById", query = "SELECT c FROM Countries c WHERE c.id = :id"),
+//    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
+//    @NamedQuery(name = "Countries.findByNameShort", query = "SELECT c FROM Countries c WHERE c.nameShort = :nameShort")
+//})
 public class DBCountry implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountries")

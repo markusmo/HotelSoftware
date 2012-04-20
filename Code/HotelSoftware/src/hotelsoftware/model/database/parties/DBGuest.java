@@ -47,12 +47,12 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Guests.findAll", query = "SELECT g FROM Guests g"),
-    @NamedQuery(name = "Guests.findById", query = "SELECT g FROM Guests g WHERE g.id = :id"),
-    @NamedQuery(name = "Guests.findByBirthday", query = "SELECT g FROM Guests g WHERE g.birthday = :birthday")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Guests.findAll", query = "SELECT g FROM Guests g"),
+//    @NamedQuery(name = "Guests.findById", query = "SELECT g FROM Guests g WHERE g.id = :id"),
+//    @NamedQuery(name = "Guests.findByBirthday", query = "SELECT g FROM Guests g WHERE g.birthday = :birthday")
+//})
 public class DBGuest implements Serializable
 {
     @Basic(optional = false)

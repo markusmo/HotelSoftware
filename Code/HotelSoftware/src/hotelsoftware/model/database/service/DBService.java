@@ -36,11 +36,11 @@ import org.hibernate.Transaction;
 @Entity
 @Table(name = "services", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Services.findAll", query = "SELECT s FROM Services s"),
-    @NamedQuery(name = "Services.findById", query = "SELECT s FROM Services s WHERE s.id = :id")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Services.findAll", query = "SELECT s FROM Services s"),
+//    @NamedQuery(name = "Services.findById", query = "SELECT s FROM Services s WHERE s.id = :id")
+//})
 public class DBService implements Serializable
 {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

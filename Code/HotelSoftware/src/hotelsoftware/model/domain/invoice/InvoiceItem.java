@@ -21,7 +21,7 @@ public class InvoiceItem implements InvoiceItemData
     private Service service;
     private User idUser;
     private Habitation idHabitation;
-    private InvoiceitemPK pk;
+    private InvoiceItemPK pk;
 
     public InvoiceItem()
     {
@@ -93,12 +93,12 @@ public class InvoiceItem implements InvoiceItemData
         this.idUser = user;
     }
 
-    public InvoiceitemPK getInvoiceitemsPK()
+    public InvoiceItemPK getInvoiceitemsPK()
     {
         return this.pk;
     }
 
-    public void setInvoiceitemsPK(InvoiceitemPK invoiceitemsPK)
+    public void setInvoiceitemsPK(InvoiceItemPK invoiceitemsPK)
     {
         if (this.pk == null)
         {

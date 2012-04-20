@@ -23,12 +23,12 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Roomstatus.findAll", query = "SELECT r FROM Roomstatus r"),
-    @NamedQuery(name = "Roomstatus.findById", query = "SELECT r FROM Roomstatus r WHERE r.id = :id"),
-    @NamedQuery(name = "Roomstatus.findByName", query = "SELECT r FROM Roomstatus r WHERE r.name = :name")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Roomstatus.findAll", query = "SELECT r FROM Roomstatus r"),
+//    @NamedQuery(name = "Roomstatus.findById", query = "SELECT r FROM Roomstatus r WHERE r.id = :id"),
+//    @NamedQuery(name = "Roomstatus.findByName", query = "SELECT r FROM Roomstatus r WHERE r.name = :name")
+//})
 public class DBRoomStatus implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus", fetch= FetchType.LAZY)

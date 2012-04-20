@@ -23,12 +23,12 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
-    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
-    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
+//    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
+//    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name")
+//})
 public class DBRole implements Serializable
 {
     @JoinTable(name = "userroles", joinColumns =

@@ -35,10 +35,11 @@ import org.hibernate.Transaction;
 @Entity
 @Table(name = "companytypes", catalog = "roomanizer", schema = "", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
 @XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = "Companytypes.findAll", query = "SELECT c FROM Companytypes c"),
-		@NamedQuery(name = "Companytypes.findById", query = "SELECT c FROM Companytypes c WHERE c.id = :id"),
-		@NamedQuery(name = "Companytypes.findByName", query = "SELECT c FROM Companytypes c WHERE c.name = :name") })
+//@NamedQueries({
+//		@NamedQuery(name = "Companytypes.findAll", query = "SELECT c FROM Companytypes c"),
+//		@NamedQuery(name = "Companytypes.findById", query = "SELECT c FROM Companytypes c WHERE c.id = :id"),
+//		@NamedQuery(name = "Companytypes.findByName", query = "SELECT c FROM Companytypes c WHERE c.name = :name") 
+//})
 public class DBCompanyType implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompanyTypes")
     private Collection<DBCompany> dBCompanyCollection;

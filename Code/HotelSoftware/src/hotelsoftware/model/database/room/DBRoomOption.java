@@ -26,12 +26,12 @@ import org.hibernate.Transaction;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Roomoptions.findAll", query = "SELECT r FROM Roomoptions r"),
-    @NamedQuery(name = "Roomoptions.findById", query = "SELECT r FROM Roomoptions r WHERE r.id = :id"),
-    @NamedQuery(name = "Roomoptions.findByName", query = "SELECT r FROM Roomoptions r WHERE r.name = :name")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Roomoptions.findAll", query = "SELECT r FROM Roomoptions r"),
+//    @NamedQuery(name = "Roomoptions.findById", query = "SELECT r FROM Roomoptions r WHERE r.id = :id"),
+//    @NamedQuery(name = "Roomoptions.findByName", query = "SELECT r FROM Roomoptions r WHERE r.name = :name")
+//})
 public class DBRoomOption implements Serializable
 {
     //@ManyToMany(mappedBy = "roomoptionsCollection", cascade= CascadeType.ALL, fetch= FetchType.LAZY)

@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,17 +27,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "addresses", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Addresses.findAll", query = "SELECT a FROM Addresses a"),
-    @NamedQuery(name = "Addresses.findById", query = "SELECT a FROM Addresses a WHERE a.id = :id"),
-    @NamedQuery(name = "Addresses.findByStreet", query = "SELECT a FROM Addresses a WHERE a.street = :street"),
-    @NamedQuery(name = "Addresses.findByCity", query = "SELECT a FROM Addresses a WHERE a.city = :city"),
-    @NamedQuery(name = "Addresses.findByZip", query = "SELECT a FROM Addresses a WHERE a.zip = :zip"),
-    @NamedQuery(name = "Addresses.findByEmail", query = "SELECT a FROM Addresses a WHERE a.email = :email"),
-    @NamedQuery(name = "Addresses.findByPhone", query = "SELECT a FROM Addresses a WHERE a.phone = :phone"),
-    @NamedQuery(name = "Addresses.findByFax", query = "SELECT a FROM Addresses a WHERE a.fax = :fax")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Addresses.findAll", query = "SELECT a FROM Addresses a"),
+//    @NamedQuery(name = "Addresses.findById", query = "SELECT a FROM Addresses a WHERE a.id = :id"),
+//    @NamedQuery(name = "Addresses.findByStreet", query = "SELECT a FROM Addresses a WHERE a.street = :street"),
+//    @NamedQuery(name = "Addresses.findByCity", query = "SELECT a FROM Addresses a WHERE a.city = :city"),
+//    @NamedQuery(name = "Addresses.findByZip", query = "SELECT a FROM Addresses a WHERE a.zip = :zip"),
+//    @NamedQuery(name = "Addresses.findByEmail", query = "SELECT a FROM Addresses a WHERE a.email = :email"),
+//    @NamedQuery(name = "Addresses.findByPhone", query = "SELECT a FROM Addresses a WHERE a.phone = :phone"),
+//    @NamedQuery(name = "Addresses.findByFax", query = "SELECT a FROM Addresses a WHERE a.fax = :fax")
+//})
 public class DBAddress implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")

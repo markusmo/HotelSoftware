@@ -24,13 +24,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "reservationitems", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Reservationitems.findAll", query = "SELECT r FROM Reservationitems r"),
-    @NamedQuery(name = "Reservationitems.findByIdReservations", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idReservations = :idReservations"),
-    @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
-    @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Reservationitems.findAll", query = "SELECT r FROM Reservationitems r"),
+//    @NamedQuery(name = "Reservationitems.findByIdReservations", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idReservations = :idReservations"),
+//    @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
+//    @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
+//})
 public class DBReservationItem implements Serializable
 {
     private static final long serialVersionUID = 1L;

@@ -30,13 +30,13 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "privatecustomer", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Privatecustomer.findAll", query = "SELECT p FROM Privatecustomer p"),
-    @NamedQuery(name = "Privatecustomer.findById", query = "SELECT p FROM Privatecustomer p WHERE p.id = :id"),
-    @NamedQuery(name = "Privatecustomer.findByFname", query = "SELECT p FROM Privatecustomer p WHERE p.fname = :fname"),
-    @NamedQuery(name = "Privatecustomer.findByLname", query = "SELECT p FROM Privatecustomer p WHERE p.lname = :lname")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Privatecustomer.findAll", query = "SELECT p FROM Privatecustomer p"),
+//    @NamedQuery(name = "Privatecustomer.findById", query = "SELECT p FROM Privatecustomer p WHERE p.id = :id"),
+//    @NamedQuery(name = "Privatecustomer.findByFname", query = "SELECT p FROM Privatecustomer p WHERE p.fname = :fname"),
+//    @NamedQuery(name = "Privatecustomer.findByLname", query = "SELECT p FROM Privatecustomer p WHERE p.lname = :lname")
+//})
 public class DBPrivateCustomer implements Serializable
 {
     private static final long serialVersionUID = 1L;

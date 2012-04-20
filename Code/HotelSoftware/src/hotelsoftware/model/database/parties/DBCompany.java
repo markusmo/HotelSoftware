@@ -34,10 +34,11 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "companies", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = "Companies.findAll", query = "SELECT c FROM Companies c"),
-		@NamedQuery(name = "Companies.findById", query = "SELECT c FROM Companies c WHERE c.id = :id"),
-		@NamedQuery(name = "Companies.findByName", query = "SELECT c FROM Companies c WHERE c.name = :name") })
+//@NamedQueries({
+//		@NamedQuery(name = "Companies.findAll", query = "SELECT c FROM Companies c"),
+//		@NamedQuery(name = "Companies.findById", query = "SELECT c FROM Companies c WHERE c.id = :id"),
+//		@NamedQuery(name = "Companies.findByName", query = "SELECT c FROM Companies c WHERE c.name = :name") 
+//})
 public class DBCompany implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id

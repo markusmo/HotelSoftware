@@ -17,6 +17,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -27,20 +28,20 @@ import org.hibernate.Transaction;
 @Entity
 @Table(name = "habitations", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Habitations.findAll", query = "SELECT h FROM Habitations h"),
-    @NamedQuery(name = "Habitations.findById", query = "SELECT h FROM Habitations h WHERE h.id = :id"),
-    @NamedQuery(name = "Habitations.findByStart", query = "SELECT h FROM Habitations h WHERE h.start = :start"),
-    @NamedQuery(name = "Habitations.findByEnd", query = "SELECT h FROM Habitations h WHERE h.end = :end"),
-    @NamedQuery(name = "Habitations.findByPrice", query = "SELECT h FROM Habitations h WHERE h.price = :price"),
-    @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created"),
-    @NamedQuery(name = "Habitations.findByGuest", query = "Select * "
-                + "From habitations h inner join allocation a on h.id = a.idHabitations "
-                + "inner join guests g on a.idGuests = g.id "
-                + "where g.id = :guestId AND"
-                + "h.start >= CURRENT_DATE")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Habitations.findAll", query = "SELECT h FROM Habitations h"),
+//    @NamedQuery(name = "Habitations.findById", query = "SELECT h FROM Habitations h WHERE h.id = :id"),
+//    @NamedQuery(name = "Habitations.findByStart", query = "SELECT h FROM Habitations h WHERE h.start = :start"),
+//    @NamedQuery(name = "Habitations.findByEnd", query = "SELECT h FROM Habitations h WHERE h.end = :end"),
+//    @NamedQuery(name = "Habitations.findByPrice", query = "SELECT h FROM Habitations h WHERE h.price = :price"),
+//    @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created"),
+//    @NamedQuery(name = "Habitations.findByGuest", query = "Select * "
+//                + "From habitations h inner join allocation a on h.id = a.idHabitations "
+//                + "inner join guests g on a.idGuests = g.id "
+//                + "where g.id = :guestId AND"
+//                + "h.start >= CURRENT_DATE")
+//})
 public class DBHabitation implements Serializable
 {
     @Basic(optional = false)
@@ -205,10 +206,17 @@ public class DBHabitation implements Serializable
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Query namedQuery = session.getNamedQuery("Habitations.findByGuest");
+//        Query namedQuery = session.getNamedQuery("Habitations.findByGuest");
+//        
+//        namedQuery.setString("guestId", guest.getId().toString());
+        String query = "Select * "
+                + "From habitations h inner join allocation a on h.id = a.idHabitations "
+                + "inner join guests g on a.idGuests = g.id "
+                + "where g.id = "+guest.getId().toString()+" AND"
+                + "h.start >= CURRENT_DATE";
+        SQLQuery sqlquery = session.createSQLQuery(query);
         
-        namedQuery.setString("guestId", guest.getId().toString());
-        DBHabitation habitation = (DBHabitation)namedQuery.uniqueResult();
+        DBHabitation habitation = (DBHabitation)sqlquery.uniqueResult();
         session.close();
         
         return habitation;

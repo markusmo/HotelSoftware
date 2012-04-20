@@ -30,11 +30,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "customers", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c"),
-    @NamedQuery(name = "Customers.findById", query = "SELECT c FROM Customers c WHERE c.id = :id")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c"),
+//    @NamedQuery(name = "Customers.findById", query = "SELECT c FROM Customers c WHERE c.id = :id")
+//})
 public class DBCustomer implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customersId")

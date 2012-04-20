@@ -34,13 +34,13 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "extraservices", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Extraservices.findAll", query = "SELECT e FROM Extraservices e"),
-    @NamedQuery(name = "Extraservices.findById", query = "SELECT e FROM Extraservices e WHERE e.id = :id"),
-    @NamedQuery(name = "Extraservices.findByName", query = "SELECT e FROM Extraservices e WHERE e.name = :name"),
-    @NamedQuery(name = "Extraservices.findByPrice", query = "SELECT e FROM Extraservices e WHERE e.price = :price")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Extraservices.findAll", query = "SELECT e FROM Extraservices e"),
+//    @NamedQuery(name = "Extraservices.findById", query = "SELECT e FROM Extraservices e WHERE e.id = :id"),
+//    @NamedQuery(name = "Extraservices.findByName", query = "SELECT e FROM Extraservices e WHERE e.name = :name"),
+//    @NamedQuery(name = "Extraservices.findByPrice", query = "SELECT e FROM Extraservices e WHERE e.price = :price")
+//})
 public class DBExtraService implements Serializable
 {
     private static final long serialVersionUID = 1L;

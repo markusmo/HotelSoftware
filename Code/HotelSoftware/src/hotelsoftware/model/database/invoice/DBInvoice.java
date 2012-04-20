@@ -33,16 +33,16 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Invoices.findAll", query = "SELECT i FROM Invoices i"),
-    @NamedQuery(name = "Invoices.findById", query = "SELECT i FROM Invoices i WHERE i.id = :id"),
-    @NamedQuery(name = "Invoices.findByInvoiceNumber", query = "SELECT i FROM Invoices i WHERE i.invoiceNumber = :invoiceNumber"),
-    @NamedQuery(name = "Invoices.findByDiscount", query = "SELECT i FROM Invoices i WHERE i.discount = :discount"),
-    @NamedQuery(name = "Invoices.findByExpiration", query = "SELECT i FROM Invoices i WHERE i.expiration = :expiration"),
-    @NamedQuery(name = "Invoices.findByFulfilled", query = "SELECT i FROM Invoices i WHERE i.fulfilled = :fulfilled"),
-    @NamedQuery(name = "Invoices.findByCreated", query = "SELECT i FROM Invoices i WHERE i.created = :created")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Invoices.findAll", query = "SELECT i FROM Invoices i"),
+//    @NamedQuery(name = "Invoices.findById", query = "SELECT i FROM Invoices i WHERE i.id = :id"),
+//    @NamedQuery(name = "Invoices.findByInvoiceNumber", query = "SELECT i FROM Invoices i WHERE i.invoiceNumber = :invoiceNumber"),
+//    @NamedQuery(name = "Invoices.findByDiscount", query = "SELECT i FROM Invoices i WHERE i.discount = :discount"),
+//    @NamedQuery(name = "Invoices.findByExpiration", query = "SELECT i FROM Invoices i WHERE i.expiration = :expiration"),
+//    @NamedQuery(name = "Invoices.findByFulfilled", query = "SELECT i FROM Invoices i WHERE i.fulfilled = :fulfilled"),
+//    @NamedQuery(name = "Invoices.findByCreated", query = "SELECT i FROM Invoices i WHERE i.created = :created")
+//})
 public class DBInvoice implements Serializable
 {
     @Basic(optional = false)

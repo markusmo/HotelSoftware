@@ -32,12 +32,12 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Permissions.findAll", query = "SELECT p FROM Permissions p"),
-    @NamedQuery(name = "Permissions.findById", query = "SELECT p FROM Permissions p WHERE p.id = :id"),
-    @NamedQuery(name = "Permissions.findByName", query = "SELECT p FROM Permissions p WHERE p.name = :name")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Permissions.findAll", query = "SELECT p FROM Permissions p"),
+//    @NamedQuery(name = "Permissions.findById", query = "SELECT p FROM Permissions p WHERE p.id = :id"),
+//    @NamedQuery(name = "Permissions.findByName", query = "SELECT p FROM Permissions p WHERE p.name = :name")
+//})
 public class DBPermission implements Serializable
 {
     private static final long serialVersionUID = 1L;

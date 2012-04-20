@@ -38,14 +38,14 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Seasons.findAll", query = "SELECT s FROM Seasons s"),
-    @NamedQuery(name = "Seasons.findById", query = "SELECT s FROM Seasons s WHERE s.id = :id"),
-    @NamedQuery(name = "Seasons.findByName", query = "SELECT s FROM Seasons s WHERE s.name = :name"),
-    @NamedQuery(name = "Seasons.findByStart", query = "SELECT s FROM Seasons s WHERE s.start = :start"),
-    @NamedQuery(name = "Seasons.findByEnd", query = "SELECT s FROM Seasons s WHERE s.end = :end")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Seasons.findAll", query = "SELECT s FROM Seasons s"),
+//    @NamedQuery(name = "Seasons.findById", query = "SELECT s FROM Seasons s WHERE s.id = :id"),
+//    @NamedQuery(name = "Seasons.findByName", query = "SELECT s FROM Seasons s WHERE s.name = :name"),
+//    @NamedQuery(name = "Seasons.findByStart", query = "SELECT s FROM Seasons s WHERE s.start = :start"),
+//    @NamedQuery(name = "Seasons.findByEnd", query = "SELECT s FROM Seasons s WHERE s.end = :end")
+//})
 public class DBSeason implements Serializable
 {
     @Basic(optional = false)

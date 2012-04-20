@@ -38,13 +38,13 @@ import org.hibernate.Transaction;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Servicetypes.findAll", query = "SELECT s FROM Servicetypes s"),
-    @NamedQuery(name = "Servicetypes.findById", query = "SELECT s FROM Servicetypes s WHERE s.id = :id"),
-    @NamedQuery(name = "Servicetypes.findByName", query = "SELECT s FROM Servicetypes s WHERE s.name = :name"),
-    @NamedQuery(name = "Servicetypes.findByTaxRate", query = "SELECT s FROM Servicetypes s WHERE s.taxRate = :taxRate")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Servicetypes.findAll", query = "SELECT s FROM Servicetypes s"),
+//    @NamedQuery(name = "Servicetypes.findById", query = "SELECT s FROM Servicetypes s WHERE s.id = :id"),
+//    @NamedQuery(name = "Servicetypes.findByName", query = "SELECT s FROM Servicetypes s WHERE s.name = :name"),
+//    @NamedQuery(name = "Servicetypes.findByTaxRate", query = "SELECT s FROM Servicetypes s WHERE s.taxRate = :taxRate")
+//})
 public class DBServiceType implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")

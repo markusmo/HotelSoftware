@@ -29,14 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "reservationoptions", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Reservationoptions.findAll", query = "SELECT r FROM Reservationoptions r"),
-    @NamedQuery(name = "Reservationoptions.findById", query = "SELECT r FROM Reservationoptions r WHERE r.id = :id"),
-    @NamedQuery(name = "Reservationoptions.findByExpiration", query = "SELECT r FROM Reservationoptions r WHERE r.expiration = :expiration"),
-    @NamedQuery(name = "Reservationoptions.findByPrepayment", query = "SELECT r FROM Reservationoptions r WHERE r.prepayment = :prepayment"),
-    @NamedQuery(name = "Reservationoptions.findByFulfilled", query = "SELECT r FROM Reservationoptions r WHERE r.fulfilled = :fulfilled")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Reservationoptions.findAll", query = "SELECT r FROM Reservationoptions r"),
+//    @NamedQuery(name = "Reservationoptions.findById", query = "SELECT r FROM Reservationoptions r WHERE r.id = :id"),
+//    @NamedQuery(name = "Reservationoptions.findByExpiration", query = "SELECT r FROM Reservationoptions r WHERE r.expiration = :expiration"),
+//    @NamedQuery(name = "Reservationoptions.findByPrepayment", query = "SELECT r FROM Reservationoptions r WHERE r.prepayment = :prepayment"),
+//    @NamedQuery(name = "Reservationoptions.findByFulfilled", query = "SELECT r FROM Reservationoptions r WHERE r.fulfilled = :fulfilled")
+//})
 public class DBReservationOption implements Serializable
 {
     @Basic(optional = false)

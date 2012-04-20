@@ -8,12 +8,12 @@ package hotelsoftware.model.domain.invoice;
  *
  * @author mohi
  */
-public class InvoiceitemPK
+public class InvoiceItemPK
 {
     private int idServices;
     private int idInvoice;
 
-    public InvoiceitemPK()
+    public InvoiceItemPK()
     {
     }
 

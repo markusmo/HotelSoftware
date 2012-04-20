@@ -42,12 +42,12 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-@NamedQueries(
-{
-    @NamedQuery(name = "Paymentmethods.findAll", query = "SELECT p FROM Paymentmethods p"),
-    @NamedQuery(name = "Paymentmethods.findById", query = "SELECT p FROM Paymentmethods p WHERE p.id = :id"),
-    @NamedQuery(name = "Paymentmethods.findByName", query = "SELECT p FROM Paymentmethods p WHERE p.name = :name")
-})
+//@NamedQueries(
+//{
+//    @NamedQuery(name = "Paymentmethods.findAll", query = "SELECT p FROM Paymentmethods p"),
+//    @NamedQuery(name = "Paymentmethods.findById", query = "SELECT p FROM Paymentmethods p WHERE p.id = :id"),
+//    @NamedQuery(name = "Paymentmethods.findByName", query = "SELECT p FROM Paymentmethods p WHERE p.name = :name")
+//})
 public class DBPaymentMethod implements Serializable
 {
 
