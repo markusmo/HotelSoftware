@@ -40,6 +40,23 @@ public class StartState extends CheckInState
     {
         return Reservation.getReservationByNumber(reservationNr);
     }
+    
+    @Override
+    public Collection<ReservationData> searchApprox(String firstName, String lastName)
+    {
+        Collection<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
+        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
+        if (reservations != null)
+        {
+            for (Reservation res : reservations)
+            {
+                reservationData.add(res);
+            }
+        }
+
+        return reservationData;
+
+    }
 
     /**
      * Sucht anhand des Namen der Person die reserviert hat nach einer Reservierung

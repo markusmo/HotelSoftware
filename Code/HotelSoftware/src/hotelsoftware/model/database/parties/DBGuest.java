@@ -4,7 +4,9 @@
  */
 package hotelsoftware.model.database.parties;
 
+import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
@@ -55,6 +57,10 @@ import org.hibernate.criterion.Restrictions;
 //})
 public class DBGuest implements Serializable
 {
+    public static Object getGuestFromReservation(Reservation reservation)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     @Basic(optional = false)
     @Column(name = "fname", nullable = false, length = 255)
     private String fname;
@@ -123,6 +129,20 @@ public class DBGuest implements Serializable
         this.idPersons = idPersons;
     }
 
+    public static DBGuest getGuestFromReservationNumber(String ReservationNumber)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        Criteria criteria = session.createCriteria(DBGuest.class);
+        criteria.add(Restrictions.eq("reserationNumber", ReservationNumber));
+        DBGuest retList = (DBGuest) criteria.uniqueResult();
+        // session.close();
+
+        return retList;
+    }
+
     @Override
     public int hashCode()
     {
@@ -135,12 +155,12 @@ public class DBGuest implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBGuest))
+        if (!(object instanceof DBGuest))
         {
             return false;
         }
         DBGuest other = (DBGuest) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -153,38 +173,42 @@ public class DBGuest implements Serializable
         return "hotelsoftware.database.model.Guests[ id=" + id + " ]";
     }
 
-	public static Collection<DBGuest> getGuestsByName(String firstName, String lastName) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction ts = session.beginTransaction();
-		ts.begin();
-		Criteria criteria = session.createCriteria(DBGuest.class);
-		
-		if (firstName.isEmpty() && lastName.isEmpty())
-		{
-			return null;
-		}
-		if (firstName.isEmpty())
-		{
-			criteria = criteria.add(Restrictions.eq(
-	                "lname", lastName));
-		}
-		else if (lastName.isEmpty())
-		{
-			criteria = criteria.add(Restrictions.eq(
-	                "fname", firstName));
-		}
-		else
-		{
-			criteria = criteria.add(Restrictions.eq(
-	                "lname", lastName)).add(Restrictions.eq(
-	    	                "fname", firstName));
-		}
-		
-		List<DBGuest> retList = criteria.list();
-		session.close();
+    public static Collection<DBGuest> getGuestsByName(String firstName, String lastName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBGuest.class);
 
-		return retList;
-	}
+        if (firstName.isEmpty() && lastName.isEmpty())
+        {
+            return null;
+        }
+        if (firstName.isEmpty())
+        {
+            criteria = criteria.add(Restrictions.eq(
+                    "lname", lastName));
+        }
+        else
+        {
+            if (lastName.isEmpty())
+            {
+                criteria = criteria.add(Restrictions.eq(
+                        "fname", firstName));
+            }
+            else
+            {
+                criteria = criteria.add(Restrictions.eq(
+                        "lname", lastName)).add(Restrictions.eq(
+                        "fname", firstName));
+            }
+        }
+
+        List<DBGuest> retList = criteria.list();
+        session.close();
+
+        return retList;
+    }
 
     public String getFname()
     {
@@ -215,5 +239,4 @@ public class DBGuest implements Serializable
     {
         this.birthday = birthday;
     }
-    
 }

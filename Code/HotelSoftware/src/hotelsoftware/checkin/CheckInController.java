@@ -63,6 +63,11 @@ public class CheckInController
         return state.search(firstName, lastName);
     }
     
+    public Collection<ReservationData> searchApprox(String firstName, String lastName)
+    {
+        return state.searchApprox(firstName, lastName);
+    }
+    
     /**
      * Wählt eine Reservierung aus die abgearbeitet werden soll
      * @param reservation Die Reservierung die abgearbeitet werden soll

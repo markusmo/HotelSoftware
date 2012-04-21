@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.reservation;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.domain.invoice.Invoice;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.PartyData;
 import hotelsoftware.util.HelperFunctions;
@@ -21,6 +22,8 @@ import java.util.List;
  */
 public class Reservation implements ReservationData
 {
+
+    
     private Date start;
     private Date end;
     private String comment;
@@ -158,6 +161,11 @@ public class Reservation implements ReservationData
         return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
     }
     
+    public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+    {
+         return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
+    }
+    
     public static Collection<Reservation> getAllReservations()
     {
         return ReservationFacade.getInstance().getAllReservations();
@@ -170,6 +178,7 @@ public class Reservation implements ReservationData
      public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
+        setParty(Guest.getGuestFromReservationNumber(reservationNumber));
     }
 
     public String getReservationNumber()

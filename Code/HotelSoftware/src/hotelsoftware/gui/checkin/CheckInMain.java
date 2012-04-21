@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -32,7 +33,7 @@ public class CheckInMain extends javax.swing.JPanel
         {
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", null, null, null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
+                data.getReservationNumber() + "", null, /*((GuestData)data.getPartyData()).getLname(), ((GuestData)data.getPartyData()).getFname(),*/null,null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
             };
         }
         return value;
