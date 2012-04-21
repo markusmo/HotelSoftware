@@ -68,7 +68,7 @@ public class Reservation implements ReservationData
         return party;
     }
 
-    public Collection<ReservationItem> getReservationItemCollection()
+    public Collection<ReservationItem> getReservationitemsCollection()
     {
         return reservationItemCollection;
     }
@@ -104,9 +104,9 @@ public class Reservation implements ReservationData
         this.party = party;
     }
 
-    public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
+    public void setReservationitemsCollection(Collection<ReservationItem> setreservationItemCollection)
     {
-        this.reservationItemCollection = reservationItemCollection;
+        this.reservationItemCollection = setreservationItemCollection;
     }
 
     public void setStart(Date start)
@@ -120,9 +120,9 @@ public class Reservation implements ReservationData
         return id;
     }
 
-    void setId(Integer id)
+    public void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
@@ -140,7 +140,7 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationItemCollection());
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitemsCollection());
     }
     
     public int getGuestAmount()

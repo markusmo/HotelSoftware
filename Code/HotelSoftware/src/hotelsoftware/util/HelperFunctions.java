@@ -13,22 +13,23 @@ import java.util.LinkedList;
  */
 public class HelperFunctions<T, U extends T>
 {
-
     public HelperFunctions()
     {
     }
-    
+
     //Verwendung:
     //Collection<UserData> test = new HelperFunctions<UserData, User>().castCollectionUp(new LinkedList<User>());
     public Collection<T> castCollectionUp(Collection<U> col)
     {
         Collection<T> newCol = new LinkedList<T>();
-        
-        for (U u : col)
+        if (col != null)
         {
-            newCol.add(u);
+            for (U u : col)
+            {
+                newCol.add(u);
+            }
         }
-        
+
         return newCol;
     }
 }

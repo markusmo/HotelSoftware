@@ -42,7 +42,7 @@ public class CheckinTwo extends javax.swing.JPanel
      * Creates new form GUInr2
      */
     public CheckinTwo()
-    { 
+    {
         initComponents();
         //init();
     }
@@ -56,7 +56,7 @@ public class CheckinTwo extends javax.swing.JPanel
         textAreaComment.setText(reservation.getComment());
         textBoxArrival.setText(df.format(reservation.getStart()));
         textBoxDeparture.setText(df.format(reservation.getEnd()));
-        //textBoxNumberOfGuests.setText(reservation.get);
+        textBoxNumberOfGuests.setText(reservation.getGuestAmount() + "");
         textBoxReservationNumber.setText(reservation.getReservationNumber());
 
         //################### Create Panels
@@ -67,7 +67,7 @@ public class CheckinTwo extends javax.swing.JPanel
             {
                 RoomPanel room = new RoomPanel();
                 room.setRoomIndex(cigc.addRoom());
-                TabbedPaneRooms.addTab("Room " + (i + 1),room);
+                TabbedPaneRooms.addTab("Room " + (i + 1), room);
                 TabbedPaneRooms.setTabComponentAt(i,
                         new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));
                 //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
@@ -315,7 +315,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        init();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged

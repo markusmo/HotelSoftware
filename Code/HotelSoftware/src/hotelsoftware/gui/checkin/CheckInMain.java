@@ -26,7 +26,7 @@ public class CheckInMain extends javax.swing.JPanel
     {
         int i = 0;
         SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
-        Object[][] value = new Object[reservations.size()][7];
+        Object[][] value = new Object[reservations.size()][];
         for (ReservationData data : reservations)
         {
             value[i++] = new Object[]
@@ -364,7 +364,7 @@ public class CheckInMain extends javax.swing.JPanel
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
-        cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[0]);
+        cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed

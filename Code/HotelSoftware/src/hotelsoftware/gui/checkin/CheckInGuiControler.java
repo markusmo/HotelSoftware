@@ -46,9 +46,10 @@ public class CheckInGuiControler
                 if (reservation != null)
                 {
                     dafuq.add(reservation);
+                    //return dafuq;
                 }
             }
-            //dafuq.addAll(CheckInController.getInstance().search(fname, lname));
+            dafuq.addAll(CheckInController.getInstance().search(fname, lname));
 
             return dafuq;
         }

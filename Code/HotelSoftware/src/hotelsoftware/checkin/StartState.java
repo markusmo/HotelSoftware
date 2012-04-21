@@ -51,23 +51,18 @@ public class StartState extends CheckInState
     @Override
     public Collection<ReservationData> search(String firstName, String lastName)
     {
-        try
+        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
+        if (reservations != null)
         {
-            return null;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-            Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
-
             for (Reservation res : reservations)
             {
                 reservationData.add(res);
             }
-
-            return reservationData;
         }
+
+        return reservationData;
+
     }
 
     /**
