@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.model.domain.reservation.ReservationData;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public class CheckInMain extends javax.swing.JPanel
     private Object[][] getTableModel()
     {
         int i = 0;
-        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Object[][] value = new Object[reservations.size()][];
         for (ReservationData data : reservations)
         {
@@ -365,6 +366,8 @@ public class CheckInMain extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
         cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
+        cigc.getContentpane().add(new CheckinTwo(), BorderLayout.CENTER);
+        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed

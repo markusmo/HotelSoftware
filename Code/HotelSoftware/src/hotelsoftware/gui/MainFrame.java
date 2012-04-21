@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui;
 
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckinTwo;
 import hotelsoftware.gui.checkin.CheckInMain;
 import java.awt.BorderLayout;
@@ -20,6 +21,7 @@ import javax.swing.JTextField;
  */
 public class MainFrame extends javax.swing.JFrame
 {
+    private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     /**
      * Creates new form TestFrame
      */
@@ -175,8 +177,11 @@ public class MainFrame extends javax.swing.JFrame
         jButton14.setIcon(new ImageIcon("src/resources/images/logout-icon.png"));
         jButton13.setIcon(new ImageIcon("src/resources/images/Maps-icon.png"));
         jButton15.setIcon(new ImageIcon("src/resources/images/Address-Book-icon.png"));
-        jPanel1.add(new CheckInMain(),BorderLayout.CENTER);
-        jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
+        
+        cigc.setContentpane(jPanel1);
+        //jPanel1 = new CheckInMain();
+        cigc.getContentpane().add(new CheckInMain(),BorderLayout.CENTER);
+        //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
         
         
     }

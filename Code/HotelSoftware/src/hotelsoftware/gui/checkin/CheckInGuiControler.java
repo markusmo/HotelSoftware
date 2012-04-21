@@ -13,6 +13,7 @@ import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.room.Room;
 import java.util.Collection;
 import java.util.LinkedList;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.LinkedList;
  */
 public class CheckInGuiControler
 {
+    private JPanel contentpane;
 
     private static class CheckInGuiControllerHolder
     {
@@ -92,6 +94,7 @@ public class CheckInGuiControler
     void setSelectedReservation(ReservationData selectedReservation)
     {
         this.selectedReservation = selectedReservation;
+        CheckInController.getInstance().workWithReservation(selectedReservation);
     }
 
     int addRoom()
@@ -103,7 +106,7 @@ public class CheckInGuiControler
     {
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
-    
+
     public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
         return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
@@ -111,6 +114,19 @@ public class CheckInGuiControler
 
     public RoomData getRoomData(int roomIndex)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return CheckInController.getInstance().getRoomData(roomIndex);
+    }
+
+    public JPanel getContentpane()
+    {
+        return contentpane;
+    }
+
+    public void setContentpane(JPanel contentpane)
+    {
+        if (this.contentpane == null)
+        {
+            this.contentpane = contentpane;
+        }
     }
 }

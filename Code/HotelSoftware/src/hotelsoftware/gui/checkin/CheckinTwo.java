@@ -44,7 +44,7 @@ public class CheckinTwo extends javax.swing.JPanel
     public CheckinTwo()
     {
         initComponents();
-        //init();
+        init();
     }
     int i;
 
