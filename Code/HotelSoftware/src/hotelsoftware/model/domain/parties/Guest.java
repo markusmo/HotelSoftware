@@ -25,6 +25,10 @@ public class Guest extends Party implements GuestData
     private Character gender;
     private Collection<Habitation> habitations;
 
+    public Guest()
+    {
+    }
+
     @Override
     public String getFname()
     {

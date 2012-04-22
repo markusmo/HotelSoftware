@@ -4,6 +4,7 @@ import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.reservation.ReservationItemData;
 import hotelsoftware.model.domain.room.*;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.service.Habitation;
@@ -24,6 +25,7 @@ public abstract class CheckInState
     protected Reservation reservation;
     protected Map<Integer, RoomSelection> roomSelections;
     protected int counter;
+    protected Collection<ReservationItemData> reservationItems;
 
     public CheckInState(CheckInController context)
     {
@@ -242,16 +244,16 @@ public abstract class CheckInState
 
     protected class RoomSelection
     {
-        private RoomCategory category;
+        private CategoryData category;
         private Room room;
 
-        public RoomSelection(RoomCategory category, Room room)
+        public RoomSelection(CategoryData category, Room room)
         {
             this.category = category;
             this.room = room;
         }
 
-        public RoomCategory getCategory()
+        public CategoryData getCategory()
         {
             return category;
         }

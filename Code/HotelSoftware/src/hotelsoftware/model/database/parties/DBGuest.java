@@ -32,6 +32,7 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -129,26 +130,24 @@ public class DBGuest implements Serializable
         this.idPersons = idPersons;
     }
 
-    public static DBGuest getGuestFromReservationNumber(String ReservationNumber)
+    public static DBGuest getGuestFromReservationNumber(String reservationNumber)
     {
-        try
-        {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Transaction ts = session.beginTransaction();
-            ts.begin();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
 
-            Criteria criteria = session.createCriteria(DBGuest.class);
-            criteria.add(Restrictions.eq("reserationNumber", ReservationNumber));
-            DBGuest retList = (DBGuest) criteria.uniqueResult();
-            // session.close();
+        String query = "SELECT * FROM guests r WHERE r.idPersons = ( SELECT idPersons FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
+        SQLQuery sqlquery = session.createSQLQuery(query);
 
-            return retList;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
+        //countQuery.setInteger("id", this.id);
+
+        //addEntity gibt den rueckgabewert an...
+        sqlquery.addEntity(DBGuest.class);
+        DBGuest guest = (DBGuest) sqlquery.uniqueResult();
+        //session.close();
+
+        return guest;
     }
 
     @Override

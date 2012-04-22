@@ -53,24 +53,25 @@ public class RoomPanel extends javax.swing.JPanel
 
             private void updateComboBoxRooms(String string)
             {
+                System.out.println(string);
                 ComboBoxFreeRooms.removeAll();
                 CategoryData cd = cigc.getCategories().toArray(new CategoryData[0])[ComboBoxCategories.getSelectedIndex()];
                 for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
                 {
-                    ComboBoxCategories.addItem(data.getNumber());
+                    ComboBoxFreeRooms.addItem(data.getNumber());
                 }
             }
         });
-
-        ComboBoxCategories.addActionListener(new ActionListener()
+ 
+     /*  ComboBoxCategories.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 cigc.changeRoom(roomIndex, (String) ComboBoxFreeRooms.getSelectedItem());
             }
-        });
+        });*/
         //############ Guests
-        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedAmount(); i++)
+        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
         {
             TabbedPaneGuests.addTab("Guest " + (i + 1), new GuestPanel());
             TabbedPaneGuests.setTabComponentAt(i, new ButtonTabComponent(TabbedPaneGuests));

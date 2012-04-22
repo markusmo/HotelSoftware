@@ -23,6 +23,11 @@ public class CheckInGuiControler
 {
     private JPanel contentpane;
 
+    int getCounter()
+    {
+        return CheckInController.getInstance().getCounter();
+    }
+
     private static class CheckInGuiControllerHolder
     {
         private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
@@ -117,6 +122,11 @@ public class CheckInGuiControler
     {
         return CheckInController.getInstance().getRoomData(roomIndex);
     }
+    
+     public int addRoomSelection()
+    {
+        return CheckInController.getInstance().addRoomSelection();
+    } 
 
     public JPanel getContentpane()
     {

@@ -4,13 +4,16 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.room.DBRoom;
+import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.reservation.ReservationItemData;
+import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.util.HelperFunctions;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  *
@@ -40,7 +43,7 @@ public class StartState extends CheckInState
     {
         return Reservation.getReservationByNumber(reservationNr);
     }
-    
+
     @Override
     public Collection<ReservationData> searchApprox(String firstName, String lastName)
     {
@@ -92,8 +95,20 @@ public class StartState extends CheckInState
     {
         this.startDate = reservation.getStart();
         this.endDate = reservation.getEnd();
+        this.reservationItems = reservation.getReservationItemCollectionData();
 
-        context.setState(new ChangeReservationDataState(context));
+        roomSelections = new HashMap<Integer, RoomSelection>();
+        counter = 0;
+        for (ReservationItemData data : reservation.getReservationItemCollectionData())
+        {
+            Room r = new Room();
+            //r.setCategory((RoomCategory)data.getReservedCategoryData());
+            r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
+            roomSelections.put(counter++, new RoomSelection(data.getReservedCategoryData(), r));
+        }
+
+
+        context.setState(new ChangeReservationDataState(context, counter, roomSelections, reservationItems));
     }
 
     /**

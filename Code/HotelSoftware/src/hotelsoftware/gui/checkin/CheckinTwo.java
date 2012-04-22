@@ -65,8 +65,10 @@ public class CheckinTwo extends javax.swing.JPanel
             int oldi = i;
             for (i = oldi; i < data.getAmount(); i++)
             {
+               // cigc.addRoomSelection();
                 RoomPanel room = new RoomPanel();
-                room.setRoomIndex(cigc.addRoom());
+               // room.setRoomIndex(cigc.addRoomSelection());
+                room.setRoomIndex(cigc.getCounter());
                 TabbedPaneRooms.addTab("Room " + (i + 1), room);
                 TabbedPaneRooms.setTabComponentAt(i,
                         new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));

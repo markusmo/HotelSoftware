@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public interface CategoryData
 {
 
-    int getBedAmount();
+    int getBedCount();
 
     BigDecimal getMinPrice();
 
