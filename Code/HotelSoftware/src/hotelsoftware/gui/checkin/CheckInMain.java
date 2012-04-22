@@ -4,7 +4,9 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -25,13 +27,13 @@ public class CheckInMain extends javax.swing.JPanel
     private Object[][] getTableModel()
     {
         int i = 0;
-        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Object[][] value = new Object[reservations.size()][];
         for (ReservationData data : reservations)
         {
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", null, null, null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
+                data.getReservationNumber() + "", null, /*((GuestData)data.getPartyData()).getLname(), ((GuestData)data.getPartyData()).getFname(),*/null,null, df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
             };
         }
         return value;
@@ -364,7 +366,9 @@ public class CheckInMain extends javax.swing.JPanel
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
-        cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[0]);
+        cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
+        cigc.getContentpane().add(new CheckinTwo(), BorderLayout.CENTER);
+        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed

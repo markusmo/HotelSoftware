@@ -17,7 +17,7 @@ public class ReservationItem implements ReservationItemData
     private RoomCategory reservedCategory;
     private ReservationItemPK reservationItemPK;
 
-    private ReservationItem()
+    public ReservationItem()
     {
     }
 

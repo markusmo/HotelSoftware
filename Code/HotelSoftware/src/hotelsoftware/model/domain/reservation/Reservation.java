@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.reservation;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.domain.invoice.Invoice;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.PartyData;
 import hotelsoftware.util.HelperFunctions;
@@ -21,6 +22,8 @@ import java.util.List;
  */
 public class Reservation implements ReservationData
 {
+
+    
     private Date start;
     private Date end;
     private String comment;
@@ -31,7 +34,7 @@ public class Reservation implements ReservationData
     private Integer id;
     private String reservationNumber;
 
-    Reservation()
+    public Reservation()
     {
     }
 
@@ -68,7 +71,7 @@ public class Reservation implements ReservationData
         return party;
     }
 
-    public Collection<ReservationItem> getReservationItemCollection()
+    public Collection<ReservationItem> getReservationitemsCollection()
     {
         return reservationItemCollection;
     }
@@ -104,9 +107,9 @@ public class Reservation implements ReservationData
         this.party = party;
     }
 
-    public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection)
+    public void setReservationitemsCollection(Collection<ReservationItem> setreservationItemCollection)
     {
-        this.reservationItemCollection = reservationItemCollection;
+        this.reservationItemCollection = setreservationItemCollection;
     }
 
     public void setStart(Date start)
@@ -120,9 +123,9 @@ public class Reservation implements ReservationData
         return id;
     }
 
-    void setId(Integer id)
+    public void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
@@ -140,7 +143,7 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationItemCollection());
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitemsCollection());
     }
     
     public int getGuestAmount()
@@ -150,12 +153,17 @@ public class Reservation implements ReservationData
     
     public static Reservation getReservationByNumber(int reservationNr)
     {
-        return ReservationFacade.getInstance().getReservationById(reservationNr);
+        return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
     
     public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
+    }
+    
+    public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+    {
+         return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
     }
     
     public static Collection<Reservation> getAllReservations()
@@ -166,6 +174,11 @@ public class Reservation implements ReservationData
     public void setReservationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
+    }
+     public void setReserationNumber(String reservationNumber)
+    {
+        this.reservationNumber = reservationNumber;
+        setParty(Guest.getGuestFromReservationNumber(reservationNumber));
     }
 
     public String getReservationNumber()

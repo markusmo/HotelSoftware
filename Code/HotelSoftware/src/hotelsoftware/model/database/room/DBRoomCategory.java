@@ -179,7 +179,7 @@ public class DBRoomCategory implements Serializable
     
     public static Collection<DBRoomCategory> getAllCategories()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         
         Collection<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();

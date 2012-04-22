@@ -47,7 +47,10 @@ public class DynamicMapper
                         }
                         else
                         {
-                            m.invoke(returnvalue, m2.invoke(urObject));
+                            Object o = m2.invoke(urObject);
+                            if(o.getClass().getName().contains("hotelsoftware"))
+                                o = map(o);
+                            m.invoke(returnvalue, o);
                         }
                     }
                 }
@@ -56,6 +59,7 @@ public class DynamicMapper
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             return null;
         }
     }
@@ -87,7 +91,8 @@ public class DynamicMapper
             for (Object obj : urCollection)
             {
                 //Class newClass = Class.forName(convertClassName(obj.getClass().getName()));
-                returnValue.add(map(obj));
+                Object i = map(obj);
+                returnValue.add(i);
             }
 
             return returnValue;
