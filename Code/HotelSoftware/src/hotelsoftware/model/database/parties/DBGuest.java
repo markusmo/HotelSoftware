@@ -131,16 +131,24 @@ public class DBGuest implements Serializable
 
     public static DBGuest getGuestFromReservationNumber(String ReservationNumber)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        try
+        {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction ts = session.beginTransaction();
+            ts.begin();
 
-        Criteria criteria = session.createCriteria(DBGuest.class);
-        criteria.add(Restrictions.eq("reserationNumber", ReservationNumber));
-        DBGuest retList = (DBGuest) criteria.uniqueResult();
-        // session.close();
+            Criteria criteria = session.createCriteria(DBGuest.class);
+            criteria.add(Restrictions.eq("reserationNumber", ReservationNumber));
+            DBGuest retList = (DBGuest) criteria.uniqueResult();
+            // session.close();
 
-        return retList;
+            return retList;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
