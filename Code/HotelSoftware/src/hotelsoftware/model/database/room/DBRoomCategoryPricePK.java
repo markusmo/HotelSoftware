@@ -20,17 +20,17 @@ public class DBRoomCategoryPricePK implements Serializable
     @Column(name = "idRoomCategories", nullable = false)
     private int idRoomCategories;
     @Basic(optional = false)
-    @Column(name = "idSeason", nullable = false)
-    private int idSeason;
+    @Column(name = "idSeasons", nullable = false)
+    private int idSeasons;
 
     public DBRoomCategoryPricePK()
     {
     }
 
-    public DBRoomCategoryPricePK(int idRoomCategories, int idSeason)
+    public DBRoomCategoryPricePK(int idRoomCategories, int idSeasons)
     {
         this.idRoomCategories = idRoomCategories;
-        this.idSeason = idSeason;
+        this.idSeasons = idSeasons;
     }
 
     public int getIdRoomCategories()
@@ -43,14 +43,14 @@ public class DBRoomCategoryPricePK implements Serializable
         this.idRoomCategories = idRoomCategories;
     }
 
-    public int getIdSeason()
+    public int getIdSeasons()
     {
-        return idSeason;
+        return idSeasons;
     }
 
-    public void setIdSeason(int idSeason)
+    public void setIdSeasons(int idSeasons)
     {
-        this.idSeason = idSeason;
+        this.idSeasons = idSeasons;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class DBRoomCategoryPricePK implements Serializable
     {
         int hash = 0;
         hash += (int) idRoomCategories;
-        hash += (int) idSeason;
+        hash += (int) idSeasons;
         return hash;
     }
 
@@ -75,7 +75,7 @@ public class DBRoomCategoryPricePK implements Serializable
         {
             return false;
         }
-        if(this.idSeason != other.idSeason)
+        if(this.idSeasons != other.idSeasons)
         {
             return false;
         }
@@ -85,6 +85,6 @@ public class DBRoomCategoryPricePK implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.RoomcategorypricesPK[ idRoomCategories=" + idRoomCategories + ", idSeason=" + idSeason + " ]";
+        return "hotelsoftware.database.model.RoomcategorypricesPK[ idRoomCategories=" + idRoomCategories + ", idSeasons=" + idSeasons + " ]";
     }
 }
