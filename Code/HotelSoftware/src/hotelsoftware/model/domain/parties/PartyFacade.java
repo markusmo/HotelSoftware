@@ -14,7 +14,7 @@ import hotelsoftware.model.domain.reservation.ReservationData;
 import java.util.Collection;
 
 /**
- * Kommunikationsklasse zwischen den Schichten
+ * Kommunikationsklasse zwischen den Schichten. Sie dient als Übersetzer.
  * @author Hubert
  */
 public class PartyFacade

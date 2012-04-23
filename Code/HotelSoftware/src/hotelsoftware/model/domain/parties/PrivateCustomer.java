@@ -5,7 +5,7 @@ import hotelsoftware.model.domain.invoice.InvoiceData;
 import java.util.Collection;
 /**
  * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen Geshlecht, einen Vornamen und einen Nachnamen.
- * Da diese Klasse von Customer erbt, erbt sie auch von der Klasse Party und hat somit eine addresse und eine id.
+ * Da diese Klasse von Customer erbt, erbt sie auch von der Klasse Party und hat somit eine Addresse und eine Id.
  * @author Hubert
  *
  */
