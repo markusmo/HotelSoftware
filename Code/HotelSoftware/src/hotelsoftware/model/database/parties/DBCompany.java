@@ -145,7 +145,7 @@ public class DBCompany implements Serializable {
  */
 	public static DBCompany getCompanyByName(String name)
 			throws HibernateException {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction ts = session.beginTransaction();
 		ts.begin();
 		Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(

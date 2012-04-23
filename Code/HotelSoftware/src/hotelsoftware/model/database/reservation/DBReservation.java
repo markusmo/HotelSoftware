@@ -256,7 +256,7 @@ public class DBReservation implements Serializable
 
     public static Collection<DBReservation> getAllReservations()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 //        

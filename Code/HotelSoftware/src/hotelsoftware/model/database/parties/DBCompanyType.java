@@ -113,7 +113,7 @@ public class DBCompanyType implements Serializable {
  * @throws HibernateException Dieser fehler tritt auf, falls hibernate eine fehlermeldung wirft
  */
 	public static List<DBCompanyType> getAllTypes() throws HibernateException {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction ts = session.beginTransaction();
 		ts.begin();
 		Criteria criteria = session.createCriteria(DBCompanyType.class);

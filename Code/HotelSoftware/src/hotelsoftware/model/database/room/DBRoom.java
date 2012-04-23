@@ -185,7 +185,7 @@ public class DBRoom implements Serializable
     
     public static DBRoom getRoomByNumber(String number)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
@@ -197,7 +197,7 @@ public class DBRoom implements Serializable
     
     public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         

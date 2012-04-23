@@ -196,7 +196,7 @@ public class DBGuest implements Serializable
  */
     public static Collection<DBGuest> getGuestsByName(String firstName, String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBGuest.class);
