@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *Dies ist die Klasse für die Tabelle "persons". Hier werden alle Personen gespeichert.
  * @author mohi
  */
 @Entity
