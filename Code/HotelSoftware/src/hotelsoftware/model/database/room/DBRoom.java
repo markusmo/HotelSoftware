@@ -61,19 +61,19 @@ public class DBRoom implements Serializable
     private Integer id;
     @Basic(optional = false)
     @Column(name = "roomNumber", nullable = false)
-    private String roomNumber;
+    private String number;
 
     
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "roomsroomoptions", joinColumns = { @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })  
-    private Collection<DBRoomOption> roomoptionsCollection;
+    private Collection<DBRoomOption> options;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch= FetchType.EAGER)
-    private DBRoomCategory idRoomCategories;
+    private DBRoomCategory category;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
-    private Collection<DBHabitation> habitationsCollection;
+    private Collection<DBHabitation> habitations;
     @OneToMany(mappedBy="rooms", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
-    private Collection<DBRoomsRoomStatus> roomsroomstatusCollection;
+    private Collection<DBRoomsRoomStatus> status;
 
     public DBRoom()
     {
@@ -87,7 +87,7 @@ public class DBRoom implements Serializable
     public DBRoom(Integer id, String roomNumber)
     {
         this.id = id;
-        this.roomNumber = roomNumber;
+        this.number = roomNumber;
     }
 
     public Integer getId()
@@ -100,57 +100,57 @@ public class DBRoom implements Serializable
         this.id = id;
     }
 
-    public String getRoomNumber()
+    public String getNumber()
     {
-        return roomNumber;
+        return number;
     }
 
-    public void setRoomNumber(String roomNumber)
+    public void setNumber(String roomNumber)
     {
-        this.roomNumber = roomNumber;
+        this.number = roomNumber;
     }
 
     @XmlTransient
-    public Collection<DBRoomOption> getRoomoptions()
+    public Collection<DBRoomOption> getOptions()
     {
-        return roomoptionsCollection;
+        return options;
     }
 
-    public void setRoomoptions(Collection<DBRoomOption> roomoptionsCollection)
+    public void setOptions(Collection<DBRoomOption> roomoptionsCollection)
     {
-        this.roomoptionsCollection = roomoptionsCollection;
+        this.options = roomoptionsCollection;
     }
 
-    public DBRoomCategory getIdRoomCategories()
+    public DBRoomCategory getCategory()
     {
-        return idRoomCategories;
+        return category;
     }
 
-    public void setIdRoomCategories(DBRoomCategory idRoomCategories)
+    public void setCategory(DBRoomCategory category)
     {
-        this.idRoomCategories = idRoomCategories;
+        this.category = category;
     }
 
     @XmlTransient
     public Collection<DBHabitation> getHabitations()
     {
-        return habitationsCollection;
+        return habitations;
     }
 
     public void setHabitations(Collection<DBHabitation> habitationsCollection)
     {
-        this.habitationsCollection = habitationsCollection;
+        this.habitations = habitationsCollection;
     }
 
     @XmlTransient
-    public Collection<DBRoomsRoomStatus> getRoomsroomstatus()
+    public Collection<DBRoomsRoomStatus> getStatus()
     {
-        return roomsroomstatusCollection;
+        return status;
     }
 
-    public void setRoomsroomstatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
+    public void setStatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
     {
-        this.roomsroomstatusCollection = roomsroomstatusCollection;
+        this.status = roomsroomstatusCollection;
     }
 
     @Override

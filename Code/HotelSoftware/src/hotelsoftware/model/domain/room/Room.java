@@ -21,7 +21,7 @@ public class Room implements RoomData
     private Collection<RoomOption> options;
     private RoomCategory category;
     private RoomStatus currentStatus;
-    private Collection<Habitation> habitationCollection;
+    private Collection<Habitation> habitations;
     private Collection<RoomStatus> status;
 
     private Room(String number, RoomCategory category)
@@ -47,14 +47,14 @@ public class Room implements RoomData
         this.category = category;
     }
 
-    public Collection<Habitation> getHabitationCollection()
+    public Collection<Habitation> getHabitations()
     {
-        return habitationCollection;
+        return habitations;
     }
 
-    public void setHabitationCollection(Collection<Habitation> habitationCollection)
+    public void setHabitations(Collection<Habitation> habitations)
     {
-        this.habitationCollection = habitationCollection;
+        this.habitations = habitations;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Room implements RoomData
 
     public Collection<HabitationData> getHabitationCollectionData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitationCollection());
+        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }
 
     public Collection<RoomOptionData> getOptionsData()
