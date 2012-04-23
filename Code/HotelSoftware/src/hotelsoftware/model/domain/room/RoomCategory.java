@@ -24,10 +24,10 @@ public class RoomCategory implements CategoryData
     private String name;
     private BigDecimal price;
     private BigDecimal minPrice;
-    private int bedCount;
-    private int id;
+    private Integer bedCount;
+    private Integer id;
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
@@ -126,7 +126,7 @@ public class RoomCategory implements CategoryData
         return Room.getRoomsByCategory(this);
     }
     
-    public int getBedCount()
+    public Integer getBedCount()
     {
         return bedCount;
     }

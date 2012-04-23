@@ -142,7 +142,7 @@ public class Reservation implements ReservationData
         return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitems());
     } 
     
-    public int getGuestAmount()
+    public Integer getGuestAmount()
     {
         return ReservationFacade.getInstance().getGuestAmount(this);
     }
@@ -178,6 +178,11 @@ public class Reservation implements ReservationData
     }
 
     public String getReservationNumber()
+    {
+        return this.reservationNumber;
+    }
+    
+    public String getReserationNumber()
     {
         return this.reservationNumber;
     }

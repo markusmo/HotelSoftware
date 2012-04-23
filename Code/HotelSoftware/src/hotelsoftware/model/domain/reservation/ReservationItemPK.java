@@ -10,14 +10,14 @@ package hotelsoftware.model.domain.reservation;
  */
 public class ReservationItemPK
 {
-    private int idReservations;
-    private int idRoomCategories;
+    private Integer idReservations;
+    private Integer idRoomCategories;
 
     public ReservationItemPK()
     {
     }
 
-    public int getIdReservations()
+    public Integer getIdReservations()
     {
         return idReservations;
     }
@@ -27,7 +27,7 @@ public class ReservationItemPK
         this.idReservations = idReservations;
     }
 
-    public int getIdRoomCategories()
+    public Integer getIdRoomCategories()
     {
         return idRoomCategories;
     }

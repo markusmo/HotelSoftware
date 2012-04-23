@@ -13,7 +13,7 @@ import hotelsoftware.model.domain.room.RoomCategory;
  */
 public class ReservationItem implements ReservationItemData
 {
-    private int amount;
+    private Integer amount;
     private RoomCategory reservedCategory;
     private ReservationItemPK reservationItemPK;
 
@@ -40,7 +40,7 @@ public class ReservationItem implements ReservationItemData
         }
     }
 
-    public int getAmount()
+    public Integer getAmount()
     {
         return amount;
     }
@@ -50,18 +50,18 @@ public class ReservationItem implements ReservationItemData
         this.amount = amount;
     }
 
-    public RoomCategory getReservedCategory()
+    public RoomCategory getRoomcategory()
     {
         return reservedCategory;
     }
 
-    public void setReservedCategory(RoomCategory reservedCategory)
+    public void setRoomcategory(RoomCategory reservedCategory)
     {
         this.reservedCategory = reservedCategory;
     }
 
     public CategoryData getReservedCategoryData()
     {
-        return (CategoryData) getReservedCategory();
+        return getRoomcategory();
     }
 }

@@ -18,10 +18,10 @@ public class DBRoomCategoryPricePK implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "idRoomCategories", nullable = false)
-    private int idRoomCategories;
+    private Integer idRoomCategories;
     @Basic(optional = false)
     @Column(name = "idSeasons", nullable = false)
-    private int idSeasons;
+    private Integer idSeasons;
 
     public DBRoomCategoryPricePK()
     {
@@ -33,7 +33,7 @@ public class DBRoomCategoryPricePK implements Serializable
         this.idSeasons = idSeasons;
     }
 
-    public int getIdRoomCategories()
+    public Integer getIdRoomCategories()
     {
         return idRoomCategories;
     }
@@ -43,7 +43,7 @@ public class DBRoomCategoryPricePK implements Serializable
         this.idRoomCategories = idRoomCategories;
     }
 
-    public int getIdSeasons()
+    public Integer getIdSeasons()
     {
         return idSeasons;
     }
