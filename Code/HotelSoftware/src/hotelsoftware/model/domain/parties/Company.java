@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Eine Firma die ein oder mehere Zimmer gebucht hat
+ * Diese Klasse erbt von Customer, da sie für Zimmer/Dienstleistungen bezahlt. Hierbei handelt es sich um eine Firma mit einem Namen und einem Typ.
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

@@ -1,5 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
+# * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package hotelsoftware.model.domain.parties;
@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Klasse für einen bezahlende/n Gast/Firma
+ * Diese Klasse ist eine unterklasse der Klasse Party. Sie symbolisiert die Personen oder Gruppierungen, die für die Bezahlung derZimmer und/oder Extraleistungen zuständig sind.
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

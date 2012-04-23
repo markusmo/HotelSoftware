@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.parties;
 
 /**
- * Klasse die eine oder Mehrere Personen beschreibt
+ * Klasse die eine oder Mehrere Personen beschreibt. Sie ist abstrakt, da von ihr alle Kunden und auch die Gäste erben.
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

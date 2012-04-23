@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- *
+ * Dieses Interface enthällt die Methoden, die von der Gastklasse implementiert werden müssen und somit für den Gast sehr wichtig sind.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface GuestData
