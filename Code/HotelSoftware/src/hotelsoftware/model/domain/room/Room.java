@@ -13,7 +13,6 @@ import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 
 /**
- *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Room implements RoomData

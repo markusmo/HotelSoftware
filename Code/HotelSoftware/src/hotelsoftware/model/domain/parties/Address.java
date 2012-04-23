@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.parties;
 
 /**
- * 
+ * Klasse die die Attribute einer Addresse hällt
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

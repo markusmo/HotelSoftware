@@ -14,7 +14,7 @@ import hotelsoftware.model.domain.reservation.ReservationData;
 import java.util.Collection;
 
 /**
- *
+ * Kommunikationsklasse zwischen den Schichten
  * @author Hubert
  */
 public class PartyFacade
@@ -28,7 +28,7 @@ public class PartyFacade
         return PartyFacadeHolder.INSTANCE;
     }
 /**
- * 
+ * Hilfsklasse für Singleton
  * @author Hubert
  *
  */

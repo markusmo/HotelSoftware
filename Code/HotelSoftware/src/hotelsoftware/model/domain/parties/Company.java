@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * 
+ * Eine Firma die ein oder mehere Zimmer gebucht hat
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

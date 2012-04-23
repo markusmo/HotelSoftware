@@ -1,6 +1,6 @@
 package hotelsoftware.model.domain.parties;
 /**
- * 
+ * Fehlermeldung die auftritt wenn ein Gast nicht gefunden wird
  * @author Hubert
  *
  */

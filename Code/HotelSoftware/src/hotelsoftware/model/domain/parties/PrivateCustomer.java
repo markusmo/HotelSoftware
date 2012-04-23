@@ -4,7 +4,7 @@ import hotelsoftware.model.domain.invoice.InvoiceData;
 
 import java.util.Collection;
 /**
- * 
+ * Privatperson die als Ansprechpartner für Rechnungen dient
  * @author Hubert
  *
  */
