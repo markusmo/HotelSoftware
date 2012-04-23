@@ -44,9 +44,9 @@ import java.awt.event.*;
 public class ButtonIconTabComponent extends JPanel
 {
     private final JTabbedPane pane;
-    private final ImageIcon icon;
+    private ImagePanel imagePanel;
 
-    public ButtonIconTabComponent(final JTabbedPane pane, final ImageIcon icon)
+    public ButtonIconTabComponent(final JTabbedPane pane, ImageIcon icon)
     {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -54,7 +54,7 @@ public class ButtonIconTabComponent extends JPanel
         {
             throw new NullPointerException("TabbedPane is null");
         }
-        this.icon = icon;
+        this.imagePanel = new ImagePanel(icon.getImage());
         this.pane = pane;
         setOpaque(false);
 
@@ -75,12 +75,23 @@ public class ButtonIconTabComponent extends JPanel
         add(label);
         //add more space between the label and the button
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-        add(new ImagePanel(icon.getImage()));
+        add(imagePanel);
         //tab button
         JButton button = new TabButton();
         add(button);
         //add more space to the top of the component
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+    }
+
+    public void setImagePanel(String imageIcon)
+    {
+        this.imagePanel = new ImagePanel(imageIcon);
+        this.repaint();
+    }
+
+    public void setImagePanel(ImageIcon imageIcon)
+    {
+        this.imagePanel = new ImagePanel(imageIcon.getImage());
     }
 
     private class ImagePanel extends JPanel

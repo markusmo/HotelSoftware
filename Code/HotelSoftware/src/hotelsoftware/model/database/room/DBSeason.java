@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,7 +66,7 @@ public class DBSeason implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons", fetch = FetchType.EAGER)
     private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
     public DBSeason()

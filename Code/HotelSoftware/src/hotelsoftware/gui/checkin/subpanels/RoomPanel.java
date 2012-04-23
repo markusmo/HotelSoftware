@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.reservation.ReservationData;
@@ -24,12 +25,13 @@ public class RoomPanel extends javax.swing.JPanel
     private ReservationData reservation;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private int roomIndex;
-
+    private ButtonIconTabComponent iconTab;
     /**
      * Creates new form RoomPanel
      */
-    public RoomPanel()
+    public RoomPanel(ButtonIconTabComponent iconTab)
     {
+        this.iconTab = iconTab;
         reservation = cigc.getSelectedReservation();
         initComponents();
         init();
@@ -86,6 +88,10 @@ public class RoomPanel extends javax.swing.JPanel
     public int getRoomIndex()
     {
         return roomIndex;
+    }
+    
+    public void setTabIcon(ImageIcon icon){
+        this.iconTab.setImagePanel(icon);
     }
 
     public void setRoomIndex(int roomIndex)
