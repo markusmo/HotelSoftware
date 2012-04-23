@@ -52,11 +52,11 @@ public class DBRoomCategory implements Serializable
     @Column(name = "bedCount", nullable = false)
     private int bedCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
-    private Collection<DBReservationItem> reservationitemsCollection;
+    private Collection<DBReservationItem> reservationitems;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories", fetch= FetchType.LAZY)
-    private Collection<DBRoom> roomsCollection;
+    private Collection<DBRoom> rooms;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
-    private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
+    private Collection<DBRoomCategoryPrice> prices;
 
     public DBRoomCategory()
     {
@@ -107,34 +107,34 @@ public class DBRoomCategory implements Serializable
     @XmlTransient
     public Collection<DBReservationItem> getReservationitems()
     {
-        return reservationitemsCollection;
+        return reservationitems;
     }
 
-    public void setReservationitems(Collection<DBReservationItem> reservationitemsCollection)
+    public void setReservationitems(Collection<DBReservationItem> reservationitems)
     {
-        this.reservationitemsCollection = reservationitemsCollection;
-    }
-
-    @XmlTransient
-    public Collection<DBRoom> getRoomsCollection()
-    {
-        return roomsCollection;
-    }
-
-    public void setRoomsCollection(Collection<DBRoom> roomsCollection)
-    {
-        this.roomsCollection = roomsCollection;
+        this.reservationitems = reservationitems;
     }
 
     @XmlTransient
-    public Collection<DBRoomCategoryPrice> getRoomcategorypricesCollection()
+    public Collection<DBRoom> getRooms()
     {
-        return roomcategorypricesCollection;
+        return rooms;
     }
 
-    public void setRoomcategorypricesCollection(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
+    public void setRooms(Collection<DBRoom> rooms)
     {
-        this.roomcategorypricesCollection = roomcategorypricesCollection;
+        this.rooms = rooms;
+    }
+
+    @XmlTransient
+    public Collection<DBRoomCategoryPrice> getPrices()
+    {
+        return prices;
+    }
+
+    public void setPrices(Collection<DBRoomCategoryPrice> prices)
+    {
+        this.prices = prices;
     }
 
     @Override

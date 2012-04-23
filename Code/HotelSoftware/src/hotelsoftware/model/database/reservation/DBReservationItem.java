@@ -86,12 +86,12 @@ public class DBReservationItem implements Serializable
         this.amount = amount;
     }
 
-    public DBRoomCategory getRoomcategories()
+    public DBRoomCategory getRoomcategory()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(DBRoomCategory roomcategories)
+    public void setRoomcategory(DBRoomCategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }

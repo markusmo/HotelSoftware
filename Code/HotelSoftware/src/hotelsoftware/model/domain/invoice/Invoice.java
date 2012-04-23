@@ -27,10 +27,10 @@ public class Invoice implements InvoiceData
     private Date expiration;
     private boolean fulfilled;
     private Date created;
-    private PaymentMethod idpaymentMethods;
-    private Customer idCustomers;
-    private User idUsers;
-    private Collection<InvoiceItem> invoiceitemsCollection;
+    private PaymentMethod idpaymentMethod;
+    private Customer idCustomer;
+    private User idUser;
+    private Collection<InvoiceItem> invoiceitems;
 
     public Invoice()
     {
@@ -49,10 +49,10 @@ public class Invoice implements InvoiceData
         this.discount = discount;
         this.expiration = expiration;
         this.fulfilled = fulfilled;
-        this.idpaymentMethods = paymentMethod;
-        this.idCustomers = customer;
-        this.idUsers = user;
-        this.invoiceitemsCollection = new LinkedList<InvoiceItem>();
+        this.idpaymentMethod = paymentMethod;
+        this.idCustomer = customer;
+        this.idUser = user;
+        this.invoiceitems = new LinkedList<InvoiceItem>();
     }
 
     @Override
@@ -83,19 +83,19 @@ public class Invoice implements InvoiceData
         return id;
     }
 
-    public Customer getIdCustomers()
+    public Customer getIdCustomer()
     {
-        return idCustomers;
+        return idCustomer;
     }
 
-    public User getIdUsers()
+    public User getIdUser()
     {
-        return idUsers;
+        return idUser;
     }
 
-    public PaymentMethod getIdpaymentMethods()
+    public PaymentMethod getIdpaymentMethod()
     {
-        return idpaymentMethods;
+        return idpaymentMethod;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Invoice implements InvoiceData
 
     public Collection<InvoiceItem> getInvoiceitems()
     {
-        return invoiceitemsCollection;
+        return invoiceitems;
     }
 
     public void setCreated(Date created)
@@ -134,19 +134,19 @@ public class Invoice implements InvoiceData
         this.id = id;
     }
 
-    public void setIdCustomers(Customer idCustomers)
+    public void setIdCustomer(Customer idCustomers)
     {
-        this.idCustomers = idCustomers;
+        this.idCustomer = idCustomers;
     }
 
-    public void setIdUsers(User idUsers)
+    public void setIdUser(User idUsers)
     {
-        this.idUsers = idUsers;
+        this.idUser = idUsers;
     }
 
-    public void setIdpaymentMethods(PaymentMethod idpaymentMethods)
+    public void setIdpaymentMethod(PaymentMethod idpaymentMethods)
     {
-        this.idpaymentMethods = idpaymentMethods;
+        this.idpaymentMethod = idpaymentMethods;
     }
 
     public void setInvoiceNumber(String invoiceNumber)
@@ -156,13 +156,13 @@ public class Invoice implements InvoiceData
 
     public void setInvoiceitems(Collection<InvoiceItem> invoiceitemsCollection)
     {
-        this.invoiceitemsCollection = invoiceitemsCollection;
+        this.invoiceitems = invoiceitemsCollection;
     }
 
     @Override
     public String getPaymentMethodName()
     {
-        return idpaymentMethods.getMethod();
+        return idpaymentMethod.getMethod();
     }
 
     /**
@@ -174,17 +174,17 @@ public class Invoice implements InvoiceData
      */
     public Invoice getInvoiceByHabitation(Habitation habitation)
     {
-        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethods, idCustomers);
+        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethod, idCustomer);
         LinkedList<InvoiceItem> items = new LinkedList<InvoiceItem>();
 
-        for (InvoiceItem item : this.invoiceitemsCollection)
+        for (InvoiceItem item : this.invoiceitems)
         {
             if (item.getHabitation().equals(habitation))
             {
                 items.add(item);
             }
         }
-        this.invoiceitemsCollection.removeAll(items);
+        this.invoiceitems.removeAll(items);
         invoice.setInvoiceitems(items);
 
         return invoice;
@@ -205,17 +205,17 @@ public class Invoice implements InvoiceData
 
     public CustomerData getIdCustomersData()
     {
-        return (CustomerData) getIdCustomers();
+        return (CustomerData) getIdCustomer();
     }
 
     public UserData getIdUsersData()
     {
-        return (UserData) getIdUsers();
+        return (UserData) getIdUser();
     }
 
     public PaymentMethodData getIdpaymentMethodsData()
     {
-        return (PaymentMethodData) getIdpaymentMethods();
+        return (PaymentMethodData) getIdpaymentMethod();
     }
 
     public Collection<InvoiceItemData> getInvoiceitemsData()

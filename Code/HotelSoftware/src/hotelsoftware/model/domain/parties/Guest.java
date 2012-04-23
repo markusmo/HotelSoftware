@@ -14,8 +14,9 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
- *
+ * Klasse für Personen die Gäste im Hotel sind
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class Guest extends Party implements GuestData
 {

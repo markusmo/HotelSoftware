@@ -16,8 +16,6 @@ public class ReservationItemPK
     public ReservationItemPK()
     {
     }
-    
-    
 
     public int getIdReservations()
     {

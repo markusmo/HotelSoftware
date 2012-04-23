@@ -5,8 +5,9 @@
 package hotelsoftware.model.domain.parties;
 
 /**
- * 
+ * Klasse die die Attribute einer Addresse hällt
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class Address implements AddressData {
 
@@ -17,7 +18,7 @@ public class Address implements AddressData {
 	private String email;
 	private String phone;
 	private String fax;
-	private String country;
+	private String idCountry;
 
 	public static Address create(String street, String city, String zip,
 			String email, String phone, String fax, String country) {
@@ -36,7 +37,7 @@ public class Address implements AddressData {
 		this.email = email;
 		this.phone = phone;
 		this.fax = fax;
-		this.country = country;
+		this.idCountry = country;
 
 	}
 
@@ -95,12 +96,12 @@ public class Address implements AddressData {
 	}
 
     @Override
-	public String getCountry() {
-		return country;
+	public String getIdCountry() {
+		return idCountry;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setIdCountry(String country) {
+		this.idCountry = country;
 	}
 
 	public Integer getId() {

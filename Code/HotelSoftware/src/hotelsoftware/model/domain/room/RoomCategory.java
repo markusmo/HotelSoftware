@@ -17,6 +17,7 @@ import java.util.Date;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class RoomCategory implements CategoryData
 {
@@ -98,13 +99,21 @@ public class RoomCategory implements CategoryData
         DBRoomCategory c = DBRoomCategory.getRoomCategoryByName(name);
         return (RoomCategory) DynamicMapper.map(c);
     }
-
+/**
+ * such alle Kategorien heraus
+ * @return
+ */
     public static Collection<RoomCategory> getAllCategorys()
     {
         Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
         return (Collection<RoomCategory>) DynamicMapper.mapCollection(dbc);
     }
-
+/**
+ * sucht nach freien Räumen in der Datenbank
+ * @param start
+ * @param ende
+ * @return
+ */
     public Collection<Room> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);

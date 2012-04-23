@@ -18,7 +18,7 @@ public class DBInvoiceItemPK implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "idServices", nullable = false)
-    private int idServices;
+    private int idService;
     @Basic(optional = false)
     @Column(name = "idInvoice", nullable = false)
     private int idInvoice;
@@ -29,18 +29,18 @@ public class DBInvoiceItemPK implements Serializable
 
     public DBInvoiceItemPK(int idServices, int idInvoice)
     {
-        this.idServices = idServices;
+        this.idService = idServices;
         this.idInvoice = idInvoice;
     }
 
-    public int getIdServices()
+    public int getIdService()
     {
-        return idServices;
+        return idService;
     }
 
-    public void setIdServices(int idServices)
+    public void setIdService(int idServices)
     {
-        this.idServices = idServices;
+        this.idService = idServices;
     }
 
     public int getIdInvoice()
@@ -57,7 +57,7 @@ public class DBInvoiceItemPK implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (int) idServices;
+        hash += (int) idService;
         hash += (int) idInvoice;
         return hash;
     }
@@ -71,7 +71,7 @@ public class DBInvoiceItemPK implements Serializable
             return false;
         }
         DBInvoiceItemPK other = (DBInvoiceItemPK) object;
-        if(this.idServices != other.idServices)
+        if(this.idService != other.idService)
         {
             return false;
         }
@@ -85,7 +85,7 @@ public class DBInvoiceItemPK implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.InvoiceitemsPK[ idServices=" + idServices + ", idInvoice=" + idInvoice + " ]";
+        return "hotelsoftware.database.model.InvoiceitemsPK[ idServices=" + idService + ", idInvoice=" + idInvoice + " ]";
     }
     
 }

@@ -5,8 +5,9 @@
 package hotelsoftware.model.domain.parties;
 
 /**
- * 
+ * Klasse die eine oder Mehrere Personen beschreibt
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public abstract class Party implements PartyData {
 	

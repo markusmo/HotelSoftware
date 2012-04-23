@@ -36,7 +36,7 @@ public class ReservationSaver
         private static final ReservationSaver INSTANCE = new ReservationSaver();
     }
 
-    public void saveOrUpdate(Collection<Reservation> reservations, Collection<Option> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         Session session = null;
         Transaction ts = null;
@@ -70,7 +70,7 @@ public class ReservationSaver
 
     }
 
-    public void saveOrUpdate(Session session, Collection<Reservation> reservations, Collection<Option> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         for (Reservation reservation : reservations)
         {
@@ -80,7 +80,7 @@ public class ReservationSaver
             reservation.setId(dbp.getId());
         }
 
-        for (Option option : options)
+        for (ReservationOption option : options)
         {
             DBReservationOption dbo = (DBReservationOption) DynamicMapper.map(option);
 
@@ -99,7 +99,7 @@ public class ReservationSaver
 
     }
 
-    public void rollback(Collection<Reservation> reservations, Collection<Option> options, Collection<ReservationItem> reservationItems)
+    public void rollback(Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -115,9 +115,9 @@ public class ReservationSaver
                         reservation.getId())).uniqueResult();
 
                 Reservation temp = (Reservation) DynamicMapper.map(dbr);
-                reservation.setEnd(temp.getEnd());
+                reservation.setEndDate(temp.getEndDate());
                 reservation.setComment(temp.getComment());
-                reservation.setStart(temp.getStart());
+                reservation.setStartDate(temp.getStartDate());
                 reservation.setOptionCollection(temp.getOptionCollection());
                 reservation.setParty(temp.getParty());
                 reservation.setReservationitems(temp.getReservationitems());
@@ -125,14 +125,14 @@ public class ReservationSaver
             }
         }
 
-        for (Option option : options)
+        for (ReservationOption option : options)
         {
             DBReservationOption dbo;
             if (option.getId() != null)
             {
                 dbo = (DBReservationOption) session.createCriteria(DBReservationOption.class).add(Restrictions.eq("id",
                         option.getId())).uniqueResult();
-                Option temp = (Option) DynamicMapper.map(dbo);
+                ReservationOption temp = (ReservationOption) DynamicMapper.map(dbo);
                 option.setExpiration(temp.getExpiration());
                 option.setFulfilled(temp.isFulfilled());
                 option.setPrepayment(temp.getPrepayment());

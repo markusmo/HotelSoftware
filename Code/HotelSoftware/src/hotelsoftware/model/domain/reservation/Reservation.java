@@ -4,8 +4,6 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
@@ -13,8 +11,6 @@ import hotelsoftware.model.domain.parties.PartyData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -24,11 +20,11 @@ public class Reservation implements ReservationData
 {
 
     
-    private Date start;
-    private Date end;
+    private Date startDate;
+    private Date endDate;
     private String comment;
     private Date created;
-    private Collection<Option> optionCollection;
+    private Collection<ReservationOption> optionCollection;
     private Party party;
     private Collection<ReservationItem> reservationItemCollection;
     private Integer id;
@@ -56,12 +52,12 @@ public class Reservation implements ReservationData
     }
 
     @Override
-    public Date getEnd()
+    public Date getEndDate()
     {
-        return end;
+        return endDate;
     }
 
-    public Collection<Option> getOptionCollection()
+    public Collection<ReservationOption> getOptionCollection()
     {
         return optionCollection;
     }
@@ -77,9 +73,9 @@ public class Reservation implements ReservationData
     }
 
     @Override
-    public Date getStart()
+    public Date getStartDate()
     {
-        return start;
+        return startDate;
     }
 
     public void setComment(String comment)
@@ -92,12 +88,12 @@ public class Reservation implements ReservationData
         this.created = created;
     }
 
-    public void setEnd(Date end)
+    public void setEndDate(Date end)
     {
-        this.end = end;
+        this.endDate = end;
     }
 
-    public void setOptionCollection(Collection<Option> optionCollection)
+    public void setOptionCollection(Collection<ReservationOption> optionCollection)
     {
         this.optionCollection = optionCollection;
     }
@@ -112,9 +108,9 @@ public class Reservation implements ReservationData
         this.reservationItemCollection = setreservationItemCollection;
     }
 
-    public void setStart(Date start)
+    public void setStartDate(Date start)
     {
-        this.start = start;
+        this.startDate = start;
     }
     private Invoice getInvoice;
 
@@ -131,9 +127,9 @@ public class Reservation implements ReservationData
         }
     }
 
-    public Collection<OptionData> getOptionCollectionData()
+    public Collection<ReservationOptionData> getOptionCollectionData()
     {
-        return new HelperFunctions<OptionData, Option>().castCollectionUp(getOptionCollection());
+        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(getOptionCollection());
     }
 
     public PartyData getPartyData()

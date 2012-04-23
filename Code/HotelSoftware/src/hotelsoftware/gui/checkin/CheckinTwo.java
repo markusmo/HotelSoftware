@@ -46,8 +46,8 @@ public class CheckinTwo extends javax.swing.JPanel
         reservation = cigc.getSelectedReservation();
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         textAreaComment.setText(reservation.getComment());
-        textBoxArrival.setText(df.format(reservation.getStart()));
-        textBoxDeparture.setText(df.format(reservation.getEnd()));
+        textBoxArrival.setText(df.format(reservation.getStartDate()));
+        textBoxDeparture.setText(df.format(reservation.getEndDate()));
         textBoxNumberOfGuests.setText(reservation.getGuestAmount() + "");
         textBoxReservationNumber.setText(reservation.getReservationNumber());
 

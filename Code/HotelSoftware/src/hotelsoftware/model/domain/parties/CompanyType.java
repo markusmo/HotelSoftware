@@ -12,8 +12,9 @@ import hotelsoftware.model.domain.invoice.PaymentMethod;
 import java.util.Collection;
 
 /**
- * 
+ * Klasse die die Typen einer Firma beschreibt
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class CompanyType implements CompanyTypeData {
 
@@ -46,7 +47,10 @@ public class CompanyType implements CompanyTypeData {
         {
             return typ;
         }
-        
+        /**
+         * gibt alle Typen zurück
+         * @return Kollektion aus Firmentypen
+         */
         @SuppressWarnings("unchecked")
 		public static Collection<CompanyType> getAllTypes()
         {

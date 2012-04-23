@@ -64,7 +64,7 @@ public class DBAddress implements Serializable
     private String fax;
     @JoinColumn(name = "idCountries", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBCountry idCountries;
+    private DBCountry idCountry;
 
     public DBAddress()
     {
@@ -145,14 +145,14 @@ public class DBAddress implements Serializable
         this.fax = fax;
     }
 
-    public DBCountry getIdCountries()
+    public DBCountry getIdCountry()
     {
-        return idCountries;
+        return idCountry;
     }
 
-    public void setIdCountries(DBCountry idCountries)
+    public void setIdCountry(DBCountry idCountries)
     {
-        this.idCountries = idCountries;
+        this.idCountry = idCountries;
     }
 
     @Override

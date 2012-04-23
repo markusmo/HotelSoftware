@@ -13,7 +13,7 @@ public interface AddressData
 
     String getCity();
 
-    String getCountry();
+    String getIdCountry();
 
     String getEmail();
 

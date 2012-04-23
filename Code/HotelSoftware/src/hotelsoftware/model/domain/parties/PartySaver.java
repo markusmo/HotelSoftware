@@ -18,8 +18,9 @@ import org.hibernate.criterion.Restrictions;
 import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 /**
- * 
+ * Klasse die für die Speicherung in die Datenbank verantwortlich ist
  * @author Hubert
+ *
  */
 public class PartySaver {
 	private PartySaver() {
@@ -28,11 +29,23 @@ public class PartySaver {
 	public static PartySaver getInstance() {
 		return PartySaverHolder.INSTANCE;
 	}
-
+/**
+ * Hilfklasse für Singleton
+ * @author Hubert
+ *
+ */
 	private static class PartySaverHolder {
 		private static final PartySaver INSTANCE = new PartySaver();
 	}
-
+/**
+ * Speichert oder akualisiert die Informationen in der Datebank
+ * @param addresses addressen
+ * @param companytypes fimentypen
+ * @param companys firmen
+ * @param privateCustomers privatkunden
+ * @param guests gänste
+ * @throws FailedToSaveToDatabaseException konnte nicht in der datenbank eingetragen werden
+ */
 	public void saveOrUpdate(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,
 			Collection<PrivateCustomer> privateCustomers,
@@ -86,7 +99,14 @@ public class PartySaver {
 			session.close();
 		}
 	}
-
+/**
+ * macht änderungen rückgängig
+ * @param addresses adressen
+ * @param companytypes firmentypen
+ * @param companys firmen
+ * @param privateCustomers privatkunden
+ * @param guests gäste
+ */
 	public void rollback(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,
 			Collection<PrivateCustomer> privateCustomers,
@@ -111,7 +131,7 @@ public class PartySaver {
 				addresse.setEmail(temp.getEmail());
 				addresse.setPhone(temp.getPhone());
 				addresse.setFax(temp.getFax());
-				addresse.setCountry(temp.getCountry());
+				addresse.setIdCountry(temp.getIdCountry());
 			}
 		}
 

@@ -9,24 +9,14 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * 
+ * Klasse für einen bezahlende/n Gast/Firma
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public abstract class Customer extends Party implements CustomerData {
 
 	protected Address invoiceAddress;
 	protected Collection<Invoice> invoices;
-
-	/*
-	 * 
-	 * // WTF ist das ?!?
-	 * 
-	 * protected DBCustomer costumerModel;
-	 * 
-	 * public Customer(DBCustomer costumers) { this.costumerModel = costumers; }
-	 * 
-	 * public DBCustomer getCostumerModel() { return costumerModel; }
-	 */
 
 	Customer(){}
 
