@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class InvoiceItem implements InvoiceItemData
 {
-    private int amount;
+    private Integer amount;
     private Date created;
     private Service service;
     private User idUser;
@@ -42,7 +42,7 @@ public class InvoiceItem implements InvoiceItemData
     }
 
     @Override
-    public int getAmount()
+    public Integer getAmount()
     {
         return amount;
     }

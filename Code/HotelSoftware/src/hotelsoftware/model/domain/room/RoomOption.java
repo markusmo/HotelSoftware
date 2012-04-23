@@ -16,6 +16,10 @@ import java.util.Collection;
 public class RoomOption implements RoomOptionData {
 	private Integer id;
 	private String name;
+        
+        public RoomOption()
+        {
+        }
 
 	private RoomOption(String name) {
 		this.name = name;

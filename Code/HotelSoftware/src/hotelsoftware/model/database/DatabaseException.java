@@ -5,7 +5,7 @@
 package hotelsoftware.model.database;
 
 /**
- *
+ *Diese Fehlermeldung tritt auf, wenn ein es ein Problem mit der Datenbank gibt
  * @author mohi
  */
 public class DatabaseException extends Exception

@@ -17,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 
 /**
  *
@@ -51,7 +52,7 @@ public class DBRoomCategory implements Serializable
     private String name;
     @Basic(optional = false)
     @Column(name = "bedCount", nullable = false)
-    private int bedCount;
+    private Integer bedCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Collection<DBReservationItem> reservationitems;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.LAZY)
@@ -95,7 +96,7 @@ public class DBRoomCategory implements Serializable
         this.name = name;
     }
 
-    public int getBedCount()
+    public Integer getBedCount()
     {
         return bedCount;
     }
@@ -193,15 +194,22 @@ public class DBRoomCategory implements Serializable
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         
-        Criteria criteria = session.createCriteria(DBRoom.class);
+       /*Criteria criteria = session.createCriteria(DBRoom.class);
         criteria = criteria.createAlias("habitations.idRooms", "a1");
         criteria = criteria.add(Restrictions.and(Restrictions.not(Restrictions.eq("a1.start", start)), Restrictions.not(Restrictions.eq("a1.end", ende))))
-                .add(Restrictions.eq("idRoomCategories", id));
-                
-         
-        Collection<DBRoom> rooms = criteria.list();
+                .add(Restrictions.eq("idRoomCategories", id));*/
         
-        session.close();
+        SQLQuery query = session.createSQLQuery("SELECT * FROM rooms r WHERE "
+                + "(SELECT count(*) FROM habitations WHERE startDate < :end AND endDate > :start) = 0");
+        query.setDate("end", ende);
+        query.setDate("start", start);
+        
+        query.addEntity(DBRoom.class);
+         
+        Collection<DBRoom> rooms = query.list();
+        
+        //TODO
+        //session.close();
         return rooms;
     }
     

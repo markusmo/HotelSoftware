@@ -54,6 +54,7 @@ public class CheckinTwo extends javax.swing.JPanel
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
+           // int test = data.getAmount();
             int oldi = i;
             for (i = oldi; i < data.getAmount(); i++)
             {

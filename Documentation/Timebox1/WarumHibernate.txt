@@ -1,0 +1,6 @@
+Wir verwernden Hibernate, da wir dadurch eine Anwendung entwickeln können,
+die von der Datenbank unabhängig ist. Dadurch können wir die Datenbank entlasten und  die performanz der 
+restlichen Anwendung verbessern.
+Außerdem können wir mit Hibernate die Datenbankschicht von der Domänenschicht abkoppeln und bei Änderungen 
+am Datenmodell schnell die entsprechenden Datenklassen neu generieren lassen. Dies ist sehr nützlich da es bei uns 
+laufend änderungen gibt.

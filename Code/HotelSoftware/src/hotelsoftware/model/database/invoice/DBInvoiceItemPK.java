@@ -18,10 +18,10 @@ public class DBInvoiceItemPK implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "idServices", nullable = false)
-    private int idService;
+    private Integer idService;
     @Basic(optional = false)
     @Column(name = "idInvoice", nullable = false)
-    private int idInvoice;
+    private Integer idInvoice;
 
     public DBInvoiceItemPK()
     {
@@ -33,7 +33,7 @@ public class DBInvoiceItemPK implements Serializable
         this.idInvoice = idInvoice;
     }
 
-    public int getIdService()
+    public Integer getIdService()
     {
         return idService;
     }
@@ -43,7 +43,7 @@ public class DBInvoiceItemPK implements Serializable
         this.idService = idServices;
     }
 
-    public int getIdInvoice()
+    public Integer getIdInvoice()
     {
         return idInvoice;
     }

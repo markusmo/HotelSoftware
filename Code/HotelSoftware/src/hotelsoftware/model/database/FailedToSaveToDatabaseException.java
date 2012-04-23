@@ -5,7 +5,7 @@
 package hotelsoftware.model.database;
 
 /**
- *
+ *Diese Fehlermeldung entsteht wenn das speichern in die Datenbank fehlschlaegt
  * @author mohi
  */
 public class FailedToSaveToDatabaseException extends DatabaseException
