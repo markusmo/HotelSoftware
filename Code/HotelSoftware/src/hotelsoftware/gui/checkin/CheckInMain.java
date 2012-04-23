@@ -33,7 +33,7 @@ public class CheckInMain extends javax.swing.JPanel
         {
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", null, ((GuestData)data.getPartyData()).getLname(), ((GuestData)data.getPartyData()).getFname(), df.format(data.getStart()), df.format(data.getEnd()), data.getGuestAmount()
+                data.getReservationNumber() + "", null, ((GuestData)data.getPartyData()).getLname(), ((GuestData)data.getPartyData()).getFname(), df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
             };
         }
         return value;

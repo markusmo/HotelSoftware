@@ -18,8 +18,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,16 +57,16 @@ private static final long serialVersionUID = 1L;
     private Date created;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
+    private DBUser idUser;
     @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch= FetchType.LAZY)
-    private DBHabitation idHabitations;
+    private DBHabitation idHabitation;
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBInvoice invoices;
+    private DBInvoice invoice;
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBService services;
+    private DBService service;
 
     public DBInvoiceItem()
     {
@@ -121,44 +119,44 @@ private static final long serialVersionUID = 1L;
         this.created = created;
     }
 
-    public DBService getServices()
+    public DBService getService()
     {
-        return services;
+        return service;
     }
 
-    public void setServices(DBService services)
+    public void setService(DBService service)
     {
-        this.services = services;
+        this.service = service;
     }
 
-    public DBInvoice getInvoices()
+    public DBInvoice getInvoice()
     {
-        return invoices;
+        return invoice;
     }
 
-    public void setInvoices(DBInvoice invoices)
+    public void setInvoice(DBInvoice invoices)
     {
-        this.invoices = invoices;
+        this.invoice = invoices;
     }
 
-    public DBUser getIdUsers()
+    public DBUser getIdUser()
     {
-        return idUsers;
+        return idUser;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setIdUser(DBUser idUsers)
     {
-        this.idUsers = idUsers;
+        this.idUser = idUsers;
     }
 
-    public DBHabitation getIdHabitations()
+    public DBHabitation getIdHabitation()
     {
-        return idHabitations;
+        return idHabitation;
     }
 
-    public void setIdHabitations(DBHabitation idHabitations)
+    public void setIdHabitation(DBHabitation idHabitations)
     {
-        this.idHabitations = idHabitations;
+        this.idHabitation = idHabitations;
     }
 
     /**

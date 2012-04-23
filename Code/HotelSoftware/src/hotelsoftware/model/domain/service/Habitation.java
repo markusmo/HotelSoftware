@@ -63,8 +63,8 @@ public class Habitation extends Service implements HabitationData
     
     public static Habitation createWithReservationData(Reservation reservation){
         Habitation habitation = new Habitation();
-        habitation.setStart(reservation.getStart());
-        habitation.setEnd(reservation.getEnd());
+        habitation.setStart(reservation.getStartDate());
+        habitation.setEnd(reservation.getEndDate());
         habitation.setIdUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
     }

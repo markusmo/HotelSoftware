@@ -5,34 +5,30 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.database.reservation.DBReservationOption;
-import hotelsoftware.model.database.reservation.DBReservation;
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Option implements OptionData
+public class ReservationOption implements ReservationOptionData
 {
     private Date expiration;
     private BigDecimal prepayment;
     private boolean fulfilled;
     private Integer id;
 
-    private Option()
+    private ReservationOption()
     {
     }
 
-    public static Option newOption()
+    public static ReservationOption newOption()
     {
-        return new Option();
+        return new ReservationOption();
     }
 
-    private Option(DBReservationOption r)
+    private ReservationOption(DBReservationOption r)
     {
         this.expiration = r.getExpiration();
         this.fulfilled = r.getFulfilled();

@@ -10,21 +10,21 @@ package hotelsoftware.model.domain.invoice;
  */
 public class InvoiceItemPK
 {
-    private int idServices;
+    private int idService;
     private int idInvoice;
 
     public InvoiceItemPK()
     {
     }
 
-    public int getIdServices()
+    public int getIdService()
     {
-        return idServices;
+        return idService;
     }
 
-    public void setIdServices(int idServices)
+    public void setIdService(int idServices)
     {
-        this.idServices = idServices;
+        this.idService = idServices;
     }
 
     public int getIdInvoice()

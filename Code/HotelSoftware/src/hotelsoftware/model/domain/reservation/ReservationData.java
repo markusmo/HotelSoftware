@@ -20,15 +20,15 @@ public interface ReservationData
 
     Date getCreated();
 
-    Date getEnd();
+    Date getEndDate();
 
-    Collection<OptionData> getOptionCollectionData();
+    Collection<ReservationOptionData> getOptionCollectionData();
 
     PartyData getPartyData();
 
     Collection<ReservationItemData> getReservationItemCollectionData();
 
-    Date getStart();
+    Date getStartDate();
 
     public String getReservationNumber();
     
