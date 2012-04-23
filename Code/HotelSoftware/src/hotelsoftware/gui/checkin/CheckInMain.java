@@ -389,7 +389,7 @@ public class CheckInMain extends javax.swing.JPanel
                 {
                     boolean[] canEdit = new boolean[]
                     {
-                        false, false, false, true, false, false, false
+                        false, false, false, false, false, false, false
                     };
 
                     @Override

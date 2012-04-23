@@ -58,6 +58,20 @@ public class ButtonIconTabComponent extends JPanel
         this.pane = pane;
         setOpaque(false);
 
+        addComponents();
+        //add more space to the top of the component
+        setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+    }
+
+    public void setImagePanel(ImageIcon imageIcon)
+    {
+        this.imagePanel = new ImagePanel(imageIcon.getImage());
+        this.removeAll();
+        addComponents();
+    }
+
+    private void addComponents()
+    {
         //make JLabel read titles from JTabbedPane
         JLabel label = new JLabel()
         {
@@ -79,19 +93,6 @@ public class ButtonIconTabComponent extends JPanel
         //tab button
         JButton button = new TabButton();
         add(button);
-        //add more space to the top of the component
-        setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-    }
-
-    public void setImagePanel(String imageIcon)
-    {
-        this.imagePanel = new ImagePanel(imageIcon);
-        this.repaint();
-    }
-
-    public void setImagePanel(ImageIcon imageIcon)
-    {
-        this.imagePanel = new ImagePanel(imageIcon.getImage());
     }
 
     private class ImagePanel extends JPanel
