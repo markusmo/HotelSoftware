@@ -39,7 +39,7 @@ public class DBRoomCategoryPrice implements Serializable
     @Basic(optional = false)
     @Column(name = "priceMin", nullable = false, precision = 10, scale = 2)
     private BigDecimal priceMin;
-    @JoinColumn(name = "idSeason", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idSeasons", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBSeason seasons;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)

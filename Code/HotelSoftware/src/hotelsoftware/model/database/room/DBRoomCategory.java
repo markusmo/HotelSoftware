@@ -116,23 +116,23 @@ public class DBRoomCategory implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoom> getRooms()
+    public Collection<DBRoom> getRoomsCollection()
     {
         return roomsCollection;
     }
 
-    public void setRooms(Collection<DBRoom> roomsCollection)
+    public void setRoomsCollection(Collection<DBRoom> roomsCollection)
     {
         this.roomsCollection = roomsCollection;
     }
 
     @XmlTransient
-    public Collection<DBRoomCategoryPrice> getRoomcategoryprices()
+    public Collection<DBRoomCategoryPrice> getRoomcategorypricesCollection()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategoryprices(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
+    public void setRoomcategorypricesCollection(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }

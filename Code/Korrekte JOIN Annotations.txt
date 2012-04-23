@@ -1,0 +1,11 @@
+@OneToMany(mappedBy="idHabitations", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    private Collection<DBInvoiceItem> invoiceItemCollection;
+
+@JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch= FetchType.LAZY)
+    private DBHabitation idHabitations;
+
+############
+
+@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "roomsroomoptions", joinColumns = { @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })
