@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *Dies ist die Klasse für die Tabelle "customers". Hier werden alle Kunden gespeichert.
  * @author mohi
  */
 @Entity

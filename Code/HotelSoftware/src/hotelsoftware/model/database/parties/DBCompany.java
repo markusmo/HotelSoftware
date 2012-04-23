@@ -28,7 +28,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * 
+ * Dies ist die Klasse für die Tabelle "companies". Hier werden alle Firmen gespeichert.
  * @author mohi
  */
 @Entity

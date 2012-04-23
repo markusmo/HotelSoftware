@@ -24,7 +24,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ *Dies ist die Klasse für die Tabelle "privatecustomers". Hier werden alle Privatkunden gespeichert.
  * @author mohi
  */
 @Entity

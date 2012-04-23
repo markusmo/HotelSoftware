@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Dies ist die Klasse für die Tabelle "addresses". Hier werden alle Addressen für Personen, Firmen und Grupierungen gespeichert.
  * @author mohi
  */
 @Entity

@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 /**
- * Klasse die für die Speicherung in die Datenbank verantwortlich ist
+ * Klasse die für die Speicherung in die Datenbank verantwortlich ist.
  * @author Hubert
  *
  */

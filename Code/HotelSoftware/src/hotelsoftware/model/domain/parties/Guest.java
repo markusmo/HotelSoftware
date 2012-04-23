@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
- * Klasse für Personen die Gäste im Hotel sind
+ * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

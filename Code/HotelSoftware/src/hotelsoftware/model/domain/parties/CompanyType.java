@@ -12,7 +12,7 @@ import hotelsoftware.model.domain.invoice.PaymentMethod;
 import java.util.Collection;
 
 /**
- * Klasse die die Typen einer Firma beschreibt
+ * Klasse die die Typen einer Firma enthällt. Mithife dieser Klasse unterscheiden sich Firmen von Reisebüros.
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

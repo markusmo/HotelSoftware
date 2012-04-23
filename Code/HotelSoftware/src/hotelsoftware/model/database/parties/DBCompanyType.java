@@ -29,7 +29,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- * 
+ * Dies ist die Klasse für die Tabelle "companytypes". Hier werden alle Firmentypen gespeichert.
  * @author mohi
  */
 @Entity

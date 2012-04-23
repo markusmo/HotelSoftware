@@ -38,7 +38,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ *Dies ist die Klasse für die Tabelle "guests". Hier werden alle Gäste gespeichert.
  * @author mohi
  */
 @Entity

@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.parties;
 
 /**
- * Klasse die die Attribute einer Addresse hällt
+ * Klasse die die Attribute einer Addresse hällt. Hier werden alle Kontaktdaten einer Party (Gruppierung oder Person) gehalten.
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */

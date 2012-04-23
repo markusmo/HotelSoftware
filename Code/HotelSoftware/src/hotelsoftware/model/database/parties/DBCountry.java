@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *Dies ist die Klasse für die Tabelle "countries". Hier werden alle Laender gespeichert.
  * @author mohi
  */
 @Entity
