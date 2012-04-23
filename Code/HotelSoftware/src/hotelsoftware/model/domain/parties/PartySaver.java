@@ -131,7 +131,7 @@ public class PartySaver {
 				addresse.setEmail(temp.getEmail());
 				addresse.setPhone(temp.getPhone());
 				addresse.setFax(temp.getFax());
-				addresse.setCountry(temp.getCountry());
+				addresse.setIdCountry(temp.getIdCountry());
 			}
 		}
 

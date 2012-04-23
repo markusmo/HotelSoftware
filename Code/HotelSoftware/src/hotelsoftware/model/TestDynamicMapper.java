@@ -33,7 +33,7 @@ public class TestDynamicMapper
         roles.add(Role.create("Harry", new LinkedList<Permission>()));
         roles.add(Role.create("Todes", new LinkedList<Permission>()));
         
-        User user = User.create("Markus", "Mohatny", roles);
+        User user = User.create("Markus", "Mohanty", roles);
         
         DBUser dbUser = (DBUser) DynamicMapper.map(user);
         

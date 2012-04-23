@@ -59,7 +59,7 @@ public class DBPaymentMethod implements Serializable
     private Integer id;
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
-    private String name;
+    private String method;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaymentMethods")
     private Collection<DBInvoice> invoicesCollection;
 
@@ -84,13 +84,13 @@ public class DBPaymentMethod implements Serializable
 
     public DBPaymentMethod(String name)
     {
-        this.name = name;
+        this.method = name;
     }
 
     public DBPaymentMethod(Integer id, String name)
     {
         this.id = id;
-        this.name = name;
+        this.method = name;
     }
 
     public Integer getId()
@@ -103,14 +103,14 @@ public class DBPaymentMethod implements Serializable
         this.id = id;
     }
 
-    public String getName()
+    public String getMethod()
     {
-        return name;
+        return method;
     }
 
-    public void setName(String name)
+    public void setMethod(String method)
     {
-        this.name = name;
+        this.method = method;
     }
 
     /**
@@ -152,7 +152,7 @@ public class DBPaymentMethod implements Serializable
 
         for (DBPaymentMethod paymentmethods : retList)
         {
-            if (paymentmethods.getName().equals(method))
+            if (paymentmethods.getMethod().equals(method))
             {
                 return paymentmethods;
             }

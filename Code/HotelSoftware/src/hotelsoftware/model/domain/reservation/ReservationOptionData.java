@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface OptionData
+public interface ReservationOptionData
 {
 
     Date getExpiration();

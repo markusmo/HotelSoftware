@@ -93,8 +93,8 @@ public class StartState extends CheckInState
     @Override
     public void workWithReservation(ReservationData reservation)
     {
-        this.startDate = reservation.getStart();
-        this.endDate = reservation.getEnd();
+        this.startDate = reservation.getStartDate();
+        this.endDate = reservation.getEndDate();
         this.reservationItems = reservation.getReservationItemCollectionData();
 
         roomSelections = new HashMap<Integer, RoomSelection>();

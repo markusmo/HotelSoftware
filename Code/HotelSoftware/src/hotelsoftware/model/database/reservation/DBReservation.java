@@ -5,16 +5,12 @@
 package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.parties.DBPerson;
-import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +21,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,12 +29,10 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -87,11 +79,11 @@ public class DBReservation implements Serializable
     @Basic(optional = false)
     @Column(name = "start", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date start;
+    private Date startDate;
     @Basic(optional = false)
     @Column(name = "end", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date end;
+    private Date endDate;
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -153,8 +145,8 @@ public class DBReservation implements Serializable
     {
         this.id = id;
         this.reserationNumber = reserationNumber;
-        this.start = start;
-        this.end = end;
+        this.startDate = start;
+        this.endDate = end;
         this.created = created;
     }
 
@@ -415,24 +407,24 @@ public class DBReservation implements Serializable
         return "hotelsoftware.database.model.Reservations[ id=" + id + " ]";
     }
 
-    public Date getStart()
+    public Date getStartDate()
     {
-        return start;
+        return startDate;
     }
 
-    public void setStart(Date start)
+    public void setStartDate(Date startDate)
     {
-        this.start = start;
+        this.startDate = startDate;
     }
 
-    public Date getEnd()
+    public Date getEndDate()
     {
-        return end;
+        return endDate;
     }
 
-    public void setEnd(Date end)
+    public void setEndDate(Date endDate)
     {
-        this.end = end;
+        this.endDate = endDate;
     }
 
     public Date getCreated()

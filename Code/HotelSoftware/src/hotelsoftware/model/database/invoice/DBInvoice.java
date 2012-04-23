@@ -70,7 +70,7 @@ public class DBInvoice implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
-    private Collection<DBInvoiceItem> invoiceitemsCollection;
+    private Collection<DBInvoiceItem> invoiceitems;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBPaymentMethod idpaymentMethods;
@@ -88,16 +88,6 @@ public class DBInvoice implements Serializable
     public DBInvoice(Integer id)
     {
         this.id = id;
-    }
-
-    public Collection<DBInvoiceItem> getInvoiceitemsCollection()
-    {
-        return invoiceitemsCollection;
-    }
-
-    public void setInvoiceitemsCollection(Collection<DBInvoiceItem> invoiceitemsCollection)
-    {
-        this.invoiceitemsCollection = invoiceitemsCollection;
     }
 
     public DBInvoice(String invoiceNumber, BigDecimal discount, Date expiration,
@@ -167,12 +157,17 @@ public class DBInvoice implements Serializable
     @XmlTransient
     public Collection<DBInvoiceItem> getInvoiceitems()
     {
-        return invoiceitemsCollection;
+        return invoiceitems;
+    }
+
+    public boolean isFulfilled()
+    {
+        return fulfilled;
     }
 
     public void setInvoiceitems(Collection<DBInvoiceItem> invoiceitemsCollection)
     {
-        this.invoiceitemsCollection = invoiceitemsCollection;
+        this.invoiceitems = invoiceitemsCollection;
     }
 
     public DBPaymentMethod getIdpaymentMethods()
