@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.reservation.ReservationData;
@@ -24,12 +25,13 @@ public class RoomPanel extends javax.swing.JPanel
     private ReservationData reservation;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private int roomIndex;
-
+    private ButtonIconTabComponent iconTab;
     /**
      * Creates new form RoomPanel
      */
-    public RoomPanel()
+    public RoomPanel(ButtonIconTabComponent iconTab)
     {
+        this.iconTab = iconTab;
         reservation = cigc.getSelectedReservation();
         initComponents();
         init();
@@ -53,24 +55,25 @@ public class RoomPanel extends javax.swing.JPanel
 
             private void updateComboBoxRooms(String string)
             {
+                System.out.println(string);
                 ComboBoxFreeRooms.removeAll();
                 CategoryData cd = cigc.getCategories().toArray(new CategoryData[0])[ComboBoxCategories.getSelectedIndex()];
                 for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
                 {
-                    ComboBoxCategories.addItem(data.getNumber());
+                    ComboBoxFreeRooms.addItem(data.getNumber());
                 }
             }
         });
-
-        ComboBoxCategories.addActionListener(new ActionListener()
+ 
+     /*  ComboBoxCategories.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 cigc.changeRoom(roomIndex, (String) ComboBoxFreeRooms.getSelectedItem());
             }
-        });
+        });*/
         //############ Guests
-        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedAmount(); i++)
+        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
         {
             TabbedPaneGuests.addTab("Guest " + (i + 1), new GuestPanel());
             TabbedPaneGuests.setTabComponentAt(i, new ButtonTabComponent(TabbedPaneGuests));
@@ -85,6 +88,10 @@ public class RoomPanel extends javax.swing.JPanel
     public int getRoomIndex()
     {
         return roomIndex;
+    }
+    
+    public void setTabIcon(ImageIcon icon){
+        this.iconTab.setImagePanel(icon);
     }
 
     public void setRoomIndex(int roomIndex)

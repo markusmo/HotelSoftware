@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -37,6 +39,7 @@ public class CheckinTwo extends javax.swing.JPanel
 {
     private ReservationData reservation;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
+    private List<RoomPanel> rooms = new LinkedList<RoomPanel>();
 
     /**
      * Creates new form GUInr2
@@ -48,11 +51,11 @@ public class CheckinTwo extends javax.swing.JPanel
     }
     int i;
 
-    public void init()
+    private void init()
     {
         //################### Set TextBoxes
         reservation = cigc.getSelectedReservation();
-        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         textAreaComment.setText(reservation.getComment());
         textBoxArrival.setText(df.format(reservation.getStart()));
         textBoxDeparture.setText(df.format(reservation.getEnd()));
@@ -65,11 +68,14 @@ public class CheckinTwo extends javax.swing.JPanel
             int oldi = i;
             for (i = oldi; i < data.getAmount(); i++)
             {
-                RoomPanel room = new RoomPanel();
-                room.setRoomIndex(cigc.addRoom());
+                // cigc.addRoomSelection();
+                ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif"));
+                RoomPanel room = new RoomPanel(iconTab);
+                rooms.add(room);
+                // room.setRoomIndex(cigc.addRoomSelection());
+                room.setRoomIndex(cigc.getCounter());
                 TabbedPaneRooms.addTab("Room " + (i + 1), room);
-                TabbedPaneRooms.setTabComponentAt(i,
-                        new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif")));
+                TabbedPaneRooms.setTabComponentAt(i, iconTab);
                 //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
             }
         }
@@ -136,6 +142,11 @@ public class CheckinTwo extends javax.swing.JPanel
         jButton3.setEnabled(false);
 
         jButton4.setText("Abort");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservation details"));
 
@@ -174,7 +185,9 @@ public class CheckinTwo extends javax.swing.JPanel
         jLabel5.setText("Departure:");
 
         textAreaComment.setColumns(20);
+        textAreaComment.setLineWrap(true);
         textAreaComment.setRows(5);
+        textAreaComment.setWrapStyleWord(true);
         jScrollPane2.setViewportView(textAreaComment);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -315,12 +328,18 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        init();        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged
     {//GEN-HEADEREND:event_TabbedPaneRoomsCaretPositionChanged
     }//GEN-LAST:event_TabbedPaneRoomsCaretPositionChanged
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+                rooms.get(1).setTabIcon(new ImageIcon("src/resources/images/gh1.png"));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPaneRooms;
     private javax.swing.JButton jButton1;

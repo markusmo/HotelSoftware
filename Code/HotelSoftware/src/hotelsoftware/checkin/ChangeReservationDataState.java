@@ -7,6 +7,9 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.parties.PartyData;
+import hotelsoftware.model.domain.reservation.ReservationItemData;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -18,17 +21,22 @@ public class ChangeReservationDataState extends ChangeDataState
     {
         super(context);
     }
-    
+
+    ChangeReservationDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
+    {
+        super(context, counter, roomSelections, reservationItems);
+    }
+
     @Override
     public GuestData getGuest()
     {
         PartyData guest = reservation.getPartyData();
-        
+
         if (guest instanceof Guest)
         {
             return (GuestData) guest;
         }
-        
+
         return null;
     }
 }

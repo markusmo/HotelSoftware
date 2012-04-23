@@ -235,4 +235,9 @@ public class CheckInController
     {
         return state.getAllReservations();
     }
+
+    public int getCounter()
+    {
+        return state.counter;
+    }
 }

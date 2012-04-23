@@ -120,7 +120,7 @@ public class ReservationSaver
                 reservation.setStart(temp.getStart());
                 reservation.setOptionCollection(temp.getOptionCollection());
                 reservation.setParty(temp.getParty());
-                reservation.setReservationitemsCollection(temp.getReservationitemsCollection());
+                reservation.setReservationitems(temp.getReservationitems());
                 reservation.setCreated(temp.getCreated());
             }
         }

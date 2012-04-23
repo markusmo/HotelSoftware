@@ -55,7 +55,7 @@ public class DBRoomCategory implements Serializable
     private Collection<DBReservationItem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories", fetch= FetchType.LAZY)
     private Collection<DBRoom> roomsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
     private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
 
     public DBRoomCategory()
@@ -169,7 +169,7 @@ public class DBRoomCategory implements Serializable
     
     public static DBRoomCategory getRoomCategoryByName(String name)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         
         DBRoomCategory cats = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
@@ -189,7 +189,7 @@ public class DBRoomCategory implements Serializable
     
     public static Collection<DBRoom> getFreeRooms(DBRoomCategory category, Date start, Date ende)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         
         Collection<DBRoom> rooms = session.createCriteria(DBRoom.class)

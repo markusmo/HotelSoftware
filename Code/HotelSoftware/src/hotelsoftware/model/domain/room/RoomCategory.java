@@ -23,7 +23,7 @@ public class RoomCategory implements CategoryData
     private String name;
     private BigDecimal price;
     private BigDecimal minPrice;
-    private int bedAmount;
+    private int bedCount;
     private int id;
 
     public int getId()
@@ -40,9 +40,9 @@ public class RoomCategory implements CategoryData
     {
     }
 
-    public void setBedAmount(int bedAmount)
+    public void setBedCount(int bedCount)
     {
-        this.bedAmount = bedAmount;
+        this.bedCount = bedCount;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class RoomCategory implements CategoryData
     public RoomCategory create(String name, BigDecimal price, BigDecimal minprice,
             int bedAmound)
     {
-        return new RoomCategory(name, price, minprice, bedAmount);
+        return new RoomCategory(name, price, minprice, bedCount);
     }
 
     private RoomCategory(String name, BigDecimal price, BigDecimal minprice,
@@ -90,7 +90,7 @@ public class RoomCategory implements CategoryData
         this.name = name;
         this.price = price;
         this.minPrice = minprice;
-        this.bedAmount = bedAmount;
+        this.bedCount = bedAmount;
     }
 
     public static RoomCategory getCategoryByName(String name)
@@ -102,14 +102,14 @@ public class RoomCategory implements CategoryData
     public static Collection<RoomCategory> getAllCategorys()
     {
         Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
-        return (Collection<RoomCategory>) DynamicMapper.map(dbc);
+        return (Collection<RoomCategory>) DynamicMapper.mapCollection(dbc);
     }
 
     public Collection<Room> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);
         Collection<DBRoom> dbc = DBRoomCategory.getFreeRooms(cat, start, ende);
-        return (Collection<Room>) DynamicMapper.map(dbc);
+        return (Collection<Room>) DynamicMapper.mapCollection(dbc);
     }
 
     public Collection<Room> getAllRooms()
@@ -117,8 +117,8 @@ public class RoomCategory implements CategoryData
         return Room.getRoomsByCategory(this);
     }
     
-    public int getBedAmount()
+    public int getBedCount()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return bedCount;
     }
 }

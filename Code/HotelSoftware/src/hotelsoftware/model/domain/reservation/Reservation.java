@@ -71,7 +71,7 @@ public class Reservation implements ReservationData
         return party;
     }
 
-    public Collection<ReservationItem> getReservationitemsCollection()
+    public Collection<ReservationItem> getReservationitems()
     {
         return reservationItemCollection;
     }
@@ -107,7 +107,7 @@ public class Reservation implements ReservationData
         this.party = party;
     }
 
-    public void setReservationitemsCollection(Collection<ReservationItem> setreservationItemCollection)
+    public void setReservationitems(Collection<ReservationItem> setreservationItemCollection)
     {
         this.reservationItemCollection = setreservationItemCollection;
     }
@@ -143,8 +143,8 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitemsCollection());
-    }
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitems());
+    } 
     
     public int getGuestAmount()
     {

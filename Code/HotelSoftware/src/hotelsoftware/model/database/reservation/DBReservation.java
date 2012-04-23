@@ -19,6 +19,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -108,7 +109,7 @@ public class DBReservation implements Serializable
      */
     @Column(name = "comment", length = 255)
     private String comment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations", fetch = FetchType.EAGER)
     private Collection<DBReservationItem> reservationitemsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
     private Collection<DBReservationOption> reservationoptionsCollection;
