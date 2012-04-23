@@ -3,7 +3,11 @@ package hotelsoftware.model.domain.parties;
 import hotelsoftware.model.domain.invoice.InvoiceData;
 
 import java.util.Collection;
-
+/**
+ * 
+ * @author Hubert
+ *
+ */
 public class PrivateCustomer extends Customer {
     
 	private String fname;
@@ -55,7 +59,15 @@ public class PrivateCustomer extends Customer {
 	public void setGender(Character gender) {
 		this.gender = gender;
 	}
-
+/**
+ * sucht in der datenbank nach einem PrivateCustomer
+ * @param firstname
+ * @param lastname
+ * @return
+ * @throws CompanyNotFoundException
+ * @throws PrivateCustomerNotFoundException
+ * @throws GuestNotFoundException
+ */
 	public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
 			throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException {
 		return PartyFacade.getInstance().getPrivateCustomerByName(firstname,lastname);

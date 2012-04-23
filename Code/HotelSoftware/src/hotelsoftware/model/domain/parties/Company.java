@@ -13,6 +13,7 @@ import java.util.LinkedList;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class Company extends Customer implements CompanyData {
 	private String companyname;
@@ -70,7 +71,12 @@ public class Company extends Customer implements CompanyData {
 	public void addContactPerson(Party p) {
 		contactPersons.add(p);
 	}
-
+/**
+ * sucht nach einer Firma anhand eines Namens
+ * @param name
+ * @return
+ * @throws CompanyNotFoundException
+ */
 	public static Company getCompanyByName(String name)
 			throws CompanyNotFoundException {
 		return PartyFacade.getInstance().getCompanyByName(name);

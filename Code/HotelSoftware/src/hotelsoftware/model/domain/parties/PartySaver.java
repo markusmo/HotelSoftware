@@ -20,6 +20,7 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 /**
  * 
  * @author Hubert
+ *
  */
 public class PartySaver {
 	private PartySaver() {
@@ -28,11 +29,23 @@ public class PartySaver {
 	public static PartySaver getInstance() {
 		return PartySaverHolder.INSTANCE;
 	}
-
+/**
+ * 
+ * @author Hubert
+ *
+ */
 	private static class PartySaverHolder {
 		private static final PartySaver INSTANCE = new PartySaver();
 	}
-
+/**
+ * Speichert oder akualisiert die Informationen in der Datebank
+ * @param addresses
+ * @param companytypes
+ * @param companys
+ * @param privateCustomers
+ * @param guests
+ * @throws FailedToSaveToDatabaseException
+ */
 	public void saveOrUpdate(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,
 			Collection<PrivateCustomer> privateCustomers,
@@ -86,7 +99,14 @@ public class PartySaver {
 			session.close();
 		}
 	}
-
+/**
+ * macht änderungen rückgängig
+ * @param addresses
+ * @param companytypes
+ * @param companys
+ * @param privateCustomers
+ * @param guests
+ */
 	public void rollback(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,
 			Collection<PrivateCustomer> privateCustomers,

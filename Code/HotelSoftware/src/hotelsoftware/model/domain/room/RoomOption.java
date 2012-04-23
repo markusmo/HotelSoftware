@@ -11,6 +11,7 @@ import java.util.Collection;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class RoomOption implements RoomOptionData {
 	private Integer id;

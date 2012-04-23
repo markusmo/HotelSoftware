@@ -16,6 +16,7 @@ import java.util.LinkedList;
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class Guest extends Party implements GuestData
 {

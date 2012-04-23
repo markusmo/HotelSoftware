@@ -1,5 +1,9 @@
 package hotelsoftware.model.domain.parties;
-
+/**
+ * 
+ * @author Hubert
+ *
+ */
 public class PrivateCustomerNotFoundException extends Exception {
 
 	public PrivateCustomerNotFoundException() {

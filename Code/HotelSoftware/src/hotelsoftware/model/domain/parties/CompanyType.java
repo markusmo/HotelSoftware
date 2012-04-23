@@ -14,6 +14,7 @@ import java.util.Collection;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class CompanyType implements CompanyTypeData {
 
@@ -46,7 +47,10 @@ public class CompanyType implements CompanyTypeData {
         {
             return typ;
         }
-        
+        /**
+         * gibt alle Typen zurück
+         * @return
+         */
         @SuppressWarnings("unchecked")
 		public static Collection<CompanyType> getAllTypes()
         {

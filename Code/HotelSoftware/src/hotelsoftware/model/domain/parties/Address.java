@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.parties;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * @author Hubert
  */
 public class Address implements AddressData {
 
