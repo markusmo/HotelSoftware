@@ -41,16 +41,21 @@ public class DynamicMapper
 
                     if (m2 != null)
                     {
-                        if (m2.getReturnType().equals(Collection.class))
+                        Method m3 = getMethod(m, returnvalue);
+                        
+                        if (m3 != null && m3.invoke(returnvalue) == null)
                         {
-                            m.invoke(returnvalue, mapCollection((Collection) m2.invoke(urObject)));
-                        }
-                        else
-                        {
-                            Object o = m2.invoke(urObject);
-                            if(o.getClass().getName().contains("hotelsoftware"))
-                                o = map(o);
-                            m.invoke(returnvalue, o);
+                            if (m2.getReturnType().equals(Collection.class))
+                            {
+                                m.invoke(returnvalue, mapCollection((Collection) m2.invoke(urObject)));
+                            }
+                            else
+                            {
+                                Object o = m2.invoke(urObject);
+                                if(o.getClass().getName().contains("hotelsoftware"))
+                                    o = map(o);
+                                m.invoke(returnvalue, o);
+                            }
                         }
                     }
                 }

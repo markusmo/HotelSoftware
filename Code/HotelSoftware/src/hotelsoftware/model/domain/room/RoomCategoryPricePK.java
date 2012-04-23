@@ -11,15 +11,15 @@ package hotelsoftware.model.domain.room;
 public class RoomCategoryPricePK
 {
     
-    private int idRoomCategories;
+    private Integer idRoomCategories;
     
-    private int idSeason;
+    private Integer idSeason;
 
     public RoomCategoryPricePK()
     {
     }
 
-    public int getIdRoomCategories()
+    public Integer getIdRoomCategories()
     {
         return idRoomCategories;
     }
@@ -29,7 +29,7 @@ public class RoomCategoryPricePK
         this.idRoomCategories = idRoomCategories;
     }
 
-    public int getIdSeason()
+    public Integer getIdSeason()
     {
         return idSeason;
     }

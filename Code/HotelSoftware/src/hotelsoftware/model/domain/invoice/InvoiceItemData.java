@@ -16,7 +16,7 @@ import java.util.Date;
 public interface InvoiceItemData
 {
 
-    int getAmount();
+    Integer getAmount();
 
     Date getCreated();
 

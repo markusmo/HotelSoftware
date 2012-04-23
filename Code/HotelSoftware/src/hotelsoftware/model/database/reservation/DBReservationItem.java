@@ -39,7 +39,7 @@ public class DBReservationItem implements Serializable
     protected DBReservationItemPK reservationitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
-    private int amount;
+    private Integer amount;
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
     private DBRoomCategory roomcategories;
@@ -76,7 +76,7 @@ public class DBReservationItem implements Serializable
         this.reservationitemsPK = reservationitemsPK;
     }
 
-    public int getAmount()
+    public Integer getAmount()
     {
         return amount;
     }

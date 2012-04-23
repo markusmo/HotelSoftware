@@ -32,6 +32,6 @@ public interface ReservationData
 
     public String getReservationNumber();
     
-    int getGuestAmount();
+    Integer getGuestAmount();
     
 }

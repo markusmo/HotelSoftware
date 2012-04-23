@@ -51,7 +51,7 @@ public class ReservationFacade
         return (Collection<Reservation>) DynamicMapper.map(DBReservation.getAllReservations());
     }
     
-    public int getGuestAmount(Reservation reservation)
+    public Integer getGuestAmount(Reservation reservation)
     {
         DBReservation res = (DBReservation) DynamicMapper.map(reservation);
         return res.getGuestAmount();

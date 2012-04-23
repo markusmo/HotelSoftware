@@ -2,32 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.database.room;
+package hotelsoftware.model.domain.room;
 
-import java.io.Serializable;
+import hotelsoftware.model.database.room.DBRoomsRoomStatusPK;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 /**
  *
- * @author mohi
+ * @author Dunst
  */
-@Embeddable
-public class DBRoomsRoomStatusPK implements Serializable
+public class RoomsRoomStatusPK
 {
-    @Basic(optional = false)
-    @Column(name = "idRooms", nullable = false)
     private Integer idRooms;
-    @Basic(optional = false)
-    @Column(name = "idRoomStatus", nullable = false)
     private Integer idRoomStatus;
 
-    public DBRoomsRoomStatusPK()
+    public RoomsRoomStatusPK()
     {
     }
 
-    public DBRoomsRoomStatusPK(int idRooms, int idRoomStatus)
+    public RoomsRoomStatusPK(int idRooms, int idRoomStatus)
     {
         this.idRooms = idRooms;
         this.idRoomStatus = idRoomStatus;
@@ -70,7 +64,7 @@ public class DBRoomsRoomStatusPK implements Serializable
         {
             return false;
         }
-        DBRoomsRoomStatusPK other = (DBRoomsRoomStatusPK) object;
+        RoomsRoomStatusPK other = (RoomsRoomStatusPK) object;
         if(this.idRooms != other.idRooms)
         {
             return false;
@@ -87,5 +81,4 @@ public class DBRoomsRoomStatusPK implements Serializable
     {
         return "hotelsoftware.database.model.RoomsroomstatusPK[ idRooms=" + idRooms + ", idRoomStatus=" + idRoomStatus + " ]";
     }
-    
 }

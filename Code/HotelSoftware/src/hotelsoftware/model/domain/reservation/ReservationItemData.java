@@ -13,7 +13,7 @@ import hotelsoftware.model.domain.room.CategoryData;
 public interface ReservationItemData
 {
 
-    int getAmount();
+    public Integer getAmount();
 
     CategoryData getReservedCategoryData();
     

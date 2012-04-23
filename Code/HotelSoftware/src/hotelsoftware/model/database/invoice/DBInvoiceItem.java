@@ -50,7 +50,7 @@ private static final long serialVersionUID = 1L;
     protected DBInvoiceItemPK invoiceitemsPK;
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
-    private int amount;
+    private Integer amount;
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1L;
         this.invoiceitemsPK = invoiceitemsPK;
     }
 
-    public int getAmount()
+    public Integer getAmount()
     {
         return amount;
     }
