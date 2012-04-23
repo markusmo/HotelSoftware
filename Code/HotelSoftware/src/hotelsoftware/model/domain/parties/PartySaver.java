@@ -39,12 +39,12 @@ public class PartySaver {
 	}
 /**
  * Speichert oder akualisiert die Informationen in der Datebank
- * @param addresses
- * @param companytypes
- * @param companys
- * @param privateCustomers
- * @param guests
- * @throws FailedToSaveToDatabaseException
+ * @param addresses addressen
+ * @param companytypes fimentypen
+ * @param companys firmen
+ * @param privateCustomers privatkunden
+ * @param guests gänste
+ * @throws FailedToSaveToDatabaseException konnte nicht in der datenbank eingetragen werden
  */
 	public void saveOrUpdate(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,
@@ -101,11 +101,11 @@ public class PartySaver {
 	}
 /**
  * macht änderungen rückgängig
- * @param addresses
- * @param companytypes
- * @param companys
- * @param privateCustomers
- * @param guests
+ * @param addresses adressen
+ * @param companytypes firmentypen
+ * @param companys firmen
+ * @param privateCustomers privatkunden
+ * @param guests gäste
  */
 	public void rollback(Collection<Address> addresses,
 			Collection<CompanyType> companytypes, Collection<Company> companys,

@@ -61,12 +61,12 @@ public class PrivateCustomer extends Customer {
 	}
 /**
  * sucht in der datenbank nach einem PrivateCustomer
- * @param firstname
- * @param lastname
- * @return
- * @throws CompanyNotFoundException
- * @throws PrivateCustomerNotFoundException
- * @throws GuestNotFoundException
+ * @param firstname vorname
+ * @param lastname nachname
+ * @return Objekt von PrivateCustomer
+ * @throws CompanyNotFoundException Firma nicht gefunden
+ * @throws PrivateCustomerNotFoundException Kunde nicht gefunden
+ * @throws GuestNotFoundException Gast nicht gefunden
  */
 	public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
 			throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException {

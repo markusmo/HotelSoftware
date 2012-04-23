@@ -49,7 +49,7 @@ public class CompanyType implements CompanyTypeData {
         }
         /**
          * gibt alle Typen zurück
-         * @return
+         * @return Kollektion aus Firmentypen
          */
         @SuppressWarnings("unchecked")
 		public static Collection<CompanyType> getAllTypes()

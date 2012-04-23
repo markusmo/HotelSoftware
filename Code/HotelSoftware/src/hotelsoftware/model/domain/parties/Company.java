@@ -73,9 +73,9 @@ public class Company extends Customer implements CompanyData {
 	}
 /**
  * sucht nach einer Firma anhand eines Namens
- * @param name
- * @return
- * @throws CompanyNotFoundException
+ * @param name firmenname
+ * @return Firmenobjekt
+ * @throws CompanyNotFoundException Firma wurde nicht gefunden
  */
 	public static Company getCompanyByName(String name)
 			throws CompanyNotFoundException {

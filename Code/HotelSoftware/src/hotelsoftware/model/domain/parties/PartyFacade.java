@@ -46,9 +46,9 @@ public class PartyFacade
     }
 /**
  * sucht nach einer Firma mit entsprechendem nammen
- * @param name
- * @return
- * @throws CompanyNotFoundException
+ * @param name name 
+ * @return Firmenobjekt
+ * @throws CompanyNotFoundException firma nicht gefunden
  */
     public Company getCompanyByName(String name)
             throws CompanyNotFoundException
@@ -65,11 +65,11 @@ public class PartyFacade
 
     /**
      * sucht einen PrivateCustomer mit entsprechendem namen
-     * @param firstName
-     * @param lastName
-     * @return
-     * @throws PrivateCustomerNotFoundException
-     * @throws GuestNotFoundException
+     * @param firstName vorname
+     * @param lastName nachname
+     * @return privatkundenobjekt
+     * @throws PrivateCustomerNotFoundException privatkunde nicht gefunden
+     * @throws GuestNotFoundException gast nicht gefunden
      */
     public PrivateCustomer getPrivateCustomerByName(String firstName,
             String lastName) throws PrivateCustomerNotFoundException,
@@ -91,11 +91,11 @@ public class PartyFacade
     }
 /**
  * sucht nach einem Gast anhand eines Namens
- * @param firstName
- * @param lastName
- * @return
- * @throws CompanyNotFoundException
- * @throws GuestNotFoundException
+ * @param firstName vorname
+ * @param lastName nachname
+ * @return Collektion aus Gästen
+ * @throws CompanyNotFoundException Firma nicht gefunden
+ * @throws GuestNotFoundException Gast nicht gefunden
  */
     @SuppressWarnings("unchecked")
     public Collection<Guest> getGuestByName(String firstName, String lastName)
