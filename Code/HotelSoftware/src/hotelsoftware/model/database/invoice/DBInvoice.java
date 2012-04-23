@@ -69,7 +69,7 @@ public class DBInvoice implements Serializable
     @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoices")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
     private Collection<DBInvoiceItem> invoiceitems;
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)

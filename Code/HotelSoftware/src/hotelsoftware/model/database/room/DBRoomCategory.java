@@ -16,6 +16,7 @@ import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.Criteria;
 
 /**
  *
@@ -53,7 +54,7 @@ public class DBRoomCategory implements Serializable
     private int bedCount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Collection<DBReservationItem> reservationitems;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoomCategories", fetch= FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.LAZY)
     private Collection<DBRoom> rooms;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
     private Collection<DBRoomCategoryPrice> prices;
@@ -187,16 +188,18 @@ public class DBRoomCategory implements Serializable
         return cats;
     }
     
-    public static Collection<DBRoom> getFreeRooms(DBRoomCategory category, Date start, Date ende)
+    public Collection<DBRoom> getFreeRooms(Date start, Date ende)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         
-        Collection<DBRoom> rooms = session.createCriteria(DBRoom.class)
-                .setFetchMode("DBHabtiation", FetchMode.JOIN)
-                .add(Restrictions.and(Restrictions.not(Restrictions.eq("start", start)), Restrictions.not(Restrictions.eq("end", ende))))
-                .add(Restrictions.eq("ididRoomCategories", category))
-                .list();
+        Criteria criteria = session.createCriteria(DBRoom.class);
+        criteria = criteria.createAlias("habitations.idRooms", "a1");
+        criteria = criteria.add(Restrictions.and(Restrictions.not(Restrictions.eq("a1.start", start)), Restrictions.not(Restrictions.eq("a1.end", ende))))
+                .add(Restrictions.eq("idRoomCategories", id));
+                
+         
+        Collection<DBRoom> rooms = criteria.list();
         
         session.close();
         return rooms;

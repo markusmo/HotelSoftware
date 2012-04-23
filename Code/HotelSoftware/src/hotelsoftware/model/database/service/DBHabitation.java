@@ -45,11 +45,11 @@ import org.hibernate.Transaction;
 public class DBHabitation implements Serializable
 {
     @Basic(optional = false)
-    @Column(name = "start", nullable = false)
+    @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
     @Basic(optional = false)
-    @Column(name = "end", nullable = false)
+    @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
     @Basic(optional = false)
@@ -79,7 +79,7 @@ public class DBHabitation implements Serializable
     @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBService idServices;
-    @OneToMany(mappedBy="idHabitations", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
     private Collection<DBInvoiceItem> invoiceItemCollection;
 
     public DBHabitation()
