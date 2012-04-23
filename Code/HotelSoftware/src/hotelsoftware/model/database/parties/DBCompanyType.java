@@ -107,7 +107,11 @@ public class DBCompanyType implements Serializable {
 	public String toString() {
 		return "hotelsoftware.database.model.Companytypes[ id=" + id + " ]";
 	}
-
+/**
+ *Diese Methode gibt alle FirmenTypen in einer Liste zurück, die bisher erstellt wurden 
+ * @return gibt alle Typen in der Tabelle zurück
+ * @throws HibernateException Dieser fehler tritt auf, falls hibernate eine fehlermeldung wirft
+ */
 	public static List<DBCompanyType> getAllTypes() throws HibernateException {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction ts = session.beginTransaction();
