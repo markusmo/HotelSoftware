@@ -137,7 +137,12 @@ public class DBCompany implements Serializable {
 	public String toString() {
 		return "hotelsoftware.database.model.Companies[ id=" + id + " ]";
 	}
-
+/**
+ * Diese Methode sucht nach einer Firma anhand eines Namens.
+ * @param name Dies ist der Name der Firma
+ * @return Es wird ein Objekt der Klasse DBCompany zurückgegeben
+ * @throws HibernateException Dieser Fehler wird geworfen, falls ein Problem mit Hibernate besteht.
+ */
 	public static DBCompany getCompanyByName(String name)
 			throws HibernateException {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

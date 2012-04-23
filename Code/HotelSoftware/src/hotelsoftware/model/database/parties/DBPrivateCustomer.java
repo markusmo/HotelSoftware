@@ -140,7 +140,12 @@ public class DBPrivateCustomer implements Serializable
     {
         return "hotelsoftware.model.database.parties.Privatecustomer[ id=" + id + " ]";
     }
-    
+   /**
+    * Diese Methode sucht nach einem Privatkunden mithilfe eines namens. Hierbei reicht der Vor- oder der Nachname
+    * @param firstName der Vorname der Privatperson.
+    * @param lastName Dies ist der Nachname der PrivatPerson.
+    * @return Diese Methode gibt ein Objekt vom typ DBPrivteCustomer zurück.
+    */
     public static DBPrivateCustomer getPrivateCustomerByName(String firstName, String lastName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

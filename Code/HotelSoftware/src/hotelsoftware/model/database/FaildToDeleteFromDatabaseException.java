@@ -5,7 +5,7 @@
 package hotelsoftware.model.database;
 
 /**
- *
+ * Diese Fehlermeldung tritt auf, wenn ein Fehler bei der Löschung eines Datensatzes in der Datenbank auftritt.
  * @author mohi
  */
 public class FaildToDeleteFromDatabaseException extends Exception

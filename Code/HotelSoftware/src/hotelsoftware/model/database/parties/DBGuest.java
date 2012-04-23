@@ -58,6 +58,11 @@ import org.hibernate.criterion.Restrictions;
 //})
 public class DBGuest implements Serializable
 {
+	/**
+	 * Diese Methode sucht nach einem Gast mithilfe einer Reservierung
+	 * @param reservation ist eine Reservierung die für einen gast reserviert
+	 * @return gibt ein Objekt vom Gast zurück
+	 */
     public static Object getGuestFromReservation(Reservation reservation)
     {
         throw new UnsupportedOperationException("Not yet implemented");
@@ -129,7 +134,11 @@ public class DBGuest implements Serializable
     {
         this.idPersons = idPersons;
     }
-
+/**
+ * sucht einen Gast mithilfe einer reservierungsnummer heraus.
+ * @param reservationNumber dies ist die nummer welche die reservierung identifiziert
+ * @return gibt den passenden Datensatz vom typ DBGuest zurück
+ */
     public static DBGuest getGuestFromReservationNumber(String reservationNumber)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -179,7 +188,12 @@ public class DBGuest implements Serializable
     {
         return "hotelsoftware.database.model.Guests[ id=" + id + " ]";
     }
-
+/**
+ * Diese Methode sucht nach einen Gast mithilfe des Namens
+ * @param firstName dies ist der Vorname des Gastes.
+ * @param lastName dies ist der Nachname des Gastes.
+ * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest enthällt.
+ */
     public static Collection<DBGuest> getGuestsByName(String firstName, String lastName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
