@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
 //})
 public class DBCountry implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountries")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountry")
     private Collection<DBAddress> dBAddressCollection;
     private static final long serialVersionUID = 1L;
     @Id

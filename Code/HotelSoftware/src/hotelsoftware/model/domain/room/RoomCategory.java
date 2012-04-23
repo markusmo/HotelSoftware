@@ -117,7 +117,7 @@ public class RoomCategory implements CategoryData
     public Collection<Room> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);
-        Collection<DBRoom> dbc = DBRoomCategory.getFreeRooms(cat, start, ende);
+        Collection<DBRoom> dbc = cat.getFreeRooms(start, ende);
         return (Collection<Room>) DynamicMapper.mapCollection(dbc);
     }
 
