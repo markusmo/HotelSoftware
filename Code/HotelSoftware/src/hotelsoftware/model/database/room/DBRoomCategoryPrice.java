@@ -16,29 +16,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "roomcategoryprices", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Roomcategoryprices.findAll", query = "SELECT r FROM Roomcategoryprices r"),
-//    @NamedQuery(name = "Roomcategoryprices.findByIdRoomCategories", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idRoomCategories = :idRoomCategories"),
-//    @NamedQuery(name = "Roomcategoryprices.findByIdSeason", query = "SELECT r FROM Roomcategoryprices r WHERE r.roomcategorypricesPK.idSeason = :idSeason"),
-//    @NamedQuery(name = "Roomcategoryprices.findByPrice", query = "SELECT r FROM Roomcategoryprices r WHERE r.price = :price"),
-//    @NamedQuery(name = "Roomcategoryprices.findByPriceMin", query = "SELECT r FROM Roomcategoryprices r WHERE r.priceMin = :priceMin")
-//})
 public class DBRoomCategoryPrice implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected DBRoomCategoryPricePK roomcategorypricesPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+    
     @Basic(optional = false)
     @Column(name = "priceMin", nullable = false, precision = 10, scale = 2)
     private BigDecimal priceMin;
+    
     @JoinColumn(name = "idSeasons", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBSeason seasons;
+    
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBRoomCategory roomcategories;

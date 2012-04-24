@@ -73,7 +73,7 @@ public class DBReservation implements Serializable
     @Column(name = "comment", length = 255)
     private String comment;
     
-    @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
     @ManyToOne(optional = false)
     private DBParty party;
     
@@ -122,7 +122,7 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM Reservations r WHERE r.idPersons = ( SELECT idParties FROM guests g WHERE g.fname like '" + fname + "%' AND g.lname like '" + lname + "%') ";
+        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + fname + "%' AND g.lname like '" + lname + "%') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
 
@@ -144,7 +144,7 @@ public class DBReservation implements Serializable
         ts.begin();
 
         System.out.println(lname + "  " + fname);
-        String query = "SELECT * FROM Reservations r WHERE r.idPersons = ( SELECT idPersons FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
+        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
         sqlquery.addEntity(DBReservation.class);

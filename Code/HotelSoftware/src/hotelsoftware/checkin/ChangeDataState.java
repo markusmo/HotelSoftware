@@ -9,10 +9,10 @@ import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationItemData;
-import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
@@ -89,7 +89,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         RoomCategory cat = (RoomCategory) category;
 
@@ -106,9 +106,9 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Set<CategoryData> getAllCategories()
+    public Set<RoomCategoryData> getAllCategories()
     {
-        return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
+        return new HelperFunctions<RoomCategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
     }
 
     @Override

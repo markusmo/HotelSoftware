@@ -49,35 +49,36 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-//    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-//    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-//    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-//})
 public class DBUser implements Serializable
 {
     @ManyToMany(mappedBy = "userCollection")
     private Set<DBRole> roleCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
     private Set<DBHabitation> dBHabitationCollection;
+    
     @OneToMany(mappedBy = "idUsers")
     private Set<DBReservation> dBReservationCollection;
+    
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
     private Set<DBInvoice> dBInvoiceCollection;
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "username", nullable = false, length = 255)
     private String username;
+    
     @Basic(optional = false)
     @Column(name = "password", nullable = false, length = 32)
     private String password;

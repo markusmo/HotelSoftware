@@ -5,7 +5,6 @@
 package hotelsoftware.model.database.service;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,20 +14,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "services", catalog = "roomanizer", schema = "")
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DBService implements Serializable
 {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "idServices", nullable = false)
+    private Integer idServices;
     @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBServiceType idServiceTypes;
@@ -39,17 +34,17 @@ public class DBService implements Serializable
 
     public DBService(Integer id)
     {
-        this.id = id;
+        this.idServices = id;
     }
 
-    public Integer getId()
+    public Integer getIdServices()
     {
-        return id;
+        return idServices;
     }
 
-    public void setId(Integer id)
+    public void setIdServices(Integer id)
     {
-        this.id = id;
+        this.idServices = id;
     }
 
     public DBServiceType getIdServiceTypes()
@@ -66,7 +61,7 @@ public class DBService implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idServices != null ? idServices.hashCode() : 0);
         return hash;
     }
 
@@ -74,33 +69,21 @@ public class DBService implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBService))
+        if (!(object instanceof DBService))
         {
             return false;
         }
         DBService other = (DBService) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.idServices == null && other.idServices != null) || (this.idServices != null && !this.idServices.equals(other.idServices)))
         {
             return false;
         }
         return true;
     }
-    
-    
 
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Services[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Services[ id=" + idServices + " ]";
     }
-
-    public BigDecimal getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price)
-    {
-        this.price = price;
-    }   
 }

@@ -32,7 +32,7 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "guests", catalog = "roomanizer", schema = "")
 @XmlRootElement
-@PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "id")
+@PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "idParties")
 public class DBGuest extends DBParty implements Serializable
 {
     /**
@@ -58,41 +58,20 @@ public class DBGuest extends DBParty implements Serializable
     @Temporal(TemporalType.DATE)
     private Date birthday;
     
-    private static final long serialVersionUID = 1L;
-    
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false, insertable = false, updatable = false)*/
-    private Integer id;
+    private static final long serialVersionUID = 1;
     
     @JoinTable(name = "allocations", joinColumns =
     {
-        @JoinColumn(name = "idGuests", referencedColumnName = "id", nullable = false)
+        @JoinColumn(name = "idGuests", referencedColumnName = "idParties", nullable = false)
     }, inverseJoinColumns =
     {
-        @JoinColumn(name = "idService", referencedColumnName = "id", nullable = false)
+        @JoinColumn(name = "idService", referencedColumnName = "idServices", nullable = false)
     })
     @ManyToMany
     private Set<DBHabitation> habitationsCollection;
 
     public DBGuest()
     {
-    }
-
-    public DBGuest(Integer id)
-    {
-        this.id = id;
-    }
-
-    public Integer getId()
-    {
-        return this.id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
     }
 
     @XmlTransient
@@ -118,7 +97,7 @@ public class DBGuest extends DBParty implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idPersons FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
+        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idParties FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
         //Query countQuery = session.getNamedQuery("Reservations.countGuests");
@@ -136,7 +115,7 @@ public class DBGuest extends DBParty implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
         return hash;
     }
 
@@ -149,8 +128,8 @@ public class DBGuest extends DBParty implements Serializable
             return false;
         }
         DBGuest other = (DBGuest) object;
-        if ((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id)))
+        if ((this.getIdParties() == null && other.getIdParties() != null)
+                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
         {
             return false;
         }
@@ -160,7 +139,7 @@ public class DBGuest extends DBParty implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Guests[ idGuest=" + id + " ]";
+        return "hotelsoftware.database.model.Guests[ id=" + getIdParties() + " ]";
     }
 
     /**

@@ -19,18 +19,15 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "privatePerson", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@PrimaryKeyJoinColumn(name="idCustomers", referencedColumnName="id")
-public class DBPrivateCustomer implements Serializable
+@PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
+public class DBPrivateCustomer extends DBCustomer implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false, insertable=false, updatable=false)
-    private Integer id;
+
     @Basic(optional = false)
     @Column(name = "fname", nullable = false, length = 255)
     private String fname;
+    
     @Basic(optional = false)
     @Column(name = "lname", nullable = false, length = 255)
     private String lname;
@@ -39,26 +36,11 @@ public class DBPrivateCustomer implements Serializable
     {
     }
 
-    public DBPrivateCustomer(Integer id)
-    {
-        this.id = id;
-    }
 
-    public DBPrivateCustomer(Integer id, String fname, String lname)
+    public DBPrivateCustomer(String fname, String lname)
     {
-        this.id = id;
         this.fname = fname;
         this.lname = lname;
-    }
-
-    public Integer getId()
-    {
-        return this.id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
     }
 
     public String getFname()
@@ -85,7 +67,7 @@ public class DBPrivateCustomer implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
         return hash;
     }
 
@@ -98,8 +80,8 @@ public class DBPrivateCustomer implements Serializable
             return false;
         }
         DBPrivateCustomer other = (DBPrivateCustomer) object;
-        if ((this.id == null && other.id != null) || 
-                (this.id != null && !this.id.equals(other.id)))
+        if ((this.getIdParties() == null && other.getIdParties() != null) || 
+                (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
         {
             return false;
         }
@@ -109,7 +91,7 @@ public class DBPrivateCustomer implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.model.database.parties.Privatecustomer[ idPrivateCustomer=" + id + " ]";
+        return "hotelsoftware.model.database.parties.Privatecustomer[ id=" + getIdParties() + " ]";
     }
    /**
     * Diese Methode sucht nach einem Privatkunden mithilfe eines namens. Hierbei reicht der Vor- oder der Nachname

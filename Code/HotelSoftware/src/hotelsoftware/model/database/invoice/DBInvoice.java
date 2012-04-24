@@ -72,7 +72,7 @@ public class DBInvoice implements Serializable
     @ManyToOne(optional = false)
     private DBPaymentMethod idpaymentMethods;
     
-    @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idCustomers", referencedColumnName = "idParties", nullable = false)
     @ManyToOne(optional = false)
     private DBCustomer idCustomers;
     

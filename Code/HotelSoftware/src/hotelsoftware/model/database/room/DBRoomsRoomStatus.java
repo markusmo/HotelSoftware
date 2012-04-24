@@ -22,16 +22,21 @@ public class DBRoomsRoomStatus implements Serializable
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
+    
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
+    
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected DBRoomsRoomStatusPK roomsroomstatusPK;
+    
     @JoinColumn(name = "idRoomStatus", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBRoomStatus roomstatus;
+    
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(fetch= FetchType.LAZY)
     private DBRoom rooms;

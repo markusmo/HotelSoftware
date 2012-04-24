@@ -25,8 +25,8 @@ public class DBParty implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "idParties", nullable = false)
+    private Integer idParties;
     
     @ManyToMany(mappedBy = "contactPersons")
     private Set<DBCompany> companiesCollection;
@@ -64,17 +64,17 @@ public class DBParty implements Serializable
 
     public DBParty(Integer id)
     {
-        this.id = id;
+        this.idParties = id;
     }
 
-    public Integer getId()
+    public Integer getIdParties()
     {
-        return id;
+        return idParties;
     }
 
-    public void setId(Integer id)
+    public void setIdParties(Integer id)
     {
-        this.id = id;
+        this.idParties = id;
     }
 
     @XmlTransient
@@ -113,7 +113,7 @@ public class DBParty implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idParties != null ? idParties.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +126,7 @@ public class DBParty implements Serializable
             return false;
         }
         DBParty other = (DBParty) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if((this.idParties == null && other.idParties != null) || (this.idParties != null && !this.idParties.equals(other.idParties)))
         {
             return false;
         }
@@ -136,7 +136,7 @@ public class DBParty implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Persons[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Persons[ id=" + idParties + " ]";
     }
     
 }
