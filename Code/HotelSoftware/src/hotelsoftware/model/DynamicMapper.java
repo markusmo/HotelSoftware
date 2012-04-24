@@ -28,62 +28,62 @@ public class DynamicMapper
      *
      * Die Getter und Setter müssen getXYZ bzw setXYZ heißen und public sein
      */
-    private static HashMap<Integer, Object> hashedObjects = new HashMap<Integer, Object>();
-
     public static Object map(Object urObject)
     {
-        try
+        return map(urObject, 10);
+    }
+
+    private static Object map(Object urObject, int counter)
+    {
+        if (counter > 0)
         {
-            Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
-            Object returnvalue = newClass.newInstance();
-
-            for (Method setterMethod : returnvalue.getClass().getMethods())
+            try
             {
-                if (setterMethod.getName().startsWith("set"))
+                Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
+                Object returnvalue = newClass.newInstance();
+
+                for (Method setterMethod : returnvalue.getClass().getMethods())
                 {
-                    Method getterMethodNewLevel = getMethod(setterMethod, urObject);
-
-                    if (getterMethodNewLevel != null)
+                    if (setterMethod.getName().startsWith("set"))
                     {
-                        Method getterMethodCurrentLevel = getMethod(setterMethod, returnvalue);
+                        Method getterMethodNewLevel = getMethod(setterMethod, urObject);
 
-                        if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
+                        if (getterMethodNewLevel != null)
                         {
-                            if (getterMethodNewLevel.getReturnType().equals(Set.class))
+                            Method getterMethodCurrentLevel = getMethod(setterMethod, returnvalue);
+
+                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
                             {
-                                setterMethod.invoke(returnvalue, mapCollection((Set) getterMethodNewLevel.invoke(urObject)));
-                            }
-                            else
-                            {
-                                Object o = getterMethodNewLevel.invoke(urObject);
-                                if (o.getClass().getName().contains("hotelsoftware"))
+                                if (getterMethodNewLevel.getReturnType().equals(Set.class))
                                 {
-                                    if (hashedObjects.containsKey(o.hashCode()))
+                                    setterMethod.invoke(returnvalue, mapCollection((Set) getterMethodNewLevel.invoke(urObject), counter - 1));
+                                }
+                                else
+                                {
+                                    Object o = getterMethodNewLevel.invoke(urObject);
+                                    if (o != null)
                                     {
-                                        o = hashedObjects.get(o.hashCode());
-                                    }
-                                    else
-                                    {
-                                        o = map(o);
+                                        if (o.getClass().getName().contains("hotelsoftware"))
+                                        {
+                                            o = map(o, counter - 1);
+                                        }
+                                        setterMethod.invoke(returnvalue, o);
                                     }
                                 }
-                                setterMethod.invoke(returnvalue, o);
                             }
                         }
                     }
                 }
+
+                return returnvalue;
             }
-            if (returnvalue.getClass().getName().contains("hotelsoftware.model.domain"))
+            catch (Exception e)
             {
-                hashedObjects.put(returnvalue.hashCode(), returnvalue);
+                e.printStackTrace();
+                return null;
             }
-            return returnvalue;
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        return null;
     }
 
     private static String convertClassName(String name)
@@ -106,23 +106,33 @@ public class DynamicMapper
 
     public static Collection mapCollection(Collection urCollection)
     {
-        try
-        {
-            Collection returnValue = new LinkedHashSet();
+        return mapCollection(urCollection, 10);
+    }
 
-            for (Object obj : urCollection)
+    private static Set mapCollection(Set urCollection, int counter)
+    {
+        if (counter > 0)
+        {
+            try
             {
-                //Class newClass = Class.forName(convertClassName(obj.getClass().getName()));
-                Object i = map(obj);
-                returnValue.add(i);
-            }
+                Collection returnValue = new LinkedHashSet();
 
-            return returnValue;
+                for (Object obj : urCollection)
+                {
+                    //Class newClass = Class.forName(convertClassName(obj.getClass().getName()));
+                    Object i = map(obj, counter - 1);
+                    returnValue.add(i);
+                }
+
+                return returnValue;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
-        catch (Exception e)
-        {
-            return null;
-        }
+
+        return null;
     }
 
     /**

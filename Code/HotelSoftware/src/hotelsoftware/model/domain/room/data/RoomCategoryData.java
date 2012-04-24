@@ -4,7 +4,8 @@
  */
 package hotelsoftware.model.domain.room.data;
 
-import java.math.BigDecimal;
+import hotelsoftware.model.domain.room.RoomCategoryPrice;
+import java.util.Set;
 
 /**
  *
@@ -12,13 +13,9 @@ import java.math.BigDecimal;
  */
 public interface RoomCategoryData
 {
-
     Integer getBedCount();
-
-    BigDecimal getMinPrice();
 
     String getName();
 
-    BigDecimal getPrice();
-    
+    Set<RoomCategoryPrice> getPrice();
 }
