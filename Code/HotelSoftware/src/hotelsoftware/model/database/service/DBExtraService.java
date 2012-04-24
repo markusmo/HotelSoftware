@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -108,7 +109,12 @@ public class DBExtraService extends DBService implements Serializable
 
     public static Set<DBExtraService> getAllHabitationServices()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Set<DBExtraService> retSet = (Set<DBExtraService>) session.createCriteria(DBExtraService.class)
+                .add(Restrictions.eq("name", "habitation")).list();
+        return retSet;
     }
 
     public static DBExtraService getExtraServiceByName(String name) throws HibernateException
