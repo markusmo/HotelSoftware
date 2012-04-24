@@ -54,17 +54,17 @@ public class DBHabitation implements Serializable
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     @ManyToMany(mappedBy = "habitationsCollection")
-    private Set<DBGuest> guestsCollection;
+    private Set<DBGuest> guests;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
     private Set<DBInvoiceItem> invoiceitemsCollection;*/
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoom idRooms;
+    private DBRoom rooms;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
+    private DBUser users;
     @OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    private Set<DBInvoiceItem> invoiceItemCollection;
+    private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
     {
@@ -107,43 +107,43 @@ public class DBHabitation implements Serializable
     @XmlTransient
     public Set<DBGuest> getGuests()
     {
-        return guestsCollection;
+        return guests;
     }
 
     public void setGuests(Set<DBGuest> guestsCollection)
     {
-        this.guestsCollection = guestsCollection;
+        this.guests = guestsCollection;
     }
 
     @XmlTransient
-    public Set<DBInvoiceItem> getInvoiceitems()
+    public Set<DBInvoiceItem> getInvoiceItems()
     {
-        return invoiceItemCollection;
+        return invoiceItems;
     }
 
-    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceItems(Set<DBInvoiceItem> invoiceItems)
     {
-        this.invoiceItemCollection = invoiceitemsCollection;
+        this.invoiceItems = invoiceItems;
     }
 
-    public DBRoom getIdRooms()
+    public DBRoom getRooms()
     {
-        return idRooms;
+        return rooms;
     }
 
-    public void setIdRooms(DBRoom idRooms)
+    public void setRooms(DBRoom idRooms)
     {
-        this.idRooms = idRooms;
+        this.rooms = idRooms;
     }
 
-    public DBUser getIdUsers()
+    public DBUser getUsers()
     {
-        return idUsers;
+        return users;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setUsers(DBUser idUsers)
     {
-        this.idUsers = idUsers;
+        this.users = idUsers;
     }
 
     @Override

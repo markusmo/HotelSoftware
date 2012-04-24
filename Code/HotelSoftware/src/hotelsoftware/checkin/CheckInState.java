@@ -8,7 +8,7 @@ import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.reservation.ReservationItemData;
 import hotelsoftware.model.domain.room.*;
-import hotelsoftware.model.domain.service.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.Date;

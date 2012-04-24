@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.domain.parties.CustomerData;
-import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.model.domain.users.data.UserData;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;

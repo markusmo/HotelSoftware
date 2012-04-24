@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.domain.users;
+package hotelsoftware.model.domain.users.data;
 
+import hotelsoftware.model.domain.users.Permission;
 import java.util.Collection;
 import java.util.Set;
 

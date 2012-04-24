@@ -7,7 +7,7 @@ import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.CustomerData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.model.domain.users.data.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.*;

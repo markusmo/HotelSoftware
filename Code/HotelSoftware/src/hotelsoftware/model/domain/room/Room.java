@@ -11,7 +11,7 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.HabitationData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Set;
 

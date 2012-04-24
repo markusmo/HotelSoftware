@@ -31,7 +31,7 @@ public class DBService implements Serializable
     private Integer id;
     @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBServiceType idServiceTypes;
+    private DBServiceType serviceType;
 
     public DBService()
     {
@@ -52,14 +52,14 @@ public class DBService implements Serializable
         this.id = id;
     }
 
-    public DBServiceType getIdServiceTypes()
+    public DBServiceType getServiceType()
     {
-        return idServiceTypes;
+        return serviceType;
     }
 
-    public void setIdServiceTypes(DBServiceType idServiceTypes)
+    public void setServiceType(DBServiceType serviceType)
     {
-        this.idServiceTypes = idServiceTypes;
+        this.serviceType = serviceType;
     }
 
     @Override
