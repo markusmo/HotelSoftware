@@ -11,7 +11,7 @@ import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.UserData;
 import hotelsoftware.util.HelperFunctions;

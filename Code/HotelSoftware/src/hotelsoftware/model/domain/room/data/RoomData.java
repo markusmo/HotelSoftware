@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.domain.room;
+package hotelsoftware.model.domain.room.data;
 
+import hotelsoftware.model.domain.room.RoomOptionData;
 import hotelsoftware.model.domain.service.HabitationData;
 import java.util.Collection;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.Set;
  */
 public interface RoomData
 {
-    CategoryData getCategoryData();
+    RoomCategoryData getCategoryData();
 
     Set<HabitationData> getHabitationCollectionData();
 

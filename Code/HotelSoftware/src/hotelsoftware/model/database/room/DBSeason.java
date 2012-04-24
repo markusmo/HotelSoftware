@@ -45,12 +45,12 @@ public class DBSeason implements Serializable
     @Basic(optional = false)
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private Date start;
     
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private Date end;
     
     private static final long serialVersionUID = 1L;
     
@@ -65,7 +65,7 @@ public class DBSeason implements Serializable
     private String name;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons", fetch = FetchType.EAGER)
-    private Set<DBRoomCategoryPrice> roomcategorypricesCollection;
+    private Set<DBRoomCategoryPrice> roomcategoryprices;
 
     public DBSeason()
     {
@@ -80,8 +80,8 @@ public class DBSeason implements Serializable
     {
         this.id = id;
         this.name = name;
-        this.startDate = start;
-        this.endDate = end;
+        this.start = start;
+        this.end = end;
     }
 
     public Integer getId()
@@ -107,12 +107,12 @@ public class DBSeason implements Serializable
     @XmlTransient
     public Set<DBRoomCategoryPrice> getRoomcategoryprices()
     {
-        return roomcategorypricesCollection;
+        return roomcategoryprices;
     }
 
     public void setRoomcategoryprices(Set<DBRoomCategoryPrice> roomcategorypricesCollection)
     {
-        this.roomcategorypricesCollection = roomcategorypricesCollection;
+        this.roomcategoryprices = roomcategorypricesCollection;
     }
 
     @Override
@@ -147,22 +147,22 @@ public class DBSeason implements Serializable
 
     public Date getStart()
     {
-        return startDate;
+        return start;
     }
 
     public void setStart(Date start)
     {
-        this.startDate = start;
+        this.start = start;
     }
 
     public Date getEnd()
     {
-        return endDate;
+        return end;
     }
 
     public void setEnd(Date end)
     {
-        this.endDate = end;
+        this.end = end;
     }
     
 }

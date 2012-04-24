@@ -58,7 +58,7 @@ public class DBRoomCategory implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.LAZY)
     private Set<DBRoom> rooms;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
-    private Set<DBRoomCategoryPrice> prices;
+    private Set<DBRoomCategoryPrice> price;
 
     public DBRoomCategory()
     {
@@ -129,14 +129,14 @@ public class DBRoomCategory implements Serializable
     }
 
     @XmlTransient
-    public Set<DBRoomCategoryPrice> getPrices()
+    public Set<DBRoomCategoryPrice> getPrice()
     {
-        return prices;
+        return price;
     }
 
-    public void setPrices(Set<DBRoomCategoryPrice> prices)
+    public void setPrice(Set<DBRoomCategoryPrice> prices)
     {
-        this.prices = prices;
+        this.price = prices;
     }
 
     @Override
