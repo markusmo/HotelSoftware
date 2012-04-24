@@ -8,6 +8,7 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Set;
  */
 public class ExtraService extends Service implements ExtraServiceData
 {
+
+   
     private String name;
 
     @Override
@@ -65,5 +68,10 @@ public class ExtraService extends Service implements ExtraServiceData
     public ServiceTypeData getServiceTypeData()
     {
         return (ServiceTypeData) getServiceType();
+    }
+     public static Set<ExtraService> getAllHabitationServices()
+    {
+        Set<ExtraService> extraServices = (Set<ExtraService>) DynamicMapper.map(DBExtraService.getAllHabitationServices());
+        return extraServices;
     }
 }

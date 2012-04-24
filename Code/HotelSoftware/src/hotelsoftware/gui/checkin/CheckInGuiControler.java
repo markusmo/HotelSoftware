@@ -11,10 +11,7 @@ import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.room.Room;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 import javax.swing.JPanel;
 
 /**
@@ -124,11 +121,16 @@ public class CheckInGuiControler
     {
         return CheckInController.getInstance().getRoomData(roomIndex);
     }
-    
-     public int addRoomSelection()
+
+    public int addRoomSelection()
     {
         return CheckInController.getInstance().addRoomSelection();
-    } 
+    }
+
+    public Set<ExtraServiceData> getAllHabitationServices()
+    {
+        return CheckInController.getInstance().getAllHabitationServices();
+    }
 
     public JPanel getContentpane()
     {
