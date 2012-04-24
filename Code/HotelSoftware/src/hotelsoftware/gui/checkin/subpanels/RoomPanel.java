@@ -9,8 +9,8 @@ import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.reservation.ReservationData;
-import hotelsoftware.model.domain.room.CategoryData;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class RoomPanel extends javax.swing.JPanel
     {
         //############# DropDowns
         ComboBoxCategories.removeAllItems();
-        for (CategoryData data : cigc.getCategories())
+        for (RoomCategoryData data : cigc.getCategories())
         {
             ComboBoxCategories.addItem(data.getName());
         }
@@ -57,7 +57,7 @@ public class RoomPanel extends javax.swing.JPanel
             {
                 System.out.println(string);
                 ComboBoxFreeRooms.removeAll();
-                CategoryData cd = cigc.getCategories().toArray(new CategoryData[0])[ComboBoxCategories.getSelectedIndex()];
+                RoomCategoryData cd = cigc.getCategories().toArray(new RoomCategoryData[0])[ComboBoxCategories.getSelectedIndex()];
                 for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
                 {
                     ComboBoxFreeRooms.addItem(data.getNumber());

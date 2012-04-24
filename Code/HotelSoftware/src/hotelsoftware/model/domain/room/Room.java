@@ -4,6 +4,9 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomStatusData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
@@ -100,9 +103,9 @@ public class Room implements RoomData
         this.status = status;
     }
 
-    public CategoryData getCategoryData()
+    public RoomCategoryData getCategoryData()
     {
-        return (CategoryData) getCategory();
+        return (RoomCategoryData) getCategory();
     }
 
     public Set<HabitationData> getHabitationCollectionData()

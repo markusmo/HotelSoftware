@@ -13,8 +13,13 @@ import hotelsoftware.model.domain.room.CategoryData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -110,5 +115,11 @@ public abstract class ChangeDataState extends CheckInState
     public RoomData getRoomData(int selectionIndex)
     {
         return roomSelections.get(selectionIndex).getRoom();
+    }
+
+    @Override
+    public Set<ExtraServiceData> getAllHabitationServices()
+    {
+        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices()); 
     }
 }

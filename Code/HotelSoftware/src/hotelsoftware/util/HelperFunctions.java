@@ -4,10 +4,9 @@
  */
 package hotelsoftware.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.ExtraServiceData;
+import java.util.*;
 
 /**
  *
@@ -34,4 +33,6 @@ public class HelperFunctions<T, U extends T>
 
         return newCol;
     }
+
+   
 }

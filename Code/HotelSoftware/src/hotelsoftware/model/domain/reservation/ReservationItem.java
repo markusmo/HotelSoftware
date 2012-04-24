@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
@@ -60,7 +60,7 @@ public class ReservationItem implements ReservationItemData
         this.reservedCategory = reservedCategory;
     }
 
-    public CategoryData getReservedCategoryData()
+    public RoomCategoryData getReservedCategoryData()
     {
         return getRoomcategory();
     }

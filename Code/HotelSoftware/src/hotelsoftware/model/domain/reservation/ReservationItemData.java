@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.domain.room.CategoryData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
 
 /**
  *
@@ -15,6 +15,6 @@ public interface ReservationItemData
 
     public Integer getAmount();
 
-    CategoryData getReservedCategoryData();
+    RoomCategoryData getReservedCategoryData();
     
 }

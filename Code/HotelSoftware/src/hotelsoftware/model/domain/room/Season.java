@@ -18,7 +18,7 @@ public class Season
     private Date end;
     private Integer id;
     private String name;
-    private Set<RoomCategoryPrice> roomcategorypricesCollection;
+    private Set<RoomCategoryPrice> roomcategoryprices;
 
     public Season()
     {
@@ -54,14 +54,14 @@ public class Season
         this.name = name;
     }
 
-    public Set<RoomCategoryPrice> getRoomcategorypricesCollection()
+    public Set<RoomCategoryPrice> getRoomcategoryprices()
     {
-        return roomcategorypricesCollection;
+        return roomcategoryprices;
     }
 
-    public void setRoomcategorypricesCollection(Set<RoomCategoryPrice> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Set<RoomCategoryPrice> roomcategoryprices)
     {
-        this.roomcategorypricesCollection = roomcategorypricesCollection;
+        this.roomcategoryprices = roomcategoryprices;
     }
 
     public Date getStart()

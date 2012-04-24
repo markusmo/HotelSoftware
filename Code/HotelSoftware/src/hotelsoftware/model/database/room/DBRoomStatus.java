@@ -36,7 +36,7 @@ public class DBRoomStatus implements Serializable
     private Integer id;
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
-    private String name;
+    private String statusName;
 
     public DBRoomStatus()
     {
@@ -50,7 +50,7 @@ public class DBRoomStatus implements Serializable
     public DBRoomStatus(Integer id, String name)
     {
         this.id = id;
-        this.name = name;
+        this.statusName = name;
     }
 
     public Integer getId()
@@ -63,14 +63,14 @@ public class DBRoomStatus implements Serializable
         this.id = id;
     }
 
-    public String getName()
+    public String getStatusName()
     {
-        return name;
+        return statusName;
     }
 
-    public void setName(String name)
+    public void setStatusName(String name)
     {
-        this.name = name;
+        this.statusName = name;
     }
 
     @Override

@@ -101,18 +101,18 @@ public class DBExtraService implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBExtraService))
+        if (!(object instanceof DBExtraService))
         {
             return false;
         }
         DBExtraService other = (DBExtraService) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
         return true;
     }
-    
+
     public static Set<DBExtraService> getExtraServices() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -124,31 +124,35 @@ public class DBExtraService implements Serializable
 
         return new LinkedHashSet<DBExtraService>(retList);
     }
-    
+
+    public static Set<DBExtraService> getAllHabitationServices()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     public static DBExtraService getExtraServiceByName(String name) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBExtraService extraService = (DBExtraService)session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
+        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
         session.close();
         return extraService;
     }
-    
-    public static Set<DBExtraService> getAllExtraServices()throws HibernateException
+
+    public static Set<DBExtraService> getAllExtraServices() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        List<DBExtraService> extraServices = (List<DBExtraService>)session.createCriteria(DBExtraService.class).list();
+        List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
         session.close();
         return new LinkedHashSet<DBExtraService>(extraServices);
     }
-    
+
     @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Extraservices[ id=" + id + " ]";
     }
-    
 }

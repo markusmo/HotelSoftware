@@ -4,6 +4,8 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.domain.room.data.RoomStatusData;
+
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
