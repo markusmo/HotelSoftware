@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.domain.service;
+package hotelsoftware.model.domain.service.data;
 
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItemData;
@@ -11,7 +11,7 @@ import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.model.domain.users.data.UserData;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -41,12 +41,12 @@ public interface HabitationData
     /**
      * @return the idRooms
      */
-    RoomData getIdRoomsData();
+    RoomData getRoomsData();
 
     /**
      * @return the idUsers
      */
-    UserData getIdUsersData();
+    UserData getUsersData();
 
     /**
      * @return the invoiceItems

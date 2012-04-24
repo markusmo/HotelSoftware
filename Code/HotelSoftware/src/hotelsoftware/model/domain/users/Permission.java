@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.model.domain.users.data.PermissionData;
 import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.users.DBPermission;

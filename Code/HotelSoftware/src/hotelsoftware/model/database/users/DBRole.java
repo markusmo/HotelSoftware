@@ -34,7 +34,7 @@ public class DBRole implements Serializable
         @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Set<DBUser> userCollection;
+    private Set<DBUser> users;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class DBRole implements Serializable
         @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<DBPermission> permissionsCollection;
+    private Set<DBPermission> permissions;
 
     public DBRole()
     {
@@ -93,12 +93,12 @@ public class DBRole implements Serializable
     @XmlTransient
     public Set<DBPermission> getPermissions()
     {
-        return permissionsCollection;
+        return permissions;
     }
 
     public void setPermissions(Set<DBPermission> permissionsCollection)
     {
-        this.permissionsCollection = permissionsCollection;
+        this.permissions = permissionsCollection;
     }
 
     @Override
@@ -132,14 +132,14 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Set<DBUser> getUserCollection()
+    public Set<DBUser> getUsers()
     {
-        return userCollection;
+        return users;
     }
 
-    public void setUserCollection(Set<DBUser> userCollection)
+    public void setUsers(Set<DBUser> userCollection)
     {
-        this.userCollection = userCollection;
+        this.users = userCollection;
     }
     
 }

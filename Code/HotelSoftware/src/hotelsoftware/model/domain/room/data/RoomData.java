@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.room.data;
 
 import hotelsoftware.model.domain.room.RoomOptionData;
-import hotelsoftware.model.domain.service.HabitationData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import java.util.Collection;
 import java.util.Set;
 

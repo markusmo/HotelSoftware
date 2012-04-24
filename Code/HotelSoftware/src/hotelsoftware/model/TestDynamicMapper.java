@@ -41,7 +41,7 @@ public class TestDynamicMapper
         System.out.println(dbUser.getUsername());
         System.out.println(dbUser.getPassword());
         
-        for (DBRole role : dbUser.getRoleCollection())
+        for (DBRole role : dbUser.getRoles())
         {
             System.out.println(role.getName());
         }

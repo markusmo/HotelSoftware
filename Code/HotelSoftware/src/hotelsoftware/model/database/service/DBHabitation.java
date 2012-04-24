@@ -50,6 +50,7 @@ public class DBHabitation extends DBService implements Serializable
     private BigDecimal price;
     
     @ManyToMany(mappedBy = "habitationsCollection")
+
     private Set<DBGuest> guestsCollection;
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
@@ -88,43 +89,44 @@ public class DBHabitation extends DBService implements Serializable
     @XmlTransient
     public Set<DBGuest> getGuests()
     {
-        return guestsCollection;
+        return guests;
     }
 
     public void setGuests(Set<DBGuest> guestsCollection)
     {
-        this.guestsCollection = guestsCollection;
+        this.guests = guestsCollection;
     }
+
 
   /*  @XmlTransient
     public Set<DBInvoiceItem> getInvoiceitems()
     {
-        return invoiceItemCollection;
+        return invoiceItems;
     }
 
-    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceItems(Set<DBInvoiceItem> invoiceItems)
     {
         this.invoiceItemCollection = invoiceitemsCollection;
     }*/
 
-    public DBRoom getIdRooms()
+    public DBRoom getRooms()
     {
-        return idRooms;
+        return rooms;
     }
 
-    public void setIdRooms(DBRoom idRooms)
+    public void setRooms(DBRoom idRooms)
     {
-        this.idRooms = idRooms;
+        this.rooms = idRooms;
     }
 
-    public DBUser getIdUsers()
+    public DBUser getUsers()
     {
-        return idUsers;
+        return users;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setUsers(DBUser idUsers)
     {
-        this.idUsers = idUsers;
+        this.users = idUsers;
     }
 
     @Override

@@ -52,6 +52,7 @@ import org.hibernate.criterion.Restrictions;
 public class DBUser implements Serializable
 {
     @ManyToMany(mappedBy = "userCollection")
+
     private Set<DBRole> roleCollection;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
@@ -109,7 +110,7 @@ public class DBUser implements Serializable
     {
         this.username = username;
         this.password = password;
-        this.roleCollection = roleCollection;
+        this.roles = roleCollection;
     }
     
     public Integer getId()
@@ -247,47 +248,47 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBInvoice> getDBInvoiceCollection()
+    public Set<DBInvoice> getInvoices()
     {
-        return dBInvoiceCollection;
+        return invoices;
     }
 
-    public void setDBInvoiceCollection(Set<DBInvoice> dBInvoiceCollection)
+    public void setInvoices(Set<DBInvoice> invoices)
     {
-        this.dBInvoiceCollection = dBInvoiceCollection;
-    }
-
-    @XmlTransient
-    public Set<DBReservation> getDBReservationCollection()
-    {
-        return dBReservationCollection;
-    }
-
-    public void setDBReservationCollection(Set<DBReservation> dBReservationCollection)
-    {
-        this.dBReservationCollection = dBReservationCollection;
+        this.invoices = invoices;
     }
 
     @XmlTransient
-    public Set<DBHabitation> getDBHabitationCollection()
+    public Set<DBReservation> getReservations()
     {
-        return dBHabitationCollection;
+        return reservations;
     }
 
-    public void setDBHabitationCollection(Set<DBHabitation> dBHabitationCollection)
+    public void setReservations(Set<DBReservation> reservations)
     {
-        this.dBHabitationCollection = dBHabitationCollection;
+        this.reservations = reservations;
     }
 
     @XmlTransient
-    public Set<DBRole> getRoleCollection()
+    public Set<DBHabitation> getHabitations()
     {
-        return roleCollection;
+        return habitations;
     }
 
-    public void setRoleCollection(Set<DBRole> roleCollection)
+    public void setHabitations(Set<DBHabitation> habitations)
     {
-        this.roleCollection = roleCollection;
+        this.habitations = habitations;
+    }
+
+    @XmlTransient
+    public Set<DBRole> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(Set<DBRole> roles)
+    {
+        this.roles = roles;
     }
     
      
