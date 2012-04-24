@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
+ * Dieser Status ist dazu da um Reservations-Check-Ins von Walk-In-Check-Ins zu abstrahieren.
  * @author Dunst
  */
 public class ChangeReservationDataState extends ChangeDataState

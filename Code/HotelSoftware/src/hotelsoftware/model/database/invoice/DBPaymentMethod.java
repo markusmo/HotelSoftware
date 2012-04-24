@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.invoice;
 
 import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
@@ -32,7 +28,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse bildet eine Zahlungsmethode auf der Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -110,10 +106,9 @@ public class DBPaymentMethod implements Serializable
     }
 
     /**
-     * establishes a connection to the database and retrieves all paymentmethods
-     * available in the database
+     * Kommuniziert mit der Datenbank und gibt alle Zahlungsmethoden aus
      * @return
-     * a list of paymentmethods
+     * Ein Set aus allen verfuegbaren Zahlungsmethoden
      * @throws HibernateException 
      */
     public static Set<DBPaymentMethod> getPaymentMethods() throws HibernateException
@@ -129,13 +124,13 @@ public class DBPaymentMethod implements Serializable
     }
 
     /**
-     * establishes a connection to the database and retrieves a single paymentmethod
-     * by name
+     * Kommuniziert mit der Datenbank und gibt eine Zahlungsmethode nach dem eingegebenen Namen aus
      * @param method
-     * the method to be fetched
+     * Die Zahlungsmethode, die gesucht wird
      * @return
-     * a model class of paymentmethods
+     * Ein Objekt, dass die Zahlungsmethode abbildet
      * @throws HibernateException 
+     * Dieser Fehler wird geworfen, wenn die Tanksation fehlgeschlagen wird
      */
     public static DBPaymentMethod getPaymentMethodByName(String method) throws HibernateException
     {
@@ -143,17 +138,10 @@ public class DBPaymentMethod implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBPaymentMethod.class);
-        List<DBPaymentMethod> retList = criteria.list();
+        DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("name", method)).uniqueResult();
         session.close();
 
-        for (DBPaymentMethod paymentmethods : retList)
-        {
-            if (paymentmethods.getMethod().equals(method))
-            {
-                return paymentmethods;
-            }
-        }
-        return null;
+        return ret;
     }
 
     /**

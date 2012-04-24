@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.service.DBHabitation;
@@ -18,7 +14,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse bildet einen Raum in der Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -171,6 +167,13 @@ public class DBRoom implements Serializable
         return "hotelsoftware.database.model.Rooms[ id=" + id + " ]";
     }
 
+    /**
+     * Gibt einen Raum nach der angegebenen Zimmernummer aus
+     * @param number
+     * Die Zimmernummer, nach der gesucht wird
+     * @return 
+     * Das Zimmer mit der Zimmernummer.
+     */
     public static DBRoom getRoomByNumber(String number)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -183,6 +186,13 @@ public class DBRoom implements Serializable
         return room;
     }
 
+    /**
+     * Sucht Zimmer nach einer Kategorie und gibt diese aus
+     * @param cat
+     * Die Kategorie, nach der gesucht wird
+     * @return 
+     * Gibt ein Set mit den Raeumen, der gesuchten Kategorie
+     */
     public static Set<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();

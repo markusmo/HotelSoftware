@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.invoice;
 
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
@@ -22,7 +18,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Bildet die Rechung auf Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -200,13 +196,13 @@ public class DBInvoice implements Serializable
     }
 
     /**
-     * communicates with the database and retrieves a single invoice, by assuming
-     * that all invoicenumbers are unique.
+     * Kommuniziert mit der Datenbank und liefert eine Rechung zurueck.
      * @param invoicenumber
-     * a unique invoicenumber
+     * Eine eindeutige Rechungsnummer
      * @return
-     * a invoice
-     * @throws HibernateException 
+     * die Rechnung, zu der gegebenen Rechungsnummer
+     * @throws HibernateException
+     * Dieser Fehler wird geworfen, wenn etwas bei der Transaktion fehlschlaegt
      */
     public static DBInvoice getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
     {
@@ -218,31 +214,6 @@ public class DBInvoice implements Serializable
                 invoicenumber)).uniqueResult();
         session.close();
         return retInvoices;
-    }
-
-    /**
-     * communicates with the database and saves a invoice
-     * @param invoice
-     * the invoice to be saved
-     * @throws FailedToSaveToDatabaseException 
-     */
-    public static void saveInvoice(DBInvoice invoice) throws FailedToSaveToDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            session.save(invoice);
-            ts.commit();
-        } catch (HibernateException e)
-        {
-            ts.rollback();
-            throw new FailedToSaveToDatabaseException();
-        } finally
-        {
-            session.close();
-        }
     }
 
     @Override

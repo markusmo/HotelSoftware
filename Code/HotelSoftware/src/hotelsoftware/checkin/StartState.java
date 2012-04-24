@@ -13,7 +13,9 @@ import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
 /**
- *
+ * Dieser Status erlaubt es nach vorhandenen Reservierungen zu suchen und mit dieser dann zu arbeiten.
+ * Ebenso kann man einen Walk-in-Check-In begonnen werden
+ * 
  * @author Dunst
  */
 public class StartState extends CheckInState

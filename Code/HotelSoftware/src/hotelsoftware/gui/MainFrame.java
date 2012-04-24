@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
@@ -16,7 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- *
+ * Diese Klasse ist die Main-Klasse dieses Projekts. Von hier wird das Programm gestartet und die 
+ * Use-Cases gestartet.
  * @author Johannes
  */
 public class MainFrame extends javax.swing.JFrame

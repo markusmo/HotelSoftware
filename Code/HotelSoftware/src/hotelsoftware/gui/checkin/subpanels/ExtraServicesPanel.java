@@ -15,7 +15,7 @@ import java.util.Set;
 import javax.swing.JCheckBox;
 
 /**
- *
+ * Dieses Panel ist dazu da, um die Extraservices graphisch abzubilden.
  * @author Johannes
  */
 public class ExtraServicesPanel extends javax.swing.JPanel

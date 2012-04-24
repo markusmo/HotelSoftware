@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.room.DBRoomCategoryPrice;
@@ -28,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Diese Klasse bildet eine Hotelsaison auf der Datenbank ab.
  * @author mohi
  */
 @Entity

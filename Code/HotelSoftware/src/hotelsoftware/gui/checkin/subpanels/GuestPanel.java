@@ -8,7 +8,7 @@ import java.awt.Component;
 import javax.swing.JTextField;
 
 /**
- *
+ *  Dieses Panel ist dazu da, um die Informationen eines Gastes einzutragen.
  * @author Johannes
  */
 public class GuestPanel extends javax.swing.JPanel

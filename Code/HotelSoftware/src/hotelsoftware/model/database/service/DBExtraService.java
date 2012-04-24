@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.service;
 
 import hotelsoftware.util.HibernateUtil;
@@ -17,7 +13,7 @@ import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * 
  * @author mohi
  */
 @Entity

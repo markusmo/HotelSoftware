@@ -231,17 +231,40 @@ public class CheckInController
         state.selectServices(services);
     }
 
+<<<<<<< HEAD
     public Collection<ReservationData> getAllReservations()
+=======
+    /**
+     * Gibt alle Reservierungen aus.
+     * @return 
+     * Alle Reservierungen ,die verfuegbar sind.
+     */
+    public Set<ReservationData> getAllReservations()
+>>>>>>> Comments added
     {
         return state.getAllReservations();
     }
 
+    /**
+     * Gibt die Raumanzahl aus
+     * @return 
+     * Anzahl der Raeume
+     */
     public int getCounter()
     {
         return state.counter;
     }
 
+<<<<<<< HEAD
     public Collection<ExtraServiceData> getAllHabitationServices()
+=======
+    /**
+     * Gibt alle Verpflegunsarten aus
+     * @return 
+     * Die verfuegbaren Verpflegunsarten
+     */
+    public Set<ExtraServiceData> getAllHabitationServices()
+>>>>>>> Comments added
     {
         return state.getAllHabitationServices();
     }

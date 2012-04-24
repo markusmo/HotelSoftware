@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.reservation;
 
 import java.io.Serializable;
@@ -11,7 +7,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Diese Klasse bildet Reservierunsoptionen auf der Datenbank ab.
  * @author mohi
  */
 @Entity

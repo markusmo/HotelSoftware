@@ -19,7 +19,8 @@ import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
 /**
- *
+ * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
+ * 
  * @author Dunst
  */
 public abstract class ChangeDataState extends CheckInState

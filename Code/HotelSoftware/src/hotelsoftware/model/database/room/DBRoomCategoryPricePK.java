@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import java.io.Serializable;
@@ -10,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- *
+ * Diese Klasse bildet den Primaerschluessel auf die Zimmerkategoriepreise ab.
  * @author mohi
  */
 @Embeddable

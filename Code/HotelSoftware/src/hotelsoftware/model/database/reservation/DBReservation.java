@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.parties.DBParty;
@@ -34,7 +30,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse bildet eine Reservierung auf der Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -105,7 +101,21 @@ public class DBReservation implements Serializable
         return new DBReservation();
     }
 
+<<<<<<< HEAD
     public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
+=======
+    /**
+     * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
+     * Abfrage naehert sich an den namen an.
+     * @param fname
+     * Der Vorname der Person, die reserviert hat
+     * @param lname
+     * Der Nachname einer Person, die reserviert hat
+     * @return 
+     * Gibt eine Set aus Reservierungen aus
+     */
+    public static Set<DBReservation> getReservationsByNameApprox(String fname, String lname)
+>>>>>>> Comments added
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -126,7 +136,20 @@ public class DBReservation implements Serializable
 
     }
 
+<<<<<<< HEAD
     public static Collection<DBReservation> getReservationsByName(String fname, String lname)
+=======
+    /**
+     * Gibt ein Reservierungen aus, die nach genauen Namen eienr Person gesucht werden, der reserviert hat
+     * @param fname
+     * Der Vorname der Person
+     * @param lname
+     * Der Nachname der Person
+     * @return 
+     * Ein Set aus Reservierungen
+     */
+    public static Set<DBReservation> getReservationsByName(String fname, String lname)
+>>>>>>> Comments added
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -147,6 +170,13 @@ public class DBReservation implements Serializable
 
     }
 
+    /**
+     * Gibt eine Reservierung aus, die nach der eindeutigen Reservierungsnummer identifiziert wird.
+     * @param reservationNr
+     * Die eindeutige Reservierungsnummer
+     * @return 
+     * Eine Reservierung, mit der angegebenen Reservierungsnummer
+     */
     public static DBReservation getReservationByNumber(int reservationNr)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -162,6 +192,13 @@ public class DBReservation implements Serializable
         return retList;
     }
 
+    /**
+     * Sucht eine Reservierung nach der in der Datenbank hinterlegten ID
+     * @param id
+     * Die ID der Reservierung
+     * @return 
+     * Die Reservierung, mit der angegebenen ID
+     */
     public static DBReservation getReservationById(int id)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -177,7 +214,16 @@ public class DBReservation implements Serializable
         return retList;
     }
 
+<<<<<<< HEAD
     public static Collection<DBReservation> getAllReservations()
+=======
+    /**
+     * Gibt alle Reservierungen aus
+     * @return 
+     * Alle Reservierungen, ab den aktuellen Datum verfuebar sind
+     */
+    public static Set<DBReservation> getAllReservations()
+>>>>>>> Comments added
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
@@ -190,6 +236,11 @@ public class DBReservation implements Serializable
         return new LinkedHashSet<DBReservation>(retList);
     }
 
+    /**
+     * Gibt die Anzahl der Gaeste aus die Reserviert haben
+     * @return 
+     * Anzahl der reservierten Gaeste
+     */
     public int getGuestAmount()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();

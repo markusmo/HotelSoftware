@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.invoice;
 
 import hotelsoftware.util.HibernateUtil;
@@ -31,6 +27,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
+ * Bildet eine Rechungsposition auf der Datenbank ab.
  *
  * @author mohi
  */
@@ -40,31 +37,24 @@ import org.hibernate.criterion.Restrictions;
 public class DBInvoiceItem implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
     @EmbeddedId
     protected DBInvoiceItemPK invoiceitemsPK;
-    
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private Integer amount;
-    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUser;
-    /*
-     * @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
-     * @ManyToOne(fetch= FetchType.LAZY)
-     * private DBHabitation idHabitation;
-     */
+    @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private DBHabitation idHabitation;
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBInvoice invoice;
-    
     @JoinColumn(name = "idServices", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBService service;
@@ -150,25 +140,25 @@ public class DBInvoiceItem implements Serializable
         this.idUser = idUsers;
     }
 
-    /*
-     * public DBHabitation getIdHabitation()
-     * {
-     * return idHabitation;
-     * }
-     *
-     * public void setIdHabitation(DBHabitation idHabitations)
-     * {
-     * this.idHabitation = idHabitations;
-     * }
-     */
+    public DBHabitation getIdHabitation()
+    {
+        return idHabitation;
+    }
+
+    public void setIdHabitation(DBHabitation idHabitations)
+    {
+        this.idHabitation = idHabitations;
+    }
+
     /**
-     * communicates with the database and retrieves all invoiceitems for a habitation
+     * Kommuniziert mit der Datenbank und holt ein alle Rechungspositionen fuer eine Belegung ein
      *
      * @param habitation
-     * the habitation, which owns the invoiceitems
+     * Die Belegung, der die Rechungsposition gehoert
      * @return
-     * a list of invoiceitems
+     * eine Set aus Rechungspositionen
      * @throws HibernateException
+     * Dieser Fehler wird geworfen, wenn die Transaktion fehlschlaegt
      */
     public static Set<DBInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException

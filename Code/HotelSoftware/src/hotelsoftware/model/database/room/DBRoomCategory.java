@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.model.database.reservation.DBReservationItem;
@@ -20,7 +16,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse bildet die Zimmerkategorie auf die Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -184,6 +180,11 @@ public class DBRoomCategory implements Serializable
         return cats;
     }
     
+    /**
+     * Diese Methode liefert alle Zimmerkategorieen aus
+     * @return
+     * Alle verfuebaren Kategorieen
+     */
     public static Set<DBRoomCategory> getAllCategories()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -194,6 +195,15 @@ public class DBRoomCategory implements Serializable
         return new LinkedHashSet<DBRoomCategory>(cats);
     }
     
+    /**
+     * Sucht allen freien Zimmer einer Zeitspanne
+     * @param start
+     * Der Start der Zeitspanne
+     * @param ende
+     * Das Ende der Zeitspanne
+     * @return
+     * Ein Set von Zimmern, die in der angegebenen Zeitspanne frei sind.
+     */
     public Set<DBRoom> getFreeRooms(Date start, Date ende)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();

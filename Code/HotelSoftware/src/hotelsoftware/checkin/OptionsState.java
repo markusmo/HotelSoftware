@@ -13,7 +13,8 @@ import java.util.Set;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- *
+ * In diesem Status kann man Optionen zu der Buchung hinzufuegen.
+ * 
  * @author Dunst
  */
 public class OptionsState extends CheckInState

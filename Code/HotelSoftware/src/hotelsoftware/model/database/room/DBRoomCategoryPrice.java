@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import java.io.Serializable;
@@ -10,7 +6,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Diese Klasse bildet die Preise pro Kategorie auf der Datenbank ab.
  * @author mohi
  */
 @Entity

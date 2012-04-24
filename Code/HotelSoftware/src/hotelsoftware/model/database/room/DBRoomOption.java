@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.room;
 
 import hotelsoftware.util.HibernateUtil;
@@ -16,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Diese Klasse bildet die Optionen(Raucherzimmer, Tiere erlaubt ...) auf ein Zimmer in der Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -118,6 +114,11 @@ public class DBRoomOption implements Serializable
         return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
     }
     
+    /**
+     * Gibt alle Optionen aus
+     * @return 
+     * Gibt ein Set mit den Zimmeroptionen aus, die verfuegbar sind
+     */
     public static Set<DBRoomOption> getRoomOptions()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

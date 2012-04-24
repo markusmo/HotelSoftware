@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.checkin;
 
 /**
- *
+ * Dieser Fehler weist auf eine falsche Eingab hin.
  * @author Dunst
  */
 class InvalidInputException extends Exception

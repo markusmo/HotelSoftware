@@ -13,7 +13,9 @@ import hotelsoftware.model.domain.service.Habitation;
 import java.util.*;
 
 /**
- *
+ * Diese Klasse ist die abstrakte Klasse, die alle Status und dessen Funktionen abbilded.
+ * Keine dieser Methoden ist implementiert, fuer jeden Status muss die jeweilige Funktionalitaet implementiert werden.
+ * 
  * @author Dunst
  */
 public abstract class CheckInState
@@ -183,7 +185,7 @@ public abstract class CheckInState
     }
 
     /**
-     * Rählt ein anderes Zimmer aus
+     * Wählt ein anderes Zimmer aus
      *
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
      * @param roomNumber Die ausgewählte Zimmernummer

@@ -5,7 +5,7 @@
 package hotelsoftware.checkin;
 
 /**
- *
+ * Dieser Status ist dazu da um Walk-In und Reservations-Check-Ins zu abstrahieren.
  * @author Dunst
  */
 public class ChangeWalkInDataState extends ChangeDataState

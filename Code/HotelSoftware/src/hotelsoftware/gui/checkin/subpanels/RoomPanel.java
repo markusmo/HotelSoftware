@@ -17,7 +17,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
- *
+ * Dieses Panel ist dazu da, um einen Gast zu einem Raum einer Kategorie zuzuweisen.
  * @author Johannes
  */
 public class RoomPanel extends javax.swing.JPanel

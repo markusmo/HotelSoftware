@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.room.DBRoomCategory;
@@ -10,7 +6,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Die Klasse bildet alle Reservierungspositionen auf der Datenbank auf.
  * @author mohi
  */
 @Entity
