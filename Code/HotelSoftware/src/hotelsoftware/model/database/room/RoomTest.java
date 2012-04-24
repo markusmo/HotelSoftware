@@ -23,6 +23,10 @@ public class RoomTest {
         //DBRoomCategory Tests
         //Collection<DBRoomCategory> testCategories = DBRoomCategory.getAllCategories();    //funktioniert
         //DBRoomCategory testCategory = DBRoomCategory.getRoomCategoryByName("Familienzimmer");
+<<<<<<< HEAD
         Collection<DBRoomCategory> testCategories; 
+=======
+        Collection<DBRoomCategory> testCategories;
+>>>>>>> J added
     }
 }
