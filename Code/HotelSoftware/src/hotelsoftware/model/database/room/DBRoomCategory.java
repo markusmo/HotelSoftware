@@ -47,16 +47,21 @@ public class DBRoomCategory implements Serializable
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+    
     @Basic(optional = false)
     @Column(name = "bedCount", nullable = false)
     private Integer bedCount;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
     private Set<DBReservationItem> reservationitems;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.LAZY)
     private Set<DBRoom> rooms;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
     private Set<DBRoomCategoryPrice> price;
 

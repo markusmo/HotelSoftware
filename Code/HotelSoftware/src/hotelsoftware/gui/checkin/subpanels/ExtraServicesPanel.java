@@ -5,7 +5,7 @@
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
-import hotelsoftware.model.domain.service.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.List;
