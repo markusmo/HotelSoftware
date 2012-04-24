@@ -37,37 +37,35 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "invoiceitems", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Invoiceitems.findAll", query = "SELECT i FROM Invoiceitems i"),
-//    @NamedQuery(name = "Invoiceitems.findByIdServices", query = "SELECT i FROM Invoiceitems i WHERE i.invoiceitemsPK.idServices = :idServices"),
-//    @NamedQuery(name = "Invoiceitems.findByIdInvoice", query = "SELECT i FROM Invoiceitems i WHERE i.invoiceitemsPK.idInvoice = :idInvoice"),
-//    @NamedQuery(name = "Invoiceitems.findByAmount", query = "SELECT i FROM Invoiceitems i WHERE i.amount = :amount"),
-//    @NamedQuery(name = "Invoiceitems.findByCreated", query = "SELECT i FROM Invoiceitems i WHERE i.created = :created")
-//})
 public class DBInvoiceItem implements Serializable
 {
-
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected DBInvoiceItemPK invoiceitemsPK;
+    
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private Integer amount;
+    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUser;
-    @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch= FetchType.LAZY)
-    private DBHabitation idHabitation;
+    /*
+     * @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
+     * @ManyToOne(fetch= FetchType.LAZY)
+     * private DBHabitation idHabitation;
+     */
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBInvoice invoice;
-    @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    
+    @JoinColumn(name = "idServices", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBService service;
 
@@ -152,23 +150,25 @@ private static final long serialVersionUID = 1L;
         this.idUser = idUsers;
     }
 
-    public DBHabitation getIdHabitation()
-    {
-        return idHabitation;
-    }
-
-    public void setIdHabitation(DBHabitation idHabitations)
-    {
-        this.idHabitation = idHabitations;
-    }
-
+    /*
+     * public DBHabitation getIdHabitation()
+     * {
+     * return idHabitation;
+     * }
+     *
+     * public void setIdHabitation(DBHabitation idHabitations)
+     * {
+     * this.idHabitation = idHabitations;
+     * }
+     */
     /**
      * communicates with the database and retrieves all invoiceitems for a habitation
+     *
      * @param habitation
      * the habitation, which owns the invoiceitems
      * @return
      * a list of invoiceitems
-     * @throws HibernateException 
+     * @throws HibernateException
      */
     public static Set<DBInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException

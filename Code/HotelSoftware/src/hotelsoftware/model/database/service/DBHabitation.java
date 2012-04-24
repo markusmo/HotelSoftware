@@ -4,20 +4,17 @@
  */
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.model.database.parties.DBGuest;
-import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
+import hotelsoftware.model.database.parties.DBGuest;
+import hotelsoftware.model.database.room.DBRoom;
+import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,70 +25,54 @@ import org.hibernate.Transaction;
  */
 @Entity
 @Table(name = "habitations", catalog = "roomanizer", schema = "")
-//@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "id")
-public class DBHabitation implements Serializable
+@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
+public class DBHabitation extends DBService implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
+    
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
+    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+    
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+    
     @ManyToMany(mappedBy = "habitationsCollection")
-    private Set<DBGuest> guestsCollection;
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
-    private Set<DBInvoiceItem> invoiceitemsCollection;*/
+    private Set<DBGuest> guests;
+    
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoom idRooms;
+    private DBRoom rooms;
+    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
-    @OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    private Set<DBInvoiceItem> invoiceItemCollection;
+    private DBUser users;
+    
+    /*@OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    private Set<DBInvoiceItem> invoiceItemCollection;*/
 
     public DBHabitation()
     {
     }
 
-    public DBHabitation(Integer id)
+    public DBHabitation(Date start, Date end, BigDecimal price, Date created)
     {
-        this.id = id;
-    }
-
-    public DBHabitation(Integer id, Date start, Date end, BigDecimal price, Date created)
-    {
-        this.id = id;
         this.start = start;
         this.end = end;
         this.price = price;
         this.created = created;
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
     }
 
     public BigDecimal getPrice()
@@ -107,50 +88,51 @@ public class DBHabitation implements Serializable
     @XmlTransient
     public Set<DBGuest> getGuests()
     {
-        return guestsCollection;
+        return guests;
     }
 
     public void setGuests(Set<DBGuest> guestsCollection)
     {
-        this.guestsCollection = guestsCollection;
+        this.guests = guestsCollection;
     }
 
-    @XmlTransient
+
+  /*  @XmlTransient
     public Set<DBInvoiceItem> getInvoiceitems()
     {
-        return invoiceItemCollection;
+        return invoiceItems;
     }
 
-    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceItems(Set<DBInvoiceItem> invoiceItems)
     {
         this.invoiceItemCollection = invoiceitemsCollection;
+    }*/
+
+    public DBRoom getRooms()
+    {
+        return rooms;
     }
 
-    public DBRoom getIdRooms()
+    public void setRooms(DBRoom idRooms)
     {
-        return idRooms;
+        this.rooms = idRooms;
     }
 
-    public void setIdRooms(DBRoom idRooms)
+    public DBUser getUsers()
     {
-        this.idRooms = idRooms;
+        return users;
     }
 
-    public DBUser getIdUsers()
+    public void setUsers(DBUser idUsers)
     {
-        return idUsers;
-    }
-
-    public void setIdUsers(DBUser idUsers)
-    {
-        this.idUsers = idUsers;
+        this.users = idUsers;
     }
 
     @Override
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getIdServices() != null ? getIdServices().hashCode() : 0);
         return hash;
     }
 
@@ -163,7 +145,7 @@ public class DBHabitation implements Serializable
             return false;
         }
         DBHabitation other = (DBHabitation) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if((this.getIdServices() == null && other.getIdServices() != null) || (this.getIdServices() != null && !this.getIdServices().equals(other.getIdServices())))
         {
             return false;
         }
@@ -173,7 +155,7 @@ public class DBHabitation implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Habitations[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Habitations[ id=" + getIdServices() + " ]";
     }
     
     public static DBHabitation getActualHabitationByGuest(DBGuest guest){
@@ -186,7 +168,7 @@ public class DBHabitation implements Serializable
         String query = "Select * "
                 + "From habitations h inner join allocation a on h.id = a.idHabitations "
                 + "inner join guests g on a.idGuests = g.id "
-                + "where g.id = "+guest.getId().toString()+" AND"
+                + "where g.id = "+guest.getIdParties().toString()+" AND"
                 + "h.start >= CURRENT_DATE";
         SQLQuery sqlquery = session.createSQLQuery(query);
         

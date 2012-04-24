@@ -4,6 +4,8 @@
  */
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.model.domain.service.data.ServiceTypeData;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItemData;
@@ -13,7 +15,7 @@ import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.model.domain.users.data.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.*;
@@ -28,9 +30,9 @@ public class Habitation extends Service implements HabitationData
     private Date start;
     private Date end;
     private Date created;
-    private Set<Guest> guestsCollection;
-    private Room idRooms;
-    private User idUsers;
+    private Set<Guest> guests;
+    private Room rooms;
+    private User users;
     private Set<InvoiceItem> invoiceItems;
 
     
@@ -49,9 +51,9 @@ public class Habitation extends Service implements HabitationData
         this.end = end;
         this.created = created;
         super.setPrice(price);
-        this.idRooms = room;
-        this.guestsCollection = new LinkedHashSet<Guest>();
-        this.idUsers = user;
+        this.rooms = room;
+        this.guests = new LinkedHashSet<Guest>();
+        this.users = user;
         this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
     
@@ -63,7 +65,7 @@ public class Habitation extends Service implements HabitationData
         Habitation habitation = new Habitation();
         habitation.setStart(reservation.getStartDate());
         habitation.setEnd(reservation.getEndDate());
-        habitation.setIdUsers(LoginController.getInstance().getCurrentUser());
+        habitation.setUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
     }
     
@@ -143,43 +145,43 @@ public class Habitation extends Service implements HabitationData
     /**
      * @return the guestsCollection
      */
-    public Set<Guest> getGuestsCollection() {
-        return guestsCollection;
+    public Set<Guest> getGuests() {
+        return guests;
     }
 
     /**
-     * @param guestsCollection the guestsCollection to set
+     * @param guests the guestsCollection to set
      */
-    public void setGuestsCollection(Set<Guest> guestsCollection) {
-        this.guestsCollection = guestsCollection;
+    public void setGuests(Set<Guest> guests) {
+        this.guests = guests;
     }
 
     /**
      * @return the idRooms
      */
-    public Room getIdRooms() {
-        return idRooms;
+    public Room getRooms() {
+        return rooms;
     }
 
     /**
-     * @param idRooms the idRooms to set
+     * @param rooms the idRooms to set
      */
-    public void setIdRooms(Room idRooms) {
-        this.idRooms = idRooms;
+    public void setRooms(Room rooms) {
+        this.rooms = rooms;
     }
 
     /**
      * @return the idUsers
      */
-    public User getIdUsers() {
-        return idUsers;
+    public User getUsers() {
+        return users;
     }
 
     /**
-     * @param idUsers the idUsers to set
+     * @param users the idUsers to set
      */
-    public void setIdUsers(User idUsers) {
-        this.idUsers = idUsers;
+    public void setUsers(User users) {
+        this.users = users;
     }
 
     /**
@@ -196,12 +198,12 @@ public class Habitation extends Service implements HabitationData
         this.invoiceItems = invoiceItems;
     }
     
-    public void addInvoiceItem(InvoiceItem newInvoiceItem){
+    public void addInvoiceItems(InvoiceItem newInvoiceItem){
         invoiceItems.add(newInvoiceItem);
     }
     
-    public void addGuest(Guest guest){
-        guestsCollection.add(guest);
+    public void addGuests(Guest guest){
+        guests.add(guest);
     }
 
     public Set<GuestData> getGuestsCollectionData()
@@ -209,14 +211,14 @@ public class Habitation extends Service implements HabitationData
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public RoomData getIdRoomsData()
+    public RoomData getRoomsData()
     {
-        return (RoomData) getIdRooms();
+        return (RoomData) getRooms();
     }
 
-    public UserData getIdUsersData()
+    public UserData getUsersData()
     {
-        return (UserData) getIdUsers();
+        return (UserData) getUsers();
     }
 
     public Set<InvoiceItemData> getInvoiceItemsData()

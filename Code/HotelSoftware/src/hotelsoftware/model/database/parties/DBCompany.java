@@ -26,28 +26,25 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "companies", catalog = "roomanizer", schema = "")
 @XmlRootElement
-
-//@PrimaryKeyJoinColumn(name = "idCustomers", referencedColumnName = "id")
-public class DBCompany implements Serializable
+@PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "idParties")
+public class DBCompany extends DBCustomer implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false, insertable=false, updatable=false)
-    private Integer id;
+
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+    
     @JoinTable(name = "companiespersons", joinColumns =
     {
-        @JoinColumn(name = "idCompanies", referencedColumnName = "id", nullable = false)
+        @JoinColumn(name = "idCompanies", referencedColumnName = "idParties", nullable = false)
     }, inverseJoinColumns =
     {
-        @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
+        @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
     })
     @ManyToMany
     private Set<DBParty> contactPersons;
+    
     @JoinColumn(name = "idCompanyTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBCompanyType idCompanyTypes;
@@ -56,26 +53,10 @@ public class DBCompany implements Serializable
     {
     }
 
-    public DBCompany(Integer id)
-    {
-        this.id = id;
-    }
 
     public DBCompany(Integer id, String name)
     {
-        this.id = id;
         this.name = name;
-    }
-
-    //@Override
-    public Integer getId()
-    {
-        return this.id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
     }
 
     public String getName()
@@ -113,7 +94,7 @@ public class DBCompany implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
         return hash;
     }
 
@@ -127,8 +108,8 @@ public class DBCompany implements Serializable
             return false;
         }
         DBCompany other = (DBCompany) object;
-        if ((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id)))
+        if ((this.getIdParties() == null && other.getIdParties() != null)
+                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
         {
             return false;
         }
@@ -138,7 +119,7 @@ public class DBCompany implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Companies[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Companies[ id=" + getIdParties() + " ]";
     }
 
     /**

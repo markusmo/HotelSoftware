@@ -10,24 +10,9 @@ import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
@@ -49,35 +34,36 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-//    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-//    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-//    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-//})
 public class DBUser implements Serializable
 {
-    @ManyToMany(mappedBy = "userCollection")
-    private Set<DBRole> roleCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Set<DBHabitation> dBHabitationCollection;
+    @ManyToMany(mappedBy = "users")
+    private Set<DBRole> roles;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<DBHabitation> habitations;
+    
     @OneToMany(mappedBy = "idUsers")
-    private Set<DBReservation> dBReservationCollection;
+    private Set<DBReservation> reservations;
+    
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Set<DBInvoice> dBInvoiceCollection;
+    private Set<DBInvoice> invoices;
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "username", nullable = false, length = 255)
     private String username;
+    
     @Basic(optional = false)
     @Column(name = "password", nullable = false, length = 32)
     private String password;
@@ -108,7 +94,7 @@ public class DBUser implements Serializable
     {
         this.username = username;
         this.password = password;
-        this.roleCollection = roleCollection;
+        this.roles = roleCollection;
     }
     
     public Integer getId()
@@ -246,47 +232,47 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBInvoice> getDBInvoiceCollection()
+    public Set<DBInvoice> getInvoices()
     {
-        return dBInvoiceCollection;
+        return invoices;
     }
 
-    public void setDBInvoiceCollection(Set<DBInvoice> dBInvoiceCollection)
+    public void setInvoices(Set<DBInvoice> invoices)
     {
-        this.dBInvoiceCollection = dBInvoiceCollection;
-    }
-
-    @XmlTransient
-    public Set<DBReservation> getDBReservationCollection()
-    {
-        return dBReservationCollection;
-    }
-
-    public void setDBReservationCollection(Set<DBReservation> dBReservationCollection)
-    {
-        this.dBReservationCollection = dBReservationCollection;
+        this.invoices = invoices;
     }
 
     @XmlTransient
-    public Set<DBHabitation> getDBHabitationCollection()
+    public Set<DBReservation> getReservations()
     {
-        return dBHabitationCollection;
+        return reservations;
     }
 
-    public void setDBHabitationCollection(Set<DBHabitation> dBHabitationCollection)
+    public void setReservations(Set<DBReservation> reservations)
     {
-        this.dBHabitationCollection = dBHabitationCollection;
+        this.reservations = reservations;
     }
 
     @XmlTransient
-    public Set<DBRole> getRoleCollection()
+    public Set<DBHabitation> getHabitations()
     {
-        return roleCollection;
+        return habitations;
     }
 
-    public void setRoleCollection(Set<DBRole> roleCollection)
+    public void setHabitations(Set<DBHabitation> habitations)
     {
-        this.roleCollection = roleCollection;
+        this.habitations = habitations;
+    }
+
+    @XmlTransient
+    public Set<DBRole> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(Set<DBRole> roles)
+    {
+        this.roles = roles;
     }
     
      

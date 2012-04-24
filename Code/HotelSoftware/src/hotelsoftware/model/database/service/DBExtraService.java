@@ -25,20 +25,16 @@ import org.hibernate.criterion.Restrictions;
  */
 @Entity
 @Table(name = "extraservices", catalog = "roomanizer", schema = "")
-//@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "id")
+@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
 @XmlRootElement
-public class DBExtraService implements Serializable
+public class DBExtraService extends DBService implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
@@ -47,26 +43,11 @@ public class DBExtraService implements Serializable
     {
     }
 
-    public DBExtraService(Integer id)
-    {
-        this.id = id;
-    }
 
     public DBExtraService(Integer id, String name, BigDecimal price)
     {
-        this.id = id;
         this.name = name;
         this.price = price;
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
     }
 
     public String getName()
@@ -93,7 +74,7 @@ public class DBExtraService implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getIdServices() != null ? getIdServices().hashCode() : 0);
         return hash;
     }
 
@@ -106,7 +87,7 @@ public class DBExtraService implements Serializable
             return false;
         }
         DBExtraService other = (DBExtraService) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.getIdServices() == null && other.getIdServices() != null) || (this.getIdServices() != null && !this.getIdServices().equals(other.getIdServices())))
         {
             return false;
         }
@@ -153,6 +134,6 @@ public class DBExtraService implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Extraservices[ id=" + id + " ]";
+        return "hotelsoftware.database.model.Extraservices[ id=" + getIdServices() + " ]";
     }
 }

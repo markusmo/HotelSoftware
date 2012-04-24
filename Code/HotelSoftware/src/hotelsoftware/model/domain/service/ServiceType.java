@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.domain.service.data.ServiceTypeData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
 import java.util.Collection;

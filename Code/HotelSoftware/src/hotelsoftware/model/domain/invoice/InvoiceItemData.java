@@ -4,9 +4,9 @@
  */
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.domain.service.HabitationData;
-import hotelsoftware.model.domain.service.ServiceData;
-import hotelsoftware.model.domain.users.UserData;
+import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.model.domain.service.data.ServiceData;
+import hotelsoftware.model.domain.users.data.UserData;
 import java.util.Date;
 
 /**

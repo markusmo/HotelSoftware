@@ -6,7 +6,7 @@ package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.service.ExtraService;
-import hotelsoftware.model.domain.service.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Set;
@@ -43,7 +43,7 @@ public class OptionsState extends CheckInState
         for (ExtraServiceData entry : services)
         {
             InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, habitation);
-            habitation.addInvoiceItem(item);
+            habitation.addInvoiceItems(item);
         }
     }
 }

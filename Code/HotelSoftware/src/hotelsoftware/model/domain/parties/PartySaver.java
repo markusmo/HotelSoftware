@@ -89,7 +89,7 @@ public class PartySaver
                 DBCompany dbc = (DBCompany) DynamicMapper.map(company);
 
                 session.saveOrUpdate(dbc);
-                company.setId(dbc.getId());
+                company.setId(dbc.getIdParties());
             }
 
             for (PrivateCustomer privatecustomer : privateCustomers)
@@ -97,7 +97,7 @@ public class PartySaver
                 DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(privatecustomer);
 
                 session.saveOrUpdate(dbpc);
-                privatecustomer.setId(dbpc.getId());
+                privatecustomer.setId(dbpc.getIdParties());
             }
 
             for (Guest guest : guests)
@@ -105,7 +105,7 @@ public class PartySaver
                 DBGuest dbg = (DBGuest) DynamicMapper.map(guest);
 
                 session.saveOrUpdate(dbg);
-                guest.setId(dbg.getId());
+                guest.setId(dbg.getIdParties());
             }
 
             ts.commit();

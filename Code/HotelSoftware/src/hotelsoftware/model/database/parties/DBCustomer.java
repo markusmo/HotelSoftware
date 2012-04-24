@@ -18,18 +18,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "customers", catalog = "roomanizer", schema = "")
-//@PrimaryKeyJoinColumn(name="idParties", referencedColumnName="id")
-//@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
+@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class DBCustomer implements Serializable
+public class DBCustomer extends DBParty implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer idCustomer;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCustomers")
     private Set<DBInvoice> invoicesCollection;
@@ -40,21 +34,6 @@ public class DBCustomer implements Serializable
 
     public DBCustomer()
     {
-    }
-
-    public DBCustomer(Integer id)
-    {
-        this.idCustomer = id;
-    }
-
-    public Integer getIdCustomer()
-    {
-        return this.idCustomer;
-    }
-
-    public void setIdCustomer(Integer id)
-    {
-        this.idCustomer = id;
     }
 
     @XmlTransient
@@ -82,7 +61,7 @@ public class DBCustomer implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (idCustomer != null ? idCustomer.hashCode() : 0);
+        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +74,8 @@ public class DBCustomer implements Serializable
             return false;
         }
         DBCustomer other = (DBCustomer) object;
-        if((this.idCustomer == null && other.idCustomer != null) || (this.idCustomer != null && !this.idCustomer.equals(other.idCustomer)))
+        if((this.getIdParties() == null && other.getIdParties() != null) 
+                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
         {
             return false;
         }
@@ -105,6 +85,6 @@ public class DBCustomer implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Customers[ idCustomer=" + idCustomer + " ]";
+        return "hotelsoftware.database.model.Customers[ id=" + getIdParties() + " ]";
     }   
 }

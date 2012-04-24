@@ -4,6 +4,7 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.checkin.CheckInState.RoomSelection;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.parties.PartyData;

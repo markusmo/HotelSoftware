@@ -4,6 +4,9 @@
  */
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.model.domain.users.data.RoleData;
+import hotelsoftware.model.domain.users.data.PermissionData;
+import hotelsoftware.model.domain.users.data.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

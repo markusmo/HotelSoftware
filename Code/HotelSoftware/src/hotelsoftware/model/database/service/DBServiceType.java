@@ -39,16 +39,9 @@ import org.hibernate.Transaction;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Servicetypes.findAll", query = "SELECT s FROM Servicetypes s"),
-//    @NamedQuery(name = "Servicetypes.findById", query = "SELECT s FROM Servicetypes s WHERE s.id = :id"),
-//    @NamedQuery(name = "Servicetypes.findByName", query = "SELECT s FROM Servicetypes s WHERE s.name = :name"),
-//    @NamedQuery(name = "Servicetypes.findByTaxRate", query = "SELECT s FROM Servicetypes s WHERE s.taxRate = :taxRate")
-//})
 public class DBServiceType implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType")
     private Set<DBService> dBServiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,7 +52,6 @@ public class DBServiceType implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
     private BigDecimal taxRate;

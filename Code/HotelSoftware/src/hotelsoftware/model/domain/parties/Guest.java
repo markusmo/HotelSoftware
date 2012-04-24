@@ -7,7 +7,7 @@ package hotelsoftware.model.domain.parties;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.HabitationData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 

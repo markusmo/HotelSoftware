@@ -57,7 +57,7 @@ public class ServiceSaver
                 DBExtraService dbp = (DBExtraService) DynamicMapper.map(extraService);
 
                 session.saveOrUpdate(dbp);
-                extraService.setId(dbp.getId());
+                extraService.setId(dbp.getIdServices());
             }
 
             for (Habitation habitation : habitations)
