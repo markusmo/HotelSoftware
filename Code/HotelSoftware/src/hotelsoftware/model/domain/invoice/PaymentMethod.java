@@ -6,9 +6,8 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- *
+ * Diese Klasse repraesentiert eine Zahlungsmethode, mit der das System arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author mohi
  */
 public class PaymentMethod implements PaymentMethodData
 {

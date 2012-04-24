@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -14,7 +10,6 @@ import java.util.*;
 /**
  * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class Guest extends Party implements GuestData
 {   
@@ -29,6 +24,7 @@ public class Guest extends Party implements GuestData
     {
     }
     
+    @Override
     public Integer getId()
     {
         return id;
@@ -120,6 +116,21 @@ public class Guest extends Party implements GuestData
 
     }
 
+    /**
+     * Instanziert einen neuen Gast
+     * @param fname
+     * Der Vorname des Gastes
+     * @param lname
+     * Der Nachname des Gastes
+     * @param gender
+     * Das Geschlecht des Gastes
+     * @param birthday
+     * Der Geburtstag des Gastes
+     * @param address
+     * Die Adresse des Gastes
+     * @return
+     * Eine neue Instanz eines Gastes
+     */
     public static Guest create(String fname, String lname, Character gender,
             Date birthday, Address address)
     {
@@ -136,6 +147,18 @@ public class Guest extends Party implements GuestData
         habitations.remove(h);
     }
 
+    /**
+     * Sucht einen Gast nach Namen
+     * @param fname
+     * Der Vorname des Gastes
+     * @param lname
+     * Der Nachname des Gastes
+     * @return
+     * Den gesuchten Gast
+     * @throws CompanyNotFoundException
+     * @throws GuestNotFoundException 
+     * Wirft ein diesen Fehler, wenn der Gast nicht gefunden wurde.
+     */
     public static Collection<Guest> getGuestByName(String fname, String lname)
             throws CompanyNotFoundException, GuestNotFoundException
     {
@@ -158,6 +181,13 @@ public class Guest extends Party implements GuestData
         return (AddressData) address;
     }
 
+    /**
+     * Sucht einen Gast nach der hinterlegten eindeutigen Reservierungsnummer
+     * @param reservationNumber
+     * Die eindeutige Reservierungsnummer
+     * @return
+     * Der Gast, der zu dieser Reservierung gehoert
+     */
     public static Guest getGuestFromReservationNumber(String reservationNumber)
     {
         return PartyFacade.getInstance().getGuestFromReservationNumber(reservationNumber);

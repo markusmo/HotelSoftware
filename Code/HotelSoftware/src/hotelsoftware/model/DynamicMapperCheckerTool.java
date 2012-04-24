@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model;
 
 import java.io.File;
@@ -15,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Testing Tool fuer den DynamicMapper
  * @author Johannes
  */
 public class DynamicMapperCheckerTool
@@ -25,6 +21,9 @@ public class DynamicMapperCheckerTool
         check();
     }
 
+    /**
+     * Prueft den DynamicMapper
+     */
     private static void check()
     {
 
@@ -100,6 +99,13 @@ public class DynamicMapperCheckerTool
         //checkGetterUndSetter(databaseClasses, domainClasses);
     }
 
+    /**
+     * Prueft den DynamicMapper, ob die getter und setter der Klassen gemappt werden koennen
+     * @param databaseClasses
+     * Die Klassen die mit laut Namenskonvention mit einem Praefix beginnen
+     * @param domainClasses 
+     * die Klassen die mit laut Namenskonvention ohne einem Praefix sind
+     */
     private static void checkGetterUndSetter(List<Class> databaseClasses, List<Class> domainClasses)
     {
 
@@ -141,6 +147,15 @@ public class DynamicMapperCheckerTool
         }
     }
 
+    /**
+     * Gibt die Getter-Methode fuer ein Attribut aus
+     * @param clazz
+     * Die Klasse auf die geprueft werden muss
+     * @param fieldName
+     * das Attribut fuer die der Getter gesucht wird
+     * @return 
+     * Die Gettermethode
+     */
     private static Method getGetter(Class clazz, String fieldName)
     {
         Method[] methods = clazz.getDeclaredMethods();
@@ -155,6 +170,15 @@ public class DynamicMapperCheckerTool
         return null;
     }
 
+    /**
+     * Gibt die Setter-Methode fuer ein Attribut aus
+     * @param clazz
+     * Die Klasse auf die geprueft werden muss
+     * @param fieldName
+     * das Attribut fuer die der Setter gesucht wird
+     * @return 
+     * Die Settermethode
+     */
     private static Method getSetter(Class clazz, String fieldName)
     {
         Method[] methods = clazz.getDeclaredMethods();
@@ -169,6 +193,15 @@ public class DynamicMapperCheckerTool
         return null;
     }
 
+    /**
+     * Prueft der Getter fuer ein Attribut existiert
+     * @param clazz
+     * Die Klasse auf die geprueft werden muss
+     * @param fieldName
+     * das Attribut fuer die der Getter gesucht wird
+     * @return
+     * True, wenn existiert.
+     */
     private static boolean GetterExists(Class clazz, String fieldName)
     {
         Method[] methods = clazz.getDeclaredMethods();
@@ -182,7 +215,15 @@ public class DynamicMapperCheckerTool
         }
         return false;
     }
-
+    /**
+     * Prueft der Setter fuer ein Attribut existiert
+     * @param clazz
+     * Die Klasse auf die geprueft werden muss
+     * @param fieldName
+     * das Attribut fuer die der Setter gesucht wird
+     * @return
+     * True, wenn existiert.
+     */
     private static boolean SetterExists(Class clazz, String fieldName)
     {
         Method[] methods = clazz.getDeclaredMethods();
@@ -198,12 +239,11 @@ public class DynamicMapperCheckerTool
     }
 
     /**
-     * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
-     *
-     * @param packageName The base package
-     * @return The classes
-     * @throws ClassNotFoundException
-     * @throws IOException
+     * Scannt alle Klassen aus dem Context-Class-Loader, die zu einem gegebenen Package gehoeren und dessen Subpackages.
+     * @param packageName Das Basispaket
+     * @return Die Klassen in diesem Packet
+     * @throws ClassNotFoundException Wirft diesen fehler, wenn die Klassen nicht verfuegbar sind.
+     * @throws IOException Wirft diesen Fehler, wenn die Klassen nicht vorhanden sind.
      */
     @SuppressWarnings("unchecked")
     private static List<Class> getClasses(String packageName)
@@ -230,12 +270,11 @@ public class DynamicMapperCheckerTool
     }
 
     /**
-     * Recursive method used to find all classes in a given directory and subdirs.
-     *
-     * @param directory The base directory
-     * @param packageName The package name for classes found inside the base directory
-     * @return The classes
-     * @throws ClassNotFoundException
+     * Rekursive Methode, die alle Klassen in einem Verzeichnis und dessen Subverzeichnissen sind ausgibt
+     * @param directory Das Basisverzeichnis
+     * @param packageName Das Package, in dem die Klassen zu finden sind
+     * @return Die gefundenen Klassen
+     * @throws ClassNotFoundException Wirft diesen Fehler, wenn eine Klasse nicht gefunden wird.
      */
     @SuppressWarnings("unchecked")
     private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException

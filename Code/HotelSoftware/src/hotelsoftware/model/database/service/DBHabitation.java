@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.service;
 
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
@@ -20,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Diese Klasse erbt von Service und bildet Aufenthalte auf die Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -158,6 +154,13 @@ public class DBHabitation extends DBService implements Serializable
         return "hotelsoftware.database.model.Habitations[ id=" + getIdServices() + " ]";
     }
     
+    /**
+     * Sucht einen Aufenthalt nach einem Gast und gibt diesen aus
+     * @param guest
+     * Der Gast, nach dem gesucht wird
+     * @return 
+     * Der Aufenthalt, der dem Gast entspricht
+     */
     public static DBHabitation getActualHabitationByGuest(DBGuest guest){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

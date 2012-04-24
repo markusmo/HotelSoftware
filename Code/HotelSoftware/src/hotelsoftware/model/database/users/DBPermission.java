@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.users;
 
 import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
@@ -22,7 +18,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse bildet die Befugnisse fuer das System auf die Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -122,10 +118,9 @@ public class DBPermission implements Serializable
     }
     
     /**
-     * establishes a connection to the database and retrieves all permissions
-     * available in the database
+     * Gibt alle Befugnisse aus
      * @return
-     * a list of permissions
+     * Ein Set mit allen Befugnissen, die verfuegbar sind
      * @throws HibernateException 
      */
     public static Set<DBPermission> getPermissions() throws HibernateException
@@ -141,13 +136,13 @@ public class DBPermission implements Serializable
     }
     
     /**
-     * establishes a connection to the database and retrieves a single permission
-     * by name
+     * Sucht eine spezielle Befugnis in der Datenbank
      * @param permission
-     * the permission to be fetched
+     * Die Befugnis, nach der gesucht wird
      * @return
-     * a model class of permissions
+     * Die Befugnis, nach der gesucht wird
      * @throws HibernateException 
+     * Wirft einen Fehler, wenn etwas bei der Transaktion fehleschlaegt
      */
     public static DBPermission getPermissionByName(String permission) throws HibernateException
     {
@@ -166,57 +161,5 @@ public class DBPermission implements Serializable
             }
         }
         return null;
-    }
-    
-
-    
-     /**
-     * establishes a connection to the database and creates a new permission
-     * in the database
-     * @param name
-     * the new permission to be created
-     * @throws HibernateException
-     * @throws FailedToSaveToDatabaseException 
-     */
-    public static void savePermission(String name) throws FailedToSaveToDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            session.save(new DBPermission(name));
-            ts.commit();
-        } catch (HibernateException e)
-        {
-            ts.rollback();
-            throw new FailedToSaveToDatabaseException();
-        } finally
-        {
-            session.close();
-        }
-    }
-    
-    /**
-     * deletes a permission from the database
-     * @param name
-     * the name of the permission to delete
-     * @throws FaildToDeleteFromDatabaseException 
-     */
-    public static void deletePermission(String name) throws FaildToDeleteFromDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            DBPermission permission = (DBPermission) session.createCriteria(
-                    DBPermission.class).add(Restrictions.like("name", name)).uniqueResult();
-            session.delete(permission);
-        } catch (HibernateException ex)
-        {
-            ts.rollback();
-            throw new FaildToDeleteFromDatabaseException();
-        }
-    }    
+    }   
 }

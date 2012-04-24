@@ -27,7 +27,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Diese Klasse bildet die verschiedenen Servicetypen (Essen, Getraenke, Aufenthalte, ...) mit Steuern auf die Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -132,6 +132,11 @@ public class DBServiceType implements Serializable
         return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
     }
     
+    /**
+     * Gibt alle Servicetypen aus
+     * @return 
+     * Alle Servicetypen, die verfuegbar sind
+     */
     public static Set<DBServiceType> getAllServiceTypes(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

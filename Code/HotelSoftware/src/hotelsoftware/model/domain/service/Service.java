@@ -1,14 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.domain.service.data.ServiceData;
 import java.math.BigDecimal;
 
 /**
- *
+ * Diese Klasse bildet einen Service ab, ist Superklasse fuer alle Services,
+ * mit denen das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public abstract class Service implements ServiceData

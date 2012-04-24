@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.database.service;
 
 import java.io.Serializable;
@@ -9,7 +5,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Diese Klasse ist die Superklasse, aller Services, die es gibt.
  * @author mohi
  */
 @Entity

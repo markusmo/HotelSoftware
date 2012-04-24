@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.database.parties.DBAddress;
@@ -27,6 +23,7 @@ import java.util.Set;
  */
 public class PartySaver
 {
+
     private PartySaver()
     {
     }
@@ -44,6 +41,7 @@ public class PartySaver
      */
     private static class PartySaverHolder
     {
+
         private static final PartySaver INSTANCE = new PartySaver();
     }
 
@@ -55,7 +53,8 @@ public class PartySaver
      * @param companys firmen
      * @param privateCustomers privatkunden
      * @param guests gänste
-     * @throws FailedToSaveToDatabaseException konnte nicht in der datenbank eingetragen werden
+     * @throws FailedToSaveToDatabaseException konnte nicht in der datenbank
+     * eingetragen werden
      */
     public void saveOrUpdate(Set<Address> addresses,
             Set<CompanyType> companytypes, Set<Company> companys,
@@ -94,7 +93,8 @@ public class PartySaver
 
             for (PrivateCustomer privatecustomer : privateCustomers)
             {
-                DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(privatecustomer);
+                DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(
+                        privatecustomer);
 
                 session.saveOrUpdate(dbpc);
                 privatecustomer.setId(dbpc.getIdParties());
@@ -109,13 +109,11 @@ public class PartySaver
             }
 
             ts.commit();
-        }
-        catch (HibernateException ex)
+        } catch (HibernateException ex)
         {
             ts.rollback();
             throw new FailedToSaveToDatabaseException();
-        }
-        finally
+        } finally
         {
             session.close();
         }
@@ -145,7 +143,8 @@ public class PartySaver
 
             if (addresse.getId() != null)
             {
-                dbadr = (DBAddress) session.createCriteria(DBAddress.class).add(Restrictions.eq("id", addresse.getId())).uniqueResult();
+                dbadr = (DBAddress) session.createCriteria(DBAddress.class).add(Restrictions.eq(
+                        "id", addresse.getId())).uniqueResult();
 
                 Address temp = (Address) DynamicMapper.map(dbadr);
 
@@ -165,7 +164,9 @@ public class PartySaver
 
             if (companyType.getId() != null)
             {
-                dbct = (DBCompanyType) session.createCriteria(DBCompanyType.class).add(Restrictions.eq("id", companyType.getId())).uniqueResult();
+                dbct = (DBCompanyType) session.createCriteria(
+                        DBCompanyType.class).add(Restrictions.eq("id",
+                        companyType.getId())).uniqueResult();
 
                 CompanyType temp = (CompanyType) DynamicMapper.map(dbct);
                 companyType.setTyp(temp.getTyp());
@@ -178,7 +179,8 @@ public class PartySaver
 
             if (company.getId() != null)
             {
-                dbc = (DBCompany) session.createCriteria(DBCompany.class).add(Restrictions.eq("id", company.getId())).uniqueResult();
+                dbc = (DBCompany) session.createCriteria(DBCompany.class).add(Restrictions.eq(
+                        "id", company.getId())).uniqueResult();
 
                 Company temp = (Company) DynamicMapper.map(dbc);
                 company.setAddress(temp.getAddress());
@@ -196,7 +198,9 @@ public class PartySaver
 
             if (privateCustomer.getId() != null)
             {
-                dbpc = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class).add(Restrictions.eq("id", privateCustomer.getId())).uniqueResult();
+                dbpc = (DBPrivateCustomer) session.createCriteria(
+                        DBPrivateCustomer.class).add(Restrictions.eq("id",
+                        privateCustomer.getId())).uniqueResult();
 
                 PrivateCustomer temp = (PrivateCustomer) DynamicMapper.map(dbpc);
                 privateCustomer.setAddress(temp.getAddress());
@@ -214,7 +218,8 @@ public class PartySaver
 
             if (guest.getId() != null)
             {
-                dbg = (DBGuest) session.createCriteria(DBGuest.class).add(Restrictions.eq("id", guest.getId())).uniqueResult();
+                dbg = (DBGuest) session.createCriteria(DBGuest.class).add(Restrictions.eq(
+                        "id", guest.getId())).uniqueResult();
 
                 Guest temp = (Guest) DynamicMapper.map(dbg);
                 guest.setAddress(temp.getAddress());

@@ -12,15 +12,16 @@ public class FailedToSaveToDatabaseException extends DatabaseException
 {
 
     /**
-     * Creates a new instance of <code>FailedToSaveToDatabaseException</code> without detail message.
+     * Neue Instanz von <code>FailedToSaveToDatabaseException</code>
      */
     public FailedToSaveToDatabaseException()
     {
     }
 
     /**
-     * Constructs an instance of <code>FailedToSaveToDatabaseException</code> with the specified detail message.
-     * @param msg the detail message.
+     * Neue Instanz von <code>FailedToSaveToDatabaseException</code> mit einer Fehlermeldung
+     * @param msg
+     * Die Fehlermeldung, die weitergereicht werden soll.
      */
     public FailedToSaveToDatabaseException(String msg)
     {

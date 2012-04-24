@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.invoice;
 
 /**
- *
+ * Zum eindeutigen Identifizieren von Rechungspositionen
  * @author mohi
  */
 public class InvoiceItemPK

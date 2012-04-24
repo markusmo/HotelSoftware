@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.DynamicMapper;
@@ -16,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Diese Klasse verwaltet die Speicherung aller Objekte des Packages Service in die Datenbank.
  * @author Tobias
  */
 public class ServiceSaver
@@ -35,12 +31,23 @@ public class ServiceSaver
         private static final ServiceSaver INSTANCE = new ServiceSaver();
     }
 
-    public void saveOrUpdate(Set<ExtraService> extraServices, Set<Habitation> habitations, Set<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
+    /**
+     * Diese Methode speichert alle Services mittels einer uebergebenen Session in die Datenbank
+     * @param extraServices
+     * Alle veraenderten/neuen Extraservices
+     * @param habitations
+     * Alle veraenderten/neuen Aufenthalte
+     * @param serviceTypes
+     * Alle veraenderten/neuen Servicearten
+     * @throws FailedToSaveToDatabaseException 
+     * Wirft einen Fehler, wenn das Speichern fehlschlaegt
+     */
+    public void saveOrUpdate(Session session, Set<ExtraService> extraServices, Set<Habitation> habitations, Set<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
     {
 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
 
         try
         {
@@ -67,16 +74,16 @@ public class ServiceSaver
                 session.saveOrUpdate(dbp);
                 habitation.setId(dbp.getId());
             }
-            ts.commit();
+            //ts.commit();
         }
         catch (HibernateException ex)
         {
-            ts.rollback();
+            //ts.rollback();
             throw new FailedToSaveToDatabaseException();
         }
-        finally
-        {
-            session.close();
-        }
+//        finally
+//        {
+//            session.close();
+//        }
     }
 }

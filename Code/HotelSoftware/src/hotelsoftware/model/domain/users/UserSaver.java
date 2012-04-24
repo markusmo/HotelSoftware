@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.users;
 
 import hotelsoftware.model.DynamicMapper;
@@ -18,7 +14,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Diese Klasse verwaltet die Sicherung aller Klassen des Packages User in die Datenbank.
  * @author Dunst
  */
 public class UserSaver
@@ -37,6 +33,13 @@ public class UserSaver
         private static final UserSaver INSTANCE = new UserSaver();
     }
 
+    /**
+     * Sinnvoll?
+     * @param users
+     * @param roles
+     * @param permissions
+     * @throws FailedToSaveToDatabaseException 
+     */
     public void saveOrUpdate(Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         Session session = null;
@@ -70,6 +73,20 @@ public class UserSaver
         }
     }
     
+    /**
+     * Diese Methode sichert/updated mittels einer uebergebenen Hibernate-Session alle
+     * veraenderten oder neuen uebergebenen Objekte
+     * @param session
+     * Die Hibernate-Session auf der die Sicherung/Update geschieht
+     * @param users
+     * User, die veraendert/neu sind
+     * @param roles
+     * Rollen, die veraendert/neu sind
+     * @param permissions
+     * Befugnisse, die veraendert/neu sind
+     * @throws FailedToSaveToDatabaseException
+     * Wirft diesen Fehler, wenn die Sicherung fehlschlaegt.
+     */
     public void saveOrUpdate(Session session, Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         for (Permission permission : permissions)
@@ -97,6 +114,15 @@ public class UserSaver
         }
     }
     
+    /**
+     * Stellt alle Daten aus der Datenbank
+     * @param users
+     * User, die wiederhergestellt werden muessen
+     * @param roles
+     * Rollen, die wiederhergestellt werden muessen
+     * @param permissions 
+     * Befugnisse, die wiederhergestellt werden muessen
+     */
     public void rollback(Set<User> users, Set<Role> roles, Set<Permission> permissions)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

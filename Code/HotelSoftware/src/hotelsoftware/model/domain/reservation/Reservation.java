@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.domain.parties.Guest;
@@ -13,11 +9,13 @@ import java.util.Date;
 import java.util.Set;
 
 /**
+ * Diese Klasse bildet eine Reservierung ab, mit der das System arbeitet.
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Reservation implements ReservationData
 {
+
     private Date startDate;
     private Date endDate;
     private String comment;
@@ -32,6 +30,13 @@ public class Reservation implements ReservationData
     {
     }
 
+    /**
+     * Liefert eine neue Instanz einer Reservierung zurueck, jedes Feld muss
+     * mittels Getter gesetzt werden.
+     *
+     * @return
+     * eine neue leere Instanz.
+     */
     public static Reservation newInstance()
     {
         return new Reservation();
@@ -126,7 +131,8 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationOptionData> getOptionCollectionData()
     {
-        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(getOptionCollection());
+        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(
+                getOptionCollection());
     }
 
     public PartyData getPartyData()
@@ -136,7 +142,8 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(reservationItems);
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(
+                reservationItems);
     }
 
     public Integer getGuestAmount()
@@ -146,17 +153,22 @@ public class Reservation implements ReservationData
 
     public static Reservation getReservationByNumber(int reservationNr)
     {
-        return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
+        return ReservationFacade.getInstance().getReservationByNumber(
+                reservationNr);
     }
 
-    public static Set<Reservation> getReservationsByName(String firstName, String lastName)
+    public static Set<Reservation> getReservationsByName(String firstName,
+            String lastName)
     {
-        return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
+        return ReservationFacade.getInstance().getReservationsByName(firstName,
+                lastName);
     }
 
-    public static Set<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+    public static Set<Reservation> getReservationsByNameApprox(String firstName,
+            String lastName)
     {
-        return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
+        return ReservationFacade.getInstance().getReservationsByNameApprox(
+                firstName, lastName);
     }
 
     public static Set<Reservation> getAllReservations()

@@ -6,14 +6,17 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen Geshlecht, einen Vornamen und einen Nachnamen.
- * Da diese Klasse von Customer erbt, erbt sie auch von der Klasse Party und hat somit eine Addresse und eine Id.
+ * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen
+ * Geshlecht, einen Vornamen und einen Nachnamen. Da diese Klasse von Customer
+ * erbt, erbt sie auch von der Klasse Party und hat somit eine Addresse und eine
+ * Id.
  *
  * @author Hubert
  *
  */
 public class PrivateCustomer extends Customer
 {
+
     private String fname;
     private String lname;
     private Character gender;
@@ -22,6 +25,16 @@ public class PrivateCustomer extends Customer
     {
     }
 
+    /**
+     * Instanziert einen neuen Privatkunden
+     *
+     * @param fname Vorname des Kunden
+     * @param lname Nachname des Kunden
+     * @param gender Geschlecht des Kunden (im Falle, das der Gast == Kunde ist)
+     * @param invoiceAddress Rechungsadresse des Kunden
+     * @param address Die Adresse des Kunden
+     * @return
+     */
     public static PrivateCustomer create(String fname, String lname,
             Character gender, Address invoiceAddress, Address address)
     {
@@ -84,10 +97,12 @@ public class PrivateCustomer extends Customer
      * @throws PrivateCustomerNotFoundException Kunde nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
+    public static PrivateCustomer getPrivateCustomerByName(String firstname,
+            String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
-        return PartyFacade.getInstance().getPrivateCustomerByName(firstname, lastname);
+        return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
+                lastname);
     }
 
     @Override

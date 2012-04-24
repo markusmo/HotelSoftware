@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.domain.service.data.ServiceTypeData;
@@ -11,7 +7,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- *
+ * Diese Klasse bildet eine Serviceart ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ServiceType implements ServiceTypeData
@@ -38,11 +34,23 @@ public class ServiceType implements ServiceTypeData
         }
     }
 
+    /**
+     * Instanziert eine neue Serviceart (Essen, Getraenke, etc.)
+     * @param name
+     * Name des neuen Service
+     * @return
+     * eine neue Instanz
+     */
     public static ServiceType createServiceType(String name)
     {
         return new ServiceType(name);
     }
 
+    /**
+     * Gibt alle Servicearten aus
+     * @return 
+     * Alle Servicearten, die vorhanden sind.
+     */
     public static Set<ServiceType> getAllServiceTypes()
     {
         Set<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
@@ -73,10 +81,5 @@ public class ServiceType implements ServiceTypeData
     public void setType(String type)
     {
         this.type = type;
-    }
-
-    public static ServiceType create(String name)
-    {
-        return new ServiceType(name);
     }
 }

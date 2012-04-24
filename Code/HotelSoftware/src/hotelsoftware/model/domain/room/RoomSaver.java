@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
@@ -17,7 +13,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Die Sicherungsklasse, mit der alle Objekte des Room Package in die Datenbank
+ * gespielt werden koennen
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class RoomSaver
@@ -35,7 +32,13 @@ public class RoomSaver
     {
         private static final RoomSaver INSTANCE = new RoomSaver();
     }
-
+    /**
+     * ?? lassen oder nicht??
+     * @param categories
+     * @param options
+     * @param status
+     * @throws FailedToSaveToDatabaseException 
+     */
     public void saveOrUpdate(Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException
     {
         Session session = null;
@@ -70,6 +73,20 @@ public class RoomSaver
 
     }
 
+    /**
+     * Diese Methode sichert und updated mittels einer uebergebenen Hibernate-Session alle Objekte, des Package Room
+     * in die Datenbank
+     * @param session
+     * Eine Liste von veraenderten/neuen Saisonen
+     * @param categories
+     * Eine Liste von veraenderten/neuen Zimmerkategorieen
+     * @param options
+     * Eine Liste von veraenderten/neuen Zimmeroptionen
+     * @param status
+     * Eine Liste von veraenderten/neuen Zimmerstatus
+     * @throws FailedToSaveToDatabaseException 
+     * Wirft einen Fehler, wenn das sichern in die Datenbank fehllschlaegt
+     */
     public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException
     {
 
@@ -98,32 +115,5 @@ public class RoomSaver
         }
 
     }
-//    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException {
-//            
-//        for (RoomCategory category : categories)
-//        {
-//            DBRoomcategory dbCat = (DBRoomcategory) DynamicMapper.map(category);
-//
-//            session.saveOrUpdate(dbCat);
-//            category.setId(dbCat.getId());
-//        }
-//        
-//        for (RoomOption option : options)
-//        {
-//            DBRoomoption dbOpt = (DBRoomoption) DynamicMapper.map(option);
-//
-//            session.saveOrUpdate(dbOpt);
-//            option.setId(dbOpt.getId());
-//        }
-//        
-//        for (RoomStatus stat : status)
-//        {
-//            DBRoomstatus dbStat = (DBRoomstatus) DynamicMapper.map(stat);
-//
-//            session.saveOrUpdate(dbStat);
-//            stat.setId(dbStat.getId());
-//        }
-//            
-//    }
     //TODO implement Rollback
 }

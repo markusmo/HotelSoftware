@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
@@ -16,10 +12,12 @@ import java.util.Set;
 
 /**
  * Kommunikationsklasse zwischen den Schichten. Sie dient als Übersetzer.
+ *
  * @author Hubert
  */
 public class PartyFacade
 {
+
     private PartyFacade()
     {
     }
@@ -28,29 +26,31 @@ public class PartyFacade
     {
         return PartyFacadeHolder.INSTANCE;
     }
-/**
- * Hilfsklasse für Singleton
- * @author Hubert
- *
- */
+
     private static class PartyFacadeHolder
     {
+
         private static final PartyFacade INSTANCE = new PartyFacade();
     }
-/**
- * gibt alle CompanyTypen zurück
- * @return
- */
+
+    /**
+     * gibt alle CompanyTypen zurück
+     *
+     * @return
+     */
     public Set<CompanyType> getAllTypes()
     {
-        return (Set<CompanyType>) DynamicMapper.mapCollection(DBCompanyType.getAllTypes());
+        return (Set<CompanyType>) DynamicMapper.mapCollection(
+                DBCompanyType.getAllTypes());
     }
-/**
- * sucht nach einer Firma mit entsprechendem nammen
- * @param name name 
- * @return Firmenobjekt
- * @throws CompanyNotFoundException firma nicht gefunden
- */
+
+    /**
+     * sucht nach einer Firma mit entsprechendem nammen
+     *
+     * @param name name
+     * @return Firmenobjekt
+     * @throws CompanyNotFoundException firma nicht gefunden
+     */
     public Company getCompanyByName(String name)
             throws CompanyNotFoundException
     {
@@ -66,6 +66,7 @@ public class PartyFacade
 
     /**
      * sucht einen PrivateCustomer mit entsprechendem namen
+     *
      * @param firstName vorname
      * @param lastName nachname
      * @return privatkundenobjekt
@@ -74,9 +75,10 @@ public class PartyFacade
      */
     public PrivateCustomer getPrivateCustomerByName(String firstName,
             String lastName) throws PrivateCustomerNotFoundException,
-            GuestNotFoundException
+                                    GuestNotFoundException
     {
-        DBPrivateCustomer c = DBPrivateCustomer.getPrivateCustomerByName(firstName, lastName);
+        DBPrivateCustomer c = DBPrivateCustomer.getPrivateCustomerByName(
+                firstName, lastName);
 
         if (c == null)
         {
@@ -86,18 +88,21 @@ public class PartyFacade
         return (PrivateCustomer) DynamicMapper.map(c);
     }
 
-    Guest getGuestFromReservationNumber(String  reservationNumber)
+    Guest getGuestFromReservationNumber(String reservationNumber)
     {
-        return (Guest) DynamicMapper.map(DBGuest.getGuestFromReservationNumber(reservationNumber));
+        return (Guest) DynamicMapper.map(DBGuest.getGuestFromReservationNumber(
+                reservationNumber));
     }
-/**
- * sucht nach einem Gast anhand eines Namens
- * @param firstName vorname
- * @param lastName nachname
- * @return Collektion aus Gästen
- * @throws CompanyNotFoundException Firma nicht gefunden
- * @throws GuestNotFoundException Gast nicht gefunden
- */
+
+    /**
+     * sucht nach einem Gast anhand eines Namens
+     *
+     * @param firstName vorname
+     * @param lastName nachname
+     * @return Collektion aus Gästen
+     * @throws CompanyNotFoundException Firma nicht gefunden
+     * @throws GuestNotFoundException Gast nicht gefunden
+     */
     @SuppressWarnings("unchecked")
     public Set<Guest> getGuestByName(String firstName, String lastName)
             throws CompanyNotFoundException, GuestNotFoundException

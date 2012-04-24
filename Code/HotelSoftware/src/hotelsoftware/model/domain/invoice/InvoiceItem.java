@@ -10,9 +10,8 @@ import hotelsoftware.model.domain.users.data.UserData;
 import java.util.Date;
 
 /**
- *
+ * Diese Klasse stellt eine Rechungsposition dar, mit der das System intern arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author mohi
  */
 public class InvoiceItem implements InvoiceItemData
 {
@@ -36,6 +35,18 @@ public class InvoiceItem implements InvoiceItemData
         this.idHabitation = habitation;
     }
 
+    /**
+     * Erstellt eine neue Instanz einer Rechungsposition
+     * @param service
+     * Der Service, der verrechnet wird
+     * @param amount
+     * Die Menge der Services, die konsumiert wurden
+     * @param habitation
+     * Der Aufenthalt, zu dem diese Position gehoert
+     * @return
+     * Eine Rechungsposition, mit einer Anzahl von Services, zugehoerig zu einem Aufenthalt
+     * mit dem User, der sie erstellt hat.
+     */
     public static InvoiceItem createInvoiceItem(Service service, int amount, Habitation habitation)
     {
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
@@ -109,6 +120,7 @@ public class InvoiceItem implements InvoiceItemData
     /**
      * Gibt den Preis für eine Rechungsposition aus.
      * @return 
+     * Preis es Services * Anzahl der Konsumation
      */
     @Override
     public double getTotalPrice()

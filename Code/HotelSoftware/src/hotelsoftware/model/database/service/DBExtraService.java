@@ -13,7 +13,7 @@ import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * 
+ * Diese Klasse bildet einen Extraservice auf die Datenbank ab.
  * @author mohi
  */
 @Entity
@@ -87,18 +87,11 @@ public class DBExtraService extends DBService implements Serializable
         return true;
     }
 
-    public static Set<DBExtraService> getExtraServices() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBExtraService.class);
-        List<DBExtraService> retList = criteria.list();
-        session.close();
-
-        return new LinkedHashSet<DBExtraService>(retList);
-    }
-
+    /**
+     * Gibt alle Verpflegungsarten aus
+     * @return 
+     * Alle Verpflegunsarten, die verfuegbar sind
+     */
     public static Collection<DBExtraService> getAllHabitationServices()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -114,6 +107,15 @@ public class DBExtraService extends DBService implements Serializable
         return retList;
     }
 
+    /**
+     * Liefert einen spezifischen Extraservice aus
+     * @param name
+     * Der Service nach dem gesucht wird.
+     * @return
+     * Den Extraservice mit dem angegebenen Namen
+     * @throws HibernateException 
+     * Wirft einen Fehler, wenn etwas bei der Transaktion fehllschlaegt
+     */
     public static DBExtraService getExtraServiceByName(String name) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -124,6 +126,13 @@ public class DBExtraService extends DBService implements Serializable
         return extraService;
     }
 
+    /**
+     * Gibt alle Extraservices aus
+     * @return
+     * Alle Extraservices, die verfuegbar sind
+     * @throws HibernateException 
+     * Wirft einen Fehler, wenn etwas mit der Transaktion fehlschlaegt
+     */
     public static Set<DBExtraService> getAllExtraServices() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

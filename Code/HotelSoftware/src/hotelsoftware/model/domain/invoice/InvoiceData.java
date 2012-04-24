@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.model.domain.parties.CustomerData;
@@ -11,7 +7,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *
+ * Dieses Interface wird and die GUI weitergereicht, um eine Rechung abzubilden.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface InvoiceData

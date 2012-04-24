@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import java.util.Collection;
@@ -9,7 +5,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *
+ * Bildet eine Saison ab, mit das System arbeitet.
  * @author Johannes
  */
 public class Season
