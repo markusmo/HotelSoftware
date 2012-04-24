@@ -114,6 +114,7 @@ public class DBExtraService extends DBService implements Serializable
         ts.begin();
         List<DBExtraService> retList = (List<DBExtraService>) session.createCriteria(DBExtraService.class)
                 .add(Restrictions.eq("name", "habitation")).list();
+        
         return retList;
     }
 
