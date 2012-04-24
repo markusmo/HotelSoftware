@@ -6,12 +6,15 @@ package hotelsoftware.model.database.service;
 
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.parties.DBGuest;
+import hotelsoftware.model.database.reservation.DBReservationItem;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
@@ -60,8 +63,8 @@ public class DBHabitation extends DBService implements Serializable
     @ManyToOne(optional = false)
     private DBUser users;
     
-    /*@OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    private Set<DBInvoiceItem> invoiceItemCollection;*/
+    @OneToMany(mappedBy="habitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
     {
@@ -86,27 +89,27 @@ public class DBHabitation extends DBService implements Serializable
     }
 
     @XmlTransient
-    public Set<DBGuest> getGuests()
+    public Collection<DBGuest> getGuests()
     {
         return guests;
     }
 
-    public void setGuests(Set<DBGuest> guestsCollection)
+    public void setGuests(Collection<DBGuest> guestsCollection)
     {
-        this.guests = guestsCollection;
+        this.guests = new LinkedHashSet<DBGuest>(guestsCollection);
     }
 
 
-  /*  @XmlTransient
-    public Set<DBInvoiceItem> getInvoiceitems()
+    @XmlTransient
+    public Collection<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(Set<DBInvoiceItem> invoiceItems)
+    public void setInvoiceItems(Collection<DBInvoiceItem> invoiceItems)
     {
-        this.invoiceItemCollection = invoiceitemsCollection;
-    }*/
+        this.invoiceItems = new LinkedHashSet<DBInvoiceItem>(invoiceItems);
+    }
 
     public DBRoom getRooms()
     {

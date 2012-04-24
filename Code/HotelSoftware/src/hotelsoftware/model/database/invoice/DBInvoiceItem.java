@@ -39,22 +39,28 @@ public class DBInvoiceItem implements Serializable
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DBInvoiceItemPK invoiceitemsPK;
+    
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private Integer amount;
+    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUser;
-    @JoinColumn(name = "idHabitations", referencedColumnName = "id", nullable = false)
+    
+    @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private DBHabitation idHabitation;
+    private DBHabitation habitation;
+    
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBInvoice invoice;
+    
     @JoinColumn(name = "idServices", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBService service;
@@ -140,14 +146,14 @@ public class DBInvoiceItem implements Serializable
         this.idUser = idUsers;
     }
 
-    public DBHabitation getIdHabitation()
+    public DBHabitation getHabitation()
     {
-        return idHabitation;
+        return habitation;
     }
 
-    public void setIdHabitation(DBHabitation idHabitations)
+    public void setHabitation(DBHabitation habitation)
     {
-        this.idHabitation = idHabitations;
+        this.habitation = habitation;
     }
 
     /**
