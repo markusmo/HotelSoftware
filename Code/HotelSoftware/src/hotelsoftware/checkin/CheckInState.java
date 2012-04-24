@@ -1,5 +1,7 @@
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -175,7 +177,7 @@ public abstract class CheckInState
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         throw new IllegalStateException();
     }
@@ -220,7 +222,7 @@ public abstract class CheckInState
         throw new IllegalStateException();
     }
 
-    public Set<CategoryData> getAllCategories()
+    public Set<RoomCategoryData> getAllCategories()
     {
         throw new IllegalStateException();
     }
@@ -247,16 +249,16 @@ public abstract class CheckInState
 
     protected class RoomSelection
     {
-        private CategoryData category;
+        private RoomCategoryData category;
         private Room room;
 
-        public RoomSelection(CategoryData category, Room room)
+        public RoomSelection(RoomCategoryData category, Room room)
         {
             this.category = category;
             this.room = room;
         }
 
-        public CategoryData getCategory()
+        public RoomCategoryData getCategory()
         {
             return category;
         }

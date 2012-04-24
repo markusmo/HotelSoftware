@@ -7,8 +7,8 @@ package hotelsoftware.gui.checkin;
 import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
-import hotelsoftware.model.domain.room.CategoryData;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.room.Room;
 import java.util.*;
@@ -76,12 +76,12 @@ public class CheckInGuiControler
         return selectedReservation;
     }
 
-    public Set<CategoryData> getCategories()
+    public Set<RoomCategoryData> getCategories()
     {
         return CheckInController.getInstance().getAllCategories();
     }
 
-    public Set<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
+    public Set<RoomData> getFreeRoomsInCategory(int index, RoomCategoryData c)
     {
         return CheckInController.getInstance().changeRoomCategory(index, c);
     }
@@ -112,7 +112,7 @@ public class CheckInGuiControler
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
 
-    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
     }

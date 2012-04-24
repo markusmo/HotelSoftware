@@ -7,8 +7,8 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.domain.parties.AddressData;
 import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
-import hotelsoftware.model.domain.room.CategoryData;
-import hotelsoftware.model.domain.room.RoomData;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import java.util.*;
 
@@ -178,7 +178,7 @@ public class CheckInController
         state.removeRoomSelection(selectionIndex);
     }
     
-    public Set<CategoryData> getAllCategories()
+    public Set<RoomCategoryData> getAllCategories()
     {
         return state.getAllCategories();
     }
@@ -189,7 +189,7 @@ public class CheckInController
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         return state.changeRoomCategory(selectionIndex, category);
     }

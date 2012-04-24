@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.room.DBRoom;
@@ -20,7 +21,7 @@ import java.util.Set;
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */
-public class RoomCategory implements CategoryData
+public class RoomCategory implements RoomCategoryData
 {
     private String name;
     private BigDecimal price;
