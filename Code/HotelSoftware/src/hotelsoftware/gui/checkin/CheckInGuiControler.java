@@ -38,9 +38,6 @@ public class CheckInGuiControler
         return CheckInGuiControllerHolder.INSTANCE;
     }
 
-<<<<<<< HEAD
-    public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
-=======
     /**
      * Diese Methode gibt ein Set von Reservierungen aus, welches es aus dem Check-In-Controller durch die dort implementierte Suche bekommt.
      * @param fname
@@ -54,8 +51,8 @@ public class CheckInGuiControler
      * @throws InvalidInputException 
      * Falls die Validierung fehlschlaegt, wird ein Fehler geworfen
      */
-    public Set<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
->>>>>>> Comments added
+    public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
+
     {
         Collection<ReservationData> res = new LinkedHashSet<ReservationData>();
         try
@@ -83,16 +80,13 @@ public class CheckInGuiControler
         }
     }
 
-<<<<<<< HEAD
-    public Collection<ReservationData> getAllReservations()
-=======
     /**
      * Gibt alle Reservierungen aus
      * @return 
      * Alle Resservierungen, die verfuegbar sind
      */
-    public Set<ReservationData> getAllReservations()
->>>>>>> Comments added
+    public Collection<ReservationData> getAllReservations()
+
     {
         return CheckInController.getInstance().getAllReservations();
     }
@@ -101,33 +95,24 @@ public class CheckInGuiControler
     {
         return selectedReservation;
     }
-<<<<<<< HEAD
-
-    public Collection<RoomCategoryData> getCategories()
-=======
     
     /**
      * Gibt alle Zimmerkategorieen
      * @return 
      * Alle verfuegbaren Zimmerkategeorieen
      */
-    public Set<RoomCategoryData> getCategories()
->>>>>>> Comments added
-    {
+    public Collection<RoomCategoryData> getCategories()
+   {
         return CheckInController.getInstance().getAllCategories();
     }
-
-<<<<<<< HEAD
-    public Collection<RoomData> getFreeRoomsInCategory(int index, RoomCategoryData c)
-=======
      /**
      * Ändert die ausgewählte Kategorie einer bestimmten Zimmerauswahl
      * @param index Der index der sich zu verändernden Zimmerauwahl
      * @param c Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> getFreeRoomsInCategory(int index, RoomCategoryData c)
->>>>>>> Comments added
+    public Collection<RoomData> getFreeRoomsInCategory(int index, RoomCategoryData c)
+
     {
         return CheckInController.getInstance().changeRoomCategory(index, c);
     }
@@ -160,16 +145,13 @@ public class CheckInGuiControler
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-<<<<<<< HEAD
-    public Collection<ExtraServiceData> getExtraservices()
-=======
-    /**
+        /**
      * Gibt alle Extradienstleistungen aus
      * @return
      * Alle verfuegbaren Dienstleistungen
      */
-    public Set<ExtraServiceData> getExtraservices()
->>>>>>> Comments added
+    public Collection<ExtraServiceData> getExtraservices()
+
     {
         return CheckInController.getInstance().getServices();
     }
@@ -205,18 +187,14 @@ public class CheckInGuiControler
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
 
-<<<<<<< HEAD
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
-=======
-     /**
+         /**
      * Ändert die ausgewählte Kategorie einer bestimmten Zimmerauswahl
      *
      * @param selectionIndex Der index der sich zu verändernden Zimmerauwahl
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
->>>>>>> Comments added
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
     }
@@ -243,16 +221,12 @@ public class CheckInGuiControler
         return CheckInController.getInstance().addRoomSelection();
     }
 
-<<<<<<< HEAD
-    public List<ExtraServiceData> getAllHabitationServices()
-=======
-    /**
+        /**
      * Gibt alle Verpflegunsarten aus
      * @return 
      * Die verfuebaren Verpflegunsarten aus
      */
-    public Set<ExtraServiceData> getAllHabitationServices()
->>>>>>> Comments added
+    public List<ExtraServiceData> getAllHabitationServices()
     {
         return (List<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
     }

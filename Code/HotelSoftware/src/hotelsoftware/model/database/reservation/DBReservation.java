@@ -101,9 +101,6 @@ public class DBReservation implements Serializable
         return new DBReservation();
     }
 
-<<<<<<< HEAD
-    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
-=======
     /**
      * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
      * Abfrage naehert sich an den namen an.
@@ -114,8 +111,7 @@ public class DBReservation implements Serializable
      * @return 
      * Gibt eine Set aus Reservierungen aus
      */
-    public static Set<DBReservation> getReservationsByNameApprox(String fname, String lname)
->>>>>>> Comments added
+    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -136,9 +132,6 @@ public class DBReservation implements Serializable
 
     }
 
-<<<<<<< HEAD
-    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
-=======
     /**
      * Gibt ein Reservierungen aus, die nach genauen Namen eienr Person gesucht werden, der reserviert hat
      * @param fname
@@ -148,8 +141,7 @@ public class DBReservation implements Serializable
      * @return 
      * Ein Set aus Reservierungen
      */
-    public static Set<DBReservation> getReservationsByName(String fname, String lname)
->>>>>>> Comments added
+    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -214,16 +206,12 @@ public class DBReservation implements Serializable
         return retList;
     }
 
-<<<<<<< HEAD
-    public static Collection<DBReservation> getAllReservations()
-=======
     /**
      * Gibt alle Reservierungen aus
      * @return 
      * Alle Reservierungen, ab den aktuellen Datum verfuebar sind
      */
-    public static Set<DBReservation> getAllReservations()
->>>>>>> Comments added
+    public static Collection<DBReservation> getAllReservations()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();

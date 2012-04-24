@@ -231,16 +231,12 @@ public class CheckInController
         state.selectServices(services);
     }
 
-<<<<<<< HEAD
-    public Collection<ReservationData> getAllReservations()
-=======
     /**
      * Gibt alle Reservierungen aus.
      * @return 
      * Alle Reservierungen ,die verfuegbar sind.
      */
-    public Set<ReservationData> getAllReservations()
->>>>>>> Comments added
+    public Collection<ReservationData> getAllReservations()
     {
         return state.getAllReservations();
     }
@@ -255,16 +251,12 @@ public class CheckInController
         return state.counter;
     }
 
-<<<<<<< HEAD
-    public Collection<ExtraServiceData> getAllHabitationServices()
-=======
-    /**
+        /**
      * Gibt alle Verpflegunsarten aus
      * @return 
      * Die verfuegbaren Verpflegunsarten
      */
-    public Set<ExtraServiceData> getAllHabitationServices()
->>>>>>> Comments added
+    public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return state.getAllHabitationServices();
     }
