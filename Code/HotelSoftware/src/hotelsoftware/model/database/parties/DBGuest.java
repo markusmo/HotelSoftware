@@ -172,7 +172,7 @@ public class DBGuest extends DBParty implements Serializable
      */
     public static Set<DBGuest> getGuestsByName(String firstName, String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBGuest.class);

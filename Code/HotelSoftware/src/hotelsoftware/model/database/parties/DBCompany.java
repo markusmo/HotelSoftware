@@ -26,6 +26,7 @@ import org.hibernate.criterion.Restrictions;
 @Entity
 @Table(name = "companies", catalog = "roomanizer", schema = "")
 @XmlRootElement
+
 //@PrimaryKeyJoinColumn(name = "idCustomers", referencedColumnName = "id")
 public class DBCompany implements Serializable
 {

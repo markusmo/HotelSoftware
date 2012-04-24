@@ -119,7 +119,7 @@ public class DBPrivateCustomer implements Serializable
     */
     public static DBPrivateCustomer getPrivateCustomerByName(String firstName, String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
