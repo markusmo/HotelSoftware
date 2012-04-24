@@ -13,6 +13,7 @@ import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.util.HelperFunctions;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -21,10 +22,10 @@ import java.util.Set;
 public class Room implements RoomData
 {
     private String number;
-    private Set<RoomOption> options;
+    private Collection<RoomOption> options;
     private RoomCategory category;
-    //private Set<Habitation> habitations;
-    private Set<RoomStatus> status;
+    //private Collection<Habitation> habitations;
+    private Collection<RoomStatus> status;
     private Integer id;
 
     private Room(String number, RoomCategory category)
@@ -62,12 +63,12 @@ public class Room implements RoomData
         this.category = category;
     }
 /*
-    public Set<Habitation> getHabitations()
+    public Collection<Habitation> getHabitations()
     {
         return habitations;
     }
 
-    public void setHabitations(Set<Habitation> habitations)
+    public void setHabitations(Collection<Habitation> habitations)
     {
         this.habitations = habitations;
     }
@@ -83,22 +84,22 @@ public class Room implements RoomData
         this.number = number;
     }
 
-    public Set<RoomOption> getOptions()
+    public Collection<RoomOption> getOptions()
     {
         return options;
     }
 
-    public void setOptions(Set<RoomOption> options)
+    public void setOptions(Collection<RoomOption> options)
     {
         this.options = options;
     }
 
-    public Set<RoomStatus> getStatus()
+    public Collection<RoomStatus> getStatus()
     {
         return status;
     }
 
-    public void setStatus(Set<RoomStatus> status)
+    public void setStatus(Collection<RoomStatus> status)
     {
         this.status = status;
     }
@@ -108,19 +109,19 @@ public class Room implements RoomData
         return (RoomCategoryData) getCategory();
     }
 
-    public Set<HabitationData> getHabitationCollectionData()
+    public Collection<HabitationData> getHabitationCollectionData()
     {
         return null;
         //TODO
         //return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }
 
-    public Set<RoomOptionData> getOptionsData()
+    public Collection<RoomOptionData> getOptionsData()
     {
         return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(getOptions());
     }
 
-    public Set<RoomStatusData> getStatusData()
+    public Collection<RoomStatusData> getStatusData()
     {
         return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(getStatus());
     }
@@ -130,10 +131,10 @@ public class Room implements RoomData
         return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
     }
 
-    public static Set<Room> getRoomsByCategory(RoomCategory category)
+    public static Collection<Room> getRoomsByCategory(RoomCategory category)
     {
         DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Set<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
+        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
     }
 
     public void changeStatus(RoomStatus status)

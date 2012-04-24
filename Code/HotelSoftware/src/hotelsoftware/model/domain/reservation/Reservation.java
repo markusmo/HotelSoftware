@@ -124,7 +124,7 @@ public class Reservation implements ReservationData
         }
     }
 
-    public Set<ReservationOptionData> getOptionCollectionData()
+    public Collection<ReservationOptionData> getOptionCollectionData()
     {
         return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(getOptionCollection());
     }
@@ -134,7 +134,7 @@ public class Reservation implements ReservationData
         return (PartyData) getParty();
     }
 
-    public Set<ReservationItemData> getReservationItemCollectionData()
+    public Collection<ReservationItemData> getReservationItemCollectionData()
     {
         return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(reservationItems);
     }

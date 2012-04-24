@@ -16,9 +16,7 @@ import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.service.data.*;
 import hotelsoftware.model.domain.service.*;
 import hotelsoftware.util.HelperFunctions;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -26,7 +24,7 @@ import java.util.Set;
  */
 public abstract class ChangeDataState extends CheckInState
 {
-    public ChangeDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Set<ReservationItemData> reservationItems)
+    public ChangeDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
     {
         super(context);
         this.counter = counter;
@@ -88,7 +86,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         RoomCategory cat = (RoomCategory) category;
 
@@ -105,7 +103,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Set<RoomCategoryData> getAllCategories()
+    public Collection<RoomCategoryData> getAllCategories()
     {
         return new HelperFunctions<RoomCategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
     }
@@ -117,7 +115,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Set<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices()); 
     }

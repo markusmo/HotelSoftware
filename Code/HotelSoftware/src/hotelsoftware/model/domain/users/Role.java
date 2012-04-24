@@ -19,16 +19,16 @@ public class Role implements RoleData
 {
     private Integer id;
     private String name;
-    private Set<Permission> permissions;
+    private Collection<Permission> permissions;
 
-    public Set<Permission> getPermissions()
+    public Collection<Permission> getPermissions()
     {
         return permissions;
     }
     
     public
     
-    void setPermissions(Set<Permission> permissions)
+    void setPermissions(Collection<Permission> permissions)
     {
         this.permissions = permissions;
     }
@@ -66,19 +66,19 @@ public class Role implements RoleData
         this(name, new HashSet<Permission>());
     }
     
-    private Role(String name, Set<Permission> permissions)
+    private Role(String name, Collection<Permission> permissions)
     {
         this.name = name;
         this.permissions = permissions;
     }
 
-    public static Role create(String name, Set<Permission> permissions)
+    public static Role create(String name, Collection<Permission> permissions)
     {
         return new Role(name, permissions);
     }
        
 
-    public Set<PermissionData> getPermissionsData()
+    public Collection<PermissionData> getPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getPermissions());
     }

@@ -30,15 +30,15 @@ public class OptionsState extends CheckInState
     }
     
     @Override
-    public Set<ExtraServiceData> getServices()
+    public Collection<ExtraServiceData> getServices()
     {
-        Set<ExtraService> services = ExtraService.getAllExtraServices();
+        Collection<ExtraService> services = ExtraService.getAllExtraServices();
         
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
     }
     
     @Override
-    public void selectServices(Set<ExtraServiceData> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
         for (ExtraServiceData entry : services)
         {

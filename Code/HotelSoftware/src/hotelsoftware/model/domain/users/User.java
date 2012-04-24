@@ -23,7 +23,7 @@ public class User implements UserData
     private Integer id;
     private String username;
     private String password;
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
     public User()
     {        
@@ -34,7 +34,7 @@ public class User implements UserData
         this(username, password, new LinkedHashSet<Role>());
     }
 
-    private User(String username, String password, Set<Role> roles)
+    private User(String username, String password, Collection<Role> roles)
     {
         this.username = username;
         this.password = password;
@@ -52,12 +52,12 @@ public class User implements UserData
     }
     
     
-    public Set<Role> getRoles()
+    public Collection<Role> getRoles()
     {
         return roles;
     }
     
-    void setRoles(Set<Role> roles)
+    void setRoles(Collection<Role> roles)
     {
         this.roles = roles;
     }
@@ -97,7 +97,7 @@ public class User implements UserData
         return user;
     }
     
-    public static User create(String username, String password, Set<Role> roles)
+    public static User create(String username, String password, Collection<Role> roles)
     {
         MessageDigest coder;
         try
@@ -119,14 +119,14 @@ public class User implements UserData
      * @param permissions
      * @return Collection of permission
      */   
-    public Set<Permission> getAllPermissions()
+    public Collection<Permission> getAllPermissions()
     {
-        Set<Permission> permissions = new HashSet<Permission>();
+        Collection<Permission> permissions = new HashSet<Permission>();
 
         // adding permissions
         for (Role role : this.getRoles())
         {
-            Set<Permission> rolePermissions = role.getPermissions();
+            Collection<Permission> rolePermissions = role.getPermissions();
 
             for (Permission permission : rolePermissions)
             {
@@ -167,12 +167,12 @@ public class User implements UserData
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Set<PermissionData> getAllPermissionsData()
+    public Collection<PermissionData> getAllPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getAllPermissions());
     }
 
-    public Set<RoleData> getRolesData()
+    public Collection<RoleData> getRolesData()
     {
         return new HelperFunctions<RoleData, Role>().castCollectionUp(getRoles());
     }

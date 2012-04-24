@@ -34,7 +34,7 @@ public interface InvoiceData
     String getInvoiceNumber();
 
    
-    Set<InvoiceItemData> getInvoiceitemsData();
+    Collection<InvoiceItemData> getInvoiceitemsData();
 
     String getPaymentMethodName();
 

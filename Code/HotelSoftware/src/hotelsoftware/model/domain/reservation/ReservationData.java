@@ -22,11 +22,11 @@ public interface ReservationData
 
     Date getEndDate();
 
-    Set<ReservationOptionData> getOptionCollectionData();
+    Collection<ReservationOptionData> getOptionCollectionData();
 
     PartyData getPartyData();
 
-    Set<ReservationItemData> getReservationItemCollectionData();
+    Collection<ReservationItemData> getReservationItemCollectionData();
 
     Date getStartDate();
 

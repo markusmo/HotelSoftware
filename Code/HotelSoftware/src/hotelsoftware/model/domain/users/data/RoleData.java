@@ -15,5 +15,5 @@ public interface RoleData
 {
     String getName();
 
-    Set<PermissionData> getPermissionsData();
+    Collection<PermissionData> getPermissionsData();
 }

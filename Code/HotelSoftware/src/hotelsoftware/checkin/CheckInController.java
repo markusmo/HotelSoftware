@@ -58,12 +58,12 @@ public class CheckInController
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public Set<ReservationData> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName)
     {
         return state.search(firstName, lastName);
     }
     
-    public Set<ReservationData> searchApprox(String firstName, String lastName)
+    public Collection<ReservationData> searchApprox(String firstName, String lastName)
     {
         return state.searchApprox(firstName, lastName);
     }
@@ -178,7 +178,7 @@ public class CheckInController
         state.removeRoomSelection(selectionIndex);
     }
     
-    public Set<RoomCategoryData> getAllCategories()
+    public Collection<RoomCategoryData> getAllCategories()
     {
         return state.getAllCategories();
     }
@@ -189,7 +189,7 @@ public class CheckInController
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         return state.changeRoomCategory(selectionIndex, category);
     }
@@ -217,7 +217,7 @@ public class CheckInController
      * Gibt eine Liste der möglichen Extraleistungen aus
      * @return Die Liste mit den Extrleistungen
      */
-    public Set<ExtraServiceData> getServices()
+    public Collection<ExtraServiceData> getServices()
     {
         return state.getServices();
     }
@@ -226,12 +226,12 @@ public class CheckInController
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Set<ExtraServiceData> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
         state.selectServices(services);
     }
 
-    public Set<ReservationData> getAllReservations()
+    public Collection<ReservationData> getAllReservations()
     {
         return state.getAllReservations();
     }
@@ -241,7 +241,7 @@ public class CheckInController
         return state.counter;
     }
 
-    public Set<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return state.getAllHabitationServices();
     }

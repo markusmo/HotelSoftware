@@ -30,7 +30,7 @@ public class ServiceFacade
         private static final ServiceFacade INSTANCE = new ServiceFacade();
     }
 
-    public Set<ExtraService> getAllExtraServices()
+    public Collection getAllExtraServices()
     {
         return DynamicMapper.mapCollection(DBExtraService.getExtraServices());
     }

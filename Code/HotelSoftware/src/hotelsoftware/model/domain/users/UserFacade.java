@@ -42,7 +42,7 @@ public class UserFacade
         return (User) DynamicMapper.map(dbuser);
     }
     
-    public Set<Permission> getAllPermissions()
+    public Collection<Permission> getAllPermissions()
     {
         return DynamicMapper.mapCollection(DBPermission.getPermissions());
     }

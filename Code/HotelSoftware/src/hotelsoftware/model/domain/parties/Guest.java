@@ -23,7 +23,7 @@ public class Guest extends Party implements GuestData
     private String fname;
     private String lname;
     private Character gender;
-    private Set<Habitation> habitations;
+    private Collection<Habitation> habitations;
 
     public Guest()
     {
@@ -75,7 +75,7 @@ public class Guest extends Party implements GuestData
         this.gender = gender;
     }
 
-    public Set<Habitation> getHabitations()
+    public Collection<Habitation> getHabitations()
     {
         return habitations;
     }
@@ -85,7 +85,7 @@ public class Guest extends Party implements GuestData
         this.birthday = birthday;
     }
 
-    public void setCurrentHabitations(Set<Habitation> habitations)
+    public void setCurrentHabitations(Collection<Habitation> habitations)
     {
         this.habitations = habitations;
     }
@@ -96,7 +96,7 @@ public class Guest extends Party implements GuestData
         return birthday;
     }
 
-    public Set<Habitation> getCurrentHabitations()
+    public Collection<Habitation> getCurrentHabitations()
     {
         return habitations;
     }
@@ -109,7 +109,7 @@ public class Guest extends Party implements GuestData
     }
 
     private Guest(String fname, String lname, Character gender, Date birthday,
-            Address address, Set<Habitation> habitations)
+            Address address, Collection<Habitation> habitations)
     {
         super(address);
         this.fname = fname;
@@ -136,18 +136,18 @@ public class Guest extends Party implements GuestData
         habitations.remove(h);
     }
 
-    public static Set<Guest> getGuestByName(String fname, String lname)
+    public static Collection<Guest> getGuestByName(String fname, String lname)
             throws CompanyNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getGuestByName(fname, lname);
     }
 
-    public Set<HabitationData> getCurrentHabitationsData()
+    public Collection<HabitationData> getCurrentHabitationsData()
     {
         return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getCurrentHabitations());
     }
 
-    public Set<HabitationData> getHabitationsData()
+    public Collection<HabitationData> getHabitationsData()
     {
         return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }

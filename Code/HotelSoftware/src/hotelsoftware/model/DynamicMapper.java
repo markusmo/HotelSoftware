@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -105,11 +104,11 @@ public class DynamicMapper
         }
     }
 
-    public static Set mapCollection(Set urCollection)
+    public static Collection mapCollection(Collection urCollection)
     {
         try
         {
-            Set returnValue = new LinkedHashSet();
+            Collection returnValue = new LinkedHashSet();
 
             for (Object obj : urCollection)
             {

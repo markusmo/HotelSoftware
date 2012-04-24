@@ -24,7 +24,7 @@ public class StartState extends CheckInState
     }
 
     @Override
-    public Set<ReservationData> getAllReservations()
+    public Collection<ReservationData> getAllReservations()
     {
         return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
     }
@@ -42,10 +42,10 @@ public class StartState extends CheckInState
     }
 
     @Override
-    public Set<ReservationData> searchApprox(String firstName, String lastName)
+    public Collection<ReservationData> searchApprox(String firstName, String lastName)
     {
-        Set<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
-        Set<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
+        Collection<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
+        Collection<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
         if (reservations != null)
         {
             for (Reservation res : reservations)
@@ -66,10 +66,10 @@ public class StartState extends CheckInState
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
     @Override
-    public Set<ReservationData> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName)
     {
-        Set<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-        Set<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
+        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+        Collection<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
         if (reservations != null)
         {
             for (Reservation res : reservations)

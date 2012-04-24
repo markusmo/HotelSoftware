@@ -107,14 +107,14 @@ public class DBExtraService extends DBService implements Serializable
         return new LinkedHashSet<DBExtraService>(retList);
     }
 
-    public static Set<DBExtraService> getAllHabitationServices()
+    public static List<DBExtraService> getAllHabitationServices()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Set<DBExtraService> retSet = (Set<DBExtraService>) session.createCriteria(DBExtraService.class)
+        List<DBExtraService> retList = (List<DBExtraService>) session.createCriteria(DBExtraService.class)
                 .add(Restrictions.eq("name", "habitation")).list();
-        return retSet;
+        return retList;
     }
 
     public static DBExtraService getExtraServiceByName(String name) throws HibernateException

@@ -6,7 +6,6 @@ package hotelsoftware.model.domain.users.data;
 
 import hotelsoftware.model.domain.users.Permission;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  *
@@ -14,9 +13,9 @@ import java.util.Set;
  */
 public interface UserData
 {    
-    Set<PermissionData> getAllPermissionsData();
+    Collection<PermissionData> getAllPermissionsData();
 
-    Set<RoleData> getRolesData();
+    Collection<RoleData> getRolesData();
 
     String getUsername();
 

@@ -19,13 +19,13 @@ public interface GuestData
 {
     Date getBirthday();
 
-    Set<HabitationData> getCurrentHabitationsData();
+    Collection<HabitationData> getCurrentHabitationsData();
 
     String getFname();
 
     Character getGender();
 
-    Set<HabitationData> getHabitationsData();
+    Collection<HabitationData> getHabitationsData();
 
     String getLname();
 }

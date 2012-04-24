@@ -30,10 +30,10 @@ public class Habitation extends Service implements HabitationData
     private Date start;
     private Date end;
     private Date created;
-    private Set<Guest> guests;
+    private Collection<Guest> guests;
     private Room rooms;
     private User users;
-    private Set<InvoiceItem> invoiceItems;
+    private Collection<InvoiceItem> invoiceItems;
 
     
     public Habitation(){
@@ -145,14 +145,14 @@ public class Habitation extends Service implements HabitationData
     /**
      * @return the guestsCollection
      */
-    public Set<Guest> getGuests() {
+    public Collection<Guest> getGuests() {
         return guests;
     }
 
     /**
      * @param guests the guestsCollection to set
      */
-    public void setGuests(Set<Guest> guests) {
+    public void setGuests(Collection<Guest> guests) {
         this.guests = guests;
     }
 
@@ -187,14 +187,14 @@ public class Habitation extends Service implements HabitationData
     /**
      * @return the invoiceItems
      */
-    public Set<InvoiceItem> getInvoiceItems() {
+    public Collection<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }
 
     /**
      * @param invoiceItems the invoiceItems to set
      */
-    public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
+    public void setInvoiceItems(Collection<InvoiceItem> invoiceItems) {
         this.invoiceItems = invoiceItems;
     }
     
@@ -206,7 +206,7 @@ public class Habitation extends Service implements HabitationData
         guests.add(guest);
     }
 
-    public Set<GuestData> getGuestsCollectionData()
+    public Collection<GuestData> getGuestsCollectionData()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -221,7 +221,7 @@ public class Habitation extends Service implements HabitationData
         return (UserData) getUsers();
     }
 
-    public Set<InvoiceItemData> getInvoiceItemsData()
+    public Collection<InvoiceItemData> getInvoiceItemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
     }

@@ -24,7 +24,7 @@ public class ChangeReservationDataState extends ChangeDataState
         super(context);
     }
 
-    ChangeReservationDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Set<ReservationItemData> reservationItems)
+    ChangeReservationDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
     {
         super(context, counter, roomSelections, reservationItems);
     }

@@ -17,11 +17,11 @@ public interface RoomData
 {
     RoomCategoryData getCategoryData();
 
-    Set<HabitationData> getHabitationCollectionData();
+    Collection<HabitationData> getHabitationCollectionData();
 
     String getNumber();
 
-    Set<RoomOptionData> getOptionsData();
+    Collection<RoomOptionData> getOptionsData();
 
-    Set<RoomStatusData> getStatusData();
+    Collection<RoomStatusData> getStatusData();
 }

@@ -4,6 +4,7 @@
  */
 package hotelsoftware.util;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -19,9 +20,9 @@ public class HelperFunctions<T, U extends T>
 
     //Verwendung:
     //Set<UserData> test = new HelperFunctions<UserData, User>().castCollectionUp(new LinkedList<User>());
-    public Set<T> castCollectionUp(Set<U> col)
+    public Collection<T> castCollectionUp(Collection<U> col)
     {
-        Set<T> newCol = new LinkedHashSet<T>();
+        Collection<T> newCol = new LinkedHashSet<T>();
         if (col != null)
         {
             for (U u : col)

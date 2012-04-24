@@ -4,18 +4,13 @@
  */
 package hotelsoftware.model.domain.service.data;
 
-import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItemData;
-import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.data.RoomData;
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.data.UserData;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  *
@@ -36,7 +31,7 @@ public interface HabitationData
     /**
      * @return the guestsCollection
      */
-    Set<GuestData> getGuestsCollectionData();
+    Collection<GuestData> getGuestsCollectionData();
 
     /**
      * @return the idRooms
@@ -51,7 +46,7 @@ public interface HabitationData
     /**
      * @return the invoiceItems
      */
-    Set<InvoiceItemData> getInvoiceItemsData();
+    Collection<InvoiceItemData> getInvoiceItemsData();
 
     /**
      * @return the price

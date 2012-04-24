@@ -25,7 +25,7 @@ public abstract class CheckInState
     protected Reservation reservation;
     protected Map<Integer, RoomSelection> roomSelections;
     protected int counter;
-    protected Set<ReservationItemData> reservationItems;
+    protected Collection<ReservationItemData> reservationItems;
 
     public CheckInState(CheckInController context)
     {
@@ -50,7 +50,7 @@ public abstract class CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public Set<ReservationData> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName)
     {
         throw new IllegalStateException();
     }
@@ -177,7 +177,7 @@ public abstract class CheckInState
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Set<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
+    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         throw new IllegalStateException();
     }
@@ -207,7 +207,7 @@ public abstract class CheckInState
      *
      * @return Die Liste mit den Extrleistungen
      */
-    public Set<ExtraServiceData> getServices()
+    public Collection<ExtraServiceData> getServices()
     {
         throw new IllegalStateException();
     }
@@ -217,17 +217,17 @@ public abstract class CheckInState
      *
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Set<ExtraServiceData> services)
+    public void selectServices(Collection<ExtraServiceData> services)
     {
         throw new IllegalStateException();
     }
 
-    public Set<RoomCategoryData> getAllCategories()
+    public Collection<RoomCategoryData> getAllCategories()
     {
         throw new IllegalStateException();
     }
 
-    public Set<ReservationData> getAllReservations()
+    public Collection<ReservationData> getAllReservations()
     {
         throw new IllegalStateException();
     }
@@ -237,12 +237,12 @@ public abstract class CheckInState
         throw new IllegalStateException();
     }
 
-    Set<ReservationData> searchApprox(String firstName, String lastName)
+    public Collection<ReservationData> searchApprox(String firstName, String lastName)
     {
         throw new IllegalStateException();
     }
 
-    Set<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllHabitationServices()
     {
         throw new IllegalStateException();
     }

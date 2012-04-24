@@ -64,7 +64,7 @@ public class Permission implements PermissionData
      * @return 
      * a linked list of permissions on domain-level
      */
-    public static Set<Permission> getAllPermissions()
+    public static Collection<Permission> getAllPermissions()
     {
         return UserFacade.getInstance().getAllPermissions();
     }

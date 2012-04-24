@@ -5,7 +5,6 @@
 package hotelsoftware.model.domain.room;
 
 import java.util.Collection;
-import java.util.Set;
 
 /**
  *
@@ -32,7 +31,7 @@ public class RoomFacade
         return Room.getRoomByNumber(number);
     }
     
-    public Set<Room> getRoomsByCategory(RoomCategory cat)
+    public Collection<Room> getRoomsByCategory(RoomCategory cat)
     {
         return Room.getRoomsByCategory(cat);
     }

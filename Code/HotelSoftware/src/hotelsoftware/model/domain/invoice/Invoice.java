@@ -28,7 +28,7 @@ public class Invoice implements InvoiceData
     private PaymentMethod idpaymentMethod;
     private Customer idCustomer;
     private User idUser;
-    private Set<InvoiceItem> invoiceitems;
+    private Collection<InvoiceItem> invoiceitems;
 
     public Invoice()
     {
@@ -102,7 +102,7 @@ public class Invoice implements InvoiceData
         return invoiceNumber;
     }
 
-    public Set<InvoiceItem> getInvoiceitems()
+    public Collection<InvoiceItem> getInvoiceitems()
     {
         return invoiceitems;
     }
@@ -152,7 +152,7 @@ public class Invoice implements InvoiceData
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void setInvoiceitems(Set<InvoiceItem> invoiceitemsCollection)
+    public void setInvoiceitems(Collection<InvoiceItem> invoiceitemsCollection)
     {
         this.invoiceitems = invoiceitemsCollection;
     }
@@ -216,7 +216,7 @@ public class Invoice implements InvoiceData
         return (PaymentMethodData) getIdpaymentMethod();
     }
 
-    public Set<InvoiceItemData> getInvoiceitemsData()
+    public Collection<InvoiceItemData> getInvoiceitemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
     }

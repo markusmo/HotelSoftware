@@ -375,7 +375,7 @@ public class CheckInMain extends javax.swing.JPanel
 
         try
         {
-            reservations = cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
+            reservations = (Set<ReservationData>) cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
             if (reservations != null)
             {
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(

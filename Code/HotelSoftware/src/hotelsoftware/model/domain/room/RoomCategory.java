@@ -4,13 +4,10 @@
  */
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.domain.parties.CompanyType;
-
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -105,10 +102,10 @@ public class RoomCategory implements RoomCategoryData
  * such alle Kategorien heraus
  * @return
  */
-    public static Set<RoomCategory> getAllCategorys()
+    public static Collection<RoomCategory> getAllCategorys()
     {
-        Set<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
-        return (Set<RoomCategory>) DynamicMapper.mapCollection(dbc);
+        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
+        return (Collection<RoomCategory>) DynamicMapper.mapCollection(dbc);
     }
 /**
  * sucht nach freien Räumen in der Datenbank
@@ -116,14 +113,14 @@ public class RoomCategory implements RoomCategoryData
  * @param ende
  * @return
  */
-    public Set<Room> getFreeRooms(Date start, Date ende)
+    public Collection<Room> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);
-        Set<DBRoom> dbc = cat.getFreeRooms(start, ende);
-        return (Set<Room>) DynamicMapper.mapCollection(dbc);
+        Collection<DBRoom> dbc = cat.getFreeRooms(start, ende);
+        return (Collection<Room>) DynamicMapper.mapCollection((Set<DBRoom>)dbc);
     }
 
-    public Set<Room> getAllRooms()
+    public Collection<Room> getAllRooms()
     {
         return Room.getRoomsByCategory(this);
     }

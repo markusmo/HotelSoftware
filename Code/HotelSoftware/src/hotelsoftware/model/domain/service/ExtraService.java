@@ -19,8 +19,6 @@ import java.util.Set;
  */
 public class ExtraService extends Service implements ExtraServiceData
 {
-
-   
     private String name;
 
     @Override
@@ -71,9 +69,10 @@ public class ExtraService extends Service implements ExtraServiceData
     {
         return (ServiceTypeData) getServiceType();
     }
-     public static Set<ExtraService> getAllHabitationServices()
+
+    public static List<ExtraService> getAllHabitationServices()
     {
-        Set<ExtraService> extraServices = (Set<ExtraService>) DynamicMapper.map(DBExtraService.getAllHabitationServices());
+        List<ExtraService> extraServices = (List<ExtraService>) DynamicMapper.map(DBExtraService.getAllHabitationServices());
         return extraServices;
     }
 }
