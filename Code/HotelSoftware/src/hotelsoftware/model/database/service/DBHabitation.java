@@ -50,16 +50,15 @@ public class DBHabitation extends DBService implements Serializable
     private BigDecimal price;
     
     @ManyToMany(mappedBy = "habitationsCollection")
-
-    private Set<DBGuest> guestsCollection;
+    private Set<DBGuest> guests;
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBRoom idRooms;
+    private DBRoom rooms;
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
+    private DBUser users;
     
     /*@OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
     private Set<DBInvoiceItem> invoiceItemCollection;*/

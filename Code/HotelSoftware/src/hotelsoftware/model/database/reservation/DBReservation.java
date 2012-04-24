@@ -49,49 +49,39 @@ import org.hibernate.criterion.Restrictions;
 public class DBReservation implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    
     @Basic(optional = false)
     @Column(name = "reservationNumber", nullable = false, length = 255)
     private String reservationNumber;
-    
     @Basic(optional = false)
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startDate;
-    
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    
     @Column(name = "comment", length = 255)
     private String comment;
-    
     @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
     @ManyToOne(optional = false)
     private DBParty party;
-    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
     @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private DBUser idUsers;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
     private Set<DBReservationItem> reservationItems;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
     private Set<DBReservationOption> reservationOptions;
-    
+
     public DBReservation()
     {
     }
@@ -149,7 +139,7 @@ public class DBReservation implements Serializable
 
         sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
-        
+
         //TODO
         //session.close();
 

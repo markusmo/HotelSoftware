@@ -4,9 +4,8 @@
  */
 package hotelsoftware.util;
 
-import hotelsoftware.model.domain.service.ExtraService;
-import hotelsoftware.model.domain.service.ExtraServiceData;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  *

@@ -57,7 +57,7 @@ public class DBRoom implements Serializable
     @ManyToOne(fetch = FetchType.EAGER)
     private DBRoomCategory category;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
     private Set<DBHabitation> habitations;
     
     @OneToMany(mappedBy = "rooms", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

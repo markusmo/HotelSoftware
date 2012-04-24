@@ -4,9 +4,6 @@
  */
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.reservation.ReservationItemData;

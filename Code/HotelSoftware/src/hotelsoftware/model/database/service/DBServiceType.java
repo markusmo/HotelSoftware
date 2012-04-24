@@ -41,7 +41,7 @@ import org.hibernate.Transaction;
 @XmlRootElement
 public class DBServiceType implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType")
     private Set<DBService> dBServiceCollection;
     private static final long serialVersionUID = 1L;
     @Id

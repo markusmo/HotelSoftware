@@ -10,24 +10,9 @@ import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
@@ -51,22 +36,21 @@ import org.hibernate.criterion.Restrictions;
 @XmlRootElement
 public class DBUser implements Serializable
 {
-    @ManyToMany(mappedBy = "userCollection")
-
-    private Set<DBRole> roleCollection;
+    @ManyToMany(mappedBy = "users")
+    private Set<DBRole> roles;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Set<DBHabitation> dBHabitationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<DBHabitation> habitations;
     
     @OneToMany(mappedBy = "idUsers")
-    private Set<DBReservation> dBReservationCollection;
+    private Set<DBReservation> reservations;
     
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Set<DBInvoice> dBInvoiceCollection;
+    private Set<DBInvoice> invoices;
     
     private static final long serialVersionUID = 1L;
     
