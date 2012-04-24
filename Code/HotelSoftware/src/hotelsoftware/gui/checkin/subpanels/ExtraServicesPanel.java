@@ -8,6 +8,7 @@ import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import java.awt.GridLayout;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -30,10 +31,9 @@ public class ExtraServicesPanel extends javax.swing.JPanel
     private List<JCheckBox> checkboxes = new LinkedList<JCheckBox>();
 
     private void init()
-    {
-
-       // Set<ExtraServiceData> services = CheckInGuiControler.getInstance().getAllHabitationServices();
-        List<ExtraService> services = ExtraService.getAllHabitationServices();
+    {        
+        Collection<ExtraService> services = ExtraService.getAllHabitationServices();
+        this.removeAll();
         this.setLayout(new GridLayout(services.size(), 1));
         for (ExtraServiceData data : services)
         {
@@ -41,6 +41,8 @@ public class ExtraServicesPanel extends javax.swing.JPanel
             checkboxes.add(checki);
             add(checki);
         }
+        this.repaint();
+    
     }
 
     /**
@@ -57,11 +59,11 @@ public class ExtraServicesPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 78, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 15, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

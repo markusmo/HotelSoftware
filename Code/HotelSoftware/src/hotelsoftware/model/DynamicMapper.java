@@ -54,9 +54,9 @@ public class DynamicMapper
 
                             if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
                             {
-                                if (getterMethodNewLevel.getReturnType().equals(Set.class))
+                                if (getterMethodNewLevel.getReturnType().equals(Collection.class))
                                 {
-                                    setterMethod.invoke(returnvalue, mapCollection((Set) getterMethodNewLevel.invoke(urObject), counter - 1));
+                                    setterMethod.invoke(returnvalue, mapCollection((Collection) getterMethodNewLevel.invoke(urObject), counter - 1));
                                 }
                                 else
                                 {
@@ -109,7 +109,7 @@ public class DynamicMapper
         return mapCollection(urCollection, 10);
     }
 
-    private static Set mapCollection(Set urCollection, int counter)
+    private static Collection mapCollection(Collection urCollection, int counter)
     {
         if (counter > 0)
         {

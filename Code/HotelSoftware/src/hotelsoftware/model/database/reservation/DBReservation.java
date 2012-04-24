@@ -105,7 +105,7 @@ public class DBReservation implements Serializable
         return new DBReservation();
     }
 
-    public static Set<DBReservation> getReservationsByNameApprox(String fname, String lname)
+    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -126,7 +126,7 @@ public class DBReservation implements Serializable
 
     }
 
-    public static Set<DBReservation> getReservationsByName(String fname, String lname)
+    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -177,7 +177,7 @@ public class DBReservation implements Serializable
         return retList;
     }
 
-    public static Set<DBReservation> getAllReservations()
+    public static Collection<DBReservation> getAllReservations()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
@@ -242,25 +242,25 @@ public class DBReservation implements Serializable
     }
 
     @XmlTransient
-    public Set<DBReservationItem> getReservationItems()
+    public Collection<DBReservationItem> getReservationItems()
     {
         return reservationItems;
     }
 
-    public void setReservationItems(Set<DBReservationItem> reservationItems)
+    public void setReservationItems(Collection<DBReservationItem> reservationItems)
     {
-        this.reservationItems = reservationItems;
+        this.reservationItems = new LinkedHashSet<DBReservationItem>(reservationItems);
     }
 
     @XmlTransient
-    public Set<DBReservationOption> getReservationOptions()
+    public Collection<DBReservationOption> getReservationOptions()
     {
         return reservationOptions;
     }
 
-    public void setReservationOptions(Set<DBReservationOption> reservationOptions)
+    public void setReservationOptions(Collection<DBReservationOption> reservationOptions)
     {
-        this.reservationOptions = reservationOptions;
+        this.reservationOptions = new LinkedHashSet<DBReservationOption>(reservationOptions);
     }
 
     public DBUser getIdUsers()

@@ -22,9 +22,9 @@ public class Reservation implements ReservationData
     private Date endDate;
     private String comment;
     private Date created;
-    private Set<ReservationOption> optionCollection;
+    private Collection<ReservationOption> optionCollection;
     private Party party;
-    private Set<ReservationItem> reservationItems;
+    private Collection<ReservationItem> reservationItems;
     private Integer id;
     private String reservationNumber;
 
@@ -55,7 +55,7 @@ public class Reservation implements ReservationData
         return endDate;
     }
 
-    public Set<ReservationOption> getOptionCollection()
+    public Collection<ReservationOption> getOptionCollection()
     {
         return optionCollection;
     }
@@ -70,12 +70,12 @@ public class Reservation implements ReservationData
         this.party = party;
     }
 
-    public Set<ReservationItem> getReservationItems()
+    public Collection<ReservationItem> getReservationItems()
     {
         return reservationItems;
     }
 
-    public void setReservationItems(Set<ReservationItem> reservationItems)
+    public void setReservationItems(Collection<ReservationItem> reservationItems)
     {
         this.reservationItems = reservationItems;
     }

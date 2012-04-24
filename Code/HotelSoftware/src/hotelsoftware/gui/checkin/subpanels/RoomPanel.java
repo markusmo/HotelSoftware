@@ -26,13 +26,13 @@ public class RoomPanel extends javax.swing.JPanel
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private int roomIndex;
     private ButtonIconTabComponent iconTab;
+
     /**
      * Creates new form RoomPanel
      */
-    public RoomPanel(ButtonIconTabComponent iconTab)
+    public RoomPanel()
     {
-        this.iconTab = iconTab;
-        reservation = cigc.getSelectedReservation();
+        this.reservation = cigc.getSelectedReservation();
         initComponents();
         init();
     }
@@ -64,14 +64,7 @@ public class RoomPanel extends javax.swing.JPanel
                 }
             }
         });
- 
-     /*  ComboBoxCategories.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                cigc.changeRoom(roomIndex, (String) ComboBoxFreeRooms.getSelectedItem());
-            }
-        });*/
+
         //############ Guests
         for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
         {
@@ -89,8 +82,9 @@ public class RoomPanel extends javax.swing.JPanel
     {
         return roomIndex;
     }
-    
-    public void setTabIcon(ImageIcon icon){
+
+    public void setTabIcon(ImageIcon icon)
+    {
         this.iconTab.setImagePanel(icon);
     }
 
@@ -151,4 +145,9 @@ public class RoomPanel extends javax.swing.JPanel
     private javax.swing.JComboBox ComboBoxFreeRooms;
     private javax.swing.JTabbedPane TabbedPaneGuests;
     // End of variables declaration//GEN-END:variables
+
+    public void setTabComponent(ButtonIconTabComponent tabComponent)
+    {
+        this.iconTab = tabComponent;
+    }
 }

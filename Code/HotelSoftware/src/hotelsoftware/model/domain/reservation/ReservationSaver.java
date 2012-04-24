@@ -99,7 +99,7 @@ public class ReservationSaver
         }
 
     }
-
+/*
     public void rollback(Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -143,5 +143,5 @@ public class ReservationSaver
         {
            //TODO Implement
         }
-    }
+    }*/
 }

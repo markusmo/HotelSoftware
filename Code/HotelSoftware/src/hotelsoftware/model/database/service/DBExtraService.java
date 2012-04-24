@@ -13,11 +13,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -107,13 +103,17 @@ public class DBExtraService extends DBService implements Serializable
         return new LinkedHashSet<DBExtraService>(retList);
     }
 
-    public static List<DBExtraService> getAllHabitationServices()
+    public static Collection<DBExtraService> getAllHabitationServices()
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        List<DBExtraService> retList = (List<DBExtraService>) session.createCriteria(DBExtraService.class)
-                .add(Restrictions.eq("name", "habitation")).list();
+        
+        SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
+                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
+        
+        query.addEntity(DBExtraService.class);
+        Collection<DBExtraService> retList = query.list();
         
         return retList;
     }

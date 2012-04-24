@@ -70,9 +70,9 @@ public class ExtraService extends Service implements ExtraServiceData
         return (ServiceTypeData) getServiceType();
     }
 
-    public static List<ExtraService> getAllHabitationServices()
+    public static Collection<ExtraService> getAllHabitationServices()
     {
-        List<ExtraService> extraServices = (List<ExtraService>) DynamicMapper.map(DBExtraService.getAllHabitationServices());
+        Collection<ExtraService> extraServices = (Collection<ExtraService>) DynamicMapper.mapCollection(DBExtraService.getAllHabitationServices());
         return extraServices;
     }
 }
