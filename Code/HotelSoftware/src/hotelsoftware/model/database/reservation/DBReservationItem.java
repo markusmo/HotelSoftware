@@ -6,16 +6,7 @@ package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.room.DBRoomCategory;
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,24 +16,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "reservationitems", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Reservationitems.findAll", query = "SELECT r FROM Reservationitems r"),
-//    @NamedQuery(name = "Reservationitems.findByIdReservations", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idReservations = :idReservations"),
-//    @NamedQuery(name = "Reservationitems.findByIdRoomCategories", query = "SELECT r FROM Reservationitems r WHERE r.reservationitemsPK.idRoomCategories = :idRoomCategories"),
-//    @NamedQuery(name = "Reservationitems.findByAmount", query = "SELECT r FROM Reservationitems r WHERE r.amount = :amount")
-//})
 public class DBReservationItem implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected DBReservationItemPK reservationitemsPK;
+    
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
     private Integer amount;
+    
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
     private DBRoomCategory roomcategories;
+    
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBReservation reservations;

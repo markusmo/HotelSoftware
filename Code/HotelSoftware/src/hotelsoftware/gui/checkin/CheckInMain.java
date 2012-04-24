@@ -8,12 +8,10 @@ import hotelsoftware.model.domain.parties.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 
 /**
  *
@@ -21,7 +19,7 @@ import javax.swing.JPanel;
  */
 public class CheckInMain extends javax.swing.JPanel
 {
-    private Collection<ReservationData> reservations;
+    private Set<ReservationData> reservations;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
 
     private Object[][] getTableModel()

@@ -13,6 +13,7 @@ import hotelsoftware.model.domain.parties.CompanyType;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * 
@@ -103,10 +104,10 @@ public class RoomCategory implements CategoryData
  * such alle Kategorien heraus
  * @return
  */
-    public static Collection<RoomCategory> getAllCategorys()
+    public static Set<RoomCategory> getAllCategorys()
     {
-        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
-        return (Collection<RoomCategory>) DynamicMapper.mapCollection(dbc);
+        Set<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
+        return (Set<RoomCategory>) DynamicMapper.mapCollection(dbc);
     }
 /**
  * sucht nach freien Räumen in der Datenbank
@@ -114,14 +115,14 @@ public class RoomCategory implements CategoryData
  * @param ende
  * @return
  */
-    public Collection<Room> getFreeRooms(Date start, Date ende)
+    public Set<Room> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory)DynamicMapper.map(this);
-        Collection<DBRoom> dbc = cat.getFreeRooms(start, ende);
-        return (Collection<Room>) DynamicMapper.mapCollection(dbc);
+        Set<DBRoom> dbc = cat.getFreeRooms(start, ende);
+        return (Set<Room>) DynamicMapper.mapCollection(dbc);
     }
 
-    public Collection<Room> getAllRooms()
+    public Set<Room> getAllRooms()
     {
         return Room.getRoomsByCategory(this);
     }

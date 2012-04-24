@@ -10,53 +10,62 @@ import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.domain.invoice.PaymentMethod;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Klasse die die Typen einer Firma enthällt. Mithife dieser Klasse unterscheiden sich Firmen von Reisebüros.
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  * @author Hubert
  */
-public class CompanyType implements CompanyTypeData {
+public class CompanyType implements CompanyTypeData
+{
+    private Integer id;
+    private String typ;
 
-	private Integer id;
-	private String typ;
+    public CompanyType create(String typ)
+    {
+        return new CompanyType(typ);
+    }
 
-	public CompanyType create(String typ) {
-		return new CompanyType(typ);
-	}
+    private CompanyType(String typ)
+    {
+        this.typ = typ;
+    }
 
-	private CompanyType(String typ) {
-		this.typ = typ;
-	}
+    public Integer getId()
+    {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
+    }
 
-	public void setId(Integer id) {
-		if (id == null)
-			this.id = id;
-	}
-
-	public void setTyp(String typ) {
-		this.typ = typ;
-	}
+    public void setTyp(String typ)
+    {
+        this.typ = typ;
+    }
 
     @Override
-        public String getTyp()
-        {
-            return typ;
-        }
-        /**
-         * gibt alle Typen zurück
-         * @return Kollektion aus Firmentypen
-         */
-        @SuppressWarnings("unchecked")
-		public static Collection<CompanyType> getAllTypes()
-        {
-        	  Collection<DBCompanyType> dbct = DBCompanyType.getAllTypes();
-              return (Collection<CompanyType>)DynamicMapper.map(dbct);
-        }
-        
-        
+    public String getTyp()
+    {
+        return typ;
+    }
+
+    /**
+     * gibt alle Typen zurück
+     *
+     * @return Kollektion aus Firmentypen
+     */
+    @SuppressWarnings("unchecked")
+    public static Set<CompanyType> getAllTypes()
+    {
+        Set<DBCompanyType> dbct = DBCompanyType.getAllTypes();
+        return (Set<CompanyType>) DynamicMapper.map(dbct);
+    }
 }

@@ -14,10 +14,7 @@ import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.util.HelperFunctions;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -25,7 +22,7 @@ import java.util.Map;
  */
 public abstract class ChangeDataState extends CheckInState
 {
-    public ChangeDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
+    public ChangeDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Set<ReservationItemData> reservationItems)
     {
         super(context);
         this.counter = counter;
@@ -87,7 +84,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
         RoomCategory cat = (RoomCategory) category;
 
@@ -104,7 +101,7 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Collection<CategoryData> getAllCategories()
+    public Set<CategoryData> getAllCategories()
     {
         return new HelperFunctions<CategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
     }

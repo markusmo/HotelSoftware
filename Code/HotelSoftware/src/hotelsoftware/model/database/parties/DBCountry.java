@@ -6,6 +6,7 @@ package hotelsoftware.model.database.parties;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,17 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c"),
-//    @NamedQuery(name = "Countries.findById", query = "SELECT c FROM Countries c WHERE c.id = :id"),
-//    @NamedQuery(name = "Countries.findByName", query = "SELECT c FROM Countries c WHERE c.name = :name"),
-//    @NamedQuery(name = "Countries.findByNameShort", query = "SELECT c FROM Countries c WHERE c.nameShort = :nameShort")
-//})
 public class DBCountry implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountry")
-    private Collection<DBAddress> dBAddressCollection;
+    private Set<DBAddress> dBAddressCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -139,12 +133,12 @@ public class DBCountry implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBAddress> getDBAddressCollection()
+    public Set<DBAddress> getDBAddressCollection()
     {
         return dBAddressCollection;
     }
 
-    public void setDBAddressCollection(Collection<DBAddress> dBAddressCollection)
+    public void setDBAddressCollection(Set<DBAddress> dBAddressCollection)
     {
         this.dBAddressCollection = dBAddressCollection;
     }

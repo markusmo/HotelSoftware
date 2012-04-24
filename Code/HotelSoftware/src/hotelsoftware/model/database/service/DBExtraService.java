@@ -8,18 +8,10 @@ import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -33,14 +25,8 @@ import org.hibernate.criterion.Restrictions;
  */
 @Entity
 @Table(name = "extraservices", catalog = "roomanizer", schema = "")
+//@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "id")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Extraservices.findAll", query = "SELECT e FROM Extraservices e"),
-//    @NamedQuery(name = "Extraservices.findById", query = "SELECT e FROM Extraservices e WHERE e.id = :id"),
-//    @NamedQuery(name = "Extraservices.findByName", query = "SELECT e FROM Extraservices e WHERE e.name = :name"),
-//    @NamedQuery(name = "Extraservices.findByPrice", query = "SELECT e FROM Extraservices e WHERE e.price = :price")
-//})
 public class DBExtraService implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -56,9 +42,6 @@ public class DBExtraService implements Serializable
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
-    @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private DBService idServices;
 
     public DBExtraService()
     {
@@ -106,16 +89,6 @@ public class DBExtraService implements Serializable
         this.price = price;
     }
 
-    public DBService getIdServices()
-    {
-        return idServices;
-    }
-
-    public void setIdServices(DBService idServices)
-    {
-        this.idServices = idServices;
-    }
-
     @Override
     public int hashCode()
     {
@@ -140,7 +113,7 @@ public class DBExtraService implements Serializable
         return true;
     }
     
-    public static List<DBExtraService> getExtraServices() throws HibernateException
+    public static Set<DBExtraService> getExtraServices() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -149,7 +122,7 @@ public class DBExtraService implements Serializable
         List<DBExtraService> retList = criteria.list();
         session.close();
 
-        return retList;
+        return new LinkedHashSet<DBExtraService>(retList);
     }
     
     public static DBExtraService getExtraServiceByName(String name) throws HibernateException
@@ -162,14 +135,14 @@ public class DBExtraService implements Serializable
         return extraService;
     }
     
-    public static Collection<DBExtraService> getAllExtraServices()throws HibernateException
+    public static Set<DBExtraService> getAllExtraServices()throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Collection<DBExtraService> extraServices = (Collection<DBExtraService>)session.createCriteria(DBExtraService.class).list();
+        List<DBExtraService> extraServices = (List<DBExtraService>)session.createCriteria(DBExtraService.class).list();
         session.close();
-        return extraServices;
+        return new LinkedHashSet<DBExtraService>(extraServices);
     }
     
     @Override

@@ -11,6 +11,7 @@ import hotelsoftware.model.database.reservation.DBReservationOption;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,7 +37,7 @@ public class ReservationSaver
         private static final ReservationSaver INSTANCE = new ReservationSaver();
     }
 
-    public void saveOrUpdate(Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         Session session = null;
         Transaction ts = null;
@@ -70,7 +71,7 @@ public class ReservationSaver
 
     }
 
-    public void saveOrUpdate(Session session, Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         for (Reservation reservation : reservations)
         {
@@ -99,7 +100,7 @@ public class ReservationSaver
 
     }
 
-    public void rollback(Collection<Reservation> reservations, Collection<ReservationOption> options, Collection<ReservationItem> reservationItems)
+    public void rollback(Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -120,7 +121,7 @@ public class ReservationSaver
                 reservation.setStartDate(temp.getStartDate());
                 reservation.setOptionCollection(temp.getOptionCollection());
                 reservation.setParty(temp.getParty());
-                reservation.setReservationitems(temp.getReservationitems());
+                reservation.setReservationItems(temp.getReservationItems());
                 reservation.setCreated(temp.getCreated());
             }
         }

@@ -9,9 +9,7 @@ import hotelsoftware.model.domain.reservation.ReservationData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
@@ -24,7 +22,7 @@ public class Guest extends Party implements GuestData
     private String fname;
     private String lname;
     private Character gender;
-    private Collection<Habitation> habitations;
+    private Set<Habitation> habitations;
 
     public Guest()
     {
@@ -63,7 +61,7 @@ public class Guest extends Party implements GuestData
         this.gender = gender;
     }
 
-    public Collection<Habitation> getHabitations()
+    public Set<Habitation> getHabitations()
     {
         return habitations;
     }
@@ -73,7 +71,7 @@ public class Guest extends Party implements GuestData
         this.birthday = birthday;
     }
 
-    public void setCurrentHabitations(Collection<Habitation> habitations)
+    public void setCurrentHabitations(Set<Habitation> habitations)
     {
         this.habitations = habitations;
     }
@@ -84,7 +82,7 @@ public class Guest extends Party implements GuestData
         return birthday;
     }
 
-    public Collection<Habitation> getCurrentHabitations()
+    public Set<Habitation> getCurrentHabitations()
     {
         return habitations;
     }
@@ -93,11 +91,11 @@ public class Guest extends Party implements GuestData
             Address address)
     {
         this(fname, lname, gender, birthday, address,
-                new LinkedList<Habitation>());
+                new LinkedHashSet<Habitation>());
     }
 
     private Guest(String fname, String lname, Character gender, Date birthday,
-            Address address, Collection<Habitation> habitations)
+            Address address, Set<Habitation> habitations)
     {
         super(address);
         this.fname = fname;
@@ -124,18 +122,18 @@ public class Guest extends Party implements GuestData
         habitations.remove(h);
     }
 
-    public static Collection<Guest> getGuestByName(String fname, String lname)
+    public static Set<Guest> getGuestByName(String fname, String lname)
             throws CompanyNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getGuestByName(fname, lname);
     }
 
-    public Collection<HabitationData> getCurrentHabitationsData()
+    public Set<HabitationData> getCurrentHabitationsData()
     {
         return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getCurrentHabitations());
     }
 
-    public Collection<HabitationData> getHabitationsData()
+    public Set<HabitationData> getHabitationsData()
     {
         return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }

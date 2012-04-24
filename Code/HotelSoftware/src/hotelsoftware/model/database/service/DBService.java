@@ -4,30 +4,10 @@
  */
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -35,22 +15,14 @@ import org.hibernate.Transaction;
  */
 @Entity
 @Table(name = "services", catalog = "roomanizer", schema = "")
+//@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Services.findAll", query = "SELECT s FROM Services s"),
-//    @NamedQuery(name = "Services.findById", query = "SELECT s FROM Services s WHERE s.id = :id")
-//})
 public class DBService implements Serializable
 {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServices")
-    private Collection<DBExtraService> dBExtraServiceCollection;
-    @OneToMany(mappedBy = "idServices")
-    private Collection<DBHabitation> dBHabitationCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,28 +102,5 @@ public class DBService implements Serializable
     public void setPrice(BigDecimal price)
     {
         this.price = price;
-    }
-
-    @XmlTransient
-    public Collection<DBExtraService> getDBExtraServiceCollection()
-    {
-        return dBExtraServiceCollection;
-    }
-
-    public void setDBExtraServiceCollection(Collection<DBExtraService> dBExtraServiceCollection)
-    {
-        this.dBExtraServiceCollection = dBExtraServiceCollection;
-    }
-
-    @XmlTransient
-    public Collection<DBHabitation> getDBHabitationCollection()
-    {
-        return dBHabitationCollection;
-    }
-
-    public void setDBHabitationCollection(Collection<DBHabitation> dBHabitationCollection)
-    {
-        this.dBHabitationCollection = dBHabitationCollection;
-    }
-    
+    }   
 }

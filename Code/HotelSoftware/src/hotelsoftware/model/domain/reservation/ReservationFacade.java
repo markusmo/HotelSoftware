@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.reservation;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservation;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -32,13 +33,13 @@ public class ReservationFacade
         private static final ReservationFacade INSTANCE = new ReservationFacade();
     }
     
-    public Collection<Reservation> getReservationsByName(String fname, String lname)
+    public Set<Reservation> getReservationsByName(String fname, String lname)
     {
-        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByName(fname, lname));
+        return (Set<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByName(fname, lname));
     }
-    public Collection<Reservation> getReservationsByNameApprox(String fname, String lname)
+    public Set<Reservation> getReservationsByNameApprox(String fname, String lname)
     {
-        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByNameApprox(fname, lname));
+        return (Set<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByNameApprox(fname, lname));
     }
     
     public Reservation getReservationById(int id)
@@ -46,14 +47,15 @@ public class ReservationFacade
         return (Reservation) DynamicMapper.map(DBReservation.getReservationById(id));
     }
     
-    public Collection<Reservation> getAllReservations()
+    public Set<Reservation> getAllReservations()
     {
-        return (Collection<Reservation>) DynamicMapper.map(DBReservation.getAllReservations());
+        return (Set<Reservation>) DynamicMapper.map(DBReservation.getAllReservations());
     }
     
     public Integer getGuestAmount(Reservation reservation)
     {
-        DBReservation res = (DBReservation) DynamicMapper.map(reservation);
-        return res.getGuestAmount();
+        //DBReservation res = (DBReservation) DynamicMapper.map(reservation);
+        //return res.getGuestAmount();
+        return 0; //TODO
     }
 }

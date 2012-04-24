@@ -8,6 +8,7 @@ import hotelsoftware.model.domain.parties.CustomerData;
 import hotelsoftware.model.domain.users.UserData;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -33,7 +34,7 @@ public interface InvoiceData
     String getInvoiceNumber();
 
    
-    Collection<InvoiceItemData> getInvoiceitemsData();
+    Set<InvoiceItemData> getInvoiceitemsData();
 
     String getPaymentMethodName();
 

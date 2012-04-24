@@ -7,6 +7,9 @@ package hotelsoftware.model.database.room;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -35,7 +38,7 @@ import org.hibernate.Transaction;
 public class DBRoomOption implements Serializable
 {
     //@ManyToMany(mappedBy = "roomoptionsCollection", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    //private Collection<DBRoom> dBRoomCollection;
+    //private Set<DBRoom> dBRoomCollection;
     private static final long serialVersionUID = 1L;
 
     public static void safeNewRoomOption(String name)
@@ -121,26 +124,26 @@ public class DBRoomOption implements Serializable
         return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
     }
     
-    public static Collection<DBRoomOption> getRoomOptions()
+    public static Set<DBRoomOption> getRoomOptions()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        Collection<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
+        List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
         
         session.close();
         
-        return options;
+        return new LinkedHashSet<DBRoomOption>(options);
     }
 /*
     @XmlTransient
-    public Collection<DBRoom> getDBRoomCollection()
+    public Set<DBRoom> getDBRoomCollection()
     {
         return dBRoomCollection;
     }
 
-    public void setDBRoomCollection(Collection<DBRoom> dBRoomCollection)
+    public void setDBRoomCollection(Set<DBRoom> dBRoomCollection)
     {
         this.dBRoomCollection = dBRoomCollection;
     }*/

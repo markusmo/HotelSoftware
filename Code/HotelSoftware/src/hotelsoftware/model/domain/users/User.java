@@ -7,9 +7,7 @@ package hotelsoftware.model.domain.users;
 import hotelsoftware.util.HelperFunctions;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,18 +20,18 @@ public class User implements UserData
     private Integer id;
     private String username;
     private String password;
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
-    User()
+    public User()
     {        
     }
     
     private User(String username, String password)
     {
-        this(username, password, new LinkedList<Role>());
+        this(username, password, new LinkedHashSet<Role>());
     }
 
-    private User(String username, String password, Collection<Role> roles)
+    private User(String username, String password, Set<Role> roles)
     {
         this.username = username;
         this.password = password;
@@ -51,12 +49,12 @@ public class User implements UserData
     }
     
     
-    public Collection<Role> getRoles()
+    public Set<Role> getRoles()
     {
         return roles;
     }
     
-    void setRoles(Collection<Role> roles)
+    void setRoles(Set<Role> roles)
     {
         this.roles = roles;
     }
@@ -96,7 +94,7 @@ public class User implements UserData
         return user;
     }
     
-    public static User create(String username, String password, Collection<Role> roles)
+    public static User create(String username, String password, Set<Role> roles)
     {
         MessageDigest coder;
         try
@@ -118,14 +116,14 @@ public class User implements UserData
      * @param permissions
      * @return Collection of permission
      */   
-    public Collection<Permission> getAllPermissions()
+    public Set<Permission> getAllPermissions()
     {
-        Collection<Permission> permissions = new HashSet<Permission>();
+        Set<Permission> permissions = new HashSet<Permission>();
 
         // adding permissions
         for (Role role : this.getRoles())
         {
-            Collection<Permission> rolePermissions = role.getPermissions();
+            Set<Permission> rolePermissions = role.getPermissions();
 
             for (Permission permission : rolePermissions)
             {
@@ -166,12 +164,12 @@ public class User implements UserData
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Collection<PermissionData> getAllPermissionsData()
+    public Set<PermissionData> getAllPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getAllPermissions());
     }
 
-    public Collection<RoleData> getRolesData()
+    public Set<RoleData> getRolesData()
     {
         return new HelperFunctions<RoleData, Role>().castCollectionUp(getRoles());
     }

@@ -8,6 +8,7 @@ import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.DynamicMapper;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -41,7 +42,7 @@ public class UserFacade
         return (User) DynamicMapper.map(dbuser);
     }
     
-    public Collection<Permission> getAllPermissions()
+    public Set<Permission> getAllPermissions()
     {
         return DynamicMapper.mapCollection(DBPermission.getPermissions());
     }

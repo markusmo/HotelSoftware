@@ -11,6 +11,7 @@ import hotelsoftware.model.database.users.DBRole;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,7 +37,7 @@ public class UserSaver
         private static final UserSaver INSTANCE = new UserSaver();
     }
 
-    public void saveOrUpdate(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         Session session = null;
         Transaction ts = null;
@@ -69,7 +70,7 @@ public class UserSaver
         }
     }
     
-    public void saveOrUpdate(Session session, Collection<User> users, Collection<Role> roles, Collection<Permission> permissions) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException
     {
         for (Permission permission : permissions)
         {                
@@ -96,7 +97,7 @@ public class UserSaver
         }
     }
     
-    public void rollback(Collection<User> users, Collection<Role> roles, Collection<Permission> permissions)
+    public void rollback(Set<User> users, Set<Role> roles, Set<Permission> permissions)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

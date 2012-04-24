@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.users;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -16,16 +17,16 @@ public class Role implements RoleData
 {
     private Integer id;
     private String name;
-    private Collection<Permission> permissions;
+    private Set<Permission> permissions;
 
-    public Collection<Permission> getPermissions()
+    public Set<Permission> getPermissions()
     {
         return permissions;
     }
     
     public
     
-    void setPermissions(Collection<Permission> permissions)
+    void setPermissions(Set<Permission> permissions)
     {
         this.permissions = permissions;
     }
@@ -63,19 +64,19 @@ public class Role implements RoleData
         this(name, new HashSet<Permission>());
     }
     
-    private Role(String name, Collection<Permission> permissions)
+    private Role(String name, Set<Permission> permissions)
     {
         this.name = name;
         this.permissions = permissions;
     }
 
-    public static Role create(String name, Collection<Permission> permissions)
+    public static Role create(String name, Set<Permission> permissions)
     {
         return new Role(name, permissions);
     }
        
 
-    public Collection<PermissionData> getPermissionsData()
+    public Set<PermissionData> getPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(getPermissions());
     }

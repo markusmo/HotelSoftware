@@ -97,13 +97,13 @@ DROP TABLE IF EXISTS `roomanizer`.`roomsRoomStatus` ;
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomsRoomStatus` (
   `idRooms` INT NOT NULL ,
   `idRoomStatus` INT NOT NULL ,
-  `start` DATE NOT NULL ,
-  `end` DATE NOT NULL ,
+  `startDate` DATE NOT NULL ,
+  `endDate` DATE NOT NULL ,
   PRIMARY KEY (`idRooms`, `idRoomStatus`) ,
   INDEX `fk_rooms_has_roomStatus_roomStatus1` (`idRoomStatus` ASC) ,
   INDEX `fk_rooms_has_roomStatus_rooms1` (`idRooms` ASC) ,
-  INDEX `i_start` (`start` ASC) ,
-  INDEX `i_end` (`end` ASC) ,
+  INDEX `i_start` (`startDate` ASC) ,
+  INDEX `i_end` (`endDate` ASC) ,
   CONSTRAINT `fk_rooms_has_roomStatus_rooms1`
     FOREIGN KEY (`idRooms` )
     REFERENCES `roomanizer`.`rooms` (`id` )
@@ -125,12 +125,12 @@ DROP TABLE IF EXISTS `roomanizer`.`seasons` ;
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`seasons` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
-  `start` DATE NOT NULL ,
-  `end` DATE NOT NULL COMMENT 'problem with the year' ,
+  `startDate` DATE NOT NULL ,
+  `endDate` DATE NOT NULL COMMENT 'problem with the year' ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
-  INDEX `i_start` (`start` ASC) ,
-  INDEX `i_end` (`end` ASC) )
+  INDEX `i_start` (`startDate` ASC) ,
+  INDEX `i_end` (`endDate` ASC) )
 ENGINE = InnoDB;
 
 
@@ -200,43 +200,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `roomanizer`.`customers`
+-- Table `roomanizer`.`parties`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `roomanizer`.`customers` ;
+DROP TABLE IF EXISTS `roomanizer`.`parties` ;
 
-CREATE  TABLE IF NOT EXISTS `roomanizer`.`customers` (
+CREATE  TABLE IF NOT EXISTS `roomanizer`.`parties` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idAddresses` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_customers_addresses1` (`idAddresses` ASC) ,
-  CONSTRAINT `fk_customers_addresses1`
+  INDEX `fk_parties_addresses1` (`idAddresses` ASC) ,
+  CONSTRAINT `fk_parties_addresses1`
     FOREIGN KEY (`idAddresses` )
     REFERENCES `roomanizer`.`addresses` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `roomanizer`.`persons`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `roomanizer`.`persons` ;
-
-CREATE  TABLE IF NOT EXISTS `roomanizer`.`persons` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `idAddresses` INT NOT NULL ,
-  `idCustomers` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_persons_addresses1` (`idAddresses` ASC) ,
-  INDEX `fk_persons_customers1` (`idCustomers` ASC) ,
-  CONSTRAINT `fk_persons_addresses1`
-    FOREIGN KEY (`idAddresses` )
-    REFERENCES `roomanizer`.`addresses` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_persons_customers1`
-    FOREIGN KEY (`idCustomers` )
-    REFERENCES `roomanizer`.`customers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -333,6 +308,32 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `roomanizer`.`customers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`customers` ;
+
+CREATE  TABLE IF NOT EXISTS `roomanizer`.`customers` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `idAddresses` INT NOT NULL ,
+  `idParties` INT NOT NULL ,
+  INDEX `fk_customers_addresses1` (`idAddresses` ASC) ,
+  INDEX `fk_customers_parties1` (`idParties` ASC) ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `idParties_UNIQUE` (`idParties` ASC) ,
+  CONSTRAINT `fk_customers_addresses1`
+    FOREIGN KEY (`idAddresses` )
+    REFERENCES `roomanizer`.`addresses` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_customers_parties1`
+    FOREIGN KEY (`idParties` )
+    REFERENCES `roomanizer`.`parties` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `roomanizer`.`guests`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `roomanizer`.`guests` ;
@@ -341,14 +342,15 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`guests` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `fname` VARCHAR(255) NOT NULL ,
   `lname` VARCHAR(255) NOT NULL ,
-  `idPersons` INT NOT NULL ,
   `birthday` DATE NULL ,
+  `idParties` INT NOT NULL ,
+  INDEX `fk_guest_persons1` (`idParties` ASC) ,
+  UNIQUE INDEX `idPersons_UNIQUE` (`id` ASC) ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_guest_persons1` (`idPersons` ASC) ,
-  UNIQUE INDEX `idPersons_UNIQUE` (`idPersons` ASC) ,
+  UNIQUE INDEX `idParties_UNIQUE` (`idParties` ASC) ,
   CONSTRAINT `fk_guest_persons1`
-    FOREIGN KEY (`idPersons` )
-    REFERENCES `roomanizer`.`persons` (`id` )
+    FOREIGN KEY (`idParties` )
+    REFERENCES `roomanizer`.`parties` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -376,7 +378,6 @@ DROP TABLE IF EXISTS `roomanizer`.`services` ;
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`services` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idServiceTypes` INT NOT NULL ,
-  `price` DECIMAL(10,2) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_services_serviceTypes1` (`idServiceTypes` ASC) ,
   CONSTRAINT `fk_services_serviceTypes1`
@@ -394,18 +395,21 @@ DROP TABLE IF EXISTS `roomanizer`.`habitations` ;
 
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`habitations` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `start` DATE NOT NULL ,
-  `end` DATE NOT NULL ,
-  `idRooms` INT NOT NULL ,
   `idServices` INT NOT NULL ,
+  `startDate` DATE NOT NULL ,
+  `endDate` DATE NOT NULL ,
+  `price` DECIMAL(10,2) NOT NULL ,
+  `deposit` VARCHAR(255) NOT NULL ,
+  `idRooms` INT NOT NULL ,
   `idUsers` INT NOT NULL ,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  PRIMARY KEY (`id`) ,
   INDEX `fk_habitation_rooms1` (`idRooms` ASC) ,
   INDEX `fk_habitations_services1` (`idServices` ASC) ,
-  INDEX `i_star` (`start` ASC) ,
-  INDEX `i_end` (`end` ASC) ,
+  INDEX `i_star` (`startDate` ASC) ,
+  INDEX `i_end` (`endDate` ASC) ,
   INDEX `fk_habitations_users1` (`idUsers` ASC) ,
+  UNIQUE INDEX `idServices_UNIQUE` (`idServices` ASC) ,
+  PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_habitation_rooms1`
     FOREIGN KEY (`idRooms` )
     REFERENCES `roomanizer`.`rooms` (`id` )
@@ -431,22 +435,22 @@ DROP TABLE IF EXISTS `roomanizer`.`reservations` ;
 
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservations` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `reserationNumber` VARCHAR(255) NOT NULL ,
-  `start` DATE NOT NULL ,
-  `end` DATE NOT NULL ,
+  `reservationNumber` VARCHAR(255) NOT NULL ,
+  `startDate` DATE NOT NULL ,
+  `endDate` DATE NOT NULL ,
   `comment` VARCHAR(255) NULL ,
   `idPersons` INT NOT NULL ,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `idUsers` INT NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_reservations_persons1` (`idPersons` ASC) ,
-  UNIQUE INDEX `reserationNumber_UNIQUE` (`reserationNumber` ASC) ,
-  INDEX `i_start` (`start` ASC) ,
-  INDEX `i_end` (`end` ASC) ,
+  UNIQUE INDEX `reserationNumber_UNIQUE` (`reservationNumber` ASC) ,
+  INDEX `i_start` (`startDate` ASC) ,
+  INDEX `i_end` (`endDate` ASC) ,
   INDEX `fk_reservations_users1` (`idUsers` ASC) ,
   CONSTRAINT `fk_reservations_persons1`
     FOREIGN KEY (`idPersons` )
-    REFERENCES `roomanizer`.`persons` (`id` )
+    REFERENCES `roomanizer`.`parties` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_reservations_users1`
@@ -492,8 +496,8 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservationOptions` (
   `expiration` DATE NOT NULL ,
   `prepayment` DECIMAL(10,2) NOT NULL ,
   `fulfilled` TINYINT(1) NOT NULL ,
-  `idReservations` INT NOT NULL ,
   `comment` VARCHAR(255) NULL ,
+  `idReservations` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_reservationOption_reservations1` (`idReservations` ASC) ,
   INDEX `i_expiration` (`expiration` ASC) ,
@@ -512,11 +516,13 @@ DROP TABLE IF EXISTS `roomanizer`.`extraServices` ;
 
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`extraServices` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(255) NOT NULL ,
   `idServices` INT NOT NULL ,
+  `name` VARCHAR(255) NOT NULL ,
+  `price` DECIMAL(10,2) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_extraServices_services1` (`idServices` ASC) ,
   INDEX `i_name` (`name` ASC) ,
+  UNIQUE INDEX `idServices_UNIQUE` (`idServices` ASC) ,
   CONSTRAINT `fk_extraServices_services1`
     FOREIGN KEY (`idServices` )
     REFERENCES `roomanizer`.`services` (`id` )
@@ -531,19 +537,19 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `roomanizer`.`allocations` ;
 
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`allocations` (
-  `idHabitations` INT NOT NULL ,
   `idGuests` INT NOT NULL ,
-  PRIMARY KEY (`idHabitations`, `idGuests`) ,
-  INDEX `fk_habitations_has_guests_guests1` (`idGuests` ASC) ,
-  INDEX `fk_habitations_has_guests_habitations1` (`idHabitations` ASC) ,
-  CONSTRAINT `fk_habitations_has_guests_habitations1`
-    FOREIGN KEY (`idHabitations` )
-    REFERENCES `roomanizer`.`habitations` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_habitations_has_guests_guests1`
+  `idService` INT NOT NULL ,
+  PRIMARY KEY (`idGuests`, `idService`) ,
+  INDEX `fk_allocations_guests1` (`idGuests` ASC) ,
+  INDEX `fk_allocations_habitations1` (`idService` ASC) ,
+  CONSTRAINT `fk_allocations_guests1`
     FOREIGN KEY (`idGuests` )
     REFERENCES `roomanizer`.`guests` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_allocations_habitations1`
+    FOREIGN KEY (`idService` )
+    REFERENCES `roomanizer`.`habitations` (`idServices` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -574,29 +580,29 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoices` (
   `expiration` DATE NOT NULL ,
   `fulfilled` TINYINT(1) NOT NULL ,
   `idUsers` INT NOT NULL ,
-  `idCustomers` INT NOT NULL ,
   `idpaymentMethods` INT NOT NULL ,
+  `idCustomers` INT NOT NULL ,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `invoiceNumber_UNIQUE` (`invoiceNumber` ASC) ,
   INDEX `fk_invoices_employees1` (`idUsers` ASC) ,
-  INDEX `fk_invoices_customers1` (`idCustomers` ASC) ,
   INDEX `fk_invoices_paymentMethods1` (`idpaymentMethods` ASC) ,
   INDEX `i_expiration` (`expiration` ASC) ,
   INDEX `i_fulfilled` (`fulfilled` ASC) ,
+  INDEX `fk_invoices_customers1` (`idCustomers` ASC) ,
   CONSTRAINT `fk_invoices_employees1`
     FOREIGN KEY (`idUsers` )
     REFERENCES `roomanizer`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_invoices_customers1`
-    FOREIGN KEY (`idCustomers` )
-    REFERENCES `roomanizer`.`customers` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_invoices_paymentMethods1`
     FOREIGN KEY (`idpaymentMethods` )
     REFERENCES `roomanizer`.`paymentMethods` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invoices_customers1`
+    FOREIGN KEY (`idCustomers` )
+    REFERENCES `roomanizer`.`customers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -617,7 +623,6 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoiceItems` (
   PRIMARY KEY (`idServices`, `idInvoice`) ,
   INDEX `fk_services_has_invoice_invoice1` (`idInvoice` ASC) ,
   INDEX `fk_services_has_invoice_services1` (`idServices` ASC) ,
-  INDEX `fk_invoiceItems_habitations1` (`idHabitations` ASC) ,
   INDEX `fk_invoiceItems_users1` (`idUsers` ASC) ,
   CONSTRAINT `fk_services_has_invoice_services1`
     FOREIGN KEY (`idServices` )
@@ -629,11 +634,6 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoiceItems` (
     REFERENCES `roomanizer`.`invoices` (`id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_invoiceItems_habitations1`
-    FOREIGN KEY (`idHabitations` )
-    REFERENCES `roomanizer`.`habitations` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_invoiceItems_users1`
     FOREIGN KEY (`idUsers` )
     REFERENCES `roomanizer`.`users` (`id` )
@@ -665,10 +665,11 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`companies` (
   `name` VARCHAR(255) NOT NULL ,
   `idCompanyTypes` INT NOT NULL ,
   `idCustomers` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
   INDEX `fk_companies_companyTypes1` (`idCompanyTypes` ASC) ,
-  INDEX `fk_companies_customers1` (`idCustomers` ASC) ,
   INDEX `i_name` (`name` ASC) ,
+  INDEX `fk_companies_customers1` (`idCustomers` ASC) ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `idCustomers_UNIQUE` (`idCustomers` ASC) ,
   CONSTRAINT `fk_companies_companyTypes1`
     FOREIGN KEY (`idCompanyTypes` )
     REFERENCES `roomanizer`.`companyTypes` (`id` )
@@ -688,40 +689,63 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `roomanizer`.`companiesPersons` ;
 
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`companiesPersons` (
-  `idCompanies` INT NOT NULL ,
   `idPersons` INT NOT NULL ,
-  PRIMARY KEY (`idCompanies`, `idPersons`) ,
+  `idCompanies` INT NOT NULL ,
+  PRIMARY KEY (`idPersons`, `idCompanies`) ,
   INDEX `fk_companies_has_persons_persons1` (`idPersons` ASC) ,
-  INDEX `fk_companies_has_persons_companies1` (`idCompanies` ASC) ,
-  CONSTRAINT `fk_companies_has_persons_companies1`
-    FOREIGN KEY (`idCompanies` )
-    REFERENCES `roomanizer`.`companies` (`id` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+  INDEX `fk_companiesPersons_companies1` (`idCompanies` ASC) ,
   CONSTRAINT `fk_companies_has_persons_persons1`
     FOREIGN KEY (`idPersons` )
-    REFERENCES `roomanizer`.`persons` (`id` )
+    REFERENCES `roomanizer`.`parties` (`id` )
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_companiesPersons_companies1`
+    FOREIGN KEY (`idCompanies` )
+    REFERENCES `roomanizer`.`companies` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `roomanizer`.`privateCustomer`
+-- Table `roomanizer`.`reservationsGuests`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `roomanizer`.`privateCustomer` ;
+DROP TABLE IF EXISTS `roomanizer`.`reservationsGuests` ;
 
-CREATE  TABLE IF NOT EXISTS `roomanizer`.`privateCustomer` (
+CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservationsGuests` (
+  `idReservations` INT NOT NULL ,
+  `idPersons` INT NOT NULL ,
+  PRIMARY KEY (`idReservations`, `idPersons`) ,
+  INDEX `fk_guests_has_reservations_reservations1` (`idReservations` ASC) ,
+  INDEX `fk_guests_has_reservations_guests1` (`idPersons` ASC) ,
+  CONSTRAINT `fk_guests_has_reservations_guests1`
+    FOREIGN KEY (`idPersons` )
+    REFERENCES `roomanizer`.`guests` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_guests_has_reservations_reservations1`
+    FOREIGN KEY (`idReservations` )
+    REFERENCES `roomanizer`.`reservations` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `roomanizer`.`privatePerson`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`privatePerson` ;
+
+CREATE  TABLE IF NOT EXISTS `roomanizer`.`privatePerson` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `fname` VARCHAR(255) NOT NULL ,
   `lname` VARCHAR(255) NOT NULL ,
-  `customers_id` INT NOT NULL ,
+  `idCustomers` INT NOT NULL ,
+  INDEX `fk_privatePerson_customers1` (`idCustomers` ASC) ,
   PRIMARY KEY (`id`) ,
-  INDEX `i_fname` (`fname` ASC) ,
-  INDEX `i_lname` (`lname` ASC) ,
-  INDEX `fk_privateCustomer_customers1` (`customers_id` ASC) ,
-  CONSTRAINT `fk_privateCustomer_customers1`
-    FOREIGN KEY (`customers_id` )
+  UNIQUE INDEX `idCustomers_UNIQUE` (`idCustomers` ASC) ,
+  CONSTRAINT `fk_privatePerson_customers1`
+    FOREIGN KEY (`idCustomers` )
     REFERENCES `roomanizer`.`customers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

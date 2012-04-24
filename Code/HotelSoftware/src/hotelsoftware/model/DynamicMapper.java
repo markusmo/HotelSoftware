@@ -2,7 +2,9 @@ package hotelsoftware.model;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  *
@@ -45,9 +47,9 @@ public class DynamicMapper
                         
                         if (m3 != null && m3.invoke(returnvalue) == null)
                         {
-                            if (m2.getReturnType().equals(Collection.class))
+                            if (m2.getReturnType().equals(Set.class))
                             {
-                                m.invoke(returnvalue, mapCollection((Collection) m2.invoke(urObject)));
+                                m.invoke(returnvalue, mapCollection((Set) m2.invoke(urObject)));
                             }
                             else
                             {
@@ -87,11 +89,11 @@ public class DynamicMapper
         }
     }
 
-    public static Collection mapCollection(Collection urCollection)
+    public static Set mapCollection(Set urCollection)
     {
         try
         {
-            Collection returnValue = new LinkedList();
+            Set returnValue = new LinkedHashSet();
 
             for (Object obj : urCollection)
             {

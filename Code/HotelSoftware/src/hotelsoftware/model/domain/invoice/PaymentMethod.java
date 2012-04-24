@@ -3,6 +3,7 @@ package hotelsoftware.model.domain.invoice;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -52,10 +53,10 @@ public class PaymentMethod implements PaymentMethodData
      * @return 
      * eine Collection aus allen Zahlungsmethoden
      */
-    public static Collection<PaymentMethod> getAllPaymentMethods()
+    public static Set<PaymentMethod> getAllPaymentMethods()
     {
-        Collection<DBPaymentMethod> dbpm = DBPaymentMethod.getPaymentMethods();
-        return (Collection<PaymentMethod>)DynamicMapper.map(dbpm);
+        Set<DBPaymentMethod> dbpm = DBPaymentMethod.getPaymentMethods();
+        return (Set<PaymentMethod>)DynamicMapper.map(dbpm);
     }
 
     /**

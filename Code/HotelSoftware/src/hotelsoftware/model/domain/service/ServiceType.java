@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.service;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -16,37 +17,41 @@ public class ServiceType implements ServiceTypeData
 {
     private String type;
     private Integer id;
-    
+
     /**
      * @return the id
      */
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
-        if (id == null){
+    public void setId(Integer id)
+    {
+        if (id == null)
+        {
             this.id = id;
-        } 
+        }
     }
-    
-    public static ServiceType createServiceType(String name){
-       return new ServiceType(name); 
+
+    public static ServiceType createServiceType(String name)
+    {
+        return new ServiceType(name);
     }
-    
-    public static Collection<ServiceType> getAllServiceTypes(){
-        Collection<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
-        return (Collection<ServiceType>)DynamicMapper.map(serviceType);
+
+    public static Set<ServiceType> getAllServiceTypes()
+    {
+        Set<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
+        return (Set<ServiceType>) DynamicMapper.map(serviceType);
     }
-    
+
     public ServiceType()
     {
-        
     }
-    
+
     private ServiceType(String type)
     {
         this.type = type;

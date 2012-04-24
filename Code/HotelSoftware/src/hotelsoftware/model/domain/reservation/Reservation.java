@@ -4,13 +4,13 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.PartyData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -18,15 +18,13 @@ import java.util.Date;
  */
 public class Reservation implements ReservationData
 {
-
-    
     private Date startDate;
     private Date endDate;
     private String comment;
     private Date created;
-    private Collection<ReservationOption> optionCollection;
+    private Set<ReservationOption> optionCollection;
     private Party party;
-    private Collection<ReservationItem> reservationItemCollection;
+    private Set<ReservationItem> reservationItems;
     private Integer id;
     private String reservationNumber;
 
@@ -57,7 +55,7 @@ public class Reservation implements ReservationData
         return endDate;
     }
 
-    public Collection<ReservationOption> getOptionCollection()
+    public Set<ReservationOption> getOptionCollection()
     {
         return optionCollection;
     }
@@ -67,9 +65,19 @@ public class Reservation implements ReservationData
         return party;
     }
 
-    public Collection<ReservationItem> getReservationitems()
+    public void setParty(Party party)
     {
-        return reservationItemCollection;
+        this.party = party;
+    }
+
+    public Set<ReservationItem> getReservationItems()
+    {
+        return reservationItems;
+    }
+
+    public void setReservationItems(Set<ReservationItem> reservationItems)
+    {
+        this.reservationItems = reservationItems;
     }
 
     @Override
@@ -93,26 +101,15 @@ public class Reservation implements ReservationData
         this.endDate = end;
     }
 
-    public void setOptionCollection(Collection<ReservationOption> optionCollection)
+    public void setOptionCollection(Set<ReservationOption> optionCollection)
     {
         this.optionCollection = optionCollection;
-    }
-
-    public void setParty(Party party)
-    {
-        this.party = party;
-    }
-
-    public void setReservationitems(Collection<ReservationItem> setreservationItemCollection)
-    {
-        this.reservationItemCollection = setreservationItemCollection;
     }
 
     public void setStartDate(Date start)
     {
         this.startDate = start;
     }
-    private Invoice getInvoice;
 
     public Integer getId()
     {
@@ -127,7 +124,7 @@ public class Reservation implements ReservationData
         }
     }
 
-    public Collection<ReservationOptionData> getOptionCollectionData()
+    public Set<ReservationOptionData> getOptionCollectionData()
     {
         return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(getOptionCollection());
     }
@@ -137,41 +134,42 @@ public class Reservation implements ReservationData
         return (PartyData) getParty();
     }
 
-    public Collection<ReservationItemData> getReservationItemCollectionData()
+    public Set<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(getReservationitems());
-    } 
-    
+        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(reservationItems);
+    }
+
     public Integer getGuestAmount()
     {
         return ReservationFacade.getInstance().getGuestAmount(this);
     }
-    
+
     public static Reservation getReservationByNumber(int reservationNr)
     {
         return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
-    
-    public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
+
+    public static Set<Reservation> getReservationsByName(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
     }
-    
-    public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+
+    public static Set<Reservation> getReservationsByNameApprox(String firstName, String lastName)
     {
-         return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
+        return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
     }
-    
-    public static Collection<Reservation> getAllReservations()
+
+    public static Set<Reservation> getAllReservations()
     {
         return ReservationFacade.getInstance().getAllReservations();
     }
-    
+
     public void setReservationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
     }
-     public void setReserationNumber(String reservationNumber)
+
+    public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
         setParty(Guest.getGuestFromReservationNumber(reservationNumber));
@@ -181,7 +179,7 @@ public class Reservation implements ReservationData
     {
         return this.reservationNumber;
     }
-    
+
     public String getReserationNumber()
     {
         return this.reservationNumber;

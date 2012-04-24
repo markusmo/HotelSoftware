@@ -9,7 +9,9 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -126,7 +128,7 @@ public class DBPermission implements Serializable
      * a list of permissions
      * @throws HibernateException 
      */
-    public static List<DBPermission> getPermissions() throws HibernateException
+    public static Set<DBPermission> getPermissions() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -135,7 +137,7 @@ public class DBPermission implements Serializable
         List<DBPermission> retList = criteria.list();
         session.close();
 
-        return retList;
+        return new LinkedHashSet<DBPermission>(retList);
     }
     
     /**

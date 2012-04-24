@@ -12,6 +12,7 @@ import hotelsoftware.model.database.parties.DBPrivateCustomer;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationData;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Kommunikationsklasse zwischen den Schichten. Sie dient als Übersetzer.
@@ -40,9 +41,9 @@ public class PartyFacade
  * gibt alle CompanyTypen zurück
  * @return
  */
-    public Collection<CompanyType> getAllTypes()
+    public Set<CompanyType> getAllTypes()
     {
-        return DynamicMapper.mapCollection(DBCompanyType.getAllTypes());
+        return (Set<CompanyType>) DynamicMapper.mapCollection(DBCompanyType.getAllTypes());
     }
 /**
  * sucht nach einer Firma mit entsprechendem nammen
@@ -98,16 +99,16 @@ public class PartyFacade
  * @throws GuestNotFoundException Gast nicht gefunden
  */
     @SuppressWarnings("unchecked")
-    public Collection<Guest> getGuestByName(String firstName, String lastName)
+    public Set<Guest> getGuestByName(String firstName, String lastName)
             throws CompanyNotFoundException, GuestNotFoundException
     {
-        Collection<DBGuest> c = DBGuest.getGuestsByName(firstName, lastName);
+        Set<DBGuest> c = DBGuest.getGuestsByName(firstName, lastName);
 
         if (c == null)
         {
             throw new GuestNotFoundException();
         }
 
-        return (Collection<Guest>) DynamicMapper.map(c);
+        return (Set<Guest>) DynamicMapper.map(c);
     }
 }

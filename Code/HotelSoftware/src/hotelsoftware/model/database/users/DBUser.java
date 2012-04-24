@@ -12,6 +12,7 @@ import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,17 +58,17 @@ import org.hibernate.criterion.Restrictions;
 //})
 public class DBUser implements Serializable
 {
-    @ManyToMany(mappedBy = "dBUserCollection")
-    private Collection<DBRole> dBRoleCollection;
+    @ManyToMany(mappedBy = "userCollection")
+    private Set<DBRole> roleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Collection<DBHabitation> dBHabitationCollection;
+    private Set<DBHabitation> dBHabitationCollection;
     @OneToMany(mappedBy = "idUsers")
-    private Collection<DBReservation> dBReservationCollection;
+    private Set<DBReservation> dBReservationCollection;
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
-    private Collection<DBInvoice> dBInvoiceCollection;
+    private Set<DBInvoice> dBInvoiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,15 +81,6 @@ public class DBUser implements Serializable
     @Basic(optional = false)
     @Column(name = "password", nullable = false, length = 32)
     private String password;
-    @JoinTable(name = "userroles", joinColumns =
-    {
-        @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "idRole", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
-    private Collection<DBRole> rolesCollection;
 
     public DBUser()
     {
@@ -112,15 +104,13 @@ public class DBUser implements Serializable
         this.password = password;
     }
 
-    public DBUser(String username, String password, Collection<DBRole> rolesCollection)
+    public DBUser(String username, String password, Set<DBRole> roleCollection)
     {
         this.username = username;
         this.password = password;
-        this.rolesCollection = rolesCollection;
+        this.roleCollection = roleCollection;
     }
     
-    
-
     public Integer getId()
     {
         return id;
@@ -149,17 +139,6 @@ public class DBUser implements Serializable
     public void setPassword(String password)
     {
         this.password = password;
-    }
-
-    @XmlTransient
-    public Collection<DBRole> getRoles()
-    {
-        return rolesCollection;
-    }
-
-    public void setRoles(Collection<DBRole> rolesCollection)
-    {
-        this.rolesCollection = rolesCollection;
     }
 
     @Override
@@ -267,47 +246,47 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoice> getDBInvoiceCollection()
+    public Set<DBInvoice> getDBInvoiceCollection()
     {
         return dBInvoiceCollection;
     }
 
-    public void setDBInvoiceCollection(Collection<DBInvoice> dBInvoiceCollection)
+    public void setDBInvoiceCollection(Set<DBInvoice> dBInvoiceCollection)
     {
         this.dBInvoiceCollection = dBInvoiceCollection;
     }
 
     @XmlTransient
-    public Collection<DBReservation> getDBReservationCollection()
+    public Set<DBReservation> getDBReservationCollection()
     {
         return dBReservationCollection;
     }
 
-    public void setDBReservationCollection(Collection<DBReservation> dBReservationCollection)
+    public void setDBReservationCollection(Set<DBReservation> dBReservationCollection)
     {
         this.dBReservationCollection = dBReservationCollection;
     }
 
     @XmlTransient
-    public Collection<DBHabitation> getDBHabitationCollection()
+    public Set<DBHabitation> getDBHabitationCollection()
     {
         return dBHabitationCollection;
     }
 
-    public void setDBHabitationCollection(Collection<DBHabitation> dBHabitationCollection)
+    public void setDBHabitationCollection(Set<DBHabitation> dBHabitationCollection)
     {
         this.dBHabitationCollection = dBHabitationCollection;
     }
 
     @XmlTransient
-    public Collection<DBRole> getDBRoleCollection()
+    public Set<DBRole> getRoleCollection()
     {
-        return dBRoleCollection;
+        return roleCollection;
     }
 
-    public void setDBRoleCollection(Collection<DBRole> dBRoleCollection)
+    public void setRoleCollection(Set<DBRole> roleCollection)
     {
-        this.dBRoleCollection = dBRoleCollection;
+        this.roleCollection = roleCollection;
     }
     
      

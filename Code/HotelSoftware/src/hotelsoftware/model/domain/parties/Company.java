@@ -8,7 +8,9 @@ import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Diese Klasse erbt von Customer, da sie für Zimmer/Dienstleistungen bezahlt. Hierbei handelt es sich um eine Firma mit einem Namen und einem Typ.
@@ -19,17 +21,17 @@ public class Company extends Customer implements CompanyData
 {
     private String companyname;
     private CompanyType type;
-    private Collection<Party> contactPersons;
+    private Set<Party> contactPersons;
 
     public static Company create(String name, CompanyType typ, Address address,
             Address invoiceAddress)
     {
         return new Company(name, typ, address, invoiceAddress,
-                new LinkedList<Party>());
+                new LinkedHashSet<Party>());
     }
 
     private Company(String name, CompanyType type, Address address,
-            Address invoiceAddress, LinkedList<Party> partys)
+            Address invoiceAddress, Set<Party> partys)
     {
         super(address, invoiceAddress);
         this.companyname = name;
@@ -64,12 +66,12 @@ public class Company extends Customer implements CompanyData
         this.type = type;
     }
 
-    public Collection<Party> getContactPersons()
+    public Set<Party> getContactPersons()
     {
         return contactPersons;
     }
 
-    public void setContactPersons(Collection<Party> contactPersons)
+    public void setContactPersons(Set<Party> contactPersons)
     {
         this.contactPersons = contactPersons;
     }
@@ -96,7 +98,7 @@ public class Company extends Customer implements CompanyData
         return PartyFacade.getInstance().getCompanyByName(name);
     }
 
-    public Collection<PartyData> getContactPersonsData()
+    public Set<PartyData> getContactPersonsData()
     {
         return new HelperFunctions<PartyData, Party>().castCollectionUp(getContactPersons());
     }
@@ -116,7 +118,7 @@ public class Company extends Customer implements CompanyData
         return (AddressData) getInvoiceAddress();
     }
 
-    public Collection<InvoiceData> getInvoicesData()
+    public Set<InvoiceData> getInvoicesData()
     {
         return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(getInvoices());
     }

@@ -9,6 +9,7 @@ import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.Set;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -29,15 +30,15 @@ public class OptionsState extends CheckInState
     }
     
     @Override
-    public Collection<ExtraServiceData> getServices()
+    public Set<ExtraServiceData> getServices()
     {
-        Collection<ExtraService> services = ExtraService.getAllExtraServices();
+        Set<ExtraService> services = ExtraService.getAllExtraServices();
         
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
     }
     
     @Override
-    public void selectServices(Collection<ExtraServiceData> services)
+    public void selectServices(Set<ExtraServiceData> services)
     {
         for (ExtraServiceData entry : services)
         {

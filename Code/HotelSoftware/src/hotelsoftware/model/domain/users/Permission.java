@@ -8,6 +8,7 @@ import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.users.DBPermission;
 import java.util.Collection;
+import java.util.Set;
 import org.hibernate.HibernateException;
 
 /**
@@ -62,7 +63,7 @@ public class Permission implements PermissionData
      * @return 
      * a linked list of permissions on domain-level
      */
-    public static Collection<Permission> getAllPermissions()
+    public static Set<Permission> getAllPermissions()
     {
         return UserFacade.getInstance().getAllPermissions();
     }

@@ -10,6 +10,7 @@ import hotelsoftware.model.domain.parties.PartyData;
 import hotelsoftware.model.domain.reservation.ReservationItemData;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -22,7 +23,7 @@ public class ChangeReservationDataState extends ChangeDataState
         super(context);
     }
 
-    ChangeReservationDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
+    ChangeReservationDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Set<ReservationItemData> reservationItems)
     {
         super(context, counter, roomSelections, reservationItems);
     }

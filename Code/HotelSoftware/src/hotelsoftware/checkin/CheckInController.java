@@ -58,12 +58,12 @@ public class CheckInController
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public Collection<ReservationData> search(String firstName, String lastName)
+    public Set<ReservationData> search(String firstName, String lastName)
     {
         return state.search(firstName, lastName);
     }
     
-    public Collection<ReservationData> searchApprox(String firstName, String lastName)
+    public Set<ReservationData> searchApprox(String firstName, String lastName)
     {
         return state.searchApprox(firstName, lastName);
     }
@@ -178,7 +178,7 @@ public class CheckInController
         state.removeRoomSelection(selectionIndex);
     }
     
-    public Collection<CategoryData> getAllCategories()
+    public Set<CategoryData> getAllCategories()
     {
         return state.getAllCategories();
     }
@@ -189,7 +189,7 @@ public class CheckInController
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
         return state.changeRoomCategory(selectionIndex, category);
     }
@@ -217,7 +217,7 @@ public class CheckInController
      * Gibt eine Liste der möglichen Extraleistungen aus
      * @return Die Liste mit den Extrleistungen
      */
-    public Collection<ExtraServiceData> getServices()
+    public Set<ExtraServiceData> getServices()
     {
         return state.getServices();
     }
@@ -226,12 +226,12 @@ public class CheckInController
      * Gibt an welche Extraleistungen wie oft ausgewählt wurden
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Collection<ExtraServiceData> services)
+    public void selectServices(Set<ExtraServiceData> services)
     {
         state.selectServices(services);
     }
 
-    public Collection<ReservationData> getAllReservations()
+    public Set<ReservationData> getAllReservations()
     {
         return state.getAllReservations();
     }

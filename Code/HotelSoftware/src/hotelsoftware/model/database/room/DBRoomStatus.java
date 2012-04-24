@@ -6,6 +6,7 @@ package hotelsoftware.model.database.room;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -23,16 +24,10 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Roomstatus.findAll", query = "SELECT r FROM Roomstatus r"),
-//    @NamedQuery(name = "Roomstatus.findById", query = "SELECT r FROM Roomstatus r WHERE r.id = :id"),
-//    @NamedQuery(name = "Roomstatus.findByName", query = "SELECT r FROM Roomstatus r WHERE r.name = :name")
-//})
 public class DBRoomStatus implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus", fetch= FetchType.LAZY)
-    private Collection<DBRoomsRoomStatus> dBRoomsRoomStatusCollection;
+    private Set<DBRoomsRoomStatus> dBRoomsRoomStatusCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,12 +104,12 @@ public class DBRoomStatus implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomsRoomStatus> getDBRoomsRoomStatusCollection()
+    public Set<DBRoomsRoomStatus> getDBRoomsRoomStatusCollection()
     {
         return dBRoomsRoomStatusCollection;
     }
 
-    public void setDBRoomsRoomStatusCollection(Collection<DBRoomsRoomStatus> dBRoomsRoomStatusCollection)
+    public void setDBRoomsRoomStatusCollection(Set<DBRoomsRoomStatus> dBRoomsRoomStatusCollection)
     {
         this.dBRoomsRoomStatusCollection = dBRoomsRoomStatusCollection;
     }

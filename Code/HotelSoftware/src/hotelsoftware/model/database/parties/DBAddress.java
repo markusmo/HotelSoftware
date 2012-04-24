@@ -6,17 +6,8 @@ package hotelsoftware.model.database.parties;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,23 +18,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "addresses", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Addresses.findAll", query = "SELECT a FROM Addresses a"),
-//    @NamedQuery(name = "Addresses.findById", query = "SELECT a FROM Addresses a WHERE a.id = :id"),
-//    @NamedQuery(name = "Addresses.findByStreet", query = "SELECT a FROM Addresses a WHERE a.street = :street"),
-//    @NamedQuery(name = "Addresses.findByCity", query = "SELECT a FROM Addresses a WHERE a.city = :city"),
-//    @NamedQuery(name = "Addresses.findByZip", query = "SELECT a FROM Addresses a WHERE a.zip = :zip"),
-//    @NamedQuery(name = "Addresses.findByEmail", query = "SELECT a FROM Addresses a WHERE a.email = :email"),
-//    @NamedQuery(name = "Addresses.findByPhone", query = "SELECT a FROM Addresses a WHERE a.phone = :phone"),
-//    @NamedQuery(name = "Addresses.findByFax", query = "SELECT a FROM Addresses a WHERE a.fax = :fax")
-//})
 public class DBAddress implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
-    private Collection<DBPerson> dBPersonCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
-    private Collection<DBCustomer> dBCustomerCollection;
+    private Set<DBParty> dBPersonCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceAddress")
+    private Set<DBCustomer> dBCustomerCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -186,23 +166,23 @@ public class DBAddress implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBCustomer> getDBCustomerCollection()
+    public Set<DBCustomer> getDBCustomerCollection()
     {
         return dBCustomerCollection;
     }
 
-    public void setDBCustomerCollection(Collection<DBCustomer> dBCustomerCollection)
+    public void setDBCustomerCollection(Set<DBCustomer> dBCustomerCollection)
     {
         this.dBCustomerCollection = dBCustomerCollection;
     }
 
     @XmlTransient
-    public Collection<DBPerson> getDBPersonCollection()
+    public Set<DBParty> getDBPersonCollection()
     {
         return dBPersonCollection;
     }
 
-    public void setDBPersonCollection(Collection<DBPerson> dBPersonCollection)
+    public void setDBPersonCollection(Set<DBParty> dBPersonCollection)
     {
         this.dBPersonCollection = dBPersonCollection;
     }

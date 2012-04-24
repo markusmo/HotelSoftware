@@ -11,6 +11,9 @@ import hotelsoftware.model.database.users.DBUser;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -167,17 +170,17 @@ private static final long serialVersionUID = 1L;
      * a list of invoiceitems
      * @throws HibernateException 
      */
-    public static Collection<DBInvoiceItem> getInvoiceItemsByHabitation(
+    public static Set<DBInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Collection<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
+        List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
         session.close();
 
-        return retList;
+        return new LinkedHashSet<DBInvoiceItem>(retList);
     }
 
     @Override

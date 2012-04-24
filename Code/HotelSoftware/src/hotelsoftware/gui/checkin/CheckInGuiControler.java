@@ -12,7 +12,9 @@ import hotelsoftware.model.domain.room.RoomData;
 import hotelsoftware.model.domain.service.ExtraServiceData;
 import hotelsoftware.model.domain.room.Room;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import javax.swing.JPanel;
 
 /**
@@ -39,9 +41,9 @@ public class CheckInGuiControler
         return CheckInGuiControllerHolder.INSTANCE;
     }
 
-    public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
+    public Set<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
     {
-        Collection<ReservationData> dafuq = new LinkedList<ReservationData>();
+        Set<ReservationData> res = new LinkedHashSet<ReservationData>();
         try
         {
             CheckInController cic = CheckInController.getInstance();
@@ -52,14 +54,14 @@ public class CheckInGuiControler
 
                 if (reservation != null)
                 {
-                    dafuq.add(reservation);
+                    res.add(reservation);
                     //return dafuq;
                 }
             }
-            dafuq.addAll(CheckInController.getInstance().searchApprox(fname, lname));
+            res.addAll(CheckInController.getInstance().searchApprox(fname, lname));
             //dafuq.addAll(CheckInController.getInstance().search(fname, lname));
 
-            return dafuq;
+            return res;
         }
         catch (NumberFormatException ex)
         {
@@ -67,7 +69,7 @@ public class CheckInGuiControler
         }
     }
 
-    public Collection<ReservationData> getAllReservations()
+    public Set<ReservationData> getAllReservations()
     {
         return CheckInController.getInstance().getAllReservations();
     }
@@ -77,12 +79,12 @@ public class CheckInGuiControler
         return selectedReservation;
     }
 
-    public Collection<CategoryData> getCategories()
+    public Set<CategoryData> getCategories()
     {
         return CheckInController.getInstance().getAllCategories();
     }
 
-    public Collection<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
+    public Set<RoomData> getFreeRoomsInCategory(int index, CategoryData c)
     {
         return CheckInController.getInstance().changeRoomCategory(index, c);
     }
@@ -92,7 +94,7 @@ public class CheckInGuiControler
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Collection<ExtraServiceData> getExtraservices()
+    public Set<ExtraServiceData> getExtraservices()
     {
         return CheckInController.getInstance().getServices();
     }
@@ -113,7 +115,7 @@ public class CheckInGuiControler
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
 
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
+    public Set<RoomData> changeRoomCategory(int selectionIndex, CategoryData category)
     {
         return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
     }

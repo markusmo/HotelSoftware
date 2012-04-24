@@ -8,6 +8,7 @@ import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,7 +49,7 @@ import org.hibernate.Transaction;
 public class DBServiceType implements Serializable
 {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServiceTypes")
-    private Collection<DBService> dBServiceCollection;
+    private Set<DBService> dBServiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -139,22 +140,22 @@ public class DBServiceType implements Serializable
         return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
     }
     
-    public static Collection<DBServiceType> getAllServiceTypes(){
+    public static Set<DBServiceType> getAllServiceTypes(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Collection<DBServiceType> serviceType = (Collection<DBServiceType>)session.createCriteria(DBServiceType.class).list();
+        Set<DBServiceType> serviceType = (Set<DBServiceType>)session.createCriteria(DBServiceType.class).list();
         session.close();
         return serviceType;
     }
 
     @XmlTransient
-    public Collection<DBService> getDBServiceCollection()
+    public Set<DBService> getDBServiceCollection()
     {
         return dBServiceCollection;
     }
 
-    public void setDBServiceCollection(Collection<DBService> dBServiceCollection)
+    public void setDBServiceCollection(Set<DBService> dBServiceCollection)
     {
         this.dBServiceCollection = dBServiceCollection;
     }

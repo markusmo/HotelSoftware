@@ -8,26 +8,29 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  *
  * @author Tobias
  */
-public class ServiceFacade {
-    
-    private ServiceFacade() {
+public class ServiceFacade
+{
+    private ServiceFacade()
+    {
     }
-    
-    public static ServiceFacade getInstance() {
+
+    public static ServiceFacade getInstance()
+    {
         return ServiceFacadeHolder.INSTANCE;
     }
-    
-    private static class ServiceFacadeHolder {
 
+    private static class ServiceFacadeHolder
+    {
         private static final ServiceFacade INSTANCE = new ServiceFacade();
     }
-    
-    public Collection<ExtraService> getAllExtraServices()
+
+    public Set<ExtraService> getAllExtraServices()
     {
         return DynamicMapper.mapCollection(DBExtraService.getExtraServices());
     }
@@ -45,5 +48,4 @@ public class ServiceFacade {
         }
         return (ExtraService) DynamicMapper.map(p);
     }
-    
 }

@@ -15,6 +15,7 @@ import hotelsoftware.model.domain.users.Role;
 import hotelsoftware.model.domain.users.User;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
 /**
@@ -28,10 +29,10 @@ public class TestDynamicMapper
      */
     public static void main(String[] args)
     {
-        LinkedList<Role> roles = new LinkedList<Role>();
+        LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
         
-        roles.add(Role.create("Harry", new LinkedList<Permission>()));
-        roles.add(Role.create("Todes", new LinkedList<Permission>()));
+        roles.add(Role.create("Harry", new LinkedHashSet<Permission>()));
+        roles.add(Role.create("Todes", new LinkedHashSet<Permission>()));
         
         User user = User.create("Markus", "Mohanty", roles);
         
@@ -40,7 +41,7 @@ public class TestDynamicMapper
         System.out.println(dbUser.getUsername());
         System.out.println(dbUser.getPassword());
         
-        for (DBRole role : dbUser.getRoles())
+        for (DBRole role : dbUser.getRoleCollection())
         {
             System.out.println(role.getName());
         }
@@ -50,7 +51,7 @@ public class TestDynamicMapper
         DBGuest dbGuest = new DBGuest();
         dbGuest.setBirthday(new Date());
         
-        LinkedList<DBHabitation> habitations = new LinkedList<DBHabitation>();
+        LinkedHashSet<DBHabitation> habitations = new LinkedHashSet<DBHabitation>();
         
         dbGuest.setHabitations(habitations);
         

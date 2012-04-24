@@ -8,6 +8,7 @@ import hotelsoftware.model.database.room.DBRoomCategoryPrice;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,35 +40,32 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Seasons.findAll", query = "SELECT s FROM Seasons s"),
-//    @NamedQuery(name = "Seasons.findById", query = "SELECT s FROM Seasons s WHERE s.id = :id"),
-//    @NamedQuery(name = "Seasons.findByName", query = "SELECT s FROM Seasons s WHERE s.name = :name"),
-//    @NamedQuery(name = "Seasons.findByStart", query = "SELECT s FROM Seasons s WHERE s.start = :start"),
-//    @NamedQuery(name = "Seasons.findByEnd", query = "SELECT s FROM Seasons s WHERE s.end = :end")
-//})
 public class DBSeason implements Serializable
 {
     @Basic(optional = false)
-    @Column(name = "start", nullable = false)
+    @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date start;
+    private Date startDate;
+    
     @Basic(optional = false)
-    @Column(name = "end", nullable = false)
+    @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date end;
+    private Date endDate;
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seasons", fetch = FetchType.EAGER)
-    private Collection<DBRoomCategoryPrice> roomcategorypricesCollection;
+    private Set<DBRoomCategoryPrice> roomcategorypricesCollection;
 
     public DBSeason()
     {
@@ -82,8 +80,8 @@ public class DBSeason implements Serializable
     {
         this.id = id;
         this.name = name;
-        this.start = start;
-        this.end = end;
+        this.startDate = start;
+        this.endDate = end;
     }
 
     public Integer getId()
@@ -107,12 +105,12 @@ public class DBSeason implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomCategoryPrice> getRoomcategoryprices()
+    public Set<DBRoomCategoryPrice> getRoomcategoryprices()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategoryprices(Collection<DBRoomCategoryPrice> roomcategorypricesCollection)
+    public void setRoomcategoryprices(Set<DBRoomCategoryPrice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }
@@ -149,22 +147,22 @@ public class DBSeason implements Serializable
 
     public Date getStart()
     {
-        return start;
+        return startDate;
     }
 
     public void setStart(Date start)
     {
-        this.start = start;
+        this.startDate = start;
     }
 
     public Date getEnd()
     {
-        return end;
+        return endDate;
     }
 
     public void setEnd(Date end)
     {
-        this.end = end;
+        this.endDate = end;
     }
     
 }

@@ -6,6 +6,7 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.domain.invoice.InvoiceData;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *Dieses Interface enthällt alle wichtigen Methoden für die Customerklasse. 
@@ -16,7 +17,7 @@ public interface CustomerData
 
     AddressData getInvoiceAddressData();
 
-    Collection<InvoiceData> getInvoicesData();
+    Set<InvoiceData> getInvoicesData();
 
     String getName();
     

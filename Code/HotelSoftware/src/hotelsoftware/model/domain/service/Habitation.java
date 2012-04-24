@@ -16,9 +16,7 @@ import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  *
@@ -30,10 +28,10 @@ public class Habitation extends Service implements HabitationData
     private Date start;
     private Date end;
     private Date created;
-    private Collection<Guest> guestsCollection;
+    private Set<Guest> guestsCollection;
     private Room idRooms;
     private User idUsers;
-    private Collection<InvoiceItem> invoiceItems;
+    private Set<InvoiceItem> invoiceItems;
 
     
     public Habitation(){
@@ -52,9 +50,9 @@ public class Habitation extends Service implements HabitationData
         this.created = created;
         super.setPrice(price);
         this.idRooms = room;
-        this.guestsCollection = new LinkedList<Guest>();
+        this.guestsCollection = new LinkedHashSet<Guest>();
         this.idUsers = user;
-        this.invoiceItems = new LinkedList<InvoiceItem>();
+        this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
     
     public static Habitation createHabitation(Date start, Date end){
@@ -145,14 +143,14 @@ public class Habitation extends Service implements HabitationData
     /**
      * @return the guestsCollection
      */
-    public Collection<Guest> getGuestsCollection() {
+    public Set<Guest> getGuestsCollection() {
         return guestsCollection;
     }
 
     /**
      * @param guestsCollection the guestsCollection to set
      */
-    public void setGuestsCollection(Collection<Guest> guestsCollection) {
+    public void setGuestsCollection(Set<Guest> guestsCollection) {
         this.guestsCollection = guestsCollection;
     }
 
@@ -187,14 +185,14 @@ public class Habitation extends Service implements HabitationData
     /**
      * @return the invoiceItems
      */
-    public Collection<InvoiceItem> getInvoiceItems() {
+    public Set<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }
 
     /**
      * @param invoiceItems the invoiceItems to set
      */
-    public void setInvoiceItems(Collection<InvoiceItem> invoiceItems) {
+    public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
         this.invoiceItems = invoiceItems;
     }
     
@@ -206,7 +204,7 @@ public class Habitation extends Service implements HabitationData
         guestsCollection.add(guest);
     }
 
-    public Collection<GuestData> getGuestsCollectionData()
+    public Set<GuestData> getGuestsCollectionData()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -221,7 +219,7 @@ public class Habitation extends Service implements HabitationData
         return (UserData) getIdUsers();
     }
 
-    public Collection<InvoiceItemData> getInvoiceItemsData()
+    public Set<InvoiceItemData> getInvoiceItemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
     }

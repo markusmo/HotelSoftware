@@ -6,6 +6,7 @@ package hotelsoftware.model.database.users;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -23,12 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
-//    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
-//    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name")
-//})
 public class DBRole implements Serializable
 {
     @JoinTable(name = "userroles", joinColumns =
@@ -39,7 +34,7 @@ public class DBRole implements Serializable
         @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany
-    private Collection<DBUser> dBUserCollection;
+    private Set<DBUser> userCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +53,7 @@ public class DBRole implements Serializable
         @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany(cascade = CascadeType.ALL)
-    private Collection<DBPermission> permissionsCollection;
+    private Set<DBPermission> permissionsCollection;
 
     public DBRole()
     {
@@ -96,12 +91,12 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBPermission> getPermissions()
+    public Set<DBPermission> getPermissions()
     {
         return permissionsCollection;
     }
 
-    public void setPermissions(Collection<DBPermission> permissionsCollection)
+    public void setPermissions(Set<DBPermission> permissionsCollection)
     {
         this.permissionsCollection = permissionsCollection;
     }
@@ -137,14 +132,14 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBUser> getDBUserCollection()
+    public Set<DBUser> getUserCollection()
     {
-        return dBUserCollection;
+        return userCollection;
     }
 
-    public void setDBUserCollection(Collection<DBUser> dBUserCollection)
+    public void setUserCollection(Set<DBUser> userCollection)
     {
-        this.dBUserCollection = dBUserCollection;
+        this.userCollection = userCollection;
     }
     
 }

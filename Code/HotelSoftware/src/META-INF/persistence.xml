@@ -10,7 +10,6 @@
     <class>hotelsoftware.model.database.parties.DBCountry</class>
     <class>hotelsoftware.model.database.parties.DBCustomer</class>
     <class>hotelsoftware.model.database.parties.DBGuest</class>
-    <class>hotelsoftware.model.database.parties.DBPerson</class>
     <class>hotelsoftware.model.database.reservation.DBReservation</class>
     <class>hotelsoftware.model.database.room.DBRoom</class>
     <class>hotelsoftware.model.database.room.DBRoomCategory</class>
@@ -30,6 +29,7 @@
     <class>hotelsoftware.model.database.invoice.DBPaymentMethod</class>
     <class>hotelsoftware.model.database.reservation.DBReservationItem</class>
     <class>hotelsoftware.model.database.reservation.DBReservationOption</class>
+    <class>hotelsoftware.model.database.parties.DBParty</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>

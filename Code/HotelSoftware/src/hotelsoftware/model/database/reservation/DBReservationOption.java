@@ -7,17 +7,7 @@ package hotelsoftware.model.database.reservation;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,35 +17,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "reservationoptions", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Reservationoptions.findAll", query = "SELECT r FROM Reservationoptions r"),
-//    @NamedQuery(name = "Reservationoptions.findById", query = "SELECT r FROM Reservationoptions r WHERE r.id = :id"),
-//    @NamedQuery(name = "Reservationoptions.findByExpiration", query = "SELECT r FROM Reservationoptions r WHERE r.expiration = :expiration"),
-//    @NamedQuery(name = "Reservationoptions.findByPrepayment", query = "SELECT r FROM Reservationoptions r WHERE r.prepayment = :prepayment"),
-//    @NamedQuery(name = "Reservationoptions.findByFulfilled", query = "SELECT r FROM Reservationoptions r WHERE r.fulfilled = :fulfilled")
-//})
 public class DBReservationOption implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "expiration", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date expiration;
+    
     @Column(name = "comment", length = 255)
     private String comment;
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Basic(optional = false)
     @Column(name = "prepayment", nullable = false, precision = 10, scale = 2)
     private BigDecimal prepayment;
+    
     @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
+    
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBReservation idReservations;

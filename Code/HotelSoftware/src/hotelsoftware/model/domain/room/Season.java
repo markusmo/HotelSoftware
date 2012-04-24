@@ -6,6 +6,7 @@ package hotelsoftware.model.domain.room;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Season
     private Date end;
     private Integer id;
     private String name;
-    private Collection<RoomCategoryPrice> roomcategorypricesCollection;
+    private Set<RoomCategoryPrice> roomcategorypricesCollection;
 
     public Season()
     {
@@ -53,12 +54,12 @@ public class Season
         this.name = name;
     }
 
-    public Collection<RoomCategoryPrice> getRoomcategorypricesCollection()
+    public Set<RoomCategoryPrice> getRoomcategorypricesCollection()
     {
         return roomcategorypricesCollection;
     }
 
-    public void setRoomcategorypricesCollection(Collection<RoomCategoryPrice> roomcategorypricesCollection)
+    public void setRoomcategorypricesCollection(Set<RoomCategoryPrice> roomcategorypricesCollection)
     {
         this.roomcategorypricesCollection = roomcategorypricesCollection;
     }

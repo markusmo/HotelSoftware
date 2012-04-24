@@ -16,22 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "roomsroomstatus", catalog = "roomanizer", schema = "")
 @XmlRootElement
-/*@NamedQueries(
-{
-    @NamedQuery(name = "Roomsroomstatus.findAll", query = "SELECT r FROM Roomsroomstatus r"),
-    @NamedQuery(name = "Roomsroomstatus.findByIdRooms", query = "SELECT r FROM Roomsroomstatus r WHERE r.roomsroomstatusPK.idRooms = :idRooms"),
-    @NamedQuery(name = "Roomsroomstatus.findByIdRoomStatus", query = "SELECT r FROM Roomsroomstatus r WHERE r.roomsroomstatusPK.idRoomStatus = :idRoomStatus"),
-    @NamedQuery(name = "Roomsroomstatus.findByStart", query = "SELECT r FROM Roomsroomstatus r WHERE r.start = :start"),
-    @NamedQuery(name = "Roomsroomstatus.findByEnd", query = "SELECT r FROM Roomsroomstatus r WHERE r.end = :end")
-})*/
 public class DBRoomsRoomStatus implements Serializable
 {
     @Basic(optional = false)
-    @Column(name = "start", nullable = false)
+    @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
     @Basic(optional = false)
-    @Column(name = "end", nullable = false)
+    @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
     private static final long serialVersionUID = 1L;

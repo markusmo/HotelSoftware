@@ -6,6 +6,7 @@ package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.domain.service.HabitationData;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -13,15 +14,13 @@ import java.util.Collection;
  */
 public interface RoomData
 {
-
     CategoryData getCategoryData();
 
-    Collection<HabitationData> getHabitationCollectionData();
+    Set<HabitationData> getHabitationCollectionData();
 
     String getNumber();
 
-    Collection<RoomOptionData> getOptionsData();
+    Set<RoomOptionData> getOptionsData();
 
-    Collection<RoomStatusData> getStatusData();
-    
+    Set<RoomStatusData> getStatusData();
 }

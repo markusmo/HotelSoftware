@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,21 +28,7 @@ import org.hibernate.Transaction;
  */
 @Entity
 @Table(name = "habitations", catalog = "roomanizer", schema = "")
-@XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Habitations.findAll", query = "SELECT h FROM Habitations h"),
-//    @NamedQuery(name = "Habitations.findById", query = "SELECT h FROM Habitations h WHERE h.id = :id"),
-//    @NamedQuery(name = "Habitations.findByStart", query = "SELECT h FROM Habitations h WHERE h.start = :start"),
-//    @NamedQuery(name = "Habitations.findByEnd", query = "SELECT h FROM Habitations h WHERE h.end = :end"),
-//    @NamedQuery(name = "Habitations.findByPrice", query = "SELECT h FROM Habitations h WHERE h.price = :price"),
-//    @NamedQuery(name = "Habitations.findByCreated", query = "SELECT h FROM Habitations h WHERE h.created = :created"),
-//    @NamedQuery(name = "Habitations.findByGuest", query = "Select * "
-//                + "From habitations h inner join allocation a on h.id = a.idHabitations "
-//                + "inner join guests g on a.idGuests = g.id "
-//                + "where g.id = :guestId AND"
-//                + "h.start >= CURRENT_DATE")
-//})
+//@PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "id")
 public class DBHabitation implements Serializable
 {
     @Basic(optional = false)
@@ -67,20 +54,17 @@ public class DBHabitation implements Serializable
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     @ManyToMany(mappedBy = "habitationsCollection")
-    private Collection<DBGuest> guestsCollection;
+    private Set<DBGuest> guestsCollection;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "idHabitations")
-    private Collection<DBInvoiceItem> invoiceitemsCollection;*/
+    private Set<DBInvoiceItem> invoiceitemsCollection;*/
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRoom idRooms;
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
-    @JoinColumn(name = "idServices", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private DBService idServices;
     @OneToMany(mappedBy="idHabitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    private Collection<DBInvoiceItem> invoiceItemCollection;
+    private Set<DBInvoiceItem> invoiceItemCollection;
 
     public DBHabitation()
     {
@@ -121,23 +105,23 @@ public class DBHabitation implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBGuest> getGuests()
+    public Set<DBGuest> getGuests()
     {
         return guestsCollection;
     }
 
-    public void setGuests(Collection<DBGuest> guestsCollection)
+    public void setGuests(Set<DBGuest> guestsCollection)
     {
         this.guestsCollection = guestsCollection;
     }
 
     @XmlTransient
-    public Collection<DBInvoiceItem> getInvoiceitems()
+    public Set<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceItemCollection;
     }
 
-    public void setInvoiceitems(Collection<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceItemCollection = invoiceitemsCollection;
     }
@@ -160,16 +144,6 @@ public class DBHabitation implements Serializable
     public void setIdUsers(DBUser idUsers)
     {
         this.idUsers = idUsers;
-    }
-
-    public DBService getIdServices()
-    {
-        return idServices;
-    }
-
-    public void setIdServices(DBService idServices)
-    {
-        this.idServices = idServices;
     }
 
     @Override

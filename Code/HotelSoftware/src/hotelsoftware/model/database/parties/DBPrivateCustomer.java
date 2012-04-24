@@ -6,18 +6,7 @@ package hotelsoftware.model.database.parties;
 
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,22 +17,16 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "privatecustomer", catalog = "roomanizer", schema = "")
+@Table(name = "privatePerson", catalog = "roomanizer", schema = "")
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Privatecustomer.findAll", query = "SELECT p FROM Privatecustomer p"),
-//    @NamedQuery(name = "Privatecustomer.findById", query = "SELECT p FROM Privatecustomer p WHERE p.id = :id"),
-//    @NamedQuery(name = "Privatecustomer.findByFname", query = "SELECT p FROM Privatecustomer p WHERE p.fname = :fname"),
-//    @NamedQuery(name = "Privatecustomer.findByLname", query = "SELECT p FROM Privatecustomer p WHERE p.lname = :lname")
-//})
+//@PrimaryKeyJoinColumn(name="idCustomers", referencedColumnName="id")
 public class DBPrivateCustomer implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, insertable=false, updatable=false)
     private Integer id;
     @Basic(optional = false)
     @Column(name = "fname", nullable = false, length = 255)
@@ -51,19 +34,6 @@ public class DBPrivateCustomer implements Serializable
     @Basic(optional = false)
     @Column(name = "lname", nullable = false, length = 255)
     private String lname;
-    @JoinColumn(name = "customers_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private DBCustomer customersId;
-
-    public DBCustomer getCustomersId()
-    {
-        return customersId;
-    }
-
-    public void setCustomersId(DBCustomer customersId)
-    {
-        this.customersId = customersId;
-    }
 
     public DBPrivateCustomer()
     {
@@ -83,7 +53,7 @@ public class DBPrivateCustomer implements Serializable
 
     public Integer getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id)
@@ -128,7 +98,8 @@ public class DBPrivateCustomer implements Serializable
             return false;
         }
         DBPrivateCustomer other = (DBPrivateCustomer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || 
+                (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -138,7 +109,7 @@ public class DBPrivateCustomer implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.model.database.parties.Privatecustomer[ id=" + id + " ]";
+        return "hotelsoftware.model.database.parties.Privatecustomer[ idPrivateCustomer=" + id + " ]";
     }
    /**
     * Diese Methode sucht nach einem Privatkunden mithilfe eines namens. Hierbei reicht der Vor- oder der Nachname

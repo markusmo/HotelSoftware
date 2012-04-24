@@ -5,6 +5,7 @@
 package hotelsoftware.model.domain.parties;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *Dieses Interface enthällt Methoden die in der Companyklasse implementiert werden müässen, 
@@ -16,7 +17,7 @@ public interface CompanyData
 
     String getCompanyname();
 
-    Collection<PartyData> getContactPersonsData();
+    Set<PartyData> getContactPersonsData();
 
     String getName();
 

@@ -9,6 +9,7 @@ import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import java.util.Collection;
+import java.util.Set;
 import org.hibernate.Session;
 
 /**
@@ -31,7 +32,7 @@ public class InvoiceSaver
         private static final InvoiceSaver INSTANCE = new InvoiceSaver();
     }
 
-    public void saveOrUpdate(Session session, Collection<PaymentMethod> paymentmethods, Collection<Invoice> invoices ,Collection<InvoiceItem> invoiceitems)
+    public void saveOrUpdate(Session session, Set<PaymentMethod> paymentmethods, Set<Invoice> invoices ,Set<InvoiceItem> invoiceitems)
     {
         for(PaymentMethod method : paymentmethods)
         {

@@ -10,7 +10,7 @@ import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author Lins Christian (christian.lins87@gmail.com)
@@ -18,24 +18,36 @@ import java.util.Collection;
 public class Room implements RoomData
 {
     private String number;
-    private Collection<RoomOption> options;
+    private Set<RoomOption> options;
     private RoomCategory category;
-    private RoomStatus currentStatus;
-    private Collection<Habitation> habitations;
-    private Collection<RoomStatus> status;
+    //private Set<Habitation> habitations;
+    private Set<RoomStatus> status;
+    private Integer id;
 
     private Room(String number, RoomCategory category)
     {
         this.number = number;
         this.category = category;
     }
-            
+
     public static Room create(String number, RoomCategory category)
     {
         return new Room(number, category);
     }
-    
-    public Room(){}
+
+    public Room()
+    {
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
     
     public RoomCategory getCategory()
     {
@@ -46,17 +58,17 @@ public class Room implements RoomData
     {
         this.category = category;
     }
-
-    public Collection<Habitation> getHabitations()
+/*
+    public Set<Habitation> getHabitations()
     {
         return habitations;
     }
 
-    public void setHabitations(Collection<Habitation> habitations)
+    public void setHabitations(Set<Habitation> habitations)
     {
         this.habitations = habitations;
     }
-
+*/
     @Override
     public String getNumber()
     {
@@ -68,22 +80,22 @@ public class Room implements RoomData
         this.number = number;
     }
 
-    public Collection<RoomOption> getOptions()
+    public Set<RoomOption> getOptions()
     {
         return options;
     }
 
-    public void setOptions(Collection<RoomOption> options)
+    public void setOptions(Set<RoomOption> options)
     {
         this.options = options;
     }
 
-    public Collection<RoomStatus> getStatus()
+    public Set<RoomStatus> getStatus()
     {
         return status;
     }
 
-    public void setStatus(Collection<RoomStatus> status)
+    public void setStatus(Set<RoomStatus> status)
     {
         this.status = status;
     }
@@ -93,38 +105,39 @@ public class Room implements RoomData
         return (CategoryData) getCategory();
     }
 
-    public Collection<HabitationData> getHabitationCollectionData()
+    public Set<HabitationData> getHabitationCollectionData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
+        return null;
+        //TODO
+        //return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }
 
-    public Collection<RoomOptionData> getOptionsData()
+    public Set<RoomOptionData> getOptionsData()
     {
         return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(getOptions());
     }
 
-    public Collection<RoomStatusData> getStatusData()
+    public Set<RoomStatusData> getStatusData()
     {
         return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(getStatus());
     }
-    
+
     public static Room getRoomByNumber(String number)
     {
         return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
     }
-    
-    public static Collection<Room> getRoomsByCategory(RoomCategory category)
+
+    public static Set<Room> getRoomsByCategory(RoomCategory category)
     {
         DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
+        return (Set<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
     }
-    
+
     public void changeStatus(RoomStatus status)
     {
-        this.currentStatus = status;
         this.status.add(status);
     }
-    
+
     public void addOption(RoomOption option)
     {
         this.options.add(option);

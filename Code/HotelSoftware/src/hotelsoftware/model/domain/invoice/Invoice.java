@@ -10,9 +10,7 @@ import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * 
@@ -30,7 +28,7 @@ public class Invoice implements InvoiceData
     private PaymentMethod idpaymentMethod;
     private Customer idCustomer;
     private User idUser;
-    private Collection<InvoiceItem> invoiceitems;
+    private Set<InvoiceItem> invoiceitems;
 
     public Invoice()
     {
@@ -52,7 +50,7 @@ public class Invoice implements InvoiceData
         this.idpaymentMethod = paymentMethod;
         this.idCustomer = customer;
         this.idUser = user;
-        this.invoiceitems = new LinkedList<InvoiceItem>();
+        this.invoiceitems = new LinkedHashSet<InvoiceItem>();
     }
 
     @Override
@@ -104,7 +102,7 @@ public class Invoice implements InvoiceData
         return invoiceNumber;
     }
 
-    public Collection<InvoiceItem> getInvoiceitems()
+    public Set<InvoiceItem> getInvoiceitems()
     {
         return invoiceitems;
     }
@@ -154,7 +152,7 @@ public class Invoice implements InvoiceData
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void setInvoiceitems(Collection<InvoiceItem> invoiceitemsCollection)
+    public void setInvoiceitems(Set<InvoiceItem> invoiceitemsCollection)
     {
         this.invoiceitems = invoiceitemsCollection;
     }
@@ -175,7 +173,7 @@ public class Invoice implements InvoiceData
     public Invoice getInvoiceByHabitation(Habitation habitation)
     {
         Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethod, idCustomer);
-        LinkedList<InvoiceItem> items = new LinkedList<InvoiceItem>();
+        LinkedHashSet<InvoiceItem> items = new LinkedHashSet<InvoiceItem>();
 
         for (InvoiceItem item : this.invoiceitems)
         {
@@ -218,7 +216,7 @@ public class Invoice implements InvoiceData
         return (PaymentMethodData) getIdpaymentMethod();
     }
 
-    public Collection<InvoiceItemData> getInvoiceitemsData()
+    public Set<InvoiceItemData> getInvoiceitemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
     }

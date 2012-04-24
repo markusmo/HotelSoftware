@@ -7,27 +7,12 @@ package hotelsoftware.model.database.room;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -45,35 +30,35 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Rooms.findAll", query = "SELECT r FROM Rooms r"),
-//    @NamedQuery(name = "Rooms.findById", query = "SELECT r FROM Rooms r WHERE r.id = :id"),
-//    @NamedQuery(name = "Rooms.findByRoomNumber", query = "SELECT r FROM Rooms r WHERE r.roomNumber = :roomNumber")
-//})
 public class DBRoom implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "roomNumber", nullable = false)
     private String number;
 
     
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "roomsroomoptions", joinColumns = { @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })  
-    private Collection<DBRoomOption> options;
+    @JoinTable(name = "roomsroomoptions", joinColumns = { 
+        @JoinColumn(name = "idRooms") }, inverseJoinColumns = { @JoinColumn(name = "idOptions") })  
+    private Set<DBRoomOption> options;
+    
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch= FetchType.EAGER)
     private DBRoomCategory category;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRooms")
-    private Collection<DBHabitation> habitations;
+    private Set<DBHabitation> habitations;
+    
     @OneToMany(mappedBy="rooms", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
-    private Collection<DBRoomsRoomStatus> status;
+    private Set<DBRoomsRoomStatus> status;
 
     public DBRoom()
     {
@@ -111,12 +96,12 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBRoomOption> getOptions()
+    public Set<DBRoomOption> getOptions()
     {
         return options;
     }
 
-    public void setOptions(Collection<DBRoomOption> roomoptionsCollection)
+    public void setOptions(Set<DBRoomOption> roomoptionsCollection)
     {
         this.options = roomoptionsCollection;
     }
@@ -132,23 +117,23 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBHabitation> getHabitations()
+    public Set<DBHabitation> getHabitations()
     {
         return habitations;
     }
 
-    public void setHabitations(Collection<DBHabitation> habitationsCollection)
+    public void setHabitations(Set<DBHabitation> habitationsCollection)
     {
         this.habitations = habitationsCollection;
     }
 
     @XmlTransient
-    public Collection<DBRoomsRoomStatus> getStatus()
+    public Set<DBRoomsRoomStatus> getStatus()
     {
         return status;
     }
 
-    public void setStatus(Collection<DBRoomsRoomStatus> roomsroomstatusCollection)
+    public void setStatus(Set<DBRoomsRoomStatus> roomsroomstatusCollection)
     {
         this.status = roomsroomstatusCollection;
     }
@@ -195,15 +180,15 @@ public class DBRoom implements Serializable
         return room;
     }
     
-    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
+    public static Set<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        Collection<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
+        List<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
         
         session.close();
-        return rooms;
+        return new LinkedHashSet<DBRoom>(rooms);
     }
 }

@@ -15,6 +15,7 @@ import hotelsoftware.model.domain.users.UserData;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -22,7 +23,6 @@ import java.util.Date;
  */
 public interface HabitationData
 {
-
     /**
      * @return the created
      */
@@ -36,7 +36,7 @@ public interface HabitationData
     /**
      * @return the guestsCollection
      */
-    Collection<GuestData> getGuestsCollectionData();
+    Set<GuestData> getGuestsCollectionData();
 
     /**
      * @return the idRooms
@@ -51,7 +51,7 @@ public interface HabitationData
     /**
      * @return the invoiceItems
      */
-    Collection<InvoiceItemData> getInvoiceItemsData();
+    Set<InvoiceItemData> getInvoiceItemsData();
 
     /**
      * @return the price
@@ -62,5 +62,4 @@ public interface HabitationData
      * @return the start
      */
     Date getStart();
-    
 }

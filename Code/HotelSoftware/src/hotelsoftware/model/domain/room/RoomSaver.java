@@ -11,6 +11,7 @@ import hotelsoftware.model.database.room.DBRoomOption;
 import hotelsoftware.model.database.room.DBRoomStatus;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,18 +25,19 @@ public class RoomSaver
     private RoomSaver()
     {
     }
-    
+
     public static RoomSaver getInstance()
     {
         return RoomSaverHolder.INSTANCE;
     }
-    
+
     private static class RoomSaverHolder
     {
         private static final RoomSaver INSTANCE = new RoomSaver();
     }
-    
-    public void saveOrUpdate(Collection<RoomCategory> categories, Collection<RoomOption> options, Collection<RoomStatus> status) throws FailedToSaveToDatabaseException {
+
+    public void saveOrUpdate(Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException
+    {
         Session session = null;
         Transaction ts = null;
 
@@ -48,7 +50,8 @@ public class RoomSaver
             saveOrUpdate(session, categories, options, status);
 
             ts.commit();
-        }  catch (HibernateException ex)
+        }
+        catch (HibernateException ex)
         {
             if (ts != null)
             {
@@ -64,11 +67,12 @@ public class RoomSaver
                 session.close();
             }
         }
-        
+
     }
-    
-    public void saveOrUpdate(Session session, Collection<RoomCategory> categories, Collection<RoomOption> options, Collection<RoomStatus> status) throws FailedToSaveToDatabaseException {
-            
+
+    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException
+    {
+
         for (RoomCategory category : categories)
         {
             DBRoomCategory dbCat = (DBRoomCategory) DynamicMapper.map(category);
@@ -76,7 +80,7 @@ public class RoomSaver
             session.saveOrUpdate(dbCat);
             category.setId(dbCat.getId());
         }
-        
+
         for (RoomOption option : options)
         {
             DBRoomOption dbOpt = (DBRoomOption) DynamicMapper.map(option);
@@ -84,7 +88,7 @@ public class RoomSaver
             session.saveOrUpdate(dbOpt);
             option.setId(dbOpt.getId());
         }
-        
+
         for (RoomStatus stat : status)
         {
             DBRoomStatus dbStat = (DBRoomStatus) DynamicMapper.map(stat);
@@ -92,10 +96,9 @@ public class RoomSaver
             session.saveOrUpdate(dbStat);
             stat.setId(dbStat.getId());
         }
-            
+
     }
-    
-//    public void saveOrUpdate(Session session, Collection<RoomCategory> categories, Collection<RoomOption> options, Collection<RoomStatus> status) throws FailedToSaveToDatabaseException {
+//    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException {
 //            
 //        for (RoomCategory category : categories)
 //        {
@@ -122,8 +125,5 @@ public class RoomSaver
 //        }
 //            
 //    }
-    
     //TODO implement Rollback
-    
-    
 }

@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,50 +34,48 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Invoices.findAll", query = "SELECT i FROM Invoices i"),
-//    @NamedQuery(name = "Invoices.findById", query = "SELECT i FROM Invoices i WHERE i.id = :id"),
-//    @NamedQuery(name = "Invoices.findByInvoiceNumber", query = "SELECT i FROM Invoices i WHERE i.invoiceNumber = :invoiceNumber"),
-//    @NamedQuery(name = "Invoices.findByDiscount", query = "SELECT i FROM Invoices i WHERE i.discount = :discount"),
-//    @NamedQuery(name = "Invoices.findByExpiration", query = "SELECT i FROM Invoices i WHERE i.expiration = :expiration"),
-//    @NamedQuery(name = "Invoices.findByFulfilled", query = "SELECT i FROM Invoices i WHERE i.fulfilled = :fulfilled"),
-//    @NamedQuery(name = "Invoices.findByCreated", query = "SELECT i FROM Invoices i WHERE i.created = :created")
-//})
 public class DBInvoice implements Serializable
 {
     @Basic(optional = false)
     @Column(name = "expiration")
     @Temporal(TemporalType.DATE)
     private Date expiration;
+    
     @Basic(optional = false)
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "invoiceNumber", nullable = false, length = 255)
     private String invoiceNumber;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "discount", precision = 4, scale = 2)
     private BigDecimal discount;
+    
     @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
-    private Collection<DBInvoiceItem> invoiceitems;
+    private Set<DBInvoiceItem> invoiceitems;
+    
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBPaymentMethod idpaymentMethods;
+    
     @JoinColumn(name = "idCustomers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBCustomer idCustomers;
+    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
@@ -155,7 +154,7 @@ public class DBInvoice implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoiceItem> getInvoiceitems()
+    public Set<DBInvoiceItem> getInvoiceitems()
     {
         return invoiceitems;
     }
@@ -165,7 +164,7 @@ public class DBInvoice implements Serializable
         return fulfilled;
     }
 
-    public void setInvoiceitems(Collection<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceitems = invoiceitemsCollection;
     }

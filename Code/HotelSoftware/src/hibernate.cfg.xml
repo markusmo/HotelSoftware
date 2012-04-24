@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer</property>
     <property name="hibernate.connection.username">hotel</property>
@@ -17,7 +17,7 @@
     <mapping class="hotelsoftware.model.database.parties.DBCountry"/>
     <mapping class="hotelsoftware.model.database.parties.DBCustomer"/>
     <mapping class="hotelsoftware.model.database.parties.DBGuest"/>
-    <mapping class="hotelsoftware.model.database.parties.DBPerson"/>
+    <mapping class="hotelsoftware.model.database.parties.DBParty"/>
     <mapping class="hotelsoftware.model.database.parties.DBPrivateCustomer"/>
     <mapping class="hotelsoftware.model.database.reservation.DBReservation"/>
     <mapping class="hotelsoftware.model.database.reservation.DBReservationItem"/>

@@ -4,13 +4,12 @@
  */
 package hotelsoftware.model.database.reservation;
 
-import hotelsoftware.model.database.parties.DBPerson;
+import hotelsoftware.model.database.parties.DBParty;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,97 +42,58 @@ import org.hibernate.criterion.Restrictions;
 {
     @UniqueConstraint(columnNames =
     {
-        "reserationNumber"
+        "reservationNumber"
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Reservations.findAll", query = "SELECT r FROM Reservations r"),
-//    @NamedQuery(name = "Reservations.findAllInFuture", query = "SELECT r FROM Reservations r WHERE start >= CURRENT_DATE"),
-//    @NamedQuery(name = "Reservations.findById", query = "SELECT r FROM Reservations r WHERE r.id = :id"),
-//    @NamedQuery(name = "Reservations.findByReserationNumber", query = "SELECT r FROM Reservations r WHERE r.reserationNumber = :reserationNumber"),
-//    @NamedQuery(name = "Reservations.findByStart", query = "SELECT r FROM Reservations r WHERE r.start = :start"),
-//    @NamedQuery(name = "Reservations.findByEnd", query = "SELECT r FROM Reservations r WHERE r.end = :end"),
-//    @NamedQuery(name = "Reservations.findByComment", query = "SELECT r FROM Reservations r WHERE r.comment = :comment"),
-//    @NamedQuery(name = "Reservations.findByCreated", query = "SELECT r FROM Reservations r WHERE r.created = :created"),
-//    @NamedQuery(name = "Reservations.findByFName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.fname like %:fname%)"),
-//    @NamedQuery(name = "Reservations.findByLName", query = "FROM Reservations r WHRE r.id = (SELECET persons.id WHERE persons.lname like %:lname%)"),
-//    @NamedQuery(name = "Reservations.findByName", query = "Select * "
-//                + "From Reservations r INNER JOIN Persons p on r.idPersons = p.id "
-//                + "INNER JOIN guests g on p.id = g.idPersons "
-//                + "WHERE g.fname = :fname AND "
-//                + "g.lname = :lname AND "
-//                + "r.start >= CURRENT_DATE"),
-//    @NamedQuery(name = "Reservations.countGuests", query = "Select sum(ri.amount * c.bedCount) "
-//                + "From Reservations r INNER JOIN ReservationItems ri on r.id = ri.idReservations "
-//                + "INNER JOIN roomCategories c on ri.idRoomCategories = c.id "
-//                + "WHERE r.id = :id")
-//        
-//})
 public class DBReservation implements Serializable
 {
-    @Basic(optional = false)
-    @Column(name = "reserationNumber", nullable = false, length = 255)
-    private String reserationNumber;
-    @Basic(optional = false)
-    @Column(name = "start", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
-    @Basic(optional = false)
-    @Column(name = "end", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
-    @Basic(optional = false)
-    @Column(name = "created", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    /*
-     * @Basic(optional = false)
-     * @Column(name = "reserationNumber", nullable = false, length = 255)
-     * private String reservationNumber;
-     */
+    
+    @Basic(optional = false)
+    @Column(name = "reservationNumber", nullable = false, length = 255)
+    private String reservationNumber;
+    
+    @Basic(optional = false)
+    @Column(name = "startDate", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+    
+    @Basic(optional = false)
+    @Column(name = "endDate", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+    
     @Column(name = "comment", length = 255)
     private String comment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations", fetch = FetchType.EAGER)
-    private Collection<DBReservationItem> reservationitemsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
-    private Collection<DBReservationOption> reservationoptionsCollection;
-    @JoinColumn(name = "idUsers", referencedColumnName = "id")
-    @ManyToOne
-    private DBUser idUsers;
+    
     @JoinColumn(name = "idPersons", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBPerson idPersons;
+    private DBParty party;
+    
+    @Basic(optional = false)
+    @Column(name = "created", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+    
+    @JoinColumn(name = "idUsers", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private DBUser idUsers;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
+    private Set<DBReservationItem> reservationItems;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
+    private Set<DBReservationOption> reservationOptions;
+    
     public DBReservation()
     {
-    }
-
-    public Collection<DBReservationItem> getReservationitemsCollection()
-    {
-        return reservationitemsCollection;
-    }
-
-    public void setReservationitemsCollection(Collection<DBReservationItem> reservationitemsCollection)
-    {
-        this.reservationitemsCollection = reservationitemsCollection;
-    }
-
-    public Collection<DBReservationOption> getReservationoptionsCollection()
-    {
-        return reservationoptionsCollection;
-    }
-
-    public void setReservationoptionsCollection(Collection<DBReservationOption> reservationoptionsCollection)
-    {
-        this.reservationoptionsCollection = reservationoptionsCollection;
     }
 
     private DBReservation(Integer id)
@@ -141,10 +101,10 @@ public class DBReservation implements Serializable
         this.id = id;
     }
 
-    private DBReservation(Integer id, String reserationNumber, Date start, Date end, Date created)
+    private DBReservation(Integer id, String reservationNumber, Date start, Date end, Date created)
     {
         this.id = id;
-        this.reserationNumber = reserationNumber;
+        this.reservationNumber = reservationNumber;
         this.startDate = start;
         this.endDate = end;
         this.created = created;
@@ -155,74 +115,45 @@ public class DBReservation implements Serializable
         return new DBReservation();
     }
 
-    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
+    public static Set<DBReservation> getReservationsByNameApprox(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-//        Query findByNameQuery = session.getNamedQuery("Reservations.findByName");
-//        
-//        findByNameQuery.setString("fname", fname);
-//        findByNameQuery.setString("lname", lname);
-//        
-//        List<DBReservation> retList = findByNameQuery.list();
-
-        // Collection<DBReservation> retList = session.createCriteria(DBReservation.class).add(Restrictions.and(Restrictions.eq("fname", fname), Restrictions.eq("lname", lname))).list();
-         /*
-         * String query = "Select * "
-         * + "From Reservations r INNER JOIN guests g on r.idPersons = g.idPersons "
-         * + "WHERE g.fname = " + fname + " and g.lname = " + lname;
-         */
-        String query = "SELECT * FROM Reservations r WHERE r.idPersons = ( SELECT idPersons FROM guests g WHERE g.fname like '" + fname + "%' AND g.lname like '" + lname + "%') ";
+        String query = "SELECT * FROM Reservations r WHERE r.idPersons = ( SELECT idParties FROM guests g WHERE g.fname like '" + fname + "%' AND g.lname like '" + lname + "%') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
-        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
-        //countQuery.setInteger("id", this.id);
 
         //addEntity gibt den rueckgabewert an...
-        sqlquery.addEntity(DBReservation.class);
-        Collection<DBReservation> retList = sqlquery.list();
+        sqlquery = sqlquery.addEntity(DBReservation.class);
+        List<DBReservation> retList = sqlquery.list();
+        //TODO
         //session.close();
 
-        return retList;
+        return new LinkedHashSet<DBReservation>(retList);
 
     }
 
-    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
+    public static Set<DBReservation> getReservationsByName(String fname, String lname)
     {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-//        Query findByNameQuery = session.getNamedQuery("Reservations.findByName");
-//        
-//        findByNameQuery.setString("fname", fname);
-//        findByNameQuery.setString("lname", lname);
-//        
-//        List<DBReservation> retList = findByNameQuery.list();
-
-        // Collection<DBReservation> retList = session.createCriteria(DBReservation.class).add(Restrictions.and(Restrictions.eq("fname", fname), Restrictions.eq("lname", lname))).list();
-         /*
-         * String query = "Select * "
-         * + "From Reservations r INNER JOIN guests g on r.idPersons = g.idPersons "
-         * + "WHERE g.fname = " + fname + " and g.lname = " + lname;
-         */
         System.out.println(lname + "  " + fname);
         String query = "SELECT * FROM Reservations r WHERE r.idPersons = ( SELECT idPersons FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
-        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
-        //countQuery.setInteger("id", this.id);
-
-        //addEntity gibt den rueckgabewert an...
         sqlquery.addEntity(DBReservation.class);
-        Collection<DBReservation> retList = sqlquery.list();
+        List<DBReservation> retList = sqlquery.list();
+        
+        //TODO
         //session.close();
 
-        return retList;
+        return new LinkedHashSet<DBReservation>(retList);
 
     }
 
@@ -235,6 +166,7 @@ public class DBReservation implements Serializable
         Criteria criteria = session.createCriteria(DBReservation.class);
         criteria.add(Restrictions.eq("reserationNumber", reservationNr + ""));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
+        //TODO
         // session.close();
 
         return retList;
@@ -249,25 +181,23 @@ public class DBReservation implements Serializable
         Criteria criteria = session.createCriteria(DBReservation.class);
         criteria.add(Restrictions.eq("id", id));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
+        //TODO
         //session.close();
 
         return retList;
     }
 
-    public static Collection<DBReservation> getAllReservations()
+    public static Set<DBReservation> getAllReservations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-//        
-//        Query findByNameQuery = session.getNamedQuery("Reservations.findAllInFuture");
-//                
-//        List<DBReservation> retList = findByNameQuery.list();
 
-        Collection<DBReservation> retList = session.createCriteria(DBReservation.class).add(Restrictions.gt("start", new Date())).list();
+        List<DBReservation> retList = session.createCriteria(DBReservation.class).add(Restrictions.gt("start", new Date())).list();
+        //TODO
         //session.close();
 
-        return retList;
+        return new LinkedHashSet<DBReservation>(retList);
     }
 
     public int getGuestAmount()
@@ -282,29 +212,15 @@ public class DBReservation implements Serializable
                 + "WHERE r.id = " + this.id;
         SQLQuery sqlquery = session.createSQLQuery(query);
 
-        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
-        //countQuery.setInteger("id", this.id);
 
         //addEntity gibt den rueckgabewert an...
         BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
         int count = bd.intValue();
+        //TODO
         // session.close();
-        //int count = 1;
         return count;
     }
 
-    /*
-     * Sollten nicht nötig sein
-     * public static DBReservation newReservations(Integer id)
-     * {
-     * return new DBReservation(id);
-     * }
-     *
-     * public static DBReservation newReservations(Integer id, String reserationNumber, Date start, Date end, Date created)
-     * {
-     * return new DBReservation(id, reserationNumber, start, end, created);
-     * }
-     */
     public Integer getId()
     {
         return id;
@@ -315,14 +231,14 @@ public class DBReservation implements Serializable
         this.id = id;
     }
 
-    public String getReserationNumber()
+    public String getReservationNumber()
     {
-        return reserationNumber;
+        return reservationNumber;
     }
 
-    public void setReserationNumber(String reserationNumber)
+    public void setReservationNumber(String reserationNumber)
     {
-        this.reserationNumber = reserationNumber;
+        this.reservationNumber = reserationNumber;
     }
 
     public String getComment()
@@ -336,25 +252,25 @@ public class DBReservation implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservationItem> getReservationitems()
+    public Set<DBReservationItem> getReservationItems()
     {
-        return reservationitemsCollection;
+        return reservationItems;
     }
 
-    public void setReservationitems(Collection<DBReservationItem> reservationitemsCollection)
+    public void setReservationItems(Set<DBReservationItem> reservationItems)
     {
-        this.reservationitemsCollection = reservationitemsCollection;
+        this.reservationItems = reservationItems;
     }
 
     @XmlTransient
-    public Collection<DBReservationOption> getReservationoptions()
+    public Set<DBReservationOption> getReservationOptions()
     {
-        return reservationoptionsCollection;
+        return reservationOptions;
     }
 
-    public void setReservationoptions(Collection<DBReservationOption> reservationoptionsCollection)
+    public void setReservationOptions(Set<DBReservationOption> reservationOptions)
     {
-        this.reservationoptionsCollection = reservationoptionsCollection;
+        this.reservationOptions = reservationOptions;
     }
 
     public DBUser getIdUsers()
@@ -367,14 +283,14 @@ public class DBReservation implements Serializable
         this.idUsers = idUsers;
     }
 
-    public DBPerson getIdPersons()
+    public DBParty getParty()
     {
-        return idPersons;
+        return party;
     }
 
-    public void setIdPersons(DBPerson idPersons)
+    public void setParty(DBParty party)
     {
-        this.idPersons = idPersons;
+        this.party = party;
     }
 
     @Override

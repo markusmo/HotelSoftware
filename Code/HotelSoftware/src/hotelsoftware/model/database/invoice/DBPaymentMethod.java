@@ -9,7 +9,9 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,12 +44,6 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Paymentmethods.findAll", query = "SELECT p FROM Paymentmethods p"),
-//    @NamedQuery(name = "Paymentmethods.findById", query = "SELECT p FROM Paymentmethods p WHERE p.id = :id"),
-//    @NamedQuery(name = "Paymentmethods.findByName", query = "SELECT p FROM Paymentmethods p WHERE p.name = :name")
-//})
 public class DBPaymentMethod implements Serializable
 {
 
@@ -61,14 +57,14 @@ public class DBPaymentMethod implements Serializable
     @Column(name = "name", nullable = false, length = 255)
     private String method;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaymentMethods")
-    private Collection<DBInvoice> invoicesCollection;
+    private Set<DBInvoice> invoicesCollection;
 
-    public Collection<DBInvoice> getInvoicesCollection()
+    public Set<DBInvoice> getInvoicesCollection()
     {
         return invoicesCollection;
     }
 
-    public void setInvoicesCollection(Collection<DBInvoice> invoicesCollection)
+    public void setInvoicesCollection(Set<DBInvoice> invoicesCollection)
     {
         this.invoicesCollection = invoicesCollection;
     }
@@ -120,7 +116,7 @@ public class DBPaymentMethod implements Serializable
      * a list of paymentmethods
      * @throws HibernateException 
      */
-    public static List<DBPaymentMethod> getPaymentMethods() throws HibernateException
+    public static Set<DBPaymentMethod> getPaymentMethods() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -129,7 +125,7 @@ public class DBPaymentMethod implements Serializable
         List<DBPaymentMethod> retList = criteria.list();
         session.close();
 
-        return retList;
+        return new LinkedHashSet<DBPaymentMethod>(retList);
     }
 
     /**

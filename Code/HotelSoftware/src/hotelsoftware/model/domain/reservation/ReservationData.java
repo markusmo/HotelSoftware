@@ -8,6 +8,7 @@ import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.PartyData;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -15,23 +16,21 @@ import java.util.Date;
  */
 public interface ReservationData
 {
-
     String getComment();
 
     Date getCreated();
 
     Date getEndDate();
 
-    Collection<ReservationOptionData> getOptionCollectionData();
+    Set<ReservationOptionData> getOptionCollectionData();
 
     PartyData getPartyData();
 
-    Collection<ReservationItemData> getReservationItemCollectionData();
+    Set<ReservationItemData> getReservationItemCollectionData();
 
     Date getStartDate();
 
     public String getReservationNumber();
-    
+
     Integer getGuestAmount();
-    
 }

@@ -27,7 +27,7 @@ public class StartState extends CheckInState
     }
 
     @Override
-    public Collection<ReservationData> getAllReservations()
+    public Set<ReservationData> getAllReservations()
     {
         return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
     }
@@ -45,10 +45,10 @@ public class StartState extends CheckInState
     }
 
     @Override
-    public Collection<ReservationData> searchApprox(String firstName, String lastName)
+    public Set<ReservationData> searchApprox(String firstName, String lastName)
     {
-        Collection<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
-        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
+        Set<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
+        Set<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
         if (reservations != null)
         {
             for (Reservation res : reservations)
@@ -69,10 +69,10 @@ public class StartState extends CheckInState
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
     @Override
-    public Collection<ReservationData> search(String firstName, String lastName)
+    public Set<ReservationData> search(String firstName, String lastName)
     {
-        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-        Collection<ReservationData> reservationData = new LinkedList<ReservationData>();
+        Set<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
+        Set<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
         if (reservations != null)
         {
             for (Reservation res : reservations)
@@ -99,11 +99,11 @@ public class StartState extends CheckInState
 
         roomSelections = new HashMap<Integer, RoomSelection>();
         counter = 0;
-        for (ReservationItemData data : reservation.getReservationItemCollectionData())
+        for (ReservationItemData data : this.reservationItems)
         {
             Room r = new Room();
-            //r.setCategory((RoomCategory)data.getReservedCategoryData());
-            r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
+            r.setCategory((RoomCategory)data.getReservedCategoryData());
+            //r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
             roomSelections.put(counter++, new RoomSelection(data.getReservedCategoryData(), r));
         }
 

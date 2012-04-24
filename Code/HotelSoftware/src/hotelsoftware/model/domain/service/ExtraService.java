@@ -8,6 +8,7 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -18,18 +19,20 @@ public class ExtraService extends Service implements ExtraServiceData
     private String name;
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
     public ExtraService()
     {
     }
-    
+
     private ExtraService(String name, BigDecimal price, ServiceType type)
     {
         super(price, type);
@@ -41,19 +44,21 @@ public class ExtraService extends Service implements ExtraServiceData
         return new ExtraService(name, price, type);
     }
 
-    public static Collection<ExtraService> getAllExtraServices()
+    public static Set<ExtraService> getAllExtraServices()
     {
-        Collection<ExtraService> extraServices = (Collection<ExtraService>)DynamicMapper.map(DBExtraService.getAllExtraServices());
+        Set<ExtraService> extraServices = (Set<ExtraService>) DynamicMapper.map(DBExtraService.getAllExtraServices());
         return extraServices;
     }
-    
-    public static ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException {
-        ExtraService extraService = (ExtraService)DynamicMapper.map(DBExtraService.getExtraServiceByName(name));
-        
-        if (extraService == null){
+
+    public static ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
+    {
+        ExtraService extraService = (ExtraService) DynamicMapper.map(DBExtraService.getExtraServiceByName(name));
+
+        if (extraService == null)
+        {
             throw new ServiceNotFoundException();
         }
-        
+
         return extraService;
     }
 
