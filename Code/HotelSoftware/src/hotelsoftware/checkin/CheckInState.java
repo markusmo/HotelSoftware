@@ -10,10 +10,7 @@ import hotelsoftware.model.domain.reservation.ReservationItemData;
 import hotelsoftware.model.domain.room.*;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.model.domain.service.Habitation;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -241,6 +238,11 @@ public abstract class CheckInState
     }
 
     Set<ReservationData> searchApprox(String firstName, String lastName)
+    {
+        throw new IllegalStateException();
+    }
+
+    Set<ExtraServiceData> getAllHabitationServices()
     {
         throw new IllegalStateException();
     }

@@ -240,4 +240,9 @@ public class CheckInController
     {
         return state.counter;
     }
+
+    public Set<ExtraServiceData> getAllHabitationServices()
+    {
+        return state.getAllHabitationServices();
+    }
 }
