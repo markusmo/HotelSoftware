@@ -19,6 +19,7 @@ public class GuestPanel extends javax.swing.JPanel
     public GuestPanel()
     {
         initComponents();
+        ESPane = new ExtraServicesPanel();
     }
 
     /**

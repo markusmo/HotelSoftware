@@ -2,6 +2,7 @@ package hotelsoftware.model;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class DynamicMapper
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
      * @param urObject Das Objekt der Schicht von der gemappt werden soll
-     * @param newObjectClass Die Klasse des Objects in die zu mappen ist.
+     *
      *
      * Falls die Objekte nicht zueinander passen werden leere Objekte zurückgegeben
      *
@@ -24,10 +25,12 @@ public class DynamicMapper
      *
      * Muss auf Zieltyp gecastet werden.
      *
-     * Vom Zieltyp muss ein Leerer Constructor existieren
+     * Vom Zieltyp muss ein Leerer Constructor existieren und public sein
      *
      * Die Getter und Setter müssen getXYZ bzw setXYZ heißen und public sein
      */
+    private static HashMap<Integer, Object> hashedObjects = new HashMap<Integer, Object>();
+
     public static Object map(Object urObject)
     {
         try
@@ -35,32 +38,45 @@ public class DynamicMapper
             Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
             Object returnvalue = newClass.newInstance();
 
-            for (Method m : returnvalue.getClass().getMethods())
+            for (Method setterMethod : returnvalue.getClass().getMethods())
             {
-                if (m.getName().startsWith("set"))
+                if (setterMethod.getName().startsWith("set"))
                 {
-                    Method m2 = getMethod(m, urObject);
+                    Method getterMethodNewLevel = getMethod(setterMethod, urObject);
 
-                    if (m2 != null)
+                    if (getterMethodNewLevel != null)
                     {
-                        Method m3 = getMethod(m, returnvalue);
-                        
-                        if (m3 != null && m3.invoke(returnvalue) == null)
+                        Method getterMethodCurrentLevel = getMethod(setterMethod, returnvalue);
+
+                        if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
                         {
-                            if (m2.getReturnType().equals(Set.class))
+                            if (getterMethodNewLevel.getReturnType().equals(Set.class))
                             {
-                                m.invoke(returnvalue, mapCollection((Set) m2.invoke(urObject)));
+                                setterMethod.invoke(returnvalue, mapCollection((Set) getterMethodNewLevel.invoke(urObject)));
                             }
                             else
                             {
-                                Object o = m2.invoke(urObject);
-                                if(o.getClass().getName().contains("hotelsoftware"))
-                                    o = map(o);
-                                m.invoke(returnvalue, o);
+                                Object o = getterMethodNewLevel.invoke(urObject);
+                                if (o.getClass().getName().contains("hotelsoftware"))
+                                {
+                                    if (hashedObjects.containsKey(o.hashCode()))
+                                    {
+                                        o = hashedObjects.get(o.hashCode());
+                                    }
+                                    else
+                                    {
+                                        o = map(o);
+                                    }
+                                }
+                                setterMethod.invoke(returnvalue, o);
                             }
                         }
                     }
                 }
+            }
+            if (returnvalue.getClass().getName().contains("hotelsoftware.model.domain"))
+            {
+                hashedObjects.put(returnvalue.hashCode(), returnvalue);
             }
             return returnvalue;
         }

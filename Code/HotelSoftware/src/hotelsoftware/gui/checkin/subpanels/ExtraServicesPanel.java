@@ -6,7 +6,11 @@ package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.model.domain.service.ExtraServiceData;
+import java.awt.GridLayout;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -20,12 +24,21 @@ public class ExtraServicesPanel extends javax.swing.JPanel
     public ExtraServicesPanel()
     {
         initComponents();
+        init();
     }
-    
-    private void init(){
-        
+    private List<JCheckBox> checkboxes = new LinkedList<JCheckBox>();
+
+    private void init()
+    {
+
         Set<ExtraServiceData> services = CheckInGuiControler.getInstance().getAllHabitationServices();
-        
+        this.setLayout(new GridLayout(services.size(), 1));
+        for (ExtraServiceData data : services)
+        {
+            JCheckBox checki = new JCheckBox(data.getName());
+            checkboxes.add(checki);
+            add(checki);
+        }
     }
 
     /**
@@ -51,4 +64,14 @@ public class ExtraServicesPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    public List<JCheckBox> getCheckboxes()
+    {
+        return checkboxes;
+    }
+
+    public void setCheckboxes(List<JCheckBox> checkboxes)
+    {
+        this.checkboxes = checkboxes;
+    }
 }
