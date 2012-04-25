@@ -15,6 +15,7 @@ import java.util.Set;
  */
 public class ExtraService extends Service implements ExtraServiceData
 {
+    private Integer id;
     private String name;
 
     @Override
@@ -22,7 +23,20 @@ public class ExtraService extends Service implements ExtraServiceData
     {
         return name;
     }
-
+    
+    public Integer getId()
+    {
+        return this.id;
+    }
+    
+    public void setId(Integer id)
+    {
+        if(id == null)
+        {
+            this.id = id;
+        }
+    }
+    
     public void setName(String name)
     {
         this.name = name;
