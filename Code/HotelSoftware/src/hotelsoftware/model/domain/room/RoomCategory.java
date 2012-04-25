@@ -5,6 +5,7 @@ import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -16,7 +17,6 @@ import java.util.Set;
  */
 public class RoomCategory implements RoomCategoryData
 {
-
     private String name;
     private Set<RoomCategoryPrice> price;
     private Integer bedCount;
@@ -121,5 +121,39 @@ public class RoomCategory implements RoomCategoryData
     public Integer getBedCount()
     {
         return bedCount;
+    }
+
+    public BigDecimal getPriceFor(Date startDate) throws NoPriceDefinedException
+    {        
+        for (RoomCategoryPrice p : price)
+        {
+            Calendar dateCal = Calendar.getInstance();
+            dateCal.setTime(startDate);
+            int searchDay = dateCal.get(Calendar.DAY_OF_YEAR);
+            
+            Calendar startCal = Calendar.getInstance();
+            startCal.setTime(p.getSeasons().getStart());
+            int startDay = dateCal.get(Calendar.DAY_OF_YEAR);
+            
+            Calendar endCal = Calendar.getInstance();
+            endCal.setTime(p.getSeasons().getStart());
+            int endDay = dateCal.get(Calendar.DAY_OF_YEAR);
+
+            if (startDay <= searchDay && endDay >= searchDay)
+            {
+                return p.getPrice();
+            }
+            //Geht über den Jahresübergang
+            else if (startDay > endDay)
+            {
+                //Im neuen Jahr vor dem Ende oder im alten Jahr nach dem Anfang
+                if (searchDay <= endDay || searchDay >= startDay)
+                {
+                    return p.getPrice();
+                }
+            }
+        }
+        
+         throw new NoPriceDefinedException();
     }
 }

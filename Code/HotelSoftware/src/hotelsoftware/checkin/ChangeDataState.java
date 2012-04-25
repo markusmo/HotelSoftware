@@ -4,6 +4,7 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
@@ -16,10 +17,13 @@ import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -133,7 +137,17 @@ public abstract class ChangeDataState extends CheckInState
     }
     
     @Override
-    public void selectServices(Collection<ExtraServiceData> services)
+    public void selectService(int selectionIndex, ExtraServiceData service)
+    {
+        for (ExtraServiceData entry : services)
+        {
+            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, context.getHabitation());
+            context.getHabitation().addInvoiceItems(item);
+        }
+    }
+    
+    @Override
+    public void usselectService(int selectionIndex, ExtraServiceData service)
     {
         for (ExtraServiceData entry : services)
         {
@@ -144,6 +158,18 @@ public abstract class ChangeDataState extends CheckInState
     
     public void saveData()
     {
+        LinkedList<Habitation> habitations = new LinkedList<Habitation>();
         
+        for (RoomSelection roomSel : context.getRoomSelections().values())
+        {
+            Habitation h = new Habitation();
+            h.setStart(context.getStartDate());
+            h.setEnd(context.getEndDate());
+            h.setUsers(LoginController.getInstance().getCurrentUser());
+            h.setPrice(roomSel.getCategory().getPrice());
+            h.setRooms(roomSel.getRoom());
+                    
+            habitations.add(h);
+        }
     }
 }
