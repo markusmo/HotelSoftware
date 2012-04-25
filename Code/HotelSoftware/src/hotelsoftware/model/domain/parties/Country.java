@@ -40,4 +40,11 @@ public class Country implements CountryData
     {
         return PartyFacade.getInstance().getAllCountries();
     }
+    
+     @Override
+     public String toString()
+     {
+         return name;
+     }
+             
 }

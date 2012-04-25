@@ -45,58 +45,28 @@ import java.util.logging.Logger;
  */
 public class ButtonTabComponentPlus extends JPanel
 {
-    private final JTabbedPane pane;
-    private Class<? extends Component> comp;
-    private String text;
-    private final ImageIcon icon;
-
-    public ButtonTabComponentPlus(final JTabbedPane pane, Class<? extends Component> comp, String text, final ImageIcon icon)
+    public ButtonTabComponentPlus(ActionListener action)
     {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        if (pane == null)
-        {
-            throw new NullPointerException("TabbedPane is null");
-        }
-        this.icon = icon;
-        this.pane = pane;
-        this.comp = comp;
-        this.text = text;
-        init();
-    }
 
-    public ButtonTabComponentPlus(final JTabbedPane pane, Class<? extends Component> comp, String text)
-    {
-        //unset default FlowLayout' gaps
-        super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        if (pane == null)
-        {
-            throw new NullPointerException("TabbedPane is null");
-        }
-        this.icon = null;
-        this.pane = pane;
-        this.comp = comp;
-        this.text = text;
-        init();
-    }
 
-    private void init()
-    {
         setOpaque(false);
         //tab button
         JButton button = new TabButton();
+        button.addActionListener(action);
         add(button);
         //add more space to the top of the component
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
-    private class TabButton extends JButton implements ActionListener
+    private class TabButton extends JButton
     {
         public TabButton()
         {
             int size = 17;
             setPreferredSize(new Dimension(size, size));
-            setToolTipText("close this tab");
+            setToolTipText("Add new");
             //Make the button looks the same for all Laf's
             setUI(new BasicButtonUI());
             //Make it transparent
@@ -110,32 +80,7 @@ public class ButtonTabComponentPlus extends JPanel
             addMouseListener(buttonMouseListener);
             setRolloverEnabled(true);
             //Close the proper tab by clicking the button
-            addActionListener(this);
-        }
 
-        public void actionPerformed(ActionEvent e)
-        {
-            try
-            {
-                pane.add(comp.newInstance(), pane.getTabCount() - 1);
-                pane.setTitleAt(pane.getTabCount() - 2, text + " " + (pane.getTabCount() - 1));
-            }
-            catch (InstantiationException ex)
-            {
-                Logger.getLogger(ButtonTabComponentPlus.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            catch (IllegalAccessException ex)
-            {
-                Logger.getLogger(ButtonTabComponentPlus.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (icon != null)
-            {
-                pane.setTabComponentAt(pane.getTabCount() - 2, new ButtonIconTabComponent(pane, icon));
-            }
-            else
-            {
-                pane.setTabComponentAt(pane.getTabCount() - 2, new ButtonTabComponent(pane));
-            }
         }
 
         //we don't want to update UI for this button

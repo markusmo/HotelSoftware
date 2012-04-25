@@ -12,6 +12,7 @@ import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import java.util.Collection;
 import java.util.Date;
 
+
 /**
  * Diese Klasse ist die abstrakte Klasse, die alle Status und dessen Funktionen abbilded.
  * Keine dieser Methoden ist implementiert, fuer jeden Status muss die jeweilige Funktionalitaet implementiert werden.
@@ -256,6 +257,7 @@ public abstract class CheckInState
         {
             this.category = category;
             this.room = room;
+            this.room.setCategory((RoomCategory)category);
         }
 
         public RoomCategoryData getCategory()

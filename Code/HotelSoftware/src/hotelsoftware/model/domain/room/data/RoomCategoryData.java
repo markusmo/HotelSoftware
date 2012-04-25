@@ -18,4 +18,6 @@ public interface RoomCategoryData
     String getName();
 
     Set<RoomCategoryPrice> getPrice();
+
+    String toString();
 }

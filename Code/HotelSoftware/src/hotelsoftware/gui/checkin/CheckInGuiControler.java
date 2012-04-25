@@ -18,8 +18,10 @@ import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * Dieser Controller ist eine Wrapper-Klasse für den Check-In-Controller, der noch zusaetzlich
@@ -30,6 +32,8 @@ import javax.swing.JPanel;
 public class CheckInGuiControler
 {
     private JPanel contentpane;
+    private JTabbedPane roomTabPane;
+    private ReservationData selectedReservation;
 
     int getCounter()
     {
@@ -40,7 +44,6 @@ public class CheckInGuiControler
     {
         private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
     }
-    private ReservationData selectedReservation;
 
     public static CheckInGuiControler getInstance()
     {
@@ -82,7 +85,7 @@ public class CheckInGuiControler
             {
                 res.addAll(CheckInController.getInstance().searchApprox(fname, lname));
             }
-            
+
             return res;
         }
         catch (NumberFormatException ex)
@@ -278,7 +281,6 @@ public class CheckInGuiControler
         return CheckInController.getInstance().getAllCountries();
     }
 
-
     /**
      * Startet einen Check In Vorgang für einen Walk In Gast
      *
@@ -309,9 +311,9 @@ public class CheckInGuiControler
      * @param end Das neue Enddatum
      * @param amount Die neue Anzahl an Personen
      */
-    public void changeInformation(Date start, Date end, int amount)
+    public void changeInformation(Date start, Date end)
     {
-        CheckInController.getInstance().changeInformation(start, end, amount);
+        CheckInController.getInstance().changeInformation(start, end, 5);
     }
 
     /**
@@ -354,7 +356,6 @@ public class CheckInGuiControler
         return CheckInController.getInstance().addGuest(firstName, lastName, gender, birthday, street, city, zip, email, phone, fax, country);
     }
 
-   
     /**
      * Entfernt die angegebene Zimmerauswahl
      *
@@ -397,5 +398,15 @@ public class CheckInGuiControler
     public void selectServices(Collection<ExtraServiceData> services)
     {
         CheckInController.getInstance().selectServices(services);
+    }
+
+    public JTabbedPane getRoomTabPane()
+    {
+        return roomTabPane;
+    }
+
+    public void setRoomTabPane(JTabbedPane roomTabPane)
+    {
+        this.roomTabPane = roomTabPane;
     }
 }

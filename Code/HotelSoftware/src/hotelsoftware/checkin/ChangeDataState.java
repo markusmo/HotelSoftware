@@ -11,6 +11,8 @@ import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.ReservationItem;
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
@@ -24,7 +26,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
- * 
+ *
  * @author Dunst
  */
 public abstract class ChangeDataState extends CheckInState
@@ -53,24 +55,30 @@ public abstract class ChangeDataState extends CheckInState
         GuestData guest = Guest.create(lastName, lastName, gender, birthday, null);
 
         //TODO save somehow
-
+        System.out.println("@ChangeDataState in addGuest TODO!!!");
         return guest;
     }
 
     @Override
     public void assignRoom(GuestData guest, RoomData room)
     {
-        //TODO
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int addRoomSelection()
     {
-        context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(new RoomCategory(), new Room()));
-
-        return context.getCounter();
+        if (context.getRoomCategoryArray().length > context.getCounter())
+        {
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getCounter() - 1], new Room()));
+        }
+        else
+        {
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getRoomCategoryArray().length - 1], new Room()));
+        }
+        return context.getCounter() - 1;
     }
-    
+
     @Override
     public Collection<CountryData> getAllCountries()
     {
@@ -115,35 +123,34 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
-        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices()); 
+        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
     }
-    
+
     @Override
     public void initKeys()
     {
         throw new NotImplementedException();
     }
-    
+
     @Override
     public Collection<ExtraServiceData> getServices()
     {
         Collection<ExtraService> services = ExtraService.getAllExtraServices();
-        
+
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
     }
-    
+
     @Override
     public void selectServices(Collection<ExtraServiceData> services)
     {
         for (ExtraServiceData entry : services)
         {
-            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, context.getHabitation());
+            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService) entry, 1, context.getHabitation());
             context.getHabitation().addInvoiceItems(item);
         }
     }
-    
+
     public void saveData()
     {
-        
     }
 }

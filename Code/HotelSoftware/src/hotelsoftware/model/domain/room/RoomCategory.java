@@ -122,4 +122,9 @@ public class RoomCategory implements RoomCategoryData
     {
         return bedCount;
     }
+    
+    public String toString()
+    {
+        return name;
+    }
 }
