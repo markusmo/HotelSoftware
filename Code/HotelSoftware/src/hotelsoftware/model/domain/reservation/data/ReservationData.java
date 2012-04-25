@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.model.domain.reservation;
+package hotelsoftware.model.domain.reservation.data;
 
 import hotelsoftware.model.domain.parties.Party;
-import hotelsoftware.model.domain.parties.PartyData;
+import hotelsoftware.model.domain.parties.data.PartyData;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;

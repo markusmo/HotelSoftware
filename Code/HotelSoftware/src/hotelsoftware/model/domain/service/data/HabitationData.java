@@ -4,8 +4,8 @@
  */
 package hotelsoftware.model.domain.service.data;
 
-import hotelsoftware.model.domain.invoice.InvoiceItemData;
-import hotelsoftware.model.domain.parties.GuestData;
+import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
+import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.users.data.UserData;
 import java.math.BigDecimal;

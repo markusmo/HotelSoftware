@@ -6,9 +6,9 @@ package hotelsoftware.checkin;
 
 import hotelsoftware.checkin.CheckInState.RoomSelection;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.parties.PartyData;
-import hotelsoftware.model.domain.reservation.ReservationItemData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.parties.data.PartyData;
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;

@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.invoice;
 
+import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.HabitationData;

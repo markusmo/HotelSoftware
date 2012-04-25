@@ -1,8 +1,11 @@
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import hotelsoftware.model.domain.reservation.data.ReservationOptionData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
-import hotelsoftware.model.domain.parties.PartyData;
+import hotelsoftware.model.domain.parties.data.PartyData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;

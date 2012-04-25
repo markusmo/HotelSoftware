@@ -8,7 +8,7 @@ import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
-import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import java.awt.*;

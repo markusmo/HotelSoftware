@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.parties.data.CompanyTypeData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.database.parties.DBCompanyType;
