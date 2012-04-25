@@ -56,7 +56,7 @@ public class DBRoom implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
     private Set<DBHabitation> habitations;
     
-    @OneToMany(mappedBy = "rooms", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DBRoomsRoomStatus> status;
 
     public DBRoom()

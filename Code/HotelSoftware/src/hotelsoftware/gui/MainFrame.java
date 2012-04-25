@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,7 +21,23 @@ import javax.swing.JTextField;
  */
 public class MainFrame extends javax.swing.JFrame
 {
+    // der aktuell ausgewÃ¤hlte Button
+    private static JButton _activatedButton = new JButton();
 
+    // falls man einen button klickt wÃ¤hlt es diesen falls mÃ¶glich aus und gibt
+    // dementsprechend true / false zurÃ¼ck
+   /* public boolean clicked()
+    {
+        if (_activatedButton != this)
+        {
+            _activatedButton.setEnabled(true);
+            _activatedButton = this;
+            this.setEnabled(false);
+            System.out.println("ASDF");
+            return true;
+        }
+        return false;
+    }*/
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
 
     /**
@@ -29,11 +46,13 @@ public class MainFrame extends javax.swing.JFrame
     public MainFrame()
     {
         initComponents();
-        /*GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        this.setMaximizedBounds(env.getMaximumWindowBounds());
-        this.setExtendedState(this.getExtendedState()
-                | JFrame.MAXIMIZED_BOTH);
-        this.setMinimumSize(env.getMaximumWindowBounds().getSize());*/
+        /*
+         * GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+         * this.setMaximizedBounds(env.getMaximumWindowBounds());
+         * this.setExtendedState(this.getExtendedState()
+         * | JFrame.MAXIMIZED_BOTH);
+         * this.setMinimumSize(env.getMaximumWindowBounds().getSize());
+         */
     }
 
     /**
@@ -231,19 +250,23 @@ public class MainFrame extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
@@ -255,7 +278,6 @@ public class MainFrame extends javax.swing.JFrame
          */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
-
             public void run()
             {
                 CreateGui();

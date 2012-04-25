@@ -5,6 +5,7 @@
 package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.data.CountryData;

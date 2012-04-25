@@ -82,10 +82,10 @@ public class DBReservation implements Serializable
     @ManyToOne(optional = false)
     private DBUser idUsers;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private Set<DBReservationItem> reservationItems;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private Set<DBReservationOption> reservationOptions;
 
     public DBReservation()
