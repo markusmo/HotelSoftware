@@ -4,6 +4,7 @@
  */
 package hotelsoftware.checkin;
 
+import com.mysql.jdbc.NotImplemented;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
@@ -14,6 +15,7 @@ import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
@@ -26,7 +28,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.hibernate.cfg.NotYetImplementedException;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
@@ -133,7 +135,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void initKeys()
     {
-        throw new NotImplementedException();
+        //Do Nothing
     }
 
     @Override
@@ -154,7 +156,7 @@ public abstract class ChangeDataState extends CheckInState
         }
     }
 
-    public void saveData()
+    public void saveData() throws NoPriceDefinedException
     {
         LinkedList<Habitation> habitations = new LinkedList<Habitation>();
         
@@ -164,7 +166,7 @@ public abstract class ChangeDataState extends CheckInState
             h.setStart(context.getStartDate());
             h.setEnd(context.getEndDate());
             h.setUsers(LoginController.getInstance().getCurrentUser());
-            h.setPrice(roomSel.getCategory().getPrice());
+            h.setPrice(roomSel.getCategory().getPriceFor(context.getStartDate()));
             h.setRooms(roomSel.getRoom());
                     
             habitations.add(h);
