@@ -4,6 +4,7 @@
  */
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.domain.reservation.data.ReservationOptionData;
 import hotelsoftware.model.database.reservation.DBReservationOption;
 import java.math.BigDecimal;
 import java.util.Date;

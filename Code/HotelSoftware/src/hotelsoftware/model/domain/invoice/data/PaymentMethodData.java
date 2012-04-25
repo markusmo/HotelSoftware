@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.invoice;
+package hotelsoftware.model.domain.invoice.data;
 
 /**
  * Dieses Interface wird an die GUI weitergeleitet.

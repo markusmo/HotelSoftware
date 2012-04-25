@@ -1,5 +1,7 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.parties.data.AddressData;
+
 /**
  * Klasse die die Attribute einer Addresse hällt. Hier werden alle Kontaktdaten einer Party (Gruppierung oder Person) gehalten.
  * @author Lins Christian (christian.lins87@gmail.com)

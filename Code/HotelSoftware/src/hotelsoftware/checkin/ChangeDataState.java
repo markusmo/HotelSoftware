@@ -5,10 +5,10 @@
 package hotelsoftware.checkin;
 
 import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.AddressData;
+import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.reservation.ReservationItemData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomData;

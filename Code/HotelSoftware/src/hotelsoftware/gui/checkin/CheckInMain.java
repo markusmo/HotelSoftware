@@ -4,8 +4,8 @@
  */
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
@@ -307,8 +307,8 @@ public class CheckInMain extends javax.swing.JPanel
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4)

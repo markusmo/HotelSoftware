@@ -25,7 +25,7 @@ public class ReservationSaverTest
         
         for (Reservation r : reservations)
         {
-            r.setComment("Test Reservation Saver");
+            r.setComment("Neuer Kommentar");
         }
         try
         {
