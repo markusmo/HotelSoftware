@@ -8,6 +8,6 @@ package hotelsoftware.model.domain.parties.data;
 public interface CompanyTypeData
 {
 
-    String getTyp();
+    String getName();
     
 }

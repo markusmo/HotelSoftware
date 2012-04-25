@@ -21,6 +21,8 @@ public class User implements UserData
     private Integer id;
     private String username;
     private String password;
+    private Boolean active;
+
     private Collection<Role> roles;
 
     public User()
@@ -44,7 +46,7 @@ public class User implements UserData
         return password;
     }
 
-    void setPassword(String password)
+    public void setPassword(String password)
     {
         this.password = password;
     }
@@ -54,7 +56,7 @@ public class User implements UserData
         return roles;
     }
 
-    void setRoles(Collection<Role> roles)
+    public void setRoles(Collection<Role> roles)
     {
         this.roles = roles;
     }
@@ -64,7 +66,7 @@ public class User implements UserData
         return username;
     }
 
-    void setUsername(String username)
+    public void setUsername(String username)
     {
         this.username = username;
     }
@@ -74,12 +76,22 @@ public class User implements UserData
         return id;
     }
 
-    void setId(Integer id)
+    public void setId(Integer id)
     {
         if (id == null)
         {
             this.id = id;
         }
+    }
+    
+    public Boolean getActive()
+    {
+        return active;
+    }
+
+    public void setActive(Boolean active)
+    {
+        this.active = active;
     }
 
     /**
