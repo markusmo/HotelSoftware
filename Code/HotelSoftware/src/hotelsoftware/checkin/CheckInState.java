@@ -1,17 +1,16 @@
 package hotelsoftware.checkin;
 
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
-import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
-import hotelsoftware.model.domain.room.*;
+import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import hotelsoftware.model.domain.service.Habitation;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * Diese Klasse ist die abstrakte Klasse, die alle Status und dessen Funktionen abbilded.
@@ -23,7 +22,6 @@ public abstract class CheckInState
 {
     protected CheckInController context;
     
-
     public CheckInState(CheckInController context)
     {
         this.context = context;

@@ -92,22 +92,22 @@ public class StartState extends CheckInState
     @Override
     public void workWithReservation(ReservationData reservation)
     {
-        this.startDate = reservation.getStartDate();
-        this.endDate = reservation.getEndDate();
-        this.reservationItems = reservation.getReservationItemCollectionData();
+        context.setStartDate(reservation.getStartDate());
+        context.setEndDate(reservation.getEndDate());
+        context.setReservationItems(reservation.getReservationItemCollectionData());
 
-        roomSelections = new HashMap<Integer, RoomSelection>();
-        counter = 0;
-        for (ReservationItemData data : this.reservationItems)
+        context.setRoomSelections(new HashMap<Integer, RoomSelection>());
+        context.setCounter(0);
+        for (ReservationItemData data : context.getReservationItems())
         {
             Room r = new Room();
             r.setCategory((RoomCategory)data.getReservedCategoryData());
             //r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
-            roomSelections.put(counter++, new RoomSelection(data.getReservedCategoryData(), r));
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(data.getReservedCategoryData(), r));
         }
 
 
-        context.setState(new ChangeReservationDataState(context, counter, roomSelections, reservationItems));
+        context.setState(new ChangeReservationDataState(context));
     }
 
     /**
@@ -120,8 +120,8 @@ public class StartState extends CheckInState
     @Override
     public void createWalkIn(Date start, Date end, int amount)
     {
-        this.startDate = start;
-        this.endDate = end;
+        context.setStartDate(start);
+        context.setEndDate(end);
 
         context.setState(new ChangeWalkInDataState(context));
     }
@@ -136,10 +136,10 @@ public class StartState extends CheckInState
     public void createWalkIn(int days, int amount)
     {
         Calendar cal = Calendar.getInstance();
-        this.startDate = cal.getTime();
+        context.setStartDate(cal.getTime());
 
         cal.add(Calendar.DAY_OF_YEAR, days);
-        this.endDate = cal.getTime();
+        context.setEndDate(cal.getTime());
 
         context.setState(new ChangeWalkInDataState(context));
     }

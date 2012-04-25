@@ -271,16 +271,6 @@ public class CheckInController
         return state.getAllReservations();
     }
 
-    /**
-     * Gibt eine Id für eine Raumauswahl aus
-     * @return 
-     * Die Id für die Raumauswahl
-     */
-    public int getCounter()
-    {
-        return counter;
-    }
-
         /**
      * Gibt alle Verpflegunsarten aus
      * @return 
@@ -351,5 +341,25 @@ public class CheckInController
     void setStartDate(Date startDate)
     {
         this.startDate = startDate;
+    }
+    
+    /**
+     * Gibt eine Id für eine Raumauswahl aus
+     * @return 
+     * Die Id für die Raumauswahl
+     */
+    public int getCounter()
+    {
+        return counter;
+    }
+
+    void setCounter(int i)
+    {
+        this.counter = i;
+    }
+    
+    int increaseCounter()
+    {
+        return counter++;
     }
 }
