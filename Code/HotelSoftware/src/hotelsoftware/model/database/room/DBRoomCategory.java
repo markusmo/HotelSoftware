@@ -28,13 +28,6 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-/*@NamedQueries(
-{
-    @NamedQuery(name = "Roomcategories.findAll", query = "SELECT r FROM Roomcategories r"),
-    @NamedQuery(name = "Roomcategories.findById", query = "SELECT r FROM Roomcategories r WHERE r.id = :id"),
-    @NamedQuery(name = "Roomcategories.findByName", query = "SELECT r FROM Roomcategories r WHERE r.name = :name"),
-    @NamedQuery(name = "Roomcategories.findByBedCount", query = "SELECT r FROM Roomcategories r WHERE r.bedCount = :bedCount")
-})*/
 public class DBRoomCategory implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -211,9 +204,10 @@ public class DBRoomCategory implements Serializable
         
         
         SQLQuery query = session.createSQLQuery("SELECT * FROM rooms r WHERE "
-                + "(SELECT count(*) FROM habitations WHERE startDate < :end AND endDate > :start) = 0");
+                + "(SELECT count(*) FROM habitations WHERE startDate < :end AND endDate > :start) = 0 AND idRoomCategories = :id");
         query.setDate("end", ende);
         query.setDate("start", start);
+        query.setInteger("id", id);
         
         query.addEntity(DBRoom.class);
          

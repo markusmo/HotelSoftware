@@ -4,14 +4,18 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.checkin.CheckInState.RoomSelection;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import java.util.*;
 
@@ -33,6 +37,14 @@ public class CheckInController
         return controller;
     }
     
+    private Date startDate;
+    private Date endDate;
+    private Habitation habitation;
+    private Reservation reservation;
+    private Map<Integer, CheckInState.RoomSelection> roomSelections;
+    private int counter;
+    private Collection<ReservationItemData> reservationItems;
+
     private CheckInState state;
     
     private CheckInController()
@@ -259,16 +271,6 @@ public class CheckInController
         return state.getAllReservations();
     }
 
-    /**
-     * Gibt die Raumanzahl aus
-     * @return 
-     * Anzahl der Raeume
-     */
-    public int getCounter()
-    {
-        return state.counter;
-    }
-
         /**
      * Gibt alle Verpflegunsarten aus
      * @return 
@@ -277,5 +279,87 @@ public class CheckInController
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return state.getAllHabitationServices();
+    }
+    
+    /**Getter und Setter für die States****/
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public Habitation getHabitation()
+    {
+        return habitation;
+    }
+
+    void setHabitation(Habitation habitation)
+    {
+        this.habitation = habitation;
+    }
+
+    public Reservation getReservation()
+    {
+        return reservation;
+    }
+
+    void setReservation(Reservation reservation)
+    {
+        this.reservation = reservation;
+    }
+
+    public Collection<ReservationItemData> getReservationItems()
+    {
+        return reservationItems;
+    }
+
+    void setReservationItems(Collection<ReservationItemData> reservationItems)
+    {
+        this.reservationItems = reservationItems;
+    }
+
+    public Map<Integer, RoomSelection> getRoomSelections()
+    {
+        return roomSelections;
+    }
+
+    void setRoomSelections(Map<Integer, RoomSelection> roomSelections)
+    {
+        this.roomSelections = roomSelections;
+    }
+
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    void setStartDate(Date startDate)
+    {
+        this.startDate = startDate;
+    }
+    
+    /**
+     * Gibt eine Id für eine Raumauswahl aus
+     * @return 
+     * Die Id für die Raumauswahl
+     */
+    public int getCounter()
+    {
+        return counter;
+    }
+
+    void setCounter(int i)
+    {
+        this.counter = i;
+    }
+    
+    int increaseCounter()
+    {
+        return counter++;
     }
 }

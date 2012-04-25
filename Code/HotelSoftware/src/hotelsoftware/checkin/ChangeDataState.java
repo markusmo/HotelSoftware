@@ -4,21 +4,23 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
-import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
-import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
-import hotelsoftware.model.domain.service.data.*;
-import hotelsoftware.model.domain.service.*;
+import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
@@ -27,22 +29,9 @@ import java.util.*;
  */
 public abstract class ChangeDataState extends CheckInState
 {
-    public ChangeDataState(CheckInController context, int counter, Map<Integer, RoomSelection> roomSelections, Collection<ReservationItemData> reservationItems)
-    {
-        super(context);
-        this.counter = counter;
-        this.roomSelections = roomSelections;
-        this.reservationItems = reservationItems;
-    }
-
     public ChangeDataState(CheckInController context)
     {
         super(context);
-
-        /*
-         * roomSelections = new HashMap<Integer, RoomSelection>();
-         * counter = 0;
-         */
     }
 
     @Override
@@ -77,9 +66,9 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public int addRoomSelection()
     {
-        roomSelections.put(counter++, new RoomSelection(new RoomCategory(), new Room()));
+        context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(new RoomCategory(), new Room()));
 
-        return counter;
+        return context.getCounter();
     }
     
     @Override
@@ -99,13 +88,13 @@ public abstract class ChangeDataState extends CheckInState
     {
         RoomCategory cat = (RoomCategory) category;
 
-        return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(startDate, endDate));
+        return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(context.getStartDate(), context.getEndDate()));
     }
 
     @Override
     public void changeRoom(int selectionIndex, String roomNumber)
     {
-        RoomSelection sel = roomSelections.get(selectionIndex);
+        RoomSelection sel = context.getRoomSelections().get(selectionIndex);
         Room room = Room.getRoomByNumber(roomNumber);
 
         sel.setRoom(room);
@@ -120,12 +109,41 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public RoomData getRoomData(int selectionIndex)
     {
-        return roomSelections.get(selectionIndex).getRoom();
+        return context.getRoomSelections().get(selectionIndex).getRoom();
     }
 
     @Override
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices()); 
+    }
+    
+    @Override
+    public void initKeys()
+    {
+        throw new NotImplementedException();
+    }
+    
+    @Override
+    public Collection<ExtraServiceData> getServices()
+    {
+        Collection<ExtraService> services = ExtraService.getAllExtraServices();
+        
+        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
+    }
+    
+    @Override
+    public void selectServices(Collection<ExtraServiceData> services)
+    {
+        for (ExtraServiceData entry : services)
+        {
+            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, context.getHabitation());
+            context.getHabitation().addInvoiceItems(item);
+        }
+    }
+    
+    public void saveData()
+    {
+        
     }
 }
