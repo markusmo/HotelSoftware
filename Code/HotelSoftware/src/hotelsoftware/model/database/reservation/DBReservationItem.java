@@ -29,7 +29,7 @@ public class DBReservationItem implements Serializable
     
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBReservation reservations;
+    private DBReservation reservation;
 
     public DBReservationItem()
     {
@@ -80,14 +80,14 @@ public class DBReservationItem implements Serializable
         this.roomcategories = roomcategories;
     }
 
-    public DBReservation getReservations()
+    public DBReservation getReservation()
     {
-        return reservations;
+        return reservation;
     }
 
-    public void setReservations(DBReservation reservations)
+    public void setReservation(DBReservation reservations)
     {
-        this.reservations = reservations;
+        this.reservation = reservations;
     }
 
     @Override
