@@ -4,8 +4,8 @@
  */
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;

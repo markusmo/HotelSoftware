@@ -6,7 +6,7 @@ import hotelsoftware.model.database.parties.DBCompanyType;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.parties.DBPrivateCustomer;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.util.Collection;
 import java.util.Set;
 

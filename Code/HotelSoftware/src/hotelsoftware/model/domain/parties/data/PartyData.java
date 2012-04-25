@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.parties;
+package hotelsoftware.model.domain.parties.data;
 
 /**
  *Dieses Interface enthällt die wichtige get Methode, die von der PartyKlasse benötigt wird.
