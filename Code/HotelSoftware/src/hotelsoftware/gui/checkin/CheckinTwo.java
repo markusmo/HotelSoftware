@@ -59,7 +59,7 @@ public class CheckinTwo extends javax.swing.JPanel
             for (i = oldi; i < data.getAmount(); i++)
             {
                 // cigc.addRoomSelection();
-                ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/rotes_x.gif"));
+                ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
                 RoomPanel room = new RoomPanel();
                 room.setTabComponent(iconTab);
                 rooms.add(room);
@@ -73,7 +73,7 @@ public class CheckinTwo extends javax.swing.JPanel
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);
         TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
-                new ButtonTabComponentPlus(TabbedPaneRooms, RoomPanel.class, "Room", new ImageIcon("src/resources/images/rotes_x.gif")));
+                new ButtonTabComponentPlus(TabbedPaneRooms, RoomPanel.class, "Room", new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif"))));
         TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
 
         TabbedPaneRooms.addChangeListener(new ChangeListener()
@@ -333,7 +333,7 @@ public class CheckinTwo extends javax.swing.JPanel
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
         this.TabbedPaneRooms.setTitleAt(1, "New Title");        
-        rooms.get(1).setTabIcon(new ImageIcon("src/resources/images/gh1.png"));
+        rooms.get(1).setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
                 
     }//GEN-LAST:event_jButton4ActionPerformed
 
