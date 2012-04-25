@@ -4,6 +4,7 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
@@ -18,6 +19,7 @@ import hotelsoftware.model.domain.service.data.*;
 import hotelsoftware.model.domain.service.*;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
@@ -126,5 +128,29 @@ public abstract class ChangeDataState extends CheckInState
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices()); 
+    }
+    
+    @Override
+    public void initKeys()
+    {
+        throw new NotImplementedException();
+    }
+    
+    @Override
+    public Collection<ExtraServiceData> getServices()
+    {
+        Collection<ExtraService> services = ExtraService.getAllExtraServices();
+        
+        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
+    }
+    
+    @Override
+    public void selectServices(Collection<ExtraServiceData> services)
+    {
+        for (ExtraServiceData entry : services)
+        {
+            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService)entry, 1, habitation);
+            habitation.addInvoiceItems(item);
+        }
     }
 }

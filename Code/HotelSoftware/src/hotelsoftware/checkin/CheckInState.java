@@ -22,13 +22,7 @@ import java.util.*;
 public abstract class CheckInState
 {
     protected CheckInController context;
-    protected Date startDate;
-    protected Date endDate;
-    protected Habitation habitation;
-    protected Reservation reservation;
-    protected Map<Integer, RoomSelection> roomSelections;
-    protected int counter;
-    protected Collection<ReservationItemData> reservationItems;
+    
 
     public CheckInState(CheckInController context)
     {
