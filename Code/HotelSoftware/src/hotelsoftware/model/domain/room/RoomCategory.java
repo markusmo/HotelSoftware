@@ -157,6 +157,7 @@ public class RoomCategory implements RoomCategoryData
          throw new NoPriceDefinedException();
     }
     
+    @Override
     public String toString()
     {
         return name;

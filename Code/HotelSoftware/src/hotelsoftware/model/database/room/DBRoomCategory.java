@@ -204,7 +204,7 @@ public class DBRoomCategory implements Serializable
         
         
         SQLQuery query = session.createSQLQuery("SELECT * FROM rooms r WHERE "
-                + "(SELECT count(*) FROM habitations WHERE startDate < :end AND endDate > :start) = 0 AND idRoomCategories = :id");
+                + "(SELECT count(*) FROM habitations h WHERE h.startDate < :end AND h.endDate > :start and h.idRooms = r.id) = 0 AND idRoomCategories = :id");
         query.setDate("end", ende);
         query.setDate("start", start);
         query.setInteger("id", id);

@@ -267,7 +267,7 @@ public abstract class CheckInState
 
         public void setCategory(RoomCategory category)
         {
-            this.category = category;
+            this.category = (RoomCategoryData) category;
         }
 
         public Room getRoom()

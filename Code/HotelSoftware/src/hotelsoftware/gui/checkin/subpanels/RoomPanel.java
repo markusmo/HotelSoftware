@@ -76,7 +76,7 @@ public class RoomPanel extends javax.swing.JPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem());
+                updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem().toString());
             }
         });
         ComboBoxFreeRooms.addActionListener(new ActionListener()
