@@ -4,9 +4,11 @@
  */
 package hotelsoftware.gui.login;
 
+import antlr.debug.Event;
 import hotelsoftware.gui.MainFrame;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.users.LoginFailureException;
+import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
@@ -47,7 +49,6 @@ public class LoginWindow extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         logo.setPreferredSize(new java.awt.Dimension(583, 195));
-        logo.setSize(new java.awt.Dimension(583, 195));
 
         org.jdesktop.layout.GroupLayout logoLayout = new org.jdesktop.layout.GroupLayout(logo);
         logo.setLayout(logoLayout);
@@ -74,6 +75,12 @@ public class LoginWindow extends javax.swing.JFrame
             }
         });
 
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyReleased(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +100,7 @@ public class LoginWindow extends javax.swing.JFrame
                     .add(passwordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(254, Short.MAX_VALUE)
+                .addContainerGap(260, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(jLabel3)
@@ -126,6 +133,19 @@ public class LoginWindow extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+        login();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_passwordFieldKeyReleased
+    {//GEN-HEADEREND:event_passwordFieldKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            login();
+        }
+    }//GEN-LAST:event_passwordFieldKeyReleased
+
+    private void login()
+    {
         try
         {
             MessageDigest coder = MessageDigest.getInstance("MD5");
@@ -141,8 +161,7 @@ public class LoginWindow extends javax.swing.JFrame
         catch (NoSuchAlgorithmException es)
         {
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -160,7 +179,7 @@ public class LoginWindow extends javax.swing.JFrame
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
             {
-                if ("Nimbus".equals(info.getName()))
+                if ("Windows".equals(info.getName()))
                 {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
