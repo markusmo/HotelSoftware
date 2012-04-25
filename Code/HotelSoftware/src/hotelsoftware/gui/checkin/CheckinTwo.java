@@ -55,9 +55,9 @@ public class CheckinTwo extends javax.swing.JPanel
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
-           // int test = data.getAmount();
+            // int test = data.getAmount();
             int oldi = i;
-            for (i = oldi; i < data.getAmount(); i++)
+            for (i = oldi; i < data.getAmount() + oldi; i++)
             {
                 // cigc.addRoomSelection();
                 ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
@@ -333,22 +333,20 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged
     {//GEN-HEADEREND:event_TabbedPaneRoomsCaretPositionChanged
-        
     }//GEN-LAST:event_TabbedPaneRoomsCaretPositionChanged
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        this.TabbedPaneRooms.setTitleAt(1, "New Title");        
+        this.TabbedPaneRooms.setTitleAt(1, "New Title");
         rooms.get(1).setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
-                
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         doTheCheckIn();
     }//GEN-LAST:event_ButtonCheckInActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCheckIn;
     private javax.swing.JTabbedPane TabbedPaneRooms;

@@ -58,6 +58,8 @@ public class RoomPanel extends javax.swing.JPanel
         {
             ComboBoxCategories.addItem(data.getName());
         }
+        String dafuq = cigc.getRoomData(roomIndex).getCategoryData().getName();
+        ComboBoxCategories.setSelectedItem(dafuq);
         updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem());
         ComboBoxCategories.addActionListener(new ActionListener()
         {
