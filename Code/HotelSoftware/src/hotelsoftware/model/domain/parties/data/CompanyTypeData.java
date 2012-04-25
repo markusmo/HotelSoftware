@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.parties;
+package hotelsoftware.model.domain.parties.data;
 
 /**
  *Dieses Interface enthällt die Methode getTyp, welche für die Companyklasse sehr wichtig ist,

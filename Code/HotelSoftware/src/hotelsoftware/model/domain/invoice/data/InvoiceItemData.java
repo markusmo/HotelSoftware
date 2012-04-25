@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.invoice;
+package hotelsoftware.model.domain.invoice.data;
 
 import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.model.domain.service.data.ServiceData;

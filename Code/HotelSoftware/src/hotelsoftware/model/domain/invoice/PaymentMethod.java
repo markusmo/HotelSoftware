@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.invoice;
 
+import hotelsoftware.model.domain.invoice.data.PaymentMethodData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import java.util.Collection;
