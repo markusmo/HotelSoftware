@@ -8,29 +8,17 @@ import java.math.BigDecimal;
  */
 public class RoomCategoryPrice
 {
-    private Season dBSeason;
     protected RoomCategoryPricePK roomcategorypricesPK;
     private BigDecimal price;
-    private BigDecimal priceMin;
-  
-    private Season seasons;
-  
+    private BigDecimal priceMin;  
+    private Season seasons;  
     private RoomCategory roomcategories;
 
     public RoomCategoryPrice()
     {
     }
 
-    public Season getdBSeason()
-    {
-        return dBSeason;
-    }
-
-    public void setdBSeason(Season dBSeason)
-    {
-        this.dBSeason = dBSeason;
-    }
-
+   
     public BigDecimal getPrice()
     {
         return price;

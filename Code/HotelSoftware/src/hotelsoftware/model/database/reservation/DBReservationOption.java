@@ -41,7 +41,7 @@ public class DBReservationOption implements Serializable
     
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, updatable=false, insertable=false)
     @ManyToOne(optional = false)
-    private DBReservation idReservations;
+    private DBReservation Reservation;
 
     public DBReservationOption()
     {
@@ -105,14 +105,14 @@ public class DBReservationOption implements Serializable
         this.fulfilled = fulfilled;
     }
 
-    public DBReservation getIdReservations()
+    public DBReservation getReservation()
     {
-        return idReservations;
+        return Reservation;
     }
 
-    public void setIdReservations(DBReservation idReservations)
+    public void setReservation(DBReservation idReservations)
     {
-        this.idReservations = idReservations;
+        this.Reservation = idReservations;
     }
 
     @Override

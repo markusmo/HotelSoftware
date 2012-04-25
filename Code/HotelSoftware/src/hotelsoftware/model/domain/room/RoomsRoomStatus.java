@@ -16,10 +16,23 @@ public class RoomsRoomStatus
     private Date end;
     protected RoomsRoomStatusPK roomsroomstatusPK;
     private RoomStatus roomstatus;
+    private Room room;
 
     public RoomsRoomStatus()
     {
     }
+
+    public Room getRoom()
+    {
+        return room;
+    }
+
+    public void setRoom(Room room)
+    {
+        this.room = room;
+    }
+    
+    
 
     public RoomsRoomStatusPK getRoomsroomstatusPK()
     {

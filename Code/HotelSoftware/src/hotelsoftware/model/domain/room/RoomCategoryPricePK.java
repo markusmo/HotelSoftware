@@ -6,7 +6,7 @@ package hotelsoftware.model.domain.room;
  */
 public class RoomCategoryPricePK
 {
-    
+    //primary keys for categorie and season
     private Integer idRoomCategories;    
     private Integer idSeasons;
 

@@ -19,10 +19,23 @@ public class ReservationOption implements ReservationOptionData
     private BigDecimal prepayment;
     private boolean fulfilled;
     private Integer id;
+    private Reservation reservation;
 
     private ReservationOption()
     {
     }
+
+    public Reservation getReservation()
+    {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation)
+    {
+        this.reservation = reservation;
+    }
+    
+    
 
     public static ReservationOption newOption()
     {

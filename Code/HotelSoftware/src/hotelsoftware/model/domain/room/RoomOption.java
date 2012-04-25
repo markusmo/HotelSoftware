@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.domain.room.data.RoomOptionData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoomOption;
 import java.util.Collection;
