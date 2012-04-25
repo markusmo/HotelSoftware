@@ -9,6 +9,7 @@ import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class CheckInMain extends javax.swing.JPanel
 {
-    private Set<ReservationData> reservations;
+    private Collection<ReservationData> reservations;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
 
     private Object[][] getTableModel()
@@ -31,7 +32,7 @@ public class CheckInMain extends javax.swing.JPanel
         {
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", null, ((GuestData)data.getPartyData()).getLname(), ((GuestData)data.getPartyData()).getFname(), df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
+                data.getReservationNumber() + "", null, ((GuestData) data.getPartyData()).getLname(), ((GuestData) data.getPartyData()).getFname(), df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
             };
         }
         return value;
@@ -42,10 +43,15 @@ public class CheckInMain extends javax.swing.JPanel
      */
     public CheckInMain()
     {
-        //reservations.to
+        reservations = cigc.getAllReservations();
         initComponents();
+        setTable();
+    }
+
+    private void setTable()
+    {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]
+                (reservations == null ? new Object[][]
                 {
                     {
                         null, null, null, null, null, null, null
@@ -56,7 +62,7 @@ public class CheckInMain extends javax.swing.JPanel
                     {
                         null, null, null, null, null, null, null
                     }
-                },
+                } : getTableModel()),
                 new String[]
                 {
                     "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
@@ -366,7 +372,7 @@ public class CheckInMain extends javax.swing.JPanel
         //Select Button
         cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
         cigc.getContentpane().add(new CheckinTwo(), BorderLayout.CENTER);
-        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+        ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -376,27 +382,7 @@ public class CheckInMain extends javax.swing.JPanel
         try
         {
             reservations = (Set<ReservationData>) cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
-            if (reservations != null)
-            {
-                jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                        getTableModel(),
-                        new String[]
-                        {
-                            "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
-                        })
-                {
-                    boolean[] canEdit = new boolean[]
-                    {
-                        false, false, false, false, false, false, false
-                    };
-
-                    @Override
-                    public boolean isCellEditable(int rowIndex, int columnIndex)
-                    {
-                        return canEdit[columnIndex];
-                    }
-                });
-            }
+            setTable();
         }
         catch (InvalidInputException ex)
         {
@@ -424,4 +410,6 @@ public class CheckInMain extends javax.swing.JPanel
     private javax.swing.JTextField textBoxLname;
     private javax.swing.JTextField textBoxReservationNumber;
     // End of variables declaration//GEN-END:variables
+
+   
 }

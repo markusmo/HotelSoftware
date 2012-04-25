@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.room;
+package hotelsoftware.model.domain.room.data;
 
 /**
  *

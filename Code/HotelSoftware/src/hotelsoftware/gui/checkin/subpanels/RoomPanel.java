@@ -18,6 +18,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  * Dieses Panel ist dazu da, um einen Gast zu einem Raum einer Kategorie zuzuweisen.
+ *
  * @author Johannes
  */
 public class RoomPanel extends javax.swing.JPanel
@@ -37,7 +38,18 @@ public class RoomPanel extends javax.swing.JPanel
         init();
     }
     int i;
-
+    
+    private void updateComboBoxRooms(String string)
+    {
+        System.out.println(string);
+        ComboBoxFreeRooms.removeAllItems();
+        RoomCategoryData cd = cigc.getCategories().toArray(new RoomCategoryData[0])[ComboBoxCategories.getSelectedIndex()];
+        for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
+        {
+            ComboBoxFreeRooms.addItem(data.getNumber());
+        }
+    }
+    
     private void init()
     {
         //############# DropDowns
@@ -46,22 +58,12 @@ public class RoomPanel extends javax.swing.JPanel
         {
             ComboBoxCategories.addItem(data.getName());
         }
+        updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem());
         ComboBoxCategories.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 updateComboBoxRooms((String) ComboBoxCategories.getSelectedItem());
-            }
-
-            private void updateComboBoxRooms(String string)
-            {
-                System.out.println(string);
-                ComboBoxFreeRooms.removeAll();
-                RoomCategoryData cd = cigc.getCategories().toArray(new RoomCategoryData[0])[ComboBoxCategories.getSelectedIndex()];
-                for (RoomData data : cigc.changeRoomCategory(roomIndex, cd))
-                {
-                    ComboBoxFreeRooms.addItem(data.getNumber());
-                }
             }
         });
 
@@ -75,19 +77,19 @@ public class RoomPanel extends javax.swing.JPanel
         TabbedPaneGuests.add("", pPanel);
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
                 new ButtonTabComponentPlus(TabbedPaneGuests, GuestPanel.class, "Guest"));
-
+        
     }
-
+    
     public int getRoomIndex()
     {
         return roomIndex;
     }
-
+    
     public void setTabIcon(ImageIcon icon)
     {
         this.iconTab.setImagePanel(icon);
     }
-
+    
     public void setRoomIndex(int roomIndex)
     {
         this.roomIndex = roomIndex;
@@ -150,4 +152,7 @@ public class RoomPanel extends javax.swing.JPanel
     {
         this.iconTab = tabComponent;
     }
+    
+    
+   
 }

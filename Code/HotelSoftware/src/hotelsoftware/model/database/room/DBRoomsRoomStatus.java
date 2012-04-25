@@ -35,7 +35,7 @@ public class DBRoomsRoomStatus implements Serializable
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(fetch= FetchType.LAZY)
-    private DBRoom rooms;
+    private DBRoom room;
 
     public DBRoomsRoomStatus()
     {
@@ -78,14 +78,14 @@ public class DBRoomsRoomStatus implements Serializable
         this.roomstatus = roomstatus;
     }
 
-    public DBRoom getRooms()
+    public DBRoom getRoom()
     {
-        return rooms;
+        return room;
     }
 
-    public void setRooms(DBRoom rooms)
+    public void setRoom(DBRoom rooms)
     {
-        this.rooms = rooms;
+        this.room = rooms;
     }
 
     @Override
