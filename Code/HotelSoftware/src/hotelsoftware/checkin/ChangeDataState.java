@@ -7,6 +7,7 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.Room;
@@ -78,6 +79,12 @@ public abstract class ChangeDataState extends CheckInState
         roomSelections.put(counter++, new RoomSelection(new RoomCategory(), new Room()));
 
         return counter;
+    }
+    
+    @Override
+    public Collection<CountryData> getAllCountries()
+    {
+        return new HelperFunctions<CountryData, Country>().castCollectionUp(Country.getAllCountries());
     }
 
     @Override

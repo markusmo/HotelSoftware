@@ -128,7 +128,7 @@ public class PartySaver
      * @param privateCustomers privatkunden
      * @param guests gäste
      */
-    public void rollback(Set<Address> addresses,
+    /*public void rollback(Set<Address> addresses,
             Set<CompanyType> companytypes, Set<Company> companys,
             Set<PrivateCustomer> privateCustomers,
             Set<Guest> guests)
@@ -169,7 +169,7 @@ public class PartySaver
                         companyType.getId())).uniqueResult();
 
                 CompanyType temp = (CompanyType) DynamicMapper.map(dbct);
-                companyType.setTyp(temp.getTyp());
+                companyType.setName(temp.getName());
             }
         }
 
@@ -231,5 +231,5 @@ public class PartySaver
             }
         }
 
-    }
+    }*/
 }

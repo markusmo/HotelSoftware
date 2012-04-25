@@ -16,7 +16,7 @@ public class Address implements AddressData
     private String email;
     private String phone;
     private String fax;
-    private String idCountry;
+    private Country idCountry;
 
     /**
      * Instanziert eine neue Adresse
@@ -39,17 +39,17 @@ public class Address implements AddressData
      * Eine neue Adresse
      */
     public static Address create(String street, String city, String zip,
-            String email, String phone, String fax, String country)
+            String email, String phone, String fax, Country country)
     {
         return new Address(street, city, zip, email, phone, fax, country);
     }
 
-    Address()
+    public Address()
     {
     }
 
     private Address(String street, String city, String zip, String email,
-            String phone, String fax, String country)
+            String phone, String fax, Country country)
     {
 
         this.street = street;
@@ -129,12 +129,12 @@ public class Address implements AddressData
     }
 
     @Override
-    public String getIdCountry()
+    public Country getIdCountry()
     {
         return idCountry;
     }
 
-    public void setIdCountry(String country)
+    public void setIdCountry(Country country)
     {
         this.idCountry = country;
     }

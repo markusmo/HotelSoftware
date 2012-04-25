@@ -3,6 +3,7 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.parties.data.AddressData;
+import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
@@ -245,6 +246,11 @@ public abstract class CheckInState
     }
 
     public Collection<ExtraServiceData> getAllHabitationServices()
+    {
+        throw new IllegalStateException();
+    }
+
+    public Collection<CountryData> getAllCountries()
     {
         throw new IllegalStateException();
     }

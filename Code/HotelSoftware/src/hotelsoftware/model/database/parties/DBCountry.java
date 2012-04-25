@@ -1,7 +1,10 @@
 package hotelsoftware.model.database.parties;
 
+import hotelsoftware.model.database.reservation.DBReservation;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,6 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *Dies ist die Klasse für die Tabelle "countries". Hier werden alle Laender gespeichert.
@@ -139,4 +145,16 @@ public class DBCountry implements Serializable
         this.dBAddressCollection = dBAddressCollection;
     }
     
+    public static Collection<DBCountry> getAllCountries()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "SELECT * FROM countries c";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        sqlquery.addEntity(DBCountry.class);
+
+        return sqlquery.list();
+    }
 }

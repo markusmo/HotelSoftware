@@ -4,11 +4,14 @@
  */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.parties.data.CountryData;
+import java.util.Collection;
+
 /**
  *
  * @author Dunst
  */
-public class Country
+public class Country implements CountryData
 {
     private Integer id;
     private String name;
@@ -31,5 +34,10 @@ public class Country
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    public static Collection<Country> getAllCountries()
+    {
+        return PartyFacade.getInstance().getAllCountries();
     }
 }

@@ -4,7 +4,10 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
+import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
@@ -140,8 +143,18 @@ public class CheckInController
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
+    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, 
+            String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
+        Address address = new Address();
+        address.setStreet(street);
+        address.setCity(city);
+        address.setZip(zip);
+        address.setEmail(email);
+        address.setPhone(phone);
+        address.setFax(fax);
+        address.setIdCountry((Country)country);
+        
         return state.addGuest(firstName, lastName, gender, birthday, address);
     }
     
@@ -158,6 +171,11 @@ public class CheckInController
     public RoomData getRoomData(int selectionIndex)
     {
         return state.getRoomData(selectionIndex);
+    }
+    
+    public Collection<CountryData> getAllCountries()
+    {
+        return state.getAllCountries();
     }
     
     /**

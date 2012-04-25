@@ -1,10 +1,7 @@
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.parties.DBCompany;
-import hotelsoftware.model.database.parties.DBCompanyType;
-import hotelsoftware.model.database.parties.DBGuest;
-import hotelsoftware.model.database.parties.DBPrivateCustomer;
+import hotelsoftware.model.database.parties.*;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.util.Collection;
@@ -25,6 +22,11 @@ public class PartyFacade
     public static PartyFacade getInstance()
     {
         return PartyFacadeHolder.INSTANCE;
+    }
+
+    public Collection<Country> getAllCountries()
+    {
+        return DynamicMapper.mapCollection(DBCountry.getAllCountries());
     }
 
     private static class PartyFacadeHolder
