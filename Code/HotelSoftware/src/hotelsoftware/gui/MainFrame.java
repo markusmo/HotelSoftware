@@ -29,11 +29,11 @@ public class MainFrame extends javax.swing.JFrame
     public MainFrame()
     {
         initComponents();
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        /*GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState()
                 | JFrame.MAXIMIZED_BOTH);
-        this.setMinimumSize(env.getMaximumWindowBounds().getSize());
+        this.setMinimumSize(env.getMaximumWindowBounds().getSize());*/
     }
 
     /**
