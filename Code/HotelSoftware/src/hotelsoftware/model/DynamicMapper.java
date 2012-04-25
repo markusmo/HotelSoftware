@@ -1,10 +1,13 @@
 package hotelsoftware.model;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -133,6 +136,48 @@ public class DynamicMapper
         }
 
         return null;
+    }
+
+    public static <T> T mapTwoObjects(T mappingObject, T mapToObject)
+    {
+        for (Method setterMethod : mapToObject.getClass().getMethods())
+        {
+            if (setterMethod.getName().startsWith("set"))
+            {
+                Method getterMethodNewLevel = getMethod(setterMethod, mapToObject);
+
+                if (getterMethodNewLevel != null)
+                {
+                    try
+                    {
+                        Method getterMethodCurrentLevel = getMethod(setterMethod, mapToObject);
+
+                        if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(mapToObject) == null)
+                        {
+                            setterMethod.invoke(mapToObject, getterMethodNewLevel.invoke(mappingObject));
+                        }
+
+                    }
+                    catch (IllegalAccessException ex)
+                    {
+                        Logger.getLogger(DynamicMapper.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                    catch (IllegalArgumentException ex)
+                    {
+                        Logger.getLogger(DynamicMapper.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                    catch (InvocationTargetException ex)
+                    {
+                        Logger.getLogger(DynamicMapper.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                }
+            }
+        }
+        
+        return mapToObject;
     }
 
     /**

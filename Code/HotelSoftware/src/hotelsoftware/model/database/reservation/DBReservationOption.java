@@ -39,7 +39,7 @@ public class DBReservationOption implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private boolean fulfilled;
     
-    @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, updatable=false, insertable=false)
     @ManyToOne(optional = false)
     private DBReservation idReservations;
 

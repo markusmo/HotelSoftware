@@ -31,6 +31,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * Diese Klasse bildet eine Reservierung auf der Datenbank ab.
+ *
  * @author mohi
  */
 @Entity
@@ -50,31 +51,40 @@ public class DBReservation implements Serializable
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "reservationNumber", nullable = false, length = 255)
     private String reservationNumber;
+    
     @Basic(optional = false)
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startDate;
+    
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    
     @Column(name = "comment", length = 255)
     private String comment;
-    @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
+    
+    @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false, updatable=false, insertable=false)
     @ManyToOne(optional = false)
     private DBParty party;
+    
     @Basic(optional = false)
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    @JoinColumn(name = "idUsers", referencedColumnName = "id")
+    
+    @JoinColumn(name = "idUsers", referencedColumnName = "id", updatable=false, insertable=false)
     @ManyToOne(optional = false)
     private DBUser idUsers;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservations")
     private Set<DBReservationItem> reservationItems;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReservations")
     private Set<DBReservationOption> reservationOptions;
 
@@ -104,11 +114,12 @@ public class DBReservation implements Serializable
     /**
      * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
      * Abfrage naehert sich an den namen an.
+     *
      * @param fname
      * Der Vorname der Person, die reserviert hat
      * @param lname
      * Der Nachname einer Person, die reserviert hat
-     * @return 
+     * @return
      * Gibt eine Set aus Reservierungen aus
      */
     public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
@@ -134,11 +145,12 @@ public class DBReservation implements Serializable
 
     /**
      * Gibt ein Reservierungen aus, die nach genauen Namen eienr Person gesucht werden, der reserviert hat
+     *
      * @param fname
      * Der Vorname der Person
      * @param lname
      * Der Nachname der Person
-     * @return 
+     * @return
      * Ein Set aus Reservierungen
      */
     public static Collection<DBReservation> getReservationsByName(String fname, String lname)
@@ -148,7 +160,6 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        System.out.println(lname + "  " + fname);
         String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
@@ -164,9 +175,10 @@ public class DBReservation implements Serializable
 
     /**
      * Gibt eine Reservierung aus, die nach der eindeutigen Reservierungsnummer identifiziert wird.
+     *
      * @param reservationNr
      * Die eindeutige Reservierungsnummer
-     * @return 
+     * @return
      * Eine Reservierung, mit der angegebenen Reservierungsnummer
      */
     public static DBReservation getReservationByNumber(int reservationNr)
@@ -186,9 +198,10 @@ public class DBReservation implements Serializable
 
     /**
      * Sucht eine Reservierung nach der in der Datenbank hinterlegten ID
+     *
      * @param id
      * Die ID der Reservierung
-     * @return 
+     * @return
      * Die Reservierung, mit der angegebenen ID
      */
     public static DBReservation getReservationById(int id)
@@ -208,7 +221,8 @@ public class DBReservation implements Serializable
 
     /**
      * Gibt alle Reservierungen aus
-     * @return 
+     *
+     * @return
      * Alle Reservierungen, ab den aktuellen Datum verfuebar sind
      */
     public static Collection<DBReservation> getAllReservations()
@@ -217,16 +231,19 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        List<DBReservation> retList = session.createCriteria(DBReservation.class).add(Restrictions.gt("start", new Date())).list();
+        String query = "SELECT * FROM Reservations r";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        sqlquery.addEntity(DBReservation.class);
         //TODO
         //session.close();
 
-        return new LinkedHashSet<DBReservation>(retList);
+        return new LinkedHashSet<DBReservation>(sqlquery.list());
     }
 
     /**
      * Gibt die Anzahl der Gaeste aus die Reserviert haben
-     * @return 
+     *
+     * @return
      * Anzahl der reservierten Gaeste
      */
     public int getGuestAmount()

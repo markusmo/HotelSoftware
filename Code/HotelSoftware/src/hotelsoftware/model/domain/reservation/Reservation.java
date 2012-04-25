@@ -149,17 +149,17 @@ public class Reservation implements ReservationData
         return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
 
-    public static Set<Reservation> getReservationsByName(String firstName, String lastName)
+    public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByName(firstName, lastName);
     }
 
-    public static Set<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+    public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByNameApprox(firstName, lastName);
     }
 
-    public static Set<Reservation> getAllReservations()
+    public static Collection<Reservation> getAllReservations()
     {
         return ReservationFacade.getInstance().getAllReservations();
     }

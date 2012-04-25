@@ -33,13 +33,13 @@ public class ReservationFacade
         private static final ReservationFacade INSTANCE = new ReservationFacade();
     }
     
-    public Set<Reservation> getReservationsByName(String fname, String lname)
+    public Collection<Reservation> getReservationsByName(String fname, String lname)
     {
-        return (Set<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByName(fname, lname));
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByName(fname, lname));
     }
-    public Set<Reservation> getReservationsByNameApprox(String fname, String lname)
+    public Collection<Reservation> getReservationsByNameApprox(String fname, String lname)
     {
-        return (Set<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByNameApprox(fname, lname));
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByNameApprox(fname, lname));
     }
     
     public Reservation getReservationById(int id)
@@ -47,9 +47,9 @@ public class ReservationFacade
         return (Reservation) DynamicMapper.map(DBReservation.getReservationById(id));
     }
     
-    public Set<Reservation> getAllReservations()
+    public Collection<Reservation> getAllReservations()
     {
-        return (Set<Reservation>) DynamicMapper.map(DBReservation.getAllReservations());
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getAllReservations());
     }
     
     public Integer getGuestAmount(Reservation reservation)

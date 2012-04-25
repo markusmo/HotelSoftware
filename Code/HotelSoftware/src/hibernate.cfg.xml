@@ -7,6 +7,7 @@
     <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer</property>
     <property name="hibernate.connection.username">hotel</property>
     <property name="hibernate.connection.password">R00m4n153r</property>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoice"/>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItem"/>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItemPK"/>

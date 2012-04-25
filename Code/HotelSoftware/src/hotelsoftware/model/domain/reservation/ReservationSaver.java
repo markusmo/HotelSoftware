@@ -37,7 +37,8 @@ public class ReservationSaver
         private static final ReservationSaver INSTANCE = new ReservationSaver();
     }
 
-    public void saveOrUpdate(Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Collection<Reservation> reservations, Collection<ReservationOption> options, 
+            Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         Session session = null;
         Transaction ts = null;
@@ -65,18 +66,22 @@ public class ReservationSaver
         {
             if (session != null)
             {
-                session.close();
+               // session.close();
             }
         }
 
     }
 
-    public void saveOrUpdate(Session session, Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Collection<Reservation> reservations, Collection<ReservationOption> options, 
+            Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {
         for (Reservation reservation : reservations)
         {
+            DBReservation dbpp = DBReservation.getReservationById(reservation.getId());
             DBReservation dbp = (DBReservation) DynamicMapper.map(reservation);
 
+            dbp = DynamicMapper.mapTwoObjects(dbpp, dbp);
+            
             session.saveOrUpdate(dbp);
             reservation.setId(dbp.getId());
         }
