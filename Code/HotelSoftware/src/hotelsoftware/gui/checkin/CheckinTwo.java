@@ -36,6 +36,7 @@ public class CheckinTwo extends javax.swing.JPanel
     public CheckinTwo()
     {
         initComponents();
+        ButtonCheckIn.setEnabled(true);
         init();
     }
     int i;
@@ -112,7 +113,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        ButtonCheckIn = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -129,8 +130,13 @@ public class CheckinTwo extends javax.swing.JPanel
         TabbedPaneRooms = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
 
-        jButton3.setText("Check In");
-        jButton3.setEnabled(false);
+        ButtonCheckIn.setText("Check In");
+        ButtonCheckIn.setEnabled(false);
+        ButtonCheckIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCheckInActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Abort");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +263,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(ButtonCheckIn)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,7 +284,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addComponent(TabbedPaneRooms, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(ButtonCheckIn)
                     .addComponent(jButton1)
                     .addComponent(jButton4))
                 .addContainerGap())
@@ -292,7 +298,7 @@ public class CheckinTwo extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -337,10 +343,16 @@ public class CheckinTwo extends javax.swing.JPanel
                 
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
+    {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
+            // TODO add your handling code here:
+        doTheCheckIn();
+    }//GEN-LAST:event_ButtonCheckInActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCheckIn;
     private javax.swing.JTabbedPane TabbedPaneRooms;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -377,5 +389,10 @@ public class CheckinTwo extends javax.swing.JPanel
         {
             em.close();
         }
+    }
+
+    private void doTheCheckIn()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
