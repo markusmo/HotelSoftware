@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.domain.service.data.HabitationData;
@@ -21,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- *
+ * Dies Klasse bildet einen Aufenthalt ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Habitation extends Service implements HabitationData
@@ -57,10 +53,25 @@ public class Habitation extends Service implements HabitationData
         this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
     
+    /**
+     * Instanziert einen Aufenthalt fuer eine Periode (fuer Walk-In)
+     * @param start
+     * Start der Periode
+     * @param end
+     * Ende der Periode
+     * @return 
+     */
     public static Habitation createHabitation(Date start, Date end){
         return new Habitation(start, end);
     }
     
+    /**
+     * Instanziert einen Aufenthalt mit einer vorhandenen Reservierung
+     * @param reservation
+     * Die Reservierung, aus der ein Aufenthalt werden sollte.
+     * @return 
+     * Eine neue Instanz
+     */
     public static Habitation createWithReservationData(Reservation reservation){
         Habitation habitation = new Habitation();
         habitation.setStart(reservation.getStartDate());
@@ -206,6 +217,10 @@ public class Habitation extends Service implements HabitationData
         guests.add(guest);
     }
 
+    /**
+     * not implemented
+     * @return 
+     */
     public Collection<GuestData> getGuestsCollectionData()
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -220,7 +235,7 @@ public class Habitation extends Service implements HabitationData
     {
         return (UserData) getUsers();
     }
-
+    
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());

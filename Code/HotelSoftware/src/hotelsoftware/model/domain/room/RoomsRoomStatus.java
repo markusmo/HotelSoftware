@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import java.io.Serializable;
@@ -10,25 +6,20 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Bildet den Status eines Zimmer auf einen Zeitraum ab.
  * @author Dunst
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 public class RoomsRoomStatus 
 {
     private Date start;
     private Date end;
-    private static final long serialVersionUID = 1L;
     protected RoomsRoomStatusPK roomsroomstatusPK;
     private RoomStatus roomstatus;
 
     public RoomsRoomStatus()
     {
     }
-
 
     public RoomsRoomStatusPK getRoomsroomstatusPK()
     {

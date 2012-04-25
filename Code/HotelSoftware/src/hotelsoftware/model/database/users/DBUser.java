@@ -158,10 +158,9 @@ public class DBUser implements Serializable
     }
     
     /**
-     * establishes a connection to the database and retrieves all users
-     * available in the database
+     * Gibt alle Benutzer in dem System aus
      * @return
-     * a list of usersc
+     * eine Liste aller User, die verfuegbar sind
      * @throws HibernateException 
      */
     public static List<DBUser> getUsers() throws HibernateException
@@ -176,38 +175,17 @@ public class DBUser implements Serializable
         return retList;
     }
     
-     /**
-     * establishes a connection to the database and creates a new user
-     * in the database
-     * @param username
-     * the new user to be created
-     * @throws HibernateException
-     * @throws FailedToSaveToDatabaseException 
-     */
-    public static void saveUsers(DBUser users) throws FailedToSaveToDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            session.save(users);
-            ts.commit();
-        } catch (HibernateException e)
-        {
-            ts.rollback();
-            throw new FailedToSaveToDatabaseException();
-        } finally
-        {
-            session.close();
-        }
-    }
-    
     /**
-     * Communicates with the database and returns a user with the specified name
+     * Ueberprueft, ob ein User mit dem Passwort(MD5-Hash) und Usernamen in der
+     * Datenbank ist und gibt diesen zurueck
      * @param username
-     * @return Users-Object
+     * Der Benutzername, des gesuchten Benutzers
+     * @param password
+     * Das MD5-gehashte Passwort, des gesuchten Benutzers
+     * @return
+     * Den  Benutzer, der eingeloggt werden sollte
      * @throws HibernateException 
+     * Wirft einen Fehler, wenn etwas mit der Transaktion fehllschlaegt.
      */
     public static DBUser login(String username, String password) throws HibernateException
     {

@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.users;
 
 import hotelsoftware.model.domain.users.data.PermissionData;
-import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.database.users.DBPermission;
 import java.util.Collection;
-import java.util.Set;
-import org.hibernate.HibernateException;
 
 /**
- *
+ * Stellt eine Befungnis (veraendern von Daten, erstellen von Reservierugen, etc.)
+ * dar, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Permission implements PermissionData
@@ -54,15 +46,22 @@ public class Permission implements PermissionData
         this.name = name;
     }
 
+    /**
+     * Instanziert eine neue Befungnis mit einem Namen
+     * @param name
+     * Name der Befugnis
+     * @return 
+     * eine neue Instanz.
+     */
     public static Permission create(String name)
     {
         return new Permission(name);
     }
 
     /**
-     * Communicates with the model and creates a linked list of permission
+     * Gibt alle Befugnisse aus
      * @return 
-     * a linked list of permissions on domain-level
+     * Alle Befugnisse, die vorhanden sind.
      */
     public static Collection<Permission> getAllPermissions()
     {
@@ -70,52 +69,14 @@ public class Permission implements PermissionData
     }
 
     /**
-     * Communicates with the model and retrieves a single permission on domain
-     * level by name
+     * Gibt eine Befugnis gesucht nach Namen aus
      * @param name
-     * the name of the permission
+     * Der Name der Befugnis
      * @return
-     * a domain level permission
+     * Die gesuchte Befugnis
      */
     public static Permission getPermissionByName(String name) throws PermissionNotFoundException
     {
         return UserFacade.getInstance().getPermissionByName(name);
     }
-
-    /**
-     * Calls the model and creates a new permission in the database
-     * @param permission 
-     * the name of the new permission
-     */
-    public static void savePermission(String permission)
-    {
-        try
-        {
-            DBPermission.savePermission(permission);
-        } catch (HibernateException ex)
-        {
-            //connection faild
-        } catch (FailedToSaveToDatabaseException ex)
-        {
-            //saving failed
-        }
-    }
-    
-    /**
-     * Calls the model and deletes the permission in the database
-     * @param permission 
-     * the name of the permission
-     */
-    public static void deletePermission(String permission)
-    {
-        try
-        {
-            DBPermission.deletePermission(permission);
-        } catch (FaildToDeleteFromDatabaseException ex)
-        {
-            //deleting failed
-        }
-    }
-    
-    
 }

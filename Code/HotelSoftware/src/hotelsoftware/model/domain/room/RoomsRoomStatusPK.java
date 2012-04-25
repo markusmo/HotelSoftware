@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.database.room.DBRoomsRoomStatusPK;
@@ -9,7 +5,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 
 /**
- *
+ * Identifiziert einen Zimmerstatus auf einen Zeitraum eindeutig ab.
  * @author Dunst
  */
 public class RoomsRoomStatusPK

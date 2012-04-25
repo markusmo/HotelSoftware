@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.domain.room.data.RoomStatusData;
 
 /**
- *
+ * Diese Klasse bildte alle Zimmerstauts ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class RoomStatus implements RoomStatusData

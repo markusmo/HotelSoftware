@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
@@ -17,10 +13,13 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
+ * Bildet ein Zimmer ab, mit dem das System arbeitet.
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Room implements RoomData
 {
+
     private String number;
     private Collection<RoomOption> options;
     private RoomCategory category;
@@ -52,7 +51,7 @@ public class Room implements RoomData
     {
         this.id = id;
     }
-    
+
     public RoomCategory getCategory()
     {
         return category;
@@ -62,17 +61,13 @@ public class Room implements RoomData
     {
         this.category = category;
     }
-/*
-    public Collection<Habitation> getHabitations()
-    {
-        return habitations;
-    }
+    /*
+     * public Collection<Habitation> getHabitations() { return habitations; }
+     *
+     * public void setHabitations(Collection<Habitation> habitations) {
+     * this.habitations = habitations; }
+     */
 
-    public void setHabitations(Collection<Habitation> habitations)
-    {
-        this.habitations = habitations;
-    }
-*/
     @Override
     public String getNumber()
     {
@@ -118,23 +113,38 @@ public class Room implements RoomData
 
     public Collection<RoomOptionData> getOptionsData()
     {
-        return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(getOptions());
+        return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(
+                getOptions());
     }
 
     public Collection<RoomStatusData> getStatusData()
     {
-        return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(getStatus());
+        return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(
+                getStatus());
     }
 
+    /**
+     * Gibt ein Zimmer nach der Zimmernummer aus
+     *
+     * @param number Die gewuenschte Zimmernummer
+     * @return Das Zimmer mit der gesuchten Zimmernummer
+     */
     public static Room getRoomByNumber(String number)
     {
         return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
     }
 
+    /**
+     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
+     *
+     * @param category Die Kategorie nach der gesucht wird
+     * @return Alle Zimmer nach dieser Kategorie
+     */
     public static Collection<Room> getRoomsByCategory(RoomCategory category)
     {
         DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(cat));
+        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(
+                cat));
     }
 
     public void changeStatus(RoomStatus status)

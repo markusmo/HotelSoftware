@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.domain.invoice.Invoice;
@@ -13,7 +9,6 @@ import java.util.LinkedHashSet;
 /**
  * Diese Klasse erbt von Customer, da sie für Zimmer/Dienstleistungen bezahlt. Hierbei handelt es sich um eine Firma mit einem Namen und einem Typ.
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class Company extends Customer implements CompanyData
 {
@@ -21,6 +16,19 @@ public class Company extends Customer implements CompanyData
     private CompanyType type;
     private Collection<Party> contactPersons;
 
+    /**
+     * Instanziert eine neue Firma/Reisebuero, abgebildet als Kunde, fuer das System
+     * @param name
+     * Der Name der Firma/Reisebuero
+     * @param typ
+     * Die Art der Firma (Reisebuero, Firma)
+     * @param address
+     * Die Adresse der Firma
+     * @param invoiceAddress
+     * Die Rechungsadresse, der Firma
+     * @return
+     * Eine neue Instanz der Klasse
+     */
     public static Company create(String name, CompanyType typ, Address address,
             Address invoiceAddress)
     {
@@ -106,16 +114,19 @@ public class Company extends Customer implements CompanyData
         return (CompanyTypeData) getType();
     }
 
+    @Override
     public AddressData getAddressData()
     {
         return (AddressData) getAddress();
     }
 
+    @Override
     public AddressData getInvoiceAddressData()
     {
         return (AddressData) getInvoiceAddress();
     }
 
+    @Override
     public Collection<InvoiceData> getInvoicesData()
     {
         return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(getInvoices());

@@ -13,9 +13,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 
+ * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author mohi
  */
 public class Invoice implements InvoiceData
 {
@@ -34,6 +33,23 @@ public class Invoice implements InvoiceData
     {
     }
 
+    /**
+     * Zum Instanzieren einer neuen Rechung.
+     * @param invoiceNr
+     * Die Rechnunsnummer, muss eindeutig sein
+     * @param discount
+     * Der Rabatt auf die Rechung
+     * @param expiration
+     * Das Auslaufsdatum
+     * @param fulfilled
+     * Ob die Rechnung schon gezahlt wurde, oder nicht
+     * @param paymentmethod
+     * Die Zahlungsmethode
+     * @param customer
+     * Der Kunde, der die Rechung zahlt
+     * @return 
+     * Eine Neue Rechung.
+     */
     public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, boolean fulfilled, PaymentMethod paymentmethod, Customer customer)
     {
         return new Invoice(invoiceNr, discount, expiration, fulfilled, paymentmethod, customer, LoginController.getInstance().getCurrentUser());

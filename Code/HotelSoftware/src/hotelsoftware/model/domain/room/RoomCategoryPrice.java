@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import java.math.BigDecimal;
 
 /**
- *
+ * Mit dieser Klasse verwaltet das System die Zimmerkategoriepreise
  * @author Johannes
  */
 public class RoomCategoryPrice

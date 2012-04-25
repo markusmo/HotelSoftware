@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 /**
  * Klasse die die Attribute einer Addresse hällt. Hier werden alle Kontaktdaten einer Party (Gruppierung oder Person) gehalten.
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class Address implements AddressData {
 
@@ -20,6 +15,25 @@ public class Address implements AddressData {
 	private String fax;
 	private String idCountry;
 
+        /**
+         * Instanziert eine neue Adresse
+         * @param street
+         * Die Strasse zu dieser Adresse
+         * @param city
+         * Die Stadt zu dieser Adresse
+         * @param zip
+         * Die Postleitzahl zu dieser Adresse
+         * @param email
+         * Die Email, zugehoerig zu dieser Adresse
+         * @param phone
+         * Der Telefonanschluss zu dieser Adresse
+         * @param fax
+         * Der Faxanschluss zu dieser Adresse
+         * @param country
+         * Das Land, in dem diese Adresse zu finden ist
+         * @return 
+         * Eine neue Adresse
+         */
 	public static Address create(String street, String city, String zip,
 			String email, String phone, String fax, String country) {
 		return new Address(street, city, zip, email, phone, fax, country);

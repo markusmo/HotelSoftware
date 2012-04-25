@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
@@ -16,13 +12,19 @@ import java.util.Set;
  * Klasse die die Typen einer Firma enthällt. Mithife dieser Klasse unterscheiden sich Firmen von Reisebüros.
  *
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class CompanyType implements CompanyTypeData
 {
     private Integer id;
     private String typ;
 
+    /**
+     * Instanziert einen neuen Firmen-Typ (z.B. GMBH, Reisebuero, etc.)
+     * @param typ
+     * Der Typ der Firma
+     * @return 
+     * Eine neue Instanz des Firmentyps
+     */
     public CompanyType create(String typ)
     {
         return new CompanyType(typ);
@@ -62,7 +64,6 @@ public class CompanyType implements CompanyTypeData
      *
      * @return Kollektion aus Firmentypen
      */
-    @SuppressWarnings("unchecked")
     public static Set<CompanyType> getAllTypes()
     {
         Set<DBCompanyType> dbct = DBCompanyType.getAllTypes();

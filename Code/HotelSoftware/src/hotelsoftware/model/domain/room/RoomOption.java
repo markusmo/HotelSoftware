@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
@@ -10,9 +6,8 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- *
+ * Diese Klasse bildet die Zimmeroptionen (Raucher, Seeblick, usw.) ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class RoomOption implements RoomOptionData
 {
@@ -58,6 +53,11 @@ public class RoomOption implements RoomOptionData
         }
     }
 
+    /**
+     * Gibt alle Zimmeroptionen aus
+     * @return 
+     * Alle Zimmeroptionen, die verfuegbar sind.
+     */
     public static Set<RoomOption> getRoomOptions()
     {
         Set<DBRoomOption> dbro = DBRoomOption.getRoomOptions();

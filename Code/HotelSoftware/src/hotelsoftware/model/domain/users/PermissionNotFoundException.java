@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.users;
 
 /**
- *
+ * Wird geworfen, wenn eine Befugnis nicht gefunden wurde.
  * @author Dunst
  */
 class PermissionNotFoundException extends Exception

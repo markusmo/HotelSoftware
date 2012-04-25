@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.room;
 
 /**
- *
+ * Diese Klasse identifiziert einen Zimmerkategoriepreis eindeutig.
  * @author Johannes
  */
 public class RoomCategoryPricePK

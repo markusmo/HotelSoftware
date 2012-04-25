@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.util;
 
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
- * Hibernate Utility class with a convenient method to get Session Factory object.
+ * Hibernate Utility Klasse, die eine Sessionfactory zurueck gibt
  *
  * @author mohi
  */

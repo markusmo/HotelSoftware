@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.parties;
 
 /**
  * Klasse die eine oder Mehrere Personen beschreibt. Sie ist abstrakt, da von ihr alle Kunden und auch die Gäste erben.
  *
  * @author Lins Christian (christian.lins87@gmail.com)
- * @author Hubert
  */
 public class Party implements PartyData
 {

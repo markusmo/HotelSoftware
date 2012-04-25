@@ -10,18 +10,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Diese Klasse mapt Objekte zwischen den Schichten
  *
  * @author Johannes
  */
 public class DynamicMapper
 {
+
     /**
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
      * @param urObject Das Objekt der Schicht von der gemappt werden soll
      *
      *
-     * Falls die Objekte nicht zueinander passen werden leere Objekte zurückgegeben
+     * Falls die Objekte nicht zueinander passen werden leere Objekte
+     * zurückgegeben
      *
      * Falls irgendein Fehler auftritt wird null zurückgegeben.
      *
@@ -42,31 +45,39 @@ public class DynamicMapper
         {
             try
             {
-                Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
+                Class newClass = Class.forName(convertClassName(
+                        urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
 
                 for (Method setterMethod : returnvalue.getClass().getMethods())
                 {
                     if (setterMethod.getName().startsWith("set"))
                     {
-                        Method getterMethodNewLevel = getMethod(setterMethod, urObject);
+                        Method getterMethodNewLevel = getMethod(setterMethod,
+                                urObject);
 
                         if (getterMethodNewLevel != null)
                         {
-                            Method getterMethodCurrentLevel = getMethod(setterMethod, returnvalue);
+                            Method getterMethodCurrentLevel = getMethod(
+                                    setterMethod, returnvalue);
 
-                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
+                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(
+                                    returnvalue) == null)
                             {
-                                if (getterMethodNewLevel.getReturnType().equals(Collection.class))
+                                if (getterMethodNewLevel.getReturnType().equals(
+                                        Collection.class))
                                 {
-                                    setterMethod.invoke(returnvalue, mapCollection((Collection) getterMethodNewLevel.invoke(urObject), counter - 1));
-                                }
-                                else
+                                    setterMethod.invoke(returnvalue,
+                                            mapCollection((Collection) getterMethodNewLevel.invoke(
+                                            urObject), counter - 1));
+                                } else
                                 {
-                                    Object o = getterMethodNewLevel.invoke(urObject);
+                                    Object o = getterMethodNewLevel.invoke(
+                                            urObject);
                                     if (o != null)
                                     {
-                                        if (o.getClass().getName().contains("hotelsoftware"))
+                                        if (o.getClass().getName().contains(
+                                                "hotelsoftware"))
                                         {
                                             o = map(o, counter - 1);
                                         }
@@ -79,8 +90,7 @@ public class DynamicMapper
                 }
 
                 return returnvalue;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
                 return null;
@@ -89,6 +99,13 @@ public class DynamicMapper
         return null;
     }
 
+    /**
+     * Konvertiert den vollwertigen (mit Package) Klassennamen nach Namenskonvention um
+     * @param name
+     * Vollwertiger Name der Klasse
+     * @return 
+     * Vollwertiger Name der Klasse in einem anderen Package
+     */
     private static String convertClassName(String name)
     {
         final String PRE = "DB";
@@ -99,19 +116,36 @@ public class DynamicMapper
 
         if (cls.startsWith(PRE))
         {
-            return pkg.replaceAll(".database.", ".domain.") + cls.substring(PRE.length());
-        }
-        else
+            return pkg.replaceAll(".database.", ".domain.") + cls.substring(
+                    PRE.length());
+        } else
         {
             return pkg.replaceAll(".domain.", ".database.") + PRE + cls;
         }
     }
 
+    /**
+     * Mappt Collections dynamisch
+     * @param urCollection
+     * die Collection die auf eine andere gemappt werden muss
+     * @return 
+     * eine neue Collection
+     */
     public static Collection mapCollection(Collection urCollection)
     {
         return mapCollection(urCollection, 10);
     }
 
+    /**
+     * Mappt Collections dynamisch um, atm noch mit Rekursiostiefe, da indirekte
+     * Rekursion auftreten kann
+     * @param urCollection
+     * Die Collection die gemappt werden muss
+     * @param counter
+     * Die Rekursionstiefe
+     * @return 
+     * eine neue Collection
+     */
     private static Collection mapCollection(Collection urCollection, int counter)
     {
         if (counter > 0)
@@ -128,8 +162,7 @@ public class DynamicMapper
                 }
 
                 return returnValue;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 return null;
             }
@@ -181,11 +214,14 @@ public class DynamicMapper
     }
 
     /**
-     * Überprüft ob die GetterMethode in einer Klasse vorhanden ist. Falls nicht return diese Methode null
+     * Überprüft ob die GetterMethode in einer Klasse vorhanden ist. Falls nicht
+     * return diese Methode null
      *
      * @param m die Settermethode der ausgehendern Klasse
-     * @param o das Objekt in deren Klasse die zu überprüfende Methode sein sollte.
+     * @param o das Objekt in deren Klasse die zu überprüfende Methode sein
+     * sollte.
      * @return
+     * Gibt den Methodennamen aus
      */
     private static <T> Method getMethod(Method m, T o)
     {
@@ -193,14 +229,12 @@ public class DynamicMapper
         try
         {
             m2 = o.getClass().getMethod(m.getName().replace("set", "get"));
-        }
-        catch (NoSuchMethodException e)
+        } catch (NoSuchMethodException e)
         {
             try
             {
                 m2 = o.getClass().getMethod(m.getName().replace("set", "is"));
-            }
-            catch (NoSuchMethodException e2)
+            } catch (NoSuchMethodException e2)
             {
                 // ignore
             }
@@ -208,15 +242,11 @@ public class DynamicMapper
         return m2;
     }
     /*
-     * public static void main(String args[])
-     * {
+     * public static void main(String args[]) {
      *
-     * Users users1 = new Users();
-     * users1.setPassword("Hallo Test");
-     * users1.setUsername("Chris");
-     * User s = User.createNewUser("", "");
-     * s = (User) map(users1, s.getClass());
-     * System.out.println(s.getPassword());
+     * Users users1 = new Users(); users1.setPassword("Hallo Test");
+     * users1.setUsername("Chris"); User s = User.createNewUser("", ""); s =
+     * (User) map(users1, s.getClass()); System.out.println(s.getPassword());
      * System.out.println(s.getUsername());
      *
      * }

@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
 
 /**
- *
+ * Ist die Fassadenklasse, die das Package Service verwaltet
  * @author Tobias
  */
 public class ServiceFacade
@@ -30,12 +24,26 @@ public class ServiceFacade
         private static final ServiceFacade INSTANCE = new ServiceFacade();
     }
 
+    /**
+     * Gibt alle Extraservices aus
+     * @return 
+     * Alle Extraservices, die vorhanden sind
+     */
     public Collection getAllExtraServices()
     {
-        return DynamicMapper.mapCollection(DBExtraService.getExtraServices());
+        return DynamicMapper.mapCollection(DBExtraService.getAllExtraServices());
     }
 
-    public ExtraService getExtraServiceByName(String name) throws javax.management.ServiceNotFoundException
+    /**
+     * Gibt einen Extraservice gesucht nach Namen aus
+     * @param name
+     * Der Name des Extraservice
+     * @return
+     * Der Extraservice mit dem angegebenen Namen
+     * @throws ServiceNotFoundException 
+     * Wirft einen Fehler, wenn der Service nicht gefunden wird.
+     */
+    public ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
 
         DBExtraService p = DBExtraService.getExtraServiceByName(name);
@@ -43,7 +51,7 @@ public class ServiceFacade
         if (p == null)
         {
 
-            throw new javax.management.ServiceNotFoundException();
+            throw new ServiceNotFoundException();
 
         }
         return (ExtraService) DynamicMapper.map(p);
