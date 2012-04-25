@@ -49,13 +49,13 @@ public class CompanyType implements CompanyTypeData
         }
     }
 
-    public void setTyp(String typ)
+    public void setName(String typ)
     {
         this.typ = typ;
     }
 
     @Override
-    public String getTyp()
+    public String getName()
     {
         return typ;
     }

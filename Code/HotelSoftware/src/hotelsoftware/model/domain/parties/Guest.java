@@ -15,7 +15,6 @@ import java.util.*;
  */
 public class Guest extends Party implements GuestData
 {   
-    private Integer id;
     private Date birthday;
     private String fname;
     private String lname;
@@ -24,20 +23,6 @@ public class Guest extends Party implements GuestData
 
     public Guest()
     {
-    }
-    
-    @Override
-    public Integer getId()
-    {
-        return id;
-    }
-    
-    public void setId(int id)
-    {
-        if (this.id == null)
-        {
-            this.id = id;
-        }
     }
 
     @Override
