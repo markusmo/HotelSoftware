@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.parties;
+package hotelsoftware.model.domain.parties.data;
 
 import java.util.Collection;
 

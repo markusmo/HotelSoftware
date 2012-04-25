@@ -1,10 +1,13 @@
 package hotelsoftware.model.domain.invoice;
 
+import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
+import hotelsoftware.model.domain.invoice.data.PaymentMethodData;
+import hotelsoftware.model.domain.invoice.data.InvoiceData;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.parties.CustomerData;
+import hotelsoftware.model.domain.parties.data.CustomerData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.data.UserData;

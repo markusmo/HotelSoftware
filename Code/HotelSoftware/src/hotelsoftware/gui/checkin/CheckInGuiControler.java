@@ -5,8 +5,8 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
-import hotelsoftware.model.domain.parties.GuestData;
-import hotelsoftware.model.domain.reservation.ReservationData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;

@@ -1,7 +1,11 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.domain.parties.data.PartyData;
+import hotelsoftware.model.domain.parties.data.AddressData;
+import hotelsoftware.model.domain.parties.data.CompanyData;
+import hotelsoftware.model.domain.parties.data.CompanyTypeData;
 import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.invoice.InvoiceData;
+import hotelsoftware.model.domain.invoice.data.InvoiceData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedHashSet;
