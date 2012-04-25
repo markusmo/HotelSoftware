@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse erbt von Customer, da sie für Zimmer/Dienstleistungen bezahlt. Hierbei handelt es sich um eine Firma mit einem Namen und einem Typ.
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Company extends Customer implements CompanyData
@@ -20,8 +21,13 @@ public class Company extends Customer implements CompanyData
     private CompanyType type;
     private Collection<Party> contactPersons;
 
+    public Company()
+    {
+    }
+
     /**
      * Instanziert eine neue Firma/Reisebuero, abgebildet als Kunde, fuer das System
+     *
      * @param name
      * Der Name der Firma/Reisebuero
      * @param typ
@@ -61,7 +67,7 @@ public class Company extends Customer implements CompanyData
         return companyname;
     }
 
-    public void setCompanyname(String companyname)
+    public void setName(String companyname)
     {
         this.companyname = companyname;
     }
@@ -98,6 +104,7 @@ public class Company extends Customer implements CompanyData
 
     /**
      * sucht nach einer Firma anhand eines Namens
+     *
      * @param name firmenname
      * @return Firmenobjekt
      * @throws CompanyNotFoundException Firma wurde nicht gefunden

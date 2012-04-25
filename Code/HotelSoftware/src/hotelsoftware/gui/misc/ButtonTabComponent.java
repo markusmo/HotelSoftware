@@ -27,8 +27,7 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
-
+ */
 package hotelsoftware.gui.misc;
 
 import javax.swing.*;
@@ -39,32 +38,40 @@ import java.awt.event.*;
 
 /**
  * Component to be used as tabComponent;
- * Contains a JLabel to show the text and 
- * a JButton to close the tab it belongs to 
- */ 
-public class ButtonTabComponent extends JPanel {
+ * Contains a JLabel to show the text and
+ * a JButton to close the tab it belongs to
+ */
+public class ButtonTabComponent extends JPanel
+{
     private final JTabbedPane pane;
+    private java.util.List list;
 
-    public ButtonTabComponent(final JTabbedPane pane) {
+    public ButtonTabComponent(final JTabbedPane pane, java.util.List list)
+    {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        if (pane == null) {
+        if (pane == null)
+        {
             throw new NullPointerException("TabbedPane is null");
         }
         this.pane = pane;
+        this.list = list;
         setOpaque(false);
-        
+
         //make JLabel read titles from JTabbedPane
-        JLabel label = new JLabel() {
-            public String getText() {
+        JLabel label = new JLabel()
+        {
+            public String getText()
+            {
                 int i = pane.indexOfTabComponent(ButtonTabComponent.this);
-                if (i != -1) {
+                if (i != -1)
+                {
                     return pane.getTitleAt(i);
                 }
                 return null;
             }
         };
-        
+
         add(label);
         //add more space between the label and the button
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
@@ -75,8 +82,10 @@ public class ButtonTabComponent extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
-    private class TabButton extends JButton implements ActionListener {
-        public TabButton() {
+    private class TabButton extends JButton implements ActionListener
+    {
+        public TabButton()
+        {
             int size = 17;
             setPreferredSize(new Dimension(size, size));
             setToolTipText("close this tab");
@@ -96,28 +105,35 @@ public class ButtonTabComponent extends JPanel {
             addActionListener(this);
         }
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             int i = pane.indexOfTabComponent(ButtonTabComponent.this);
-            if (i != -1) {
+            if (i != -1)
+            {
                 pane.remove(i);
+                list.remove(i);
             }
         }
 
         //we don't want to update UI for this button
-        public void updateUI() {
+        public void updateUI()
+        {
         }
 
         //paint the cross
-        protected void paintComponent(Graphics g) {
+        protected void paintComponent(Graphics g)
+        {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
             //shift the image for pressed buttons
-            if (getModel().isPressed()) {
+            if (getModel().isPressed())
+            {
                 g2.translate(1, 1);
             }
             g2.setStroke(new BasicStroke(2));
             g2.setColor(Color.BLACK);
-            if (getModel().isRollover()) {
+            if (getModel().isRollover())
+            {
                 g2.setColor(Color.MAGENTA);
             }
             int delta = 6;
@@ -126,24 +142,26 @@ public class ButtonTabComponent extends JPanel {
             g2.dispose();
         }
     }
-
-    private final static MouseListener buttonMouseListener = new MouseAdapter() {
-        public void mouseEntered(MouseEvent e) {
+    private final static MouseListener buttonMouseListener = new MouseAdapter()
+    {
+        public void mouseEntered(MouseEvent e)
+        {
             Component component = e.getComponent();
-            if (component instanceof AbstractButton) {
+            if (component instanceof AbstractButton)
+            {
                 AbstractButton button = (AbstractButton) component;
                 button.setBorderPainted(true);
             }
         }
 
-        public void mouseExited(MouseEvent e) {
+        public void mouseExited(MouseEvent e)
+        {
             Component component = e.getComponent();
-            if (component instanceof AbstractButton) {
+            if (component instanceof AbstractButton)
+            {
                 AbstractButton button = (AbstractButton) component;
                 button.setBorderPainted(false);
             }
         }
     };
 }
-
-

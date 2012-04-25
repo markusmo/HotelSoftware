@@ -4,12 +4,21 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.checkin.CheckInController;
+import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
+import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
+import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -36,51 +45,77 @@ public class CheckinTwo extends javax.swing.JPanel
     public CheckinTwo()
     {
         initComponents();
-        ButtonCheckIn.setEnabled(true);
         init();
     }
     int i;
 
+    private Calendar dateToCalendar(Date date)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+
+    }
+
     private void init()
     {
+        cigc.setRoomTabPane(TabbedPaneRooms);
         //################### Set TextBoxes
         reservation = cigc.getSelectedReservation();
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         textAreaComment.setText(reservation.getComment());
-        textBoxArrival.setText(df.format(reservation.getStartDate()));
-        textBoxDeparture.setText(df.format(reservation.getEndDate()));
+        DateChooserArrival.setDateFormat(df);
+        DateChooserDeparture.setDateFormat(df);
+        DateChooserArrival.setSelectedDate(dateToCalendar(reservation.getStartDate()));
+        DateChooserDeparture.setSelectedDate(dateToCalendar(reservation.getEndDate()));
+
         textBoxNumberOfGuests.setText(reservation.getGuestAmount() + "");
         textBoxReservationNumber.setText(reservation.getReservationNumber());
 
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
-           // int test = data.getAmount();
+            // int test = data.getAmount();
             int oldi = i;
-            for (i = oldi; i < data.getAmount(); i++)
+            for (i = oldi; i < data.getAmount() + oldi; i++)
             {
                 // cigc.addRoomSelection();
-                ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
-                RoomPanel room = new RoomPanel();
-                room.setTabComponent(iconTab);
-                rooms.add(room);
-                // room.setRoomIndex(cigc.addRoomSelection());
-                room.setRoomIndex(cigc.getCounter());
-                TabbedPaneRooms.addTab("Room " + (i + 1), room);
-                TabbedPaneRooms.setTabComponentAt(i, iconTab);
+               /*
+                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
+                 * RoomPanel room = new RoomPanel();
+                 * room.setTabComponent(iconTab);
+                 * rooms.add(room);
+                 *
+                 * room.setRoomIndex(cigc.addRoomSelection());
+                 * room.init();
+                 * TabbedPaneRooms.addTab("Room " + (i + 1), room);
+                 * TabbedPaneRooms.setTabComponentAt(i, iconTab);
+                 */
+                addNewRoomPanel();
                 //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
             }
         }
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);
         TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
-                new ButtonTabComponentPlus(TabbedPaneRooms, RoomPanel.class, "Room", new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif"))));
+                new ButtonTabComponentPlus(getRoomPannelAddListener()));
         TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
 
         TabbedPaneRooms.addChangeListener(new ChangeListener()
         {
             public void stateChanged(ChangeEvent e)
             {
+                for (RoomPanel room : rooms)
+                {
+                    if (room.isFinished())
+                    {
+                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
+                    }
+                }
+                if (isFinished())
+                {
+                    ButtonCheckIn.setEnabled(true);
+                }
                 /*
                  * if (TabbedPaneRooms.getSelectedIndex() == TabbedPaneRooms.getTabCount() - 1)
                  * {
@@ -119,14 +154,14 @@ public class CheckinTwo extends javax.swing.JPanel
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        textBoxArrival = new javax.swing.JTextField();
         textBoxReservationNumber = new javax.swing.JTextField();
         textBoxNumberOfGuests = new javax.swing.JTextField();
-        textBoxDeparture = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaComment = new javax.swing.JTextArea();
+        DateChooserArrival = new datechooser.beans.DateChooserCombo();
+        DateChooserDeparture = new datechooser.beans.DateChooserCombo();
         TabbedPaneRooms = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
 
@@ -153,12 +188,6 @@ public class CheckinTwo extends javax.swing.JPanel
 
         jLabel4.setText("Number of guests:");
 
-        textBoxArrival.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxArrivalActionPerformed(evt);
-            }
-        });
-
         textBoxReservationNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textBoxReservationNumberActionPerformed(evt);
@@ -168,12 +197,6 @@ public class CheckinTwo extends javax.swing.JPanel
         textBoxNumberOfGuests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textBoxNumberOfGuestsActionPerformed(evt);
-            }
-        });
-
-        textBoxDeparture.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxDepartureActionPerformed(evt);
             }
         });
 
@@ -187,6 +210,18 @@ public class CheckinTwo extends javax.swing.JPanel
         textAreaComment.setWrapStyleWord(true);
         jScrollPane2.setViewportView(textAreaComment);
 
+        DateChooserArrival.addCommitListener(new datechooser.events.CommitListener() {
+            public void onCommit(datechooser.events.CommitEvent evt) {
+                DateChooserArrivalOnCommit(evt);
+            }
+        });
+
+        DateChooserDeparture.addCommitListener(new datechooser.events.CommitListener() {
+            public void onCommit(datechooser.events.CommitEvent evt) {
+                DateChooserDepartureOnCommit(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -198,23 +233,19 @@ public class CheckinTwo extends javax.swing.JPanel
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(DateChooserArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(DateChooserDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textBoxArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(256, 256, 256))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(textBoxDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(256, 256, 256))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,16 +258,17 @@ public class CheckinTwo extends javax.swing.JPanel
                     .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textBoxArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DateChooserArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textBoxDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DateChooserDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -314,14 +346,6 @@ public class CheckinTwo extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxReservationNumberActionPerformed
 
-    private void textBoxArrivalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxArrivalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxArrivalActionPerformed
-
-    private void textBoxDepartureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxDepartureActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxDepartureActionPerformed
-
     private void textBoxNumberOfGuestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBoxNumberOfGuestsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxNumberOfGuestsActionPerformed
@@ -333,24 +357,35 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged
     {//GEN-HEADEREND:event_TabbedPaneRoomsCaretPositionChanged
-        
     }//GEN-LAST:event_TabbedPaneRoomsCaretPositionChanged
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        this.TabbedPaneRooms.setTitleAt(1, "New Title");        
+        this.TabbedPaneRooms.setTitleAt(1, "New Title");
         rooms.get(1).setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
-                
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         doTheCheckIn();
     }//GEN-LAST:event_ButtonCheckInActionPerformed
 
+    private void DateChooserDepartureOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserDepartureOnCommit
+    {//GEN-HEADEREND:event_DateChooserDepartureOnCommit
+        cigc.changeInformation(DateChooserArrival.getSelectedDate().getTime(), DateChooserDeparture.getSelectedDate().getTime());
+
+    }//GEN-LAST:event_DateChooserDepartureOnCommit
+
+    private void DateChooserArrivalOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserArrivalOnCommit
+    {//GEN-HEADEREND:event_DateChooserArrivalOnCommit
+        cigc.changeInformation(DateChooserArrival.getSelectedDate().getTime(), DateChooserDeparture.getSelectedDate().getTime());
+    }//GEN-LAST:event_DateChooserArrivalOnCommit
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCheckIn;
+    private datechooser.beans.DateChooserCombo DateChooserArrival;
+    private datechooser.beans.DateChooserCombo DateChooserDeparture;
     private javax.swing.JTabbedPane TabbedPaneRooms;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
@@ -364,8 +399,6 @@ public class CheckinTwo extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea textAreaComment;
-    private javax.swing.JTextField textBoxArrival;
-    private javax.swing.JTextField textBoxDeparture;
     private javax.swing.JTextField textBoxNumberOfGuests;
     private javax.swing.JTextField textBoxReservationNumber;
     // End of variables declaration//GEN-END:variables
@@ -393,6 +426,82 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void doTheCheckIn()
     {
+        for (RoomPanel room : rooms)
+        {
+            for (GuestPanel guest : room.getGuests())
+            {
+                GuestData guestData = cigc.addGuest(guest.getFirstName(), guest.getLastName(), guest.getGender(), guest.getBirthday(), guest.getStreet(), guest.getCity(), guest.getZip(), guest.getEmail(), guest.getPhoneNumber(), guest.getFax(), guest.getCountryData());
+                cigc.assignRoom(guestData, cigc.getRoomData(room.getRoomIndex()));
+            }
+        }
+        CheckInController cic = CheckInController.getInstance();
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private ActionListener getRoomPannelAddListener()
+    {
+        return new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                /*
+                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
+                 * RoomPanel room = new RoomPanel();
+                 * rooms.add(room);
+                 * room.setTabComponent(iconTab);
+                 * room.setRoomIndex(cigc.addRoomSelection());
+                 * room.init();
+                 *
+                 * TabbedPaneRooms.add(room, TabbedPaneRooms.getTabCount() - 1);
+                 *
+                 * TabbedPaneRooms.setTitleAt(TabbedPaneRooms.getTabCount() - 2, "Room " + (TabbedPaneRooms.getTabCount() - 1));
+                 *
+                 *
+                 * TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 2, iconTab);
+                 */
+                addNewRoomPanel(true);
+
+            }
+        };
+    }
+
+    private void addNewRoomPanel()
+    {
+        addNewRoomPanel(false);
+    }
+
+    private void addNewRoomPanel(boolean buttonClick)
+    {
+        int add = 0;
+        if (buttonClick)
+        {
+            add = 1;
+        }
+        ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms,
+                new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")), rooms);
+        RoomPanel room = new RoomPanel();
+        rooms.add(room);
+        room.setTabComponent(iconTab);
+        room.setRoomIndex(cigc.addRoomSelection());
+        room.init();
+
+        TabbedPaneRooms.add(room, TabbedPaneRooms.getTabCount() - add);
+
+        TabbedPaneRooms.setTitleAt(TabbedPaneRooms.getTabCount() - add - 1, "Room " + (TabbedPaneRooms.getTabCount() - add));
+
+
+        TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1 - add, iconTab);
+    }
+
+    private boolean isFinished()
+    {
+        for (RoomPanel room : rooms)
+        {
+            if (!room.isFinished())
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

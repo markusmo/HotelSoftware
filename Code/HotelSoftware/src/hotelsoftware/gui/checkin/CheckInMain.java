@@ -4,7 +4,12 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.model.domain.parties.Company;
+import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.PrivateCustomer;
+import hotelsoftware.model.domain.parties.data.CompanyData;
 import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.parties.data.PartyData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -30,9 +35,24 @@ public class CheckInMain extends javax.swing.JPanel
         Object[][] value = new Object[reservations.size()][];
         for (ReservationData data : reservations)
         {
+            String fName = null;
+            String lName = null;
+            String companyName = null;
+
+            if (data.getPartyData() instanceof Company)
+            {
+                companyName = ((CompanyData) data.getPartyData()).getCompanyname();
+
+            }
+            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
+            {
+                lName = ((GuestData) data.getPartyData()).getLname();
+                fName = ((GuestData) data.getPartyData()).getFname();
+            }
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", null, ((GuestData) data.getPartyData()).getLname(), ((GuestData) data.getPartyData()).getFname(), df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
+                data.getReservationNumber() + "", companyName, fName, lName,
+                df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
             };
         }
         return value;
@@ -65,7 +85,7 @@ public class CheckInMain extends javax.swing.JPanel
                 } : getTableModel()),
                 new String[]
                 {
-                    "Reservation No.", "Customer No.", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
+                    "Reservation No.", "Company Name", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
                 })
         {
             boolean[] canEdit = new boolean[]
@@ -410,6 +430,4 @@ public class CheckInMain extends javax.swing.JPanel
     private javax.swing.JTextField textBoxLname;
     private javax.swing.JTextField textBoxReservationNumber;
     // End of variables declaration//GEN-END:variables
-
-   
 }

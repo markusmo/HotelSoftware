@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Dieser Status erlaubt es nach vorhandenen Reservierungen zu suchen und mit dieser dann zu arbeiten.
  * Ebenso kann man einen Walk-in-Check-In begonnen werden
- * 
+ *
  * @author Dunst
  */
 public class StartState extends CheckInState
@@ -98,14 +98,16 @@ public class StartState extends CheckInState
 
         context.setRoomSelections(new HashMap<Integer, RoomSelection>());
         context.setCounter(0);
-        for (ReservationItemData data : context.getReservationItems())
-        {
-            Room r = new Room();
-            r.setCategory((RoomCategory)data.getReservedCategoryData());
-            //r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
-            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(data.getReservedCategoryData(), r));
-        }
-
+        context.setReservation((Reservation) reservation);
+        /*
+         * for (ReservationItemData data : context.getReservationItems())
+         * {
+         * Room r = new Room();
+         * r.setCategory((RoomCategory)data.getReservedCategoryData());
+         * //r.setCategory((RoomCategory) DynamicMapper.map(DBRoomCategory.getRoomCategoryByName("Luxus Suite")));
+         * context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(data.getReservedCategoryData(), r));
+         * }
+         */
 
         context.setState(new ChangeReservationDataState(context));
     }

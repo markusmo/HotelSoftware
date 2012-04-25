@@ -11,5 +11,8 @@ package hotelsoftware.model.domain.parties.data;
 public interface CountryData
 {
     public Integer getId();
+
     public String getName();
+
+    public String toString();
 }

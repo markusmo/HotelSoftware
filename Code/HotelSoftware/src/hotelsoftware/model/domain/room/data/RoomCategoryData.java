@@ -23,4 +23,6 @@ public interface RoomCategoryData
     Set<RoomCategoryPrice> getPrice();
 
     public BigDecimal getPriceFor(Date startDate) throws NoPriceDefinedException;
+
+    String toString();
 }

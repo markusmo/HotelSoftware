@@ -35,6 +35,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 /**
  * Component to be used as tabComponent;
@@ -45,8 +46,9 @@ public class ButtonIconTabComponent extends JPanel
 {
     private final JTabbedPane pane;
     private ImagePanel imagePanel;
+    private java.util.List list;
 
-    public ButtonIconTabComponent(final JTabbedPane pane, ImageIcon icon)
+    public ButtonIconTabComponent(final JTabbedPane pane, ImageIcon icon, java.util.List list)
     {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -54,6 +56,7 @@ public class ButtonIconTabComponent extends JPanel
         {
             throw new NullPointerException("TabbedPane is null");
         }
+        this.list = list;
         this.imagePanel = new ImagePanel(icon.getImage());
         this.pane = pane;
         setOpaque(false);
@@ -150,6 +153,7 @@ public class ButtonIconTabComponent extends JPanel
             if (i != -1)
             {
                 pane.remove(i);
+                list.remove(i);
             }
         }
 
