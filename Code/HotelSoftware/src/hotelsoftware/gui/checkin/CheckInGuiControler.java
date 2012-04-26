@@ -235,13 +235,13 @@ public class CheckInGuiControler
      * @return
      * Die verfuebaren Verpflegunsarten aus
      */
-    private List<ExtraServiceData> habitationServices;
+    private Collection<ExtraServiceData> habitationServices;
 
-    public List<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllHabitationServices()
     {
         if (habitationServices == null)
         {
-            habitationServices = (List<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
+            habitationServices = (Collection<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
         }
         return habitationServices;
     }

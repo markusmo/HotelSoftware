@@ -96,6 +96,9 @@ public class DynamicMapper
                 return null;
             }
         }
+        else{
+            System.out.println(counter);
+        }
         return null;
     }
 

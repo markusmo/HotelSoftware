@@ -1,21 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
-import hotelsoftware.model.domain.service.ExtraService;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import java.awt.GridLayout;
+import hotelsoftware.model.domain.service.data.HabitationData;
+import java.awt.*;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 
 /**
  * Dieses Panel ist dazu da, um die Extraservices graphisch abzubilden.
+ *
  * @author Johannes
  */
 public class ExtraServicesPanel extends javax.swing.JPanel
@@ -28,21 +26,25 @@ public class ExtraServicesPanel extends javax.swing.JPanel
         initComponents();
         init();
     }
-    private List<JCheckBox> checkboxes = new LinkedList<JCheckBox>();
+    List<JCheckBox> checkboxes = new LinkedList<JCheckBox>();
+    Collection<ExtraServiceData> services = CheckInGuiControler.getInstance().getAllHabitationServices();
+    HashMap<String, ExtraServiceData> nameToService = new HashMap<String, ExtraServiceData>();
 
     private void init()
-    {        
-        Collection<ExtraService> services = ExtraService.getAllHabitationServices();
+    {
+
         this.removeAll();
         this.setLayout(new GridLayout(services.size(), 1));
+
         for (ExtraServiceData data : services)
         {
+            nameToService.put(data.getName(), data);
             JCheckBox checki = new JCheckBox(data.getName());
+
             checkboxes.add(checki);
+
             add(checki);
         }
-        this.repaint();
-    
     }
 
     /**
@@ -69,13 +71,16 @@ public class ExtraServicesPanel extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    public List<JCheckBox> getCheckboxes()
+    public Collection<ExtraServiceData> getExtraservices()
     {
-        return checkboxes;
-    }
-
-    public void setCheckboxes(List<JCheckBox> checkboxes)
-    {
-        this.checkboxes = checkboxes;
+        Collection<ExtraServiceData> eServices = new LinkedList<ExtraServiceData>();
+        for (JCheckBox c : checkboxes)
+        {
+            if (c.isSelected())
+            {
+                eServices.add(nameToService.get(c.getText()));
+            }
+        }
+        return eServices;
     }
 }

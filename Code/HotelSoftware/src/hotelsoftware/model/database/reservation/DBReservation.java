@@ -188,7 +188,7 @@ public class DBReservation implements Serializable
         ts.begin();
 
         Criteria criteria = session.createCriteria(DBReservation.class);
-        criteria.add(Restrictions.eq("reserationNumber", reservationNr + ""));
+        criteria.add(Restrictions.eq("reservationNumber", reservationNr + ""));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         //TODO
         // session.close();
