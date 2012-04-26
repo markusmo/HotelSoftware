@@ -17,14 +17,16 @@ public class WeatherInfos extends javax.swing.JFrame
      */
     public WeatherInfos()
     {
+        initComponents();
         Weather w = new CurrentWeather();
         List<Weather> list = w.getCurrent();
         list.addAll(w.getForeCasts());
-        for(Weather w2 : list)
+        for (Weather w2 : list)
         {
-            jPanel1.add(new WeatherPanel(w2));
+            WeatherPanel wp = new WeatherPanel(w2);
+            jPanel1.add(wp);
         }
-        initComponents();
+
     }
 
     /**
@@ -41,8 +43,6 @@ public class WeatherInfos extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,8 +56,8 @@ public class WeatherInfos extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
 
         pack();

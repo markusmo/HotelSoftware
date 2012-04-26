@@ -16,7 +16,10 @@ public class ForeCastWeather extends Weather
     private String high;
     private String day_of_week;
 
-    public ForeCastWeather(){}
+    public ForeCastWeather()
+    {
+    }
+
     public ForeCastWeather(String city)
     {
         super(city);
@@ -50,5 +53,11 @@ public class ForeCastWeather extends Weather
     public void setLow(String low)
     {
         this.low = low;
+    }
+
+    @Override
+    public String toString()
+    {
+        return day_of_week + "\n" + super.getCondition() + "\nMin: " + low + "° Max: " + high + "°";
     }
 }

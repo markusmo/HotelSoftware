@@ -14,11 +14,15 @@ public class CurrentWeather extends Weather
     private String humidity;
     private String wind_condition;
 
-    public CurrentWeather(){}
+    public CurrentWeather()
+    {
+    }
+
     public CurrentWeather(String city)
     {
         super(city);
     }
+
     public String getHumidity()
     {
         return humidity;
@@ -47,5 +51,11 @@ public class CurrentWeather extends Weather
     public void setWind_condition(String wind_condition)
     {
         this.wind_condition = wind_condition;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Heute\n" + super.getCondition() + "\n" + temp + "° " + humidity + "\n" + wind_condition;
     }
 }
