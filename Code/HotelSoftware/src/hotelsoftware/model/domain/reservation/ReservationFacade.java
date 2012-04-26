@@ -61,9 +61,9 @@ public class ReservationFacade
                 fname, lname));
     }
     
-    public Collection<Reservation> getReservationsByCompanyName(String companyName)
+    public Collection<Reservation> getReservationsByCompanyNameApprox(String companyName)
     {
-        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByCompanyName(companyName));
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByCompanyNameApprox(companyName));
     }
 
     /**

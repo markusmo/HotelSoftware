@@ -172,10 +172,19 @@ public class Reservation implements ReservationData
     {
         Collection<Reservation> results = new LinkedList<Reservation>();
         
-        results.add(getReservationByNumber(reservationNumber));
-        results.addAll(getReservationsByNameApprox(firstName, lastName));
-        results.addAll(getReservationsByCompanyName(companyName));
-        
+        if (reservationNumber.length() > 0)
+        {
+            Reservation r = getReservationByNumber(reservationNumber);
+            results.add(r);
+        }
+        if (firstName.length() > 0 || lastName.length() > 0)
+        {
+            results.addAll(getReservationsByNameApprox(firstName, lastName));
+        }
+        if (companyName.length() > 0)
+        {
+            results.addAll(getReservationsByCompanyNameApprox(companyName));
+        }
         
         return results;
     }
@@ -185,9 +194,9 @@ public class Reservation implements ReservationData
         return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
     
-    private static Collection<? extends Reservation> getReservationsByCompanyName(String companyName)
+    private static Collection<Reservation> getReservationsByCompanyNameApprox(String companyName)
     {
-        return ReservationFacade.getInstance().getReservationsByCompanyName(companyName);
+        return ReservationFacade.getInstance().getReservationsByCompanyNameApprox(companyName);
     }
     
     public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
