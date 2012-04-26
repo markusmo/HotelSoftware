@@ -157,7 +157,6 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
-        jButton12.setBackground(Color.red);
         cigc.getContentpane().removeAll();
         cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
         ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
