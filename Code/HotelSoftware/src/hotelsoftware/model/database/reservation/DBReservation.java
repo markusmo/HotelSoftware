@@ -162,7 +162,7 @@ public class DBReservation implements Serializable
 
     }
     
-    public static Collection getReservationsByCompanyName(String companyName)
+    public static Collection getReservationsByCompanyNameApprox(String companyName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

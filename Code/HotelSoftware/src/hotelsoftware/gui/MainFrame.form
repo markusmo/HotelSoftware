@@ -26,15 +26,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButton11" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="homeButton" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="jButton12" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="checkInButton" min="-2" pref="136" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jButton14" min="-2" pref="146" max="-2" attributes="0"/>
+                      <Component id="checkOutButton" min="-2" pref="146" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jButton13" min="-2" pref="161" max="-2" attributes="0"/>
+                      <Component id="roomOverviewButton" min="-2" pref="161" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="jButton15" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="journalButton" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel1" alignment="0" pref="866" max="32767" attributes="0"/>
@@ -48,11 +48,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton11" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="jButton12" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="jButton14" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="jButton13" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="jButton15" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="homeButton" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="checkInButton" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="checkOutButton" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="roomOverviewButton" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="journalButton" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" pref="615" max="32767" attributes="0"/>
@@ -62,7 +62,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton11">
+    <Component class="javax.swing.JButton" name="homeButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;b&gt;Home&lt;/b&gt; &lt;br/&gt; F1 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
@@ -77,14 +77,14 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="homeButtonActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton12">
+    <Component class="javax.swing.JButton" name="checkInButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt; Check In &lt;br/&gt; F2 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
@@ -99,10 +99,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkInButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton13">
+    <Component class="javax.swing.JButton" name="roomOverviewButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt; Room Overview &lt;br/&gt; F4 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
@@ -117,10 +117,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton13ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomOverviewButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton14">
+    <Component class="javax.swing.JButton" name="checkOutButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt; Check Out &lt;br/&gt; F3 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
@@ -135,10 +135,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkOutButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton15">
+    <Component class="javax.swing.JButton" name="journalButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt; Journal &lt;br/&gt; F5 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
@@ -153,7 +153,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="journalButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
