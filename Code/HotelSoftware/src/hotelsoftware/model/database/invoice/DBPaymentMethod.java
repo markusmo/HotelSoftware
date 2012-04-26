@@ -52,7 +52,7 @@ public class DBPaymentMethod implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String method;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaymentMethods")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentMethod")
     private Set<DBInvoice> invoicesCollection;
 
     public Set<DBInvoice> getInvoicesCollection()

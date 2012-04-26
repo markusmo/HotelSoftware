@@ -17,11 +17,12 @@ public class ReservationOption implements ReservationOptionData
 {
     private Date expiration;
     private BigDecimal prepayment;
-    private boolean fulfilled;
+    private Boolean fulfilled;
     private Integer id;
     private Reservation reservation;
+    private String comment;
 
-    private ReservationOption()
+    public ReservationOption()
     {
     }
 
@@ -35,18 +36,9 @@ public class ReservationOption implements ReservationOptionData
         this.reservation = reservation;
     }
     
-    
-
     public static ReservationOption newOption()
     {
         return new ReservationOption();
-    }
-
-    private ReservationOption(DBReservationOption r)
-    {
-        this.expiration = r.getExpiration();
-        this.fulfilled = r.getFulfilled();
-        this.prepayment = r.getPrepayment();
     }
 
     @Override
@@ -72,12 +64,12 @@ public class ReservationOption implements ReservationOptionData
     }
 
     @Override
-    public boolean isFulfilled()
+    public Boolean isFulfilled()
     {
         return fulfilled;
     }
 
-    public void setFulfilled(boolean fulfilled)
+    public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
     }
@@ -103,5 +95,15 @@ public class ReservationOption implements ReservationOptionData
         {
             this.id = id;
         }
+    }
+    
+    public String getComment()
+    {
+        return comment;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
     }
 }

@@ -92,12 +92,12 @@ public class DynamicMapper
                 return returnvalue;
             } catch (Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return null;
             }
         }
         else{
-            System.out.println(counter);
+            //System.out.println(counter);
         }
         return null;
     }
@@ -159,7 +159,6 @@ public class DynamicMapper
 
                 for (Object obj : urCollection)
                 {
-                    //Class newClass = Class.forName(convertClassName(obj.getClass().getName()));
                     Object i = map(obj, counter - 1);
                     returnValue.add(i);
                 }

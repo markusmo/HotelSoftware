@@ -59,22 +59,22 @@ public class DBInvoice implements Serializable
     
     @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
-    private boolean fulfilled;
+    private Boolean fulfilled;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
-    private Set<DBInvoiceItem> invoiceitems;
+    private Set<DBInvoiceItem> invoiceItems;
     
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBPaymentMethod idpaymentMethods;
+    private DBPaymentMethod paymentMethod;
     
     @JoinColumn(name = "idCustomers", referencedColumnName = "idParties", nullable = false)
     @ManyToOne(optional = false)
-    private DBCustomer idCustomers;
+    private DBCustomer customer;
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
+    private DBUser user;
 
     public DBInvoice()
     {
@@ -86,21 +86,21 @@ public class DBInvoice implements Serializable
     }
 
     public DBInvoice(String invoiceNumber, BigDecimal discount, Date expiration,
-            boolean fulfilled, Date created, DBPaymentMethod idpaymentMethods,
-            DBUser idUsers, DBCustomer idCustomers)
+            Boolean fulfilled, Date created, DBPaymentMethod paymentMethod,
+            DBUser user, DBCustomer customer)
     {
         this.invoiceNumber = invoiceNumber;
         this.discount = discount;
         this.expiration = expiration;
         this.fulfilled = fulfilled;
         this.created = created;
-        this.idpaymentMethods = idpaymentMethods;
-        this.idUsers = idUsers;
-        this.idCustomers = idCustomers;
+        this.paymentMethod = paymentMethod;
+        this.user = user;
+        this.customer = customer;
     }
 
     public DBInvoice(Integer id, String invoiceNumber, Date expiration,
-            boolean fulfilled, Date created)
+            Boolean fulfilled, Date created)
     {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
@@ -139,60 +139,60 @@ public class DBInvoice implements Serializable
         this.discount = discount;
     }
 
-    public boolean getFulfilled()
+    public Boolean getFulfilled()
     {
         return fulfilled;
     }
 
-    public void setFulfilled(boolean fulfilled)
+    public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
     }
 
     @XmlTransient
-    public Set<DBInvoiceItem> getInvoiceitems()
+    public Set<DBInvoiceItem> getInvoiceItems()
     {
-        return invoiceitems;
+        return invoiceItems;
     }
 
-    public boolean isFulfilled()
+    public Boolean isFulfilled()
     {
         return fulfilled;
     }
 
-    public void setInvoiceitems(Set<DBInvoiceItem> invoiceitemsCollection)
+    public void setInvoiceItems(Set<DBInvoiceItem> invoiceitemsCollection)
     {
-        this.invoiceitems = invoiceitemsCollection;
+        this.invoiceItems = invoiceitemsCollection;
     }
 
-    public DBPaymentMethod getIdpaymentMethods()
+    public DBPaymentMethod getPaymentMethod()
     {
-        return idpaymentMethods;
+        return paymentMethod;
     }
 
-    public void setIdpaymentMethods(DBPaymentMethod idpaymentMethods)
+    public void setPaymentMethod(DBPaymentMethod idpaymentMethods)
     {
-        this.idpaymentMethods = idpaymentMethods;
+        this.paymentMethod = idpaymentMethods;
     }
 
-    public DBUser getIdUsers()
+    public DBUser getUser()
     {
-        return idUsers;
+        return user;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setUser(DBUser user)
     {
-        this.idUsers = idUsers;
+        this.user = user;
     }
 
-    public DBCustomer getIdCustomers()
+    public DBCustomer getCustomer()
     {
-        return idCustomers;
+        return customer;
     }
 
-    public void setIdCustomers(DBCustomer idCustomers)
+    public void setCustomer(DBCustomer customer)
     {
-        this.idCustomers = idCustomers;
+        this.customer = customer;
     }
 
     /**

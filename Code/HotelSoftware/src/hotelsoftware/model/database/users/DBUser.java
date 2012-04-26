@@ -42,14 +42,14 @@ public class DBUser implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<DBHabitation> habitations;
     
-    @OneToMany(mappedBy = "idUsers")
+    @OneToMany(mappedBy = "user")
     private Set<DBReservation> reservations;
     
     @Basic(optional = false)
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<DBInvoice> invoices;
     
     private static final long serialVersionUID = 1L;
@@ -199,12 +199,12 @@ public class DBUser implements Serializable
         return retUser;
     }
 
-    public boolean getActive()
+    public Boolean getActive()
     {
         return active;
     }
 
-    public void setActive(boolean active)
+    public void setActive(Boolean active)
     {
         this.active = active;
     }

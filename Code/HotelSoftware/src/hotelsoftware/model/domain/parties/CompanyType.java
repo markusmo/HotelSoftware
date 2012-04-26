@@ -19,6 +19,10 @@ public class CompanyType implements CompanyTypeData
     private Integer id;
     private String typ;
 
+    public CompanyType()
+    {
+    }
+    
     /**
      * Instanziert einen neuen Firmen-Typ (z.B. GMBH, Reisebuero, etc.)
      * @param typ

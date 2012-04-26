@@ -53,7 +53,7 @@ public class Role implements RoleData
         }
     }
 
-    Role()
+    public Role()
     {
     }
 

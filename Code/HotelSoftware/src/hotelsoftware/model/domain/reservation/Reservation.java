@@ -1,11 +1,13 @@
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.reservation.data.ReservationOptionData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.parties.data.PartyData;
+import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
@@ -18,16 +20,16 @@ import java.util.Set;
  */
 public class Reservation implements ReservationData
 {
-
     private Date startDate;
     private Date endDate;
     private String comment;
     private Date created;
-    private Collection<ReservationOption> optionCollection;
+    private Collection<ReservationOption> reservationOptions;
     private Party party;
     private Collection<ReservationItem> reservationItems;
     private Integer id;
     private String reservationNumber;
+    private User user;
 
     public Reservation()
     {
@@ -63,9 +65,9 @@ public class Reservation implements ReservationData
         return endDate;
     }
 
-    public Collection<ReservationOption> getOptionCollection()
+    public Collection<ReservationOption> getReservationOptions()
     {
-        return optionCollection;
+        return reservationOptions;
     }
 
     public Party getParty()
@@ -109,9 +111,9 @@ public class Reservation implements ReservationData
         this.endDate = end;
     }
 
-    public void setOptionCollection(Set<ReservationOption> optionCollection)
+    public void setReservationOptions(Set<ReservationOption> reservationOptions)
     {
-        this.optionCollection = optionCollection;
+        this.reservationOptions = reservationOptions;
     }
 
     public void setStartDate(Date start)
@@ -134,8 +136,7 @@ public class Reservation implements ReservationData
 
     public Collection<ReservationOptionData> getOptionCollectionData()
     {
-        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(
-                getOptionCollection());
+        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(reservationOptions);
     }
 
     public PartyData getPartyData()
@@ -195,5 +196,15 @@ public class Reservation implements ReservationData
     public String getReserationNumber()
     {
         return this.reservationNumber;
+    }
+    
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
     }
 }

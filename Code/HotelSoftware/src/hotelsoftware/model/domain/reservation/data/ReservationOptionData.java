@@ -18,6 +18,6 @@ public interface ReservationOptionData
 
     BigDecimal getPrepayment();
 
-    boolean isFulfilled();
+    Boolean isFulfilled();
     
 }

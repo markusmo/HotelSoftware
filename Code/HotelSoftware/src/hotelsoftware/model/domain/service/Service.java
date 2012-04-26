@@ -15,14 +15,14 @@ public abstract class Service implements ServiceData
     protected BigDecimal price;
     protected ServiceType serviceType;
 
-    Service()
+    public Service()
     {
     }
 
     /**
      * @return the id
      */
-    public Integer getId()
+    public Integer getIdServices()
     {
         return idServices;
     }
@@ -30,7 +30,7 @@ public abstract class Service implements ServiceData
     /**
      * @param id the id to set
      */
-    public void setId(Integer id)
+    public void setIdServices(Integer id)
     {
         if (this.idServices == null)
         {

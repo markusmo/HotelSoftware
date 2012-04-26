@@ -51,7 +51,7 @@ public class DBInvoiceItem implements Serializable
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUser;
+    private DBUser user;
     
     @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
@@ -136,14 +136,14 @@ public class DBInvoiceItem implements Serializable
         this.invoice = invoices;
     }
 
-    public DBUser getIdUser()
+    public DBUser getUser()
     {
-        return idUser;
+        return user;
     }
 
-    public void setIdUser(DBUser idUsers)
+    public void setUser(DBUser user)
     {
-        this.idUser = idUsers;
+        this.user = user;
     }
 
     public DBHabitation getHabitation()

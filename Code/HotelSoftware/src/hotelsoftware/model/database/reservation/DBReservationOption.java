@@ -37,7 +37,7 @@ public class DBReservationOption implements Serializable
     
     @Basic(optional = false)
     @Column(name = "fulfilled", nullable = false)
-    private boolean fulfilled;
+    private Boolean fulfilled;
     
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, updatable=false, insertable=false)
     @ManyToOne(optional = false)
@@ -52,7 +52,7 @@ public class DBReservationOption implements Serializable
         this.id = id;
     }
 
-    private DBReservationOption(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    private DBReservationOption(Integer id, Date expiration, BigDecimal prepayment, Boolean fulfilled)
     {
         this.id = id;
         this.expiration = expiration;
@@ -70,7 +70,7 @@ public class DBReservationOption implements Serializable
         return new DBReservationOption(id);
     }
 
-    public static DBReservationOption newReservationoptions(Integer id, Date expiration, BigDecimal prepayment, boolean fulfilled)
+    public static DBReservationOption newReservationoptions(Integer id, Date expiration, BigDecimal prepayment, Boolean fulfilled)
     {
         return new DBReservationOption(id, expiration, prepayment, fulfilled);
     }
@@ -95,12 +95,12 @@ public class DBReservationOption implements Serializable
         this.prepayment = prepayment;
     }
 
-    public boolean getFulfilled()
+    public Boolean getFulfilled()
     {
         return fulfilled;
     }
 
-    public void setFulfilled(boolean fulfilled)
+    public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
     }

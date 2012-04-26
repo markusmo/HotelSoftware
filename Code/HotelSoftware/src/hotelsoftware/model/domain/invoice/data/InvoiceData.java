@@ -18,22 +18,18 @@ public interface InvoiceData
 
     Date getExpiration();
 
-    CustomerData getIdCustomersData();
+    CustomerData getCustomerData();
 
-    UserData getIdUsersData();
+    UserData getUserData();
 
-    PaymentMethodData getIdpaymentMethodsData();
-
-    // not needed
-    //InvoiceData getInvoiceByHabitationData(HabitationData habitation);
+    PaymentMethodData getPaymentMethodData();
 
     String getInvoiceNumber();
-
    
-    Collection<InvoiceItemData> getInvoiceitemsData();
+    Collection<InvoiceItemData> getInvoiceItemsData();
 
     String getPaymentMethodName();
 
-    boolean isFulfilled();
+    Boolean isFulfilled();
     
 }

@@ -80,7 +80,7 @@ public class DBReservation implements Serializable
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", updatable=false, insertable=false)
     @ManyToOne(optional = false)
-    private DBUser idUsers;
+    private DBUser user;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private Set<DBReservationItem> reservationItems;
@@ -319,14 +319,14 @@ public class DBReservation implements Serializable
         this.reservationOptions = new LinkedHashSet<DBReservationOption>(reservationOptions);
     }
 
-    public DBUser getIdUsers()
+    public DBUser getUser()
     {
-        return idUsers;
+        return user;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setUser(DBUser user)
     {
-        this.idUsers = idUsers;
+        this.user = user;
     }
 
     public DBParty getParty()

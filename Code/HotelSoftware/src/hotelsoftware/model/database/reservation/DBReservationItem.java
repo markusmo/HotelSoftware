@@ -25,7 +25,7 @@ public class DBReservationItem implements Serializable
     
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
-    private DBRoomCategory roomcategories;
+    private DBRoomCategory roomCategory;
     
     @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -70,14 +70,14 @@ public class DBReservationItem implements Serializable
         this.amount = amount;
     }
 
-    public DBRoomCategory getRoomcategory()
+    public DBRoomCategory getRoomCategory()
     {
-        return roomcategories;
+        return roomCategory;
     }
 
-    public void setRoomcategory(DBRoomCategory roomcategories)
+    public void setRoomCategory(DBRoomCategory roomCategory)
     {
-        this.roomcategories = roomcategories;
+        this.roomCategory = roomCategory;
     }
 
     public DBReservation getReservation()
