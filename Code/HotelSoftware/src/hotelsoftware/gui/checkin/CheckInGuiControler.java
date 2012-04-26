@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
@@ -12,6 +13,8 @@ import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -257,6 +260,7 @@ public class CheckInGuiControler
         if (this.contentpane == null)
         {
             this.contentpane = contentpane;
+
         }
     }
 
