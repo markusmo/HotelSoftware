@@ -22,23 +22,7 @@ import javax.swing.JTextField;
  */
 public class MainFrame extends javax.swing.JFrame
 {
-    // der aktuell ausgewÃ¤hlte Button
-    private static JButton _activatedButton = new JButton();
-
-    // falls man einen button klickt wÃ¤hlt es diesen falls mÃ¶glich aus und gibt
-    // dementsprechend true / false zurÃ¼ck
-   /* public boolean clicked()
-    {
-        if (_activatedButton != this)
-        {
-            _activatedButton.setEnabled(true);
-            _activatedButton = this;
-            this.setEnabled(false);
-            System.out.println("ASDF");
-            return true;
-        }
-        return false;
-    }*/
+   
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
 
     /**
@@ -245,7 +229,7 @@ public class MainFrame extends javax.swing.JFrame
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
             {
-                if ("Metal".equals(info.getName()))
+                if ("Windows".equals(info.getName()))
                 {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
