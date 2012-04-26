@@ -36,7 +36,7 @@ import org.hibernate.criterion.Restrictions;
 @XmlRootElement
 public class DBUser implements Serializable
 {
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch= FetchType.EAGER)
     private Set<DBRole> roles;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
@@ -170,7 +170,7 @@ public class DBUser implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBUser.class);
         List<DBUser> retList = criteria.list();
-        session.close();
+        ;
 
         return retList;
     }
@@ -195,7 +195,7 @@ public class DBUser implements Serializable
         DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions
                 .and(Restrictions.eq("username", username),Restrictions.eq("password", password)))
                 .uniqueResult();
-        session.close();
+        ;
         return retUser;
     }
 

@@ -26,7 +26,7 @@ import org.hibernate.Transaction;
 @XmlRootElement
 public class DBRoomOption implements Serializable
 {
-    @ManyToMany(mappedBy = "options", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    @ManyToMany(mappedBy = "options", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     private Set<DBRoom> dBRoomCollection;
     
     private static final long serialVersionUID = 1L;
@@ -127,7 +127,7 @@ public class DBRoomOption implements Serializable
         
         List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
         
-        session.close();
+        ;
         
         return new LinkedHashSet<DBRoomOption>(options);
     }

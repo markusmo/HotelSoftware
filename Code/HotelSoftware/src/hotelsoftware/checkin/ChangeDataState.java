@@ -4,8 +4,8 @@
  */
 package hotelsoftware.checkin;
 
-import com.mysql.jdbc.NotImplemented;
 import hotelsoftware.login.LoginController;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
@@ -14,21 +14,20 @@ import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.ReservationItem;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
-import hotelsoftware.model.domain.service.ExtraService;
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.*;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
-import org.hibernate.cfg.NotYetImplementedException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
@@ -40,6 +39,15 @@ public abstract class ChangeDataState extends CheckInState
     public ChangeDataState(CheckInController context)
     {
         super(context);
+        
+        List<RoomCategoryData> categories = new LinkedList<RoomCategoryData>();
+        for (ReservationItem data : context.getReservation().getReservationItems())
+        {
+            for (Integer i = 0; i < data.getAmount(); i++)
+            {
+                context.getRoomSelections().put(i, new RoomSelection((RoomCategory)data.getReservedCategoryData()));
+            }
+        }
     }
 
     @Override
@@ -66,22 +74,16 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public void assignRoom(GuestData guest, RoomData room)
+    public void assignRoom(int selectionIndex, GuestData guest)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        context.getRoomSelections().get(selectionIndex).assignGuest((Guest)guest);
     }
 
     @Override
     public int addRoomSelection()
-    {
-        if (context.getRoomCategoryArray().length > context.getCounter())
-        {
-            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getCounter() - 1], new Room()));
-        }
-        else
-        {
-            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getRoomCategoryArray().length - 1], new Room()));
-        }
+    {        
+        context.getRoomSelections().put(context.increaseCounter(), new RoomSelection());
+        
         return context.getCounter() - 1;
     }
 
@@ -94,7 +96,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void removeRoomSelection(int selectionIndex)
     {
-        throw new IllegalStateException();
+        context.getRoomSelections().remove(selectionIndex);
     }
 
     @Override
@@ -112,6 +114,14 @@ public abstract class ChangeDataState extends CheckInState
         Room room = Room.getRoomByNumber(roomNumber);
 
         sel.setRoom(room);
+    }
+    
+    @Override
+    public void changeRoom(int selectionIndex, RoomData room)
+    {
+        RoomSelection sel = context.getRoomSelections().get(selectionIndex);
+
+        sel.setRoom((Room) room);
     }
 
     @Override
@@ -155,8 +165,24 @@ public abstract class ChangeDataState extends CheckInState
             context.getHabitation().addInvoiceItems(item);
         }
     }
+    
+    /**
+     * Ändert die Informationen, betreffend des aktuellen Check In Vorgangs
+     *
+     * @param start Das neue Startdatum
+     * @param end Das neue Enddatum
+     * @param amount Die neue Anzahl an Personen
+     */
+    @Override
+    public void changeInformation(Date start, Date end, int amount)
+    {
+        context.setStartDate(start);
+        context.setEndDate(end);
+        // TODO Set amount, nötig?
+    }
 
-    public void saveData() throws NoPriceDefinedException
+    @Override
+    public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
         LinkedList<Habitation> habitations = new LinkedList<Habitation>();
         
@@ -166,10 +192,34 @@ public abstract class ChangeDataState extends CheckInState
             h.setStart(context.getStartDate());
             h.setEnd(context.getEndDate());
             h.setUsers(LoginController.getInstance().getCurrentUser());
-            h.setPrice(roomSel.getCategory().getPriceFor(context.getStartDate()));
+            h.setPrice(roomSel.getRoom().getCategory().getPriceFor(context.getStartDate()));
             h.setRooms(roomSel.getRoom());
-                    
+            h.setCreated(new Date());
+            
+            try
+            {
+                h.setServiceType(ServiceType.getTypeByName("Habitation"));
+            }
+            catch (ServiceTypeNotFoundException ex)
+            {
+                //Darf nie passieren, da Habitation in der Datenbank vorhanden sein muss
+            }
+            
+            for (Guest g : roomSel.getGuests())
+            {
+                h.addGuests(g);
+            }
+            
             habitations.add(h);
+        }
+        
+        try
+        {
+            ServiceSaver.getInstance().saveOrUpdate(new LinkedList(), habitations, new LinkedList());
+        }
+        catch (FailedToSaveToDatabaseException ex)
+        {
+            throw new CouldNotSaveException();
         }
     }
 }

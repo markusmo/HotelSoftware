@@ -212,7 +212,7 @@ public class DBInvoice implements Serializable
         DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq(
                 "invoiceNumber",
                 invoicenumber)).uniqueResult();
-        session.close();
+        ;
         return retInvoices;
     }
 

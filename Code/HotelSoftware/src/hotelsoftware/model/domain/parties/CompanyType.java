@@ -43,7 +43,7 @@ public class CompanyType implements CompanyTypeData
 
     public void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }

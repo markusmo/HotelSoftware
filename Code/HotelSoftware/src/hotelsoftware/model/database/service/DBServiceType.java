@@ -23,11 +23,13 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
  * Diese Klasse bildet die verschiedenen Servicetypen (Essen, Getraenke, Aufenthalte, ...) mit Steuern auf die Datenbank ab.
+ *
  * @author mohi
  */
 @Entity
@@ -114,12 +116,12 @@ public class DBServiceType implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBServiceType))
+        if (!(object instanceof DBServiceType))
         {
             return false;
         }
         DBServiceType other = (DBServiceType) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -131,18 +133,35 @@ public class DBServiceType implements Serializable
     {
         return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
     }
-    
+
     /**
      * Gibt alle Servicetypen aus
-     * @return 
+     *
+     * @return
      * Alle Servicetypen, die verfuegbar sind
      */
-    public static Set<DBServiceType> getAllServiceTypes(){
+    public static Set<DBServiceType> getAllServiceTypes()
+    {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Set<DBServiceType> serviceType = (Set<DBServiceType>)session.createCriteria(DBServiceType.class).list();
-        session.close();
+        Set<DBServiceType> serviceType = (Set<DBServiceType>) session.createCriteria(DBServiceType.class).list();
+
+        return serviceType;
+    }
+
+    public static DBServiceType getTypeByName(String name)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        SQLQuery query = session.createSQLQuery("SELECT * FROM servicetypes WHERE name = :name");
+        query.setString("name", name);
+        query.addEntity(DBServiceType.class);
+        
+        DBServiceType serviceType = (DBServiceType) query.uniqueResult();
+        
+        ts.commit();
         return serviceType;
     }
 

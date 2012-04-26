@@ -67,7 +67,7 @@ public class RoomSaver
         {
             if (session != null)
             {
-                session.close();
+                ;
             }
         }
 

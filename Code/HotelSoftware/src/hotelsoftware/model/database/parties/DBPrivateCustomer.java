@@ -97,14 +97,14 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
     */
     public static DBPrivateCustomer getPrivateCustomerByName(String firstName, String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
         DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class)
                 .add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName)))
                 .uniqueResult();
-        session.close();
+        ;
         
         return cust;
         

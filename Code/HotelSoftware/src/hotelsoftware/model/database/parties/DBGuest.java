@@ -89,7 +89,7 @@ public class DBGuest extends DBParty implements Serializable
      */
     public static DBGuest getGuestFromReservationNumber(String reservationNumber)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -102,7 +102,7 @@ public class DBGuest extends DBParty implements Serializable
         //addEntity gibt den rueckgabewert an...
         sqlquery.addEntity(DBGuest.class);
         DBGuest guest = (DBGuest) sqlquery.uniqueResult();
-        //session.close();
+        //;
 
         return guest;
     }
@@ -147,7 +147,7 @@ public class DBGuest extends DBParty implements Serializable
      */
     public static Set<DBGuest> getGuestsByName(String firstName, String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBGuest.class);
@@ -177,7 +177,7 @@ public class DBGuest extends DBParty implements Serializable
         }
 
         List<DBGuest> retList = criteria.list();
-        session.close();
+        ;
 
         return new LinkedHashSet<DBGuest>(retList);
     }

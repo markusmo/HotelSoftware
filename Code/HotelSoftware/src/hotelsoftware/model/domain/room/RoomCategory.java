@@ -18,7 +18,7 @@ import java.util.Set;
 public class RoomCategory implements RoomCategoryData
 {
     private String name;
-    private Set<RoomCategoryPrice> price;
+    private Collection<RoomCategoryPrice> price;
     private Integer bedCount;
     private Integer id;
 
@@ -53,12 +53,12 @@ public class RoomCategory implements RoomCategoryData
     }
 
     @Override
-    public Set<RoomCategoryPrice> getPrice()
+    public Collection<RoomCategoryPrice> getPrice()
     {
         return price;
     }
 
-    public void setPrice(Set<RoomCategoryPrice> price)
+    public void setPrice(Collection<RoomCategoryPrice> price)
     {
         this.price = price;
     }

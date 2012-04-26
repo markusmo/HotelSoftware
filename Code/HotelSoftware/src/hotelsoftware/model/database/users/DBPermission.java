@@ -130,7 +130,7 @@ public class DBPermission implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBPermission.class);
         List<DBPermission> retList = criteria.list();
-        session.close();
+        ;
 
         return new LinkedHashSet<DBPermission>(retList);
     }
@@ -151,7 +151,7 @@ public class DBPermission implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBPermission.class);
         List<DBPermission> retList = criteria.list();
-        session.close();
+        ;
 
         for (DBPermission permissions : retList)
         {

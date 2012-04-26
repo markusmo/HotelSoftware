@@ -94,7 +94,7 @@ public class DBExtraService extends DBService implements Serializable
      */
     public static Collection<DBExtraService> getAllHabitationServices()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
@@ -122,7 +122,6 @@ public class DBExtraService extends DBService implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
         DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
-        session.close();
         return extraService;
     }
 
@@ -139,7 +138,6 @@ public class DBExtraService extends DBService implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
         List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
-        session.close();
         return new LinkedHashSet<DBExtraService>(extraServices);
     }
 

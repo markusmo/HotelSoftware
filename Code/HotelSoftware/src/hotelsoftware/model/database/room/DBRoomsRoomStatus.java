@@ -34,7 +34,7 @@ public class DBRoomsRoomStatus implements Serializable
     private DBRoomStatus roomstatus;
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     private DBRoom room;
 
     public DBRoomsRoomStatus()

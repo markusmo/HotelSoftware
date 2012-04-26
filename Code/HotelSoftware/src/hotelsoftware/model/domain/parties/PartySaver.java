@@ -115,7 +115,7 @@ public class PartySaver
             throw new FailedToSaveToDatabaseException();
         } finally
         {
-            session.close();
+            ;
         }
     }
 
