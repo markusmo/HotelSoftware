@@ -4,6 +4,14 @@
  */
 package hotelsoftware.util.test;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Johannes
@@ -15,7 +23,11 @@ public class WeatherPanel extends javax.swing.JPanel
      */
     public WeatherPanel(Weather w)
     {
-        jPanel1.add(w.getIcon());
+        Image img = w.getIcon().getImage();
+        ImagePanel ip = new ImagePanel(img);
+        jPanel1.add(ip);
+        jLabel1.setText(w.toString());
+       
         initComponents();
     }
 
@@ -70,4 +82,29 @@ public class WeatherPanel extends javax.swing.JPanel
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+ private class ImagePanel extends JPanel
+    {
+        private Image img;
+
+        public ImagePanel(String img)
+        {
+            this(new ImageIcon(img).getImage());
+        }
+
+        public ImagePanel(Image img)
+        {
+            this.img = img;
+            Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setSize(size);
+            setLayout(null);
+        }
+
+        public void paintComponent(Graphics g)
+        {
+            g.drawImage(img, 0, 0, null);
+        }
+    }
 }
