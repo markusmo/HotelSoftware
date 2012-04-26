@@ -74,9 +74,9 @@ public class CheckInController
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public Collection<ReservationData> search(String firstName, String lastName)
+    public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        return state.search(firstName, lastName);
+        return state.search(firstName, lastName, companyName, reservationNumber);
     }
 
     public Collection<ReservationData> searchApprox(String firstName, String lastName)

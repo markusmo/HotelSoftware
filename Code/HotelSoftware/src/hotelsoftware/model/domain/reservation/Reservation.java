@@ -12,6 +12,7 @@ import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -166,18 +167,29 @@ public class Reservation implements ReservationData
     {
         return ReservationFacade.getInstance().getGuestAmount(this);
     }
-
-    public static Reservation getReservationByNumber(int reservationNr)
+    
+    public static Collection<Reservation> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        return ReservationFacade.getInstance().getReservationByNumber(
-                reservationNr);
+        Collection<Reservation> results = new LinkedList<Reservation>();
+        
+        results.add(getReservationByNumber(reservationNumber));
+        results.addAll(getReservationsByNameApprox(firstName, lastName));
+        results.addAll(getReservationsByCompanyName(companyName));
+        
+        
+        return results;
     }
 
-    public static Collection<Reservation> getReservationsByName(String firstName, String lastName)
+    public static Reservation getReservationByNumber(String reservationNr)
     {
-        return ReservationFacade.getInstance().getReservationsByName(firstName,
-                lastName);
+        return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
+    
+    private static Collection<? extends Reservation> getReservationsByCompanyName(String companyName)
+    {
+        return ReservationFacade.getInstance().getReservationsByCompanyName(companyName);
+    }
+    
     public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByNameApprox(

@@ -15,46 +15,17 @@ import java.util.*;
  *
  * @author Dunst
  */
-public class StartState extends CheckInState
+class StartState extends CheckInState
 {
-    public StartState(CheckInController context)
+    StartState(CheckInController context)
     {
         super(context);
     }
 
     @Override
-    public Collection<ReservationData> getAllReservations()
+    Collection<ReservationData> getAllReservations()
     {
         return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
-    }
-
-    /**
-     * Sucht nach einer Reservierung
-     *
-     * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
-     * @return Die zur Reservierungsnummer gehörende Reservierung
-     */
-    @Override
-    public ReservationData search(int reservationNr)
-    {
-        return Reservation.getReservationByNumber(reservationNr);
-    }
-
-    @Override
-    public Collection<ReservationData> searchApprox(String firstName, String lastName)
-    {
-        Collection<Reservation> reservations = Reservation.getReservationsByNameApprox(firstName, lastName);
-        Collection<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
-        if (reservations != null)
-        {
-            for (Reservation res : reservations)
-            {
-                reservationData.add(res);
-            }
-        }
-
-        return reservationData;
-
     }
 
     /**
@@ -65,20 +36,9 @@ public class StartState extends CheckInState
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
     @Override
-    public Collection<ReservationData> search(String firstName, String lastName)
+    Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        Collection<Reservation> reservations = Reservation.getReservationsByName(firstName, lastName);
-        Collection<ReservationData> reservationData = new LinkedHashSet<ReservationData>();
-        if (reservations != null)
-        {
-            for (Reservation res : reservations)
-            {
-                reservationData.add(res);
-            }
-        }
-
-        return reservationData;
-
+        return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.search(firstName, lastName, companyName, reservationNumber));
     }
 
     /**
@@ -87,7 +47,7 @@ public class StartState extends CheckInState
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
     @Override
-    public void workWithReservation(ReservationData reservation)
+    void workWithReservation(ReservationData reservation)
     {
         context.setStartDate(reservation.getStartDate());
         context.setEndDate(reservation.getEndDate());
@@ -117,7 +77,7 @@ public class StartState extends CheckInState
      * @param amount Die Anzahl an Personen
      */
     @Override
-    public void createWalkIn(Date start, Date end, int amount)
+    void createWalkIn(Date start, Date end, int amount)
     {
         context.setStartDate(start);
         context.setEndDate(end);
@@ -132,7 +92,7 @@ public class StartState extends CheckInState
      * @param amount Die Anzahl an Personen
      */
     @Override
-    public void createWalkIn(int days, int amount)
+    void createWalkIn(int days, int amount)
     {
         Calendar cal = Calendar.getInstance();
         context.setStartDate(cal.getTime());

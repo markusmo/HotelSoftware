@@ -29,9 +29,9 @@ public interface HabitationData
     Date getEnd();
 
     /**
-     * @return the guestsCollection
+     * @return Die Datenobjekte der Gäste die zum Aufenthalt gehören
      */
-    Collection<GuestData> getGuestsCollectionData();
+    Collection<GuestData> getGuestsData();
 
     /**
      * @return the idRooms

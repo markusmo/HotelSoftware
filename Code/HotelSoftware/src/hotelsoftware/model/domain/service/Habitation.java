@@ -234,14 +234,10 @@ public class Habitation extends Service implements HabitationData
         guests.add(guest);
     }
 
-    /**
-     * not implemented
-     *
-     * @return
-     */
-    public Collection<GuestData> getGuestsCollectionData()
+    @Override
+    public Collection<GuestData> getGuestsData()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new HelperFunctions<GuestData, Guest>().castCollectionUp(getGuests());
     }
 
     public RoomData getRoomsData()

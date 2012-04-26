@@ -22,6 +22,8 @@ public class ReservationFacade
         return ReservationFacadeHolder.INSTANCE;
     }
 
+    
+
     private static class ReservationFacadeHolder
     {
 
@@ -34,10 +36,9 @@ public class ReservationFacade
      * @param reservationNr Die eindeutige Reservierungsnummer
      * @return Die Reservierung, die gesucht wurde
      */
-    public Reservation getReservationByNumber(int reservationNr)
+    public Reservation getReservationByNumber(String reservationNr)
     {
-        return (Reservation) DynamicMapper.map(DBReservation.getReservationByNumber(
-                reservationNr));
+        return (Reservation) DynamicMapper.map(DBReservation.getReservationByNumber(reservationNr));
     }
 
     /**
@@ -58,6 +59,11 @@ public class ReservationFacade
     {
         return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByNameApprox(
                 fname, lname));
+    }
+    
+    public Collection<Reservation> getReservationsByCompanyName(String companyName)
+    {
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getReservationsByCompanyName(companyName));
     }
 
     /**

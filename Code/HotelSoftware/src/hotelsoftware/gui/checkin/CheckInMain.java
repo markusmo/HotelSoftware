@@ -29,36 +29,6 @@ public class CheckInMain extends javax.swing.JPanel
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private CheckinTwo checkInTwo = null;
 
-    private Object[][] getTableModel()
-    {
-        int i = 0;
-        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Object[][] value = new Object[20 + reservations.size()][];
-        for (ReservationData data : reservations)
-        {
-            String fName = null;
-            String lName = null;
-            String companyName = null;
-
-            if (data.getPartyData() instanceof Company)
-            {
-                companyName = ((CompanyData) data.getPartyData()).getCompanyname();
-
-            }
-            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
-            {
-                lName = ((GuestData) data.getPartyData()).getLname();
-                fName = ((GuestData) data.getPartyData()).getFname();
-            }
-            value[i++] = new Object[]
-            {
-                data.getReservationNumber() + "", companyName, fName, lName,
-                df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
-            };
-        }
-        return value;
-    }
-
     /**
      * Creates new form CheckInMain
      */
@@ -91,6 +61,36 @@ public class CheckInMain extends javax.swing.JPanel
         });
     }
 
+    private Object[][] getTableModel()
+    {
+        int i = 0;
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        Object[][] value = new Object[20 + reservations.size()][];
+        for (ReservationData data : reservations)
+        {
+            String fName = null;
+            String lName = null;
+            String companyName = null;
+
+            if (data.getPartyData() instanceof Company)
+            {
+                companyName = ((CompanyData) data.getPartyData()).getCompanyname();
+
+            }
+            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
+            {
+                lName = ((GuestData) data.getPartyData()).getLname();
+                fName = ((GuestData) data.getPartyData()).getFname();
+            }
+            value[i++] = new Object[]
+            {
+                data.getReservationNumber() + "", companyName, fName, lName,
+                df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
+            };
+        }
+        return value;
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -106,7 +106,7 @@ public class CheckInMain extends javax.swing.JPanel
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         textBoxFname = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        textFieldCompany = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -135,9 +135,9 @@ public class CheckInMain extends javax.swing.JPanel
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        textFieldCompany.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                textFieldCompanyActionPerformed(evt);
             }
         });
 
@@ -251,7 +251,7 @@ public class CheckInMain extends javax.swing.JPanel
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setText("Customer No.:");
+        jLabel2.setText("Company name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -278,12 +278,12 @@ public class CheckInMain extends javax.swing.JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textBoxFname, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2)))
-                        .addGap(0, 37, Short.MAX_VALUE))
+                        .addGap(0, 29, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1))
@@ -315,7 +315,7 @@ public class CheckInMain extends javax.swing.JPanel
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
@@ -334,16 +334,8 @@ public class CheckInMain extends javax.swing.JPanel
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         // Search Button
-
-        try
-        {
-            reservations = (Set<ReservationData>) cigc.searchReservations(textBoxFname.getText(), textBoxLname.getText(), textBoxReservationNumber.getText());
-            setTable();
-        }
-        catch (InvalidInputException ex)
-        {
-            Logger.getLogger(CheckInMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reservations = cigc.search(textBoxFname.getText(), textBoxLname.getText(), textFieldCompany.getText(), textBoxReservationNumber.getText());
+        setTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void textBoxFnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxFnameActionPerformed
@@ -351,16 +343,16 @@ public class CheckInMain extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxFnameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField3ActionPerformed
-    {//GEN-HEADEREND:event_jTextField3ActionPerformed
+    private void textFieldCompanyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldCompanyActionPerformed
+    {//GEN-HEADEREND:event_textFieldCompanyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_textFieldCompanyActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
         cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
-        if(checkInTwo == null)
+        if (checkInTwo == null)
         {
             checkInTwo = new CheckinTwo();
             cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
@@ -396,9 +388,9 @@ public class CheckInMain extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField textBoxFname;
     private javax.swing.JTextField textBoxLname;
     private javax.swing.JTextField textBoxReservationNumber;
+    private javax.swing.JTextField textFieldCompany;
     // End of variables declaration//GEN-END:variables
 }
