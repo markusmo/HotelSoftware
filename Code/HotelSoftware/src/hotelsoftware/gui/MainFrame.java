@@ -283,7 +283,7 @@ public class MainFrame extends javax.swing.JFrame
         KeyStroke f4 = KeyStroke.getKeyStroke(KeyEvent.VK_F4,0);
         KeyStroke f5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5,0);
         
-        InputMap map = this.getRootPane().getInputMap();
+        InputMap map = this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         map.put(f1, "f1pressed");
         map.put(f2, "f2pressed");
         map.put(f3, "f3pressed");
