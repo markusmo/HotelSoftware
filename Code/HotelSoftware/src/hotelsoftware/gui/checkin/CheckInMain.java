@@ -29,36 +29,6 @@ public class CheckInMain extends javax.swing.JPanel
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private CheckinTwo checkInTwo = null;
 
-    private Object[][] getTableModel()
-    {
-        int i = 0;
-        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Object[][] value = new Object[20 + reservations.size()][];
-        for (ReservationData data : reservations)
-        {
-            String fName = null;
-            String lName = null;
-            String companyName = null;
-
-            if (data.getPartyData() instanceof Company)
-            {
-                companyName = ((CompanyData) data.getPartyData()).getCompanyname();
-
-            }
-            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
-            {
-                lName = ((GuestData) data.getPartyData()).getLname();
-                fName = ((GuestData) data.getPartyData()).getFname();
-            }
-            value[i++] = new Object[]
-            {
-                data.getReservationNumber() + "", companyName, fName, lName,
-                df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
-            };
-        }
-        return value;
-    }
-
     /**
      * Creates new form CheckInMain
      */
@@ -89,6 +59,36 @@ public class CheckInMain extends javax.swing.JPanel
                 return canEdit[columnIndex];
             }
         });
+    }
+
+    private Object[][] getTableModel()
+    {
+        int i = 0;
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        Object[][] value = new Object[20 + reservations.size()][];
+        for (ReservationData data : reservations)
+        {
+            String fName = null;
+            String lName = null;
+            String companyName = null;
+
+            if (data.getPartyData() instanceof Company)
+            {
+                companyName = ((CompanyData) data.getPartyData()).getCompanyname();
+
+            }
+            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
+            {
+                lName = ((GuestData) data.getPartyData()).getLname();
+                fName = ((GuestData) data.getPartyData()).getFname();
+            }
+            value[i++] = new Object[]
+            {
+                data.getReservationNumber() + "", companyName, fName, lName,
+                df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
+            };
+        }
+        return value;
     }
 
     /**
@@ -360,7 +360,7 @@ public class CheckInMain extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
         cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
-        if(checkInTwo == null)
+        if (checkInTwo == null)
         {
             checkInTwo = new CheckinTwo();
             cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);

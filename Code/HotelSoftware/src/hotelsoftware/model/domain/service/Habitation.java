@@ -67,6 +67,7 @@ public class Habitation extends Service implements HabitationData
      * @param end
      * Ende der Periode
      * @return
+     * neuen Aufenthalt mit fuer die angegebene Periode
      */
     public static Habitation createHabitation(Date start, Date end)
     {

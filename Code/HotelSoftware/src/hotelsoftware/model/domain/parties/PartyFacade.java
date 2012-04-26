@@ -36,9 +36,10 @@ public class PartyFacade
     }
 
     /**
-     * gibt alle CompanyTypen zurück
+     * gibt alle Firmentypen zurück
      *
      * @return
+     * alle Firmentypen, die vorhanden sind
      */
     public Set<CompanyType> getAllTypes()
     {

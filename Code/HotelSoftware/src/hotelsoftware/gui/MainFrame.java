@@ -4,8 +4,10 @@ import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckinTwo;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.checkin.CheckInMain;
+import hotelsoftware.gui.home.HomePanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import javax.swing.ImageIcon;
@@ -22,7 +24,6 @@ import javax.swing.JTextField;
  */
 public class MainFrame extends javax.swing.JFrame
 {
-   
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
 
     /**
@@ -156,7 +157,11 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        jButton12.setBackground(Color.red);
+        cigc.getContentpane().removeAll();
+        cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
+        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+        cigc.getContentpane().repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton13ActionPerformed
@@ -176,8 +181,9 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
     {//GEN-HEADEREND:event_jButton11ActionPerformed
-        CardLayout cl = (CardLayout) jPanel1.getLayout();
-        cl.next(jPanel1);
+        cigc.getContentpane().removeAll();
+        cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
+        //cigc.getContentpane().repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void Init()
