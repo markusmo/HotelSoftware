@@ -268,8 +268,7 @@ public class DBReservation implements Serializable
         //addEntity gibt den rueckgabewert an...
         BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
         int count = bd.intValue();
-        //TODO
-        // ;
+        
         return count;
     }
 
