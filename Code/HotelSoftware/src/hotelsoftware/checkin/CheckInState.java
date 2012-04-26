@@ -13,17 +13,16 @@ import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import java.util.*;
 
-
 /**
  * Diese Klasse ist die abstrakte Klasse, die alle Status und dessen Funktionen abbilded.
  * Keine dieser Methoden ist implementiert, fuer jeden Status muss die jeweilige Funktionalitaet implementiert werden.
- * 
+ *
  * @author Dunst
  */
 abstract class CheckInState
 {
     protected CheckInController context;
-    
+
     CheckInState(CheckInController context)
     {
         this.context = context;
@@ -189,7 +188,7 @@ abstract class CheckInState
     {
         throw new IllegalStateException();
     }
-    
+
     public void changeRoom(int selectionIndex, RoomData room)
     {
         throw new IllegalStateException();
@@ -269,21 +268,22 @@ abstract class CheckInState
         private RoomCategory category;
         private Room room;
         private Collection<Guest> guests;
-        
+
         RoomSelection()
         {
             this(null, null);
         }
-        
+
         RoomSelection(RoomCategory category)
         {
             this(category, null);
         }
 
-        RoomSelection(RoomCategory category, Room room)
+        RoomSelection(RoomCategoryData category, Room room)
         {
-            this.category = category;
+            this.category = (RoomCategory) category;
             this.room = room;
+            this.room.setCategory((RoomCategory) category);
             guests = new LinkedHashSet<Guest>();
         }
 
@@ -306,17 +306,17 @@ abstract class CheckInState
         {
             this.room = room;
         }
-        
+
         void assignGuest(Guest g)
         {
             guests.add(g);
         }
-        
+
         void removeGuest(Guest g)
         {
             guests.remove(g);
         }
-        
+
         Collection<Guest> getGuests()
         {
             return guests;

@@ -51,9 +51,9 @@ public class RoomPanel extends javax.swing.JPanel
         ComboBoxFreeRooms.removeAllItems();
         RoomCategoryData cd = (RoomCategoryData) ComboBoxCategories.getSelectedItem();
         Collection<RoomData> roomdata = cigc.changeRoomCategory(roomIndex, cd);
-        
+
         RoomData first = null;
-        
+
         if (!roomdata.isEmpty())
         {
             for (RoomData data : roomdata)
@@ -65,14 +65,15 @@ public class RoomPanel extends javax.swing.JPanel
                 ComboBoxFreeRooms.addItem(data.getNumber());
             }
         }
-        
+
         cigc.changeRoom(roomIndex, first);
     }
-    
+
     public void refresh()
     {
         updateComboBoxRooms("");
     }
+
     public void init()
     {
         //############# DropDowns
@@ -84,10 +85,12 @@ public class RoomPanel extends javax.swing.JPanel
             {
                 first = data;
             }
-            
+
             ComboBoxCategories.addItem(data);
         }
+
         ComboBoxCategories.setSelectedItem(first);
+        ComboBoxCategories.setSelectedItem(cigc.getRoomData(roomIndex).getCategoryData());
         updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
 
         ComboBoxCategories.addActionListener(new ActionListener()
@@ -211,7 +214,6 @@ public class RoomPanel extends javax.swing.JPanel
         return true;
     }
 
-   
     public ActionListener getGuestPannelAddListener()
     {
         return new ActionListener()

@@ -43,13 +43,13 @@ public abstract class ChangeDataState extends CheckInState
     public ChangeDataState(CheckInController context)
     {
         super(context);
-        
+
         List<RoomCategoryData> categories = new LinkedList<RoomCategoryData>();
         for (ReservationItem data : context.getReservation().getReservationItems())
         {
             for (Integer i = 0; i < data.getAmount(); i++)
             {
-                context.getRoomSelections().put(i, new RoomSelection((RoomCategory)data.getReservedCategoryData()));
+                context.getRoomSelections().put(i, new RoomSelection((RoomCategory) data.getReservedCategoryData(), new Room()));
             }
         }
     }
@@ -70,7 +70,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        GuestData guest = Guest.create(lastName, lastName, gender, birthday, (Address)address);
+        GuestData guest = Guest.create(lastName, lastName, gender, birthday, (Address) address);
 
         return guest;
     }
@@ -78,14 +78,25 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void assignRoom(int selectionIndex, GuestData guest)
     {
-        context.getRoomSelections().get(selectionIndex).assignGuest((Guest)guest);
+        context.getRoomSelections().get(selectionIndex).assignGuest((Guest) guest);
     }
 
     @Override
     public int addRoomSelection()
-    {        
-        context.getRoomSelections().put(context.increaseCounter(), new RoomSelection());
-        
+    {
+        /*
+         * context.getRoomSelections().put(context.increaseCounter(), new RoomSelection());
+         *
+         * return context.getCounter() - 1;
+         */
+        if (context.getRoomCategoryArray().length > context.getCounter())
+        {
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getCounter() - 1], new Room()));
+        }
+        else
+        {
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getRoomCategoryArray().length - 1], new Room()));
+        }
         return context.getCounter() - 1;
     }
 
@@ -117,7 +128,7 @@ public abstract class ChangeDataState extends CheckInState
 
         sel.setRoom(room);
     }
-    
+
     @Override
     public void changeRoom(int selectionIndex, RoomData room)
     {
@@ -167,7 +178,7 @@ public abstract class ChangeDataState extends CheckInState
             context.getHabitation().addInvoiceItems(item);
         }
     }
-    
+
     /**
      * Ändert die Informationen, betreffend des aktuellen Check In Vorgangs
      *
@@ -189,7 +200,7 @@ public abstract class ChangeDataState extends CheckInState
         LinkedList<Habitation> habitations = new LinkedList<Habitation>();
         LinkedList<Guest> guests = new LinkedList<Guest>();
         LinkedList<Address> addresses = new LinkedList<Address>();
-        
+
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
             Habitation h = new Habitation();
@@ -199,7 +210,7 @@ public abstract class ChangeDataState extends CheckInState
             h.setPrice(roomSel.getRoom().getCategory().getPriceFor(context.getStartDate()));
             h.setRooms(roomSel.getRoom());
             h.setCreated(new Date());
-            
+
             try
             {
                 h.setServiceType(ServiceType.getTypeByName("Habitation"));
@@ -208,7 +219,7 @@ public abstract class ChangeDataState extends CheckInState
             {
                 //Darf nie passieren, da Habitation in der Datenbank vorhanden sein muss
             }
-            
+
             for (Guest g : roomSel.getGuests())
             {
                 h.addGuests(g);
@@ -216,10 +227,10 @@ public abstract class ChangeDataState extends CheckInState
                 guests.add(g);
                 addresses.add(g.getAddress());
             }
-            
+
             habitations.add(h);
         }
-        
+
         try
         {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -234,7 +245,7 @@ public abstract class ChangeDataState extends CheckInState
             throw new CouldNotSaveException();
         }
     }
-    
+
     @Override
     void back()
     {
