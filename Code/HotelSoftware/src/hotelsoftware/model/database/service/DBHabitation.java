@@ -48,7 +48,7 @@ public class DBHabitation extends DBService implements Serializable
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     
-    @ManyToMany(mappedBy = "habitationsCollection")
+    @ManyToMany(mappedBy = "habitations")
     private Set<DBGuest> guests;
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)

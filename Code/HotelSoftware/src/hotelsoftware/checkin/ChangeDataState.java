@@ -234,4 +234,10 @@ public abstract class ChangeDataState extends CheckInState
             throw new CouldNotSaveException();
         }
     }
+    
+    @Override
+    void back()
+    {
+        context.setState(new StartState(context));
+    }
 }

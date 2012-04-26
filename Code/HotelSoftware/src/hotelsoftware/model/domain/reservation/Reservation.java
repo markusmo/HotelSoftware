@@ -6,6 +6,7 @@ import hotelsoftware.model.domain.reservation.data.ReservationOptionData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
+import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.parties.data.PartyData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
@@ -27,6 +28,7 @@ public class Reservation implements ReservationData
     private Collection<ReservationOption> reservationOptions;
     private Party party;
     private Collection<ReservationItem> reservationItems;
+    private Collection<Guest> guests;
     private Integer id;
     private String reservationNumber;
     private User user;
@@ -88,6 +90,16 @@ public class Reservation implements ReservationData
     public void setReservationItems(Collection<ReservationItem> reservationItems)
     {
         this.reservationItems = reservationItems;
+    }
+    
+    public Collection<Guest> getGuests()
+    {
+        return guests;
+    }
+
+    public void setGuests(Collection<Guest> guests)
+    {
+        this.guests = guests;
     }
 
     @Override
@@ -206,5 +218,10 @@ public class Reservation implements ReservationData
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public Collection<GuestData> getGuestsData()
+    {
+        return new HelperFunctions<GuestData, Guest>().castCollectionUp(getGuests());
     }
 }

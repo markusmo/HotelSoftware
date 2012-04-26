@@ -192,7 +192,7 @@ public class CheckInGuiControler
      * Wählt ein anderes Zimmer aus
      *
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
-     * @param roomNumber Die ausgewählte Zimmernummer
+     * @param room Der ausgewaehlte Raum
      */
     public void changeRoom(int selectionIndex, RoomData room)
     {
@@ -267,8 +267,8 @@ public class CheckInGuiControler
     /**
      * Teilt einem Gast ein bestimmtes Zimmer zu
      *
-     * @param guest Der Gast der zugeteilt werden soll
-     * @param room Das Zimmer das dem Gast zugeteilt wird
+     * @param selectionIndex der Index des Raumes der ausgewählt wurde
+     * @param guest Der Gast, der zu diesem Zimmer zugeteilt werden soll
      */
     public void assignRoom(int selectionIndex, GuestData guest)
     {
@@ -309,11 +309,10 @@ public class CheckInGuiControler
     }
 
     /**
-     * Ändert die Informationen, betreffend des aktuellen Check In Vorgangs
+     * Ändert die Periode, betreffend des aktuellen Check In Vorgangs
      *
      * @param start Das neue Startdatum
      * @param end Das neue Enddatum
-     * @param amount Die neue Anzahl an Personen
      */
     public void changeInformation(Date start, Date end)
     {
@@ -325,7 +324,7 @@ public class CheckInGuiControler
      *
      * @return Der Gast der die Reservierung angelegt hat
      */
-    public GuestData getGuests()
+    public Collection<GuestData> getGuests()
     {
         return CheckInController.getInstance().getGuests();
     }
@@ -347,12 +346,30 @@ public class CheckInGuiControler
 
     /**
      * Legt einen neuen Gast an
-     *
-     * @param firstName Der Vorname des Gastes
-     * @param lastName Der Nachname des Gastes
-     * @param birthday Das Geburtsdatum des Gastes
-     * @param address Die Adresse des Gastes
-     * @return Der neu erstellte Gast
+     * @param firstName
+     * Der Vorname des Gsstes
+     * @param lastName
+     * Der Nachname des Gastes
+     * @param gender
+     * Das Geschlecht des Gastes
+     * @param birthday
+     * Der Geburtstag des Gastes
+     * @param street
+     * Die Straße zu der Adresse des Gastes
+     * @param city
+     * Die Stadt zu der Adresse des Gastes
+     * @param zip
+     * Die Postleitzahl zu der Stadt in der Adresse des Gastes
+     * @param email
+     * Die Email-Adresse zu der Adresse des Gastes
+     * @param phone
+     * Der Telefonanschluss zu der Adresse des Gastes
+     * @param fax
+     * Der Faxanschluss zu der Adresse des Gastes
+     * @param country
+     * Das Land zu der Adresse des Gastes
+     * @return 
+     * Das <code>GuestData</code> Interface zum Gast, mit den Gettern fuer die Attribute
      */
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday,
             String street, String city, String zip, String email, String phone, String fax, CountryData country)
@@ -424,8 +441,8 @@ public class CheckInGuiControler
         return CheckInController.getInstance().getCounter();
     }
 
-    public void setStartState()
+    public void back()
     {
-        CheckInController.getInstance().setStartState();
+        CheckInController.getInstance().back();
     }
 }

@@ -362,7 +362,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        cigc.setStartState();        // TODO add your handling code here:
+        cigc.back();        // TODO add your handling code here:
         ((CardLayout)cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
     }//GEN-LAST:event_jButton1ActionPerformed
 
