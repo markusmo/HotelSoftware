@@ -183,7 +183,8 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton11ActionPerformed
         cigc.getContentpane().removeAll();
         cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
-        //cigc.getContentpane().repaint();
+       ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+        cigc.getContentpane().repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void Init()
@@ -204,8 +205,6 @@ public class MainFrame extends javax.swing.JFrame
         //jPanel1 = new CheckInMain();
         cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
         //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
-
-
     }
 
     public static void CreateGui()
