@@ -3,7 +3,7 @@ package hotelsoftware.gui;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckinTwo;
 import hotelsoftware.gui.checkin.CheckInMain;
-import hotelsoftware.gui.checkin.CheckInMain_1;
+import hotelsoftware.gui.checkin.CheckInMain;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -196,7 +196,7 @@ public class MainFrame extends javax.swing.JFrame
 
         cigc.setContentpane(jPanel1);
         //jPanel1 = new CheckInMain();
-        cigc.getContentpane().add(new CheckInMain_1(), BorderLayout.CENTER);
+        cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
         //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
 
 

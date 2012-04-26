@@ -68,7 +68,11 @@ public class RoomPanel extends javax.swing.JPanel
         
         cigc.changeRoom(roomIndex, first);
     }
-
+    
+    public void refresh()
+    {
+        updateComboBoxRooms("");
+    }
     public void init()
     {
         //############# DropDowns
