@@ -49,7 +49,7 @@ public class RoomPanel extends javax.swing.JPanel
     {
         System.out.println(string);
         ComboBoxFreeRooms.removeAllItems();
-        RoomCategoryData cd = cigc.getCategories().toArray(new RoomCategoryData[0])[ComboBoxCategories.getSelectedIndex()];
+        RoomCategoryData cd = (RoomCategoryData) ComboBoxCategories.getSelectedItem();
         Collection<RoomData> roomdata = cigc.changeRoomCategory(roomIndex, cd);
         if (!roomdata.isEmpty())
         {
@@ -64,11 +64,11 @@ public class RoomPanel extends javax.swing.JPanel
     {
         //############# DropDowns
         ComboBoxCategories.removeAllItems();
-        for (RoomCategoryData data : cigc.getCategories())
+        for (RoomCategoryData data : cigc.getAllCategories())
         {
             ComboBoxCategories.addItem(data);
         }
-        String dafuq = cigc.getRoomData(roomIndex).getCategoryData().getName();
+        RoomCategoryData dafuq = cigc.getRoomData(roomIndex).getCategoryData();
         ComboBoxCategories.setSelectedItem(dafuq);
         updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
 

@@ -111,17 +111,6 @@ public class CheckInGuiControler
     }
 
     /**
-     * Gibt alle Zimmerkategorieen
-     *
-     * @return
-     * Alle verfuegbaren Zimmerkategeorieen
-     */
-    public Collection<RoomCategoryData> getCategories()
-    {
-        return CheckInController.getInstance().getAllCategories();
-    }
-
-    /**
      * Ändert die ausgewählte Kategorie einer bestimmten Zimmerauswahl
      *
      * @param index Der index der sich zu verändernden Zimmerauwahl
@@ -240,16 +229,21 @@ public class CheckInGuiControler
     {
         return CheckInController.getInstance().addRoomSelection();
     }
-
     /**
      * Gibt alle Verpflegunsarten aus
      *
      * @return
      * Die verfuebaren Verpflegunsarten aus
      */
+    private List<ExtraServiceData> habitationServices;
+
     public List<ExtraServiceData> getAllHabitationServices()
     {
-        return (List<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
+        if (habitationServices == null)
+        {
+            habitationServices = (List<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
+        }
+        return habitationServices;
     }
 
     public JPanel getContentpane()
@@ -275,10 +269,15 @@ public class CheckInGuiControler
     {
         CheckInController.getInstance().assignRoom(guest, room);
     }
+    private Collection<CountryData> countries;
 
     public Collection<CountryData> getAllCountries()
     {
-        return CheckInController.getInstance().getAllCountries();
+        if (countries == null)
+        {
+            countries = CheckInController.getInstance().getAllCountries();
+        }
+        return countries;
     }
 
     /**
@@ -365,10 +364,15 @@ public class CheckInGuiControler
     {
         CheckInController.getInstance().removeRoomSelection(selectionIndex);
     }
+    private Collection<RoomCategoryData> roomCategories;
 
     public Collection<RoomCategoryData> getAllCategories()
     {
-        return CheckInController.getInstance().getAllCategories();
+        if (roomCategories == null)
+        {
+            roomCategories = CheckInController.getInstance().getAllCategories();
+        }
+        return roomCategories;
     }
 
     /**
