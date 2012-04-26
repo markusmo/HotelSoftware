@@ -11,7 +11,7 @@ import hotelsoftware.model.domain.parties.data.AddressData;
 public class Party implements PartyData
 {
     protected Address address;
-    protected Integer id;
+    protected Integer idParties;
 
     public Party()
     {
@@ -32,16 +32,16 @@ public class Party implements PartyData
         this.address = address;
     }
 
-    public Integer getId()
+    public Integer getIdParties()
     {
-        return id;
+        return idParties;
     }
 
-    public void setId(Integer id)
+    public void setIdParties(Integer id)
     {
-        if (this.id == null)
+        if (this.idParties == null)
         {
-            this.id = id;
+            this.idParties = id;
         }
     }
 

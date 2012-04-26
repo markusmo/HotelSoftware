@@ -27,11 +27,15 @@ public class UserFacade
     }
     
     /**
-     * Logincontroller?
+     * Ueberprueft, ob ein User in der Datenbank hinterlegt ist
      * @param username
+     * Der Benutzername des Users
      * @param password
+     * Das Passwort des Users
      * @return
-     * @throws LoginFailureException 
+     * Einen User, der in der Datenbank hinterlegt ist, falls Passwort und Benutzername uebereinstimmen
+     * @throws LoginFailureException
+     * Wirft einen Fehler, wenn kein User gefunden wurde oder das Passwort oder Benutzername nicht uebereinstimmen
      */
     public User login(String username, String password) throws LoginFailureException
     {
@@ -48,6 +52,7 @@ public class UserFacade
     /**
      * Gibt alle vorhandenen Befugnisse aus
      * @return 
+     * Alle Befugnisse, die vorhanden sind
      */
     public Collection<Permission> getAllPermissions()
     {

@@ -63,22 +63,43 @@ public class DBGuest extends DBParty implements Serializable
     {
         @JoinColumn(name = "idService", referencedColumnName = "idServices", nullable = false)
     })
-    @ManyToMany
-    private Set<DBHabitation> habitationsCollection;
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<DBHabitation> habitations;
+    
+    @JoinTable(name = "reservationsGuests", joinColumns =
+    {
+        @JoinColumn(name = "personsID", referencedColumnName = "idParties", nullable = false)
+    }, inverseJoinColumns =
+    {
+        @JoinColumn(name = "reservationsID", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<DBReservation> reservations;
 
     public DBGuest()
     {
     }
 
     @XmlTransient
-    public Set<DBHabitation> getHabitations()
+    public Collection<DBHabitation> getHabitations()
     {
-        return habitationsCollection;
+        return habitations;
     }
 
-    public void setHabitations(Set<DBHabitation> habitationsCollection)
+    public void setHabitations(Collection<DBHabitation> habitationsCollection)
     {
-        this.habitationsCollection = habitationsCollection;
+        this.habitations = new LinkedHashSet<DBHabitation>(habitationsCollection);
+    }
+    
+    @XmlTransient
+    public Collection<DBReservation> getReservations()
+    {
+        return reservations;
+    }
+
+    public void setReservations(Collection<DBReservation> reservations)
+    {
+        this.reservations = new LinkedHashSet<DBReservation>(reservations);
     }
 
     /**

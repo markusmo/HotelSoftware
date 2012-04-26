@@ -21,8 +21,9 @@ public interface InvoiceItemData
     ServiceData getServiceData();
 
     /**
-     * Gibt den Preis für eine Rechungsposition aus.
-     * @return
+     * Gibt den Preis einer Rechungsposition aus
+     * @return 
+     * Preis der Position*Amount
      */
     double getTotalPrice();
 

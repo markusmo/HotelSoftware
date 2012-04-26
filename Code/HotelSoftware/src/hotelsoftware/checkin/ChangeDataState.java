@@ -10,6 +10,7 @@ import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.PartySaver;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
@@ -22,12 +23,15 @@ import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.*;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Diese Klasse ist abstrakt und beinhaltet alle Methoden fuer Reservations und Walk-Ins Check-In.
@@ -66,10 +70,8 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        GuestData guest = Guest.create(lastName, lastName, gender, birthday, null);
+        GuestData guest = Guest.create(lastName, lastName, gender, birthday, (Address)address);
 
-        //TODO save somehow
-        System.out.println("@ChangeDataState in addGuest TODO!!!");
         return guest;
     }
 
@@ -185,6 +187,8 @@ public abstract class ChangeDataState extends CheckInState
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
         LinkedList<Habitation> habitations = new LinkedList<Habitation>();
+        LinkedList<Guest> guests = new LinkedList<Guest>();
+        LinkedList<Address> addresses = new LinkedList<Address>();
         
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
@@ -208,6 +212,9 @@ public abstract class ChangeDataState extends CheckInState
             for (Guest g : roomSel.getGuests())
             {
                 h.addGuests(g);
+                g.addHabitation(h);
+                guests.add(g);
+                addresses.add(g.getAddress());
             }
             
             habitations.add(h);
@@ -215,11 +222,22 @@ public abstract class ChangeDataState extends CheckInState
         
         try
         {
-            ServiceSaver.getInstance().saveOrUpdate(new LinkedList(), habitations, new LinkedList());
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Transaction ts = session.beginTransaction();
+            ts.begin();
+            PartySaver.getInstance().saveOrUpdate(session, addresses, new LinkedList(), new LinkedList(), new LinkedList(), guests);
+            ServiceSaver.getInstance().saveOrUpdate(session, new LinkedList(), habitations, new LinkedList());
+            ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)
         {
             throw new CouldNotSaveException();
         }
+    }
+    
+    @Override
+    void back()
+    {
+        context.setState(new StartState(context));
     }
 }

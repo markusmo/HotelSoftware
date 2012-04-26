@@ -35,6 +35,7 @@ public class PrivateCustomer extends Customer
      * @param invoiceAddress Rechungsadresse des Kunden
      * @param address Die Adresse des Kunden
      * @return
+     * Eine neue Instanz
      */
     public static PrivateCustomer create(String fname, String lname,
             Character gender, Address invoiceAddress, Address address)

@@ -102,7 +102,7 @@ abstract class CheckInState
      *
      * @return Alle bereits erfassten Gäste die einchecken
      */
-    GuestData getGuest()
+    Collection<GuestData> getGuests()
     {
         throw new IllegalStateException();
     }
@@ -255,6 +255,11 @@ abstract class CheckInState
     }
 
     void saveData() throws NoPriceDefinedException, CouldNotSaveException
+    {
+        throw new IllegalStateException();
+    }
+
+    void back()
     {
         throw new IllegalStateException();
     }

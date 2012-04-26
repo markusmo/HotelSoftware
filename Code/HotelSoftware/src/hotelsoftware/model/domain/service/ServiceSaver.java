@@ -61,7 +61,7 @@ public class ServiceSaver
                 DBExtraService dbp = (DBExtraService) DynamicMapper.map(extraService);
 
                 session.saveOrUpdate(dbp);
-                extraService.setId(dbp.getIdServices());
+                extraService.setIdServices(dbp.getIdServices());
             }
 
             for (Habitation habitation : habitations)
@@ -69,7 +69,7 @@ public class ServiceSaver
                 DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);
 
                 session.saveOrUpdate(dbp);
-                habitation.setId(dbp.getIdServices());
+                habitation.setIdServices(dbp.getIdServices());
             }
         }
         catch (HibernateException ex)

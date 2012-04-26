@@ -63,18 +63,18 @@ public class ReservationItem implements ReservationItemData
         this.amount = amount;
     }
 
-    public RoomCategory getRoomcategory()
+    public RoomCategory getRoomCategory()
     {
         return reservedCategory;
     }
 
-    public void setRoomcategory(RoomCategory reservedCategory)
+    public void setRoomCategory(RoomCategory reservedCategory)
     {
         this.reservedCategory = reservedCategory;
     }
 
     public RoomCategoryData getReservedCategoryData()
     {
-        return getRoomcategory();
+        return getRoomCategory();
     }
 }

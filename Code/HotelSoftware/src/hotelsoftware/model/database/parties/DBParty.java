@@ -29,7 +29,7 @@ public class DBParty implements Serializable
     
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = true)
-    private DBAddress idAddresses;
+    private DBAddress address;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "party")
     private Set<DBReservation> reservationsCollection;
@@ -84,14 +84,14 @@ public class DBParty implements Serializable
         this.companiesCollection = companiesCollection;
     }
 
-    public DBAddress getIdAddresses()
+    public DBAddress getAddress()
     {
-        return idAddresses;
+        return address;
     }
 
-    public void setIdAddresses(DBAddress idAddresses)
+    public void setAddress(DBAddress address)
     {
-        this.idAddresses = idAddresses;
+        this.address = address;
     }
 
     @XmlTransient

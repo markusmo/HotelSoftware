@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DBAddress implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAddresses")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
     private Set<DBParty> dBPersonCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceAddress")
     private Set<DBCustomer> dBCustomerCollection;

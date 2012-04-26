@@ -42,8 +42,8 @@ public class DBRoomCategory implements Serializable
     @Column(name = "bedCount", nullable = false)
     private Integer bedCount;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
-    private Set<DBReservationItem> reservationitems;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomCategory")
+    private Set<DBReservationItem> reservationItems;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.EAGER)
     private Set<DBRoom> rooms;
@@ -98,14 +98,14 @@ public class DBRoomCategory implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBReservationItem> getReservationitems()
+    public Collection<DBReservationItem> getReservationItems()
     {
-        return reservationitems;
+        return reservationItems;
     }
 
-    public void setReservationitems(Collection<DBReservationItem> reservationitems)
+    public void setReservationitems(Collection<DBReservationItem> reservationItems)
     {
-        this.reservationitems = new LinkedHashSet(reservationitems);
+        this.reservationItems = new LinkedHashSet(reservationItems);
     }
 
     @XmlTransient

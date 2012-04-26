@@ -3,6 +3,7 @@ package hotelsoftware.model.domain.service;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.model.domain.service.data.ServiceTypeData;
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -13,6 +14,7 @@ public class ServiceType implements ServiceTypeData
 {
     private String type;
     private Integer id;
+    private BigDecimal taxRate;
 
     /**
      * @return the id
@@ -80,6 +82,16 @@ public class ServiceType implements ServiceTypeData
     public void setName(String type)
     {
         this.type = type;
+    }
+    
+    public BigDecimal getTaxRate()
+    {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate)
+    {
+        this.taxRate = taxRate;
     }
     
     public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException

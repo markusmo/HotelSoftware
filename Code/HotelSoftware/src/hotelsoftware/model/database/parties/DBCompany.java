@@ -43,7 +43,7 @@ public class DBCompany extends DBCustomer implements Serializable
     
     @JoinColumn(name = "idCompanyTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBCompanyType idCompanyTypes;
+    private DBCompanyType companyType;
 
     public DBCompany()
     {
@@ -76,14 +76,14 @@ public class DBCompany extends DBCustomer implements Serializable
         this.contactPersons = contactPersons;
     }
 
-    public DBCompanyType getIdCompanyTypes()
+    public DBCompanyType getCompanyType()
     {
-        return idCompanyTypes;
+        return companyType;
     }
 
-    public void setIdCompanyTypes(DBCompanyType idCompanyTypes)
+    public void setCompanyType(DBCompanyType companyType)
     {
-        this.idCompanyTypes = idCompanyTypes;
+        this.companyType = companyType;
     }
 
     @Override
