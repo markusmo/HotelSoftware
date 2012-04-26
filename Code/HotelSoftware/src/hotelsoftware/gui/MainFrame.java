@@ -275,6 +275,9 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JButton roomOverviewButton;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Registriert die Shortcuts fuer die Buttons.
+     */
     private void registerActionMap()
     {
         KeyStroke f1 = KeyStroke.getKeyStroke(KeyEvent.VK_F1,0);

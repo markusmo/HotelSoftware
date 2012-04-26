@@ -59,6 +59,7 @@ public class CheckinTwo extends javax.swing.JPanel
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
+        
     }
 
     public void init()

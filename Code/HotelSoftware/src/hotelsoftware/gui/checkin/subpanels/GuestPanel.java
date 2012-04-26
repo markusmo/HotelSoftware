@@ -337,10 +337,10 @@ public class GuestPanel extends javax.swing.JPanel
         {
             if (c instanceof JTextField)
             {
-                if (!((JTextField) c).getText().isEmpty())
+                if (((JTextField) c).getText().isEmpty())
                 {
-                    System.out.println(((JTextField) c).getText());
-                    //return false;
+                    //System.out.println(((JTextField) c).getText());
+                    return false;
                 }
             }
         }
