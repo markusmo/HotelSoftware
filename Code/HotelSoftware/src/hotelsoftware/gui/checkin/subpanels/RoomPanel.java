@@ -104,6 +104,7 @@ public class RoomPanel extends javax.swing.JPanel
         TabbedPaneGuests.add("", pPanel);
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
                 new ButtonTabComponentPlus(getGuestPannelAddListener()));
+        TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
 
     }
 

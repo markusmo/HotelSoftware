@@ -54,7 +54,6 @@ public class CheckinTwo extends javax.swing.JPanel
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
-
     }
 
     private void init()
@@ -78,21 +77,8 @@ public class CheckinTwo extends javax.swing.JPanel
             // int test = data.getAmount();
             int oldi = i;
             for (i = oldi; i < data.getAmount() + oldi; i++)
-            {
-                // cigc.addRoomSelection();
-               /*
-                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
-                 * RoomPanel room = new RoomPanel();
-                 * room.setTabComponent(iconTab);
-                 * rooms.add(room);
-                 *
-                 * room.setRoomIndex(cigc.addRoomSelection());
-                 * room.init();
-                 * TabbedPaneRooms.addTab("Room " + (i + 1), room);
-                 * TabbedPaneRooms.setTabComponentAt(i, iconTab);
-                 */
+            {              
                 addNewRoomPanel();
-                //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
             }
         }
         JPanel pPanel = new JPanel();
@@ -375,7 +361,6 @@ public class CheckinTwo extends javax.swing.JPanel
     private void DateChooserDepartureOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserDepartureOnCommit
     {//GEN-HEADEREND:event_DateChooserDepartureOnCommit
         cigc.changeInformation(DateChooserArrival.getSelectedDate().getTime(), DateChooserDeparture.getSelectedDate().getTime());
-
     }//GEN-LAST:event_DateChooserDepartureOnCommit
 
     private void DateChooserArrivalOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserArrivalOnCommit
