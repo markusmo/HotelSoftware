@@ -321,7 +321,7 @@ public class CheckInGuiControler
      *
      * @return Der Gast der die Reservierung angelegt hat
      */
-    public GuestData getGuests()
+    public Collection<GuestData> getGuests()
     {
         return CheckInController.getInstance().getGuests();
     }
@@ -420,8 +420,8 @@ public class CheckInGuiControler
         return CheckInController.getInstance().getCounter();
     }
 
-    public void setStartState()
+    public void back()
     {
-        CheckInController.getInstance().setStartState();
+        CheckInController.getInstance().back();
     }
 }

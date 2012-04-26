@@ -134,9 +134,9 @@ public class CheckInController
      *
      * @return Der Gast der die Reservierung angelegt hat
      */
-    public GuestData getGuests()
+    public Collection<GuestData> getGuests()
     {
-        return state.getGuest();
+        return state.getGuests();
     }
 
     /**
@@ -314,6 +314,11 @@ public class CheckInController
         state.saveData();
     }
     
+    public void back()
+    {
+        state.back();
+    }
+    
     /**
      ************************************************ Getter und Setter für die States**************************************************************
      */
@@ -409,13 +414,5 @@ public class CheckInController
     int increaseCounter()
     {
         return counter++;
-    }
-
-    public void setStartState()
-    {
-        state = new StartState(this);
-        roomSelections = null;
-        reservationItems = null;
-        counter = 0;
     }
 }

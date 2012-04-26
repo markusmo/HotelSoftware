@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -20,6 +21,7 @@ public class Guest extends Party implements GuestData
     private String lname;
     private Character gender;
     private Collection<Habitation> habitations;
+    private Collection<Reservation> reservations;
 
     public Guest()
     {
@@ -71,6 +73,16 @@ public class Guest extends Party implements GuestData
     public void setCurrentHabitations(Collection<Habitation> habitations)
     {
         this.habitations = habitations;
+    }
+    
+    public Collection<Reservation> getReservations()
+    {
+        return reservations;
+    }
+
+    public void setReservations(Collection<Reservation> reservations)
+    {
+        this.reservations = reservations;
     }
 
     @Override

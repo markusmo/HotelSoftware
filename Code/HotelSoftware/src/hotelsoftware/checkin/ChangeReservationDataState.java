@@ -7,6 +7,7 @@ package hotelsoftware.checkin;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.parties.data.PartyData;
+import java.util.Collection;
 
 /**
  * Dieser Status ist dazu da um Reservations-Check-Ins von Walk-In-Check-Ins zu abstrahieren.
@@ -20,15 +21,8 @@ public class ChangeReservationDataState extends ChangeDataState
     }
 
     @Override
-    public GuestData getGuest()
+    public Collection<GuestData> getGuests()
     {
-        PartyData guest = context.getReservation().getPartyData();
-
-        if (guest instanceof Guest)
-        {
-            return (GuestData) guest;
-        }
-
-        return null;
+        return context.getReservation().getGuestsData();
     }
 }
