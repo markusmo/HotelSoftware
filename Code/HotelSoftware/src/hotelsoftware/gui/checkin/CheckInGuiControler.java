@@ -57,36 +57,10 @@ public class CheckInGuiControler
      * @throws InvalidInputException
      * Falls die Validierung fehlschlaegt, wird ein Fehler geworfen
      */
-    public Collection<ReservationData> searchReservations(String fname, String lname, String reservationNumber) throws InvalidInputException
+     public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        Collection<ReservationData> res = new LinkedHashSet<ReservationData>();
-        try
-        {
-            CheckInController cic = CheckInController.getInstance();
-
-            if (reservationNumber.length() > 0)
-            {
-                ReservationData reservation = cic.search(Integer.parseInt(reservationNumber));
-
-                if (reservation != null)
-                {
-                    res.add(reservation);
-                    //return dafuq;
-                }
-            }
-            if (res.isEmpty())
-            {
-                res.addAll(CheckInController.getInstance().searchApprox(fname, lname));
-            }
-
-            return res;
-        }
-        catch (NumberFormatException ex)
-        {
-            throw new InvalidInputException(reservationNumber);
-        }
+        return CheckInController.getInstance().search(firstName, lastName, companyName, reservationNumber);
     }
-
     /**
      * Gibt alle Reservierungen aus
      *
