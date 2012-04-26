@@ -25,10 +25,8 @@ public class GoogleWeatherAPI
     public static void main(String[] args)
     {
         GoogleWeatherAPI gwa = new GoogleWeatherAPI("dornbirn");
-        for(Weather w : gwa.getForeCasts())
-        {
-            System.out.println(w);
-        }
+        List<Weather> foreCast = gwa.getForeCasts();
+        List<Weather> current = gwa.getCurrent();
     }
     private Document doc;
 
@@ -81,6 +79,13 @@ public class GoogleWeatherAPI
     {
 
         NodeList nodeLst = doc.getElementsByTagName("forecast_conditions");
+
+        return (x(nodeLst));
+    }
+     public List<Weather> getCurrent()
+    {
+
+        NodeList nodeLst = doc.getElementsByTagName("current_conditions");
 
         return (x(nodeLst));
     }
