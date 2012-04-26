@@ -18,7 +18,7 @@ import java.util.LinkedHashSet;
 public class Company extends Customer implements CompanyData
 {
     private String companyname;
-    private CompanyType type;
+    private CompanyType companyType;
     private Collection<Party> contactPersons;
 
     public Company()
@@ -51,7 +51,7 @@ public class Company extends Customer implements CompanyData
     {
         super(address, invoiceAddress);
         this.companyname = name;
-        this.type = type;
+        this.companyType = type;
         contactPersons = partys;
     }
 
@@ -72,14 +72,14 @@ public class Company extends Customer implements CompanyData
         this.companyname = companyname;
     }
 
-    public CompanyType getType()
+    public CompanyType getCompanyType()
     {
-        return type;
+        return companyType;
     }
 
-    public void setType(CompanyType type)
+    public void setCompanyType(CompanyType type)
     {
-        this.type = type;
+        this.companyType = type;
     }
 
     public Collection<Party> getContactPersons()
@@ -122,7 +122,7 @@ public class Company extends Customer implements CompanyData
 
     public CompanyTypeData getTypeData()
     {
-        return (CompanyTypeData) getType();
+        return (CompanyTypeData) getCompanyType();
     }
 
     @Override

@@ -5,6 +5,7 @@
 package hotelsoftware.model.domain.reservation.data;
 
 import hotelsoftware.model.domain.parties.Party;
+import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.parties.data.PartyData;
 import java.util.Collection;
 import java.util.Date;
@@ -27,6 +28,8 @@ public interface ReservationData
     PartyData getPartyData();
 
     Collection<ReservationItemData> getReservationItemCollectionData();
+    
+    Collection<GuestData> getGuestsData();
 
     Date getStartDate();
 

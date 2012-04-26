@@ -51,10 +51,10 @@ public class DBInvoiceItem implements Serializable
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private DBUser idUser;
+    private DBUser user;
     
     @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private DBHabitation habitation;
     
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
@@ -136,14 +136,14 @@ public class DBInvoiceItem implements Serializable
         this.invoice = invoices;
     }
 
-    public DBUser getIdUser()
+    public DBUser getUser()
     {
-        return idUser;
+        return user;
     }
 
-    public void setIdUser(DBUser idUsers)
+    public void setUser(DBUser user)
     {
-        this.idUser = idUsers;
+        this.user = user;
     }
 
     public DBHabitation getHabitation()
@@ -174,7 +174,7 @@ public class DBInvoiceItem implements Serializable
         ts.begin();
         List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
-        session.close();
+        ;
 
         return new LinkedHashSet<DBInvoiceItem>(retList);
     }

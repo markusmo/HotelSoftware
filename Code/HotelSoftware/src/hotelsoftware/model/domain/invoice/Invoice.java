@@ -25,12 +25,12 @@ public class Invoice implements InvoiceData
     private String invoiceNumber;
     private BigDecimal discount;
     private Date expiration;
-    private boolean fulfilled;
+    private Boolean fulfilled;
     private Date created;
-    private PaymentMethod idpaymentMethod;
-    private Customer idCustomer;
-    private User idUser;
-    private Collection<InvoiceItem> invoiceitems;
+    private PaymentMethod paymentMethod;
+    private Customer customer;
+    private User user;
+    private Collection<InvoiceItem> invoiceItems;
 
     public Invoice()
     {
@@ -53,23 +53,23 @@ public class Invoice implements InvoiceData
      * @return 
      * Eine Neue Rechung.
      */
-    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, boolean fulfilled, PaymentMethod paymentmethod, Customer customer)
+    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, Boolean fulfilled, PaymentMethod paymentmethod, Customer customer)
     {
         return new Invoice(invoiceNr, discount, expiration, fulfilled, paymentmethod, customer, LoginController.getInstance().getCurrentUser());
     }
 
     private Invoice(String invoiceNr, BigDecimal discount, Date expiration,
-            boolean fulfilled, PaymentMethod paymentMethod,
+            Boolean fulfilled, PaymentMethod paymentMethod,
             Customer customer, User user)
     {
         this.invoiceNumber = invoiceNr;
         this.discount = discount;
         this.expiration = expiration;
         this.fulfilled = fulfilled;
-        this.idpaymentMethod = paymentMethod;
-        this.idCustomer = customer;
-        this.idUser = user;
-        this.invoiceitems = new LinkedHashSet<InvoiceItem>();
+        this.paymentMethod = paymentMethod;
+        this.customer = customer;
+        this.user = user;
+        this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Invoice implements InvoiceData
     }
 
     @Override
-    public boolean isFulfilled()
+    public Boolean isFulfilled()
     {
         return fulfilled;
     }
@@ -100,19 +100,19 @@ public class Invoice implements InvoiceData
         return id;
     }
 
-    public Customer getIdCustomer()
+    public Customer getCustomer()
     {
-        return idCustomer;
+        return customer;
     }
 
-    public User getIdUser()
+    public User getUser()
     {
-        return idUser;
+        return user;
     }
 
-    public PaymentMethod getIdpaymentMethod()
+    public PaymentMethod getPaymentMethod()
     {
-        return idpaymentMethod;
+        return paymentMethod;
     }
 
     @Override
@@ -121,9 +121,9 @@ public class Invoice implements InvoiceData
         return invoiceNumber;
     }
 
-    public Collection<InvoiceItem> getInvoiceitems()
+    public Collection<InvoiceItem> getInvoiceItems()
     {
-        return invoiceitems;
+        return invoiceItems;
     }
 
     public void setCreated(Date created)
@@ -140,8 +140,8 @@ public class Invoice implements InvoiceData
     {
         this.expiration = expiration;
     }
-
-    public void setFulfilled(boolean fulfilled)
+    
+    public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
     }
@@ -151,19 +151,19 @@ public class Invoice implements InvoiceData
         this.id = id;
     }
 
-    public void setIdCustomer(Customer idCustomers)
+    public void setCustomer(Customer customer)
     {
-        this.idCustomer = idCustomers;
+        this.customer = customer;
     }
 
-    public void setIdUser(User idUsers)
+    public void setUser(User user)
     {
-        this.idUser = idUsers;
+        this.user = user;
     }
 
-    public void setIdpaymentMethod(PaymentMethod idpaymentMethods)
+    public void setPaymentMethod(PaymentMethod paymentMethod)
     {
-        this.idpaymentMethod = idpaymentMethods;
+        this.paymentMethod = paymentMethod;
     }
 
     public void setInvoiceNumber(String invoiceNumber)
@@ -171,15 +171,15 @@ public class Invoice implements InvoiceData
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void setInvoiceitems(Collection<InvoiceItem> invoiceitemsCollection)
+    public void setInvoiceItems(Collection<InvoiceItem> invoiceitemsCollection)
     {
-        this.invoiceitems = invoiceitemsCollection;
+        this.invoiceItems = invoiceitemsCollection;
     }
 
     @Override
     public String getPaymentMethodName()
     {
-        return idpaymentMethod.getMethod();
+        return paymentMethod.getMethod();
     }
 
     /**
@@ -191,18 +191,18 @@ public class Invoice implements InvoiceData
      */
     public Invoice getInvoiceByHabitation(Habitation habitation)
     {
-        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, idpaymentMethod, idCustomer);
+        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, paymentMethod, customer);
         LinkedHashSet<InvoiceItem> items = new LinkedHashSet<InvoiceItem>();
 
-        for (InvoiceItem item : this.invoiceitems)
+        for (InvoiceItem item : this.invoiceItems)
         {
             if (item.getHabitation().equals(habitation))
             {
                 items.add(item);
             }
         }
-        this.invoiceitems.removeAll(items);
-        invoice.setInvoiceitems(items);
+        this.invoiceItems.removeAll(items);
+        invoice.setInvoiceItems(items);
 
         return invoice;
     }
@@ -220,23 +220,23 @@ public class Invoice implements InvoiceData
         return (Invoice) DynamicMapper.map(dbi);
     }
 
-    public CustomerData getIdCustomersData()
+    public CustomerData getCustomerData()
     {
-        return (CustomerData) getIdCustomer();
+        return (CustomerData) getCustomer();
     }
 
-    public UserData getIdUsersData()
+    public UserData getUserData()
     {
-        return (UserData) getIdUser();
+        return (UserData) getUser();
     }
 
-    public PaymentMethodData getIdpaymentMethodsData()
+    public PaymentMethodData getPaymentMethodData()
     {
-        return (PaymentMethodData) getIdpaymentMethod();
+        return (PaymentMethodData) getPaymentMethod();
     }
 
-    public Collection<InvoiceItemData> getInvoiceitemsData()
+    public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
     }
 }

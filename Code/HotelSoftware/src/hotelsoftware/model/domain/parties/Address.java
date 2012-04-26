@@ -146,7 +146,7 @@ public class Address implements AddressData
 
     public void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }

@@ -79,8 +79,7 @@ public class ReservationFacade
      */
     public Collection<Reservation> getAllReservations()
     {
-        return (Collection<Reservation>) DynamicMapper.mapCollection(
-                DBReservation.getAllReservations());
+        return (Collection<Reservation>) DynamicMapper.mapCollection(DBReservation.getAllReservations());
     }
 
     /**

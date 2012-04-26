@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DBRoomStatus implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus", fetch= FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomstatus", fetch= FetchType.EAGER)
     private Set<DBRoomsRoomStatus> dBRoomsRoomStatusCollection;
     private static final long serialVersionUID = 1L;
     @Id

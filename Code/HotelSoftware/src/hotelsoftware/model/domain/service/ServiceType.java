@@ -1,9 +1,9 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.domain.service.data.ServiceTypeData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
-import java.util.Collection;
+import hotelsoftware.model.domain.service.data.ServiceTypeData;
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -14,6 +14,7 @@ public class ServiceType implements ServiceTypeData
 {
     private String type;
     private Integer id;
+    private BigDecimal taxRate;
 
     /**
      * @return the id
@@ -28,7 +29,7 @@ public class ServiceType implements ServiceTypeData
      */
     public void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
@@ -70,7 +71,7 @@ public class ServiceType implements ServiceTypeData
      * @return the type
      */
     @Override
-    public String getType()
+    public String getName()
     {
         return type;
     }
@@ -78,8 +79,23 @@ public class ServiceType implements ServiceTypeData
     /**
      * @param type the type to set
      */
-    public void setType(String type)
+    public void setName(String type)
     {
         this.type = type;
+    }
+    
+    public BigDecimal getTaxRate()
+    {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate)
+    {
+        this.taxRate = taxRate;
+    }
+    
+    public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
+    {
+        return ServiceFacade.getInstance().getServiceTypeByName(name);
     }
 }

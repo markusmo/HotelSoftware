@@ -22,6 +22,6 @@ public interface GuestData
     Character getGender();
 
     Collection<HabitationData> getHabitationsData();
-
+    
     String getLname();
 }

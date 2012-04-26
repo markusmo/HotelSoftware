@@ -2,6 +2,7 @@ package hotelsoftware.model.domain.service;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
+import hotelsoftware.model.database.service.DBServiceType;
 import java.util.Collection;
 
 /**
@@ -45,15 +46,23 @@ public class ServiceFacade
      */
     public ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
-
         DBExtraService p = DBExtraService.getExtraServiceByName(name);
 
         if (p == null)
         {
-
             throw new ServiceNotFoundException();
-
         }
         return (ExtraService) DynamicMapper.map(p);
+    }
+    
+    public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
+    {
+        DBServiceType p = DBServiceType.getTypeByName(name);
+
+        if (p == null)
+        {
+            throw new ServiceTypeNotFoundException();
+        }
+        return (ServiceType) DynamicMapper.map(p);
     }
 }

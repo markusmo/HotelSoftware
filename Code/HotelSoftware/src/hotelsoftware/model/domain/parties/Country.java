@@ -15,6 +15,7 @@ public class Country implements CountryData
 {
     private Integer id;
     private String name;
+    private String nameShort;
 
     public Integer getId()
     {
@@ -34,6 +35,16 @@ public class Country implements CountryData
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    public String getNameShort()
+    {
+        return nameShort;
+    }
+
+    public void setNameShort(String nameShort)
+    {
+        this.nameShort = nameShort;
     }
     
     public static Collection<Country> getAllCountries()

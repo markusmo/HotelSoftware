@@ -42,7 +42,7 @@ import org.hibernate.Transaction;
 @XmlRootElement
 public class DBCompanyType implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompanyTypes")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyType")
     private Set<DBCompany> dBCompanyCollection;
     private static final long serialVersionUID = 1L;
     @Id
@@ -134,7 +134,6 @@ public class DBCompanyType implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBCompanyType.class);
         List<DBCompanyType> retList = criteria.list();
-        session.close();
 
         return new LinkedHashSet<DBCompanyType>(retList);
     }

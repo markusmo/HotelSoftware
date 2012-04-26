@@ -21,7 +21,7 @@ public class CheckinOnConsole
 //        try
 //        {
 //            System.out.println("This is a checkin :-D");
-//            Session session = HibernateUtil.getSessionFactory().openSession();
+//            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //            Transaction ts = session.beginTransaction();
 //            ts.begin();
 //
@@ -34,7 +34,6 @@ public class CheckinOnConsole
 //            session.save(user);
 //            session.flush();
 //            ts.commit();
-//            session.close();
 //
 //        }
 //        catch (NoSuchAlgorithmException ex)
@@ -44,12 +43,10 @@ public class CheckinOnConsole
 //        List<DBUser> userlist = session.createCriteria(DBUser.class).list();
 ////        DBUser user1 = (DBUser)session.createQuery("from DBUser where id = 1").uniqueResult();
 //        
-//        session.close();
 //        for (DBUser users : userlist) {
 //            System.out.println(users.getUsername());
 //        }
 //        System.out.println("session closed");
-//        session.close();
 //        for (DBUser users : userlist) {
 //            System.out.println(users.getUsername());
 //        }

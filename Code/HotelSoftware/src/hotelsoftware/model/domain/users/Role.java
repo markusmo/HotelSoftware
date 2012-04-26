@@ -47,13 +47,13 @@ public class Role implements RoleData
 
     void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
     }
 
-    Role()
+    public Role()
     {
     }
 

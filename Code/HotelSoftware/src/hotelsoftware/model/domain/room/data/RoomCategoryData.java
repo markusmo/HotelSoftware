@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.room.data;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.RoomCategoryPrice;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public interface RoomCategoryData
 
     String getName();
 
-    Set<RoomCategoryPrice> getPrice();
+    Collection<RoomCategoryPrice> getPrice();
 
     public BigDecimal getPriceFor(Date startDate) throws NoPriceDefinedException;
 

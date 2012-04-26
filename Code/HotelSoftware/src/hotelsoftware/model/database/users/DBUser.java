@@ -36,20 +36,20 @@ import org.hibernate.criterion.Restrictions;
 @XmlRootElement
 public class DBUser implements Serializable
 {
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch= FetchType.EAGER)
     private Set<DBRole> roles;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<DBHabitation> habitations;
     
-    @OneToMany(mappedBy = "idUsers")
+    @OneToMany(mappedBy = "user")
     private Set<DBReservation> reservations;
     
     @Basic(optional = false)
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsers")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<DBInvoice> invoices;
     
     private static final long serialVersionUID = 1L;
@@ -170,7 +170,7 @@ public class DBUser implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBUser.class);
         List<DBUser> retList = criteria.list();
-        session.close();
+        ;
 
         return retList;
     }
@@ -195,16 +195,16 @@ public class DBUser implements Serializable
         DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions
                 .and(Restrictions.eq("username", username),Restrictions.eq("password", password)))
                 .uniqueResult();
-        session.close();
+        ;
         return retUser;
     }
 
-    public boolean getActive()
+    public Boolean getActive()
     {
         return active;
     }
 
-    public void setActive(boolean active)
+    public void setActive(Boolean active)
     {
         this.active = active;
     }

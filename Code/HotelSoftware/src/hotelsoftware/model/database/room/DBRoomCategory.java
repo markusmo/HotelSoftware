@@ -3,10 +3,7 @@ package hotelsoftware.model.database.room;
 import hotelsoftware.model.database.reservation.DBReservationItem;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.List;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,10 +42,10 @@ public class DBRoomCategory implements Serializable
     @Column(name = "bedCount", nullable = false)
     private Integer bedCount;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories")
-    private Set<DBReservationItem> reservationitems;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomCategory")
+    private Set<DBReservationItem> reservationItems;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.EAGER)
     private Set<DBRoom> rooms;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
@@ -101,36 +98,36 @@ public class DBRoomCategory implements Serializable
     }
 
     @XmlTransient
-    public Set<DBReservationItem> getReservationitems()
+    public Collection<DBReservationItem> getReservationItems()
     {
-        return reservationitems;
+        return reservationItems;
     }
 
-    public void setReservationitems(Set<DBReservationItem> reservationitems)
+    public void setReservationitems(Collection<DBReservationItem> reservationItems)
     {
-        this.reservationitems = reservationitems;
+        this.reservationItems = new LinkedHashSet(reservationItems);
     }
 
     @XmlTransient
-    public Set<DBRoom> getRooms()
+    public Collection<DBRoom> getRooms()
     {
         return rooms;
     }
 
-    public void setRooms(Set<DBRoom> rooms)
+    public void setRooms(Collection<DBRoom> rooms)
     {
-        this.rooms = rooms;
+        this.rooms = new LinkedHashSet(rooms);
     }
 
     @XmlTransient
-    public Set<DBRoomCategoryPrice> getPrice()
+    public Collection<DBRoomCategoryPrice> getPrice()
     {
         return price;
     }
 
-    public void setPrice(Set<DBRoomCategoryPrice> prices)
+    public void setPrice(Collection<DBRoomCategoryPrice> prices)
     {
-        this.price = prices;
+        this.price = new LinkedHashSet(prices);
     }
 
     @Override
@@ -165,11 +162,11 @@ public class DBRoomCategory implements Serializable
     
     public static DBRoomCategory getRoomCategoryByName(String name)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
         DBRoomCategory cats = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
-        session.close();
+        ;
         return cats;
     }
     
@@ -178,13 +175,13 @@ public class DBRoomCategory implements Serializable
      * @return
      * Alle verfuebaren Kategorieen
      */
-    public static Set<DBRoomCategory> getAllCategories()
+    public static Collection<DBRoomCategory> getAllCategories()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
         List<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();
-        session.close();
+        ;
         return new LinkedHashSet<DBRoomCategory>(cats);
     }
     
@@ -199,7 +196,7 @@ public class DBRoomCategory implements Serializable
      */
     public Set<DBRoom> getFreeRooms(Date start, Date ende)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
         
@@ -214,7 +211,7 @@ public class DBRoomCategory implements Serializable
         List<DBRoom> rooms = query.list();
         
         //TODO
-        //session.close();
+        //;
         return new LinkedHashSet<DBRoom>(rooms);
     }
     

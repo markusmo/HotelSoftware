@@ -3,6 +3,7 @@ package hotelsoftware.model.domain.service;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.service.DBExtraService;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
@@ -42,13 +43,9 @@ public class ServiceSaver
      * @throws FailedToSaveToDatabaseException 
      * Wirft einen Fehler, wenn das Speichern fehlschlaegt
      */
-    public void saveOrUpdate(Session session, Set<ExtraService> extraServices, Set<Habitation> habitations, Set<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Collection<ExtraService> extraServices, Collection<Habitation> habitations, 
+            Collection<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
     {
-
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        Transaction ts = session.beginTransaction();
-//        ts.begin();
-
         try
         {
             for (ServiceType serviceType : serviceTypes)
@@ -64,26 +61,32 @@ public class ServiceSaver
                 DBExtraService dbp = (DBExtraService) DynamicMapper.map(extraService);
 
                 session.saveOrUpdate(dbp);
-                extraService.setId(dbp.getIdServices());
+                extraService.setIdServices(dbp.getIdServices());
             }
 
             for (Habitation habitation : habitations)
             {
-                Habitation dbp = (Habitation) DynamicMapper.map(habitation);
+                DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);
 
                 session.saveOrUpdate(dbp);
-                habitation.setId(dbp.getId());
+                habitation.setIdServices(dbp.getIdServices());
             }
-            //ts.commit();
         }
         catch (HibernateException ex)
         {
-            //ts.rollback();
             throw new FailedToSaveToDatabaseException();
         }
-//        finally
-//        {
-//            session.close();
-//        }
+    }
+    
+    public void saveOrUpdate(Collection<ExtraService> extraServices, Collection<Habitation> habitations, Collection<ServiceType> serviceTypes) 
+            throws FailedToSaveToDatabaseException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        saveOrUpdate(session, extraServices, habitations, serviceTypes);
+        
+        ts.commit();
     }
 }

@@ -19,9 +19,10 @@ public class InvoiceItem implements InvoiceItemData
     private Integer amount;
     private Date created;
     private Service service;
-    private User idUser;
-    private Habitation idHabitation;
+    private User user;
+    private Habitation habitation;
     private InvoiceItemPK pk;
+    private Invoice invoice;
 
     public InvoiceItem()
     {
@@ -32,8 +33,8 @@ public class InvoiceItem implements InvoiceItemData
     {
         this.amount = amount;
         this.service = service;
-        this.idUser = user;
-        this.idHabitation = habitation;
+        this.user = user;
+        this.habitation = habitation;
     }
 
     /**
@@ -67,7 +68,7 @@ public class InvoiceItem implements InvoiceItemData
 
     public Habitation getHabitation()
     {
-        return idHabitation;
+        return habitation;
     }
 
     public Service getService()
@@ -77,7 +78,7 @@ public class InvoiceItem implements InvoiceItemData
 
     public User getUser()
     {
-        return idUser;
+        return user;
     }
 
     public void setAmount(int amount)
@@ -90,9 +91,9 @@ public class InvoiceItem implements InvoiceItemData
         this.created = created;
     }
 
-    public void setIdHabitation(Habitation habitation)
+    public void setHabitation(Habitation habitation)
     {
-        this.idHabitation = habitation;
+        this.habitation = habitation;
     }
 
     public void setService(Service service)
@@ -100,9 +101,9 @@ public class InvoiceItem implements InvoiceItemData
         this.service = service;
     }
 
-    public void setIdUser(User user)
+    public void setUser(User user)
     {
-        this.idUser = user;
+        this.user = user;
     }
 
     public InvoiceItemPK getInvoiceitemsPK()
@@ -116,6 +117,16 @@ public class InvoiceItem implements InvoiceItemData
         {
             this.pk = invoiceitemsPK;
         }
+    }
+    
+    public Invoice getInvoice()
+    {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoices)
+    {
+        this.invoice = invoices;
     }
     
     /**

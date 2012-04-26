@@ -1,26 +1,13 @@
 package hotelsoftware.model.database.reservation;
 
+import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.parties.DBParty;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
@@ -79,14 +66,18 @@ public class DBReservation implements Serializable
     private Date created;
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", updatable=false, insertable=false)
-    @ManyToOne(optional = false)
-    private DBUser idUsers;
+    @ManyToOne(optional = false, fetch= FetchType.EAGER)
+    private DBUser user;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", fetch= FetchType.EAGER)
     private Set<DBReservationItem> reservationItems;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", fetch= FetchType.EAGER)
     private Set<DBReservationOption> reservationOptions;
+
+
+    @ManyToMany(mappedBy = "reservations", fetch= FetchType.EAGER)
+    private Set<DBGuest> guests;
 
     public DBReservation()
     {
@@ -125,7 +116,7 @@ public class DBReservation implements Serializable
     public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
     {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -137,7 +128,7 @@ public class DBReservation implements Serializable
         sqlquery = sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(retList);
 
@@ -156,7 +147,7 @@ public class DBReservation implements Serializable
     public static Collection<DBReservation> getReservationsByName(String fname, String lname)
     {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -167,7 +158,7 @@ public class DBReservation implements Serializable
         List<DBReservation> retList = sqlquery.list();
 
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(retList);
 
@@ -183,7 +174,7 @@ public class DBReservation implements Serializable
      */
     public static DBReservation getReservationByNumber(int reservationNr)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -191,7 +182,7 @@ public class DBReservation implements Serializable
         criteria.add(Restrictions.eq("reservationNumber", reservationNr + ""));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         //TODO
-        // session.close();
+        // ;
 
         return retList;
     }
@@ -206,7 +197,7 @@ public class DBReservation implements Serializable
      */
     public static DBReservation getReservationById(int id)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -214,7 +205,7 @@ public class DBReservation implements Serializable
         criteria.add(Restrictions.eq("id", id));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         //TODO
-        //session.close();
+        //;
 
         return retList;
     }
@@ -227,7 +218,7 @@ public class DBReservation implements Serializable
      */
     public static Collection<DBReservation> getAllReservations()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -235,7 +226,7 @@ public class DBReservation implements Serializable
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(sqlquery.list());
     }
@@ -248,7 +239,7 @@ public class DBReservation implements Serializable
      */
     public int getGuestAmount()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -263,7 +254,7 @@ public class DBReservation implements Serializable
         BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
         int count = bd.intValue();
         //TODO
-        // session.close();
+        // ;
         return count;
     }
 
@@ -309,6 +300,16 @@ public class DBReservation implements Serializable
     }
 
     @XmlTransient
+    public Collection<DBGuest> getGuests()
+    {
+        return guests;
+    }
+
+    public void setGuests(Collection<DBGuest> guests)
+    {
+        this.guests = new LinkedHashSet<DBGuest>(guests);
+    }
+    
     public Collection<DBReservationOption> getReservationOptions()
     {
         return reservationOptions;
@@ -319,14 +320,14 @@ public class DBReservation implements Serializable
         this.reservationOptions = new LinkedHashSet<DBReservationOption>(reservationOptions);
     }
 
-    public DBUser getIdUsers()
+    public DBUser getUser()
     {
-        return idUsers;
+        return user;
     }
 
-    public void setIdUsers(DBUser idUsers)
+    public void setUser(DBUser user)
     {
-        this.idUsers = idUsers;
+        this.user = user;
     }
 
     public DBParty getParty()

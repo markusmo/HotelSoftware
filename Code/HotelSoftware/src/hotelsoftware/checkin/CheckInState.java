@@ -1,16 +1,17 @@
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 
 /**
@@ -19,11 +20,11 @@ import java.util.Date;
  * 
  * @author Dunst
  */
-public abstract class CheckInState
+abstract class CheckInState
 {
     protected CheckInController context;
     
-    public CheckInState(CheckInController context)
+    CheckInState(CheckInController context)
     {
         this.context = context;
     }
@@ -34,7 +35,7 @@ public abstract class CheckInState
      * @param reservationNr Die bei der Reservierung erstelle Reservierungsnummer
      * @return Die zur Reservierungsnummer gehörende Reservierung
      */
-    public ReservationData search(int reservationNr)
+    ReservationData search(int reservationNr)
     {
         throw new IllegalStateException();
     }
@@ -46,7 +47,7 @@ public abstract class CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    public Collection<ReservationData> search(String firstName, String lastName)
+    Collection<ReservationData> search(String firstName, String lastName)
     {
         throw new IllegalStateException();
     }
@@ -56,7 +57,7 @@ public abstract class CheckInState
      *
      * @param reservation Die Reservierung die abgearbeitet werden soll
      */
-    public void workWithReservation(ReservationData reservation)
+    void workWithReservation(ReservationData reservation)
     {
         throw new IllegalStateException();
     }
@@ -68,7 +69,7 @@ public abstract class CheckInState
      * @param end Das Enddatum des Aufenthalts
      * @param amount Die Anzahl an Personen
      */
-    public void createWalkIn(Date start, Date end, int amount)
+    void createWalkIn(Date start, Date end, int amount)
     {
         throw new IllegalStateException();
     }
@@ -79,7 +80,7 @@ public abstract class CheckInState
      * @param days Die Aufenthaltsdauer in Tagen
      * @param amount Die Anzahl an Personen
      */
-    public void createWalkIn(int days, int amount)
+    void createWalkIn(int days, int amount)
     {
         throw new IllegalStateException();
     }
@@ -91,7 +92,7 @@ public abstract class CheckInState
      * @param end Das neue Enddatum
      * @param amount Die neue Anzahl an Personen
      */
-    public void changeInformation(Date start, Date end, int amount)
+    void changeInformation(Date start, Date end, int amount)
     {
         throw new IllegalStateException();
     }
@@ -101,7 +102,7 @@ public abstract class CheckInState
      *
      * @return Alle bereits erfassten Gäste die einchecken
      */
-    public GuestData getGuest()
+    Collection<GuestData> getGuests()
     {
         throw new IllegalStateException();
     }
@@ -116,7 +117,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der Gast mit den geänderten Daten
      */
-    public GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
+    GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
         throw new IllegalStateException();
     }
@@ -130,7 +131,7 @@ public abstract class CheckInState
      * @param address Die Adresse des Gastes
      * @return Der neu erstellte Gast
      */
-    public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
+    GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
         throw new IllegalStateException();
     }
@@ -141,7 +142,7 @@ public abstract class CheckInState
      * @param guest Der Gast der zugeteilt werden soll
      * @param room Das Zimmer das dem Gast zugeteilt wird
      */
-    public void assignRoom(GuestData guest, RoomData room)
+    void assignRoom(int selectionIndex, GuestData guest)
     {
         throw new IllegalStateException();
     }
@@ -151,7 +152,7 @@ public abstract class CheckInState
      *
      * @return Der index der Zimmerauswahl
      */
-    public int addRoomSelection()
+    int addRoomSelection()
     {
         throw new IllegalStateException();
     }
@@ -161,7 +162,7 @@ public abstract class CheckInState
      *
      * @param selectionIndex Der index der zu entfernenden Asuwahl
      */
-    public void removeRoomSelection(int selectionIndex)
+    void removeRoomSelection(int selectionIndex)
     {
         throw new IllegalStateException();
     }
@@ -173,7 +174,7 @@ public abstract class CheckInState
      * @param category Die neue Kategorie
      * @return Eine Liste der belegbaren Zimmer der Kategorie
      */
-    public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
+    Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
         throw new IllegalStateException();
     }
@@ -184,7 +185,12 @@ public abstract class CheckInState
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
      * @param roomNumber Die ausgewählte Zimmernummer
      */
-    public void changeRoom(int selectionIndex, String roomNumber)
+    void changeRoom(int selectionIndex, String roomNumber)
+    {
+        throw new IllegalStateException();
+    }
+    
+    public void changeRoom(int selectionIndex, RoomData room)
     {
         throw new IllegalStateException();
     }
@@ -193,7 +199,7 @@ public abstract class CheckInState
      * Programmiert die Zimmerschlüssel
      * (throw new NotImplementedException()...)
      */
-    public void initKeys()
+    void initKeys()
     {
         throw new IllegalStateException();
     }
@@ -203,7 +209,7 @@ public abstract class CheckInState
      *
      * @return Die Liste mit den Extrleistungen
      */
-    public Collection<ExtraServiceData> getServices()
+    Collection<ExtraServiceData> getServices()
     {
         throw new IllegalStateException();
     }
@@ -213,71 +219,112 @@ public abstract class CheckInState
      *
      * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
      */
-    public void selectServices(Collection<ExtraServiceData> services)
+    void selectServices(Collection<ExtraServiceData> services)
     {
         throw new IllegalStateException();
     }
 
-    public Collection<RoomCategoryData> getAllCategories()
+    Collection<RoomCategoryData> getAllCategories()
     {
         throw new IllegalStateException();
     }
 
-    public Collection<ReservationData> getAllReservations()
+    Collection<ReservationData> getAllReservations()
     {
         throw new IllegalStateException();
     }
 
-    public RoomData getRoomData(int selectionIndex)
+    RoomData getRoomData(int selectionIndex)
     {
         throw new IllegalStateException();
     }
 
-    public Collection<ReservationData> searchApprox(String firstName, String lastName)
+    Collection<ReservationData> searchApprox(String firstName, String lastName)
     {
         throw new IllegalStateException();
     }
 
-    public Collection<ExtraServiceData> getAllHabitationServices()
+    Collection<ExtraServiceData> getAllHabitationServices()
     {
         throw new IllegalStateException();
     }
 
-    public Collection<CountryData> getAllCountries()
+    Collection<CountryData> getAllCountries()
     {
         throw new IllegalStateException();
     }
 
-    protected class RoomSelection
+    void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
-        private RoomCategoryData category;
+        throw new IllegalStateException();
+    }
+
+    void back()
+    {
+        throw new IllegalStateException();
+    }
+
+    class RoomSelection
+    {
+        private RoomCategory category;
         private Room room;
+        private Collection<Guest> guests;
+        
+        RoomSelection()
+        {
+            this(null, null);
+        }
+        
+        RoomSelection(RoomCategory category)
+        {
+            this(category, null);
+        }
 
-        public RoomSelection(RoomCategoryData category, Room room)
+        RoomSelection(RoomCategory category, Room room)
         {
             this.category = category;
             this.room = room;
-            this.room.setCategory((RoomCategory)category);
+            guests = new LinkedHashSet<Guest>();
         }
 
-        public RoomCategoryData getCategory()
+        RoomCategory getCategory()
         {
             return category;
         }
 
-        public void setCategory(RoomCategory category)
+        void setCategory(RoomCategory category)
         {
-            this.category = (RoomCategoryData) category;
+            this.category = category;
         }
 
-        public Room getRoom()
+        Room getRoom()
         {
             return room;
         }
 
-        public void setRoom(Room room)
+        void setRoom(Room room)
         {
             this.room = room;
+        }
+        
+        void assignGuest(Guest g)
+        {
+            guests.add(g);
+        }
+        
+        void removeGuest(Guest g)
+        {
+            guests.remove(g);
+        }
+        
+        Collection<Guest> getGuests()
+        {
+            return guests;
+        }
+
+        void setGuests(Collection<Guest> guests)
+        {
+            this.guests = guests;
         }
     }
 }

@@ -38,7 +38,7 @@ public class DBHabitation extends DBService implements Serializable
     private Date end;
     
     @Basic(optional = false)
-    @Column(name = "created", nullable = false)
+    @Column(name = "created", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
@@ -48,7 +48,7 @@ public class DBHabitation extends DBService implements Serializable
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     
-    @ManyToMany(mappedBy = "habitationsCollection")
+    @ManyToMany(mappedBy = "habitations")
     private Set<DBGuest> guests;
     
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
@@ -59,7 +59,7 @@ public class DBHabitation extends DBService implements Serializable
     @ManyToOne(optional = false)
     private DBUser users;
     
-    @OneToMany(mappedBy="habitation", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy="habitation", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
@@ -92,7 +92,10 @@ public class DBHabitation extends DBService implements Serializable
 
     public void setGuests(Collection<DBGuest> guestsCollection)
     {
-        this.guests = new LinkedHashSet<DBGuest>(guestsCollection);
+        if (guestsCollection != null)
+        {
+            this.guests = new LinkedHashSet<DBGuest>(guestsCollection);
+        }
     }
 
 
@@ -104,7 +107,10 @@ public class DBHabitation extends DBService implements Serializable
 
     public void setInvoiceItems(Collection<DBInvoiceItem> invoiceItems)
     {
-        this.invoiceItems = new LinkedHashSet<DBInvoiceItem>(invoiceItems);
+        if (invoiceItems != null)
+        {
+            this.invoiceItems = new LinkedHashSet<DBInvoiceItem>(invoiceItems);
+        }
     }
 
     public DBRoom getRooms()
@@ -179,7 +185,7 @@ public class DBHabitation extends DBService implements Serializable
         SQLQuery sqlquery = session.createSQLQuery(query);
         
         DBHabitation habitation = (DBHabitation)sqlquery.uniqueResult();
-        session.close();
+        ;
         
         return habitation;
     }

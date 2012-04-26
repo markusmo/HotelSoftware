@@ -13,6 +13,7 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.Habitation;
@@ -133,9 +134,9 @@ public class CheckInController
      *
      * @return Der Gast der die Reservierung angelegt hat
      */
-    public GuestData getGuests()
+    public Collection<GuestData> getGuests()
     {
-        return state.getGuest();
+        return state.getGuests();
     }
 
     /**
@@ -183,9 +184,9 @@ public class CheckInController
      * @param guest Der Gast der zugeteilt werden soll
      * @param room Das Zimmer das dem Gast zugeteilt wird
      */
-    public void assignRoom(GuestData guest, RoomData room)
+    public void assignRoom(int selectionIndex, GuestData guest)
     {
-        state.assignRoom(guest, room);
+        state.assignRoom(selectionIndex, guest);
     }
 
     public RoomData getRoomData(int selectionIndex)
@@ -245,6 +246,17 @@ public class CheckInController
     {
         state.changeRoom(selectionIndex, roomNumber);
     }
+    
+    /**
+     * Wählt ein anderes Zimmer aus
+     *
+     * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
+     * @param RoomData Das ausgewählte Zimmer
+     */
+    public void changeRoom(int selectionIndex, RoomData room)
+    {
+        state.changeRoom(selectionIndex, room);
+    }
 
     /**
      * Programmiert die Zimmerschlüssel
@@ -296,9 +308,19 @@ public class CheckInController
     {
         return state.getAllHabitationServices();
     }
-
+    
+    public void saveData() throws NoPriceDefinedException, CouldNotSaveException
+    {
+        state.saveData();
+    }
+    
+    public void back()
+    {
+        state.back();
+    }
+    
     /**
-     * Getter und Setter für die States***
+     ************************************************ Getter und Setter für die States**************************************************************
      */
     public Date getEndDate()
     {

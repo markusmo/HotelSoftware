@@ -31,7 +31,7 @@ public class Permission implements PermissionData
 
     void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
