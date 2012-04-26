@@ -33,6 +33,7 @@ import org.hibernate.criterion.Restrictions;
 public class DBReservation implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -120,15 +121,15 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + fname + "%' AND g.lname like '" + lname + "%') ";
+        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + 
+                fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatePerson p WHERE p.fname like '" + 
+                fname + "%' AND p.lname like '" + lname + "%')";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
 
         //addEntity gibt den rueckgabewert an...
         sqlquery = sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
-        //TODO
-        //;
 
         return new LinkedHashSet<DBReservation>(retList);
 
@@ -157,11 +158,23 @@ public class DBReservation implements Serializable
         sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
 
-        //TODO
-        //;
-
         return new LinkedHashSet<DBReservation>(retList);
 
+    }
+    
+    public static Collection getReservationsByCompanyName(String companyName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+        sqlquery.addEntity(DBReservation.class);
+        List<DBReservation> retList = sqlquery.list();
+
+        return new LinkedHashSet<DBReservation>(retList);
     }
 
     /**
@@ -172,19 +185,21 @@ public class DBReservation implements Serializable
      * @return
      * Eine Reservierung, mit der angegebenen Reservierungsnummer
      */
-    public static DBReservation getReservationByNumber(int reservationNr)
+    public static DBReservation getReservationByNumber(String reservationNr)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        Criteria criteria = session.createCriteria(DBReservation.class);
-        criteria.add(Restrictions.eq("reservationNumber", reservationNr + ""));
-        DBReservation retList = (DBReservation) criteria.uniqueResult();
-        //TODO
-        // ;
+        String query = "SELECT * FROM Reservations r WHERE reservationNumber = :resNr";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        sqlquery.setString("resNr", reservationNr);
+        sqlquery.addEntity(DBReservation.class);
 
-        return retList;
+        DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
+        
+        ts.commit();
+        return reservation;
     }
 
     /**

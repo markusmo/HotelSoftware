@@ -47,7 +47,7 @@ abstract class CheckInState
      * @param lastName Der Nachname der Person
      * @return Eine Liste mit allen zur Suche passenden Reservierungen
      */
-    Collection<ReservationData> search(String firstName, String lastName)
+    Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
         throw new IllegalStateException();
     }
