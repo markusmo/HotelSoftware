@@ -58,12 +58,13 @@ public class Weather
         return iconUrl;
     }
 
-    public void setIcon(String icon)
+    public void setIcon(String iconname)
     {
-        this.iconUrl = icon.split("/")[icon.split("/").length - 1];
+        this.iconUrl = iconname.split("/")[iconname.split("/").length - 1];
         String iconName = iconUrl.replace(".gif", "");
-        String path = "resources/images/weathericons/weather_" + iconName + "-40.gif";
+        String path = "resources/images/weathericons/" + iconName + ".png";
         this.icon = new ImageIcon(Weather.class.getClassLoader().getResource(path));
+        //this.icon = new ImageIcon(Weather.class.getClassLoader().getResource("resources/images/weathericons/weather_sunny-40.gif"));
     }
 
     public String getLow()
