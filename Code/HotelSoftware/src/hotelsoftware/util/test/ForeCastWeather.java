@@ -12,12 +12,18 @@ import javax.swing.ImageIcon;
  */
 public class ForeCastWeather extends Weather
 {
-    
     private String low;
     private String high;
     private String day_of_week;
-   
-   
+
+    public ForeCastWeather()
+    {
+    }
+
+    public ForeCastWeather(String city)
+    {
+        super(city);
+    }
 
     public String getDay_of_week()
     {
@@ -38,8 +44,8 @@ public class ForeCastWeather extends Weather
     {
         this.high = high;
     }
-    
-     public String getLow()
+
+    public String getLow()
     {
         return low;
     }
@@ -47,5 +53,11 @@ public class ForeCastWeather extends Weather
     public void setLow(String low)
     {
         this.low = low;
+    }
+
+    @Override
+    public String toString()
+    {
+        return day_of_week + "\n" + super.getCondition() + "\nMin: " + low + "° Max: " + high + "°";
     }
 }

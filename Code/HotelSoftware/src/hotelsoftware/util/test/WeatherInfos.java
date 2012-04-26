@@ -4,6 +4,8 @@
  */
 package hotelsoftware.util.test;
 
+import java.util.List;
+
 /**
  *
  * @author Johannes
@@ -16,6 +18,15 @@ public class WeatherInfos extends javax.swing.JFrame
     public WeatherInfos()
     {
         initComponents();
+        Weather w = new CurrentWeather();
+        List<Weather> list = w.getCurrent();
+        list.addAll(w.getForeCasts());
+        for (Weather w2 : list)
+        {
+            WeatherPanel wp = new WeatherPanel(w2);
+            jPanel1.add(wp);
+        }
+
     }
 
     /**
@@ -37,16 +48,16 @@ public class WeatherInfos extends javax.swing.JFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(547, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(327, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
 
         pack();
