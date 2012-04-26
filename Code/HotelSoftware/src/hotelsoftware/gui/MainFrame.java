@@ -5,11 +5,6 @@ import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-<<<<<<< HEAD
-import java.awt.Color;
-import java.awt.Component;
-=======
->>>>>>> Action map added and buttons renamed
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -153,20 +148,13 @@ public class MainFrame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
+    private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         cigc.getContentpane().removeAll();
         cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
         ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
         cigc.getContentpane().repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
-=======
-    private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkInButtonActionPerformed
-    {//GEN-HEADEREND:event_checkInButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkInButtonActionPerformed
->>>>>>> Action map added and buttons renamed
 
     private void roomOverviewButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_roomOverviewButtonActionPerformed
     {//GEN-HEADEREND:event_roomOverviewButtonActionPerformed
@@ -183,21 +171,13 @@ public class MainFrame extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_journalButtonActionPerformed
 
-<<<<<<< HEAD
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
+    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
     {//GEN-HEADEREND:event_jButton11ActionPerformed
         cigc.getContentpane().removeAll();
         cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
         cigc.getContentpane().repaint();
     }//GEN-LAST:event_jButton11ActionPerformed
-=======
-    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_homeButtonActionPerformed
-    {//GEN-HEADEREND:event_homeButtonActionPerformed
-        CardLayout cl = (CardLayout) jPanel1.getLayout();
-        cl.next(jPanel1);
-    }//GEN-LAST:event_homeButtonActionPerformed
->>>>>>> Action map added and buttons renamed
 
     private void Init()
     {
