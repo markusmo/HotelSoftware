@@ -410,4 +410,12 @@ public class CheckInController
     {
         return counter++;
     }
+
+    public void setStartState()
+    {
+        state = new StartState(this);
+        roomSelections = null;
+        reservationItems = null;
+        counter = 0;
+    }
 }

@@ -30,11 +30,6 @@ public class CheckInGuiControler
     private JTabbedPane roomTabPane;
     private ReservationData selectedReservation;
 
-    int getCounter()
-    {
-        return CheckInController.getInstance().getCounter();
-    }
-
     private static class CheckInGuiControllerHolder
     {
         private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
@@ -189,7 +184,7 @@ public class CheckInGuiControler
     {
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
-    
+
     /**
      * Wählt ein anderes Zimmer aus
      *
@@ -418,5 +413,15 @@ public class CheckInGuiControler
     public void setRoomTabPane(JTabbedPane roomTabPane)
     {
         this.roomTabPane = roomTabPane;
+    }
+
+    int getCounter()
+    {
+        return CheckInController.getInstance().getCounter();
+    }
+
+    public void setStartState()
+    {
+        CheckInController.getInstance().setStartState();
     }
 }

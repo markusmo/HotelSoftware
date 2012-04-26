@@ -15,6 +15,7 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +50,7 @@ public class CheckinTwo extends javax.swing.JPanel
     public CheckinTwo()
     {
         initComponents();
-        init();
+        //init();
     }
     int i;
 
@@ -58,11 +59,11 @@ public class CheckinTwo extends javax.swing.JPanel
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
-
     }
 
-    private void init()
+    public void init()
     {
+        TabbedPaneRooms.removeAll();
         cigc.setRoomTabPane(TabbedPaneRooms);
         //################### Set TextBoxes
         reservation = cigc.getSelectedReservation();
@@ -361,7 +362,8 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        cigc.setStartState();        // TODO add your handling code here:
+        ((CardLayout)cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxReservationNumberActionPerformed

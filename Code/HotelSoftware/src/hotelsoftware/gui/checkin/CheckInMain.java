@@ -27,6 +27,7 @@ public class CheckInMain extends javax.swing.JPanel
 {
     private Collection<ReservationData> reservations;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
+    private CheckinTwo checkInTwo = null;
 
     private Object[][] getTableModel()
     {
@@ -359,7 +360,12 @@ public class CheckInMain extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButton12ActionPerformed
         //Select Button
         cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
-        cigc.getContentpane().add(new CheckinTwo(), BorderLayout.CENTER);
+        if(checkInTwo == null)
+        {
+            checkInTwo = new CheckinTwo();
+            cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+        }
+        checkInTwo.init();
         ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
     }//GEN-LAST:event_jButton12ActionPerformed
 
