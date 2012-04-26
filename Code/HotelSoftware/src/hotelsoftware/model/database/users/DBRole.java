@@ -48,7 +48,7 @@ public class DBRole implements Serializable
     {
         @JoinColumn(name = "idPermissions", referencedColumnName = "id", nullable = false)
     })
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch= FetchType.EAGER)
     private Set<DBPermission> permissions;
 
     public DBRole()

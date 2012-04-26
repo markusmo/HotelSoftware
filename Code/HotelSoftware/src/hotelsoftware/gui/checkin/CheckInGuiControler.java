@@ -5,21 +5,16 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
-import hotelsoftware.checkin.CheckInState;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -194,6 +189,17 @@ public class CheckInGuiControler
     {
         CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
     }
+    
+    /**
+     * Wählt ein anderes Zimmer aus
+     *
+     * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
+     * @param roomNumber Die ausgewählte Zimmernummer
+     */
+    public void changeRoom(int selectionIndex, RoomData room)
+    {
+        CheckInController.getInstance().changeRoom(selectionIndex, room);
+    }
 
     /**
      * Ändert die ausgewählte Kategorie einer bestimmten Zimmerauswahl
@@ -265,9 +271,9 @@ public class CheckInGuiControler
      * @param guest Der Gast der zugeteilt werden soll
      * @param room Das Zimmer das dem Gast zugeteilt wird
      */
-    public void assignRoom(GuestData guest, RoomData room)
+    public void assignRoom(int selectionIndex, GuestData guest)
     {
-        CheckInController.getInstance().assignRoom(guest, room);
+        CheckInController.getInstance().assignRoom(selectionIndex, guest);
     }
     private Collection<CountryData> countries;
 

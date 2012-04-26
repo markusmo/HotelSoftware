@@ -5,6 +5,7 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
+import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
@@ -13,6 +14,7 @@ import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -326,8 +330,21 @@ public class CheckinTwo_1 extends javax.swing.JPanel
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
-        // TODO add your handling code here:
-        doTheCheckIn();
+        try
+        {
+            
+            doTheCheckIn();
+        }
+        catch (NoPriceDefinedException ex)
+        {
+            // TODO message Box
+            Logger.getLogger(CheckinTwo_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (CouldNotSaveException ex)
+        {
+            // TODO message Box
+            Logger.getLogger(CheckinTwo_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
 
     private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged
@@ -400,18 +417,19 @@ public class CheckinTwo_1 extends javax.swing.JPanel
         }
     }
 
-    private void doTheCheckIn()
+    private void doTheCheckIn() throws NoPriceDefinedException, CouldNotSaveException
     {
         for (RoomPanel room : rooms)
         {
             for (GuestPanel guest : room.getGuests())
             {
-                GuestData guestData = cigc.addGuest(guest.getFirstName(), guest.getLastName(), guest.getGender(), guest.getBirthday(), guest.getStreet(), guest.getCity(), guest.getZip(), guest.getEmail(), guest.getPhoneNumber(), guest.getFax(), guest.getCountry());
-                cigc.assignRoom(guestData, cigc.getRoomData(room.getRoomIndex()));
+                GuestData guestData = cigc.addGuest(guest.getFirstName(), guest.getLastName(), guest.getGender(), guest.getBirthday(), 
+                        guest.getStreet(), guest.getCity(), guest.getZip(), guest.getEmail(), guest.getPhoneNumber(), guest.getFax(), guest.getCountry());
+                cigc.assignRoom(room.getRoomIndex(), guestData);
             }
         }
         CheckInController cic = CheckInController.getInstance();
-        throw new UnsupportedOperationException("Not yet implemented");
+        cic.saveData();
     }
 
     private ActionListener getRoomPannelAddListener()

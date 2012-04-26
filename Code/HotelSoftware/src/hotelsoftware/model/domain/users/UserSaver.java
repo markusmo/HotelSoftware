@@ -68,7 +68,7 @@ public class UserSaver
         {
             if (session != null)
             {
-                session.close();
+                ;
             }
         }
     }

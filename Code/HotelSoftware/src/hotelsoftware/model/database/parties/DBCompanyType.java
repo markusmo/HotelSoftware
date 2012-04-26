@@ -134,7 +134,6 @@ public class DBCompanyType implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBCompanyType.class);
         List<DBCompanyType> retList = criteria.list();
-        session.close();
 
         return new LinkedHashSet<DBCompanyType>(retList);
     }

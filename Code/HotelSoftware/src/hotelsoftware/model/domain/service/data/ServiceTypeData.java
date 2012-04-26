@@ -12,8 +12,8 @@ public interface ServiceTypeData
 {
 
     /**
-     * @return the type
+     * @return Der Name des Service-Typs
      */
-    String getType();
+    String getName();
     
 }

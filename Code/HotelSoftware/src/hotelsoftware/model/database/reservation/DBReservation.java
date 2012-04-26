@@ -125,7 +125,7 @@ public class DBReservation implements Serializable
     public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
     {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -137,7 +137,7 @@ public class DBReservation implements Serializable
         sqlquery = sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(retList);
 
@@ -156,7 +156,7 @@ public class DBReservation implements Serializable
     public static Collection<DBReservation> getReservationsByName(String fname, String lname)
     {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -167,7 +167,7 @@ public class DBReservation implements Serializable
         List<DBReservation> retList = sqlquery.list();
 
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(retList);
 
@@ -183,7 +183,7 @@ public class DBReservation implements Serializable
      */
     public static DBReservation getReservationByNumber(int reservationNr)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -191,7 +191,7 @@ public class DBReservation implements Serializable
         criteria.add(Restrictions.eq("reservationNumber", reservationNr + ""));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         //TODO
-        // session.close();
+        // ;
 
         return retList;
     }
@@ -206,7 +206,7 @@ public class DBReservation implements Serializable
      */
     public static DBReservation getReservationById(int id)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -214,7 +214,7 @@ public class DBReservation implements Serializable
         criteria.add(Restrictions.eq("id", id));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
         //TODO
-        //session.close();
+        //;
 
         return retList;
     }
@@ -227,7 +227,7 @@ public class DBReservation implements Serializable
      */
     public static Collection<DBReservation> getAllReservations()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -235,7 +235,7 @@ public class DBReservation implements Serializable
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
         //TODO
-        //session.close();
+        //;
 
         return new LinkedHashSet<DBReservation>(sqlquery.list());
     }
@@ -248,7 +248,7 @@ public class DBReservation implements Serializable
      */
     public int getGuestAmount()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
@@ -263,7 +263,7 @@ public class DBReservation implements Serializable
         BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
         int count = bd.intValue();
         //TODO
-        // session.close();
+        // ;
         return count;
     }
 

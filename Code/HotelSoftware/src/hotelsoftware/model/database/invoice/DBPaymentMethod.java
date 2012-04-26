@@ -118,7 +118,7 @@ public class DBPaymentMethod implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBPaymentMethod.class);
         List<DBPaymentMethod> retList = criteria.list();
-        session.close();
+        ;
 
         return new LinkedHashSet<DBPaymentMethod>(retList);
     }
@@ -139,7 +139,7 @@ public class DBPaymentMethod implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBPaymentMethod.class);
         DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("name", method)).uniqueResult();
-        session.close();
+        ;
 
         return ret;
     }
@@ -167,7 +167,7 @@ public class DBPaymentMethod implements Serializable
             throw new FailedToSaveToDatabaseException();
         } finally
         {
-            session.close();
+            ;
         }
     }
 

@@ -39,7 +39,7 @@ public class DBRoom implements Serializable
     @Column(name = "roomNumber", nullable = false)
     private String number;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
     @JoinTable(name = "roomsroomoptions", joinColumns =
     {
         @JoinColumn(name = "idRooms", referencedColumnName = "id")
@@ -56,7 +56,7 @@ public class DBRoom implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
     private Set<DBHabitation> habitations;
     
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<DBRoomsRoomStatus> status;
 
     public DBRoom()
@@ -176,13 +176,13 @@ public class DBRoom implements Serializable
      */
     public static DBRoom getRoomByNumber(String number)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
 
-        session.close();
+        ;
         return room;
     }
 
@@ -195,13 +195,13 @@ public class DBRoom implements Serializable
      */
     public static Set<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         List<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
 
-        session.close();
+        ;
         return new LinkedHashSet<DBRoom>(rooms);
     }
 }

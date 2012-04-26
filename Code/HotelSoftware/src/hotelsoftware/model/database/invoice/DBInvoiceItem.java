@@ -54,7 +54,7 @@ public class DBInvoiceItem implements Serializable
     private DBUser idUser;
     
     @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private DBHabitation habitation;
     
     @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
@@ -174,7 +174,7 @@ public class DBInvoiceItem implements Serializable
         ts.begin();
         List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
-        session.close();
+        ;
 
         return new LinkedHashSet<DBInvoiceItem>(retList);
     }

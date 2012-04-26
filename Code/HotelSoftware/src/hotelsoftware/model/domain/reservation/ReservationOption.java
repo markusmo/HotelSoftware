@@ -99,7 +99,7 @@ public class ReservationOption implements ReservationOptionData
 
     void setId(Integer id)
     {
-        if (id == null)
+        if (this.id == null)
         {
             this.id = id;
         }
