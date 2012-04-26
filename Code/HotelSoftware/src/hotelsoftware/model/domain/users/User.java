@@ -196,16 +196,6 @@ public class User implements UserData
         }
     }
 
-    /**
-     * Doppelt?
-     * @param permission
-     * @return 
-     */
-    public boolean hasPermission(PermissionData permission)
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public Collection<PermissionData> getAllPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(

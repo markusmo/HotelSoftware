@@ -156,12 +156,30 @@ public class CheckInController
 
     /**
      * Legt einen neuen Gast an
-     *
-     * @param firstName Der Vorname des Gastes
-     * @param lastName Der Nachname des Gastes
-     * @param birthday Das Geburtsdatum des Gastes
-     * @param address Die Adresse des Gastes
-     * @return Der neu erstellte Gast
+     * @param firstName
+     * Der Vorname des Gsstes
+     * @param lastName
+     * Der Nachname des Gastes
+     * @param gender
+     * Das Geschlecht des Gastes
+     * @param birthday
+     * Der Geburtstag des Gastes
+     * @param street
+     * Die Straße zu der Adresse des Gastes
+     * @param city
+     * Die Stadt zu der Adresse des Gastes
+     * @param zip
+     * Die Postleitzahl zu der Stadt in der Adresse des Gastes
+     * @param email
+     * Die Email-Adresse zu der Adresse des Gastes
+     * @param phone
+     * Der Telefonanschluss zu der Adresse des Gastes
+     * @param fax
+     * Der Faxanschluss zu der Adresse des Gastes
+     * @param country
+     * Das Land zu der Adresse des Gastes
+     * @return 
+     * Das <code>GuestData</code> Interface zum Gast, mit den Gettern fuer die Attribute
      */
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday,
             String street, String city, String zip, String email, String phone, String fax, CountryData country)
@@ -181,8 +199,8 @@ public class CheckInController
     /**
      * Teilt einem Gast ein bestimmtes Zimmer zu
      *
-     * @param guest Der Gast der zugeteilt werden soll
-     * @param room Das Zimmer das dem Gast zugeteilt wird
+     * @param selectionIndex Der Index des Zimmers, dass ausgewaehlt wurde
+     * @param guest Der Gast, der dem Zimmer zugeteilt wird
      */
     public void assignRoom(int selectionIndex, GuestData guest)
     {
@@ -251,7 +269,7 @@ public class CheckInController
      * Wählt ein anderes Zimmer aus
      *
      * @param selectionIndex Der index der Zimmerauswahl, bei der das Zimmer gewählt wird
-     * @param RoomData Das ausgewählte Zimmer
+     * @param room Das ausgewählte Zimmer
      */
     public void changeRoom(int selectionIndex, RoomData room)
     {
