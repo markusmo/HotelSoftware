@@ -165,10 +165,10 @@ public class CheckinTwo extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        buttonAbort = new javax.swing.JButton();
         ButtonCheckIn = new javax.swing.JButton();
         TabbedPaneRooms = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
+        buttonBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -182,10 +182,10 @@ public class CheckinTwo extends javax.swing.JPanel
         DateChooserArrival = new datechooser.beans.DateChooserCombo();
         DateChooserDeparture = new datechooser.beans.DateChooserCombo();
 
-        jButton4.setText("Abort");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonAbort.setText("Abort");
+        buttonAbort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonAbortActionPerformed(evt);
             }
         });
 
@@ -197,10 +197,10 @@ public class CheckinTwo extends javax.swing.JPanel
             }
         });
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonBack.setText("Back");
+        buttonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonBackActionPerformed(evt);
             }
         });
 
@@ -294,9 +294,9 @@ public class CheckinTwo extends javax.swing.JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ButtonCheckIn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(buttonBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4))
+                        .addComponent(buttonAbort))
                     .addComponent(TabbedPaneRooms)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -311,14 +311,14 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonCheckIn)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                    .addComponent(buttonBack)
+                    .addComponent(buttonAbort))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
-    {//GEN-HEADEREND:event_jButton4ActionPerformed
+    private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
+    {//GEN-HEADEREND:event_buttonAbortActionPerformed
         //Abort Button
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
         {
@@ -328,7 +328,7 @@ public class CheckinTwo extends javax.swing.JPanel
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             cigc.getContentpane().repaint();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonAbortActionPerformed
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
@@ -353,11 +353,11 @@ public class CheckinTwo extends javax.swing.JPanel
         }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void buttonBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonBackActionPerformed
+    {//GEN-HEADEREND:event_buttonBackActionPerformed
         cigc.back();        // TODO add your handling code here:
         ((CardLayout) cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonBackActionPerformed
 
     private void DateChooserArrivalOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserArrivalOnCommit
     {//GEN-HEADEREND:event_DateChooserArrivalOnCommit
@@ -375,8 +375,8 @@ public class CheckinTwo extends javax.swing.JPanel
     private datechooser.beans.DateChooserCombo DateChooserArrival;
     private datechooser.beans.DateChooserCombo DateChooserDeparture;
     private javax.swing.JTabbedPane TabbedPaneRooms;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton buttonAbort;
+    private javax.swing.JButton buttonBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
