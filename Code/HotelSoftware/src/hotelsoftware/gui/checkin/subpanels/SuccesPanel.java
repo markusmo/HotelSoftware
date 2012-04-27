@@ -15,6 +15,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
+import javax.swing.JLabel;
 
 /**
  *
@@ -55,9 +56,9 @@ public class SuccesPanel extends javax.swing.JPanel
         gbc.gridy = 0;  // y-Position im gedachten Gitter
         gbc.gridheight = 1;  // zwei Gitter-Felder hoch
         gbc.gridwidth = 3;
-        CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
-        gbl.setConstraints(cwp, gbc);
-        jPanel1.add(cwp);
+        JLabel jbl = new JLabel();
+        gbl.setConstraints(jbl, gbc);
+        jPanel1.add(jbl);
         
         
       

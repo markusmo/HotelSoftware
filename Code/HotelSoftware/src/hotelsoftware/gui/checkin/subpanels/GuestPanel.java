@@ -6,8 +6,13 @@ package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonTabComponent;
+import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.data.CountryData;
+import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -290,7 +295,7 @@ public class GuestPanel extends javax.swing.JPanel
         Calendar c = BirthdayChooser.getSelectedDate();
         return new Date(c.getTimeInMillis());
     }
-    
+
     /*
      * Kontrolliert ob ein alle Textfelder einen text enthalten
      */
@@ -385,5 +390,40 @@ public class GuestPanel extends javax.swing.JPanel
         };
         this.setFocusTraversalPolicy(policy);
         this.setFocusCycleRoot(true);
+    }
+
+    public void addGuest(GuestData g)
+    {
+        this.TextFieldFirstName.setText(g.getFname());
+        this.TextFieldLastName.setText(g.getLname());
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(g.getBirthday().getTime());
+        this.BirthdayChooser.setSelectedDate(c);
+        CountryData cd = (CountryData) g.getAddressData().getIdCountry();
+        this.ComboBoxCountry.setSelectedItem(cd);
+        this.TextFieldCity.setText(g.getAddressData().getCity());
+        this.TextFieldZip.setText(g.getAddressData().getZip());
+        //this.TextFieldDeposit.setText(g.).
+        this.TextFieldEmail.setText(g.getAddressData().getEmail());
+        this.TextFieldFax.setText(g.getAddressData().getFax());
+        this.TextFieldStreet.setText(g.getAddressData().getStreet());
+        this.TextFieldPhoneNumber.setText(g.getAddressData().getPhone());
+        /*
+         * Collection<Habitation> hd1 = ((Guest) g).getCurrentHabitations();
+         * Collection<HabitationData> hd2 = ((Guest) g).getHabitationsData();
+         * Collection<Habitation> hd3 = ((Guest) g).getHabitations();
+         * Collection<HabitationData> hd4 = ((Guest) g).getCurrentHabitationsData();
+         * Collection<InvoiceItemData> ivid = hd1.toArray(new HabitationData[0])[0].getInvoiceItemsData();
+         * for (InvoiceItemData i : ivid)
+         * {
+         * if (i.getServiceData() instanceof ExtraServiceData)
+         * {
+         * if (i.getServiceData().getServiceTypeData().getName().equals("Habitation"))
+         * {
+         * esPane.setExtraservice(i.getServiceData());
+         * }
+         * }
+         * }
+         */
     }
 }

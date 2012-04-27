@@ -8,6 +8,7 @@ import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
+import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,10 +45,9 @@ public class RoomPanel extends javax.swing.JPanel
     }
     int i;
 
-    
     /**
-     * 
-     * @param string 
+     *
+     * @param string
      */
     private void updateComboBoxRooms(String string)
     {
@@ -124,6 +125,7 @@ public class RoomPanel extends javax.swing.JPanel
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
                 new ButtonTabComponentPlus(getGuestPannelAddListener()));
         TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
+        
 
     }
 
@@ -242,10 +244,10 @@ public class RoomPanel extends javax.swing.JPanel
     {
         addNewGuestPanel(false);
     }
-    
+
     /**
-     * 
-     * @param buttonClick Falls ein neues GuestPanel über den Plusbutton hinzugefügt wird darf dieses nicht am schluss pasieren. 
+     *
+     * @param buttonClick Falls ein neues GuestPanel über den Plusbutton hinzugefügt wird darf dieses nicht am schluss pasieren.
      */
     private void addNewGuestPanel(boolean buttonClick)
     {
@@ -266,5 +268,20 @@ public class RoomPanel extends javax.swing.JPanel
 
 
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1 - add, tabComponent);
+    }
+
+    public void inserGuestsFromReservation()
+    {
+        Collection<GuestData> guestDatas = cigc.getGuests();
+        if (!guestDatas.isEmpty())
+        {
+            Iterator<GuestPanel> gp = guests.iterator();
+            for (Iterator<GuestData> it = guestDatas.iterator(); it.hasNext() && gp.hasNext();)
+            {
+                GuestData g = it.next();
+                GuestPanel gPanel = gp.next();
+                gPanel.addGuest(g);
+            }
+        }
     }
 }

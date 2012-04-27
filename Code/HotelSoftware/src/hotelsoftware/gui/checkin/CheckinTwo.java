@@ -12,15 +12,14 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
+import hotelsoftware.support.PermissionDeniedException;
+import hotelsoftware.support.PermissionNotFoundException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -36,7 +35,7 @@ import javax.swing.event.ChangeListener;
 public class CheckinTwo extends javax.swing.JPanel
 {
     private ReservationData reservation;
-    private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
+    private CheckInGuiControler cigc;
     private List<RoomPanel> rooms = new LinkedList<RoomPanel>();
 
     /**
@@ -45,7 +44,7 @@ public class CheckinTwo extends javax.swing.JPanel
     public CheckinTwo()
     {
         initComponents();
-
+        cigc = CheckInGuiControler.getInstance();
     }
     int i;
 
@@ -105,6 +104,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 }
             }
         });
+        inserGuestsFromReservation();
     }
 
     private void updateRooms()
@@ -114,7 +114,7 @@ public class CheckinTwo extends javax.swing.JPanel
             r.refresh();
         }
     }
-    
+
     public void initWalkIn()
     {
         TabbedPaneRooms.removeAll();
@@ -124,12 +124,12 @@ public class CheckinTwo extends javax.swing.JPanel
         textAreaComment.setText("");
         DateChooserArrival.setDateFormat(df);
         DateChooserDeparture.setDateFormat(df);
-        
+
         Date today = new Date();
-        
+
         DateChooserArrival.setSelectedDate(dateToCalendar(today));
         DateChooserDeparture.setSelectedDate(dateToCalendar(today));
-        
+
         cigc.changeInformation(today, today);
 
         textBoxNumberOfGuests.setText("");
@@ -139,7 +139,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
         addNewRoomPanel();
         cigc.addRoomSelection();
-        
+
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);
         TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
@@ -409,7 +409,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 cigc.assignRoom(room.getRoomIndex(), guestData);
             }
         }
-        
+
         cigc.saveData();
     }
 
@@ -462,5 +462,27 @@ public class CheckinTwo extends javax.swing.JPanel
             }
         }
         return true;
+    }
+
+    public void inserGuestsFromReservation()
+    {
+        Collection<GuestData> guestDatas = cigc.getGuests();
+        if (!guestDatas.isEmpty())
+        {
+            Iterator<RoomPanel> rp = rooms.iterator();
+
+            for (Iterator<GuestData> it = guestDatas.iterator(); it.hasNext() && rp.hasNext();)
+            {
+
+                RoomPanel rPanel = rp.next();
+                Iterator<GuestPanel> ip = rPanel.getGuests().iterator();
+                do
+                {
+                    GuestData g = it.next();
+                    GuestPanel gPanel = ip.next();
+                    gPanel.addGuest(g);
+                } while (ip.hasNext() && it.hasNext());
+            }
+        }
     }
 }

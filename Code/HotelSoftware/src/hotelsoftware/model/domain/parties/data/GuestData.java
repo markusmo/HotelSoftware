@@ -24,4 +24,6 @@ public interface GuestData
     Collection<HabitationData> getHabitationsData();
     
     String getLname();
+    
+    AddressData getAddressData();
 }

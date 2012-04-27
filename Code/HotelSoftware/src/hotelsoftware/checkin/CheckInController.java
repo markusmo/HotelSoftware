@@ -156,7 +156,7 @@ public class CheckInController implements UseCaseController
     }
 
     /**
-     * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
+     * Gibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
      *
      * @return Der Gast der die Reservierung angelegt hat
      */

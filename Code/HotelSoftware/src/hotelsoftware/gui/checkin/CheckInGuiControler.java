@@ -15,11 +15,15 @@ import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.support.PermissionDeniedException;
+import hotelsoftware.support.PermissionNotFoundException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -37,18 +41,46 @@ public class CheckInGuiControler
 
     private static class CheckInGuiControllerHolder
     {
-        private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
+        private static final CheckInGuiControler INSTANCE;
+        static 
+        {
+           // try
+            {
+                INSTANCE = new CheckInGuiControler();
+            }
+            /*
+            catch (PermissionNotFoundException ex)
+            {
+                throw new ExceptionInInitializerError(ex);
+            }
+            catch (PermissionDeniedException ex)
+            {
+                throw new ExceptionInInitializerError(ex);
+            }*/
+        }
     }
 
-    public static CheckInGuiControler getInstance()
+    public static CheckInGuiControler getInstance() //throws PermissionNotFoundException, PermissionDeniedException
     {
-        
         return CheckInGuiControllerHolder.INSTANCE;
     }
     
-    private CheckInGuiControler()
+    private CheckInGuiControler() //throws PermissionNotFoundException, PermissionDeniedException
     {
-        cic = cic;
+        try
+        {
+            cic = CheckInController.getInstance();
+        }
+        catch (PermissionNotFoundException ex)
+        {
+            ex.printStackTrace();
+            Logger.getLogger(CheckInGuiControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (PermissionDeniedException ex)
+        {
+            ex.printStackTrace();
+            Logger.getLogger(CheckInGuiControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -306,7 +338,7 @@ public class CheckInGuiControler
     }
 
     /**
-     * Bibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
+     * Gibt bei einem Check In Vorgang die Gäste zurück die einchecken wollen
      *
      * @return Der Gast der die Reservierung angelegt hat
      */
@@ -436,4 +468,6 @@ public class CheckInGuiControler
     {
         cic.saveData();
     }
+    
+  
 }

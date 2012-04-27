@@ -3,6 +3,7 @@ package hotelsoftware.gui.checkin.subpanels;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.model.domain.service.data.ServiceData;
 import java.awt.*;
 import java.util.Collection;
 import java.util.HashMap;
@@ -82,5 +83,16 @@ public class ExtraServicesPanel extends javax.swing.JPanel
             }
         }
         return eServices;
+    }
+
+    void setExtraservice(ServiceData serviceData)
+    {
+       for(JCheckBox c : checkboxes)
+       {
+           if(c.getText().equals(serviceData.getServiceTypeData().getName()))
+           {
+               c.setSelected(true);
+           }
+       }
     }
 }
