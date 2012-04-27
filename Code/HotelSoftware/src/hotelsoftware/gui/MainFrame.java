@@ -230,7 +230,7 @@ public class MainFrame extends javax.swing.JFrame
             System.exit(0);
         }
     }//GEN-LAST:event_escButtonActionPerformed
-    
+
     /**
      * Initialisiert die Menübuttons mit den Icons und setzt ein neues Homepanel in das ContentPane;
      */
@@ -420,15 +420,23 @@ public class MainFrame extends javax.swing.JFrame
 
     /**
      * Überprüft ob der Klick auf einen Menüknopf zulässig ist
+     *
      * @return Returnt ob gewechselt werden darf.
      */
     private boolean checkState()
     {
-      if(!GuiController.getInstance().checkStateForSwitching())
-      {
-          return JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
-      }
-      GuiController.getInstance().back();
-      return true;
+        if (GuiController.getInstance().checkStateForSwitching())
+        {
+            return true;
+        }
+
+
+        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
+        {
+            GuiController.getInstance().back();
+            return true;
+        }
+
+        return false;
     }
 }
