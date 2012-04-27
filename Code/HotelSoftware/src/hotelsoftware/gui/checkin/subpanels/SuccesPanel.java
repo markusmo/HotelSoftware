@@ -4,6 +4,18 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
+import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.gui.home.HomePanel;
+import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.util.weatherservice.CurrentWeather;
+import hotelsoftware.util.weatherservice.CurrentWeatherPanel;
+import hotelsoftware.util.weatherservice.ForeCastWeatherPanel;
+import hotelsoftware.util.weatherservice.Weather;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.List;
+
 /**
  *
  * @author Johannes
@@ -16,8 +28,40 @@ public class SuccesPanel extends javax.swing.JPanel
     public SuccesPanel()
     {
         initComponents();
+        jLabel1.setText("<html> <font coloer=#AAFFCC size=+3>Success</font></html>");
+        init();
     }
 
+    
+    private void init()
+    {
+        jPanel1.removeAll();
+        GridBagLayout gbl = new GridBagLayout();
+        jPanel1.setLayout(gbl);
+
+
+       
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // Festlegen, dass die GUI-Elemente die Gitterfelder in 
+        // waagerechter Richtung ausfüllen:
+        gbc.fill = GridBagConstraints.BOTH;
+
+        // Die Abstände der einzelnen GUI-Elemente zu den gedachten 
+        // Gitterlinien festgelegen:
+        gbc.insets = new Insets(2, 2, 2, 2);
+
+        gbc.gridx = 0;  // x-Position im gedachten Gitter
+        gbc.gridy = 0;  // y-Position im gedachten Gitter
+        gbc.gridheight = 1;  // zwei Gitter-Felder hoch
+        gbc.gridwidth = 3;
+        CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
+        gbl.setConstraints(cwp, gbc);
+        jPanel1.add(cwp);
+        
+        
+      
+    }
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -28,17 +72,47 @@ public class SuccesPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+
+        jLabel1.setText("Success");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 327, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 581, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

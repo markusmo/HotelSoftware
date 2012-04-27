@@ -43,6 +43,11 @@ public class RoomPanel extends javax.swing.JPanel
     }
     int i;
 
+    
+    /**
+     * 
+     * @param string 
+     */
     private void updateComboBoxRooms(String string)
     {
         System.out.println(string);
@@ -113,14 +118,6 @@ public class RoomPanel extends javax.swing.JPanel
         for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
         {
             addNewGuestPanel();
-            /*
-             * ButtonTabComponent tabComponent = new ButtonTabComponent(TabbedPaneGuests, guests);
-             * GuestPanel guest = new GuestPanel();
-             * guest.setTabComponent(tabComponent);
-             * guests.add(guest);
-             * TabbedPaneGuests.addTab("Guest " + (i + 1), guest);
-             * TabbedPaneGuests.setTabComponentAt(i, tabComponent);
-             */
         }
         JPanel pPanel = new JPanel();
         TabbedPaneGuests.add("", pPanel);
@@ -231,18 +228,6 @@ public class RoomPanel extends javax.swing.JPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                /*
-                 * ButtonTabComponent tabComponent = new ButtonTabComponent(TabbedPaneGuests, guests);
-                 * GuestPanel guest = new GuestPanel();
-                 * guest.setTabComponent(tabComponent);
-                 * guests.add(guest);
-                 *
-                 * TabbedPaneGuests.add(guest, TabbedPaneGuests.getTabCount() - 1);
-                 * TabbedPaneGuests.setTitleAt(TabbedPaneGuests.getTabCount() - 2, "Guest " + (TabbedPaneGuests.getTabCount() - 1));
-                 *
-                 *
-                 * TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 2, tabComponent);
-                 */
                 addNewGuestPanel(true);
             }
         };
@@ -257,7 +242,11 @@ public class RoomPanel extends javax.swing.JPanel
     {
         addNewGuestPanel(false);
     }
-
+    
+    /**
+     * 
+     * @param buttonClick Falls ein neues GuestPanel über den Plusbutton hinzugefügt wird darf dieses nicht am schluss pasieren. 
+     */
     private void addNewGuestPanel(boolean buttonClick)
     {
         int add = 0;

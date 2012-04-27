@@ -259,4 +259,38 @@ public class Habitation extends Service implements HabitationData
     {
         return (ServiceType) getServiceType();
     }
+
+    @Override
+    public String toString()
+    {
+        String newline = "\n";
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append("Start: ");
+        builder.append(this.start.toString());
+        builder.append(newline);
+        builder.append("End: ");
+        builder.append(this.end.toString());
+        builder.append(newline);
+        
+        builder.append("Room number: ");
+        builder.append(rooms.getNumber());
+        builder.append(" Category: ");
+        builder.append(rooms.getCategory().getName());
+        builder.append(newline);
+        
+        for(Guest g : guests)
+        {
+            builder.append("\t");
+            builder.append(g.getFname());
+            builder.append(" ");
+            builder.append(g.getLname());
+            builder.append(newline);
+        }
+        
+        builder.append("Price: € ");
+        builder.append(this.price.toPlainString());
+        
+        return builder.toString();
+    }
 }
