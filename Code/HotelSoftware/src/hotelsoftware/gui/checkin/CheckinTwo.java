@@ -114,6 +114,56 @@ public class CheckinTwo extends javax.swing.JPanel
             r.refresh();
         }
     }
+    
+    public void initWalkIn()
+    {
+        TabbedPaneRooms.removeAll();
+        cigc.setRoomTabPane(TabbedPaneRooms);
+        //################### Set TextBoxes
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        textAreaComment.setText("");
+        DateChooserArrival.setDateFormat(df);
+        DateChooserDeparture.setDateFormat(df);
+        
+        Date today = new Date();
+        
+        DateChooserArrival.setSelectedDate(dateToCalendar(today));
+        DateChooserDeparture.setSelectedDate(dateToCalendar(today));
+        
+        cigc.changeInformation(today, today);
+
+        textBoxNumberOfGuests.setText("");
+        textBoxReservationNumber.setText("");
+
+        //################### Create Panel
+
+        addNewRoomPanel();
+        cigc.addRoomSelection();
+        
+        JPanel pPanel = new JPanel();
+        TabbedPaneRooms.add("", pPanel);
+        TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
+                new ButtonTabComponentPlus(getRoomPannelAddListener()));
+        TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
+
+        TabbedPaneRooms.addChangeListener(new ChangeListener()
+        {
+            public void stateChanged(ChangeEvent e)
+            {
+                for (RoomPanel room : rooms)
+                {
+                    if (room.isFinished())
+                    {
+                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh.png")));
+                    }
+                }
+                if (isFinished())
+                {
+                    ButtonCheckIn.setEnabled(true);
+                }
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

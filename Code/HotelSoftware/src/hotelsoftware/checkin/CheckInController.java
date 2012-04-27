@@ -386,18 +386,22 @@ public class CheckInController implements UseCaseController
 
     public RoomCategoryData[] getRoomCategoryArray()
     {
-        List<RoomCategoryData> categories = new LinkedList<RoomCategoryData>();
-        for (ReservationItemData data : reservation.getReservationItemCollectionData())
+        List<RoomCategoryData> categories = new ArrayList<RoomCategoryData>();
+        if (reservation != null)
         {
-            for (int i = 0; i < data.getAmount(); i++)
+            for (ReservationItemData data : reservation.getReservationItemCollectionData())
             {
-                categories.add(data.getReservedCategoryData());
+                for (int i = 0; i < data.getAmount(); i++)
+                {
+                    categories.add(data.getReservedCategoryData());
+                }
             }
+            return categories.toArray(new RoomCategoryData[0]);
         }
-        return categories.toArray(new RoomCategoryData[0]);
+        else return new RoomCategoryData[0];
     }
 
-    public Map<Integer, RoomSelection> getRoomSelections()
+    Map<Integer, RoomSelection> getRoomSelections()
     {
         return roomSelections;
     }

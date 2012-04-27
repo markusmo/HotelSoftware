@@ -14,6 +14,7 @@ import hotelsoftware.model.domain.parties.PartySaver;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.Room;
@@ -26,10 +27,8 @@ import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -43,15 +42,21 @@ public abstract class ChangeDataState extends CheckInState
     public ChangeDataState(CheckInController context)
     {
         super(context);
-
-        List<RoomCategoryData> categories = new LinkedList<RoomCategoryData>();
-        for (ReservationItem data : context.getReservation().getReservationItems())
+        context.setRoomSelections(new HashMap<Integer, RoomSelection>());
+        Reservation r = context.getReservation();
+        
+        if (r != null)
         {
-            for (Integer i = 0; i < data.getAmount(); i++)
+            for (ReservationItem data : context.getReservation().getReservationItems())
             {
-                context.getRoomSelections().put(i, new RoomSelection((RoomCategory) data.getReservedCategoryData(), new Room()));
+                for (Integer i = 0; i < data.getAmount(); i++)
+                {
+                    context.getRoomSelections().put(i, new RoomSelection((RoomCategory) data.getReservedCategoryData(), new Room()));
+                }
             }
         }
+        
+        
     }
 
     @Override
@@ -95,7 +100,7 @@ public abstract class ChangeDataState extends CheckInState
         }
         else
         {
-            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getRoomCategoryArray().length - 1], new Room()));
+            context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(RoomCategory.getCategoryByName(DEFAULT_CATEGORY), new Room()));
         }
         return context.getCounter() - 1;
     }

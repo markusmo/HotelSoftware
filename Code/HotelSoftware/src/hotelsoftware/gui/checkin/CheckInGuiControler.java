@@ -31,7 +31,6 @@ public class CheckInGuiControler
 {
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
-    private ReservationData selectedReservation;
 
     private static class CheckInGuiControllerHolder
     {
@@ -75,7 +74,7 @@ public class CheckInGuiControler
 
     public ReservationData getSelectedReservation()
     {
-        return selectedReservation;
+        return CheckInController.getInstance().getReservation();
     }
 
     /**
@@ -138,7 +137,6 @@ public class CheckInGuiControler
      */
     void setSelectedReservation(ReservationData selectedReservation)
     {
-        this.selectedReservation = selectedReservation;
         CheckInController.getInstance().workWithReservation(selectedReservation);
     }
 

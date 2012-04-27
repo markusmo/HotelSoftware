@@ -4,8 +4,12 @@
  */
 package hotelsoftware.checkin;
 
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.model.domain.reservation.data.ReservationItemData;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
@@ -53,7 +57,6 @@ class StartState extends CheckInState
         context.setEndDate(reservation.getEndDate());
         context.setReservationItems(reservation.getReservationItemCollectionData());
 
-        context.setRoomSelections(new HashMap<Integer, RoomSelection>());
         context.setCounter(0);
         context.setReservation((Reservation) reservation);
         /*
@@ -104,7 +107,32 @@ class StartState extends CheckInState
     }
     
     @Override
-    void createNewWalkIn(){
+    void createNewWalkIn()
+    {
+       /*context.setStartDate(new Date());
+        context.setEndDate(new Date());
+        Reservation r = new Reservation();
+        r.setComment("");
+        r.setStartDate(new Date());
+        r.setEndDate(new Date());
+        r.setReservationNumber("");
+        r.setParty(new Guest());
         
+        LinkedList<ReservationItem> items = new LinkedList<ReservationItem>();
+        ReservationItem ri = new ReservationItem();
+        
+        ri.setAmount(1);
+        ri.setRoomCategory(RoomCategory.getCategoryByName("Double room"));
+        
+        r.setReservationItems(items);
+        items.add(ri);
+        
+        context.setReservationItems(new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(items));
+
+        
+        context.setCounter(0);
+        context.setReservation(r);*/
+
+        context.setState(new ChangeWalkInDataState(context));
     }
 }

@@ -21,6 +21,7 @@ import java.util.*;
  */
 abstract class CheckInState
 {
+    protected static String DEFAULT_CATEGORY = "Double Room";
     protected CheckInController context;
 
     CheckInState(CheckInController context)

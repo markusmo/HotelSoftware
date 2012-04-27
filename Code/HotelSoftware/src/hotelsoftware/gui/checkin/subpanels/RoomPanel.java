@@ -28,7 +28,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class RoomPanel extends javax.swing.JPanel
 {
-    private ReservationData reservation;
     private CheckInGuiControler cigc = CheckInGuiControler.getInstance();
     private int roomIndex;
     private ButtonIconTabComponent iconTab;
@@ -39,7 +38,6 @@ public class RoomPanel extends javax.swing.JPanel
      */
     public RoomPanel()
     {
-        this.reservation = cigc.getSelectedReservation();
         initComponents();
         //init();
     }
