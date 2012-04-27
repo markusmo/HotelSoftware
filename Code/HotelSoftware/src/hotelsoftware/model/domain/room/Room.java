@@ -1,17 +1,15 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.model.domain.room.data.RoomOptionData;
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
-import hotelsoftware.model.domain.room.data.RoomStatusData;
-import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.model.domain.room.data.RoomOptionData;
+import hotelsoftware.model.domain.room.data.RoomStatusData;
 import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Bildet ein Zimmer ab, mit dem das System arbeitet.
