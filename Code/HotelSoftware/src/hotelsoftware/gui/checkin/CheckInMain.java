@@ -123,6 +123,11 @@ public class CheckInMain extends javax.swing.JPanel
         jLabel1.setText("Last name:");
 
         jButton2.setText("WalkIn");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -385,6 +390,20 @@ public class CheckInMain extends javax.swing.JPanel
     {//GEN-HEADEREND:event_textBoxReservationNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxReservationNumberActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        //Walkin
+        cigc.createNewWalking();
+        if (checkInTwo == null)
+        {
+            checkInTwo = new CheckinTwo();
+            cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+        }
+        checkInTwo.init();
+        ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;

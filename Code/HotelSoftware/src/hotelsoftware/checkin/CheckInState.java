@@ -263,6 +263,11 @@ abstract class CheckInState
         throw new IllegalStateException();
     }
 
+    void createNewWalkIn()
+    {
+        throw new IllegalStateException();
+    }
+
     class RoomSelection
     {
         private RoomCategory category;

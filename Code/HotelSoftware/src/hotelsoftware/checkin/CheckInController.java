@@ -442,4 +442,9 @@ public class CheckInController implements UseCaseController
     {
        return state instanceof StartState;
     }
+
+    public void createNewWalkIn()
+    {
+       state.createNewWalkIn();
+    }
 }

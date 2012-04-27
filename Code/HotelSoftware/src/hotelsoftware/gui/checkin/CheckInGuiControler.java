@@ -33,6 +33,11 @@ public class CheckInGuiControler
     private JTabbedPane roomTabPane;
     private ReservationData selectedReservation;
 
+    void createNewWalking()
+    {
+        CheckInController.getInstance().createNewWalkIn();
+    }
+
     private static class CheckInGuiControllerHolder
     {
         private static final CheckInGuiControler INSTANCE = new CheckInGuiControler();
