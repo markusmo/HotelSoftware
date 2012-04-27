@@ -4,13 +4,14 @@
  */
 package hotelsoftware.gui.login;
 
-import antlr.debug.Event;
 import hotelsoftware.gui.MainFrame;
 import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.users.LoginFailureException;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
@@ -21,20 +22,23 @@ import javax.swing.JOptionPane;
  */
 public class LoginWindow extends javax.swing.JFrame
 {
-
     /**
      * Creates new form LoginWindow
      */
     public LoginWindow()
     {
         this.setTitle("Roomanizer login");
-        initComponents();
         //setzt den startpunkt des Fensters
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
         this.setLocation(screenWidth / 4, screenHeight / 6);
+        //setzen des Icons
+        URL url = LoginWindow.class.getClassLoader().getResource("resources/images/icon.jpg");
+        Image img = tk.createImage(url);
+        this.setIconImage(img);
+        initComponents();
     }
 
     /**
@@ -55,6 +59,7 @@ public class LoginWindow extends javax.swing.JFrame
         passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Roomanizer");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -168,11 +173,13 @@ public class LoginWindow extends javax.swing.JFrame
                     hashedpassword);
             showMainFrame();
             this.setVisible(false);
-        } catch (LoginFailureException ex)
+        }
+        catch (LoginFailureException ex)
         {
             JOptionPane.showMessageDialog(this,
                     "Login failed! Please check password and username");
-        } catch (NoSuchAlgorithmException es)
+        }
+        catch (NoSuchAlgorithmException es)
         {
         }
     }
@@ -209,19 +216,23 @@ public class LoginWindow extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
@@ -233,10 +244,10 @@ public class LoginWindow extends javax.swing.JFrame
          */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
-
             public void run()
             {
                 new LoginWindow().setVisible(true);
+
             }
         });
     }
