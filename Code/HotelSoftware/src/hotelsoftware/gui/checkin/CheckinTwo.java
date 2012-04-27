@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
@@ -11,7 +7,6 @@ import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.checkin.subpanels.SuccesPanel;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
@@ -19,8 +14,6 @@ import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -30,9 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -50,12 +40,12 @@ public class CheckinTwo extends javax.swing.JPanel
     private List<RoomPanel> rooms = new LinkedList<RoomPanel>();
 
     /**
-     * Creates new form GUInr2
+     * Creates new form CheckInGUInr2
      */
     public CheckinTwo()
     {
         initComponents();
-        //init();
+
     }
     int i;
 
@@ -86,24 +76,10 @@ public class CheckinTwo extends javax.swing.JPanel
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
-            // int test = data.getAmount();
             int oldi = i;
             for (i = oldi; i < data.getAmount() + oldi; i++)
             {
-                // cigc.addRoomSelection();
-               /*
-                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
-                 * RoomPanel room = new RoomPanel();
-                 * room.setTabComponent(iconTab);
-                 * rooms.add(room);
-                 *
-                 * room.setRoomIndex(cigc.addRoomSelection());
-                 * room.init();
-                 * TabbedPaneRooms.addTab("Room " + (i + 1), room);
-                 * TabbedPaneRooms.setTabComponentAt(i, iconTab);
-                 */
                 addNewRoomPanel();
-                //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
             }
         }
         JPanel pPanel = new JPanel();
@@ -127,23 +103,6 @@ public class CheckinTwo extends javax.swing.JPanel
                 {
                     ButtonCheckIn.setEnabled(true);
                 }
-                /*
-                 * if (TabbedPaneRooms.getSelectedIndex() == TabbedPaneRooms.getTabCount() - 1)
-                 * {
-                 * ChangeListener cl = TabbedPaneRooms.getChangeListeners()[0];
-                 * TabbedPaneRooms.removeChangeListener(cl);
-                 * TabbedPaneRooms.setEnabled(false);
-                 * Component c = TabbedPaneRooms.getComponent(TabbedPaneRooms.getComponentCount() - 1);
-                 * TabbedPaneRooms.remove(c);
-                 * TabbedPaneRooms.add("Room 4", new RoomPanel());
-                 * TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
-                 * new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/gh1.png")));
-                 * TabbedPaneRooms.add("+ ", c);
-                 * TabbedPaneRooms.setSelectedIndex(TabbedPaneRooms.getTabCount() - 2);
-                 * TabbedPaneRooms.setEnabled(true);
-                 * TabbedPaneRooms.addChangeListener(cl);
-                 * }
-                 */
             }
         });
     }

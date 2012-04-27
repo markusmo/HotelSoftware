@@ -27,16 +27,11 @@ import javax.swing.JTabbedPane;
  *
  * @author Johannes
  */
-public class CheckInGuiControler 
+public class CheckInGuiControler
 {
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
     private ReservationData selectedReservation;
-
-    void createNewWalking()
-    {
-        CheckInController.getInstance().createNewWalkIn();
-    }
 
     private static class CheckInGuiControllerHolder
     {
@@ -62,10 +57,11 @@ public class CheckInGuiControler
      * @throws InvalidInputException
      * Falls die Validierung fehlschlaegt, wird ein Fehler geworfen
      */
-     public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
+    public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
         return CheckInController.getInstance().search(firstName, lastName, companyName, reservationNumber);
     }
+
     /**
      * Gibt alle Reservierungen aus
      *
@@ -220,6 +216,10 @@ public class CheckInGuiControler
      */
     private Collection<ExtraServiceData> habitationServices;
 
+    /**
+     *
+     * @return Gibt alle Extraservieces vom Typ Habitation zurück. (ZB Halbpension)
+     */
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
         if (habitationServices == null)
@@ -325,6 +325,7 @@ public class CheckInGuiControler
 
     /**
      * Legt einen neuen Gast an
+     *
      * @param firstName
      * Der Vorname des Gsstes
      * @param lastName
@@ -347,8 +348,9 @@ public class CheckInGuiControler
      * Der Faxanschluss zu der Adresse des Gastes
      * @param country
      * Das Land zu der Adresse des Gastes
-     * @return 
-     * Das <code>GuestData</code> Interface zum Gast, mit den Gettern fuer die Attribute
+     * @return
+     * Das
+     * <code>GuestData</code> Interface zum Gast, mit den Gettern fuer die Attribute
      */
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday,
             String street, String city, String zip, String email, String phone, String fax, CountryData country)
@@ -415,13 +417,23 @@ public class CheckInGuiControler
         this.roomTabPane = roomTabPane;
     }
 
-    int getCounter()
+    int getGuestCounter()
     {
         return CheckInController.getInstance().getCounter();
     }
 
+    /**
+     * setzt den Checkinvorgang zurück
+     */
     public void back()
     {
         CheckInController.getInstance().back();
     }
+
+    void createNewWalking()
+    {
+        CheckInController.getInstance().createNewWalkIn();
+    }
+    
+    
 }

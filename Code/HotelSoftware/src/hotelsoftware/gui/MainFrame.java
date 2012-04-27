@@ -13,7 +13,7 @@ import javax.swing.*;
 
 /**
  * Diese Klasse ist die Main-Klasse dieses Projekts. Von hier wird das Programm
- * gestartet und die Use-Cases gestartet.
+ * und die Use-Cases gestartet.
  *
  * @author Johannes
  */
@@ -228,7 +228,10 @@ public class MainFrame extends javax.swing.JFrame
             System.exit(0);
         }
     }//GEN-LAST:event_escButtonActionPerformed
-
+    
+    /**
+     * Initialisiert die Menübuttons mit den Icons und setzt ein neues Homepanel in das ContentPane;
+     */
     private void Init()
     {
         homeButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
@@ -252,6 +255,9 @@ public class MainFrame extends javax.swing.JFrame
         //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
     }
 
+    /**
+     * Startet ein neues Gui
+     */
     public static void CreateGui()
     {
 
@@ -410,6 +416,10 @@ public class MainFrame extends javax.swing.JFrame
 
     }
 
+    /**
+     * Überprüft ob der Klick auf einen Menüknopf zulässig ist
+     * @return Returnt ob gewechselt werden darf.
+     */
     private boolean checkState()
     {
       if(!GuiController.getInstance().checkStateForSwitching())

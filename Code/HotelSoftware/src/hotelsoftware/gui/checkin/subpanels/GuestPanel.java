@@ -34,6 +34,9 @@ public class GuestPanel extends javax.swing.JPanel
 
     }
 
+    /**
+     * Initialisiert ein neues GuestPanel
+     */
     private void init()
     {
 
@@ -44,7 +47,7 @@ public class GuestPanel extends javax.swing.JPanel
         {
             ComboBoxCountry.addItem(data);
         }
-        setTabCounts();
+        setTabStops();
     }
 
     /**
@@ -287,10 +290,12 @@ public class GuestPanel extends javax.swing.JPanel
         Calendar c = BirthdayChooser.getSelectedDate();
         return new Date(c.getTimeInMillis());
     }
-
+    
+    /*
+     * Kontrolliert ob ein alle Textfelder einen text enthalten
+     */
     public boolean isFinished()
     {
-        //TODO
         for (Component c : getComponents())
         {
             if (c instanceof JTextField)
@@ -325,7 +330,10 @@ public class GuestPanel extends javax.swing.JPanel
         return esPane.getExtraservices();
     }
 
-    private void setTabCounts()
+    /**
+     * Setzt die Tabstops in der richtigen Reihenfolge
+     */
+    private void setTabStops()
     {
 
         final ArrayList<JComponent> order = new ArrayList<JComponent>();
