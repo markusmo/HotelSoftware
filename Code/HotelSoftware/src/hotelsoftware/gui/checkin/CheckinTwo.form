@@ -27,7 +27,7 @@
                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="TabbedPaneRooms" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" pref="744" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -70,9 +70,6 @@
       </Events>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="TabbedPaneRooms">
-      <Events>
-        <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="TabbedPaneRoomsCaretPositionChanged"/>
-      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
     </Container>
@@ -114,12 +111,12 @@
                       <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="textBoxNumberOfGuests" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
+                      <Component id="textBoxNumberOfGuests" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="254" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -173,14 +170,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textBoxReservationNumber">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxReservationNumberActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="textBoxNumberOfGuests">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxNumberOfGuestsActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

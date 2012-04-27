@@ -110,7 +110,7 @@ public class ButtonIconTabComponent extends JPanel
         public ImagePanel(Image img)
         {
             this.img = img;
-            Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+            Dimension size = new Dimension(20, 20);
             setPreferredSize(size);
             setMinimumSize(size);
             setMaximumSize(size);

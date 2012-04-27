@@ -5,6 +5,8 @@
 package hotelsoftware.checkin;
 
 import hotelsoftware.checkin.CheckInState.RoomSelection;
+import hotelsoftware.gui.GuiController;
+import hotelsoftware.gui.UseCaseController;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
@@ -24,7 +26,7 @@ import java.util.*;
  *
  * @author Dunst
  */
-public class CheckInController
+public class CheckInController implements UseCaseController
 {
     private static CheckInController controller = null;
 
@@ -33,6 +35,8 @@ public class CheckInController
         if (controller == null)
         {
             controller = new CheckInController();
+            GuiController.getInstance().addUseCaseController(controller);
+         
         }
 
         return controller;
@@ -432,5 +436,10 @@ public class CheckInController
     int increaseCounter()
     {
         return counter++;
+    }
+
+    public boolean isInSwitchingState()
+    {
+       return state instanceof StartState;
     }
 }

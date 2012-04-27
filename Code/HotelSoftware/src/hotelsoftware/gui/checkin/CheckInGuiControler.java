@@ -27,7 +27,7 @@ import javax.swing.JTabbedPane;
  *
  * @author Johannes
  */
-public class CheckInGuiControler
+public class CheckInGuiControler 
 {
     private JPanel contentpane;
     private JTabbedPane roomTabPane;

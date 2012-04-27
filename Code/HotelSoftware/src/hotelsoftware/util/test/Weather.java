@@ -83,11 +83,11 @@ public class Weather
         }       
     }
 
-    public List<Weather> getCurrent()
+    public CurrentWeather getCurrent()
     {
 
         NodeList nodeLst = doc.getElementsByTagName("current_conditions");
-        LinkedList<Weather> list = new LinkedList<Weather>();
+        LinkedList<CurrentWeather> list = new LinkedList<CurrentWeather>();
         for (int s = 0; s < nodeLst.getLength(); s++)
         {
             CurrentWeather w = new CurrentWeather();
@@ -105,7 +105,7 @@ public class Weather
             }
 
         }
-        return list;
+        return list.get(0);
     }
 
     public List<Weather> getForeCasts()
