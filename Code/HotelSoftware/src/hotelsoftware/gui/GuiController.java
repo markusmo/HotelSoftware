@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui;
 
 import java.util.LinkedList;
@@ -9,6 +5,9 @@ import java.util.LinkedList;
 /**
  *
  * @author Johannes
+ * 
+ * MainGuiController
+ * Hält alle UseCasecontroller
  */
 public class GuiController
 {

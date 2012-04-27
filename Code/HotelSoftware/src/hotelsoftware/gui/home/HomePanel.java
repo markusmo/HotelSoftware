@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.home;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
-import hotelsoftware.util.test.CurrentWeather;
-import hotelsoftware.util.test.CurrentWeatherPanel;
-import hotelsoftware.util.test.Weather;
-import hotelsoftware.util.test.ForeCastWeatherPanel;
+import hotelsoftware.util.weatherservice.CurrentWeather;
+import hotelsoftware.util.weatherservice.CurrentWeatherPanel;
+import hotelsoftware.util.weatherservice.Weather;
+import hotelsoftware.util.weatherservice.ForeCastWeatherPanel;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,8 +30,7 @@ public class HomePanel extends javax.swing.JPanel
 
 
         new DateOut();
-        Weather w = new CurrentWeather();
-        w = w.getCurrent();
+        Weather w = Weather.getCurrent();
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Festlegen, dass die GUI-Elemente die Gitterfelder in 
@@ -54,7 +48,7 @@ public class HomePanel extends javax.swing.JPanel
         CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
         gbl.setConstraints(cwp, gbc);
         jPanel3.add(cwp);
-        List<Weather> list = w.getForeCasts();
+        List<Weather> list = Weather.getForeCasts();
         int i = 0;
         gbc.gridwidth = 1;
         for (Weather w2 : list)

@@ -3,17 +3,16 @@ package hotelsoftware.gui;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import hotelsoftware.gui.login.LoginWindow;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.*;
 
 /**
  * Diese Klasse ist die Main-Klasse dieses Projekts. Von hier wird das Programm
- * gestartet und die Use-Cases gestartet.
+ * und die Use-Cases gestartet.
  *
  * @author Johannes
  */
@@ -27,7 +26,10 @@ public class MainFrame extends javax.swing.JFrame
     public MainFrame()
     {
         this.setUndecorated(true);
-
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        URL url = LoginWindow.class.getClassLoader().getResource("resources/images/icon.jpg");
+        Image img = tk.createImage(url);
+        this.setIconImage(img);
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         //GraphicsDevice myDevice = env.getDefaultScreenDevice();
         //myDevice.setFullScreenWindow(this);
@@ -228,7 +230,10 @@ public class MainFrame extends javax.swing.JFrame
             System.exit(0);
         }
     }//GEN-LAST:event_escButtonActionPerformed
-
+    
+    /**
+     * Initialisiert die Menübuttons mit den Icons und setzt ein neues Homepanel in das ContentPane;
+     */
     private void Init()
     {
         homeButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
@@ -252,6 +257,9 @@ public class MainFrame extends javax.swing.JFrame
         //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
     }
 
+    /**
+     * Startet ein neues Gui
+     */
     public static void CreateGui()
     {
 
@@ -410,6 +418,10 @@ public class MainFrame extends javax.swing.JFrame
 
     }
 
+    /**
+     * Überprüft ob der Klick auf einen Menüknopf zulässig ist
+     * @return Returnt ob gewechselt werden darf.
+     */
     private boolean checkState()
     {
       if(!GuiController.getInstance().checkStateForSwitching())

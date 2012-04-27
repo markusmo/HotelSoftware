@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
@@ -11,7 +7,6 @@ import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.checkin.subpanels.SuccesPanel;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
@@ -19,8 +14,6 @@ import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -30,9 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -50,12 +40,12 @@ public class CheckinTwo extends javax.swing.JPanel
     private List<RoomPanel> rooms = new LinkedList<RoomPanel>();
 
     /**
-     * Creates new form GUInr2
+     * Creates new form CheckInGUInr2
      */
     public CheckinTwo()
     {
         initComponents();
-        //init();
+
     }
     int i;
 
@@ -86,24 +76,10 @@ public class CheckinTwo extends javax.swing.JPanel
         //################### Create Panels
         for (ReservationItemData data : reservation.getReservationItemCollectionData())
         {
-            // int test = data.getAmount();
             int oldi = i;
             for (i = oldi; i < data.getAmount() + oldi; i++)
             {
-                // cigc.addRoomSelection();
-               /*
-                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
-                 * RoomPanel room = new RoomPanel();
-                 * room.setTabComponent(iconTab);
-                 * rooms.add(room);
-                 *
-                 * room.setRoomIndex(cigc.addRoomSelection());
-                 * room.init();
-                 * TabbedPaneRooms.addTab("Room " + (i + 1), room);
-                 * TabbedPaneRooms.setTabComponentAt(i, iconTab);
-                 */
                 addNewRoomPanel();
-                //TabbedPaneRooms.setMnemonicAt(i, 48 + i);
             }
         }
         JPanel pPanel = new JPanel();
@@ -127,23 +103,6 @@ public class CheckinTwo extends javax.swing.JPanel
                 {
                     ButtonCheckIn.setEnabled(true);
                 }
-                /*
-                 * if (TabbedPaneRooms.getSelectedIndex() == TabbedPaneRooms.getTabCount() - 1)
-                 * {
-                 * ChangeListener cl = TabbedPaneRooms.getChangeListeners()[0];
-                 * TabbedPaneRooms.removeChangeListener(cl);
-                 * TabbedPaneRooms.setEnabled(false);
-                 * Component c = TabbedPaneRooms.getComponent(TabbedPaneRooms.getComponentCount() - 1);
-                 * TabbedPaneRooms.remove(c);
-                 * TabbedPaneRooms.add("Room 4", new RoomPanel());
-                 * TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 1,
-                 * new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon("src/resources/images/gh1.png")));
-                 * TabbedPaneRooms.add("+ ", c);
-                 * TabbedPaneRooms.setSelectedIndex(TabbedPaneRooms.getTabCount() - 2);
-                 * TabbedPaneRooms.setEnabled(true);
-                 * TabbedPaneRooms.addChangeListener(cl);
-                 * }
-                 */
             }
         });
     }
@@ -215,10 +174,10 @@ public class CheckinTwo extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        buttonAbort = new javax.swing.JButton();
         ButtonCheckIn = new javax.swing.JButton();
         TabbedPaneRooms = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
+        buttonBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -232,10 +191,10 @@ public class CheckinTwo extends javax.swing.JPanel
         DateChooserArrival = new datechooser.beans.DateChooserCombo();
         DateChooserDeparture = new datechooser.beans.DateChooserCombo();
 
-        jButton4.setText("Abort");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonAbort.setText("Abort");
+        buttonAbort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonAbortActionPerformed(evt);
             }
         });
 
@@ -247,10 +206,10 @@ public class CheckinTwo extends javax.swing.JPanel
             }
         });
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonBack.setText("Back");
+        buttonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonBackActionPerformed(evt);
             }
         });
 
@@ -344,9 +303,9 @@ public class CheckinTwo extends javax.swing.JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ButtonCheckIn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(buttonBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4))
+                        .addComponent(buttonAbort))
                     .addComponent(TabbedPaneRooms)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -361,14 +320,14 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonCheckIn)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                    .addComponent(buttonBack)
+                    .addComponent(buttonAbort))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
-    {//GEN-HEADEREND:event_jButton4ActionPerformed
+    private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
+    {//GEN-HEADEREND:event_buttonAbortActionPerformed
         //Abort Button
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
         {
@@ -378,7 +337,7 @@ public class CheckinTwo extends javax.swing.JPanel
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             cigc.getContentpane().repaint();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonAbortActionPerformed
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
@@ -403,11 +362,11 @@ public class CheckinTwo extends javax.swing.JPanel
         }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void buttonBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonBackActionPerformed
+    {//GEN-HEADEREND:event_buttonBackActionPerformed
         cigc.back();        // TODO add your handling code here:
         ((CardLayout) cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonBackActionPerformed
 
     private void DateChooserArrivalOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserArrivalOnCommit
     {//GEN-HEADEREND:event_DateChooserArrivalOnCommit
@@ -425,8 +384,8 @@ public class CheckinTwo extends javax.swing.JPanel
     private datechooser.beans.DateChooserCombo DateChooserArrival;
     private datechooser.beans.DateChooserCombo DateChooserDeparture;
     private javax.swing.JTabbedPane TabbedPaneRooms;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton buttonAbort;
+    private javax.swing.JButton buttonBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

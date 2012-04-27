@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.util.test;
+package hotelsoftware.util.weatherservice;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -24,25 +24,36 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Diese Klasse fragt Online mit der IP-Adresse die Position des Rechners ab
+ * und haelt sich den Stadtnamen, mit diesem fragt es auf Google Weather
+ * dann das aktuelle Wetter ab.
  * @author Johannes
  */
 public class Weather
 {
+    private static String cityName;
     private String condition;
     private ImageIcon icon;
-    private Document doc;
+    private static Document doc;
 
+    static
+    {
+        findCity();
+        setDoc();
+    }
+    
     public Weather()
     {
-        this("dornbirn");
     }
 
-    public Weather(String city)
+    /**
+     * Holt sich das Wetter und haelt sich das XML, das von Google generiert wird
+     */
+    private static void setDoc()
     {
         try
         {
-            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + city + "&hl=de";
+            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=de";
 
             String xmlString = "";
             String line = "";
@@ -66,8 +77,7 @@ public class Weather
             }
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource source = new InputSource(new StringReader(xmlString));
-            this.doc = builder.parse(source);
-            NodeList nodeLst = doc.getElementsByTagName("forecast_conditions");
+            doc = builder.parse(source);
         }
         catch (SAXException ex)
         {
@@ -80,10 +90,15 @@ public class Weather
         catch (ParserConfigurationException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
     }
-
-    public CurrentWeather getCurrent()
+    
+    /**
+     * Diese Methode gibt das aktuelle Wetter des jetzigen Tages aus
+     * @return 
+     * die jetzige Wettersituation
+     */
+    public static CurrentWeather getCurrent()
     {
 
         NodeList nodeLst = doc.getElementsByTagName("current_conditions");
@@ -108,7 +123,12 @@ public class Weather
         return list.get(0);
     }
 
-    public List<Weather> getForeCasts()
+    /**
+     * Diese Methode gibt eine Liste von Wettervorhersagen fuer die naechesten Tage aus
+     * @return 
+     * eine Liste von Wettervorhersagen.
+     */
+    public static List<Weather> getForeCasts()
     {
         NodeList nodeLst = doc.getElementsByTagName("forecast_conditions");
         LinkedList<Weather> list = new LinkedList<Weather>();;
@@ -132,6 +152,64 @@ public class Weather
         return list;
     }
 
+    /**
+     * Diese Methode fragt die externe IP ab und findet dann die Adresse zu dieser heraus.
+     * Mit dieser Adresse wird dann die Stadt ermittelt und gesetzt.
+     */
+    private static void findCity()
+    {
+        BufferedReader ipin = null;
+        BufferedReader cityin = null;
+        String city = "";
+        try
+        {
+            URL whatismyip = new URL("http://automation.whatismyip.com/n09230945.asp");
+            ipin = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+            String ip = ipin.readLine();
+
+            URL urlcity = new URL("http://freegeoip.net/xml/" + ip);
+            cityin = new BufferedReader(new InputStreamReader(urlcity.openStream()));
+            StringBuilder builder = new StringBuilder();
+            String xml = "";
+            while (( xml = cityin.readLine())!= null)
+            {                
+                builder.append(xml);
+            }
+            DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            InputSource source = new InputSource(new StringReader(builder.toString()));
+            Document document = docbuilder.parse(source);
+            NodeList elementsByTagName = document.getElementsByTagName("City");
+            Node item = elementsByTagName.item(0);
+            city = item.getChildNodes().item(0).getNodeValue();
+        }
+        catch (SAXException ex)
+        {
+            Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (ParserConfigurationException ex)
+        {
+            Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                ipin.close();
+                cityin.close();
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        cityName = city;
+    }
+
     public String getCondition()
     {
         return condition;
@@ -152,6 +230,10 @@ public class Weather
         this.icon = icon;
     }
 
+    /**
+     * Diese Methode setzt das Icon fuer das Darstellen auf der Gui
+     * @param iconname der Name des Icons, von Google
+     */
     public void setIcon(String iconname)
     {
         String iconUrl = iconname.split("/")[iconname.split("/").length - 1];

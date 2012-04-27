@@ -5,7 +5,7 @@
 package hotelsoftware.gui;
 
 /**
- *
+ *  Dieses Interface haben alle UseCaseController zu implementieren
  * @author Johannes
  */
 public interface UseCaseController

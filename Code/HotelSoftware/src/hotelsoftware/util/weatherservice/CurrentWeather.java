@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.util.test;
+package hotelsoftware.util.weatherservice;
 
 /**
  *
@@ -16,11 +16,6 @@ public class CurrentWeather extends Weather
 
     public CurrentWeather()
     {
-    }
-
-    public CurrentWeather(String city)
-    {
-        super(city);
     }
 
     public String getHumidity()

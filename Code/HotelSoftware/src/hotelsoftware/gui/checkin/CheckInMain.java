@@ -100,17 +100,17 @@ public class CheckInMain extends javax.swing.JPanel
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonWalkIn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        buttonSearch = new javax.swing.JButton();
         textBoxFname = new javax.swing.JTextField();
         textFieldCompany = new javax.swing.JTextField();
-        jButton12 = new javax.swing.JButton();
+        buttonSelect = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         textBoxLname = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonCheckIn = new javax.swing.JButton();
+        buttonAbort = new javax.swing.JButton();
         textBoxReservationNumber = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -118,17 +118,17 @@ public class CheckInMain extends javax.swing.JPanel
 
         jLabel1.setText("Last name:");
 
-        jButton2.setText("WalkIn");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonWalkIn.setText("WalkIn");
+        buttonWalkIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonWalkInActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonSearch.setText("Search");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonSearchActionPerformed(evt);
             }
         });
 
@@ -144,10 +144,10 @@ public class CheckInMain extends javax.swing.JPanel
             }
         });
 
-        jButton12.setText("Select");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        buttonSelect.setText("Select");
+        buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                buttonSelectActionPerformed(evt);
             }
         });
 
@@ -161,13 +161,13 @@ public class CheckInMain extends javax.swing.JPanel
             }
         });
 
-        jButton3.setText("Check In");
-        jButton3.setEnabled(false);
+        buttonCheckIn.setText("Check In");
+        buttonCheckIn.setEnabled(false);
 
-        jButton4.setText("Abort");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonAbort.setText("Abort");
+        buttonAbort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonAbortActionPerformed(evt);
             }
         });
 
@@ -283,20 +283,20 @@ public class CheckInMain extends javax.swing.JPanel
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(textFieldCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)
+                                .addComponent(buttonSearch)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                                .addComponent(buttonWalkIn)))
                         .addGap(0, 29, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton3)
+                        .addComponent(buttonCheckIn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton12)
+                        .addComponent(buttonSelect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4))
+                        .addComponent(buttonAbort))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -319,27 +319,27 @@ public class CheckInMain extends javax.swing.JPanel
                     .addComponent(jLabel2)
                     .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(buttonSearch)
+                    .addComponent(buttonWalkIn))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton12))
+                    .addComponent(buttonCheckIn)
+                    .addComponent(buttonAbort)
+                    .addComponent(buttonSelect))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
+    {//GEN-HEADEREND:event_buttonSearchActionPerformed
         // Search Button
         reservations = cigc.search(textBoxFname.getText(), textBoxLname.getText(), textFieldCompany.getText(), textBoxReservationNumber.getText());
         setTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void textBoxFnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxFnameActionPerformed
     {//GEN-HEADEREND:event_textBoxFnameActionPerformed
@@ -351,26 +351,32 @@ public class CheckInMain extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCompanyActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
-    {//GEN-HEADEREND:event_jButton12ActionPerformed
+    private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
+    {//GEN-HEADEREND:event_buttonSelectActionPerformed
         //Select Button
-        cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
-        if (checkInTwo == null)
+        try
         {
-            checkInTwo = new CheckinTwo();
-            cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+            cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
+            if (checkInTwo == null)
+            {
+                checkInTwo = new CheckinTwo();
+                cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+            }
+            checkInTwo.init();
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
         }
-        checkInTwo.init();
-        ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-    }//GEN-LAST:event_jButton12ActionPerformed
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+        }
+    }//GEN-LAST:event_buttonSelectActionPerformed
 
     private void textBoxLnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxLnameActionPerformed
     {//GEN-HEADEREND:event_textBoxLnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxLnameActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
-    {//GEN-HEADEREND:event_jButton4ActionPerformed
+    private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
+    {//GEN-HEADEREND:event_buttonAbortActionPerformed
         //Abort Button
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
         {
@@ -380,15 +386,15 @@ public class CheckInMain extends javax.swing.JPanel
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             cigc.getContentpane().repaint();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonAbortActionPerformed
 
     private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxReservationNumberActionPerformed
     {//GEN-HEADEREND:event_textBoxReservationNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxReservationNumberActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void buttonWalkInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonWalkInActionPerformed
+    {//GEN-HEADEREND:event_buttonWalkInActionPerformed
         //Walkin
         cigc.createNewWalking();
         if (checkInTwo == null)
@@ -398,14 +404,13 @@ public class CheckInMain extends javax.swing.JPanel
         }
         checkInTwo.initWalkIn();
         ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }//GEN-LAST:event_buttonWalkInActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton buttonAbort;
+    private javax.swing.JButton buttonCheckIn;
+    private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton buttonSelect;
+    private javax.swing.JButton buttonWalkIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

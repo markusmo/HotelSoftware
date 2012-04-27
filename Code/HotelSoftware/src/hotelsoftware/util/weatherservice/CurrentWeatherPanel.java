@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.util.test;
+package hotelsoftware.util.weatherservice;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -47,7 +47,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel
 
         jLabel1.setText("jLabel1");
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
