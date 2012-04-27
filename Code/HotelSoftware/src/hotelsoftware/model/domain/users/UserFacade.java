@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.DynamicMapper;
@@ -74,7 +75,7 @@ public class UserFacade
         
         if (p == null)
         {
-            throw new PermissionNotFoundException();
+            throw new PermissionNotFoundException(name);
         }
         
         return (Permission) DynamicMapper.map(p);

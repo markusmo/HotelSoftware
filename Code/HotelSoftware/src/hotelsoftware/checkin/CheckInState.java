@@ -10,7 +10,10 @@ import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
 /**
@@ -214,16 +217,6 @@ abstract class CheckInState
         throw new IllegalStateException();
     }
 
-    /**
-     * Gibt an welche Extraleistungen wie oft ausgewählt wurden
-     *
-     * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
-     */
-    void selectServices(Collection<ExtraServiceData> services)
-    {
-        throw new IllegalStateException();
-    }
-
     Collection<RoomCategoryData> getAllCategories()
     {
         throw new IllegalStateException();
@@ -268,7 +261,12 @@ abstract class CheckInState
     {
         throw new IllegalStateException();
     }
-
+    
+    Collection<Habitation> getHabitationsOverview()
+    {
+        throw new IllegalStateException();
+    }
+    
     class RoomSelection
     {
         private RoomCategory category;

@@ -409,8 +409,8 @@ public class CheckinTwo extends javax.swing.JPanel
                 cigc.assignRoom(room.getRoomIndex(), guestData);
             }
         }
-        CheckInController cic = CheckInController.getInstance();
-        cic.saveData();
+        
+        cigc.saveData();
     }
 
     private ActionListener getRoomPannelAddListener()

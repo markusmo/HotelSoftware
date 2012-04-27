@@ -7,6 +7,7 @@ package hotelsoftware.checkin;
 import hotelsoftware.checkin.CheckInState.RoomSelection;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.UseCaseController;
+import hotelsoftware.login.LoginController;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.data.AddressData;
@@ -20,6 +21,11 @@ import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.model.domain.users.Permission;
+import hotelsoftware.support.PermissionNotFoundException;
+import hotelsoftware.support.PermissionDeniedException;
+import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
 /**
@@ -30,25 +36,41 @@ public class CheckInController implements UseCaseController
 {
     private static CheckInController controller = null;
 
-    public static CheckInController getInstance()
+    public static CheckInController getInstance() throws PermissionNotFoundException, PermissionDeniedException
     {
+        Permission p = Permission.getPermissionByName("Check-In");
+        
+        if (LoginController.getInstance().getCurrentUser().hasPermission(p))
+        {
+            throw new PermissionDeniedException(p);
+        }
+        
         if (controller == null)
         {
             controller = new CheckInController();
             GuiController.getInstance().addUseCaseController(controller);
-         
         }
 
         return controller;
     }
     private Date startDate;
     private Date endDate;
-    private Habitation habitation;
     private Reservation reservation;
     private Map<Integer, CheckInState.RoomSelection> roomSelections;
     private int counter;
     private Collection<ReservationItemData> reservationItems;
     private CheckInState state;
+    private Collection<Habitation> habitations;
+
+    public static CheckInController getController()
+    {
+        return controller;
+    }
+
+    public static void setController(CheckInController controller)
+    {
+        CheckInController.controller = controller;
+    }
 
     private CheckInController()
     {
@@ -300,16 +322,6 @@ public class CheckInController implements UseCaseController
     }
 
     /**
-     * Gibt an welche Extraleistungen wie oft ausgewählt wurden
-     *
-     * @param services Eine Map, bestehend aus gebuchten Extraleistungen und deren Anzahl
-     */
-    public void selectServices(Collection<ExtraServiceData> services)
-    {
-        state.selectServices(services);
-    }
-
-    /**
      * Gibt alle Reservierungen aus.
      *
      * @return
@@ -341,6 +353,28 @@ public class CheckInController implements UseCaseController
         state.back();
     }
     
+    public Collection<HabitationData> getHabitationsData()
+    {
+        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(state.getHabitationsOverview());
+    }
+    
+    Collection<Habitation> getHabitations()
+    {
+        return habitations;
+    }
+    
+    void clear()
+    {
+        startDate = null;
+        endDate = null;
+        reservation = null;
+        roomSelections = null;
+        counter = 0;
+        reservationItems = null;
+        state = null;
+        habitations = null;
+    }
+    
     /**
      ************************************************ Getter und Setter für die States**************************************************************
      */
@@ -352,16 +386,6 @@ public class CheckInController implements UseCaseController
     void setEndDate(Date endDate)
     {
         this.endDate = endDate;
-    }
-
-    public Habitation getHabitation()
-    {
-        return habitation;
-    }
-
-    void setHabitation(Habitation habitation)
-    {
-        this.habitation = habitation;
     }
 
     public Reservation getReservation()
@@ -450,5 +474,10 @@ public class CheckInController implements UseCaseController
     public void createNewWalkIn()
     {
        state.createNewWalkIn();
+    }
+
+    void setHabitations(Collection<Habitation> habitations)
+    {
+        this.habitations = habitations;
     }
 }

@@ -5,11 +5,13 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
+import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
@@ -31,6 +33,7 @@ public class CheckInGuiControler
 {
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
+    private CheckInController cic;
 
     private static class CheckInGuiControllerHolder
     {
@@ -39,7 +42,13 @@ public class CheckInGuiControler
 
     public static CheckInGuiControler getInstance()
     {
+        
         return CheckInGuiControllerHolder.INSTANCE;
+    }
+    
+    private CheckInGuiControler()
+    {
+        cic = cic;
     }
 
     /**
@@ -58,7 +67,7 @@ public class CheckInGuiControler
      */
     public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        return CheckInController.getInstance().search(firstName, lastName, companyName, reservationNumber);
+        return cic.search(firstName, lastName, companyName, reservationNumber);
     }
 
     /**
@@ -69,12 +78,12 @@ public class CheckInGuiControler
      */
     public Collection<ReservationData> getAllReservations()
     {
-        return CheckInController.getInstance().getAllReservations();
+        return cic.getAllReservations();
     }
 
     public ReservationData getSelectedReservation()
     {
-        return CheckInController.getInstance().getReservation();
+        return cic.getReservation();
     }
 
     /**
@@ -86,7 +95,7 @@ public class CheckInGuiControler
      */
     public Collection<RoomData> getFreeRoomsInCategory(int index, RoomCategoryData c)
     {
-        return CheckInController.getInstance().changeRoomCategory(index, c);
+        return cic.changeRoomCategory(index, c);
     }
 
     /**
@@ -126,7 +135,7 @@ public class CheckInGuiControler
      */
     public Collection<ExtraServiceData> getExtraservices()
     {
-        return CheckInController.getInstance().getServices();
+        return cic.getServices();
     }
 
     /**
@@ -137,7 +146,7 @@ public class CheckInGuiControler
      */
     void setSelectedReservation(ReservationData selectedReservation)
     {
-        CheckInController.getInstance().workWithReservation(selectedReservation);
+        cic.workWithReservation(selectedReservation);
     }
 
     /**
@@ -158,7 +167,7 @@ public class CheckInGuiControler
      */
     public void changeRoom(int selectionIndex, String roomNumber)
     {
-        CheckInController.getInstance().changeRoom(selectionIndex, roomNumber);
+        cic.changeRoom(selectionIndex, roomNumber);
     }
 
     /**
@@ -169,7 +178,7 @@ public class CheckInGuiControler
      */
     public void changeRoom(int selectionIndex, RoomData room)
     {
-        CheckInController.getInstance().changeRoom(selectionIndex, room);
+        cic.changeRoom(selectionIndex, room);
     }
 
     /**
@@ -181,7 +190,7 @@ public class CheckInGuiControler
      */
     public Collection<RoomData> changeRoomCategory(int selectionIndex, RoomCategoryData category)
     {
-        return CheckInController.getInstance().changeRoomCategory(selectionIndex, category);
+        return cic.changeRoomCategory(selectionIndex, category);
     }
 
     /**
@@ -194,7 +203,7 @@ public class CheckInGuiControler
      */
     public RoomData getRoomData(int roomIndex)
     {
-        return CheckInController.getInstance().getRoomData(roomIndex);
+        return cic.getRoomData(roomIndex);
     }
 
     /**
@@ -204,7 +213,7 @@ public class CheckInGuiControler
      */
     public int addRoomSelection()
     {
-        return CheckInController.getInstance().addRoomSelection();
+        return cic.addRoomSelection();
     }
     /**
      * Gibt alle Verpflegunsarten aus
@@ -222,7 +231,7 @@ public class CheckInGuiControler
     {
         if (habitationServices == null)
         {
-            habitationServices = (Collection<ExtraServiceData>) CheckInController.getInstance().getAllHabitationServices();
+            habitationServices = (Collection<ExtraServiceData>) cic.getAllHabitationServices();
         }
         return habitationServices;
     }
@@ -249,7 +258,7 @@ public class CheckInGuiControler
      */
     public void assignRoom(int selectionIndex, GuestData guest)
     {
-        CheckInController.getInstance().assignRoom(selectionIndex, guest);
+        cic.assignRoom(selectionIndex, guest);
     }
     private Collection<CountryData> countries;
 
@@ -257,7 +266,7 @@ public class CheckInGuiControler
     {
         if (countries == null)
         {
-            countries = CheckInController.getInstance().getAllCountries();
+            countries = cic.getAllCountries();
         }
         return countries;
     }
@@ -271,7 +280,7 @@ public class CheckInGuiControler
      */
     public void createWalkIn(Date start, Date end, int amount)
     {
-        CheckInController.getInstance().createWalkIn(start, end, amount);
+        cic.createWalkIn(start, end, amount);
     }
 
     /**
@@ -282,7 +291,7 @@ public class CheckInGuiControler
      */
     public void createWalkIn(int days, int amount)
     {
-        CheckInController.getInstance().createWalkIn(days, amount);
+        cic.createWalkIn(days, amount);
     }
 
     /**
@@ -293,7 +302,7 @@ public class CheckInGuiControler
      */
     public void changeInformation(Date start, Date end)
     {
-        CheckInController.getInstance().changeInformation(start, end, 5);
+        cic.changeInformation(start, end, 5);
     }
 
     /**
@@ -303,7 +312,7 @@ public class CheckInGuiControler
      */
     public Collection<GuestData> getGuests()
     {
-        return CheckInController.getInstance().getGuests();
+        return cic.getGuests();
     }
 
     /**
@@ -318,7 +327,7 @@ public class CheckInGuiControler
      */
     public GuestData changeGuestData(GuestData guest, String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        return CheckInController.getInstance().changeGuestData(guest, firstName, lastName, gender, birthday, address);
+        return cic.changeGuestData(guest, firstName, lastName, gender, birthday, address);
     }
 
     /**
@@ -353,7 +362,7 @@ public class CheckInGuiControler
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday,
             String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
-        return CheckInController.getInstance().addGuest(firstName, lastName, gender, birthday, street, city, zip, email, phone, fax, country);
+        return cic.addGuest(firstName, lastName, gender, birthday, street, city, zip, email, phone, fax, country);
     }
 
     /**
@@ -363,7 +372,7 @@ public class CheckInGuiControler
      */
     public void removeRoomSelection(int selectionIndex)
     {
-        CheckInController.getInstance().removeRoomSelection(selectionIndex);
+        cic.removeRoomSelection(selectionIndex);
     }
     private Collection<RoomCategoryData> roomCategories;
 
@@ -371,7 +380,7 @@ public class CheckInGuiControler
     {
         if (roomCategories == null)
         {
-            roomCategories = CheckInController.getInstance().getAllCategories();
+            roomCategories = cic.getAllCategories();
         }
         return roomCategories;
     }
@@ -382,7 +391,7 @@ public class CheckInGuiControler
      */
     public void initKeys()
     {
-        CheckInController.getInstance().initKeys();
+        cic.initKeys();
     }
 
     /**
@@ -392,17 +401,7 @@ public class CheckInGuiControler
      */
     public Collection<ExtraServiceData> getServices()
     {
-        return CheckInController.getInstance().getServices();
-    }
-
-    /**
-     * Gibt an welche Extraleistungen wie oft ausgewählt wurden
-     *
-     * @param services Eine Map, bestehend aus gebuchten Extrleistungen und deren Anzahl
-     */
-    public void selectServices(Collection<ExtraServiceData> services)
-    {
-        CheckInController.getInstance().selectServices(services);
+        return cic.getServices();
     }
 
     public JTabbedPane getRoomTabPane()
@@ -417,7 +416,7 @@ public class CheckInGuiControler
 
     int getGuestCounter()
     {
-        return CheckInController.getInstance().getCounter();
+        return cic.getCounter();
     }
 
     /**
@@ -425,13 +424,16 @@ public class CheckInGuiControler
      */
     public void back()
     {
-        CheckInController.getInstance().back();
+        cic.back();
     }
 
-    void createNewWalking()
+    public void createNewWalking()
     {
-        CheckInController.getInstance().createNewWalkIn();
+        cic.createNewWalkIn();
     }
     
-    
+    public void saveData() throws NoPriceDefinedException, CouldNotSaveException
+    {
+        cic.saveData();
+    }
 }

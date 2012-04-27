@@ -55,8 +55,6 @@ public abstract class ChangeDataState extends CheckInState
                 }
             }
         }
-        
-        
     }
 
     @Override
@@ -174,16 +172,6 @@ public abstract class ChangeDataState extends CheckInState
         return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
     }
 
-    @Override
-    public void selectServices(Collection<ExtraServiceData> services)
-    {
-        for (ExtraServiceData entry : services)
-        {
-            InvoiceItem item = InvoiceItem.createInvoiceItem((ExtraService) entry, 1, context.getHabitation());
-            context.getHabitation().addInvoiceItems(item);
-        }
-    }
-
     /**
      * Ändert die Informationen, betreffend des aktuellen Check In Vorgangs
      *
@@ -202,7 +190,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
-        LinkedList<Habitation> habitations = new LinkedList<Habitation>();
+        context.setHabitations(new LinkedList<Habitation>());
         LinkedList<Guest> guests = new LinkedList<Guest>();
         LinkedList<Address> addresses = new LinkedList<Address>();
 
@@ -233,7 +221,7 @@ public abstract class ChangeDataState extends CheckInState
                 addresses.add(g.getAddress());
             }
 
-            habitations.add(h);
+            context.getHabitations().add(h);
         }
 
         try
@@ -242,18 +230,21 @@ public abstract class ChangeDataState extends CheckInState
             Transaction ts = session.beginTransaction();
             ts.begin();
             PartySaver.getInstance().saveOrUpdate(session, addresses, new LinkedList(), new LinkedList(), new LinkedList(), guests);
-            ServiceSaver.getInstance().saveOrUpdate(session, new LinkedList(), habitations, new LinkedList());
+            ServiceSaver.getInstance().saveOrUpdate(session, new LinkedList(), context.getHabitations(), new LinkedList());
             ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)
         {
             throw new CouldNotSaveException();
         }
+        
+        context.setState(new FinalState(context));
     }
 
     @Override
     void back()
     {
+        context.clear();
         context.setState(new StartState(context));
     }
 }
