@@ -6,8 +6,10 @@ package hotelsoftware.gui.home;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.util.test.CurrentWeather;
+import hotelsoftware.util.test.CurrentWeatherPanel;
 import hotelsoftware.util.test.Weather;
-import hotelsoftware.util.test.WeatherPanel;
+import hotelsoftware.util.test.ForeCastWeatherPanel;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,15 +29,52 @@ public class HomePanel extends javax.swing.JPanel
     public HomePanel()
     {
         initComponents();
+        jPanel3.removeAll();
+        GridBagLayout gbl = new GridBagLayout();
+        jPanel3.setLayout(gbl);
+
+
         new DateOut();
         Weather w = new CurrentWeather();
-        List<Weather> list = w.getCurrent();
-        list.addAll(w.getForeCasts());
+        w = w.getCurrent();
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // Festlegen, dass die GUI-Elemente die Gitterfelder in 
+        // waagerechter Richtung ausfüllen:
+        gbc.fill = GridBagConstraints.BOTH;
+
+        // Die Abstände der einzelnen GUI-Elemente zu den gedachten 
+        // Gitterlinien festgelegen:
+        gbc.insets = new Insets(2, 2, 2, 2);
+
+        gbc.gridx = 0;  // x-Position im gedachten Gitter
+        gbc.gridy = 0;  // y-Position im gedachten Gitter
+        gbc.gridheight = 1;  // zwei Gitter-Felder hoch
+        gbc.gridwidth = 3;
+        CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
+        gbl.setConstraints(cwp, gbc);
+        jPanel3.add(cwp);
+        List<Weather> list = w.getForeCasts();
+        int i = 0;
+        gbc.gridwidth = 1;
         for (Weather w2 : list)
         {
-            WeatherPanel wp = new WeatherPanel(w2);
-            jPanel1.add(wp);
+            gbc.gridx = i;  // x-Position im gedachten Gitter
+            gbc.gridy = 1;
+            ForeCastWeatherPanel wp = new ForeCastWeatherPanel(w2);
+            gbl.setConstraints(wp, gbc);
+            jPanel3.add(wp);
+            i++;
         }
+        gbc.gridx = 0;  // x-Position im gedachten Gitter
+        gbc.gridy = 2;  // y-Position im gedachten Gitter
+        gbc.gridheight = 1;  // zwei Gitter-Felder hoch
+        gbc.gridwidth = 2;
+        gbl.setConstraints(jLabel1, gbc);
+        jPanel3.add(jLabel1);
+        gbc.gridy = 3;  // y-Position im gedachten Gitter
+        gbl.setConstraints(jLabel2, gbc);
+        jPanel3.add(jLabel2);
     }
 
     /**
@@ -48,7 +87,7 @@ public class HomePanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -56,39 +95,51 @@ public class HomePanel extends javax.swing.JPanel
 
         jLabel2.setText("jLabel2");
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 1021, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(262, 262, 262))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(343, 343, 343))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(134, 134, 134))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 
     private class DateOut extends Thread
@@ -114,7 +165,7 @@ public class HomePanel extends javax.swing.JPanel
                     Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         }
 
         private String dateToday()

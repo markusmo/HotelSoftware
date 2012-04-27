@@ -19,13 +19,13 @@ public class WeatherInfos extends javax.swing.JFrame
     {
         initComponents();
         Weather w = new CurrentWeather();
-        List<Weather> list = w.getCurrent();
+       /* List<Weather> list = w.getCurrent();
         list.addAll(w.getForeCasts());
         for (Weather w2 : list)
         {
-            WeatherPanel wp = new WeatherPanel(w2);
+            ForeCastWeatherPanel wp = new ForeCastWeatherPanel(w2);
             jPanel1.add(wp);
-        }
+        }*/
 
     }
 

@@ -27,11 +27,16 @@ import javax.swing.JTabbedPane;
  *
  * @author Johannes
  */
-public class CheckInGuiControler
+public class CheckInGuiControler 
 {
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
     private ReservationData selectedReservation;
+
+    void createNewWalking()
+    {
+        CheckInController.getInstance().createNewWalkIn();
+    }
 
     private static class CheckInGuiControllerHolder
     {

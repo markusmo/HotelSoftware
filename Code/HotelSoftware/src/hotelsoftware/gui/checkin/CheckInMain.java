@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.Company;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
@@ -18,6 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,6 +123,11 @@ public class CheckInMain extends javax.swing.JPanel
         jLabel1.setText("Last name:");
 
         jButton2.setText("WalkIn");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -368,13 +375,35 @@ public class CheckInMain extends javax.swing.JPanel
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        //Abort Button
+        if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+        {
+            cigc.back();
+            cigc.getContentpane().removeAll();
+            cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxReservationNumberActionPerformed
     {//GEN-HEADEREND:event_textBoxReservationNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBoxReservationNumberActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        //Walkin
+        cigc.createNewWalking();
+        if (checkInTwo == null)
+        {
+            checkInTwo = new CheckinTwo();
+            cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+        }
+        checkInTwo.init();
+        ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;

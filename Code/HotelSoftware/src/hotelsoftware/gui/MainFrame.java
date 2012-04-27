@@ -5,6 +5,7 @@ import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -25,13 +26,20 @@ public class MainFrame extends javax.swing.JFrame
      */
     public MainFrame()
     {
-        initComponents();
-        registerActionMap();
+        this.setUndecorated(true);
+
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //GraphicsDevice myDevice = env.getDefaultScreenDevice();
+        //myDevice.setFullScreenWindow(this);
+
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState()
                 | JFrame.MAXIMIZED_BOTH);
         this.setMinimumSize(env.getMaximumWindowBounds().getSize());
+
+        initComponents();
+        registerActionMap();
+
     }
 
     /**
@@ -49,10 +57,11 @@ public class MainFrame extends javax.swing.JFrame
         roomOverviewButton = new javax.swing.JButton();
         checkOutButton = new javax.swing.JButton();
         journalButton = new javax.swing.JButton();
+        escButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        homeButton.setText("<html> <b>Home</b> <br/> F1 </html>");
+        homeButton.setText("<html><b> Home</b> <br/> F1 </html>");
         homeButton.setActionCommand("");
         homeButton.setMaximumSize(new java.awt.Dimension(73, 73));
         homeButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -65,7 +74,7 @@ public class MainFrame extends javax.swing.JFrame
 
         jPanel1.setLayout(new java.awt.CardLayout());
 
-        checkInButton.setText("<html> Check In <br/> F2 </html>");
+        checkInButton.setText("<html><b> Check In</b> <br/> F2 </html>");
         checkInButton.setActionCommand("");
         checkInButton.setMaximumSize(new java.awt.Dimension(73, 73));
         checkInButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -76,7 +85,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        roomOverviewButton.setText("<html> Room Overview <br/> F4 </html>");
+        roomOverviewButton.setText("<html><b> Room Overview</b> <br/> F4 </html>");
         roomOverviewButton.setActionCommand("");
         roomOverviewButton.setMaximumSize(new java.awt.Dimension(73, 73));
         roomOverviewButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -87,7 +96,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        checkOutButton.setText("<html> Check Out <br/> F3 </html>");
+        checkOutButton.setText("<html><b> Check Out</b> <br/> F3 </html>");
         checkOutButton.setActionCommand("");
         checkOutButton.setMaximumSize(new java.awt.Dimension(73, 73));
         checkOutButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -98,7 +107,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        journalButton.setText("<html> Journal <br/> F5 </html>");
+        journalButton.setText("<html><b> Journal</b> <br/> F5 </html>");
         journalButton.setActionCommand("");
         journalButton.setMaximumSize(new java.awt.Dimension(73, 73));
         journalButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -109,75 +118,116 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
+        escButton.setText("<html><b> Exit</b> <br/>Esc</html>");
+        escButton.setActionCommand("");
+        escButton.setMaximumSize(new java.awt.Dimension(73, 73));
+        escButton.setMinimumSize(new java.awt.Dimension(73, 73));
+        escButton.setPreferredSize(new java.awt.Dimension(80, 80));
+        escButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(checkInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(roomOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(journalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE))
+                .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(checkInButton, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(checkOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addComponent(roomOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addComponent(journalButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(escButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1025, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(journalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(journalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
+
+        escButton.getAccessibleContext().setAccessibleName("<html> Exit <br/>Esc</html>");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkInButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
     {//GEN-HEADEREND:event_jButton12ActionPerformed
-        cigc.getContentpane().removeAll();
-        cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
-        ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-        cigc.getContentpane().repaint();
+        if (checkState())
+        {
+            cigc.getContentpane().removeAll();
+            cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
+        }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void roomOverviewButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_roomOverviewButtonActionPerformed
     {//GEN-HEADEREND:event_roomOverviewButtonActionPerformed
         // TODO add your handling code here:
+        if (checkState())
+        {
+        }
     }//GEN-LAST:event_roomOverviewButtonActionPerformed
 
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkOutButtonActionPerformed
     {//GEN-HEADEREND:event_checkOutButtonActionPerformed
         // TODO add your handling code here:
+        if (checkState())
+        {
+        }
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
     private void journalButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_journalButtonActionPerformed
     {//GEN-HEADEREND:event_journalButtonActionPerformed
         // TODO add your handling code here:
+        if (checkState())
+        {
+        }
     }//GEN-LAST:event_journalButtonActionPerformed
 
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
     {//GEN-HEADEREND:event_jButton11ActionPerformed
-        cigc.getContentpane().removeAll();
-        cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
-       ((CardLayout)cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-        cigc.getContentpane().repaint();
+        if (checkState())
+        {
+            cigc.getContentpane().removeAll();
+            cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void escButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_escButtonActionPerformed
+    {//GEN-HEADEREND:event_escButtonActionPerformed
+        //Esc Button
+
+        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0)
+        {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_escButtonActionPerformed
 
     private void Init()
     {
@@ -192,15 +242,19 @@ public class MainFrame extends javax.swing.JFrame
         journalButton.setIcon(new ImageIcon(
                 MainFrame.class.getClassLoader().getResource(
                 "resources/images/Address-Book-icon.png")));
+        escButton.setIcon(new ImageIcon(
+                MainFrame.class.getClassLoader().getResource(
+                "resources/images/exit.png")));
 
         cigc.setContentpane(jPanel1);
         //jPanel1 = new CheckInMain();
-        cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
+        cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
         //jPanel1.add(new CheckinTwo(),BorderLayout.CENTER);
     }
 
     public static void CreateGui()
     {
+
         MainFrame frame = new MainFrame();
         frame.Init();
         //Display the window.
@@ -269,6 +323,7 @@ public class MainFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkInButton;
     private javax.swing.JButton checkOutButton;
+    private javax.swing.JButton escButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton journalButton;
@@ -280,19 +335,21 @@ public class MainFrame extends javax.swing.JFrame
      */
     private void registerActionMap()
     {
-        KeyStroke f1 = KeyStroke.getKeyStroke(KeyEvent.VK_F1,0);
-        KeyStroke f2 = KeyStroke.getKeyStroke(KeyEvent.VK_F2,0);
-        KeyStroke f3 = KeyStroke.getKeyStroke(KeyEvent.VK_F3,0);
-        KeyStroke f4 = KeyStroke.getKeyStroke(KeyEvent.VK_F4,0);
-        KeyStroke f5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5,0);
-        
+        KeyStroke f1 = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
+        KeyStroke f2 = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
+        KeyStroke f3 = KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0);
+        KeyStroke f4 = KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0);
+        KeyStroke f5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0);
+        KeyStroke esc = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+
         InputMap map = this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         map.put(f1, "f1pressed");
         map.put(f2, "f2pressed");
         map.put(f3, "f3pressed");
         map.put(f4, "f4pressed");
         map.put(f5, "f5pressed");
-        
+        map.put(esc, "escpressed");
+
         Action f1pressed = new AbstractAction()
         {
             @Override
@@ -301,7 +358,7 @@ public class MainFrame extends javax.swing.JFrame
                 homeButtonActionPerformed(e);
             }
         };
-        
+
         Action f2pressed = new AbstractAction()
         {
             @Override
@@ -334,13 +391,31 @@ public class MainFrame extends javax.swing.JFrame
                 journalButtonActionPerformed(e);
             }
         };
-        
+        Action escpressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                escButtonActionPerformed(e);
+            }
+        };
+
         ActionMap amap = this.getRootPane().getActionMap();
-        amap.put("f1pressed",f1pressed);
-        amap.put("f2pressed",f2pressed);
-        amap.put("f3pressed",f3pressed);
-        amap.put("f4pressed",f4pressed);
-        amap.put("f5pressed",f5pressed);
-        
+        amap.put("f1pressed", f1pressed);
+        amap.put("f2pressed", f2pressed);
+        amap.put("f3pressed", f3pressed);
+        amap.put("f4pressed", f4pressed);
+        amap.put("f5pressed", f5pressed);
+        amap.put("escpressed", escpressed);
+
+    }
+
+    private boolean checkState()
+    {
+      if(!GuiController.getInstance().checkStateForSwitching())
+      {
+          return JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
+      }
+      return true;
     }
 }

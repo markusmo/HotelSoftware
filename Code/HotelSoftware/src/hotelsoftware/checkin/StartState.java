@@ -102,4 +102,9 @@ class StartState extends CheckInState
 
         context.setState(new ChangeWalkInDataState(context));
     }
+    
+    @Override
+    void createNewWalkIn(){
+        
+    }
 }

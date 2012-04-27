@@ -13,12 +13,12 @@ import javax.swing.JPanel;
  *
  * @author Johannes
  */
-public class WeatherPanel extends javax.swing.JPanel
+public class ForeCastWeatherPanel extends javax.swing.JPanel
 {
     /**
      * Creates new form WeatherPanel
      */
-    public WeatherPanel(Weather w)
+    public ForeCastWeatherPanel(Weather w)
     {
         super(new GridLayout(1, 1));
         initComponents();
@@ -43,7 +43,7 @@ public class WeatherPanel extends javax.swing.JPanel
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setText("jLabel1");
 

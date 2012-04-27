@@ -8,6 +8,8 @@ import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
+import hotelsoftware.gui.checkin.subpanels.SuccesPanel;
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
@@ -15,8 +17,10 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -30,6 +34,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -59,7 +64,7 @@ public class CheckinTwo extends javax.swing.JPanel
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
-        
+
     }
 
     public void init()
@@ -115,7 +120,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 {
                     if (room.isFinished())
                     {
-                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
+                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh.png")));
                     }
                 }
                 if (isFinished())
@@ -192,14 +197,6 @@ public class CheckinTwo extends javax.swing.JPanel
             }
         });
 
-        TabbedPaneRooms.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                TabbedPaneRoomsCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
-
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,18 +211,6 @@ public class CheckinTwo extends javax.swing.JPanel
         jLabel3.setText("Reservation no:");
 
         jLabel4.setText("Number of guests:");
-
-        textBoxReservationNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxReservationNumberActionPerformed(evt);
-            }
-        });
-
-        textBoxNumberOfGuests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxNumberOfGuestsActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Comment:");
 
@@ -268,11 +253,11 @@ public class CheckinTwo extends javax.swing.JPanel
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textBoxNumberOfGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(256, 256, 256))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +298,7 @@ public class CheckinTwo extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4))
                     .addComponent(TabbedPaneRooms)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -334,48 +319,45 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        this.TabbedPaneRooms.setTitleAt(1, "New Title");
-        rooms.get(1).setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh1.png")));
+        //Abort Button
+        if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+        {
+            cigc.back();
+            cigc.getContentpane().removeAll();
+            cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void ButtonCheckInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ButtonCheckInActionPerformed
     {//GEN-HEADEREND:event_ButtonCheckInActionPerformed
         try
         {
-
             doTheCheckIn();
+            cigc.getContentpane().add(new SuccesPanel(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
         }
         catch (NoPriceDefinedException ex)
         {
             // TODO message Box
+            JOptionPane.showConfirmDialog(this, ex.getMessage(), "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CheckinTwo.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (CouldNotSaveException ex)
         {
             // TODO message Box
+            JOptionPane.showConfirmDialog(this, ex.getMessage(), "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CheckinTwo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
 
-    private void TabbedPaneRoomsCaretPositionChanged(java.awt.event.InputMethodEvent evt)//GEN-FIRST:event_TabbedPaneRoomsCaretPositionChanged
-    {//GEN-HEADEREND:event_TabbedPaneRoomsCaretPositionChanged
-   }//GEN-LAST:event_TabbedPaneRoomsCaretPositionChanged
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         cigc.back();        // TODO add your handling code here:
-        ((CardLayout)cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
+        ((CardLayout) cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxReservationNumberActionPerformed
-    {//GEN-HEADEREND:event_textBoxReservationNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxReservationNumberActionPerformed
-
-    private void textBoxNumberOfGuestsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxNumberOfGuestsActionPerformed
-    {//GEN-HEADEREND:event_textBoxNumberOfGuestsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxNumberOfGuestsActionPerformed
 
     private void DateChooserArrivalOnCommit(datechooser.events.CommitEvent evt)//GEN-FIRST:event_DateChooserArrivalOnCommit
     {//GEN-HEADEREND:event_DateChooserArrivalOnCommit
@@ -407,27 +389,6 @@ public class CheckinTwo extends javax.swing.JPanel
     private javax.swing.JTextField textBoxReservationNumber;
     // End of variables declaration//GEN-END:variables
 
-    public void persist(Object object)
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("HotelSoftwarePU");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        try
-        {
-            em.persist(object);
-            em.getTransaction().commit();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        }
-        finally
-        {
-            em.close();
-        }
-    }
-
     private void doTheCheckIn() throws NoPriceDefinedException, CouldNotSaveException
     {
         for (RoomPanel room : rooms)
@@ -449,23 +410,7 @@ public class CheckinTwo extends javax.swing.JPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                /*
-                 * ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")));
-                 * RoomPanel room = new RoomPanel();
-                 * rooms.add(room);
-                 * room.setTabComponent(iconTab);
-                 * room.setRoomIndex(cigc.addRoomSelection());
-                 * room.init();
-                 *
-                 * TabbedPaneRooms.add(room, TabbedPaneRooms.getTabCount() - 1);
-                 *
-                 * TabbedPaneRooms.setTitleAt(TabbedPaneRooms.getTabCount() - 2, "Room " + (TabbedPaneRooms.getTabCount() - 1));
-                 *
-                 *
-                 * TabbedPaneRooms.setTabComponentAt(TabbedPaneRooms.getTabCount() - 2, iconTab);
-                 */
                 addNewRoomPanel(true);
-
             }
         };
     }
