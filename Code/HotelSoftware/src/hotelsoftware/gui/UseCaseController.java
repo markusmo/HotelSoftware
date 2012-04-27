@@ -11,4 +11,6 @@ package hotelsoftware.gui;
 public interface UseCaseController
 {
     public boolean isInSwitchingState();
+
+    public void back();
 }

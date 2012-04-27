@@ -13,6 +13,8 @@ public class GuiController
 {
     private LinkedList<UseCaseController> controller = new LinkedList<UseCaseController>();
 
+    
+
     private static class GuiControllerHolder
     {
         private static final GuiController INSTANCE = new GuiController();
@@ -43,5 +45,12 @@ public class GuiController
             }
         }
         return true;
+    }
+    void back()
+    {
+       for (UseCaseController c : controller)
+        {
+           c.back();
+        }
     }
 }

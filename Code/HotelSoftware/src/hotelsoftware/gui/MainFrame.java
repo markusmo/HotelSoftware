@@ -428,6 +428,7 @@ public class MainFrame extends javax.swing.JFrame
       {
           return JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
       }
+      GuiController.getInstance().back();
       return true;
     }
 }

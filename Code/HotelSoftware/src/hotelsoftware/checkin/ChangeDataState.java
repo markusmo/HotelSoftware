@@ -249,6 +249,10 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     void back()
     {
+        context.setCounter(0);
+        context.setReservation(null);
+        context.setReservationItems(null);
+        context.setRoomSelections(null);
         context.setState(new StartState(context));
     }
 }
