@@ -10,15 +10,11 @@ import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
 import hotelsoftware.model.domain.parties.data.CompanyData;
 import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.parties.data.PartyData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -400,7 +396,7 @@ public class CheckInMain extends javax.swing.JPanel
             checkInTwo = new CheckinTwo();
             cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
         }
-        checkInTwo.init();
+        checkInTwo.initWalkIn();
         ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
     }//GEN-LAST:event_jButton2ActionPerformed
 
