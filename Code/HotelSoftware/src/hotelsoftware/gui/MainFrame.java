@@ -3,12 +3,11 @@ package hotelsoftware.gui;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import hotelsoftware.gui.login.LoginWindow;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.*;
 
 /**
@@ -27,7 +26,10 @@ public class MainFrame extends javax.swing.JFrame
     public MainFrame()
     {
         this.setUndecorated(true);
-
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        URL url = LoginWindow.class.getClassLoader().getResource("resources/images/icon.jpg");
+        Image img = tk.createImage(url);
+        this.setIconImage(img);
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         //GraphicsDevice myDevice = env.getDefaultScreenDevice();
         //myDevice.setFullScreenWindow(this);
