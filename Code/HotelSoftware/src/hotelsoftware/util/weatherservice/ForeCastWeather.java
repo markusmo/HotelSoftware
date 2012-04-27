@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.util.test;
+package hotelsoftware.util.weatherservice;
 
 import javax.swing.ImageIcon;
 
@@ -18,11 +18,6 @@ public class ForeCastWeather extends Weather
 
     public ForeCastWeather()
     {
-    }
-
-    public ForeCastWeather(String city)
-    {
-        super(city);
     }
 
     public String getDay_of_week()
