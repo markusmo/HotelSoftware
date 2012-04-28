@@ -5,6 +5,8 @@
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.gui.checkin.CheckinTwo;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
 import hotelsoftware.model.domain.parties.Guest;
@@ -16,6 +18,7 @@ import hotelsoftware.model.domain.service.data.HabitationData;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
@@ -26,7 +29,7 @@ import javax.swing.JTextField;
  */
 public class GuestPanel extends javax.swing.JPanel
 {
-    private ButtonTabComponent tabComponent;
+    private ButtonIconTabComponent tabComponent;
     private ExtraServicesPanel esPane = new ExtraServicesPanel();
 
     /**
@@ -53,6 +56,8 @@ public class GuestPanel extends javax.swing.JPanel
             ComboBoxCountry.addItem(data);
         }
         setTabStops();
+
+
     }
 
     /**
@@ -305,22 +310,29 @@ public class GuestPanel extends javax.swing.JPanel
         {
             if (c instanceof JTextField)
             {
-                if (((JTextField) c).getText().isEmpty())
+                if (((JTextField) c).getText().trim().isEmpty())
                 {
                     //System.out.println(((JTextField) c).getText());
+                     tabComponent.setUnFinished();
                     return false;
                 }
             }
         }
+        tabComponent.setFinished();
         return true;
     }
 
-    public ButtonTabComponent getTabComponent()
+    public void setTabIcon(ImageIcon icon)
+    {
+        
+    }
+
+    public ButtonIconTabComponent getTabComponent()
     {
         return tabComponent;
     }
 
-    public void setTabComponent(ButtonTabComponent tabComponent)
+    public void setTabComponent(ButtonIconTabComponent tabComponent)
     {
         this.tabComponent = tabComponent;
     }

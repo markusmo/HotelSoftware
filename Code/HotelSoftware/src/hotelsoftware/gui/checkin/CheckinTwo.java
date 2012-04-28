@@ -2,6 +2,7 @@ package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
+import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.checkin.subpanels.SuccesPanel;
@@ -91,13 +92,6 @@ public class CheckinTwo extends javax.swing.JPanel
         {
             public void stateChanged(ChangeEvent e)
             {
-                for (RoomPanel room : rooms)
-                {
-                    if (room.isFinished())
-                    {
-                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh.png")));
-                    }
-                }
                 if (isFinished())
                 {
                     ButtonCheckIn.setEnabled(true);
@@ -105,6 +99,12 @@ public class CheckinTwo extends javax.swing.JPanel
             }
         });
         inserGuestsFromReservation();
+        StartUpdater();
+    }
+
+    private void StartUpdater()
+    {
+        new Updater();
     }
 
     private void updateRooms()
@@ -150,19 +150,13 @@ public class CheckinTwo extends javax.swing.JPanel
         {
             public void stateChanged(ChangeEvent e)
             {
-                for (RoomPanel room : rooms)
-                {
-                    if (room.isFinished())
-                    {
-                        room.setTabIcon(new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/gh.png")));
-                    }
-                }
                 if (isFinished())
                 {
                     ButtonCheckIn.setEnabled(true);
                 }
             }
         });
+        StartUpdater();
     }
 
     /**
@@ -436,8 +430,7 @@ public class CheckinTwo extends javax.swing.JPanel
         {
             add = 1;
         }
-        ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms,
-                new ImageIcon(CheckinTwo.class.getClassLoader().getResource("resources/images/rotes_x.gif")), rooms);
+        ButtonIconTabComponent iconTab = new ButtonIconTabComponent(TabbedPaneRooms, rooms);
         RoomPanel room = new RoomPanel();
         rooms.add(room);
         room.setTabComponent(iconTab);
@@ -454,14 +447,15 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private boolean isFinished()
     {
+        boolean b = true;
         for (RoomPanel room : rooms)
         {
             if (!room.isFinished())
             {
-                return false;
+                b = false;
             }
         }
-        return true;
+        return b;
     }
 
     public void inserGuestsFromReservation()
@@ -483,6 +477,32 @@ public class CheckinTwo extends javax.swing.JPanel
                     gPanel.addGuest(g);
                 } while (ip.hasNext() && it.hasNext());
             }
+        }
+    }
+
+    private class Updater extends Thread
+    {
+        public Updater()
+        {
+            setDaemon(true);
+            start();
+        }
+
+        public void run()
+        {
+            while (!GuiController.getInstance().checkStateForSwitching())
+            {
+                try
+                {
+                    Thread.sleep(500);
+                    isFinished();
+                }
+                catch (InterruptedException ex)
+                {
+                    Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
     }
 }

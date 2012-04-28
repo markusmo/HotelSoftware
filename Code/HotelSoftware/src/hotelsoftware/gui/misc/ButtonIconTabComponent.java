@@ -47,8 +47,11 @@ public class ButtonIconTabComponent extends JPanel
     private final JTabbedPane pane;
     private ImagePanel imagePanel;
     private java.util.List list;
+    private ImageIcon finishIcon = new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/gh.png"));
+    private ImageIcon unfinishIcon = new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/rotes_x.gif"));
+    private boolean finished = false;
 
-    public ButtonIconTabComponent(final JTabbedPane pane, ImageIcon icon, java.util.List list)
+    public ButtonIconTabComponent(final JTabbedPane pane, java.util.List list)
     {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -57,7 +60,7 @@ public class ButtonIconTabComponent extends JPanel
             throw new NullPointerException("TabbedPane is null");
         }
         this.list = list;
-        this.imagePanel = new ImagePanel(icon.getImage());
+        this.imagePanel = new ImagePanel(unfinishIcon.getImage());
         this.pane = pane;
         setOpaque(false);
 
@@ -66,11 +69,26 @@ public class ButtonIconTabComponent extends JPanel
         setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
-    public void setImagePanel(ImageIcon imageIcon)
+    public void setFinished()
     {
-        this.imagePanel = new ImagePanel(imageIcon.getImage());
-        this.removeAll();
-        addComponents();
+        if (!finished)
+        {
+            this.imagePanel = new ImagePanel(finishIcon.getImage());
+            finished = true;
+            this.removeAll();
+            addComponents();
+        }
+    }
+
+    public void setUnFinished()
+    {
+        if (finished)
+        {
+            this.imagePanel = new ImagePanel(unfinishIcon.getImage());
+            finished = false;
+            this.removeAll();
+            addComponents();
+        }
     }
 
     private void addComponents()

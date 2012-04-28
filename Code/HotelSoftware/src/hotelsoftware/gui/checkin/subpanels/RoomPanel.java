@@ -125,18 +125,13 @@ public class RoomPanel extends javax.swing.JPanel
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
                 new ButtonTabComponentPlus(getGuestPannelAddListener()));
         TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
-        
+
 
     }
 
     public int getRoomIndex()
     {
         return roomIndex;
-    }
-
-    public void setTabIcon(ImageIcon icon)
-    {
-        this.iconTab.setImagePanel(icon);
     }
 
     public void setRoomIndex(int roomIndex)
@@ -209,14 +204,23 @@ public class RoomPanel extends javax.swing.JPanel
      */
     public boolean isFinished()
     {
+        boolean b = true;
         for (GuestPanel guest : guests)
         {
             if (!guest.isFinished())
             {
-                return false;
+                b = false;
             }
         }
-        return true;
+        if (b)
+        {
+           iconTab.setFinished();
+        }
+        else
+        {
+            iconTab.setUnFinished();
+        }
+        return b;
     }
 
     /**
@@ -256,7 +260,7 @@ public class RoomPanel extends javax.swing.JPanel
         {
             add = 1;
         }
-        ButtonTabComponent tabComponent = new ButtonTabComponent(TabbedPaneGuests, guests);
+        ButtonIconTabComponent tabComponent = new ButtonIconTabComponent(TabbedPaneGuests, guests);
         GuestPanel guest = new GuestPanel();
         guests.add(guest);
         guest.setTabComponent(tabComponent);
@@ -264,7 +268,7 @@ public class RoomPanel extends javax.swing.JPanel
 
         TabbedPaneGuests.add(guest, TabbedPaneGuests.getTabCount() - add);
 
-        TabbedPaneGuests.setTitleAt(TabbedPaneGuests.getTabCount() - add - 1, "Room " + (TabbedPaneGuests.getTabCount() - add));
+        TabbedPaneGuests.setTitleAt(TabbedPaneGuests.getTabCount() - add - 1, "Guest " + (TabbedPaneGuests.getTabCount() - add));
 
 
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1 - add, tabComponent);

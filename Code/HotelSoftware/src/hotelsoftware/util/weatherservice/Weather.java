@@ -4,10 +4,12 @@
  */
 package hotelsoftware.util.weatherservice;
 
+import hotelsoftware.gui.home.HomePanel;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +29,7 @@ import org.xml.sax.SAXException;
  * Diese Klasse fragt Online mit der IP-Adresse die Position des Rechners ab
  * und haelt sich den Stadtnamen, mit diesem fragt es auf Google Weather
  * dann das aktuelle Wetter ab.
+ *
  * @author Johannes
  */
 public class Weather
@@ -35,15 +38,32 @@ public class Weather
     private String condition;
     private ImageIcon icon;
     private static Document doc;
+    private static boolean init;
+    private static Date now = new Date();
 
-    static
+    
     {
         findCity();
         setDoc();
+        init = true;
     }
-    
+
     public Weather()
     {
+    }
+
+    /**
+     * Überprüft ob neue Wetterdaten geholt werden müssen. Dies ist alle 15 Minuten der Fall.
+     * @return 
+     */
+    private static boolean hasToUpdate()
+    {
+        if (((new Date()).getTime() - now.getTime()) > 900000)
+        {
+            now = new Date();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -53,7 +73,7 @@ public class Weather
     {
         try
         {
-            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=de";
+            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=en";
 
             String xmlString = "";
             String line = "";
@@ -71,13 +91,22 @@ public class Weather
             }
             catch (MalformedURLException e)
             {
+                e.printStackTrace();
             }
             catch (IOException e)
             {
+                e.printStackTrace();
+            }
+            catch (Throwable t)
+            {
+                t.printStackTrace();
             }
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource source = new InputSource(new StringReader(xmlString));
             doc = builder.parse(source);
+            init = true;
+
+
         }
         catch (SAXException ex)
         {
@@ -92,44 +121,69 @@ public class Weather
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Diese Methode gibt das aktuelle Wetter des jetzigen Tages aus
-     * @return 
+     *
+     * @return
      * die jetzige Wettersituation
      */
     public static CurrentWeather getCurrent()
     {
 
-        NodeList nodeLst = doc.getElementsByTagName("current_conditions");
-        LinkedList<CurrentWeather> list = new LinkedList<CurrentWeather>();
-        for (int s = 0; s < nodeLst.getLength(); s++)
-        {
-            CurrentWeather w = new CurrentWeather();
-            Node fstNode = nodeLst.item(s);
 
-            if (fstNode.getNodeType() == Node.ELEMENT_NODE)
+
+        if ((!init) || hasToUpdate())
+        {
+            findCity();
+            setDoc();
+            init = true;
+        }
+        LinkedList<CurrentWeather> list = new LinkedList<CurrentWeather>();
+        try
+        {
+            NodeList nodeLst = doc.getElementsByTagName("current_conditions");
+
+            for (int s = 0; s < nodeLst.getLength(); s++)
             {
-                Element fstElmnt = (Element) fstNode;
-                w.setCondition(fstElmnt.getElementsByTagName("condition").item(0).getAttributes().getNamedItem("data").getNodeValue());
-                w.setIcon(fstElmnt.getElementsByTagName("icon").item(0).getAttributes().getNamedItem("data").getNodeValue());
-                w.setHumidity(fstElmnt.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("data").getNodeValue());
-                w.setTemp(fstElmnt.getElementsByTagName("temp_c").item(0).getAttributes().getNamedItem("data").getNodeValue());
-                w.setWind_condition(fstElmnt.getElementsByTagName("wind_condition").item(0).getAttributes().getNamedItem("data").getNodeValue());
-                list.add(w);
+                CurrentWeather w = new CurrentWeather();
+                Node fstNode = nodeLst.item(s);
+
+                if (fstNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    Element fstElmnt = (Element) fstNode;
+                    w.setCondition(fstElmnt.getElementsByTagName("condition").item(0).getAttributes().getNamedItem("data").getNodeValue());
+                    w.setIcon(fstElmnt.getElementsByTagName("icon").item(0).getAttributes().getNamedItem("data").getNodeValue());
+                    w.setHumidity(fstElmnt.getElementsByTagName("humidity").item(0).getAttributes().getNamedItem("data").getNodeValue());
+                    w.setTemp(fstElmnt.getElementsByTagName("temp_c").item(0).getAttributes().getNamedItem("data").getNodeValue());
+                    w.setWind_condition(fstElmnt.getElementsByTagName("wind_condition").item(0).getAttributes().getNamedItem("data").getNodeValue());
+                    list.add(w);
+                }
+
             }
 
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
         }
         return list.get(0);
     }
 
     /**
      * Diese Methode gibt eine Liste von Wettervorhersagen fuer die naechesten Tage aus
-     * @return 
+     *
+     * @return
      * eine Liste von Wettervorhersagen.
      */
     public static List<Weather> getForeCasts()
     {
+        if ((!init) || hasToUpdate())
+        {
+            findCity();
+            setDoc();
+            init = true;
+        }
         NodeList nodeLst = doc.getElementsByTagName("forecast_conditions");
         LinkedList<Weather> list = new LinkedList<Weather>();;
         for (int s = 0; s < nodeLst.getLength(); s++)
@@ -163,17 +217,19 @@ public class Weather
         String city = "";
         try
         {
-            URL whatismyip = new URL("http://automation.whatismyip.com/n09230945.asp");
-            ipin = new BufferedReader(new InputStreamReader(
-                    whatismyip.openStream()));
-            String ip = ipin.readLine();
+            /*
+             * URL whatismyip = new URL("http://automation.whatismyip.com/n09230945.asp");
+             * ipin = new BufferedReader(new InputStreamReader(
+             * whatismyip.openStream()));
+             * String ip = ipin.readLine();
+             */
 
-            URL urlcity = new URL("http://freegeoip.net/xml/" + ip);
+            URL urlcity = new URL("http://freegeoip.net/xml/");//+ ip);
             cityin = new BufferedReader(new InputStreamReader(urlcity.openStream()));
             StringBuilder builder = new StringBuilder();
             String xml = "";
-            while (( xml = cityin.readLine())!= null)
-            {                
+            while ((xml = cityin.readLine()) != null)
+            {
                 builder.append(xml);
             }
             DocumentBuilder docbuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -182,25 +238,36 @@ public class Weather
             NodeList elementsByTagName = document.getElementsByTagName("City");
             Node item = elementsByTagName.item(0);
             city = item.getChildNodes().item(0).getNodeValue();
+
+
         }
         catch (SAXException ex)
         {
+            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (ParserConfigurationException ex)
         {
+            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (IOException ex)
         {
+            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
         }
         finally
         {
             try
             {
-                ipin.close();
+                // ipin.close();
                 cityin.close();
+
+
             }
             catch (IOException ex)
             {
@@ -208,6 +275,7 @@ public class Weather
             }
         }
         cityName = city;
+        System.out.println(city);
     }
 
     public String getCondition()
@@ -232,6 +300,7 @@ public class Weather
 
     /**
      * Diese Methode setzt das Icon fuer das Darstellen auf der Gui
+     *
      * @param iconname der Name des Icons, von Google
      */
     public void setIcon(String iconname)
@@ -239,6 +308,8 @@ public class Weather
         String iconUrl = iconname.split("/")[iconname.split("/").length - 1];
         String iconName = iconUrl.replace(".gif", "");
         String path = "resources/images/weathericons/" + iconName + ".png";
+
+
         this.icon = new ImageIcon(Weather.class.getClassLoader().getResource(path));
         //this.icon = new ImageIcon(Weather.class.getClassLoader().getResource("resources/images/weathericons/weather_sunny-40.gif"));
     }
