@@ -88,7 +88,10 @@ public class DBGuest extends DBParty implements Serializable
 
     public void setHabitations(Collection<DBHabitation> habitationsCollection)
     {
-        this.habitations = new LinkedHashSet<DBHabitation>(habitationsCollection);
+        if (habitationsCollection != null)
+        {
+            this.habitations = new LinkedHashSet<DBHabitation>(habitationsCollection);
+        }
     }
     
     @XmlTransient
@@ -99,7 +102,10 @@ public class DBGuest extends DBParty implements Serializable
 
     public void setReservations(Collection<DBReservation> reservations)
     {
-        this.reservations = new LinkedHashSet<DBReservation>(reservations);
+        if (reservations != null)
+        {
+            this.reservations = new LinkedHashSet<DBReservation>(reservations);
+        }
     }
 
     /**

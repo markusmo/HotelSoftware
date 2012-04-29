@@ -20,7 +20,7 @@ public class Permission implements PermissionData
         return name;
     }
 
-    void setName(String permission)
+    public void setName(String permission)
     {
         this.name = permission;
     }
@@ -30,7 +30,7 @@ public class Permission implements PermissionData
         return id;
     }
 
-    void setId(Integer id)
+    public void setId(Integer id)
     {
         if (this.id == null)
         {
@@ -38,7 +38,7 @@ public class Permission implements PermissionData
         }
     }
     
-    Permission()
+    public Permission()
     {
     }
     

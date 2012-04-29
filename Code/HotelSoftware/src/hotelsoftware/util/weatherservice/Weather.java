@@ -54,7 +54,8 @@ public class Weather
 
     /**
      * Überprüft ob neue Wetterdaten geholt werden müssen. Dies ist alle 15 Minuten der Fall.
-     * @return 
+     *
+     * @return
      */
     private static boolean hasToUpdate()
     {
@@ -185,7 +186,7 @@ public class Weather
             init = true;
         }
         NodeList nodeLst = doc.getElementsByTagName("forecast_conditions");
-        LinkedList<Weather> list = new LinkedList<Weather>();;
+        LinkedList<Weather> list = new LinkedList<Weather>();
         for (int s = 0; s < nodeLst.getLength(); s++)
         {
             ForeCastWeather w = new ForeCastWeather();
@@ -309,8 +310,11 @@ public class Weather
         String iconName = iconUrl.replace(".gif", "");
         String path = "resources/images/weathericons/" + iconName + ".png";
 
-
-        this.icon = new ImageIcon(Weather.class.getClassLoader().getResource(path));
-        //this.icon = new ImageIcon(Weather.class.getClassLoader().getResource("resources/images/weathericons/weather_sunny-40.gif"));
+        URL url = Weather.class.getClassLoader().getResource(path);
+        if (url == null)
+        {
+            url = Weather.class.getClassLoader().getResource("resources/images/weathericons/default.png");
+        }
+        this.icon = new ImageIcon(url);
     }
 }

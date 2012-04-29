@@ -168,7 +168,7 @@ public class DBReservation implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
+        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
         SQLQuery sqlquery = session.createSQLQuery(query);
 
         sqlquery.addEntity(DBReservation.class);

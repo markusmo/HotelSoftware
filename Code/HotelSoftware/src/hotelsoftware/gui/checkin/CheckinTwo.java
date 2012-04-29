@@ -1,6 +1,5 @@
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
@@ -13,8 +12,6 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.reservation.data.ReservationItemData;
 import hotelsoftware.model.domain.room.NoPriceDefinedException;
-import hotelsoftware.support.PermissionDeniedException;
-import hotelsoftware.support.PermissionNotFoundException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -23,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -104,7 +100,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void StartUpdater()
     {
-        new Updater();
+        new Updater().start();
     }
 
     private void updateRooms()
@@ -193,7 +189,6 @@ public class CheckinTwo extends javax.swing.JPanel
         });
 
         ButtonCheckIn.setText("Check In");
-        ButtonCheckIn.setEnabled(false);
         ButtonCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCheckInActionPerformed(evt);
@@ -485,9 +480,9 @@ public class CheckinTwo extends javax.swing.JPanel
         public Updater()
         {
             setDaemon(true);
-            start();
         }
 
+        @Override
         public void run()
         {
             while (!GuiController.getInstance().checkStateForSwitching())

@@ -12,5 +12,5 @@ public interface UseCaseController
 {
     public boolean isInSwitchingState();
 
-    public void back();
+    public void clear();
 }

@@ -50,7 +50,7 @@ public class GuiController
     {
        for (UseCaseController c : controller)
         {
-           c.back();
+           c.clear();
         }
     }
 }

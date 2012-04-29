@@ -363,7 +363,7 @@ public class CheckInController implements UseCaseController
         return habitations;
     }
     
-    void clear()
+    public void clear()
     {
         startDate = null;
         endDate = null;
