@@ -405,7 +405,7 @@ public class CheckInMain extends javax.swing.JPanel
         //Abort Button
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
         {
-            cigc.back();
+            cigc.clear();
             cigc.getContentpane().removeAll();
             cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
