@@ -8,17 +8,19 @@ import hotelsoftware.checkin.NoRoomsAvailableException;
 import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
-import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
