@@ -12,13 +12,14 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import Controls.CommitPanel;
 import Controls.HTextField;
 import Controls.H_MainButton;
 import Controls.H_MainControllPanel;
 
-public class FrameTest extends Frame implements WindowListener {
+public class FrameTest extends JFrame implements WindowListener {
 
 	public FrameTest()
 	{
