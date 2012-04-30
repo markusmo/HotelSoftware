@@ -1,5 +1,7 @@
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.support.ServiceTypeNotFoundException;
+import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBServiceType;
@@ -58,6 +60,7 @@ public class ServiceFacade
      * Diese Methode sucht nach einem Service anhand eines Namens
      * @param name
      * @return
+     * Der Service mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException 
      */
     public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException

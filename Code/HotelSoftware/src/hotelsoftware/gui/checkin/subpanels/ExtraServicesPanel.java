@@ -1,9 +1,9 @@
 package hotelsoftware.gui.checkin.subpanels;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
-import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import hotelsoftware.model.domain.service.data.HabitationData;
-import hotelsoftware.model.domain.service.data.ServiceData;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.data.service.ExtraServiceData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.data.service.ServiceData;
 import java.awt.*;
 import java.util.Collection;
 import java.util.HashMap;

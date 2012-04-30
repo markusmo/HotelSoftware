@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.domain.parties.data.CountryData;
+import hotelsoftware.controller.data.parties.CountryData;
 import java.util.Collection;
 
 /**
@@ -57,11 +57,7 @@ public class Country implements CountryData
      {
          return name;
      }
-/**
- * In dieser Methode wird geprüft, ob das objekt zu dieser Klasse gehört
- * @param obj
- * @return 
- */
+     
     @Override
     public boolean equals(Object obj)
     {
@@ -87,6 +83,15 @@ public class Country implements CountryData
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 67 * hash + (this.nameShort != null ? this.nameShort.hashCode() : 0);
+        return hash;
     }
 
   

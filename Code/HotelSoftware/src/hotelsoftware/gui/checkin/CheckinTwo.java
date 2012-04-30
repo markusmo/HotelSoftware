@@ -1,16 +1,17 @@
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.checkin.CouldNotSaveException;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.checkin.CouldNotSaveException;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
-import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
-import hotelsoftware.model.domain.room.NoPriceDefinedException;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.reservation.ReservationData;
+import hotelsoftware.controller.data.reservation.ReservationItemData;
+import hotelsoftware.support.NoPriceDefinedException;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
 package hotelsoftware.gui;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.login.LoginWindow;

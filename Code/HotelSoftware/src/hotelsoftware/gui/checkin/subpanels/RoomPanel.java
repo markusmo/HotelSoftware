@@ -4,15 +4,15 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
-import hotelsoftware.checkin.NoRoomsAvailableException;
-import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
-import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.controller.checkin.NoRoomsAvailableException;
+import hotelsoftware.controller.checkin.NoRoomsInCategoryAvailableException;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
-import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
-import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.room.RoomCategoryData;
+import hotelsoftware.controller.data.room.RoomData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;

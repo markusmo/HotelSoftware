@@ -1,6 +1,6 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.model.domain.room.data.RoomStatusData;
+import hotelsoftware.controller.data.room.RoomStatusData;
 
 /**
  * Diese Klasse bildte alle Zimmerstauts ab, mit der das System arbeitet

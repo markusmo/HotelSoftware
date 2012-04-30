@@ -1,9 +1,10 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.controller.data.room.RoomCategoryData;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;

@@ -1,13 +1,13 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
-import hotelsoftware.model.domain.reservation.data.ReservationOptionData;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.controller.data.reservation.ReservationItemData;
+import hotelsoftware.controller.data.reservation.ReservationOptionData;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
-import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.parties.data.PartyData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;

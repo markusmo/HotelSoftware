@@ -1,13 +1,13 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
-import hotelsoftware.login.LoginController;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.Service;
-import hotelsoftware.model.domain.service.data.ServiceData;
+import hotelsoftware.controller.data.service.ServiceData;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.data.UserData;
+import hotelsoftware.controller.data.users.UserData;
 import java.util.Date;
 
 /**

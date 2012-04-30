@@ -1,7 +1,8 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.domain.service.data.ExtraServiceData;
-import hotelsoftware.model.domain.service.data.ServiceTypeData;
+import hotelsoftware.support.ServiceNotFoundException;
+import hotelsoftware.controller.data.service.ExtraServiceData;
+import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import java.math.BigDecimal;

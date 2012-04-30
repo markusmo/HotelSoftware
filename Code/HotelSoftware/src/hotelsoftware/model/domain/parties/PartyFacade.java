@@ -1,9 +1,12 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.support.CompanyNotFoundException;
+import hotelsoftware.support.GuestNotFoundException;
+import hotelsoftware.support.PrivateCustomerNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.*;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import java.util.Collection;
 import java.util.Set;
 

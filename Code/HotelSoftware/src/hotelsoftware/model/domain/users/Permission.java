@@ -1,7 +1,7 @@
 package hotelsoftware.model.domain.users;
 
 import hotelsoftware.support.PermissionNotFoundException;
-import hotelsoftware.model.domain.users.data.PermissionData;
+import hotelsoftware.controller.data.users.PermissionData;
 import java.util.Collection;
 
 /**

@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.users;
 
+import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBUser;

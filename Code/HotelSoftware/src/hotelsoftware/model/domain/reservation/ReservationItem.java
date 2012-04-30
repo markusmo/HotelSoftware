@@ -4,8 +4,8 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.domain.reservation.data.ReservationItemData;
-import hotelsoftware.model.domain.room.data.RoomCategoryData;
+import hotelsoftware.controller.data.reservation.ReservationItemData;
+import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.model.domain.room.RoomCategory;
 
 /**

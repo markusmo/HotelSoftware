@@ -1,8 +1,9 @@
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
-import hotelsoftware.model.domain.service.data.ServiceTypeData;
+import hotelsoftware.controller.data.service.ServiceTypeData;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -97,6 +98,7 @@ public class ServiceType implements ServiceTypeData
      * sucht nach einem Typ mithilfe eines Namens
      * @param name
      * @return
+     * Der Servicetyp mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException 
      */
     public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException

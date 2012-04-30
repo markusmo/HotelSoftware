@@ -4,10 +4,10 @@
  */
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.model.domain.room.data.RoomData;
-import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.util.weatherservice.CurrentWeather;
 import hotelsoftware.util.weatherservice.CurrentWeatherPanel;
 import hotelsoftware.util.weatherservice.ForeCastWeatherPanel;
