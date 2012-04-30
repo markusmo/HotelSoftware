@@ -62,6 +62,7 @@ public class CheckInMain extends javax.swing.JPanel
                 return canEdit[columnIndex];
             }
         });
+        
         jTable1.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -75,6 +76,9 @@ public class CheckInMain extends javax.swing.JPanel
         });
     }
 
+    /**
+     * Leitet mittels der selektierten Zeile in der Tabelle zum nächsten View.
+     */
     private void selectRow()
     {
         try

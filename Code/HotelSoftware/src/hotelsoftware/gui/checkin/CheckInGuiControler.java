@@ -8,7 +8,6 @@ import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.checkin.NoRoomsAvailableException;
 import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
-import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
 import hotelsoftware.model.domain.parties.data.GuestData;
@@ -20,11 +19,8 @@ import hotelsoftware.model.domain.service.data.ExtraServiceData;
 import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.support.PermissionDeniedException;
 import hotelsoftware.support.PermissionNotFoundException;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -41,6 +37,7 @@ public class CheckInGuiControler
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
     private CheckInController cic;
+    private Collection<RoomCategoryData> roomCategories;
 
     private static class CheckInGuiControllerHolder
     {
@@ -87,18 +84,18 @@ public class CheckInGuiControler
     }
 
     /**
-     * Diese Methode gibt ein Set von Reservierungen aus, welches es aus dem Check-In-Controller durch die dort implementierte Suche bekommt.
-     *
-     * @param fname
-     * Der Vorname nach dem gesucht wird
-     * @param lname
-     * Der Nachname nach dem gesucht wird
+     * Sucht nach den Parametern Reservierungen und gibt diese aus
+     * @param firstName
+     * Der Vorname, des Kunden, der reserviert hat
+     * @param lastName
+     * Der Nachname, des Kunden, der reserviet hat
+     * @param companyName
+     * Der Firmanname, des Kunden, der reserviert hat
      * @param reservationNumber
-     * Die Reservierungsnummer nach der gesucht wird
-     * @return
-     * Ein Set aus Reservierungen, die eindeutig sind.
-     * @throws InvalidInputException
-     * Falls die Validierung fehlschlaegt, wird ein Fehler geworfen
+     * Die Reservierungsnummer, der Reservierung
+     * @return 
+     * Eine Liste von Reservierungen, die mit den Parametern übereinstimmen, mehr als eine Reservierung,
+     * wenn die Paremeter mit mehr als einer Reservierung übereinstimmen.
      */
     public Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
@@ -116,6 +113,11 @@ public class CheckInGuiControler
         return cic.getAllReservations();
     }
 
+    /**
+     * Gibt die Reservierung aus, die gerade ausgewählt ist
+     * @return 
+     * die ausgewählte Reservierung
+     */
     public ReservationData getSelectedReservation()
     {
         return cic.getReservation();
@@ -271,11 +273,21 @@ public class CheckInGuiControler
         return habitationServices;
     }
 
+    /**
+     * Gibt das Contentpane für den Mainframe aus.
+     * @return
+     * das Contentpane, des Mainframes
+     */
     public JPanel getContentpane()
     {
         return contentpane;
     }
 
+    /**
+     * Setzt einmalig das Contentpane für den Mainframe
+     * @param contentpane 
+     * das Contentpane des Mainframes.
+     */
     public void setContentpane(JPanel contentpane)
     {
         if (this.contentpane == null)
@@ -409,8 +421,12 @@ public class CheckInGuiControler
     {
         cic.removeRoomSelection(selectionIndex);
     }
-    private Collection<RoomCategoryData> roomCategories;
-
+    
+    /**
+     * Gibt alle Zimmerkategorien aus
+     * @return 
+     * alle Zimmerkategorien die es gibt.
+     */
     public Collection<RoomCategoryData> getAllCategories()
     {
         if (roomCategories == null)
