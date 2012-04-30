@@ -68,7 +68,7 @@ public class HomePanel extends javax.swing.JPanel
         catch (Exception e)
         {
             JLabel errorLabel = new JLabel();
-            errorLabel.setText("Currently there is no weatherinformation available");
+            errorLabel.setText("<html><font color=#3104B4 size=+2>Currently there is no weather information available</font></html>");
             gbl.setConstraints(errorLabel, gbc);
             jPanel3.add(errorLabel);
         }
