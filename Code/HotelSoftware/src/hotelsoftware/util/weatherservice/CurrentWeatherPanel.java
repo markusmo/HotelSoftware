@@ -27,7 +27,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel
         Image img = w.getIcon().getImage();
         CurrentWeatherPanel.ImagePanel ip = new CurrentWeatherPanel.ImagePanel(img);
         jPanel1.add(ip);
-        jLabel1.setText("<html><font size=+2>"+ w.getTemp()+"°C</font>" + w.toString().replace("\n", "<br>") + "</html>");
+        jLabel1.setText("<html><font size=+2>"+ w.getTemp()+"°C</font><br>"+ w.getCityName() + w.toString().replace("\n", "<br>") + "</html>");
 
 
     }

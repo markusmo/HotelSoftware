@@ -35,6 +35,8 @@ public class CheckInMain extends javax.swing.JPanel
         reservations = cigc.getAllReservations();
         initComponents();
         setTable();
+        this.textBoxFname.requestFocus();
+        this.textBoxFname.setCaretPosition(0);
     }
 
     private void setTable()
