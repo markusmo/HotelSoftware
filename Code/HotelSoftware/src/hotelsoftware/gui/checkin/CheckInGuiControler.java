@@ -461,6 +461,11 @@ public class CheckInGuiControler
     {
         cic.back();
     }
+    
+    void clear()
+    {
+        cic.clear();
+    }
 
     public void createNewWalking()
     {
@@ -471,7 +476,6 @@ public class CheckInGuiControler
     {
         cic.saveData();
     }
-    
     
     public Collection<HabitationData> getHabitationsData()
     {

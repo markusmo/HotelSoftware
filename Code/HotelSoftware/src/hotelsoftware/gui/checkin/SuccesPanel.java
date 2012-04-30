@@ -62,6 +62,7 @@ public class SuccesPanel extends javax.swing.JPanel
         jPanel1.add(jbl);
         displayHabitations(jbl);
         
+        CheckInGuiControler.getInstance().clear();
     }
 
     /**
