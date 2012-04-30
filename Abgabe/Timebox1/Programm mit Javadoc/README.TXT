@@ -1,4 +1,4 @@
-    __  ______ ______________ 
+﻿    __  ______ ______________ 
    / / / / __ |_  __/ ____/ / 
   / /_/ / / / // / / __/ / /  
  / __  / /_/ // / / /___/ /___
@@ -9,8 +9,7 @@ Readme
 
 Ausführen:
 ----------
-Doppelklick auf das .jar-File und das Programm startet. Der Ordner lib muss im gleichen
-Ordner liegen, wie das .jar-File.
+Doppelklick auf das HotelSoftware.jar-File -> Programm startet. Der Ordner lib muss im gleichen Verzeichnis liegen, wie das .jar-File.
 
 Datenbank:
 ----------
@@ -27,6 +26,5 @@ Liegt im gleichen Ordner wie das .jar-File
 
 Source-Files:
 -------------
-Wenn man das .zip-File entpackt (mit 7-Zip oder anderem Zip-Programm) sind diese mit den compilierten
-.class-Files vorhanden.
+Wenn man das .zip-File entpackt (mit 7-Zip oder anderem Zip-Programm) sind diese mit den compilierten .class-Files vorhanden.
 
