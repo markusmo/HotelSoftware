@@ -172,6 +172,8 @@ public class CheckinTwo extends javax.swing.JPanel
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaComment = new javax.swing.JTextArea();
+        DateChooserArrival = new datechooser.beans.DateChooserCombo();
+        DateChooserDeparture = new datechooser.beans.DateChooserCombo();
 
         buttonAbort.setText("Abort");
         buttonAbort.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +212,18 @@ public class CheckinTwo extends javax.swing.JPanel
         textAreaComment.setWrapStyleWord(true);
         jScrollPane2.setViewportView(textAreaComment);
 
+        DateChooserArrival.addCommitListener(new datechooser.events.CommitListener() {
+            public void onCommit(datechooser.events.CommitEvent evt) {
+                DateChooserArrivalOnCommit(evt);
+            }
+        });
+
+        DateChooserDeparture.addCommitListener(new datechooser.events.CommitListener() {
+            public void onCommit(datechooser.events.CommitEvent evt) {
+                DateChooserDepartureOnCommit(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -221,7 +235,10 @@ public class CheckinTwo extends javax.swing.JPanel
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(DateChooserArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(DateChooserDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(116, 116, 116)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,9 +257,13 @@ public class CheckinTwo extends javax.swing.JPanel
                             .addComponent(textBoxReservationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DateChooserArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DateChooserDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -334,6 +355,8 @@ public class CheckinTwo extends javax.swing.JPanel
     }//GEN-LAST:event_DateChooserDepartureOnCommit
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCheckIn;
+    private datechooser.beans.DateChooserCombo DateChooserArrival;
+    private datechooser.beans.DateChooserCombo DateChooserDeparture;
     private javax.swing.JTabbedPane TabbedPaneRooms;
     private javax.swing.JButton buttonAbort;
     private javax.swing.JButton buttonBack;
