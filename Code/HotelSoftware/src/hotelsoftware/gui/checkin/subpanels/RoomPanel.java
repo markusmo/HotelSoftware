@@ -82,20 +82,13 @@ public class RoomPanel extends javax.swing.JPanel
     {
         //############# DropDowns
         ComboBoxCategories.removeAllItems();
-        RoomCategoryData first = null;
         for (RoomCategoryData data : cigc.getAllCategories())
         {
-            if (first == null)
-            {
-                first = data;
-            }
-
             ComboBoxCategories.addItem(data);
         }
 
         try
         {
-            ComboBoxCategories.setSelectedItem(first);
             ComboBoxCategories.setSelectedItem(cigc.getRoomData(roomIndex).getCategoryData());
             updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
 
@@ -122,11 +115,21 @@ public class RoomPanel extends javax.swing.JPanel
             {
                 addNewGuestPanel();
             }
+
+            JPanel pPanel = new JPanel();
+            TabbedPaneGuests.add("", pPanel);
+            TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
+                    new ButtonTabComponentPlus(getGuestPannelAddListener()));
+            TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
         }
         catch (NoRoomsInCategoryAvailableException ex)
         {
             //Alternativen Raum verwenden
             JOptionPane.showMessageDialog(this, "No rooms in reserved category available. Another category was chosen.");
+            
+            ComboBoxCategories.setSelectedItem(ex.getCategory());
+            updateComboBoxRooms(ex.getRoom().toString());
+            
             for (i = 0; i < ex.getCategory().getBedCount(); i++)
             {
                 addNewGuestPanel();
@@ -135,7 +138,7 @@ public class RoomPanel extends javax.swing.JPanel
         catch (NoRoomsAvailableException ex)
         {
             JOptionPane.showMessageDialog(this, "No rooms are available", "No rooms available", JOptionPane.WARNING_MESSAGE);
-            
+
             //Wieder zurück zum Check In
             cigc.back();
             cigc.getContentpane().removeAll();
@@ -143,12 +146,6 @@ public class RoomPanel extends javax.swing.JPanel
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             cigc.getContentpane().repaint();
         }
-
-        JPanel pPanel = new JPanel();
-        TabbedPaneGuests.add("", pPanel);
-        TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
-                new ButtonTabComponentPlus(getGuestPannelAddListener()));
-        TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
     }
 
     public int getRoomIndex()
