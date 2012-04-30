@@ -4,7 +4,6 @@
  */
 package hotelsoftware.util.weatherservice;
 
-import hotelsoftware.gui.home.HomePanel;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,14 +33,15 @@ import org.xml.sax.SAXException;
  */
 public class Weather
 {
-    private static String cityName;
+    protected static String cityName;
     private String condition;
     private ImageIcon icon;
     private static Document doc;
     private static boolean init;
     private static Date now = new Date();
+    protected final static String LANG = "en";
 
-    
+    static
     {
         findCity();
         setDoc();
@@ -74,7 +74,7 @@ public class Weather
     {
         try
         {
-            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=en";
+            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=" + LANG;
 
             String xmlString = "";
             String line = "";
@@ -316,5 +316,10 @@ public class Weather
             url = Weather.class.getClassLoader().getResource("resources/images/weathericons/default.png");
         }
         this.icon = new ImageIcon(url);
+    }
+
+    protected int fahrenheit2celsius(int fahrenheit)
+    {
+        return (int) ((5 / 9.0) * (fahrenheit - 32.0));
     }
 }

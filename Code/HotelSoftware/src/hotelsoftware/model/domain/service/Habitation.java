@@ -266,6 +266,7 @@ public class Habitation extends Service implements HabitationData
         String newline = "\n";
         StringBuilder builder = new StringBuilder();
         
+        builder.append("<html>");
         builder.append("Start: ");
         builder.append(this.start.toString());
         builder.append(newline);
@@ -279,17 +280,20 @@ public class Habitation extends Service implements HabitationData
         builder.append(rooms.getCategory().getName());
         builder.append(newline);
         
+        builder.append("<ul>");
         for(Guest g : guests)
         {
-            builder.append("\t");
+            builder.append("<li>");
             builder.append(g.getFname());
             builder.append(" ");
             builder.append(g.getLname());
             builder.append(newline);
+            builder.append("</li>");
         }
-        
+        builder.append("</ul>");
         builder.append("Price: € ");
         builder.append(this.price.toPlainString());
+        builder.append("</html>");
         
         return builder.toString();
     }

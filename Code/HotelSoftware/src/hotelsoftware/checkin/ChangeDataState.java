@@ -73,7 +73,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        GuestData guest = Guest.create(lastName, lastName, gender, birthday, (Address) address);
+        GuestData guest = Guest.create(firstName, lastName, gender, birthday, (Address) address);
 
         return guest;
     }
@@ -87,11 +87,6 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public int addRoomSelection()
     {
-        /*
-         * context.getRoomSelections().put(context.increaseCounter(), new RoomSelection());
-         *
-         * return context.getCounter() - 1;
-         */
         if (context.getRoomCategoryArray().length > context.getCounter())
         {
             context.getRoomSelections().put(context.increaseCounter(), new RoomSelection(context.getRoomCategoryArray()[context.getCounter() - 1], new Room()));
@@ -147,9 +142,29 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public RoomData getRoomData(int selectionIndex)
+    public RoomData getRoomData(int selectionIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
-        return context.getRoomSelections().get(selectionIndex).getRoom();
+        RoomData d = context.getRoomSelections().get(selectionIndex).getRoom();
+        if (d == null)
+        {
+            for (RoomCategory cat : RoomCategory.getAllCategorys())
+            {
+                Collection<Room> rooms = cat.getFreeRooms(context.getStartDate(), context.getEndDate());
+                
+                if (rooms.size() > 0)
+                {
+                    Room first = rooms.iterator().next();
+                    context.getRoomSelections().put(selectionIndex, new RoomSelection(cat, first));
+                    throw new NoRoomsInCategoryAvailableException(cat, first);
+                }
+            }
+        }
+        else
+        {
+            return d;
+        }
+        
+        throw new NoRoomsAvailableException();
     }
 
     @Override

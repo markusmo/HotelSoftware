@@ -37,6 +37,10 @@ public class CurrentWeather extends Weather
     {
         this.temp = temp;
     }
+    public String getCityName()
+    {
+        return cityName;
+    }
 
     public String getWind_condition()
     {

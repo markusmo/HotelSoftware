@@ -227,7 +227,7 @@ abstract class CheckInState
         throw new IllegalStateException();
     }
 
-    RoomData getRoomData(int selectionIndex)
+    RoomData getRoomData(int selectionIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
         throw new IllegalStateException();
     }

@@ -6,6 +6,8 @@ package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
+import hotelsoftware.checkin.NoRoomsAvailableException;
+import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
@@ -15,6 +17,7 @@ import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.support.PermissionDeniedException;
 import hotelsoftware.support.PermissionNotFoundException;
 import java.awt.BorderLayout;
@@ -233,7 +236,7 @@ public class CheckInGuiControler
      * @return
      * Die Zimmerinformationen des Zimmers
      */
-    public RoomData getRoomData(int roomIndex)
+    public RoomData getRoomData(int roomIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
         return cic.getRoomData(roomIndex);
     }
@@ -458,6 +461,11 @@ public class CheckInGuiControler
     {
         cic.back();
     }
+    
+    void clear()
+    {
+        cic.clear();
+    }
 
     public void createNewWalking()
     {
@@ -467,6 +475,11 @@ public class CheckInGuiControler
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
         cic.saveData();
+    }
+    
+    public Collection<HabitationData> getHabitationsData()
+    {
+        return cic.getHabitationsData();
     }
     
   

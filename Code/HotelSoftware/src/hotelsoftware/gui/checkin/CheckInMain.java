@@ -13,6 +13,9 @@ import hotelsoftware.model.domain.parties.data.GuestData;
 import hotelsoftware.model.domain.reservation.data.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import javax.swing.JOptionPane;
@@ -35,6 +38,8 @@ public class CheckInMain extends javax.swing.JPanel
         reservations = cigc.getAllReservations();
         initComponents();
         setTable();
+        this.textBoxFname.requestFocus();
+        this.textBoxFname.setCaretPosition(0);
     }
 
     private void setTable()
@@ -57,6 +62,35 @@ public class CheckInMain extends javax.swing.JPanel
                 return canEdit[columnIndex];
             }
         });
+        jTable1.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent event)
+            {
+                if (event.getClickCount() == 2)
+                {
+                    selectRow();
+                }
+            }
+        });
+    }
+
+    private void selectRow()
+    {
+        try
+        {
+            cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
+            if (checkInTwo == null)
+            {
+                checkInTwo = new CheckinTwo();
+                cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
+            }
+            checkInTwo.init();
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+        }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+        }
     }
 
     private Object[][] getTableModel()
@@ -354,20 +388,7 @@ public class CheckInMain extends javax.swing.JPanel
     private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
     {//GEN-HEADEREND:event_buttonSelectActionPerformed
         //Select Button
-        try
-        {
-            cigc.setSelectedReservation(reservations.toArray(new ReservationData[0])[jTable1.getSelectedRow()]);
-            if (checkInTwo == null)
-            {
-                checkInTwo = new CheckinTwo();
-                cigc.getContentpane().add(checkInTwo, BorderLayout.CENTER);
-            }
-            checkInTwo.init();
-            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-        }
-        catch (ArrayIndexOutOfBoundsException ex)
-        {
-        }
+        selectRow();
     }//GEN-LAST:event_buttonSelectActionPerformed
 
     private void textBoxLnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxLnameActionPerformed

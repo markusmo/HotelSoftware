@@ -233,7 +233,7 @@ public class CheckInController implements UseCaseController
         state.assignRoom(selectionIndex, guest);
     }
 
-    public RoomData getRoomData(int selectionIndex)
+    public RoomData getRoomData(int selectionIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
         return state.getRoomData(selectionIndex);
     }
@@ -371,7 +371,7 @@ public class CheckInController implements UseCaseController
         roomSelections = null;
         counter = 0;
         reservationItems = null;
-        state = null;
+        state = new StartState(this);
         habitations = null;
     }
     
@@ -468,7 +468,7 @@ public class CheckInController implements UseCaseController
 
     public boolean isInSwitchingState()
     {
-       return state instanceof StartState;
+       return state instanceof StartState || state instanceof FinalState;
     }
 
     public void createNewWalkIn()
