@@ -54,7 +54,8 @@ public class Weather
 
     /**
      * Überprüft ob neue Wetterdaten geholt werden müssen. Dies ist alle 15 Minuten der Fall.
-     * @return 
+     *
+     * @return
      */
     private static boolean hasToUpdate()
     {
@@ -309,8 +310,15 @@ public class Weather
         String iconName = iconUrl.replace(".gif", "");
         String path = "resources/images/weathericons/" + iconName + ".png";
 
-
-        this.icon = new ImageIcon(Weather.class.getClassLoader().getResource(path));
+        try
+        {
+            this.icon = new ImageIcon(Weather.class.getClassLoader().getResource(path));
+        }
+        catch (NullPointerException ex)
+        {
+            System.out.println(iconName);
+            this.icon = new ImageIcon(Weather.class.getClassLoader().getResource("resources/images/weathericons/sunny.png"));
+        }
         //this.icon = new ImageIcon(Weather.class.getClassLoader().getResource("resources/images/weathericons/weather_sunny-40.gif"));
     }
 }

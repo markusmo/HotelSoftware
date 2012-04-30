@@ -146,16 +146,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 new ButtonTabComponentPlus(getRoomPannelAddListener()));
         TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
 
-        TabbedPaneRooms.addChangeListener(new ChangeListener()
-        {
-            public void stateChanged(ChangeEvent e)
-            {
-                if (isFinished())
-                {
-                    ButtonCheckIn.setEnabled(true);
-                }
-            }
-        });
+       
         StartUpdater();
     }
 
@@ -455,6 +446,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 b = false;
             }
         }
+        ButtonCheckIn.setEnabled(b);
         return b;
     }
 
