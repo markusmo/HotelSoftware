@@ -266,6 +266,7 @@ public class Habitation extends Service implements HabitationData
         String newline = "\n";
         StringBuilder builder = new StringBuilder();
         
+        builder.append("<html>");
         builder.append("Start: ");
         builder.append(this.start.toString());
         builder.append(newline);
@@ -290,6 +291,7 @@ public class Habitation extends Service implements HabitationData
         
         builder.append("Price: € ");
         builder.append(this.price.toPlainString());
+        builder.append("</html>");
         
         return builder.toString();
     }
