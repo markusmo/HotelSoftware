@@ -63,7 +63,7 @@ public class DBGuest extends DBParty implements Serializable
     {
         @JoinColumn(name = "idService", referencedColumnName = "idServices", nullable = false)
     })
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     private Set<DBHabitation> habitations;
     
     @JoinTable(name = "reservationsGuests", joinColumns =
