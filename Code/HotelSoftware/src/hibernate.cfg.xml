@@ -9,7 +9,6 @@
     <property name="hibernate.connection.password">R00m4n153r</property>
     <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
     <property name="hibernate.max_fetch_depth">4</property>
-    <property name="hibernate.show_sql">true</property>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoice"/>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItem"/>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItemPK"/>

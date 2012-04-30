@@ -95,12 +95,12 @@ public class User implements UserData
     }
 
     /**
-     * Ueberprueft, ob ein Benutzer ein richtiges Passwort (MD5-Hash) eingegeben
+     * Ueberprueft, ob ein Benutzer ein richtiges Passwort eingegeben
      * hat und ob der Benutzername stimmt und liefert den zugehoerigen User
      * zurueck
      *
      * @param username Benutzername, des Benutzers, der sich einloggen will
-     * @param password Password (MD5-Hash davon), des Benutzers, der sich
+     * @param password Passworts, des Benutzers, der sich
      * einloggen will
      * @return Einen User, der validiert eingeloggt werden kann
      * @throws LoginFailureException Wirft einen Fehler, wenn der Login
@@ -108,6 +108,8 @@ public class User implements UserData
      */
     public static User login(String username, String password) throws LoginFailureException
     {
+        System.out.println("Username: " + username);
+        System.out.println("Passwort: " + password);
         User user = UserFacade.getInstance().login(username, password);
 
         if (user == null)
@@ -119,8 +121,7 @@ public class User implements UserData
     }
 
     /**
-     * Instanziert einen neuen Benutzer und fuehrt einen MD5-Hash auf sein
-     * Passwort aus
+     * Instanziert einen neuen Benutzer
      *
      * @param username Benutzername, des neuen Benutzers
      * @param password Passwort, unverschluesselt, des neuen Benutzers
@@ -130,18 +131,8 @@ public class User implements UserData
     public static User create(String username, String password,
             Collection<Role> roles)
     {
-        MessageDigest coder;
-        try
-        {
-            coder = MessageDigest.getInstance("MD5");
-            return new User(username, new String(coder.digest(
-                    password.getBytes())), roles);
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return new User(username, password, roles);
 
-        return null;
     }
 
     /**
@@ -180,19 +171,10 @@ public class User implements UserData
      */
     public void changePassword(String oldPassword, String newPassword)
     {
-        try
-        {
-            MessageDigest coder = MessageDigest.getInstance("MD5");
-            String hashedPassword = new String(coder.digest(
-                    oldPassword.getBytes()));
 
-            if (password.equals(hashedPassword))
-            {
-                password = new String(coder.digest(newPassword.getBytes()));
-            }
-        } catch (NoSuchAlgorithmException ex)
+        if (password.equals(oldPassword))
         {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            password = newPassword;
         }
     }
 

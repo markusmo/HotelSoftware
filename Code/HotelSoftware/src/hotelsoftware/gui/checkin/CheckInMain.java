@@ -61,7 +61,7 @@ public class CheckInMain extends javax.swing.JPanel
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex)
             {
-                return canEdit[columnIndex];
+                return false;
             }
         });
         

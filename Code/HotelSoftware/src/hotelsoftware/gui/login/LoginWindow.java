@@ -158,7 +158,7 @@ public class LoginWindow extends javax.swing.JFrame
     }//GEN-LAST:event_passwordFieldKeyReleased
 
     /**
-     * Methode die das Password MD5-hashed und es mit dem in der Datenbank
+     * Methode die das Password in der Datenbank
      * ueberprueft falls die Daten uebereinstimmen, wird das Hauptfenster
      * aufgerufen und das Loginfenster unsichtbar gesetzt.
      */
@@ -166,11 +166,9 @@ public class LoginWindow extends javax.swing.JFrame
     {
         try
         {
-            MessageDigest coder = MessageDigest.getInstance("MD5");
-            String hashedpassword = new String(coder.digest(new String(
-                    passwordField.getPassword()).getBytes()));
-            LoginController.getInstance().login(usernameTextfield.getText(),
-                    hashedpassword);
+            
+            String hashedpassword = new String(passwordField.getPassword());
+            LoginController.getInstance().login(usernameTextfield.getText(), hashedpassword);
             showMainFrame();
             this.setVisible(false);
         }
@@ -178,9 +176,6 @@ public class LoginWindow extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(this,
                     "Login failed! Please check password and username");
-        }
-        catch (NoSuchAlgorithmException es)
-        {
         }
     }
 
