@@ -6,6 +6,8 @@ package hotelsoftware.gui.checkin;
 
 import hotelsoftware.checkin.CheckInController;
 import hotelsoftware.checkin.CouldNotSaveException;
+import hotelsoftware.checkin.NoRoomsAvailableException;
+import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.data.AddressData;
 import hotelsoftware.model.domain.parties.data.CountryData;
@@ -234,7 +236,7 @@ public class CheckInGuiControler
      * @return
      * Die Zimmerinformationen des Zimmers
      */
-    public RoomData getRoomData(int roomIndex)
+    public RoomData getRoomData(int roomIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
         return cic.getRoomData(roomIndex);
     }

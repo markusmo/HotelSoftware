@@ -4,7 +4,11 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
+import hotelsoftware.checkin.NoRoomsAvailableException;
+import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.gui.checkin.CheckInMain;
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
@@ -87,33 +91,57 @@ public class RoomPanel extends javax.swing.JPanel
             ComboBoxCategories.addItem(data);
         }
 
-        ComboBoxCategories.setSelectedItem(first);
-        ComboBoxCategories.setSelectedItem(cigc.getRoomData(roomIndex).getCategoryData());
-        updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
+        try
+        {
+            ComboBoxCategories.setSelectedItem(first);
+            ComboBoxCategories.setSelectedItem(cigc.getRoomData(roomIndex).getCategoryData());
+            updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
 
-        ComboBoxCategories.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
+            ComboBoxCategories.addActionListener(new ActionListener()
             {
-                updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
-            }
-        });
-        ComboBoxFreeRooms.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (ComboBoxFreeRooms.getItemCount() > 0)
+                public void actionPerformed(ActionEvent e)
                 {
-                    cigc.changeRoom(roomIndex, ComboBoxFreeRooms.getSelectedItem().toString());
+                    updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
                 }
-            }
-        });
+            });
+            ComboBoxFreeRooms.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if (ComboBoxFreeRooms.getItemCount() > 0)
+                    {
+                        cigc.changeRoom(roomIndex, ComboBoxFreeRooms.getSelectedItem().toString());
+                    }
+                }
+            });
 
-        //############ Guests
-        for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
-        {
-            addNewGuestPanel();
+            //############ Guests
+            for (i = 0; i < cigc.getRoomData(roomIndex).getCategoryData().getBedCount(); i++)
+            {
+                addNewGuestPanel();
+            }
         }
+        catch (NoRoomsInCategoryAvailableException ex)
+        {
+            //Alternativen Raum verwenden
+            JOptionPane.showMessageDialog(this, "No rooms in reserved category available. Another category was chosen.");
+            for (i = 0; i < ex.getCategory().getBedCount(); i++)
+            {
+                addNewGuestPanel();
+            }
+        }
+        catch (NoRoomsAvailableException ex)
+        {
+            JOptionPane.showMessageDialog(this, "No rooms are available", "No rooms available", JOptionPane.WARNING_MESSAGE);
+            
+            //Wieder zurück zum Check In
+            cigc.back();
+            cigc.getContentpane().removeAll();
+            cigc.getContentpane().add(new CheckInMain(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
+        }
+
         JPanel pPanel = new JPanel();
         TabbedPaneGuests.add("", pPanel);
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
@@ -206,7 +234,7 @@ public class RoomPanel extends javax.swing.JPanel
         }
         if (b)
         {
-           iconTab.setFinished();
+            iconTab.setFinished();
         }
         else
         {
