@@ -15,7 +15,10 @@ public class LoginController
     private LoginController()
     {
     }
-    
+    /**
+     * Erstellt eine Instanz der Klasse
+     * @return 
+     */
     public static LoginController getInstance()
     {
         return LoginControllerHolder.INSTANCE;

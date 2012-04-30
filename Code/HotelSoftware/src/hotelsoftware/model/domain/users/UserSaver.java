@@ -34,7 +34,7 @@ public class UserSaver
     }
 
     /**
-     * Sinnvoll?
+     * Diese Klasse speichert falls änderungen vorhanden sind, diese in der Datenbank ab
      * @param users
      * @param roles
      * @param permissions

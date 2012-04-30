@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *
+ *Dieses Interface enthält alle wichtigen Methoden für die Klasse RoomCategory
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface RoomCategoryData

@@ -170,7 +170,7 @@ public class DBGuest extends DBParty implements Serializable
      *
      * @param firstName dies ist der Vorname des Gastes.
      * @param lastName dies ist der Nachname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest enthällt.
+     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest enthält.
      */
     public static Set<DBGuest> getGuestsByName(String firstName, String lastName)
     {

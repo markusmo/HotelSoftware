@@ -378,7 +378,7 @@ public class CheckInGuiControler
     }
 
     /**
-     * Legt einen neuen Gast an
+     * Diese Methode legt einen neuen Gast an
      *
      * @param firstName
      * Der Vorname des Gsstes

@@ -8,7 +8,7 @@ import hotelsoftware.model.domain.parties.data.CountryData;
 import java.util.Collection;
 
 /**
- *
+ *Diese Klasse stellt ein Land da, von welchem eine Person oder eine Firma kommt
  * @author Dunst
  */
 public class Country implements CountryData
@@ -57,7 +57,11 @@ public class Country implements CountryData
      {
          return name;
      }
-
+/**
+ * In dieser Methode wird geprüft, ob das objekt zu dieser Klasse gehört
+ * @param obj
+ * @return 
+ */
     @Override
     public boolean equals(Object obj)
     {

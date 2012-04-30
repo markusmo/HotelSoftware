@@ -3,11 +3,10 @@ package hotelsoftware.gui;
 import java.util.LinkedList;
 
 /**
- *
- * @author Johannes
  * 
- * MainGuiController
- * Hält alle UseCasecontroller
+ * MainGuiController Klasse, hält alle UseCasecontroller
+ * @author Johannes
+ *
  */
 public class GuiController
 {

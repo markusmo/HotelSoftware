@@ -19,7 +19,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
 /**
- *
+ *Diese Klasse ist dafür da, um Dynamic Mapper tests durchzuführen
+ * 
  * @author Dunst
  */
 public class TestDynamicMapper

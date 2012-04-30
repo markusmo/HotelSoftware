@@ -100,11 +100,7 @@
                       <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="textBoxReservationNumber" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="DateChooserArrival" alignment="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="DateChooserDeparture" alignment="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="textBoxReservationNumber" min="-2" pref="135" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -126,15 +122,9 @@
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="DateChooserArrival" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="DateChooserDeparture" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel5" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="48" max="32767" attributes="0"/>
@@ -182,16 +172,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="datechooser.beans.DateChooserCombo" name="DateChooserArrival">
-          <Events>
-            <EventHandler event="onCommit" listener="datechooser.events.CommitListener" parameters="datechooser.events.CommitEvent" handler="DateChooserArrivalOnCommit"/>
-          </Events>
-        </Component>
-        <Component class="datechooser.beans.DateChooserCombo" name="DateChooserDeparture">
-          <Events>
-            <EventHandler event="onCommit" listener="datechooser.events.CommitListener" parameters="datechooser.events.CommitEvent" handler="DateChooserDepartureOnCommit"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

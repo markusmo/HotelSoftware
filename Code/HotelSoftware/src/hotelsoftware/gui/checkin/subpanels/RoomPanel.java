@@ -46,7 +46,7 @@ public class RoomPanel extends javax.swing.JPanel
     int i;
 
     /**
-     *
+     * Diese Methode aktualisiert die Checkbox
      * @param string
      */
     private void updateComboBoxRooms(String string)
@@ -274,7 +274,7 @@ public class RoomPanel extends javax.swing.JPanel
     }
 
     /**
-     *
+     *diese Methode ermöglicht es ein neuen Gast für ein Zimmer hinzuzufügen
      * @param buttonClick Falls ein neues GuestPanel über den Plusbutton hinzugefügt wird darf dieses nicht am schluss pasieren.
      */
     private void addNewGuestPanel(boolean buttonClick)
@@ -297,7 +297,9 @@ public class RoomPanel extends javax.swing.JPanel
 
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1 - add, tabComponent);
     }
-
+/**
+ * Diese Methode fügt einen Gast aus einer Reservierung hinzu
+ */
     public void inserGuestsFromReservation()
     {
         Collection<GuestData> guestDatas = cigc.getGuests();

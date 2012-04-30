@@ -38,10 +38,9 @@ import java.awt.event.*;
 import java.util.List;
 
 /**
- * Component to be used as tabComponent;
- * Contains a JLabel to show the text and
- * a JButton to close the tab it belongs to
- */
+  * Diese Klasse verwendet ein Panel
+  * um Texte anzuzeigen
+  */
 public class ButtonIconTabComponent extends JPanel
 {
     private final JTabbedPane pane;
@@ -180,7 +179,10 @@ public class ButtonIconTabComponent extends JPanel
         {
         }
 
-        //paint the cross
+        /**
+         * Diese Methode zeichnet eine Komponente auf
+         * @param g 
+         */
         protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);

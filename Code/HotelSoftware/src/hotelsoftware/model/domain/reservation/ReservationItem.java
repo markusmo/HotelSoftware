@@ -9,7 +9,7 @@ import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
- *
+ *Diese Klasse beinhaltet die Items in einer Reservierung
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ReservationItem implements ReservationItemData

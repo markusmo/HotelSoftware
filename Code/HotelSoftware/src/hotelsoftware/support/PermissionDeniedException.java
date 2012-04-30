@@ -7,7 +7,7 @@ package hotelsoftware.support;
 import hotelsoftware.model.domain.users.Permission;
 
 /**
- *
+ *Diese Exception ist dafür da, falls die Rechte nicht gewährt werden
  * @author Dunst
  */
 public class PermissionDeniedException extends Exception

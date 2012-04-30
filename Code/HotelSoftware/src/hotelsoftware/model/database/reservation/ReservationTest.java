@@ -3,7 +3,7 @@ package hotelsoftware.model.database.reservation;
 import java.util.Collection;
 
 /**
- *
+ *Diese Klasse enthällt Tests für die Reservation
  * @author Tobias
  */
 public class ReservationTest {

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
+ *Diese Klasse stellt einen ForeCast da um das Wetter auf einem Panel darzustellen
  * @author Johannes
  */
 public class ForeCastWeatherPanel extends javax.swing.JPanel

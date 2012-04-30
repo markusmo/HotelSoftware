@@ -7,7 +7,7 @@ package hotelsoftware.model.domain.service.data;
 import java.math.BigDecimal;
 
 /**
- *
+ *Diese Klasse enthält alle wichtigen Methoden die für die Klasse Service benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface ServiceData

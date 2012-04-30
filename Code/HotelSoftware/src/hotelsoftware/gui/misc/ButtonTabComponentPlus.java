@@ -39,9 +39,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Component to be used as tabComponent;
- * Contains a JLabel to show the text and
- * a JButton to close the tab it belongs to
+ * Wird vom tabComponent verwendet;
+ * enthält ein JLabel um den Text zu zeigen
  */
 public class ButtonTabComponentPlus extends JPanel
 {
@@ -88,7 +87,10 @@ public class ButtonTabComponentPlus extends JPanel
         {
         }
 
-        //paint the cross
+        /**
+         * Zeichnet eine Komponente auf
+         * @param g 
+         */
         protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);
