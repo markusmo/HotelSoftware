@@ -8,7 +8,6 @@ import hotelsoftware.checkin.NoRoomsAvailableException;
 import hotelsoftware.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
-import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 /**
  *
@@ -30,9 +31,7 @@ public class HomePanel extends javax.swing.JPanel
 
 
         new DateOut();
-        Weather w = Weather.getCurrent();
         GridBagConstraints gbc = new GridBagConstraints();
-
         // Festlegen, dass die GUI-Elemente die Gitterfelder in 
         // waagerechter Richtung ausfüllen:
         gbc.fill = GridBagConstraints.BOTH;
@@ -45,20 +44,33 @@ public class HomePanel extends javax.swing.JPanel
         gbc.gridy = 0;  // y-Position im gedachten Gitter
         gbc.gridheight = 1;  // zwei Gitter-Felder hoch
         gbc.gridwidth = 3;
-        CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
-        gbl.setConstraints(cwp, gbc);
-        jPanel3.add(cwp);
-        List<Weather> list = Weather.getForeCasts();
-        int i = 0;
-        gbc.gridwidth = 1;
-        for (Weather w2 : list)
+        try
         {
-            gbc.gridx = i;  // x-Position im gedachten Gitter
-            gbc.gridy = 1;
-            ForeCastWeatherPanel wp = new ForeCastWeatherPanel(w2);
-            gbl.setConstraints(wp, gbc);
-            jPanel3.add(wp);
-            i++;
+            Weather w = Weather.getCurrent();
+            List<Weather> list = Weather.getForeCasts();
+
+            CurrentWeatherPanel cwp = new CurrentWeatherPanel((CurrentWeather) w);
+            gbl.setConstraints(cwp, gbc);
+            jPanel3.add(cwp);
+
+            int i = 0;
+            gbc.gridwidth = 1;
+            for (Weather w2 : list)
+            {
+                gbc.gridx = i;  // x-Position im gedachten Gitter
+                gbc.gridy = 1;
+                ForeCastWeatherPanel wp = new ForeCastWeatherPanel(w2);
+                gbl.setConstraints(wp, gbc);
+                jPanel3.add(wp);
+                i++;
+            }
+        }
+        catch (Exception e)
+        {
+            JLabel errorLabel = new JLabel();
+            errorLabel.setText("Currently there is no weatherinformation available");
+            gbl.setConstraints(errorLabel, gbc);
+            jPanel3.add(errorLabel);
         }
         gbc.gridx = 0;  // x-Position im gedachten Gitter
         gbc.gridy = 2;  // y-Position im gedachten Gitter

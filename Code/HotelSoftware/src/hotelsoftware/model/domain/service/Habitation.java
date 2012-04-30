@@ -280,15 +280,17 @@ public class Habitation extends Service implements HabitationData
         builder.append(rooms.getCategory().getName());
         builder.append(newline);
         
+        builder.append("<ul>");
         for(Guest g : guests)
         {
-            builder.append("     ");
+            builder.append("<li>");
             builder.append(g.getFname());
             builder.append(" ");
             builder.append(g.getLname());
             builder.append(newline);
+            builder.append("</li>");
         }
-        
+        builder.append("</ul>");
         builder.append("Price: € ");
         builder.append(this.price.toPlainString());
         builder.append("</html>");
