@@ -15,6 +15,7 @@ import hotelsoftware.model.domain.room.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
 import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.support.PermissionDeniedException;
 import hotelsoftware.support.PermissionNotFoundException;
 import java.awt.BorderLayout;
@@ -467,6 +468,12 @@ public class CheckInGuiControler
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
         cic.saveData();
+    }
+    
+    
+    public Collection<HabitationData> getHabitationsData()
+    {
+        return cic.getHabitationsData();
     }
     
   

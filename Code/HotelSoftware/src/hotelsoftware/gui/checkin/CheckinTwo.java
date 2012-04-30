@@ -4,7 +4,6 @@ import hotelsoftware.checkin.CouldNotSaveException;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
 import hotelsoftware.gui.checkin.subpanels.RoomPanel;
-import hotelsoftware.gui.checkin.subpanels.SuccesPanel;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
