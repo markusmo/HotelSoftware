@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.Locale;
 import javax.swing.*;
 
 /**
@@ -25,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame
      */
     public MainFrame()
     {
+        JOptionPane.setDefaultLocale(new Locale("en"));
         this.setUndecorated(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
         URL url = LoginWindow.class.getClassLoader().getResource("resources/images/icon.jpg");
@@ -430,7 +432,7 @@ public class MainFrame extends javax.swing.JFrame
             return true;
         }
 
-
+     
         if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
         {
             GuiController.getInstance().back();

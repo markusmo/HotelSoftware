@@ -53,6 +53,7 @@ public class CheckInController implements UseCaseController
 
         return controller;
     }
+    
     private Date startDate;
     private Date endDate;
     private Reservation reservation;
@@ -233,11 +234,28 @@ public class CheckInController implements UseCaseController
         state.assignRoom(selectionIndex, guest);
     }
 
+    /**
+     * Gibt die Zimmerinformationen aus, für ein ausgewähltes Zimmer
+     * @param selectionIndex
+     * das Zimmer, das ausgewählt ist
+     * @return
+     * die Zimmerinformation für dieses Zimmer
+     * @throws NoRoomsInCategoryAvailableException
+     * Wirft diesen Fehler, wenn keine Zimmer für diese Kategorie verfügbar.
+     * Diese Exception hält einen Vorschlag, mit einer anderen Kategorie, in der noch Zimmer frei sind.
+     * @throws NoRoomsAvailableException
+     * Wirft diesen Fehler, wenn keine Zimmer in jeder Kategorie frei sind.
+     */
     public RoomData getRoomData(int selectionIndex) throws NoRoomsInCategoryAvailableException, NoRoomsAvailableException
     {
         return state.getRoomData(selectionIndex);
     }
 
+    /**
+     * gibt alle Länder aus
+     * @return 
+     * alle Länder, die in der Datenbank hinterlegt sind
+     */
     public Collection<CountryData> getAllCountries()
     {
         return state.getAllCountries();
@@ -408,6 +426,11 @@ public class CheckInController implements UseCaseController
         this.reservationItems = reservationItems;
     }
 
+    /**
+     * Gibt die Zimmerkategorien einer Reservierung als Array aus.
+     * @return 
+     * Die Zimmerkategorien als Array.
+     */
     public RoomCategoryData[] getRoomCategoryArray()
     {
         List<RoomCategoryData> categories = new ArrayList<RoomCategoryData>();
