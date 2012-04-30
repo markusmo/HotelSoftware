@@ -281,7 +281,7 @@ public class Habitation extends Service implements HabitationData
         
         for(Guest g : guests)
         {
-            builder.append("\t");
+            builder.append("     ");
             builder.append(g.getFname());
             builder.append(" ");
             builder.append(g.getLname());
