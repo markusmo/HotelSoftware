@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.gui.checkin.subpanels;
+package hotelsoftware.gui.checkin;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.room.data.RoomData;
+import hotelsoftware.model.domain.service.data.HabitationData;
 import hotelsoftware.util.weatherservice.CurrentWeather;
 import hotelsoftware.util.weatherservice.CurrentWeatherPanel;
 import hotelsoftware.util.weatherservice.ForeCastWeatherPanel;
@@ -14,6 +15,7 @@ import hotelsoftware.util.weatherservice.Weather;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.JLabel;
 
@@ -59,10 +61,23 @@ public class SuccesPanel extends javax.swing.JPanel
         JLabel jbl = new JLabel();
         gbl.setConstraints(jbl, gbc);
         jPanel1.add(jbl);
-        
-        
+        displayHabitations(jbl);
       
     }
+    
+    /**
+     * Zeigt die fertig gebuchten Buchungen auf dem Successpanel
+     * @param lbl ein JLabel, auf dem der Text dargestellt wird.
+     */
+    private void displayHabitations(JLabel lbl)
+    {
+        Collection<HabitationData> list = CheckInGuiControler.getInstance().getHabitationsData();
+        for(HabitationData h: list)
+        {
+            lbl.setText(h.toString());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to
      * initialize the form.
