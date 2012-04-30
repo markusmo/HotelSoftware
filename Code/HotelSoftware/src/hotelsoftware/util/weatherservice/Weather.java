@@ -41,7 +41,7 @@ public class Weather
     private static boolean init;
     private static Date now = new Date();
 
-    
+    static
     {
         findCity();
         setDoc();
