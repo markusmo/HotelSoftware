@@ -4,7 +4,6 @@
  */
 package hotelsoftware.util.weatherservice;
 
-import hotelsoftware.gui.home.HomePanel;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
