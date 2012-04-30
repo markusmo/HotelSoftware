@@ -176,12 +176,12 @@ public class DBUser implements Serializable
     }
     
     /**
-     * Ueberprueft, ob ein User mit dem Passwort(MD5-Hash) und Usernamen in der
+     * Ueberprueft, ob ein User mit dem Passwort und Usernamen in der
      * Datenbank ist und gibt diesen zurueck
      * @param username
      * Der Benutzername, des gesuchten Benutzers
      * @param password
-     * Das MD5-gehashte Passwort, des gesuchten Benutzers
+     * Das Passwort, des gesuchten Benutzers
      * @return
      * Den  Benutzer, der eingeloggt werden sollte
      * @throws HibernateException 
@@ -192,10 +192,9 @@ public class DBUser implements Serializable
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions
-                .and(Restrictions.eq("username", username),Restrictions.eq("password", password)))
-                .uniqueResult();
-        ;
+        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username), 
+                Restrictions.eq("password", password))).uniqueResult();
+        
         return retUser;
     }
 
