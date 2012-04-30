@@ -1,5 +1,6 @@
 package hotelsoftware.gui;
 
+import hotelsoftware.controller.UseCaseController;
 import java.util.LinkedList;
 
 /**

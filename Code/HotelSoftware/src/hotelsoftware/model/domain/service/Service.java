@@ -1,6 +1,6 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.domain.service.data.ServiceData;
+import hotelsoftware.controller.data.service.ServiceData;
 import java.math.BigDecimal;
 
 /**

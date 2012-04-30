@@ -4,13 +4,14 @@
  */
 package hotelsoftware.gui.checkin;
 
+import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.Company;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
-import hotelsoftware.model.domain.parties.data.CompanyData;
-import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.controller.data.parties.CompanyData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;

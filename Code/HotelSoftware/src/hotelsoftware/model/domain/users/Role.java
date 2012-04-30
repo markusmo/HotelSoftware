@@ -1,7 +1,7 @@
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.model.domain.users.data.RoleData;
-import hotelsoftware.model.domain.users.data.PermissionData;
+import hotelsoftware.controller.data.users.RoleData;
+import hotelsoftware.controller.data.users.PermissionData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;

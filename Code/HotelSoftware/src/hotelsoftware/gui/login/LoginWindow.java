@@ -5,8 +5,8 @@
 package hotelsoftware.gui.login;
 
 import hotelsoftware.gui.MainFrame;
-import hotelsoftware.login.LoginController;
-import hotelsoftware.model.domain.users.LoginFailureException;
+import hotelsoftware.controller.login.LoginController;
+import hotelsoftware.support.LoginFailureException;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;

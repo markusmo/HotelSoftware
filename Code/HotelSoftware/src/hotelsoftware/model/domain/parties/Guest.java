@@ -1,12 +1,14 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.support.CompanyNotFoundException;
+import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.model.database.reservation.DBReservation;
-import hotelsoftware.model.domain.parties.data.AddressData;
-import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.data.HabitationData;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 

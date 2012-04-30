@@ -1,7 +1,10 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.domain.parties.data.AddressData;
-import hotelsoftware.model.domain.invoice.data.InvoiceData;
+import hotelsoftware.support.CompanyNotFoundException;
+import hotelsoftware.support.GuestNotFoundException;
+import hotelsoftware.support.PrivateCustomerNotFoundException;
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.invoice.InvoiceData;
 
 import java.util.Collection;
 import java.util.Set;

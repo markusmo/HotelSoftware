@@ -4,7 +4,7 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.domain.parties.data.CountryData;
+import hotelsoftware.controller.data.parties.CountryData;
 import java.util.Collection;
 
 /**

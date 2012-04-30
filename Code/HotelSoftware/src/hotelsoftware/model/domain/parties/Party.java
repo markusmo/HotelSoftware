@@ -1,7 +1,7 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.domain.parties.data.PartyData;
-import hotelsoftware.model.domain.parties.data.AddressData;
+import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.parties.AddressData;
 
 /**
  * Klasse die eine oder Mehrere Personen beschreibt. Sie ist abstrakt, da von ihr alle Kunden und auch die Gäste erben.

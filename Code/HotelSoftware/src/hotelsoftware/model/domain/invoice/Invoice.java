@@ -1,16 +1,16 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
-import hotelsoftware.model.domain.invoice.data.PaymentMethodData;
-import hotelsoftware.model.domain.invoice.data.InvoiceData;
-import hotelsoftware.login.LoginController;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.invoice.PaymentMethodData;
+import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.parties.data.CustomerData;
+import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.data.UserData;
+import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.*;

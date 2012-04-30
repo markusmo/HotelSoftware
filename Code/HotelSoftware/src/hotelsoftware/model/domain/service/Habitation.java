@@ -1,17 +1,17 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.login.LoginController;
+import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.invoice.data.InvoiceItemData;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.data.GuestData;
+import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.data.RoomData;
-import hotelsoftware.model.domain.service.data.HabitationData;
-import hotelsoftware.model.domain.service.data.ServiceTypeData;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.model.domain.users.data.UserData;
+import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;

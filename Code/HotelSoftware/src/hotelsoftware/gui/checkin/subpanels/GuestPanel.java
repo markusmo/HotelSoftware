@@ -4,11 +4,11 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
+import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.model.domain.parties.data.CountryData;
-import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.service.data.ExtraServiceData;
+import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.service.ExtraServiceData;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
