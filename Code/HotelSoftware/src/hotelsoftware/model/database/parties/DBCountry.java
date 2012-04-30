@@ -147,6 +147,7 @@ public class DBCountry implements Serializable
     /**
      * Diese Mthode sucht alle Länder aus der Datenbank
      * @return 
+     * Eine Liste mit allen Ländern
      */
     public static Collection<DBCountry> getAllCountries()
     {
