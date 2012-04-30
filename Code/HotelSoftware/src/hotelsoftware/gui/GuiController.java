@@ -48,9 +48,9 @@ public class GuiController
     }
     void back()
     {
-       for (UseCaseController c : controller)
+        for (UseCaseController c : controller)
         {
-           c.clear();
+            c.clear();
         }
     }
 }
