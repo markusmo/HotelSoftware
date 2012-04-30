@@ -220,9 +220,10 @@ public class RoomPanel extends javax.swing.JPanel
     }
 
     /**
-     * Überprüft ob in allen Guestpanels bereit sind.
+     * Überprüft, ob alle Gäste-Tabs fertig ausgefüllt sind
      *
      * @return
+     * True, wenn fertig, False, wenn nicht fertig
      */
     public boolean isFinished()
     {
@@ -249,6 +250,7 @@ public class RoomPanel extends javax.swing.JPanel
      * Dieser Actionlistener kann ein neues GuestPanel hinzufügen.
      *
      * @return
+     * den Actionlistener für das GuestPanel
      */
     public ActionListener getGuestPannelAddListener()
     {
