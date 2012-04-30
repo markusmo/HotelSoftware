@@ -33,7 +33,7 @@ public class RoomSaver
         private static final RoomSaver INSTANCE = new RoomSaver();
     }
     /**
-     * ?? lassen oder nicht??
+     * Diese Methode speichert alle änderungen in der Datenbank ab
      * @param categories
      * @param options
      * @param status

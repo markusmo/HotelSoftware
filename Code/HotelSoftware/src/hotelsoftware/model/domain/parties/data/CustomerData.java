@@ -4,7 +4,7 @@ import hotelsoftware.model.domain.invoice.data.InvoiceData;
 import java.util.Collection;
 
 /**
- *Dieses Interface enthällt alle wichtigen Methoden für die Customerklasse. 
+ *Dieses Interface enthält alle wichtigen Methoden für die Customerklasse. 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface CustomerData

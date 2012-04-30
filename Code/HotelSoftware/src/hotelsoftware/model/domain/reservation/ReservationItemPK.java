@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.reservation;
 
 /**
- *
+ *Diese Klasse dient als Primärschlüssel für die ReservierungsItems
  * @author Johannes
  */
 public class ReservationItemPK

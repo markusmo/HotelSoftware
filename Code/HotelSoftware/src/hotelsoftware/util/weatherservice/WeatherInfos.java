@@ -7,7 +7,7 @@ package hotelsoftware.util.weatherservice;
 import java.util.List;
 
 /**
- *
+ *Dieses Fenster zeigt die Wetterinformation an für tests
  * @author Johannes
  */
 public class WeatherInfos extends javax.swing.JFrame
@@ -64,6 +64,7 @@ public class WeatherInfos extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * testmehtode um zu testen
      * @param args the command line arguments
      */
     public static void main(String args[])

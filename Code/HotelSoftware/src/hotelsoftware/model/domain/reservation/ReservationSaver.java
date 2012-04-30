@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ *Diese Klasse Speichert Reservierungen in der Datenbank ab
  * @author Johannes
  */
 public class ReservationSaver
@@ -36,7 +36,13 @@ public class ReservationSaver
     {
         private static final ReservationSaver INSTANCE = new ReservationSaver();
     }
-
+/**
+ * Diese Methode prüft ob sich etwas geändert hat und schickt die änderungen in die nächste unterschicht
+ * @param reservations
+ * @param options
+ * @param reservationItems
+ * @throws FailedToSaveToDatabaseException 
+ */
     public void saveOrUpdate(Collection<Reservation> reservations, Collection<ReservationOption> options, 
             Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException
     {

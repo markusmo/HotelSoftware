@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.parties.data;
 
 /**
- *
+ *Dieses Interface stellt die Methoden für die Land-Klasse zur verfügung
  * @author Dunst
  */
 public interface CountryData

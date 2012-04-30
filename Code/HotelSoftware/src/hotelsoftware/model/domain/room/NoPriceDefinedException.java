@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.room;
 
 /**
- *
+ *Diese Fehlermeldung erscheint, falls für einen Raum kein Preis Definiert wurde
  * @author Dunst
  */
 public class NoPriceDefinedException extends Exception

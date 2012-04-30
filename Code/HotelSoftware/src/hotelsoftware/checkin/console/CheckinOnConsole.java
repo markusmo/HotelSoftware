@@ -11,7 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
+ *Diese Klasse wurde nur zu Testzwecken entwickelt und ist nur ein Prototyp
  * @author mohi
  */
 public class CheckinOnConsole

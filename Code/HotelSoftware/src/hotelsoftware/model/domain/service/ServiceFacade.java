@@ -54,7 +54,12 @@ public class ServiceFacade
         }
         return (ExtraService) DynamicMapper.map(p);
     }
-    
+    /**
+     * Diese Methode sucht nach einem Service anhand eines Namens
+     * @param name
+     * @return
+     * @throws ServiceTypeNotFoundException 
+     */
     public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
     {
         DBServiceType p = DBServiceType.getTypeByName(name);

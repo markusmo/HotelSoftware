@@ -84,7 +84,7 @@ public class RoomCategory implements RoomCategoryData
     }
 
     /**
-     * such alle Kategorien heraus
+     * such alle Kategorien heraus die vorhanden sin
      *
      * @return Alle Kategorieen, die verfuegbar sind.
      */
@@ -109,7 +109,7 @@ public class RoomCategory implements RoomCategoryData
     }
 
     /**
-     * Gibt alle Zimmer aus
+     * Gibt alle Zimmer aus die vorhanden sind
      * @return 
      * Alle Zimmer, die das System kennt
      */

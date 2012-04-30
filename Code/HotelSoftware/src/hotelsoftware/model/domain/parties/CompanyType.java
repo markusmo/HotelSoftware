@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * Klasse die die Typen einer Firma enthällt. Mithife dieser Klasse unterscheiden sich Firmen von Reisebüros.
+ * Klasse die die Typen einer Firma enthält. Mithife dieser Klasse unterscheiden sich Firmen von Reisebüros.
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */

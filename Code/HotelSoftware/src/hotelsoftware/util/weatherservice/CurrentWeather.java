@@ -5,7 +5,7 @@
 package hotelsoftware.util.weatherservice;
 
 /**
- *
+ *Diese Klasse zeigt das aktuelle Wetter an
  * @author Johannes
  */
 public class CurrentWeather extends Weather

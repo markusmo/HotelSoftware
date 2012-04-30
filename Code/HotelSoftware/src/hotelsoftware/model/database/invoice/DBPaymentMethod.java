@@ -145,8 +145,7 @@ public class DBPaymentMethod implements Serializable
     }
 
     /**
-     * establishes a connection to the database and creates a new paymentmethod
-     * in the database
+     * Speichert die Zahlungsart in der Datenbank ab
      * @param name
      * the new paymentmethod to be created
      * @throws HibernateException
@@ -172,7 +171,7 @@ public class DBPaymentMethod implements Serializable
     }
 
     /**
-     * deletes a paymentmethod from the database
+     * Löscht Zahlungsmethoden aus der Datenbank
      * @param name
      * the name of the method to delete
      * @throws FaildToDeleteFromDatabaseException 

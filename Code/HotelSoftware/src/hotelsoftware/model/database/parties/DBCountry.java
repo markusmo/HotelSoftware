@@ -144,7 +144,10 @@ public class DBCountry implements Serializable
     {
         this.dBAddressCollection = dBAddressCollection;
     }
-    
+    /**
+     * Diese Mthode sucht alle Länder aus der Datenbank
+     * @return 
+     */
     public static Collection<DBCountry> getAllCountries()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

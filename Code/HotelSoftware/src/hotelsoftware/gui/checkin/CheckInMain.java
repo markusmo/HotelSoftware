@@ -21,7 +21,7 @@ import java.util.Collection;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Mit Diesem Panel kann man nach Reservierungen Suchen als auch eine Reservierung auswählen
  * @author Johannes
  */
 public class CheckInMain extends javax.swing.JPanel
@@ -41,7 +41,9 @@ public class CheckInMain extends javax.swing.JPanel
         this.textBoxFname.requestFocus();
         this.textBoxFname.setCaretPosition(0);
     }
-
+/**
+ * Diese Methode wird für die Initialisierung benötigt
+ */
     private void setTable()
     {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

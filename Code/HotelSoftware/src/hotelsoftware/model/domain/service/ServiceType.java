@@ -93,7 +93,12 @@ public class ServiceType implements ServiceTypeData
     {
         this.taxRate = taxRate;
     }
-    
+    /**
+     * sucht nach einem Typ mithilfe eines Namens
+     * @param name
+     * @return
+     * @throws ServiceTypeNotFoundException 
+     */
     public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
     {
         return ServiceFacade.getInstance().getServiceTypeByName(name);

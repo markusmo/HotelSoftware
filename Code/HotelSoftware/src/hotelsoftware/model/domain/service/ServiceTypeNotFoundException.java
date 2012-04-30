@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.service;
 
 /**
- *
+ *Diese Excetion wird geworfen, wenn ein Service Typ nicht gefunden wird
  * @author Dunst
  */
 public class ServiceTypeNotFoundException extends Exception

@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- *
+ *Dieses Interaface enthält alle wichtigen Methoden für die Klasse RoomData
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface RoomData
