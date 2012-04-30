@@ -37,6 +37,10 @@ public class ForeCastWeather extends Weather
 
     public void setHigh(String high)
     {
+        if (LANG.equals("en"))
+        {
+            high = "" + fahrenheit2celsius(Integer.parseInt(high));
+        }
         this.high = high;
     }
 
@@ -47,6 +51,10 @@ public class ForeCastWeather extends Weather
 
     public void setLow(String low)
     {
+        if (LANG.equals("en"))
+        {
+            low = "" + fahrenheit2celsius(Integer.parseInt(low));
+        }
         this.low = low;
     }
 

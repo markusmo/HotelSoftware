@@ -6,22 +6,16 @@ package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.gui.misc.ButtonTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;
 import hotelsoftware.model.domain.parties.data.GuestData;
-import hotelsoftware.model.domain.reservation.data.ReservationData;
 import hotelsoftware.model.domain.room.data.RoomCategoryData;
 import hotelsoftware.model.domain.room.data.RoomData;
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.reflect.Method;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.JPanel;
 
 /**
  * Dieses Panel ist dazu da, um einen Gast zu einem Raum einer Kategorie zuzuweisen.
@@ -125,8 +119,6 @@ public class RoomPanel extends javax.swing.JPanel
         TabbedPaneGuests.setTabComponentAt(TabbedPaneGuests.getTabCount() - 1,
                 new ButtonTabComponentPlus(getGuestPannelAddListener()));
         TabbedPaneGuests.setEnabledAt(TabbedPaneGuests.getTabCount() - 1, false);
-
-
     }
 
     public int getRoomIndex()

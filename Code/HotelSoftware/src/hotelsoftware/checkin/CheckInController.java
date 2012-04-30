@@ -468,7 +468,7 @@ public class CheckInController implements UseCaseController
 
     public boolean isInSwitchingState()
     {
-       return state instanceof StartState;
+       return state instanceof StartState || state instanceof FinalState;
     }
 
     public void createNewWalkIn()
