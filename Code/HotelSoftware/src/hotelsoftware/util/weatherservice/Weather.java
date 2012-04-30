@@ -39,6 +39,7 @@ public class Weather
     private static Document doc;
     private static boolean init;
     private static Date now = new Date();
+    protected final static String LANG = "en";
 
     static
     {
@@ -73,7 +74,7 @@ public class Weather
     {
         try
         {
-            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=en";
+            String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=" + LANG;
 
             String xmlString = "";
             String line = "";
@@ -315,5 +316,10 @@ public class Weather
             url = Weather.class.getClassLoader().getResource("resources/images/weathericons/default.png");
         }
         this.icon = new ImageIcon(url);
+    }
+
+    protected int fahrenheit2celsius(int fahrenheit)
+    {
+        return (int) ((5 / 9.0) * (fahrenheit - 32.0));
     }
 }
