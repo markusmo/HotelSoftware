@@ -151,7 +151,7 @@ public class DBCountry implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM countries c";
+        String query = "SELECT * FROM countries c ORDER BY name ASC";
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBCountry.class);
 
