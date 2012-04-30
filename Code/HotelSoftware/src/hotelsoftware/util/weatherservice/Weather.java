@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
  */
 public class Weather
 {
-    private static String cityName;
+    protected static String cityName;
     private String condition;
     private ImageIcon icon;
     private static Document doc;
