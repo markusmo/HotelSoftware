@@ -51,6 +51,6 @@ public class CurrentWeather extends Weather
     @Override
     public String toString()
     {
-        return "\nAktuell: " + super.getCondition() + "\n" +  humidity + "\n" + wind_condition;
+        return "\nCurrent: " + super.getCondition() + "\n" +  humidity + "\n" + wind_condition;
     }
 }
