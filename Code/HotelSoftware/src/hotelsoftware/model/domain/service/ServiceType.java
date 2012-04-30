@@ -98,6 +98,7 @@ public class ServiceType implements ServiceTypeData
      * sucht nach einem Typ mithilfe eines Namens
      * @param name
      * @return
+     * Der Servicetyp mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException 
      */
     public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException

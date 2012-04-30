@@ -60,6 +60,7 @@ public class ServiceFacade
      * Diese Methode sucht nach einem Service anhand eines Namens
      * @param name
      * @return
+     * Der Service mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException 
      */
     public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException

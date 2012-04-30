@@ -1,7 +1,7 @@
 package hotelsoftware.controller.login;
 
-import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.support.LoginFailureException;
 
 /**
  * Dieser Controller behandelt alle User-Relevanten operationen.
@@ -16,8 +16,9 @@ public class LoginController
     {
     }
     /**
-     * Erstellt eine Instanz der Klasse
-     * @return 
+     * gibt eine Instanz der Klasse zurück
+     * @return
+     * eine Instanz der Klasse
      */
     public static LoginController getInstance()
     {
