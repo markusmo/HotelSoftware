@@ -7,12 +7,13 @@ package hotelsoftware.model.database.room;
 import java.util.Collection;
 
 /**
- *
+ *Diese Klasse dient zum Testen Der DBRoom Klassen
  * @author Tobias
  */
 public class RoomTest {
 
     /**
+     * Mainclass zum testen
      * @param args the command line arguments
      */
     public static void main(String[] args) {

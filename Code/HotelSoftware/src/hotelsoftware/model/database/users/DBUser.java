@@ -22,7 +22,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ *Diese Klasse wird benötigt für die Datenbank der Tabelle User
  * @author mohi
  */
 @Entity

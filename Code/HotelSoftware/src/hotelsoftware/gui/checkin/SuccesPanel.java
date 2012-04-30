@@ -20,7 +20,7 @@ import java.util.List;
 import javax.swing.JLabel;
 
 /**
- *
+ * Dieses Panel ist dafür da um nach einem Check-In anzuzeigen, dass alles funktioniert hat
  * @author Johannes
  */
 public class SuccesPanel extends javax.swing.JPanel

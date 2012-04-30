@@ -12,13 +12,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
+ *Dieses Panel zeigt das aktuelle Wetter letztendlich an
  * @author Johannes
  */
 public class CurrentWeatherPanel extends javax.swing.JPanel
 {
     /**
-     * Creates new form CurrentWeatherPanel
+     * erzeugt ein neues WetterPanel
      */
     public CurrentWeatherPanel(CurrentWeather w)
     {

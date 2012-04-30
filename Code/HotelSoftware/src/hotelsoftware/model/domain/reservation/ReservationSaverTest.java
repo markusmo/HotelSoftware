@@ -11,12 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Diese Klasse dient als Testklasse um auszuprobieren ob der ReservationSaver funktioniert
  * @author Dunst
  */
 public class ReservationSaverTest
 {
     /**
+     * mainmethode für testzwecke
      * @param args the command line arguments
      */
     public static void main(String[] args)

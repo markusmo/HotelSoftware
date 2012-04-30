@@ -38,12 +38,20 @@ package hotelsoftware.gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+/**
+ * Diese Klasse wurde für Testzwecke erstellt. Mit ihr können Gui Elemente getestet werden.
+ * @author Johannes
+ * 
+ * */
 public class GuiTest implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     final static String BUTTONPANEL = "Card with JButtons";
     final static String TEXTPANEL = "Card with JTextField";
     
+    /**
+     * 
+     * Diese Methode für komponenten hinzu
+     */
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel comboBoxPane = new JPanel(); //use FlowLayout

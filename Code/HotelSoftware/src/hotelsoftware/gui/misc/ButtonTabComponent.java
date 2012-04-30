@@ -37,9 +37,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Component to be used as tabComponent;
- * Contains a JLabel to show the text and
- * a JButton to close the tab it belongs to
+ * Wird vom tabComponent verwendet;
+ * enthält ein Label um Text auf einem Tab anzuzeigen
  */
 public class ButtonTabComponent extends JPanel
 {
@@ -120,7 +119,10 @@ public class ButtonTabComponent extends JPanel
         {
         }
 
-        //paint the cross
+       /**
+        * zeichnet eine Komponente auf
+        * @param g 
+        */
         protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);

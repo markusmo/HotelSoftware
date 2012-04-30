@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Dieses Frame dient dazu um dem Benutzer die möglichkeit zu geben sich einzuloggen
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
 public class LoginWindow extends javax.swing.JFrame

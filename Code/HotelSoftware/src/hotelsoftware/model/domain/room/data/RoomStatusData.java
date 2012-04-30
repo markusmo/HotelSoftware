@@ -5,7 +5,7 @@
 package hotelsoftware.model.domain.room.data;
 
 /**
- *
+ *Dieses Interface enthält alle wichtigen Methoden für die Klasse RoomStatus
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface RoomStatusData

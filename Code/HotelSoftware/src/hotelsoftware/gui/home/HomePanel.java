@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
- *
+ *Dieses Panel dient als Startseite mit aktuellem Wetter
  * @author Johannes
  */
 public class HomePanel extends javax.swing.JPanel

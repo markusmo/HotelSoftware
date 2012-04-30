@@ -7,7 +7,7 @@ package hotelsoftware.util.weatherservice;
 import javax.swing.ImageIcon;
 
 /**
- *
+ *Diese Klasse dient dazu einen ForeCast aus einem Weather zu machen
  * @author Johannes
  */
 public class ForeCastWeather extends Weather

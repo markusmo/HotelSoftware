@@ -21,7 +21,7 @@ import java.util.Collection;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Mit Diesem Panel kann man nach Reservierungen Suchen als auch eine Reservierung auswählen
  * @author Johannes
  */
 public class CheckInMain extends javax.swing.JPanel
@@ -41,7 +41,9 @@ public class CheckInMain extends javax.swing.JPanel
         this.textBoxFname.requestFocus();
         this.textBoxFname.setCaretPosition(0);
     }
-
+/**
+ * Diese Methode wird für die Initialisierung benötigt
+ */
     private void setTable()
     {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -405,7 +407,7 @@ public class CheckInMain extends javax.swing.JPanel
         //Abort Button
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Aborting?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
         {
-            cigc.back();
+            cigc.clear();
             cigc.getContentpane().removeAll();
             cigc.getContentpane().add(new HomePanel(), BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());

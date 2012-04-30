@@ -8,7 +8,7 @@ import hotelsoftware.model.domain.users.Permission;
 import java.util.Collection;
 
 /**
- *
+ *Dieses Interface enthält alle Methoden die für die Klasse User benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface UserData

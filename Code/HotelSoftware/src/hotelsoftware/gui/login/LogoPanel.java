@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
+ *Dieses Panel zeigt die aktuelle passende Wettergrafik an
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
 public class LogoPanel extends JPanel

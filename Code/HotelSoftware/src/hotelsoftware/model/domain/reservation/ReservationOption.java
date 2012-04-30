@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- *
+ *Diese Klasse beinhaltet eine Reservierungsoption die für Reservierungen  benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ReservationOption implements ReservationOptionData
@@ -53,7 +53,7 @@ public class ReservationOption implements ReservationOptionData
     }
 
     /**
-     * Use this Method if you want to extend the Expirationdate
+     * Diese Methode wird benötigt um das Ablaufdatum zu verlängern
      *
      * @param days The amount of days to extend
      */

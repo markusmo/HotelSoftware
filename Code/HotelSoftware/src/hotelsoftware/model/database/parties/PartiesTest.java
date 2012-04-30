@@ -9,12 +9,13 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ *Diese Klasse dient zum Test der Party Klasse
  * @author Tobias
  */
 public class PartiesTest {
 
     /**
+     * Main-Klasse für Testzwecke
      * @param args the command line arguments
      */
     public static void main(String[] args) {
