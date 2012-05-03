@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 
 /**
  * Dieses Panel ist dafür da um nach einem Check-In anzuzeigen, dass alles funktioniert hat
+ *
  * @author Johannes
  */
 public class SuccesPanel extends javax.swing.JPanel
@@ -34,35 +35,15 @@ public class SuccesPanel extends javax.swing.JPanel
         jLabel1.setText("<html> <font coloer=#AAFFCC size=+3>Success</font></html>");
         init();
     }
-    
+
     private void init()
     {
         jPanel1.removeAll();
-        GridBagLayout gbl = new GridBagLayout();
-        jPanel1.setLayout(gbl);
-        
-        
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        // Festlegen, dass die GUI-Elemente die Gitterfelder in 
-        // waagerechter Richtung ausfüllen:
-        gbc.fill = GridBagConstraints.BOTH;
-
-        // Die Abstände der einzelnen GUI-Elemente zu den gedachten 
-        // Gitterlinien festgelegen:
-        gbc.insets = new Insets(2, 2, 2, 2);
-        
-        gbc.gridx = 0;  // x-Position im gedachten Gitter
-        gbc.gridy = 0;  // y-Position im gedachten Gitter
-        gbc.gridheight = 1;  // zwei Gitter-Felder hoch
-        gbc.gridwidth = 3;
         JLabel jbl = new JLabel();
-        gbl.setConstraints(jbl, gbc);
         jPanel1.add(jbl);
         displayHabitations(jbl);
-        
         CheckInGuiControler.getInstance().clear();
+        repaint();
     }
 
     /**
@@ -73,10 +54,15 @@ public class SuccesPanel extends javax.swing.JPanel
     private void displayHabitations(JLabel lbl)
     {
         Collection<HabitationData> list = CheckInGuiControler.getInstance().getHabitationsData();
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
         for (HabitationData h : list)
         {
-            lbl.setText(h.toString().replace("\n", "<br/>"));
+            sb.append(h.toString().replace("\n", "<br/>"));
+            sb.append("<br/><br/>");
         }
+        sb.append("</html>");
+        lbl.setText(sb.toString());
     }
 
     /**
@@ -93,17 +79,6 @@ public class SuccesPanel extends javax.swing.JPanel
         jPanel1 = new javax.swing.JPanel();
 
         jLabel1.setText("Success");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,7 +99,7 @@ public class SuccesPanel extends javax.swing.JPanel
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
