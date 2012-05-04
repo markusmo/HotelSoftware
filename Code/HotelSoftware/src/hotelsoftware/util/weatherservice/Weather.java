@@ -92,15 +92,12 @@ public class Weather
             }
             catch (MalformedURLException e)
             {
-                e.printStackTrace();
             }
             catch (IOException e)
             {
-                e.printStackTrace();
             }
             catch (Throwable t)
             {
-                t.printStackTrace();
             }
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource source = new InputSource(new StringReader(xmlString));
@@ -244,22 +241,18 @@ public class Weather
         }
         catch (SAXException ex)
         {
-            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (ParserConfigurationException ex)
         {
-            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (IOException ex)
         {
-            ex.printStackTrace();
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (Throwable t)
         {
-            t.printStackTrace();
         }
         finally
         {
@@ -276,7 +269,6 @@ public class Weather
             }
         }
         cityName = city;
-        System.out.println(city);
     }
 
     public String getCondition()
