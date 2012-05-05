@@ -1,13 +1,13 @@
 package hotelsoftware.model.domain.invoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.data.service.ServiceData;
+import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.Service;
-import hotelsoftware.controller.data.service.ServiceData;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.controller.data.users.UserData;
 import java.util.Date;
 
 /**
@@ -130,26 +130,55 @@ public class InvoiceItem implements InvoiceItemData
     }
     
     /**
-     * Gibt den Preis für eine Rechungsposition aus.
+     * Gibt den Preis für eine Rechungsposion aus, mit Steuern
      * @return 
-     * Preis es Services * Anzahl der Konsumation
+     * Preis des Services * Anzahl der Konsumation + Steuern
+     */
+    public double getTotalPriceWithTax()
+    {
+        double price = 0;
+        double temp = this.amount * this.getService().getPrice().doubleValue();
+        price = temp +(temp * this.getService().getServiceType().getTaxRate().doubleValue());
+        return price;
+    }
+    
+    /**
+     * Gibt den Einzelpreis mit Steuern aus
+     * @return 
+     * Einzelpreis mit Steuer
+     */
+    public double getPriceWithTax()
+    {
+        double price = 0;
+        double temp = this.getService().getPrice().doubleValue();
+        price = temp +(temp * this.getService().getServiceType().getTaxRate().doubleValue());
+        return price;
+    }
+    
+    /**
+     * Gibt den Preis für eine Rechungsposition aus, ohne Steuern.
+     * @return 
+     * Preis des Services * Anzahl der Konsumation, ohne Steuern
      */
     @Override
-    public double getTotalPrice()
+    public double getTotalPriceWithoutTax()
     {
-        return this.getAmount() * this.getTotalPrice();
+        return this.getAmount() * this.getService().getPrice().doubleValue();
     }
 
+    @Override
     public HabitationData getHabitationData()
     {
         return (HabitationData) getHabitation();
     }
 
+    @Override
     public ServiceData getServiceData()
     {
         return (ServiceData) getService();
     }
 
+    @Override
     public UserData getUserData()
     {
         return (UserData) getUser();
