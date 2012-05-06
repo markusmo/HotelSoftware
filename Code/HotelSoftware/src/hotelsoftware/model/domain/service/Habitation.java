@@ -12,11 +12,13 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.controller.data.users.UserData;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 /**
  * Dies Klasse bildet einen Aufenthalt ab, mit der das System arbeitet
@@ -297,4 +299,26 @@ public class Habitation extends Service implements HabitationData
         
         return builder.toString();
     }
+    
+       public static Collection<Habitation> search(String fName, String lName, Integer roomNr)
+    {
+        Collection<Habitation> results = new LinkedList<Habitation>();
+        
+        if(roomNr != null)
+        {
+  
+        }
+        else
+        {
+         results.addAll(searchHabitationByNameApprox(fName, lName));
+        }
+        
+        return results;
+    }
+       private static Collection<Habitation> searchHabitationByNameApprox(String fName, String lName)
+       {
+          return ServiceFacade.getInstance().getHabitationsByName(fName, lName);
+        
+       }
+    
 }
