@@ -80,6 +80,23 @@ public class CreateInvoiceController
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
     
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    {
+        createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+    }
+    
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        state.createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, invoiceStreet, 
+                invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
+    }
+    
+    public Collection<GuestData> getWorkingHabitationsGuests()
+    {
+        return state.getWorkingHabitationsGuests();
+    }
+    
     public void useGuestAsCustomer(GuestData guest)
     {
         state.useGuestAsCustomer(guest);
@@ -93,6 +110,16 @@ public class CreateInvoiceController
     public void pay()
     {
         state.pay();
+    }
+    
+    public void next()
+    {
+        state.next();
+    }
+    
+    public void back()
+    {
+        state.back();
     }
     
     Collection<InvoiceItem> getOpenItems()

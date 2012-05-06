@@ -1,5 +1,7 @@
 package hotelsoftware.util;
 
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -32,6 +34,20 @@ public class HelperFunctions<T, U extends T>
             for (U u : col)
             {
                 newCol.add(u);
+            }
+        }
+
+        return newCol;
+    }
+
+    public Collection<U> castCollectionDown(Collection<T> col)
+    {
+        Collection<U> newCol = new LinkedHashSet<U>();
+        if (col != null)
+        {
+            for (T t : col)
+            {
+                newCol.add((U)t);
             }
         }
 

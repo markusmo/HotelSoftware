@@ -73,4 +73,25 @@ abstract class CreateInvoiceState
     {
         throw new IllegalStateException();
     }
+
+    Collection<GuestData> getWorkingHabitationsGuests()
+    {
+        throw new IllegalStateException();
+    }
+
+    void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        throw new IllegalStateException();
+    }
+    
+    void next()
+    {
+        throw new IllegalStateException();
+    }
+    
+    void back()
+    {
+        throw new IllegalStateException();
+    }
 }
