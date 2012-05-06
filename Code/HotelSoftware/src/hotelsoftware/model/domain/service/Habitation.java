@@ -299,26 +299,11 @@ public class Habitation extends Service implements HabitationData
         
         return builder.toString();
     }
-    
-       public static Collection<Habitation> search(String fName, String lName, Integer roomNr)
-    {
-        Collection<Habitation> results = new LinkedList<Habitation>();
-        
-        if(roomNr != null)
-        {
-  
-        }
-        else
-        {
-         results.addAll(searchHabitationByNameApprox(fName, lName));
-        }
-        
-        return results;
-    }
-       private static Collection<Habitation> searchHabitationByNameApprox(String fName, String lName)
+       private static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
        {
-          return ServiceFacade.getInstance().getHabitationsByName(fName, lName);
-        
+           if(null != roomId)
+          return ServiceFacade.getInstance().getHabitations(fName, lName);
+       return ServiceFacade.getInstance().getHabitation(roomId);
        }
-    
+      
 }

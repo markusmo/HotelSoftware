@@ -4,6 +4,7 @@ import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBServiceType;
 import java.util.Collection;
 
@@ -73,5 +74,15 @@ public class ServiceFacade
         }
         return (ServiceType) DynamicMapper.map(p);
     }
-    public 
+    
+    public Collection<Habitation> getHabitations(String fname, String lname)
+    {
+        Collection<DBHabitation> p = DBHabitation.search(fname, lname);
+        return (Collection<Habitation>) DynamicMapper.map(p);
+    }
+        public Collection<Habitation> getHabitation(Integer roomId)
+    {
+         Collection<DBHabitation> p = DBHabitation.search(roomId);
+        return (Collection<Habitation>) DynamicMapper.map(p);
+    }
 }
