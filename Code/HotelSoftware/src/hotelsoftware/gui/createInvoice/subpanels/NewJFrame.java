@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -24,13 +25,15 @@ public class NewJFrame extends javax.swing.JFrame
     {
         initComponents();
         Invoice i = new Invoice();
-        LinkedList<InvoiceItem> ii = new LinkedList<InvoiceItem>();
-        ii.add(new InvoiceItem());
-        ii.add(new InvoiceItem());
-        ii.add(new InvoiceItem());
-        ii.add(new InvoiceItem());
-        ii.add(new InvoiceItem());
-        i.setInvoiceItems(ii);
+        Random r = new Random();
+        LinkedList<InvoiceItem> iil = new LinkedList<InvoiceItem>();
+        for (int o = 0; o < 13; o++)
+        {
+            InvoiceItem ii = new InvoiceItem();
+            ii.setAmount(r.nextInt(25));
+            iil.add(ii);
+        }
+        i.setInvoiceItems(iil);
         jPanel1.add(new splitNstornoRoom(i), BorderLayout.CENTER);
         pack();
     }

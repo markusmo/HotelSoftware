@@ -6,19 +6,24 @@ package hotelsoftware.gui.createInvoice.subpanels;
 
 import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -31,7 +36,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
      */
     private InvoiceData invoice;
     private Boolean[] selected;
-    private LinkedList<JButton> buttons = new LinkedList<JButton>();
+    private LinkedList<ButtonPanel> buttons = new LinkedList<ButtonPanel>();
 
     public splitNstornoRoom(InvoiceData invoice)
     {
@@ -51,12 +56,12 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 (invoice.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
                 new String[]
                 {
-                    "Selection", "Amount", "Description", "Single price", "Total price", "Cancellation"
+                    "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
                 })
         {
             boolean[] canEdit = new boolean[]
             {
-                true, true, false, false, false, true
+                true, false, false, false, false, true
             };
 
             @Override
@@ -71,45 +76,51 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 return getValueAt(0, c).getClass();
             }
         });
+        jTable1.getColumn("Selection amount").setCellRenderer(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
+        jTable1.getColumn("Selection amount").setCellEditor(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
         jTable1.getColumn("Cancellation").setCellRenderer(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
         jTable1.getColumn("Cancellation").setCellEditor(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
-
+        jTable1.setRowHeight(30);
 
     }
 
     private Object[][] getTableModel()
     {
         int i = 0;
-
+        String[] nameString = new String[]
+        {
+            "Hans", "Egon", "hubsi", "Sandwich"
+        };
         Object[][] value = new Object[invoice.getInvoiceItemsData().size()][];
 
         for (InvoiceItemData data : invoice.getInvoiceItemsData())
         {
-            JButton button = new JButton(new ImageIcon(getClass().getClassLoader().getResource("resources/images/rotes_x.gif")));
-            button.addActionListener(getAL(i));
-            buttons.add(button);
+            ButtonPanel bPanel = new ButtonPanel();
+            bPanel.addActionListener(getAL(data.getAmount(), nameString[i % nameString.length]));
+            buttons.add(bPanel);
             selected[i] = true;
-            value[i++] = new Object[]
+            value[i] = new Object[]
             {
-                new Boolean(selected[i - 1]), "", "Description", "Single price", "Total price", button
+                new CheckTextPane(data.getAmount()), data.getAmount() + "", nameString[i % nameString.length], "Single price", "Total price", bPanel
             };
+            i++;
         }
         return value;
     }
 
-    private ActionListener getAL(final int i)
+    private ActionListener getAL(final int i, final String str)
     {
-        ActionListener al = new ActionListener() {
-
+        ActionListener al = new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Row " + i);
+                (new StornoFrame(str, i, jTable1)).getValue();
             }
         };
         return al;
     }
-            
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -157,115 +168,330 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-}
 
-class JButtonEditorAndRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer
-{
-    private TableCellRenderer __defaultRenderer;
-    private TableCellEditor __defaultEditor;
-    private JButton button;
-
-    public JButtonEditorAndRenderer(TableCellRenderer renderer, TableCellEditor editor)
+    private class StornoFrame
     {
-        __defaultRenderer = renderer;
-        __defaultEditor = editor;
-    }
+        private SpinnerPane spinnerPane;
+        private Component comp;
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column)
-    {
-        if (value instanceof JButton)
+        public StornoFrame(String description, int max, Component comp)
         {
-            button = (JButton) value;
-            if (isSelected)
+            spinnerPane = new SpinnerPane(description, max);
+            this.comp = comp;
+        }
+
+        public int getValue()
+        {
+            Object[] options =
             {
-                button.setForeground(table.getSelectionForeground());
-                button.setBackground(table.getSelectionBackground());
+                "Cancel",
+                "Abort"
+            };
+            int n = JOptionPane.showOptionDialog(comp, spinnerPane, "Cancellation",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[0]); //default button title
+
+            if (n == JOptionPane.OK_OPTION)
+            {
+                return spinnerPane.getValue();
             }
             else
             {
-                button.setForeground(table.getForeground());
-                button.setBackground(UIManager.getColor("Button.background"));
+                return 0;
             }
-            return button;
-        }
-        else
-        {
-            button = null;
-            return __defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         }
 
+        private class SpinnerPane extends JPanel
+        {
+            private JSpinner spinner = new JSpinner();
+            private JLabel label;
+
+            public SpinnerPane(String description, int max)
+            {
+                setLayout(new GridLayout(0, 1));
+                label = new JLabel("How many " + description + " you want to cancel?");
+                spinner.setModel(new SpinnerNumberModel(0, 0, max, 1));
+                add(label);
+                add(spinner);
+            }
+
+            public int getValue()
+            {
+                return Integer.parseInt(spinner.getValue().toString());
+            }
+        }
     }
 
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value,
-            boolean isSelected, int row, int column)
+    private class JButtonEditorAndRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer
     {
-        if (value instanceof JButton)
+        private TableCellRenderer __defaultRenderer;
+        private TableCellEditor __defaultEditor;
+        private ButtonPanel bPanel;
+
+        public JButtonEditorAndRenderer(TableCellRenderer renderer, TableCellEditor editor)
         {
-            button = (JButton) value;
-            if (isSelected)
+            __defaultRenderer = renderer;
+            __defaultEditor = editor;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            if (value instanceof ButtonPanel)
             {
-                button.setForeground(table.getSelectionForeground());
-                button.setBackground(table.getSelectionBackground());
+                bPanel = (ButtonPanel) value;
+
+                return bPanel;
             }
             else
             {
-                button.setForeground(table.getForeground());
-                button.setBackground(UIManager.getColor("Button.background"));
+                bPanel = null;
+                return __defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
-            return button;
-        }
-        else
-        {
-            button = null;
-            return __defaultEditor.getTableCellEditorComponent(table, value, isSelected, row, column);
+
         }
 
-    }
-
-    @Override
-    public boolean isCellEditable(EventObject ev)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean shouldSelectCell(EventObject ev)
-    {
-        return false;
-    }
-
-    @Override
-    public Object getCellEditorValue()
-    {
-        return button;
-    }
-}
-
-class JTableButtonMouseListener extends MouseAdapter
-{
-    private final JTable table;
-
-    public JTableButtonMouseListener(JTable table)
-    {
-        this.table = table;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e)
-    {
-        int column = table.getColumnModel().getColumnIndexAtX(e.getX());
-        int row = e.getY() / table.getRowHeight();
-
-        if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0)
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column)
         {
+            if (value instanceof ButtonPanel)
+            {
+                bPanel = (ButtonPanel) value;
+
+                return bPanel;
+            }
+            else
+            {
+                bPanel = null;
+                return __defaultEditor.getTableCellEditorComponent(table, value, isSelected, row, column);
+            }
+
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject ev)
+        {
+            return true;
+        }
+
+        @Override
+        public boolean shouldSelectCell(EventObject ev)
+        {
+            return false;
+        }
+
+        @Override
+        public Object getCellEditorValue()
+        {
+            return bPanel;
+        }
+    }
+
+    private class JTableButtonMouseListener extends MouseAdapter
+    {
+        private final JTable table;
+
+        public JTableButtonMouseListener(JTable table)
+        {
+            this.table = table;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+            int column = table.getColumnModel().getColumnIndexAtX(e.getX());
+            int row = e.getY() / table.getRowHeight();
+
             Object value = table.getValueAt(row, column);
-            if (value instanceof JButton)
+            if (value instanceof ButtonPanel)
             {
-                ((JButton) value).doClick();
+                if (e.getPoint().x > ((ButtonPanel) value).getButtonBounds().x
+                        && e.getPoint().x < ((ButtonPanel) value).getButtonBounds().x + ((ButtonPanel) value).getButtonBounds().width
+                        && e.getPoint().y > ((ButtonPanel) value).getButtonBounds().y
+                        && e.getPoint().y < ((ButtonPanel) value).getButtonBounds().y + ((ButtonPanel) value).getButtonBounds().height)
+                {
+                    ((ButtonPanel) value).doClick();
+                }
+
             }
+        }
+    }
+
+    private class ButtonPanel extends JPanel
+    {
+        private JButton button = new JButton(" X ");
+
+        public ButtonPanel()
+        {
+            super(new FlowLayout(FlowLayout.CENTER, 2, 2));
+            button.setForeground(Color.red);
+            button.setMargin(new Insets(2, 0, 2, 0));
+
+            setBackground(Color.WHITE);
+            add(button);
+        }
+
+        public void doClick()
+        {
+            button.doClick();
+        }
+
+        public boolean isSelected()
+        {
+            return button.isSelected();
+
+        }
+
+        public void setButtonForeground(Color c)
+        {
+            button.setForeground(c);
+        }
+
+        public void setButtonBackground(Color c)
+        {
+            button.setBackground(c);
+        }
+
+        public void addActionListener(ActionListener al)
+        {
+            button.addActionListener(al);
+        }
+
+        public Rectangle getButtonBounds()
+        {
+            return button.getBounds();
+        }
+    }
+
+    private class CheckTextPane extends JPanel
+    {
+        private JCheckBox checki = new JCheckBox();
+        private JTextField texti = new JTextField();
+
+        public CheckTextPane(final int max)
+        {
+            super(new FlowLayout(FlowLayout.LEFT));
+            checki.setSelected(true);
+            texti.setColumns(5);
+            texti.setText("0");
+            setBackground(Color.white);
+            texti.setDocument(new JTextFieldLimit(max));
+            texti.addKeyListener(new KeyAdapter()
+            {
+                @Override
+                public void keyTyped(KeyEvent e)
+                {
+                    char c = e.getKeyChar();
+                    if (!((c >= '0') && (c <= '9')
+                            || (c == KeyEvent.VK_BACK_SPACE)
+                            || (c == KeyEvent.VK_DELETE)))
+                    {
+                        e.consume();
+                    }
+                }
+            });
+
+
+            add(checki);
+            add(texti);
+        }
+
+        public boolean isSelected()
+        {
+            return checki.isSelected();
+        }
+
+        private class JTextFieldLimit extends PlainDocument
+        {
+            private int limit;
+
+            JTextFieldLimit(int limit)
+            {
+                super();
+                this.limit = limit;
+            }
+
+            @Override
+            public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException
+            {
+                if (str == null)
+                {
+                    return;
+                }
+
+                if (Integer.parseInt(str) >= 0 && Integer.parseInt(str) <= limit)
+                {
+                    super.insertString(offset, str, attr);
+                }
+            }
+        }
+    }
+
+    private class CheckTextPaneEditorAndRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer
+    {
+        private TableCellRenderer __defaultRenderer;
+        private TableCellEditor __defaultEditor;
+        private CheckTextPane cPanel;
+
+        public CheckTextPaneEditorAndRenderer(TableCellRenderer renderer, TableCellEditor editor)
+        {
+            __defaultRenderer = renderer;
+            __defaultEditor = editor;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            if (value instanceof CheckTextPane)
+            {
+                cPanel = (CheckTextPane) value;
+                return cPanel;
+            }
+            else
+            {
+                cPanel = null;
+                return __defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column)
+        {
+            if (value instanceof CheckTextPane)
+            {
+                cPanel = (CheckTextPane) value;
+                return cPanel;
+            }
+            else
+            {
+                cPanel = null;
+                return __defaultEditor.getTableCellEditorComponent(table, value, isSelected, row, column);
+            }
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject ev)
+        {
+            return true;
+        }
+
+        @Override
+        public boolean shouldSelectCell(EventObject ev)
+        {
+            return false;
+        }
+
+        @Override
+        public Object getCellEditorValue()
+        {
+            return cPanel;
         }
     }
 }
