@@ -7,21 +7,28 @@ package hotelsoftware.gui.login;
 import hotelsoftware.gui.MainFrame;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.support.LoginFailureException;
+import hotelsoftware.util.RoomanizerProperties;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *Dieses Frame dient dazu um dem Benutzer die möglichkeit zu geben sich einzuloggen
+ * Dieses Frame dient dazu um dem Benutzer die möglichkeit zu geben sich
+ * einzuloggen
+ *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
 public class LoginWindow extends javax.swing.JFrame
 {
+
     /**
      * Creates new form LoginWindow
      */
@@ -35,7 +42,8 @@ public class LoginWindow extends javax.swing.JFrame
         int screenWidth = screenSize.width;
         this.setLocation(screenWidth / 4, screenHeight / 6);
         //setzen des Icons
-        URL url = LoginWindow.class.getClassLoader().getResource("resources/images/icon.jpg");
+        URL url = LoginWindow.class.getClassLoader().getResource(
+                "resources/images/icon.jpg");
         Image img = tk.createImage(url);
         this.setIconImage(img);
         initComponents();
@@ -158,21 +166,21 @@ public class LoginWindow extends javax.swing.JFrame
     }//GEN-LAST:event_passwordFieldKeyReleased
 
     /**
-     * Methode die das Password in der Datenbank
-     * ueberprueft falls die Daten uebereinstimmen, wird das Hauptfenster
-     * aufgerufen und das Loginfenster unsichtbar gesetzt.
+     * Methode die das Password in der Datenbank ueberprueft falls die Daten
+     * uebereinstimmen, wird das Hauptfenster aufgerufen und das Loginfenster
+     * unsichtbar gesetzt.
      */
     private void login()
     {
         try
         {
-            
+
             String hashedpassword = new String(passwordField.getPassword());
-            LoginController.getInstance().login(usernameTextfield.getText(), hashedpassword);
+            LoginController.getInstance().login(usernameTextfield.getText(),
+                    hashedpassword);
             showMainFrame();
             this.setVisible(false);
-        }
-        catch (LoginFailureException ex)
+        } catch (LoginFailureException ex)
         {
             JOptionPane.showMessageDialog(this,
                     "Login failed! Please check password and username");
@@ -193,6 +201,18 @@ public class LoginWindow extends javax.swing.JFrame
     public static void main(String args[])
     {
         /*
+         * Set system properties
+         */
+        try
+        {
+            RoomanizerProperties.setPropertiesFromConfig();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null,
+                    ex);
+        }
+
+        /*
          * Set the Nimbus look and feel
          */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -211,23 +231,19 @@ public class LoginWindow extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(
                     java.util.logging.Level.SEVERE, null, ex);
@@ -239,6 +255,7 @@ public class LoginWindow extends javax.swing.JFrame
          */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
+
             public void run()
             {
                 new LoginWindow().setVisible(true);
