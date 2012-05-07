@@ -13,6 +13,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -22,7 +23,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "invoices", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "invoices", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -212,8 +213,23 @@ public class DBInvoice implements Serializable
         DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq(
                 "invoiceNumber",
                 invoicenumber)).uniqueResult();
-        ;
         return retInvoices;
+    }
+    
+    public static int getHighestId()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "Select max(id) FROM invoices i";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+        int count = bd.intValue();
+        
+        return count;
     }
 
     @Override

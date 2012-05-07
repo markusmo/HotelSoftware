@@ -50,6 +50,11 @@ public class Reservation implements ReservationData
         return new Reservation();
     }
 
+        public static int getHighestId()
+    {
+        return ReservationFacade.getHighestReservationId();
+    }
+    
     @Override
     public String getComment()
     {

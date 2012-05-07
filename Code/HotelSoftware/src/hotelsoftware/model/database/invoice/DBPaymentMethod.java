@@ -32,7 +32,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "paymentmethods", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "paymentmethods", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

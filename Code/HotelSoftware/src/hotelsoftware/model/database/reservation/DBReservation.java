@@ -22,7 +22,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "reservations", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "reservations", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -244,6 +244,22 @@ public class DBReservation implements Serializable
         //;
 
         return new LinkedHashSet<DBReservation>(sqlquery.list());
+    }
+    
+    public static int getHighestId()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "Select max(id) FROM reservations r";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+        int count = bd.intValue();
+        
+        return count;
     }
 
     /**

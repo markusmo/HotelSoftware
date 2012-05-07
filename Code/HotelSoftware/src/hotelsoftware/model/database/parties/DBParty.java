@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "parties", catalog = "roomanizer", schema = "")
+@Table(name = "parties", catalog = "`roomanizer-dev`", schema = "")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DBParty implements Serializable

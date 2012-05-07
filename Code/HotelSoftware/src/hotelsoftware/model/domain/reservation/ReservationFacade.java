@@ -22,7 +22,10 @@ public class ReservationFacade
         return ReservationFacadeHolder.INSTANCE;
     }
 
-    
+        static int getHighestReservationId()
+    {
+        return DBReservation.getHighestId();
+    }
 
     private static class ReservationFacadeHolder
     {

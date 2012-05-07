@@ -12,11 +12,17 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.controller.data.users.UserData;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Dies Klasse bildet einen Aufenthalt ab, mit der das System arbeitet
@@ -32,6 +38,7 @@ public class Habitation extends Service implements HabitationData
     private Room rooms;
     private User users;
     private Collection<InvoiceItem> invoiceItems;
+    private String habitationNumber;
 
     public Habitation()
     {
@@ -90,6 +97,11 @@ public class Habitation extends Service implements HabitationData
         habitation.setUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
     }
+    
+    public static int getHighestId()
+    {
+        return ServiceFacade.getHighestHabitationId();
+    } //überfacade reservation und invoice
 
     /**
      * @return the start
@@ -207,6 +219,16 @@ public class Habitation extends Service implements HabitationData
     {
         this.users = users;
     }
+    
+    public String getHabitationNumber()
+    {
+        return habitationNumber;
+    }
+
+    public void setHabitationNumber(String habitationNumber)
+    {
+        this.habitationNumber = habitationNumber;
+    }
 
     /**
      * @return the invoiceItems
@@ -297,4 +319,17 @@ public class Habitation extends Service implements HabitationData
         
         return builder.toString();
     }
+    
+       public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+       {
+           if(roomId == null)
+          return ServiceFacade.getInstance().getHabitations(fName, lName);
+       return ServiceFacade.getInstance().getHabitation(roomId);
+       }
+
+    @Override
+    public String getServiceName() {
+        throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
+    }
+      
 }

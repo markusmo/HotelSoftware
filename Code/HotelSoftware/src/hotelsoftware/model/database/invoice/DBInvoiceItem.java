@@ -1,25 +1,15 @@
 package hotelsoftware.model.database.invoice;
 
-import hotelsoftware.util.HibernateUtil;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -32,7 +22,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "invoiceitems", catalog = "roomanizer", schema = "")
+@Table(name = "invoiceitems", catalog = "`roomanizer-dev`", schema = "")
 @XmlRootElement
 public class DBInvoiceItem implements Serializable
 {

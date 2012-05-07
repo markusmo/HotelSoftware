@@ -1,4 +1,6 @@
 package hotelsoftware.model.domain.invoice;
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.Set;
@@ -19,6 +21,11 @@ public class InvoiceFacade
         return InvoiceFacadeHolder.INSTANCE;
     }
 
+        static int getHighestInvoiceId()
+    {
+        return DBInvoice.getHighestId();
+    }
+    
     private static class InvoiceFacadeHolder
     {
         private static final InvoiceFacade INSTANCE = new InvoiceFacade();
@@ -34,7 +41,8 @@ public class InvoiceFacade
      */
     public Invoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
-        return Invoice.getInvoiceByInvoiceNumber(invoicenumber);
+        DBInvoice dbi = DBInvoice.getInvoiceByInvoiceNumber(invoicenumber);
+        return (Invoice) DynamicMapper.map(dbi);
     }
 
     /**

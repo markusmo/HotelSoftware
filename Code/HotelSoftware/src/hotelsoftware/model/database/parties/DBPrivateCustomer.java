@@ -13,7 +13,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "privatePerson", catalog = "roomanizer", schema = "")
+@Table(name = "privatePersons", catalog = "`roomanizer-dev`", schema = "")
 @XmlRootElement
 @PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
 public class DBPrivateCustomer extends DBCustomer implements Serializable
@@ -104,7 +104,6 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
         DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class)
                 .add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName)))
                 .uniqueResult();
-        ;
         
         return cust;
         

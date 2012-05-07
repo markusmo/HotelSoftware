@@ -3,7 +3,7 @@ package hotelsoftware.gui;
 import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.gui.invoice.InvoiceHome;
+import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.IntermediatInvoice;
 import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.login.LoginWindow;
@@ -194,13 +194,13 @@ public class MainFrame extends javax.swing.JFrame
     private void invoiceButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_invoiceButtonActionPerformed
     {//GEN-HEADEREND:event_invoiceButtonActionPerformed
         // TODO add your handling code here:
-        
+
         if (checkState())
         {
             cigc.getContentpane().removeAll();
             InvoiceMain invoice = new InvoiceMain();
             invoice.getContentPanel().add(new InvoiceHome());
-            cigc.getContentpane().add(invoice, BorderLayout.CENTER);            
+            cigc.getContentpane().add(invoice, BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             cigc.getContentpane().repaint();
         }
@@ -442,7 +442,7 @@ public class MainFrame extends javax.swing.JFrame
             return true;
         }
 
-     
+
         if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
         {
             GuiController.getInstance().back();
