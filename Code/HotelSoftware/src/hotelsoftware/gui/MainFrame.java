@@ -3,6 +3,9 @@ package hotelsoftware.gui;
 import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
+import hotelsoftware.gui.invoice.InvoiceHome;
+import hotelsoftware.gui.invoice.IntermediatInvoice;
+import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.login.LoginWindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -58,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame
         homeButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         checkInButton = new javax.swing.JButton();
-        roomOverviewButton = new javax.swing.JButton();
+        invoiceButton = new javax.swing.JButton();
         checkOutButton = new javax.swing.JButton();
         journalButton = new javax.swing.JButton();
         escButton = new javax.swing.JButton();
@@ -89,14 +92,14 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        roomOverviewButton.setText("<html><b> Room Overview</b> <br/> F4 </html>");
-        roomOverviewButton.setActionCommand("");
-        roomOverviewButton.setMaximumSize(new java.awt.Dimension(73, 73));
-        roomOverviewButton.setMinimumSize(new java.awt.Dimension(73, 73));
-        roomOverviewButton.setPreferredSize(new java.awt.Dimension(80, 80));
-        roomOverviewButton.addActionListener(new java.awt.event.ActionListener() {
+        invoiceButton.setText("<html><b> Invoice</b> <br/> F4 </html>");
+        invoiceButton.setActionCommand("");
+        invoiceButton.setMaximumSize(new java.awt.Dimension(73, 73));
+        invoiceButton.setMinimumSize(new java.awt.Dimension(73, 73));
+        invoiceButton.setPreferredSize(new java.awt.Dimension(80, 80));
+        invoiceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomOverviewButtonActionPerformed(evt);
+                invoiceButtonActionPerformed(evt);
             }
         });
 
@@ -145,7 +148,7 @@ public class MainFrame extends javax.swing.JFrame
                 .addGap(28, 28, 28)
                 .addComponent(checkOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
-                .addComponent(roomOverviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addComponent(invoiceButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addGap(40, 40, 40)
                 .addComponent(journalButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addGap(43, 43, 43)
@@ -164,7 +167,7 @@ public class MainFrame extends javax.swing.JFrame
                     .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roomOverviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(journalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(escButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,13 +191,20 @@ public class MainFrame extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void roomOverviewButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_roomOverviewButtonActionPerformed
-    {//GEN-HEADEREND:event_roomOverviewButtonActionPerformed
+    private void invoiceButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_invoiceButtonActionPerformed
+    {//GEN-HEADEREND:event_invoiceButtonActionPerformed
         // TODO add your handling code here:
+        
         if (checkState())
         {
+            cigc.getContentpane().removeAll();
+            InvoiceMain invoice = new InvoiceMain();
+            invoice.getContentPanel().add(new InvoiceHome());
+            cigc.getContentpane().add(invoice, BorderLayout.CENTER);            
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            cigc.getContentpane().repaint();
         }
-    }//GEN-LAST:event_roomOverviewButtonActionPerformed
+    }//GEN-LAST:event_invoiceButtonActionPerformed
 
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkOutButtonActionPerformed
     {//GEN-HEADEREND:event_checkOutButtonActionPerformed
@@ -244,7 +254,7 @@ public class MainFrame extends javax.swing.JFrame
                 "resources/images/checkin-icon.png")));
         checkOutButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/logout-icon.png")));
-        roomOverviewButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
+        invoiceButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/Maps-icon.png")));
         journalButton.setIcon(new ImageIcon(
                 MainFrame.class.getClassLoader().getResource(
@@ -335,9 +345,9 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JButton checkOutButton;
     private javax.swing.JButton escButton;
     private javax.swing.JButton homeButton;
+    private javax.swing.JButton invoiceButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton journalButton;
-    private javax.swing.JButton roomOverviewButton;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -390,7 +400,7 @@ public class MainFrame extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                roomOverviewButtonActionPerformed(e);
+                //roomOverviewButtonActionPerformed(e);
             }
         };
         Action f5pressed = new AbstractAction()

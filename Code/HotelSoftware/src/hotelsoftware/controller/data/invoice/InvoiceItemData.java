@@ -25,7 +25,7 @@ public interface InvoiceItemData
      * @return 
      * Preis der Position*Amount
      */
-    double getTotalPrice();
+    double getTotalPriceWithoutTax();
 
     UserData getUserData();
     

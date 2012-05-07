@@ -1,19 +1,21 @@
 package hotelsoftware.model.domain.invoice;
 
+import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.invoice.PaymentMethodData;
-import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.User;
-import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
@@ -220,21 +222,59 @@ public class Invoice implements InvoiceData
         return (Invoice) DynamicMapper.map(dbi);
     }
 
+    /**
+     * Gibt den Totalbetrag der Rechung aus, ohne Steuern
+     * @return 
+     * Totalbetrag der Rechung ohne Steuern
+     */
+    public double getTotalwithoutTax()
+    {
+        double total = 0;
+        
+        for(InvoiceItem i : invoiceItems)
+        {
+            total = total + i.getTotalPriceWithoutTax();
+        }
+        
+        return total;
+    }
+    
+    /**
+     * gibt den Totalbetrag der Rechung aus, mit Steuern
+     * @return 
+     * Totalbetrag der Rechung mit Steuern
+     */
+    public double getTotalwithTax()
+    {
+        double total = 0;
+        
+        for(InvoiceItem i : invoiceItems)
+        {
+            total = total + i.getTotalPriceWithTax();
+        }
+        
+        return total;
+    }
+    
+    @Override
     public CustomerData getCustomerData()
     {
         return (CustomerData) getCustomer();
     }
 
+    @Override
     public UserData getUserData()
     {
         return (UserData) getUser();
     }
 
+    @Override
     public PaymentMethodData getPaymentMethodData()
     {
         return (PaymentMethodData) getPaymentMethod();
     }
 
+    @Override
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
         return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());

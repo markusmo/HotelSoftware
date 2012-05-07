@@ -30,7 +30,7 @@
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="checkOutButton" pref="146" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="roomOverviewButton" pref="161" max="32767" attributes="0"/>
+              <Component id="invoiceButton" pref="161" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="journalButton" pref="139" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
                   <Component id="homeButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="checkOutButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="checkInButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="roomOverviewButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="invoiceButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="journalButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="escButton" alignment="2" min="-2" pref="80" max="-2" attributes="0"/>
               </Group>
@@ -104,9 +104,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkInButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="roomOverviewButton">
+    <Component class="javax.swing.JButton" name="invoiceButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt; Room Overview&lt;/b&gt; &lt;br/&gt; F4 &lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt; Invoice&lt;/b&gt; &lt;br/&gt; F4 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[73, 73]"/>
@@ -119,7 +119,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomOverviewButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="invoiceButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="checkOutButton">

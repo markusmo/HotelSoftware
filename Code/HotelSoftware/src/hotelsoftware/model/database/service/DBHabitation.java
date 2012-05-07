@@ -8,10 +8,7 @@ import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.SQLQuery;
@@ -190,6 +187,90 @@ public class DBHabitation extends DBService implements Serializable
         return habitation;
     }
 
+    public static Collection<DBHabitation> search(String fname, String lname)
+    {
+    
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        String query;
+if(fname == null)
+{
+    if(lname==null)
+    {
+        // VOR UND NACHNAME SIND LEER
+                                query = ""
+                + "SELECT *"
+                + "FROM habitaions h"
+                + "INNER JOIN allocations a ON h.id=a.idService"
+                +"INNER JOIN guests g ON g.id=a.idGuests;";
+    }
+    else
+    {
+        // NUR VORNAME IST LEER
+                        query = ""
+                + "SELECT *"
+                + "FROM habitaions h"
+                + "INNER JOIN allocations a ON h.id=a.idService"
+                +"INNER JOIN guests g ON g.id=a.idGuests"
+                +"WHERE lname ="+lname+";";
+    }
+}
+else if(lname==null)
+        {
+            //NUR NACHNAME IST LEER
+                            query = ""
+                + "SELECT *"
+                + "FROM habitaions h"
+                + "INNER JOIN allocations a ON h.id=a.idService"
+                +"INNER JOIN guests g ON g.id=a.idGuests"
+                +"WHERE lname ="+lname+";";
+        }
+else
+{
+    //NICHTS IST LEER
+                query = ""
+                + "SELECT *"
+                + "FROM habitaions h"
+                + "INNER JOIN allocations a ON h.id=a.idService"
+                +"INNER JOIN guests g ON g.id=a.idGuests"
+                +"WHERE lname ="+lname+" AND fname="+fname+";";
+}
+
+      
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        //addEntity gibt den rueckgabewert an...
+        sqlquery = sqlquery.addEntity(DBHabitation.class);
+        List<DBHabitation> retList = sqlquery.list();
+
+        return new LinkedHashSet<DBHabitation>(retList);
+    }
+    
+       public static Collection<DBHabitation> search(Integer roomnr)
+    {
+    
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        String query = ""
+                + "SELECT *"
+                + "FROM habitaions h"
+                + "INNER JOIN rooms r ON h.idRooms=r.id"
+                +"WHERE r.roomNumber="+roomnr+";";
+
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        //addEntity gibt den rueckgabewert an...
+        sqlquery = sqlquery.addEntity(DBHabitation.class);
+        List<DBHabitation> retList = sqlquery.list();
+
+        return new LinkedHashSet<DBHabitation>(retList);
+    }
+    
+    
     public Date getStart()
     {
         return start;
