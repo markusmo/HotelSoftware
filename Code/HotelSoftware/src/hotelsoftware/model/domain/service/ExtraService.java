@@ -102,4 +102,9 @@ public class ExtraService extends Service implements ExtraServiceData
         Collection<ExtraService> extraServices = (Collection<ExtraService>) DynamicMapper.mapCollection(DBExtraService.getAllHabitationServices());
         return extraServices;
     }
+
+    @Override
+    public String getServiceName() {
+       return getName();
+    }
 }

@@ -7,6 +7,7 @@ import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.Service;
+import hotelsoftware.model.domain.service.ServiceType;
 import hotelsoftware.model.domain.users.User;
 import java.util.Date;
 
@@ -68,6 +69,13 @@ public class InvoiceItem implements InvoiceItemData {
         return service;
     }
 
+    public ServiceType getServiceType()
+    {
+        if(service == null)
+            return null;
+       return service.getServiceType();
+    }
+    
     public User getUser() {
         return user;
     }
@@ -108,6 +116,23 @@ public class InvoiceItem implements InvoiceItemData {
 
     public void setInvoice(Invoice invoices) {
         this.invoice = invoices;
+    }
+    
+    public void fullfill()
+    {
+        invoice.setFulfilled(Boolean.TRUE);
+    }
+    /**
+     * Diese Methode reduziert den RechnungsBetrag um den eingegebenen Betrag
+     * @param amount 
+     */
+    public void remove(Integer amount)
+    {
+        if(amount > this.amount)
+            this.amount = 0;
+        else
+        if(amount>0)
+            this.amount -= amount;
     }
 
     /**

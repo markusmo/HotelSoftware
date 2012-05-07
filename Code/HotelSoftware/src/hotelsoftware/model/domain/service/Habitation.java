@@ -299,11 +299,17 @@ public class Habitation extends Service implements HabitationData
         
         return builder.toString();
     }
-       private static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+    
+       public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
        {
-           if(null != roomId)
+           if(roomId == null)
           return ServiceFacade.getInstance().getHabitations(fName, lName);
        return ServiceFacade.getInstance().getHabitation(roomId);
        }
+
+    @Override
+    public String getServiceName() {
+        throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
+    }
       
 }
