@@ -34,6 +34,7 @@ public class Habitation extends Service implements HabitationData
     private Room rooms;
     private User users;
     private Collection<InvoiceItem> invoiceItems;
+    private String habitationNumber;
 
     public Habitation()
     {
@@ -209,6 +210,16 @@ public class Habitation extends Service implements HabitationData
     {
         this.users = users;
     }
+    
+    public String getHabitationNumber()
+    {
+        return habitationNumber;
+    }
+
+    public void setHabitationNumber(String habitationNumber)
+    {
+        this.habitationNumber = habitationNumber;
+    }
 
     /**
      * @return the invoiceItems
@@ -299,11 +310,17 @@ public class Habitation extends Service implements HabitationData
         
         return builder.toString();
     }
-       private static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+    
+       public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
        {
-           if(null != roomId)
+           if(roomId == null)
           return ServiceFacade.getInstance().getHabitations(fName, lName);
        return ServiceFacade.getInstance().getHabitation(roomId);
        }
+
+    @Override
+    public String getServiceName() {
+        throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
+    }
       
 }

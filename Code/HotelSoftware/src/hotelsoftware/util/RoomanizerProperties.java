@@ -19,7 +19,7 @@ public class RoomanizerProperties
     /**
      * Liest aus dem <code>resources/roomanizer.cfg</code> alle Eigenschaften,
      * die in diesem File geschrieben stehen.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void setPropertiesFromConfig() throws IOException
     {

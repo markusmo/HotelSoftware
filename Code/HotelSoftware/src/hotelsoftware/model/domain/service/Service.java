@@ -15,6 +15,9 @@ public abstract class Service implements ServiceData
     protected BigDecimal price;
     protected ServiceType serviceType;
 
+    
+    public abstract String getServiceName();
+    
     public Service()
     {
     }

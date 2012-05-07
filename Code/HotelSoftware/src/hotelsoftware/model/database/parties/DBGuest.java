@@ -41,39 +41,33 @@ public class DBGuest extends DBParty implements Serializable
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
     @Basic(optional = false)
     @Column(name = "fname", nullable = false, length = 255)
     private String fname;
-    
     @Basic(optional = false)
     @Column(name = "lname", nullable = false, length = 255)
     private String lname;
-    
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    
     private static final long serialVersionUID = 1;
-    
     @JoinTable(name = "allocations", joinColumns =
     {
         @JoinColumn(name = "idGuests", referencedColumnName = "idParties", nullable = false)
     }, inverseJoinColumns =
     {
-        @JoinColumn(name = "idService", referencedColumnName = "idServices", nullable = false)
+        @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
     })
     @ManyToMany
     private Set<DBHabitation> habitations;
-    
     @JoinTable(name = "reservationsGuests", joinColumns =
     {
-        @JoinColumn(name = "personsID", referencedColumnName = "idParties", nullable = false)
+        @JoinColumn(name = "idGuests", referencedColumnName = "idParties", nullable = false)
     }, inverseJoinColumns =
     {
-        @JoinColumn(name = "reservationsID", referencedColumnName = "id", nullable = false)
+        @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false)
     })
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<DBReservation> reservations;
 
     public DBGuest()
@@ -93,7 +87,7 @@ public class DBGuest extends DBParty implements Serializable
             this.habitations = new LinkedHashSet<DBHabitation>(habitationsCollection);
         }
     }
-    
+
     @XmlTransient
     public Collection<DBReservation> getReservations()
     {

@@ -245,6 +245,22 @@ public class DBReservation implements Serializable
 
         return new LinkedHashSet<DBReservation>(sqlquery.list());
     }
+    
+    public static int getHighestId()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "Select max(id) FROM reservations r";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+        int count = bd.intValue();
+        
+        return count;
+    }
 
     /**
      * Gibt die Anzahl der Gaeste aus die Reserviert haben
