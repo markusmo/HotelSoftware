@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.gui.createInvoice.subpanels;
+package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
