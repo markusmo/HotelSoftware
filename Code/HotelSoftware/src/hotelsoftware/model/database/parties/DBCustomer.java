@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "customers", catalog = "roomanizer", schema = "")
+@Table(name = "customers", catalog = "`roomanizer-dev`", schema = "")
 @PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement

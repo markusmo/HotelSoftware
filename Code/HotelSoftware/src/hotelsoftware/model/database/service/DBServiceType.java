@@ -33,7 +33,7 @@ import org.hibernate.Transaction;
  * @author mohi
  */
 @Entity
-@Table(name = "servicetypes", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "servicetypes", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

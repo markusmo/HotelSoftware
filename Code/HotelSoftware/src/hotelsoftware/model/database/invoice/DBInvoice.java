@@ -23,7 +23,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "invoices", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "invoices", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

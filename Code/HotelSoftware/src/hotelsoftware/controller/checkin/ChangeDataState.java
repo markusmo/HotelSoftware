@@ -219,6 +219,7 @@ public abstract class ChangeDataState extends CheckInState
             h.setPrice(roomSel.getRoom().getCategory().getPriceFor(context.getStartDate()));
             h.setRooms(roomSel.getRoom());
             h.setCreated(new Date());
+            h.setHabitationNumber(HelperFunctions.getNewContinousNumber(Habitation.class));
 
             try
             {

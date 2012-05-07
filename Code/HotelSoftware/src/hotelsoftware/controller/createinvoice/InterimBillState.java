@@ -21,7 +21,7 @@ public class InterimBillState extends CreateInvoiceState
         context.setState(new PaymentState(context));
     }
     
-    @Override
+    //@Override
     public void splitInvoice()
     {
         context.setState(new SplitInvoiceState(context));

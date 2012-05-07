@@ -20,7 +20,7 @@ import org.hibernate.Transaction;
  * @author mohi
  */
 @Entity
-@Table(name = "habitations", catalog = "roomanizer", schema = "")
+@Table(name = "habitations", catalog = "`roomanizer-dev`", schema = "")
 @PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
 public class DBHabitation extends DBService implements Serializable
 {
@@ -295,9 +295,11 @@ else
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-        int count = bd.intValue();
         
-        return count;
+        if (bd != null)
+            return bd;
+        else
+            return 0;
     }
     
     

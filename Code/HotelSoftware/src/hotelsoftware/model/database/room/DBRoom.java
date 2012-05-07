@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "rooms", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "rooms", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

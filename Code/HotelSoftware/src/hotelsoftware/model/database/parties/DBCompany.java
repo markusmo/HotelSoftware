@@ -20,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "companies", catalog = "roomanizer", schema = "")
+@Table(name = "companies", catalog = "`roomanizer-dev`", schema = "")
 @XmlRootElement
 @PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "idParties")
 public class DBCompany extends DBCustomer implements Serializable

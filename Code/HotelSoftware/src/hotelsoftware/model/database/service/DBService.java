@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author mohi
  */
 @Entity
-@Table(name = "services", catalog = "roomanizer", schema = "")
+@Table(name = "services", catalog = "`roomanizer-dev`", schema = "")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DBService implements Serializable

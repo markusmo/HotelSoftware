@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "roomcategories", catalog = "roomanizer", schema = "", uniqueConstraints =
+@Table(name = "roomcategories", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -127,7 +127,10 @@ public class DBRoomCategory implements Serializable
 
     public void setPrice(Collection<DBRoomCategoryPrice> prices)
     {
-        this.price = new LinkedHashSet(prices);
+        if (prices != null)
+        {
+            this.price = new LinkedHashSet(prices);
+        }
     }
 
     @Override
