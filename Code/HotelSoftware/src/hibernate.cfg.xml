@@ -4,7 +4,7 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer</property>
+    <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer-dev</property>
     <property name="hibernate.connection.username">hotel</property>
     <property name="hibernate.connection.password">R00m4n153r</property>
     <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
