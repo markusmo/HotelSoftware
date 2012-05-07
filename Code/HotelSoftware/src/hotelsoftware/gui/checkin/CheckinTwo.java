@@ -332,7 +332,7 @@ public class CheckinTwo extends javax.swing.JPanel
         catch (CouldNotSaveException ex)
         {
             // TODO message Box
-            JOptionPane.showConfirmDialog(this, ex.getMessage(), "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(this, "Failed to save."/*ex.getMessage()*/, "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CheckinTwo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
