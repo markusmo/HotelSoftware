@@ -85,6 +85,11 @@ public class Invoice implements InvoiceData
         return discount;
     }
 
+        public static int getHighestId()
+    {
+        return InvoiceFacade.getHighestInvoiceId();
+    }
+    
     @Override
     public Date getExpiration()
     {
