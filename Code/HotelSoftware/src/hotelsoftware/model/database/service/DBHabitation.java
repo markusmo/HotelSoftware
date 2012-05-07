@@ -17,13 +17,14 @@ import org.hibernate.Transaction;
 
 /**
  * Diese Klasse erbt von Service und bildet Aufenthalte auf die Datenbank ab.
+ *
  * @author mohi
  */
 @Entity
 @Table(name = "habitations", catalog = "`roomanizer-dev`", schema = "")
 @PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
-public class DBHabitation extends DBService implements Serializable
-{
+public class DBHabitation extends DBService implements Serializable {
+
     @Basic(optional = false)
     @Column(name = "habitationNr", nullable = false, length = 255)
     private String habitationNumber;
@@ -32,105 +33,82 @@ public class DBHabitation extends DBService implements Serializable
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
-    
     @Basic(optional = false)
     @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date end;
-    
     @Basic(optional = false)
     @Column(name = "created", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
     private static final long serialVersionUID = 1L;
-    
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
-    
     @ManyToMany(mappedBy = "habitations")
     private Set<DBGuest> guests;
-    
     @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBRoom rooms;
-    
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser users;
-    
-    @OneToMany(mappedBy="habitation", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "habitation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
 
-    public DBHabitation()
-    {
+    public DBHabitation() {
     }
 
-    public DBHabitation(Date start, Date end, BigDecimal price, Date created)
-    {
+    public DBHabitation(Date start, Date end, BigDecimal price, Date created) {
         this.start = start;
         this.end = end;
         this.price = price;
         this.created = created;
     }
 
-    public BigDecimal getPrice()
-    {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price)
-    {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     @XmlTransient
-    public Collection<DBGuest> getGuests()
-    {
+    public Collection<DBGuest> getGuests() {
         return guests;
     }
 
-    public void setGuests(Collection<DBGuest> guestsCollection)
-    {
-        if (guestsCollection != null)
-        {
+    public void setGuests(Collection<DBGuest> guestsCollection) {
+        if (guestsCollection != null) {
             this.guests = new LinkedHashSet<DBGuest>(guestsCollection);
         }
     }
 
-
     @XmlTransient
-    public Collection<DBInvoiceItem> getInvoiceitems()
-    {
+    public Collection<DBInvoiceItem> getInvoiceitems() {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(Collection<DBInvoiceItem> invoiceItems)
-    {
-        if (invoiceItems != null)
-        {
+    public void setInvoiceItems(Collection<DBInvoiceItem> invoiceItems) {
+        if (invoiceItems != null) {
             this.invoiceItems = new LinkedHashSet<DBInvoiceItem>(invoiceItems);
         }
     }
 
-    public DBRoom getRooms()
-    {
+    public DBRoom getRooms() {
         return rooms;
     }
 
-    public void setRooms(DBRoom idRooms)
-    {
+    public void setRooms(DBRoom idRooms) {
         this.rooms = idRooms;
     }
 
-    public DBUser getUsers()
-    {
+    public DBUser getUsers() {
         return users;
     }
 
-    public void setUsers(DBUser idUsers)
-    {
+    public void setUsers(DBUser idUsers) {
         this.users = idUsers;
     }
     
@@ -145,43 +123,37 @@ public class DBHabitation extends DBService implements Serializable
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 0;
         hash += (getIdServices() != null ? getIdServices().hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBHabitation))
-        {
+        if (!(object instanceof DBHabitation)) {
             return false;
         }
         DBHabitation other = (DBHabitation) object;
-        if((this.getIdServices() == null && other.getIdServices() != null) || (this.getIdServices() != null && !this.getIdServices().equals(other.getIdServices())))
-        {
+        if ((this.getIdServices() == null && other.getIdServices() != null) || (this.getIdServices() != null && !this.getIdServices().equals(other.getIdServices()))) {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "hotelsoftware.database.model.Habitations[ id=" + getIdServices() + " ]";
     }
-    
+
     /**
      * Sucht einen Aufenthalt nach einem Gast und gibt diesen aus
-     * @param guest
-     * Der Gast, nach dem gesucht wird
-     * @return 
-     * Der Aufenthalt, der dem Gast entspricht
+     *
+     * @param guest Der Gast, nach dem gesucht wird
+     * @return Der Aufenthalt, der dem Gast entspricht
      */
-    public static DBHabitation getActualHabitationByGuest(DBGuest guest){
+    public static DBHabitation getActualHabitationByGuest(DBGuest guest) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
@@ -191,96 +163,89 @@ public class DBHabitation extends DBService implements Serializable
         String query = "Select * "
                 + "From habitations h inner join allocation a on h.id = a.idHabitations "
                 + "inner join guests g on a.idGuests = g.id "
-                + "where g.id = "+guest.getIdParties().toString()+" AND"
+                + "where g.id = " + guest.getIdParties().toString() + " AND"
                 + "h.start >= CURRENT_DATE";
         SQLQuery sqlquery = session.createSQLQuery(query);
-        
-        DBHabitation habitation = (DBHabitation)sqlquery.uniqueResult();
+
+        DBHabitation habitation = (DBHabitation) sqlquery.uniqueResult();
         ;
-        
+
         return habitation;
     }
 
-    public static Collection<DBHabitation> search(String fname, String lname)
-    {
-    
+    public static Collection<DBHabitation> search(String fname, String lname) {
+
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         String query;
-if(fname == null)
-{
-    if(lname==null)
-    {
-        // VOR UND NACHNAME SIND LEER
-                                query = ""
-                + "SELECT *"
-                + "FROM habitaions h"
-                + "INNER JOIN allocations a ON h.id=a.idService"
-                +"INNER JOIN guests g ON g.id=a.idGuests;";
-    }
-    else
-    {
-        // NUR VORNAME IST LEER
-                        query = ""
-                + "SELECT *"
-                + "FROM habitaions h"
-                + "INNER JOIN allocations a ON h.id=a.idService"
-                +"INNER JOIN guests g ON g.id=a.idGuests"
-                +"WHERE lname ="+lname+";";
-    }
-}
-else if(lname==null)
-        {
-            //NUR NACHNAME IST LEER
-                            query = ""
-                + "SELECT *"
-                + "FROM habitaions h"
-                + "INNER JOIN allocations a ON h.id=a.idService"
-                +"INNER JOIN guests g ON g.id=a.idGuests"
-                +"WHERE lname ="+lname+";";
-        }
-else
-{
-    //NICHTS IST LEER
+        if (fname == null) {
+            if (lname == null) {
+                // VOR UND NACHNAME SIND LEER
                 query = ""
-                + "SELECT *"
-                + "FROM habitaions h"
-                + "INNER JOIN allocations a ON h.id=a.idService"
-                +"INNER JOIN guests g ON g.id=a.idGuests"
-                +"WHERE lname ="+lname+" AND fname="+fname+";";
-}
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests;";
+            } else {
+                // NUR VORNAME IST LEER
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests"
+                        + "WHERE lname =" + lname + ";";
+            }
+        } else if (lname == null) {
+            //NUR NACHNAME IST LEER
+            query = ""
+                    + "SELECT *"
+                    + "FROM habitations h"
+                    + "INNER JOIN allocations a ON h.id=a.idService"
+                    + "INNER JOIN guests g ON g.id=a.idGuests"
+                    + "WHERE lname =" + lname + ";";
+        } else {
+            //NICHTS IST LEER
+            query = ""
+                    + "SELECT *"
+                    + "FROM habitations h"
+                    + "INNER JOIN allocations a ON h.id=a.idService"
+                    + "INNER JOIN guests g ON g.id=a.idGuests"
+                    + "WHERE lname =" + lname + " AND fname=" + fname + ";";
+        }
 
-      
+
         SQLQuery sqlquery = session.createSQLQuery(query);
 
 
         //addEntity gibt den rueckgabewert an...
         sqlquery = sqlquery.addEntity(DBHabitation.class);
         List<DBHabitation> retList = sqlquery.list();
-
+        if (retList == null) {
+            return new LinkedHashSet();
+        }
         return new LinkedHashSet<DBHabitation>(retList);
     }
-    
-       public static Collection<DBHabitation> search(Integer roomnr)
-    {
-    
+
+    public static Collection<DBHabitation> search(Integer roomnr) {
+
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         String query = ""
-                + "SELECT *"
-                + "FROM habitaions h"
-                + "INNER JOIN rooms r ON h.idRooms=r.id"
-                +"WHERE r.roomNumber="+roomnr+";";
+                + "SELECT * "
+                + "FROM habitations h "
+                + "INNER JOIN rooms r ON h.idRooms = r.id "
+                + "WHERE r.roomNumber ='" + roomnr.toString() + "';";
 
         SQLQuery sqlquery = session.createSQLQuery(query);
-
 
         //addEntity gibt den rueckgabewert an...
         sqlquery = sqlquery.addEntity(DBHabitation.class);
         List<DBHabitation> retList = sqlquery.list();
-
+        if (retList == null) {
+            return new LinkedHashSet();
+        }
         return new LinkedHashSet<DBHabitation>(retList);
     }
        
@@ -308,28 +273,23 @@ else
         return start;
     }
 
-    public void setStart(Date start)
-    {
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public Date getEnd()
-    {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(Date end)
-    {
+    public void setEnd(Date end) {
         this.end = end;
     }
 
-    public Date getCreated()
-    {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Date created)
-    {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

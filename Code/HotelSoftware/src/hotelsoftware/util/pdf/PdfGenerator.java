@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -30,7 +31,6 @@ import java.util.Locale;
  */
 public class PdfGenerator
 {
-
     /**
      * Dynamische Pfadgenerierung, zu dem Ort, an dem die PDFs gespeichert
      * werden
@@ -50,7 +50,11 @@ public class PdfGenerator
      * Konvertiert eine Rechung in ein PDF. Der Dateiname des PDFs wird mit der
      * Rechungsnummer erstellt.
      *
-     * @param inv die Rechung für die das PDF generiert werden soll
+     * @param customer der Kunde, der die Rechung zahlt, für Anschrift nötig
+     * @param invoiceNumber die einzigartige Nummer, der Rechnung
+     * @param items die Rechnungspositionen, die aufgelistet werden
+     * @param created das Kreierungsdatum
+     * @param expiration das Fälligkeitsdatum
      * @throws FileNotFoundException Wenn das File nicht erstellt werden kann
      * @throws DocumentException Wenn ein Fehler bei der Erstellung des PDFs
      * auftritt
@@ -60,7 +64,7 @@ public class PdfGenerator
      * aufweist
      * @throws IOException Wenn das laden des Logos einen Fehler aufweist
      */
-    public void generateInvoicePDF(Invoice inv) throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
+    public void generateInvoicePDF(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration) throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
     {
         Document doc = new Document(PageSize.A4);
         File temp = new File(path);
@@ -68,17 +72,16 @@ public class PdfGenerator
         {
             temp.mkdir();
         }
-        String invoicePath = path + "/" + inv.getInvoiceNumber() + ".pdf";
-        //for writing... adds a writer to the document...
+        String invoicePath = path + "/" + invoiceNumber + ".pdf";
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
         doc.open();
         addMetaData(doc);
         addLogo(doc);
-        addCustomer(doc, inv.getCustomer());
+        addCustomer(doc, customer);
         addHotelAddress(doc);
-        addInvoiceBody(doc, inv.getInvoiceNumber(), inv.getInvoiceItems(),
-                inv.getTotalwithTax(), inv.getCreated(), inv.getExpiration());
+        addInvoiceBody(doc, invoiceNumber, items,
+                getTotalwithTax(items), created, expiration);
         addThankyouMessage(doc);
 
         doc.close();
@@ -108,8 +111,9 @@ public class PdfGenerator
      */
     private void addLogo(Document doc) throws BadElementException, MalformedURLException, IOException, DocumentException
     {
-        Image image = Image.getInstance(PdfGenerator.class.getClassLoader().getResource(
-                "resources/images/logo_pdf.jpg"));
+        URL url = PdfGenerator.class.getClassLoader().getResource(
+                "resources/images/logo-pdf.jpg");
+        Image image = Image.getInstance(url);
         doc.add(image);
         Paragraph empty = new Paragraph();
         addEmptyLine(empty, 5);
@@ -189,7 +193,7 @@ public class PdfGenerator
             Date created, Date expiration) throws DocumentException
     {
         Paragraph invoiceParagraph = new Paragraph();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         //invoice creation date + invoice number
         invoiceParagraph.add(new Paragraph(
@@ -275,5 +279,22 @@ public class PdfGenerator
         {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    /**
+     * Rechnet die Gesammtsumme einer Rechnung aus
+     *
+     * @param items die Rechnungsposition, mit der eine Rechnung generiert wird
+     * @return
+     * die Gesammtsumme einer Rechnung
+     */
+    private double getTotalwithTax(Collection<InvoiceItem> items)
+    {
+        double total = 0;
+        for (InvoiceItem item : items)
+        {
+            total = total + item.getPriceWithTax();
+        }
+        return total;
     }
 }

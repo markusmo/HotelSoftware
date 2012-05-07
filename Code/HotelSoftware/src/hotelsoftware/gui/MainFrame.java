@@ -3,8 +3,12 @@ package hotelsoftware.gui;
 import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.gui.invoice.InvoiceHome;
+<<<<<<< HEAD
+import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.IntermediatInvoice;
+=======
+import hotelsoftware.gui.invoice.InvoiceHome;
+>>>>>>> 8a385f77e363268e3a012f3e77c948c957ddcd21
 import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.login.LoginWindow;
 import java.awt.*;
