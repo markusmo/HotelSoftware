@@ -1,13 +1,11 @@
 package hotelsoftware.util;
 
-
-
-import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.model.domain.service.Habitation;
+import java.lang.reflect.Method;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
-
+import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * Behelftklasse, die Dynamisch Collections mapt
