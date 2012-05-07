@@ -28,14 +28,15 @@ public class InvoiceHome extends javax.swing.JPanel
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         invoiceHomeTables = new javax.swing.JPanel();
+        habitations3 = new hotelsoftware.gui.invoice.home.habitations();
         dropSelectButtons = new javax.swing.JPanel();
         chooseAll = new javax.swing.JButton();
         chooseSelection = new javax.swing.JButton();
         dropSelected = new javax.swing.JButton();
         dropAll = new javax.swing.JButton();
-        habitations3 = new hotelsoftware.gui.invoice.home.habitations();
         habitations4 = new hotelsoftware.gui.invoice.home.habitations();
         searchPanel = new javax.swing.JPanel();
         label_lname = new javax.swing.JLabel();
@@ -51,7 +52,10 @@ public class InvoiceHome extends javax.swing.JPanel
         setRequestFocusEnabled(false);
         setLayout(new java.awt.BorderLayout());
 
-        invoiceHomeTables.setLayout(new java.awt.BorderLayout());
+        invoiceHomeTables.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        invoiceHomeTables.add(habitations3, gridBagConstraints);
 
         dropSelectButtons.setMaximumSize(new java.awt.Dimension(32767, 100));
         dropSelectButtons.setPreferredSize(new java.awt.Dimension(80, 240));
@@ -116,12 +120,12 @@ public class InvoiceHome extends javax.swing.JPanel
                     .addGroup(dropSelectButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(chooseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(chooseSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         dropSelectButtonsLayout.setVerticalGroup(
             dropSelectButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dropSelectButtonsLayout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(chooseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chooseSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,9 +135,10 @@ public class InvoiceHome extends javax.swing.JPanel
                 .addComponent(dropAll, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        invoiceHomeTables.add(dropSelectButtons, java.awt.BorderLayout.CENTER);
-        invoiceHomeTables.add(habitations3, java.awt.BorderLayout.WEST);
-        invoiceHomeTables.add(habitations4, java.awt.BorderLayout.EAST);
+        invoiceHomeTables.add(dropSelectButtons, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        invoiceHomeTables.add(habitations4, gridBagConstraints);
 
         add(invoiceHomeTables, java.awt.BorderLayout.CENTER);
 
