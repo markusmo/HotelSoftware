@@ -73,7 +73,6 @@ public class PdfGenerator
             temp.mkdir();
         }
         String invoicePath = path + "/" + invoiceNumber + ".pdf";
-        //for writing... adds a writer to the document...
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
         doc.open();

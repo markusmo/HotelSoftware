@@ -34,7 +34,7 @@ public class PdfgenerateTest
         catch (FileNotFoundException ex)
         {
             Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
         catch (DocumentException ex)
         {
             Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
