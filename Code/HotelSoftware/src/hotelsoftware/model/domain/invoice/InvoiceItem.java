@@ -50,66 +50,77 @@ public class InvoiceItem implements InvoiceItemData {
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
 
+       public InvoiceItemPK getInvoiceitemsPK()
+    {
+        return pk;
+    }
+
+    public void setInvoiceitemsPK(InvoiceItemPK invoiceitemsPK)
+    {
+        this.pk = invoiceitemsPK;
+    }
+
     @Override
-    public Integer getAmount() {
+    public Integer getAmount()
+    {
         return amount;
     }
 
-    @Override
-    public Date getCreated() {
-        return created;
-    }
-
-    public Habitation getHabitation() {
-        return habitation;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setAmount(int amount) {
+    public void setAmount(int amount)
+    {
         this.amount = amount;
     }
 
-    public void setCreated(Date created) {
+    @Override
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(Date created)
+    {
         this.created = created;
     }
 
-    public void setHabitation(Habitation habitation) {
-        this.habitation = habitation;
+    public Service getService()
+    {
+        return service;
     }
 
-    public void setService(Service service) {
+    public void setService(Service service)
+    {
         this.service = service;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public InvoiceItemPK getInvoiceitemsPK() {
-        return this.pk;
-    }
-
-    public void setInvoiceitemsPK(InvoiceItemPK invoiceitemsPK) {
-        if (this.pk == null) {
-            this.pk = invoiceitemsPK;
-        }
-    }
-
-    public Invoice getInvoice() {
+    public Invoice getInvoice()
+    {
         return invoice;
     }
 
-    public void setInvoice(Invoice invoices) {
+    public void setInvoice(Invoice invoices)
+    {
         this.invoice = invoices;
     }
 
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public Habitation getHabitation()
+    {
+        return habitation;
+    }
+
+    public void setHabitation(Habitation habitation)
+    {
+        this.habitation = habitation;
+    }
     /**
      * Gibt den Preis für eine Rechungsposion aus, mit Steuern
      *
