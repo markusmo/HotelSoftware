@@ -4,7 +4,6 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import java.io.File;
@@ -17,19 +16,19 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Dieses Objekt generiert PDFs. Der Pfad in dem diese gespeichert werden liegt
- * im Home-Verzeichnis des Users unter RoomanizerPDFs. Alle generierten PDFs
- * sollten die Schrift Times New Roman benutzen.
+ * Dieses Objekt generiert PDFs. Diese Klasse ist nur als Thread ausführbar, das heißt, die Methode generatePDF() wird im run() des implementierten Interfaces Runnable aufgerufen.
+ * Klasse die diese Objekt benutzt muss das Interface Observer implementieren, damit sobald das PDF im Thread fertig generiert wurde, dieses Objekt merkt, dass das generieren fertig ist.
+ * Der Pfad in dem diese gespeichert werden liegt im Home-Verzeichnis des Users unter RoomanizerPDFs.
+ * Alle generierten PDFs sollten die Schrift Times New Roman benutzen.
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class PdfGenerator
+public class PdfGenerator extends Observable implements Runnable
 {
     /**
      * Dynamische Pfadgenerierung, zu dem Ort, an dem die PDFs gespeichert
@@ -45,6 +44,32 @@ public class PdfGenerator
      * Die Schrift, mit der alle Überschriften dargestellt werden
      */
     private static final Font bigfont = new Font(Font.TIMES_ROMAN, 16, Font.BOLD);
+    
+    private Customer customer;
+    private String invoiceNumber;
+    private Collection<InvoiceItem> items;
+    private Date created;
+    private Date expiration;
+
+    /**
+     * Neue Instanz der Klasse PDFGenerator. Ist nur als <code>Thread</code> ausführbar.
+     * Aufruf nur als Thread (implementiert <code>Runnable</code>). Wenn generierung fertig,
+     * wird <code>notifyObservers()</code> aufgerufen.
+     *
+     * @param customer der Kunde, der die Rechung zahlt
+     * @param invoiceNumber die eindeutige Rechungsnummer
+     * @param items die Rechungspositionen
+     * @param created das Kreierungsdatum
+     * @param expiration das Fälligkeitsdatum
+     */
+    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
+    {
+        this.customer = customer;
+        this.invoiceNumber = invoiceNumber;
+        this.items = items;
+        this.created = created;
+        this.expiration = expiration;
+    }
 
     /**
      * Konvertiert eine Rechung in ein PDF. Der Dateiname des PDFs wird mit der
@@ -64,7 +89,7 @@ public class PdfGenerator
      * aufweist
      * @throws IOException Wenn das laden des Logos einen Fehler aufweist
      */
-    public void generateInvoicePDF(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration) throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
+    private void generateInvoicePDF() throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
     {
         Document doc = new Document(PageSize.A4);
         File temp = new File(path);
@@ -192,6 +217,8 @@ public class PdfGenerator
             Collection<InvoiceItem> items, double totalamount,
             Date created, Date expiration) throws DocumentException
     {
+        double percent10Total = get10PercentTotal(items);
+        double percent20Total = get20PercentTotal(items);
         Paragraph invoiceParagraph = new Paragraph();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -240,12 +267,21 @@ public class PdfGenerator
             table.addCell("Service");
             table.addCell(currencyFormat.format(item.getTotalPriceWithTax()));
         }
-        //TODO taxes 10% and 20% of bill, separation?
+        //total amount
         table.addCell("");
         table.addCell("");
         table.addCell("Total");
         table.addCell(currencyFormat.format(totalamount));
-
+        //10 percent sales tax
+        table.addCell("");
+        table.addCell("");
+        table.addCell("sales tax 10%");
+        table.addCell(currencyFormat.format(percent10Total));
+        //20 percent sales tax
+        table.addCell("");
+        table.addCell("");
+        table.addCell("sales tax 20%");
+        table.addCell(currencyFormat.format(percent20Total));
         //add table to paragraph
         invoiceParagraph.add(table);
         //add paragraph to document
@@ -296,5 +332,87 @@ public class PdfGenerator
             total = total + item.getPriceWithTax();
         }
         return total;
+    }
+
+    private double get20PercentTax(double total)
+    {
+        return total / 0.2;
+    }
+
+    private double get10PercentTax(double total)
+    {
+        return total / 0.1;
+    }
+
+    /**
+     * Rechnet den Totalbetrag für alle Services mit 20% Mehrwertssteuer
+     *
+     * @param items alle Rechnungspositionen
+     * @return der Totalbetrag aller Services mit 20% Mehrwertsteuer
+     */
+    private double get20PercentTotal(Collection<InvoiceItem> items)
+    {
+        double total = 0;
+
+        for (InvoiceItem item : items)
+        {
+            if (item.getService().getServiceType().getTaxRate().doubleValue() == 0.2)
+            {
+                total = total + item.getPriceWithTax();
+            }
+        }
+
+        return total;
+    }
+
+    /**
+     * Rechnet den Totalbetrag für alle Services mit 10% Mehrwertssteuer
+     *
+     * @param items alle Rechnungspositionen
+     * @return der Totalbetrag aller Services mit 10% Mehrwertsteuer
+     */
+    private double get10PercentTotal(Collection<InvoiceItem> items)
+    {
+        double total = 0;
+
+        for (InvoiceItem item : items)
+        {
+            if (item.getService().getServiceType().getTaxRate().doubleValue() == 0.1)
+            {
+                total = total + item.getPriceWithTax();
+            }
+        }
+
+        return total;
+    }
+
+    @Override
+    public void run()
+    {
+        try
+        {
+            generateInvoicePDF();
+            notifyObservers();
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (BadElementException ex)
+        {
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (DocumentException ex)
+        {
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (MalformedURLException ex)
+        {
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

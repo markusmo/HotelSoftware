@@ -21,6 +21,11 @@ public class InvoiceFacade
         return InvoiceFacadeHolder.INSTANCE;
     }
 
+        static int getHighestInvoiceId()
+    {
+        return DBInvoice.getHighestId();
+    }
+    
     private static class InvoiceFacadeHolder
     {
         private static final InvoiceFacade INSTANCE = new InvoiceFacade();

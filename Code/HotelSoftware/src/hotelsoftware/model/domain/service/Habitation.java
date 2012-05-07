@@ -101,7 +101,7 @@ public class Habitation extends Service implements HabitationData
     public static int getHighestId()
     {
         return ServiceFacade.getHighestHabitationId();
-    }
+    } //überfacade reservation und invoice
 
     /**
      * @return the start
