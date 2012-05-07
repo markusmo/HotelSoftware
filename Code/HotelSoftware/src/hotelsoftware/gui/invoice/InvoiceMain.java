@@ -5,6 +5,7 @@
 package hotelsoftware.gui.invoice;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -127,6 +128,7 @@ public class InvoiceMain extends javax.swing.JPanel
         JPanel content = InvoiceGUIControler.getInstance().getContentPanel();
         content.removeAll();
         content.add(new IntermediatInvoice(), BorderLayout.CENTER);
+        ((CardLayout)content.getLayout()).next(content);
         content.repaint();
     }//GEN-LAST:event_buttonSelectActionPerformed
 

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.gui.invoice;
+package hotelsoftware.gui.invoice.home;
 
 /**
  * 
@@ -32,13 +32,13 @@ public class InvoiceHome extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         invoiceHomeTables = new javax.swing.JPanel();
-        habitations1 = new hotelsoftware.gui.invoice.subpanels.habitations();
+        habitations1 = new org.netbeans.modules.form.InvalidComponent();
         dropSelectButtons = new javax.swing.JPanel();
         chooseAll = new javax.swing.JButton();
         chooseSelection = new javax.swing.JButton();
         dropSelected = new javax.swing.JButton();
         dropAll = new javax.swing.JButton();
-        habitations2 = new hotelsoftware.gui.invoice.subpanels.habitations();
+        habitations2 = new org.netbeans.modules.form.InvalidComponent();
         searchPanel = new javax.swing.JPanel();
         label_lname = new javax.swing.JLabel();
         labelFname = new javax.swing.JLabel();
@@ -278,8 +278,8 @@ public class InvoiceHome extends javax.swing.JPanel
     private javax.swing.JButton dropAll;
     private javax.swing.JPanel dropSelectButtons;
     private javax.swing.JButton dropSelected;
-    private hotelsoftware.gui.invoice.subpanels.habitations habitations1;
-    private hotelsoftware.gui.invoice.subpanels.habitations habitations2;
+    private org.netbeans.modules.form.InvalidComponent habitations1;
+    private org.netbeans.modules.form.InvalidComponent habitations2;
     private javax.swing.JPanel invoiceHomeTables;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelFname;
