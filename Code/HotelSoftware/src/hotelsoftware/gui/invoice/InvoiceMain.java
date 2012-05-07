@@ -17,6 +17,14 @@ public class InvoiceMain extends javax.swing.JPanel
     public JPanel getContentPanel() {
         return contentPanel;
     }
+    
+    public JPanel getNavigationPanel() {
+        return naviagationPanel;
+    }
+    
+    public JPanel getStatePanel() {
+        return statePanel;
+    }
 
     /**
      * Creates new form CheckInMain
@@ -50,7 +58,7 @@ public class InvoiceMain extends javax.swing.JPanel
         constructiveNavigation = new javax.swing.JPanel();
         buttonSelect = new javax.swing.JButton();
         splitCancel = new javax.swing.JButton();
-        splitCancel1 = new javax.swing.JButton();
+        chooseCustomerButtion = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -110,13 +118,13 @@ public class InvoiceMain extends javax.swing.JPanel
         });
         constructiveNavigation.add(splitCancel);
 
-        splitCancel1.setText("Forward (Choose Customer)");
-        splitCancel1.addActionListener(new java.awt.event.ActionListener() {
+        chooseCustomerButtion.setText("Forward (Choose Customer)");
+        chooseCustomerButtion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                splitCancel1ActionPerformed(evt);
+                chooseCustomerButtionActionPerformed(evt);
             }
         });
-        constructiveNavigation.add(splitCancel1);
+        constructiveNavigation.add(chooseCustomerButtion);
 
         naviagationPanel.add(constructiveNavigation, java.awt.BorderLayout.EAST);
 
@@ -125,11 +133,7 @@ public class InvoiceMain extends javax.swing.JPanel
 
     private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
     {//GEN-HEADEREND:event_buttonSelectActionPerformed
-        JPanel content = InvoiceGUIControler.getInstance().getContentPanel();
-        content.removeAll();
-        content.add(new IntermediatInvoice(), BorderLayout.CENTER);
-        ((CardLayout)content.getLayout()).next(content);
-        content.repaint();
+        InvoiceGUIControler.getInstance().setContentPanel(new IntermediatInvoice());
     }//GEN-LAST:event_buttonSelectActionPerformed
 
     private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
@@ -140,13 +144,13 @@ public class InvoiceMain extends javax.swing.JPanel
 
     private void splitCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_splitCancelActionPerformed
     {//GEN-HEADEREND:event_splitCancelActionPerformed
-
+        InvoiceGUIControler.getInstance().setContentPanel(new splitNstornoPanel());
    }//GEN-LAST:event_splitCancelActionPerformed
 
-    private void splitCancel1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_splitCancel1ActionPerformed
-    {//GEN-HEADEREND:event_splitCancel1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_splitCancel1ActionPerformed
+    private void chooseCustomerButtionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chooseCustomerButtionActionPerformed
+    {//GEN-HEADEREND:event_chooseCustomerButtionActionPerformed
+        //InvoiceGUIControler.getInstance().setContentPanel();
+    }//GEN-LAST:event_chooseCustomerButtionActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
@@ -157,6 +161,7 @@ public class InvoiceMain extends javax.swing.JPanel
     private javax.swing.JButton backButton;
     private javax.swing.JButton buttonAbort;
     private javax.swing.JButton buttonSelect;
+    private javax.swing.JButton chooseCustomerButtion;
     private javax.swing.JPanel constructiveNavigation;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel deconstructiveNavigation;
@@ -165,7 +170,6 @@ public class InvoiceMain extends javax.swing.JPanel
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel naviagationPanel;
     private javax.swing.JButton splitCancel;
-    private javax.swing.JButton splitCancel1;
     private javax.swing.JPanel statePanel;
     // End of variables declaration//GEN-END:variables
 }
