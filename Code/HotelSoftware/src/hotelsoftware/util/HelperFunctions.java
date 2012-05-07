@@ -76,16 +76,11 @@ public Collection<U> castCollectionDown(Collection<T> col)
         String date = sdf.format(new Date());
         Integer id = 0;
         
-        char prefix = cls.getClass().getName().toLowerCase().charAt(0);
+        char prefix = cls.getName().toLowerCase().charAt(0);
         try
         {
-            Method m = cls.getMethod("getHighestId");
-            id = (Integer)m.invoke(cls);
-            
-            if (id == null)
-            {
-                id = 0;
-            }
+            Method m = cls.getDeclaredMethod("getHighestId");
+            id = (Integer)m.invoke(null);
         }
         catch (Exception ex)
         {
@@ -94,6 +89,7 @@ public Collection<U> castCollectionDown(Collection<T> col)
         
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMinimumIntegerDigits(8);
+        nf.setGroupingUsed(false);
         
         return prefix + date + nf.format(id+1);
     }

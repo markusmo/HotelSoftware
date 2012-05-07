@@ -10,6 +10,7 @@ import java.util.Collection;
 
 /**
  * Ist die Fassadenklasse, die das Package Service verwaltet
+ *
  * @author Tobias
  */
 public class ServiceFacade
@@ -30,7 +31,8 @@ public class ServiceFacade
 
     /**
      * Gibt alle Extraservices aus
-     * @return 
+     *
+     * @return
      * Alle Extraservices, die vorhanden sind
      */
     public Collection getAllExtraServices()
@@ -40,11 +42,12 @@ public class ServiceFacade
 
     /**
      * Gibt einen Extraservice gesucht nach Namen aus
+     *
      * @param name
      * Der Name des Extraservice
      * @return
      * Der Extraservice mit dem angegebenen Namen
-     * @throws ServiceNotFoundException 
+     * @throws ServiceNotFoundException
      * Wirft einen Fehler, wenn der Service nicht gefunden wird.
      */
     public ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
@@ -57,12 +60,14 @@ public class ServiceFacade
         }
         return (ExtraService) DynamicMapper.map(p);
     }
+
     /**
      * Diese Methode sucht nach einem Service anhand eines Namens
+     *
      * @param name
      * @return
      * Der Service mit dem angegebenen Namen
-     * @throws ServiceTypeNotFoundException 
+     * @throws ServiceTypeNotFoundException
      */
     public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
     {
@@ -74,15 +79,21 @@ public class ServiceFacade
         }
         return (ServiceType) DynamicMapper.map(p);
     }
-    
+
+    static int getHighestHabitationId()
+    {
+        return DBHabitation.getHighestId();
+    }
+
     public Collection<Habitation> getHabitations(String fname, String lname)
     {
         Collection<DBHabitation> p = DBHabitation.search(fname, lname);
         return (Collection<Habitation>) DynamicMapper.map(p);
     }
-        public Collection<Habitation> getHabitation(Integer roomId)
+
+    public Collection<Habitation> getHabitation(Integer roomId)
     {
-         Collection<DBHabitation> p = DBHabitation.search(roomId);
+        Collection<DBHabitation> p = DBHabitation.search(roomId);
         return (Collection<Habitation>) DynamicMapper.map(p);
     }
 }

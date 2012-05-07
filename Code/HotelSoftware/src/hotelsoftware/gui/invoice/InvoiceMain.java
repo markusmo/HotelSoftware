@@ -4,6 +4,8 @@
  */
 package hotelsoftware.gui.invoice;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -12,6 +14,9 @@ import javax.swing.JPanel;
  */
 public class InvoiceMain extends javax.swing.JPanel
 {
+    public JPanel getContentPanel() {
+        return contentPanel;
+    }
 
     /**
      * Creates new form CheckInMain
@@ -19,13 +24,10 @@ public class InvoiceMain extends javax.swing.JPanel
     public InvoiceMain()
     {
         initComponents();
+        InvoiceGUIControler.getInstance().setMain(this);
     }
 
     
-    public JPanel getContentPanel() {
-        return this.contentPanel;
-    }
-
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -50,6 +52,8 @@ public class InvoiceMain extends javax.swing.JPanel
         splitCancel = new javax.swing.JButton();
         splitCancel1 = new javax.swing.JButton();
 
+        setLayout(new java.awt.BorderLayout());
+
         statePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel2.setText("Home");
@@ -61,7 +65,12 @@ public class InvoiceMain extends javax.swing.JPanel
         jLabel3.setText("Intermediat Invoice");
         statePanel.add(jLabel3);
 
-        contentPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        add(statePanel, java.awt.BorderLayout.NORTH);
+
+        contentPanel.setLayout(new java.awt.CardLayout());
+        add(contentPanel, java.awt.BorderLayout.CENTER);
+
+        naviagationPanel.setLayout(new java.awt.BorderLayout());
 
         deconstructiveNavigation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -80,6 +89,8 @@ public class InvoiceMain extends javax.swing.JPanel
             }
         });
         deconstructiveNavigation.add(backButton);
+
+        naviagationPanel.add(deconstructiveNavigation, java.awt.BorderLayout.WEST);
 
         constructiveNavigation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
@@ -107,48 +118,18 @@ public class InvoiceMain extends javax.swing.JPanel
         });
         constructiveNavigation.add(splitCancel1);
 
-        javax.swing.GroupLayout naviagationPanelLayout = new javax.swing.GroupLayout(naviagationPanel);
-        naviagationPanel.setLayout(naviagationPanelLayout);
-        naviagationPanelLayout.setHorizontalGroup(
-            naviagationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(naviagationPanelLayout.createSequentialGroup()
-                .addComponent(deconstructiveNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(constructiveNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        naviagationPanelLayout.setVerticalGroup(
-            naviagationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(naviagationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(naviagationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(constructiveNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deconstructiveNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        naviagationPanel.add(constructiveNavigation, java.awt.BorderLayout.EAST);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(naviagationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(statePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(naviagationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(naviagationPanel, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
     {//GEN-HEADEREND:event_buttonSelectActionPerformed
-        
+        JPanel content = InvoiceGUIControler.getInstance().getContentPanel();
+        content.removeAll();
+        content.add(new IntermediatInvoice(), BorderLayout.CENTER);
+        ((CardLayout)content.getLayout()).next(content);
+        content.repaint();
     }//GEN-LAST:event_buttonSelectActionPerformed
 
     private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed

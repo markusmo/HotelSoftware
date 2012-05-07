@@ -23,7 +23,8 @@ public class SearchState extends CreateInvoiceState
     @Override
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(Habitation.search(firstName, lastName, roomNr));
+       // return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(Habitation.search(firstName, lastName, roomNr));
+        return null;
     }
     
     @Override

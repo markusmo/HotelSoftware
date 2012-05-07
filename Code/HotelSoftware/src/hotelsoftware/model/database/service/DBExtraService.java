@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "extraservices", catalog = "roomanizer", schema = "")
+@Table(name = "extraservices", catalog = "`roomanizer-dev`", schema = "")
 @PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
 @XmlRootElement
 public class DBExtraService extends DBService implements Serializable

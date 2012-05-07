@@ -14,11 +14,15 @@ import hotelsoftware.model.domain.users.User;
 import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Dies Klasse bildet einen Aufenthalt ab, mit der das System arbeitet
@@ -92,6 +96,11 @@ public class Habitation extends Service implements HabitationData
         habitation.setEnd(reservation.getEndDate());
         habitation.setUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
+    }
+    
+    public static int getHighestId()
+    {
+        return ServiceFacade.getHighestHabitationId();
     }
 
     /**

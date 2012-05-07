@@ -109,7 +109,7 @@ public class PartySaver
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        
+
         saveOrUpdate(session, addresses, companytypes, companys, privateCustomers, guests);
 
         try
