@@ -380,7 +380,20 @@ public class splitNstornoRoom extends javax.swing.JPanel
             texti.setColumns(5);
             texti.setText("0");
             setBackground(Color.white);
-            texti.setDocument(new JTextFieldLimit(max));
+            //texti.setDocument(new JTextFieldLimit(max));
+            texti.setInputVerifier(new InputVerifier()
+            {
+                @Override
+                public boolean verify(JComponent input)
+                {
+                    if (Integer.parseInt(((JTextField) input).getText()) <= max && Integer.parseInt(((JTextField) input).getText()) >= 0)
+                    {
+                        return true;
+                    }
+                    JOptionPane.showMessageDialog(input, "Invalit input", "Invalid input", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            });
             texti.addKeyListener(new KeyAdapter()
             {
                 @Override
@@ -391,6 +404,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
                             || (c == KeyEvent.VK_BACK_SPACE)
                             || (c == KeyEvent.VK_DELETE)))
                     {
+                        Toolkit.getDefaultToolkit().beep();
                         e.consume();
                     }
                 }
@@ -404,31 +418,6 @@ public class splitNstornoRoom extends javax.swing.JPanel
         public boolean isSelected()
         {
             return checki.isSelected();
-        }
-
-        private class JTextFieldLimit extends PlainDocument
-        {
-            private int limit;
-
-            JTextFieldLimit(int limit)
-            {
-                super();
-                this.limit = limit;
-            }
-
-            @Override
-            public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException
-            {
-                if (str == null)
-                {
-                    return;
-                }
-
-                if (Integer.parseInt(str) >= 0 && Integer.parseInt(str) <= limit)
-                {
-                    super.insertString(offset, str, attr);
-                }
-            }
         }
     }
 
