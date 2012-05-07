@@ -59,10 +59,10 @@ public class Company extends Customer implements CompanyData
     @Override
     public String getName()
     {
-        // TODO Auto-generated method stub
         return companyname;
     }
 
+    @Override
     public String getCompanyname()
     {
         return companyname;

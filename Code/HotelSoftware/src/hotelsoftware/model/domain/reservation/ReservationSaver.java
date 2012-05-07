@@ -72,7 +72,6 @@ public class ReservationSaver
         {
             if (session != null)
             {
-               // ;
             }
         }
 
@@ -110,49 +109,4 @@ public class ReservationSaver
         }
 
     }
-/*
-    public void rollback(Set<Reservation> reservations, Set<ReservationOption> options, Set<ReservationItem> reservationItems)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        for (Reservation reservation : reservations)
-        {
-            DBReservation dbr;
-
-            if (reservation.getId() != null)
-            {
-                dbr = (DBReservation) session.createCriteria(DBReservation.class).add(Restrictions.eq("id",
-                        reservation.getId())).uniqueResult();
-
-                Reservation temp = (Reservation) DynamicMapper.map(dbr);
-                reservation.setEndDate(temp.getEndDate());
-                reservation.setComment(temp.getComment());
-                reservation.setStartDate(temp.getStartDate());
-                reservation.setOptionCollection(temp.getOptionCollection());
-                reservation.setParty(temp.getParty());
-                reservation.setReservationItems(temp.getReservationItems());
-                reservation.setCreated(temp.getCreated());
-            }
-        }
-
-        for (ReservationOption option : options)
-        {
-            DBReservationOption dbo;
-            if (option.getId() != null)
-            {
-                dbo = (DBReservationOption) session.createCriteria(DBReservationOption.class).add(Restrictions.eq("id",
-                        option.getId())).uniqueResult();
-                ReservationOption temp = (ReservationOption) DynamicMapper.map(dbo);
-                option.setExpiration(temp.getExpiration());
-                option.setFulfilled(temp.isFulfilled());
-                option.setPrepayment(temp.getPrepayment());
-            }
-        }
-        for (ReservationItem item : reservationItems)
-        {
-           //TODO Implement
-        }
-    }*/
 }

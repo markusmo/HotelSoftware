@@ -8,6 +8,7 @@ import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.room.RoomOptionData;
 import hotelsoftware.controller.data.room.RoomStatusData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 
@@ -22,7 +23,6 @@ public class Room implements RoomData
     private String number;
     private Collection<RoomOption> options;
     private RoomCategory category;
-    //private Collection<Habitation> habitations;
     private Collection<RoomStatus> status;
     private Integer id;
 
@@ -98,24 +98,26 @@ public class Room implements RoomData
         this.status = status;
     }
 
+    @Override
     public RoomCategoryData getCategoryData()
     {
         return (RoomCategoryData) getCategory();
     }
 
+    @Override
     public Collection<HabitationData> getHabitationCollectionData()
     {
         return null;
-        //TODO
-        //return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
     }
 
+    @Override
     public Collection<RoomOptionData> getOptionsData()
     {
         return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(
                 getOptions());
     }
 
+    @Override
     public Collection<RoomStatusData> getStatusData()
     {
         return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(

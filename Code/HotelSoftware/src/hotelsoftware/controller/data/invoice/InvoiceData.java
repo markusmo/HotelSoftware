@@ -12,7 +12,6 @@ import java.util.Set;
  */
 public interface InvoiceData
 {
-    //FIXME change return-types to *Data!!!
     
     Date getCreated();
 
