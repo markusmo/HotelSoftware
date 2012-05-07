@@ -34,6 +34,7 @@ public class Habitation extends Service implements HabitationData
     private Room rooms;
     private User users;
     private Collection<InvoiceItem> invoiceItems;
+    private String habitationNumber;
 
     public Habitation()
     {
@@ -208,6 +209,16 @@ public class Habitation extends Service implements HabitationData
     public void setUsers(User users)
     {
         this.users = users;
+    }
+    
+    public String getHabitationNumber()
+    {
+        return habitationNumber;
+    }
+
+    public void setHabitationNumber(String habitationNumber)
+    {
+        this.habitationNumber = habitationNumber;
     }
 
     /**

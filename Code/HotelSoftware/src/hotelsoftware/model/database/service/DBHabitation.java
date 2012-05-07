@@ -26,6 +26,10 @@ import org.hibernate.Transaction;
 public class DBHabitation extends DBService implements Serializable {
 
     @Basic(optional = false)
+    @Column(name = "habitationNr", nullable = false, length = 255)
+    private String habitationNumber;
+
+    @Basic(optional = false)
     @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date start;
@@ -106,6 +110,16 @@ public class DBHabitation extends DBService implements Serializable {
 
     public void setUsers(DBUser idUsers) {
         this.users = idUsers;
+    }
+    
+    public String getHabitationNumber()
+    {
+        return habitationNumber;
+    }
+
+    public void setHabitationNumber(String habitationNumber)
+    {
+        this.habitationNumber = habitationNumber;
     }
 
     @Override
@@ -234,8 +248,26 @@ public class DBHabitation extends DBService implements Serializable {
         }
         return new LinkedHashSet<DBHabitation>(retList);
     }
+       
+    public static int getHighestId()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
 
-    public Date getStart() {
+        String query = "Select max(idServices) FROM habitations h";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+        int count = bd.intValue();
+        
+        return count;
+    }
+    
+    
+    public Date getStart()
+    {
         return start;
     }
 

@@ -218,8 +218,7 @@ public class Invoice implements InvoiceData
      */
     public static Invoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
-        DBInvoice dbi = DBInvoice.getInvoiceByInvoiceNumber(invoicenumber);
-        return (Invoice) DynamicMapper.map(dbi);
+        return InvoiceFacade.getInstance().getInvoiceByInvoiceNumber(invoicenumber);
     }
 
     /**

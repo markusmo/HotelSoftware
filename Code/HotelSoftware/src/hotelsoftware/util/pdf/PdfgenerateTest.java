@@ -4,6 +4,15 @@
  */
 package hotelsoftware.util.pdf;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import hotelsoftware.model.domain.invoice.Invoice;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mohi
@@ -16,6 +25,27 @@ public class PdfgenerateTest
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
+        try
+        {
+            Invoice invoice = Invoice.getInvoiceByInvoiceNumber("05071200000001");
+            PdfGenerator generator = new PdfGenerator();
+            generator.generateInvoicePDF(invoice.getCustomer(), invoice.getInvoiceNumber(), invoice.getInvoiceItems(), invoice.getCreated(), invoice.getExpiration());
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (DocumentException ex)
+        {
+            Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (MalformedURLException ex)
+        {
+            Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
