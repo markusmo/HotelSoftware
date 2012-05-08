@@ -118,12 +118,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="splitCancelActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="splitCancel1">
+            <Component class="javax.swing.JButton" name="chooseCustomerButtion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Forward (Choose Customer)"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="splitCancel1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseCustomerButtionActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
