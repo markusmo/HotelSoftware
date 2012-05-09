@@ -4,27 +4,27 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.controller.checkin.CheckInState.RoomSelection;
-import hotelsoftware.gui.GuiController;
 import hotelsoftware.controller.UseCaseController;
-import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.controller.checkin.CheckInState.RoomSelection;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.controller.data.reservation.ReservationItemData;
-import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.login.LoginController;
+import hotelsoftware.gui.GuiController;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.model.domain.reservation.Reservation;
+import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.users.Permission;
-import hotelsoftware.support.PermissionNotFoundException;
+import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.support.PermissionDeniedException;
+import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
