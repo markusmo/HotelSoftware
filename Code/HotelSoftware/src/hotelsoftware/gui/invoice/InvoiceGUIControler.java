@@ -1,32 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.invoice;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.DocumentException;
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.subpanels.addCustomer;
 import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -54,8 +45,6 @@ public final class InvoiceGUIControler implements ActionListener
     private JButton chooseCustomerButton = new JButton();
     private JButton splitCancelButton = new JButton();
     private JButton payedButton = new JButton();
-    
-    
     private String invoiceHome = "Invoice Home";
     private String intermediatInvoice = "Intermediat Invoice";
     private String chooseCustomer = "Customer Selection";
@@ -91,7 +80,7 @@ public final class InvoiceGUIControler implements ActionListener
 
         splitCancelButton.setText(splitCancel);
         splitCancelButton.addActionListener(this);
-        
+
         payedButton.setText(payed);
         payedButton.addActionListener(this);
     }
@@ -140,7 +129,7 @@ public final class InvoiceGUIControler implements ActionListener
                         {
                             if (text.equals(chooseCustomer))
                             {
-                                setContentPanel(new addCustomer(ctrl.getWorkingHabitationsGuests()));
+                                setContentPanel(new addCustomer());
                             }
                             else
                             {
@@ -150,7 +139,8 @@ public final class InvoiceGUIControler implements ActionListener
                                 }
                                 else
                                 {
-                                    if (text.equals((payed))){
+                                    if (text.equals((payed)))
+                                    {
                                         ctrl.pay();
                                         //TODO ask for new State (Zwischenrechnung oder Ende)
                                     }
@@ -172,7 +162,6 @@ public final class InvoiceGUIControler implements ActionListener
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
     }
-
 
     private JPanel getContentPanel()
     {
@@ -222,41 +211,54 @@ public final class InvoiceGUIControler implements ActionListener
         JPanel navigation = getNavigationPanel();
         navigation.removeAll();
 
-        if (clazz.equals(splitNstornoPanel.class)) {
+        if (clazz.equals(splitNstornoPanel.class))
+        {
             navigation.add(invoiceHomeLabel);
             navigation.add(seperatorLabel);
             navigation.add(intermediatInvoiceLabel);
             navigation.add(seperatorLabel);
             navigation.add(splitCancelLabel);
-        } 
-
-        else if (clazz.equals(InvoiceHome.class))
-        {
-            navigation.add(invoiceHomeLabel);
         }
-        else if (clazz.equals(IntermediatInvoicePanel.class))
+        else
         {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-        }
-        else if (clazz.equals(addCustomer.class))
-        {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(chooseCustomerLabel);
-        }
-        else if (clazz.equals(PaymentPanel.class)) {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(chooseCustomerLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(paymentLabel);
+            if (clazz.equals(InvoiceHome.class))
+            {
+                navigation.add(invoiceHomeLabel);
             }
+            else
+            {
+                if (clazz.equals(IntermediatInvoicePanel.class))
+                {
+                    navigation.add(invoiceHomeLabel);
+                    navigation.add(seperatorLabel);
+                    navigation.add(intermediatInvoiceLabel);
+                }
+                else
+                {
+                    if (clazz.equals(addCustomer.class))
+                    {
+                        navigation.add(invoiceHomeLabel);
+                        navigation.add(seperatorLabel);
+                        navigation.add(intermediatInvoiceLabel);
+                        navigation.add(seperatorLabel);
+                        navigation.add(chooseCustomerLabel);
+                    }
+                    else
+                    {
+                        if (clazz.equals(PaymentPanel.class))
+                        {
+                            navigation.add(invoiceHomeLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(intermediatInvoiceLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(chooseCustomerLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(paymentLabel);
+                        }
+                    }
+                }
+            }
+        }
 
         navigation.repaint();
     }
@@ -274,24 +276,38 @@ public final class InvoiceGUIControler implements ActionListener
         if (clazz.equals(InvoiceHome.class))
         {
             constructive.add(intermediatInvoiceButton);
-        } else if (clazz.equals(IntermediatInvoicePanel.class))
-        {
-            constructive.add(splitCancelButton);
-            constructive.add(chooseCustomerButton);
-            deconstructive.add(backButton);
         }
-        else if (clazz.equals(addCustomer.class))
+        else
         {
-            deconstructive.add(backButton);
-        }
-        else if (clazz.equals(splitNstornoPanel.class))
-        {
-            deconstructive.add(backButton);
-            constructive.add(intermediatInvoiceButton);
-        } else if (clazz.equals(PaymentPanel.class))
-        {
-            deconstructive.add(backButton);
-            constructive.add(payedButton);
+            if (clazz.equals(IntermediatInvoicePanel.class))
+            {
+                constructive.add(splitCancelButton);
+                constructive.add(chooseCustomerButton);
+                deconstructive.add(backButton);
+            }
+            else
+            {
+                if (clazz.equals(addCustomer.class))
+                {
+                    deconstructive.add(backButton);
+                }
+                else
+                {
+                    if (clazz.equals(splitNstornoPanel.class))
+                    {
+                        deconstructive.add(backButton);
+                        constructive.add(intermediatInvoiceButton);
+                    }
+                    else
+                    {
+                        if (clazz.equals(PaymentPanel.class))
+                        {
+                            deconstructive.add(backButton);
+                            constructive.add(payedButton);
+                        }
+                    }
+                }
+            }
         }
         getControlPanel().repaint();
     }
@@ -346,15 +362,16 @@ public final class InvoiceGUIControler implements ActionListener
 
         return currentPanel;
     }
-    
-    public void setPaymentPanel() {
+
+    public void setPaymentPanel()
+    {
         setContentPanel(getPaymentPanel());
     }
-    
-    public void setIntermediatInvoicePanel() {
+
+    public void setIntermediatInvoicePanel()
+    {
         setContentPanel(getIntermediatInvoicePanel());
     }
-    
 
     /**
      *
@@ -374,5 +391,113 @@ public final class InvoiceGUIControler implements ActionListener
         PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
         IntermediatInvoicePanel generatePDFPanel = (IntermediatInvoicePanel) generator.generateIntermediatPanel();
         return generatePDFPanel;
+    }
+
+    public void useGuestAsCustomer(GuestData guest)
+    {
+        CreateInvoiceController.getInstance().useGuestAsCustomer(guest);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form eines Unternehmens mit gleicher Rechnungs- und Postanschrift
+     *
+     * @param companyName Der Name der Firma
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     */
+    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    {
+        createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form eines Unternehmens
+     *
+     * @param companyName Der Name der Firma
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     * @param invoiceStreet Rechnungsanschrift: die Straße
+     * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
+     * @param invoiceZip Rechnungsanschrift: die Postleitzahl
+     * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
+     * @param invoicePhone Rechnungsanschrift: die Telefonnummer
+     * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
+     * @param invoiceCountry Rechnungsanschrift: das Land
+     */
+    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        CreateInvoiceController.getInstance().createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
+                invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form einer realen Person mit gleicher Rechnungs- und Postanschrift
+     *
+     * @param firstName Der Vorname des Kunden
+     * @param lastName Der Nachname des Kunden
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     */
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    {
+        createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form einer realen Person
+     *
+     * @param firstName Der Vorname des Kunden
+     * @param lastName Der Nachname des Kunden
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     * @param invoiceStreet Rechnungsanschrift: die Straße
+     * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
+     * @param invoiceZip Rechnungsanschrift: die Postleitzahl
+     * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
+     * @param invoicePhone Rechnungsanschrift: die Telefonnummer
+     * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
+     * @param invoiceCountry Rechnungsanschrift: das Land
+     */
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        CreateInvoiceController.getInstance().createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, invoiceStreet,
+                invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
+    }
+
+    /**
+     * Gibt die Parteien zurück, welche mit den gewählten Aufenthalten in Verbindung stehen
+     *
+     * @return Eine Collection von Parteien
+     */
+    public Collection<PartyData> getWorkingHabitationsGuests()
+    {
+        return CreateInvoiceController.getInstance().getWorkingHabitationsGuests();
+    }
+
+     public Collection<HabitationData> getSelectedHabitations()
+    {
+        return CreateInvoiceController.getInstance().getSelectedHabitations();
     }
 }

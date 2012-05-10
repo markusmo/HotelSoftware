@@ -15,7 +15,7 @@ import hotelsoftware.model.domain.parties.PrivateCustomer;
  *
  * @author Johannes
  */
-public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
+public class PersonPanel extends javax.swing.JPanel
 {
     /**
      * Creates new form PersonPanel
@@ -41,9 +41,7 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
     private void initComponents() {
 
         ComboBoxGender = new javax.swing.JComboBox();
-        BirthdayChooser = new datechooser.beans.DateChooserCombo();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         TextFieldCity = new javax.swing.JTextField();
@@ -66,8 +64,6 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
         ComboBoxGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "male", "female" }));
 
         jLabel8.setText("Street / Number:");
-
-        jLabel9.setText("Birthday:");
 
         jLabel10.setText("Last name:");
 
@@ -115,19 +111,23 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
                     .addComponent(TextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ComboBoxGender, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BirthdayChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldFax, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextFieldEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextFieldFax, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addGap(4, 4, 4)
+                        .addComponent(ComboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,25 +150,23 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
                     .addComponent(TextFieldStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(6, 6, 6)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(BirthdayChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextFieldZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(TextFieldCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel9))
-                .addGap(7, 7, 7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(ComboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15)))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(ComboBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
                     .addComponent(jLabel17))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private datechooser.beans.DateChooserCombo BirthdayChooser;
     private javax.swing.JComboBox ComboBoxCountry;
     private javax.swing.JComboBox ComboBoxGender;
     private javax.swing.JTextField TextFieldCity;
@@ -188,26 +186,61 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelVorname;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public CustomerData getCustomer()
+    public String getFName()
     {
-        PrivateCustomer p = new PrivateCustomer();
-        Address a = new Address();
-        a.setCity(TextFieldCity.getText());
-        a.setEmail(TextFieldEmail.getText());
-        a.setFax(TextFieldFax.getText());
-        a.setIdCountry((Country) ComboBoxCountry.getSelectedItem());
-        a.setPhone(TextFieldPhoneNumber.getText());
-        a.setStreet(TextFieldStreet.getText());
-        a.setZip(TextFieldZip.getText());
-        p.setAddress(a);
-        p.setGender((Character) ComboBoxGender.getSelectedItem());
-        p.setFname(TextFieldFirstName.getText());
-        p.setLname(TextFieldLastName.getText());
-        return p;
+        return TextFieldFirstName.getText();
+    }
+
+    public String getLName()
+    {
+        return TextFieldLastName.getText();
+    }
+
+    public String getCity()
+    {
+        return TextFieldCity.getText();
+    }
+
+    public String getStreet()
+    {
+        return TextFieldStreet.getText();
+    }
+
+    public Character getGender()
+    {
+        return (Character) ComboBoxGender.getSelectedItem();
+    }
+
+    public String getZip()
+    {
+        return TextFieldZip.getText();
+    }
+
+    public String getEmail()
+    {
+        return TextFieldEmail.getText();
+    }
+
+    public String getPhone()
+    {
+        return TextFieldPhoneNumber.getText();
+    }
+
+    public String getFax()
+    {
+        return TextFieldFax.getText();
+    }
+
+    public Country getIdCountry()
+    {
+        return (Country) ComboBoxCountry.getSelectedItem();
+    }
+
+    boolean isFinished()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

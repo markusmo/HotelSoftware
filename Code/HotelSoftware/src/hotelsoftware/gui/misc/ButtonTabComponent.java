@@ -30,11 +30,10 @@
  */
 package hotelsoftware.gui.misc;
 
-import javax.swing.*;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  * Wird vom tabComponent verwendet;
