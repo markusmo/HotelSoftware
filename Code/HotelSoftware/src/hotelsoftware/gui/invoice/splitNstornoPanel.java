@@ -5,6 +5,17 @@
 package hotelsoftware.gui.invoice;
 
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.checkin.subpanels.GuestPanel;
+import hotelsoftware.gui.invoice.subpanels.splitNstornoRoom;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
+import hotelsoftware.gui.misc.CheckTabComponent;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -12,6 +23,9 @@ import hotelsoftware.controller.createinvoice.CreateInvoiceController;
  */
 public class splitNstornoPanel extends javax.swing.JPanel
 {
+    private HashMap<JCheckBox, splitNstornoRoom> inverseRooms = new HashMap<JCheckBox, splitNstornoRoom>();
+    private HashMap<splitNstornoRoom, JCheckBox> rooms = new HashMap<splitNstornoRoom, JCheckBox>();
+
     /**
      * Creates new form splitNstornoPanel
      */
@@ -58,6 +72,30 @@ public class splitNstornoPanel extends javax.swing.JPanel
 
     private void init()
     {
-       //Collection<HabitationData> habitaions = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
+        for (HabitationData d : InvoiceGUIControler.getInstance().getSelectedHabitations())
+        {
+            addNewSplitNStornoRoomPanel(d);
+        }
+    }
+
+    private void addNewSplitNStornoRoomPanel(HabitationData data)
+    {
+        JCheckBox c = new JCheckBox();
+        CheckTabComponent tabComponent = new CheckTabComponent(tabbedPane, c);
+        splitNstornoRoom snsrp = new splitNstornoRoom(data, c);
+        rooms.put(snsrp, c);
+        inverseRooms.put(c, snsrp);
+
+        tabbedPane.add(snsrp, tabbedPane.getTabCount());
+
+        tabbedPane.setTitleAt(tabbedPane.getTabCount() - 1, data.getRoomsData().getNumber());
+
+
+        tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, tabComponent);
+    }
+
+    public Collection<InvoiceItemData> getSelectedInvoiceItems()
+    {
+        LinkedLsit<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
     }
 }

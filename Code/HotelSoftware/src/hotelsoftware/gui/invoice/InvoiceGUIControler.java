@@ -45,8 +45,6 @@ public final class InvoiceGUIControler implements ActionListener
     private JButton chooseCustomerButton = new JButton();
     private JButton splitCancelButton = new JButton();
     private JButton payedButton = new JButton();
-    
-    
     private String invoiceHome = "Invoice Home";
     private String intermediatInvoice = "Intermediat Invoice";
     private String chooseCustomer = "Customer Selection";
@@ -82,7 +80,7 @@ public final class InvoiceGUIControler implements ActionListener
 
         splitCancelButton.setText(splitCancel);
         splitCancelButton.addActionListener(this);
-        
+
         payedButton.setText(payed);
         payedButton.addActionListener(this);
     }
@@ -141,7 +139,8 @@ public final class InvoiceGUIControler implements ActionListener
                                 }
                                 else
                                 {
-                                    if (text.equals((payed))){
+                                    if (text.equals((payed)))
+                                    {
                                         ctrl.pay();
                                         //TODO ask for new State (Zwischenrechnung oder Ende)
                                     }
@@ -163,7 +162,6 @@ public final class InvoiceGUIControler implements ActionListener
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
     }
-
 
     private JPanel getContentPanel()
     {
@@ -213,41 +211,54 @@ public final class InvoiceGUIControler implements ActionListener
         JPanel navigation = getNavigationPanel();
         navigation.removeAll();
 
-        if (clazz.equals(splitNstornoPanel.class)) {
+        if (clazz.equals(splitNstornoPanel.class))
+        {
             navigation.add(invoiceHomeLabel);
             navigation.add(seperatorLabel);
             navigation.add(intermediatInvoiceLabel);
             navigation.add(seperatorLabel);
             navigation.add(splitCancelLabel);
-        } 
-
-        else if (clazz.equals(InvoiceHome.class))
-        {
-            navigation.add(invoiceHomeLabel);
         }
-        else if (clazz.equals(IntermediatInvoicePanel.class))
+        else
         {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-        }
-        else if (clazz.equals(addCustomer.class))
-        {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(chooseCustomerLabel);
-        }
-        else if (clazz.equals(PaymentPanel.class)) {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(chooseCustomerLabel);
-            navigation.add(seperatorLabel);
-            navigation.add(paymentLabel);
+            if (clazz.equals(InvoiceHome.class))
+            {
+                navigation.add(invoiceHomeLabel);
             }
+            else
+            {
+                if (clazz.equals(IntermediatInvoicePanel.class))
+                {
+                    navigation.add(invoiceHomeLabel);
+                    navigation.add(seperatorLabel);
+                    navigation.add(intermediatInvoiceLabel);
+                }
+                else
+                {
+                    if (clazz.equals(addCustomer.class))
+                    {
+                        navigation.add(invoiceHomeLabel);
+                        navigation.add(seperatorLabel);
+                        navigation.add(intermediatInvoiceLabel);
+                        navigation.add(seperatorLabel);
+                        navigation.add(chooseCustomerLabel);
+                    }
+                    else
+                    {
+                        if (clazz.equals(PaymentPanel.class))
+                        {
+                            navigation.add(invoiceHomeLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(intermediatInvoiceLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(chooseCustomerLabel);
+                            navigation.add(seperatorLabel);
+                            navigation.add(paymentLabel);
+                        }
+                    }
+                }
+            }
+        }
 
         navigation.repaint();
     }
@@ -265,24 +276,38 @@ public final class InvoiceGUIControler implements ActionListener
         if (clazz.equals(InvoiceHome.class))
         {
             constructive.add(intermediatInvoiceButton);
-        } else if (clazz.equals(IntermediatInvoicePanel.class))
-        {
-            constructive.add(splitCancelButton);
-            constructive.add(chooseCustomerButton);
-            deconstructive.add(backButton);
         }
-        else if (clazz.equals(addCustomer.class))
+        else
         {
-            deconstructive.add(backButton);
-        }
-        else if (clazz.equals(splitNstornoPanel.class))
-        {
-            deconstructive.add(backButton);
-            constructive.add(intermediatInvoiceButton);
-        } else if (clazz.equals(PaymentPanel.class))
-        {
-            deconstructive.add(backButton);
-            constructive.add(payedButton);
+            if (clazz.equals(IntermediatInvoicePanel.class))
+            {
+                constructive.add(splitCancelButton);
+                constructive.add(chooseCustomerButton);
+                deconstructive.add(backButton);
+            }
+            else
+            {
+                if (clazz.equals(addCustomer.class))
+                {
+                    deconstructive.add(backButton);
+                }
+                else
+                {
+                    if (clazz.equals(splitNstornoPanel.class))
+                    {
+                        deconstructive.add(backButton);
+                        constructive.add(intermediatInvoiceButton);
+                    }
+                    else
+                    {
+                        if (clazz.equals(PaymentPanel.class))
+                        {
+                            deconstructive.add(backButton);
+                            constructive.add(payedButton);
+                        }
+                    }
+                }
+            }
         }
         getControlPanel().repaint();
     }
@@ -471,13 +496,8 @@ public final class InvoiceGUIControler implements ActionListener
         return CreateInvoiceController.getInstance().getWorkingHabitationsGuests();
     }
 
-    /**
-     *
-     * @return alle Räume die ausgweählt
-     */
-    public RoomData[] getRooms()
+     public Collection<HabitationData> getSelectedHabitations()
     {
-       //TODO
-        return null;
+        return CreateInvoiceController.getInstance().getSelectedHabitations();
     }
 }
