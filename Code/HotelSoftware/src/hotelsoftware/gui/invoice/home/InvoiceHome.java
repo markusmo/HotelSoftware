@@ -6,10 +6,7 @@ package hotelsoftware.gui.invoice.home;
 
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * 
@@ -18,6 +15,7 @@ import java.util.LinkedList;
 public class InvoiceHome extends javax.swing.JPanel
 {
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private Collection<HabitationData> habitationsData;
 
     /**
      * Creates new form CheckInMain
@@ -251,10 +249,11 @@ public class InvoiceHome extends javax.swing.JPanel
        String fname = fnameTextBox.getText();
        String roomNr = roomNrTextbox.getText();
        
-       Collection<HabitationData> habitations = ctrl.search(lname, fname, roomNr);
+       Collection<HabitationData> habitations = ctrl.search(fname, lname, roomNr);
       
        if (habitations != null) {
             setAvailableHabitationsTable(habitations);
+            habitationsData = habitations;
        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -290,8 +289,7 @@ public class InvoiceHome extends javax.swing.JPanel
 
     private void chooseAllActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chooseAllActionPerformed
     {//GEN-HEADEREND:event_chooseAllActionPerformed
-        // TODO add your handling code here:
-
+        setSelectedHabitationsTable(habitationsData);
    }//GEN-LAST:event_chooseAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

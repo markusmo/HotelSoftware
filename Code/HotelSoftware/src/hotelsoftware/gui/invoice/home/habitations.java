@@ -35,10 +35,11 @@ public class habitations extends javax.swing.JPanel
             String[] rowData = getRowData(hab);
             for (int j = 0; j < columnCount; j++)
             {
-                objectArray [i++][j] = rowData[j];
+                objectArray [i][j] = rowData[j];
             }
+            i++;
         }     
-        return null;
+        return objectArray;
     }
 
     private String[] getRowData(HabitationData data) {

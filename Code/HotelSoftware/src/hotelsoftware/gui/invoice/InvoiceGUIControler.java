@@ -154,7 +154,7 @@ public final class InvoiceGUIControler implements ActionListener
                                         ctrl.pay();
                                         //TODO ask for new State (Zwischenrechnung oder Ende)
                                     }
-                                }
+                                } 
                             }
                         }
                     }
@@ -302,7 +302,7 @@ public final class InvoiceGUIControler implements ActionListener
         // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
         JPanel panel = getContentPanel();
 
-        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.ABORT);
+        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.WARNING_MESSAGE);
     }
 
     private void back(ActionEvent e)
