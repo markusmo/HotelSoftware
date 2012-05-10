@@ -91,7 +91,13 @@ public class ServiceFacade
         return (Collection<Habitation>) DynamicMapper.mapCollection(p);
     }
 
-    public Collection<Habitation> getHabitation(Integer roomId)
+      public Collection<Habitation> getHabitation(String fname, String lname, String roomId)
+    {
+        Collection<DBHabitation> p = DBHabitation.search(fname, lname, roomId);
+        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
+    }
+    
+    public Collection<Habitation> getHabitation(String roomId)
     {
         Collection<DBHabitation> p = DBHabitation.search(roomId);
         return (Collection<Habitation>) DynamicMapper.mapCollection(p);
