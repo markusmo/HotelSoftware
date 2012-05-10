@@ -299,10 +299,20 @@ public class CreateInvoiceControllerTest {
     @Test
     public void testNext() {
         System.out.println("next");
-        CreateInvoiceController instance = null;
-        instance.next();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        
+        if (instance.getState() instanceof SearchState){
+            instance.next();
+            assert(instance.getState() instanceof InterimBillState);
+        }
+        else if(instance.getState() instanceof InterimBillState){
+            instance.next();
+            assert(instance.getState() instanceof SelectCustomerState);
+        }
+        else if(instance.getState() instanceof SelectCustomerState){
+            instance.next();
+            assert(instance.getState() instanceof PaymentState);
+        }
     }
 
     /**
@@ -311,10 +321,20 @@ public class CreateInvoiceControllerTest {
     @Test
     public void testBack() {
         System.out.println("back");
-        CreateInvoiceController instance = null;
-        instance.back();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        
+        if (instance.getState() instanceof InterimBillState){
+            instance.back();
+            assert(instance.getState() instanceof SearchState);
+        }
+        else if(instance.getState() instanceof SelectCustomerState){
+            instance.back();
+            assert(instance.getState() instanceof InterimBillState);
+        }
+        else if(instance.getState() instanceof PaymentState){
+            instance.back();
+            assert(instance.getState() instanceof SelectCustomerState);
+        }
     }
 
     /**
@@ -323,7 +343,10 @@ public class CreateInvoiceControllerTest {
     @Test
     public void testGetOpenItems() {
         System.out.println("getOpenItems");
-        CreateInvoiceController instance = null;
+        CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        Collection<Habitation> openItems = Habitation.searchHabitations(null, null, 201);
+        instance.setHabitations(openItems);
+        
         Collection expResult = null;
         Collection result = instance.getOpenItems();
         assertEquals(expResult, result);
@@ -331,83 +354,4 @@ public class CreateInvoiceControllerTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getHabitations method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testGetHabitations() {
-        System.out.println("getHabitations");
-        CreateInvoiceController instance = CreateInvoiceController.getInstance();
-        Collection expResult = DBHabitation.search(201); //derzeit einzige habitation, zur Sicherheit in DB nachschauen
-        //Collection expResult = null;
-        Collection result = instance.getHabitations();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setHabitations method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testSetHabitations() {
-        System.out.println("setHabitations");
-        Collection<Habitation> habitations = null;
-        CreateInvoiceController instance = null;
-        instance.setHabitations(habitations);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSelectedItems method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testGetSelectedItems() {
-        System.out.println("getSelectedItems");
-        CreateInvoiceController instance = null;
-        Collection expResult = null;
-        Collection result = instance.getSelectedItems();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setSelectedItems method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testSetSelectedItems() {
-        System.out.println("setSelectedItems");
-        Collection<InvoiceItem> selectedItems = null;
-        CreateInvoiceController instance = null;
-        instance.setSelectedItems(selectedItems);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getState method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testGetState() {
-        System.out.println("getState");
-        CreateInvoiceController instance = null;
-        CreateInvoiceState expResult = null;
-        CreateInvoiceState result = instance.getState();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setState method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testSetState() {
-        System.out.println("setState");
-        CreateInvoiceState state = null;
-        CreateInvoiceController instance = null;
-        instance.setState(state);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 }

@@ -108,7 +108,6 @@ public class PrivateCustomer extends Customer
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
     }
-<<<<<<< HEAD
 
     @Override
     public AddressData getInvoiceAddressData()
@@ -136,6 +135,4 @@ public class PrivateCustomer extends Customer
     {
         return fname + " " + lname;
     }
-=======
->>>>>>> fc867e20f2bf6aa017437d27d646bc476dd7d927
 }
