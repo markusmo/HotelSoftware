@@ -42,8 +42,6 @@ public class Habitation extends Service implements HabitationData, IHabitation
 
     public Habitation()
     {
-        guests = new LinkedHashSet();
-        invoiceItems = new LinkedHashSet();
     }
 
     private Habitation(Date start, Date end)
@@ -51,19 +49,6 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this();
         this.start = start;
         this.end = end;
-    }
-
-    private Habitation(Date start, Date end, Date created, BigDecimal price, Room room, User user)
-    {
-        super();
-        this.start = start;
-        this.end = end;
-        this.created = created;
-        super.setPrice(price);
-        this.rooms = room;
-        this.guests = new LinkedHashSet<Guest>();
-        this.users = user;
-        this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
 
     /**
@@ -230,31 +215,38 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this.habitationNumber = habitationNumber;
     }
 
-    /**
-     * @return the invoiceItems
-     */
     public Collection<InvoiceItem> getInvoiceItems()
     {
         return invoiceItems;
     }
 
-    /**
-     * @param invoiceItems the invoiceItems to set
-     */
     public void setInvoiceItems(Collection<InvoiceItem> invoiceItems)
     {
-        this.invoiceItems = invoiceItems;
+        if (invoiceItems != null)
+        {
+            this.invoiceItems = new LinkedHashSet<InvoiceItem>(invoiceItems);
+        }
     }
 
     @Override
     public void addInvoiceItems(InvoiceItem newInvoiceItem)
     {
+        if (invoiceItems == null)
+        {
+            invoiceItems = new LinkedList<InvoiceItem>();
+        }
+        
         invoiceItems.add(newInvoiceItem);
     }
 
     @Override
     public void addGuests(Guest guest)
     {
+        if (guests == null)
+        {
+            guests = new LinkedList<Guest>();
+        }
+        
         guests.add(guest);
     }
 
@@ -322,16 +314,18 @@ public class Habitation extends Service implements HabitationData, IHabitation
         return builder.toString();
     }
 
-    public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+    public static Collection<Habitation> searchHabitations(String fName, String lName, String roomId)
     {
         if (roomId == null)
         {
             return ServiceFacade.getInstance().getHabitations(fName, lName);
         }
+        if(fName != null && lName != null)
+            return ServiceFacade.getInstance().getHabitation(fName, lName, roomId);
         return ServiceFacade.getInstance().getHabitation(roomId);
     }
     
-    public static Habitation searchHabitation(Integer roomnr)
+    public static Habitation searchHabitation(String roomnr)
     {
         Collection<Habitation> temp = searchHabitations(null, null, roomnr);
         if(temp == null)

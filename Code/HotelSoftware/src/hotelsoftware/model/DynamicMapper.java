@@ -39,7 +39,7 @@ public class DynamicMapper
 
     private static Object map(Object urObject, int counter)
     {
-        assert(counter < 0):"counter ist zu niedrig: "+counter;
+        assert(counter >= 0 ):"counter ist zu niedrig: "+counter;
         if (counter > 0)
         {
             try
@@ -59,9 +59,7 @@ public class DynamicMapper
                         {
                             Method getterMethodCurrentLevel = getMethod(
                                     setterMethod, returnvalue);
-
-                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(
-                                    returnvalue) == null)
+                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
                             {
                                 if (getterMethodNewLevel.getReturnType().equals(
                                         Collection.class))
