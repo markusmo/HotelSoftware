@@ -102,13 +102,13 @@ public class PrivateCustomer extends Customer
      * @throws PrivateCustomerNotFoundException Kunde nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public static PrivateCustomer getPrivateCustomerByName(String firstname,
-            String lastname)
+    public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
     }
+<<<<<<< HEAD
 
     @Override
     public AddressData getInvoiceAddressData()
@@ -136,4 +136,6 @@ public class PrivateCustomer extends Customer
     {
         return fname + " " + lname;
     }
+=======
+>>>>>>> fc867e20f2bf6aa017437d27d646bc476dd7d927
 }
