@@ -17,6 +17,8 @@ public class habitations extends javax.swing.JPanel
     {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to
