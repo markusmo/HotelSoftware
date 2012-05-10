@@ -23,10 +23,6 @@ public class addCustomer extends javax.swing.JPanel
     private final Collection<PartyData> URcustomers;
     private Collection<PartyData> customers = new ArrayList<PartyData>();
     private PersonPanel personPanel = new PersonPanel();
-    private DefaultListModel listModel = new DefaultListModel();
-    private final Collection<CustomerData> URcustomers;
-    private Collection<CustomerData> customers = new ArrayList<CustomerData>();
-    private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
     private PartyData THEcustomer;
 
