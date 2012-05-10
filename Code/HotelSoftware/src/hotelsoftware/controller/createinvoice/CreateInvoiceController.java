@@ -120,7 +120,7 @@ public class CreateInvoiceController
         state.useGuestAsCustomer(guest);
     }
 
-    public Collection<InvoiceItem> getChosenItems()
+    public Collection<InvoiceItemData> getChosenItems()
     {
         return selectedItems;
     }

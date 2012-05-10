@@ -7,9 +7,12 @@ package hotelsoftware.gui.invoice;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.DocumentException;
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.subpanels.addCustomer;
+import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -19,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -250,6 +254,11 @@ public final class InvoiceGUIControler implements ActionListener
         contentPanel.repaint();
     }
     
+     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
+    {
+        return ctrl.search(firstName, lastName, roomNr);
+    }
+    
     public JPanel getCurrentPanel(JPanel currentPanel) {
 
         for (Component component : currentPanel.getComponents()) {
@@ -264,30 +273,23 @@ public final class InvoiceGUIControler implements ActionListener
         return currentPanel;
     }
 
+    /**
+     * 
+     * @return 
+     */
     private JPanel getPaymentPanel() {
-        try
-        {
-            PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), "i07051200000001", ctrl.getChosenItems(), new Date(), new Date());
-            JPanel generatePDFPanel = generator.generatePDFPanel();
-            return generatePDFPanel;
-        }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (DocumentException ex)
-        {
-            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-        catch (MalformedURLException ex)
-        {
-            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         return new JPanel(); // FIXME return faultPanel from pdfGenerator
+        // FIXME set expireData
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        JPanel generatePDFPanel = generator.generatePaymentPanel();
+        return generatePDFPanel;
+    }
+    
+    
+    private JPanel getIntermediatInvoicePanel() {
+        // FIXME set expireData
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        JPanel generatePDFPanel = generator.generateIntermediatPanel();
+        return generatePDFPanel;
     }
    
 }
