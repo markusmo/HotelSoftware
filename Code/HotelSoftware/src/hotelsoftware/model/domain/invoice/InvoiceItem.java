@@ -160,9 +160,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
      */
     public double getTotalPriceWithTax()
     {
-        double price = 0;
-        double temp = this.amount * this.getService().getPrice().doubleValue();
-        price = temp + (temp * this.getService().getServiceType().getTaxRate().doubleValue());
+        double price = getPriceWithTax() * this.amount;
         return price;
     }
 
@@ -175,8 +173,19 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
     {
         double price = 0;
         double temp = this.getService().getPrice().doubleValue();
-        price = temp + (temp * this.getService().getServiceType().getTaxRate().doubleValue());
+        double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
+        price = temp + (temp * tax);
         return price;
+    }
+
+    /**
+     * Gibt den Einzelpreis ohne Steuern aus
+     *
+     * @return Einzelpreis ohne Steuer
+     */
+    public double getPriceWithoutTax()
+    {
+        return this.getService().getPrice().doubleValue();
     }
 
     /**
@@ -187,7 +196,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
     @Override
     public double getTotalPriceWithoutTax()
     {
-        return this.getAmount() * this.getService().getPrice().doubleValue();
+        return this.amount * getPriceWithoutTax();
     }
 
     @Override
