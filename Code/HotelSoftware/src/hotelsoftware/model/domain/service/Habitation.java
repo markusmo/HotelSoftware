@@ -97,7 +97,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
         habitation.setUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
     }
-    
+
     public static int getHighestId()
     {
         return ServiceFacade.getHighestHabitationId();
@@ -219,7 +219,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
     {
         this.users = users;
     }
-    
+
     public String getHabitationNumber()
     {
         return habitationNumber;
@@ -289,23 +289,23 @@ public class Habitation extends Service implements HabitationData, IHabitation
     {
         String newline = "\n";
         StringBuilder builder = new StringBuilder();
-        
-        
+
+
         builder.append("Start: ");
         builder.append(this.start.toString());
         builder.append(newline);
         builder.append("End: ");
         builder.append(this.end.toString());
         builder.append(newline);
-        
+
         builder.append("Room number: ");
         builder.append(rooms.getNumber());
         builder.append(" Category: ");
         builder.append(rooms.getCategory().getName());
         builder.append(newline);
-        
+
         builder.append("<ul>");
-        for(Guest g : guests)
+        for (Guest g : guests)
         {
             builder.append("<li>");
             builder.append(g.getFname());
@@ -317,21 +317,23 @@ public class Habitation extends Service implements HabitationData, IHabitation
         builder.append("</ul>");
         builder.append("Price: € ");
         builder.append(this.price.toPlainString());
-       
-        
+
+
         return builder.toString();
     }
-    
-       public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
-       {
-           if(roomId == null)
-          return ServiceFacade.getInstance().getHabitations(fName, lName);
-       return ServiceFacade.getInstance().getHabitation(roomId);
-       }
+
+    public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+    {
+        if (roomId == null)
+        {
+            return ServiceFacade.getInstance().getHabitations(fName, lName);
+        }
+        return ServiceFacade.getInstance().getHabitation(roomId);
+    }
 
     @Override
-    public String getServiceName() {
+    public String getServiceName()
+    {
         throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
     }
-      
 }

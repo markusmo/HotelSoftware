@@ -17,21 +17,23 @@ import java.util.Date;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
-
+public class InvoiceItem implements InvoiceItemData, IInvoiceItem
+{
+    private Integer id;
     private Integer amount;
     private Date created;
     private Service service;
     private User user;
     private Habitation habitation;
-    private InvoiceItemPK pk;
     private Invoice invoice;
 
-    public InvoiceItem() {
+    public InvoiceItem()
+    {
     }
 
     private InvoiceItem(Service service, int amount, User user,
-            Habitation habitation) {
+            Habitation habitation)
+    {
         this.amount = amount;
         this.service = service;
         this.user = user;
@@ -47,18 +49,19 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
      * @return Eine Rechungsposition, mit einer Anzahl von Services, zugehoerig
      * zu einem Aufenthalt mit dem User, der sie erstellt hat.
      */
-    public static InvoiceItem createInvoiceItem(Service service, int amount, Habitation habitation) {
+    public static InvoiceItem createInvoiceItem(Service service, int amount, Habitation habitation)
+    {
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
 
-       public InvoiceItemPK getInvoiceitemsPK()
+    public Integer getId()
     {
-        return pk;
+        return id;
     }
 
-    public void setInvoiceitemsPK(InvoiceItemPK invoiceitemsPK)
+    public void setId(Integer id)
     {
-        this.pk = invoiceitemsPK;
+        this.id = id;
     }
 
     @Override
@@ -117,36 +120,46 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
     {
         return habitation;
     }
-    
+
     @Override
     public void fullfill()
     {
         invoice.setFulfilled(Boolean.TRUE);
     }
+
     /**
      * Diese Methode reduziert den RechnungsBetrag um den eingegebenen Betrag
-     * @param amount 
+     *
+     * @param amount
      */
     @Override
     public void remove(Integer amount)
     {
-        if(amount > this.amount)
+        if (amount > this.amount)
+        {
             this.amount = 0;
+        }
         else
-        if(amount>0)
-            this.amount -= amount;
+        {
+            if (amount > 0)
+            {
+                this.amount -= amount;
+            }
+        }
     }
 
     public void setHabitation(Habitation habitation)
     {
         this.habitation = habitation;
     }
+
     /**
      * Gibt den Preis für eine Rechungsposion aus, mit Steuern
      *
      * @return Preis des Services * Anzahl der Konsumation + Steuern
      */
-    public double getTotalPriceWithTax() {
+    public double getTotalPriceWithTax()
+    {
         double price = 0;
         double temp = this.amount * this.getService().getPrice().doubleValue();
         price = temp + (temp * this.getService().getServiceType().getTaxRate().doubleValue());
@@ -158,7 +171,8 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
      *
      * @return Einzelpreis mit Steuer
      */
-    public double getPriceWithTax() {
+    public double getPriceWithTax()
+    {
         double price = 0;
         double temp = this.getService().getPrice().doubleValue();
         price = temp + (temp * this.getService().getServiceType().getTaxRate().doubleValue());
@@ -171,22 +185,26 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
      * @return Preis des Services * Anzahl der Konsumation, ohne Steuern
      */
     @Override
-    public double getTotalPriceWithoutTax() {
+    public double getTotalPriceWithoutTax()
+    {
         return this.getAmount() * this.getService().getPrice().doubleValue();
     }
 
     @Override
-    public HabitationData getHabitationData() {
+    public HabitationData getHabitationData()
+    {
         return (HabitationData) getHabitation();
     }
 
     @Override
-    public ServiceData getServiceData() {
+    public ServiceData getServiceData()
+    {
         return (ServiceData) getService();
     }
 
     @Override
-    public UserData getUserData() {
+    public UserData getUserData()
+    {
         return (UserData) getUser();
     }
 }

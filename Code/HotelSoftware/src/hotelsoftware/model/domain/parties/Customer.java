@@ -77,4 +77,11 @@ public class Customer extends Party implements CustomerData, ICustomer
     {
         return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(invoices);
     }
+
+    @Override
+    public String getName()
+    {
+        //TODO Vererbung der Interfaces...
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -25,7 +25,7 @@ public class PrivateCustomer extends Customer
     private String lname;
     private Character gender;
 
-    PrivateCustomer()
+    public PrivateCustomer()
     {
     }
 
