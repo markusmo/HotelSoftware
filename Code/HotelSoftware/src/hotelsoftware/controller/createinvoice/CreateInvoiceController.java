@@ -266,7 +266,7 @@ public class CreateInvoiceController
 
         for (Habitation h : habitations)
         {
-            for (InvoiceItem i : h.getInvoiceItems())
+            for (InvoiceItem i : h.getInvoiceitems())
             {
                 if (i.getInvoice() != null && !i.getInvoice().isFulfilled())
                 {
@@ -310,8 +310,6 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-
-    
     
     void setCustomer(Customer customer)
     {

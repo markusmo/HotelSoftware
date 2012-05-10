@@ -230,20 +230,17 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this.habitationNumber = habitationNumber;
     }
 
-    /**
-     * @return the invoiceItems
-     */
-    public Collection<InvoiceItem> getInvoiceItems()
+    public Collection<InvoiceItem> getInvoiceitems()
     {
         return invoiceItems;
     }
 
-    /**
-     * @param invoiceItems the invoiceItems to set
-     */
     public void setInvoiceItems(Collection<InvoiceItem> invoiceItems)
     {
-        this.invoiceItems = invoiceItems;
+        if (invoiceItems != null)
+        {
+            this.invoiceItems = new LinkedHashSet<InvoiceItem>(invoiceItems);
+        }
     }
 
     @Override
@@ -276,7 +273,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
 
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
     }
 
     public ServiceTypeData getServiceTypeData()
@@ -322,16 +319,18 @@ public class Habitation extends Service implements HabitationData, IHabitation
         return builder.toString();
     }
 
-    public static Collection<Habitation> searchHabitations(String fName, String lName, Integer roomId)
+    public static Collection<Habitation> searchHabitations(String fName, String lName, String roomId)
     {
         if (roomId == null)
         {
             return ServiceFacade.getInstance().getHabitations(fName, lName);
         }
+        if(fName != null && lName != null)
+            return ServiceFacade.getInstance().getHabitation(fName, lName, roomId);
         return ServiceFacade.getInstance().getHabitation(roomId);
     }
     
-    public static Habitation searchHabitation(Integer roomnr)
+    public static Habitation searchHabitation(String roomnr)
     {
         Collection<Habitation> temp = searchHabitations(null, null, roomnr);
         if(temp == null)
