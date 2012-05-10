@@ -43,9 +43,15 @@ public class CreateInvoiceController
         // das kann passieren, wenn eine Person aus-checkt, aber sein zimmerkollege noch bleibt...
     }
 
-    public Collection<CustomerData> getCustomerData()
+    public Collection<CustomerData> getPartyDataLinkedToSelectedHabitations()
     {
         //throw new UnsupportedOperationException("Not yet implemented");
+        return null;
+    }
+
+    public CustomerData getCustomerData()
+    {
+        //TODO
         return null;
     }
 
@@ -117,7 +123,7 @@ public class CreateInvoiceController
     {
         state.useGuestAsCustomer(guest);
     }
-  
+
     public Collection<InvoiceItem> getChosenItems()
     {
         // FIXME implement
@@ -189,10 +195,4 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-    
-    public Customer getCustomer() {
-        // TODO implement
-        return null;
-    }
-   
 }
