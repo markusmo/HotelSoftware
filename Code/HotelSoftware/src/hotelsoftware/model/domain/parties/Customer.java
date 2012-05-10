@@ -13,7 +13,7 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Customer extends Party implements CustomerData
+public class Customer extends Party implements CustomerData, ICustomer
 {
     protected Address invoiceAddress;
     protected Collection<Invoice> invoices;
@@ -55,6 +55,7 @@ public class Customer extends Party implements CustomerData
         this.invoices = invoices;
     }
 
+    @Override
     public void removeInvoice(Invoice i)
     {
         invoices.remove(i);
@@ -65,19 +66,22 @@ public class Customer extends Party implements CustomerData
         invoices.add(i);
     }
 
+    @Override
     public AddressData getInvoiceAddressData()
     {
         return invoiceAddress;
     }
 
+    @Override
     public Collection<InvoiceData> getInvoicesData()
     {
         return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(invoices);
     }
 
+    @Override
     public String getName()
     {
-        //TODO Vererbung
+        //TODO Vererbung der Interfaces...
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

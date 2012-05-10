@@ -113,7 +113,5 @@ public class RoomSaver
             session.saveOrUpdate(dbStat);
             stat.setId(dbStat.getId());
         }
-
     }
-    //TODO implement Rollback
 }

@@ -204,7 +204,6 @@ public abstract class ChangeDataState extends CheckInState
     {
         context.setStartDate(start);
         context.setEndDate(end);
-        // TODO Set amount, nötig?
     }
 
     @Override

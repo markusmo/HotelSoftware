@@ -26,8 +26,11 @@ public class DBRoomsRoomStatus implements Serializable
     
     private static final long serialVersionUID = 1L;
     
-    @EmbeddedId
-    protected DBRoomsRoomStatusPK roomsroomstatusPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false)
+    protected Integer id;
     
     @JoinColumn(name = "idRoomStatus", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -41,31 +44,14 @@ public class DBRoomsRoomStatus implements Serializable
     {
     }
 
-    public DBRoomsRoomStatus(DBRoomsRoomStatusPK roomsroomstatusPK)
+    public Integer getId()
     {
-        this.roomsroomstatusPK = roomsroomstatusPK;
+        return id;
     }
 
-    public DBRoomsRoomStatus(DBRoomsRoomStatusPK roomsroomstatusPK, Date start, Date end)
+    public void setRoomsroomstatusPK(Integer id)
     {
-        this.roomsroomstatusPK = roomsroomstatusPK;
-        this.start = start;
-        this.end = end;
-    }
-
-    public DBRoomsRoomStatus(int idRooms, int idRoomStatus)
-    {
-        this.roomsroomstatusPK = new DBRoomsRoomStatusPK(idRooms, idRoomStatus);
-    }
-
-    public DBRoomsRoomStatusPK getRoomsroomstatusPK()
-    {
-        return roomsroomstatusPK;
-    }
-
-    public void setRoomsroomstatusPK(DBRoomsRoomStatusPK roomsroomstatusPK)
-    {
-        this.roomsroomstatusPK = roomsroomstatusPK;
+        this.id = id;
     }
 
     public DBRoomStatus getRoomstatus()
@@ -92,7 +78,7 @@ public class DBRoomsRoomStatus implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (roomsroomstatusPK != null ? roomsroomstatusPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +91,7 @@ public class DBRoomsRoomStatus implements Serializable
             return false;
         }
         DBRoomsRoomStatus other = (DBRoomsRoomStatus) object;
-        if((this.roomsroomstatusPK == null && other.roomsroomstatusPK != null) || (this.roomsroomstatusPK != null && !this.roomsroomstatusPK.equals(other.roomsroomstatusPK)))
+        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -115,7 +101,7 @@ public class DBRoomsRoomStatus implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Roomsroomstatus[ roomsroomstatusPK=" + roomsroomstatusPK + " ]";
+        return "hotelsoftware.database.model.Roomsroomstatus[ id=" + id + " ]";
     }
 
     public Date getStart()

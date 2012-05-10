@@ -43,8 +43,6 @@ import org.hibernate.Transaction;
 @XmlRootElement
 public class DBServiceType implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType")
-    private Set<DBService> dBServiceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +55,8 @@ public class DBServiceType implements Serializable
     @Basic(optional = false)
     @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
     private BigDecimal taxRate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType")
+    private Set<DBService> dBServiceCollection;
 
     public DBServiceType()
     {

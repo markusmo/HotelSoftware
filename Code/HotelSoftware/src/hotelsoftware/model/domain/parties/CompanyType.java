@@ -14,7 +14,7 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class CompanyType implements CompanyTypeData
+public class CompanyType implements CompanyTypeData, ICompanyType
 {
     private Integer id;
     private String typ;
@@ -30,6 +30,7 @@ public class CompanyType implements CompanyTypeData
      * @return 
      * Eine neue Instanz des Firmentyps
      */
+    @Override
     public CompanyType create(String typ)
     {
         return new CompanyType(typ);

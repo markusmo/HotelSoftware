@@ -25,7 +25,7 @@ public class PrivateCustomer extends Customer
     private String lname;
     private Character gender;
 
-    PrivateCustomer()
+    public PrivateCustomer()
     {
     }
 
@@ -102,32 +102,10 @@ public class PrivateCustomer extends Customer
      * @throws PrivateCustomerNotFoundException Kunde nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public static PrivateCustomer getPrivateCustomerByName(String firstname,
-            String lastname)
+    public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
-    }
-
-    @Override
-    public AddressData getInvoiceAddressData()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Set<InvoiceData> getInvoicesData()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public AddressData getAddressData()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

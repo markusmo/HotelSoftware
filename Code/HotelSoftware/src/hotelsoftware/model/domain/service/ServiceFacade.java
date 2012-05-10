@@ -88,12 +88,12 @@ public class ServiceFacade
     public Collection<Habitation> getHabitations(String fname, String lname)
     {
         Collection<DBHabitation> p = DBHabitation.search(fname, lname);
-        return (Collection<Habitation>) DynamicMapper.map(p);
+        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
     }
 
     public Collection<Habitation> getHabitation(Integer roomId)
     {
         Collection<DBHabitation> p = DBHabitation.search(roomId);
-        return (Collection<Habitation>) DynamicMapper.map(p);
+        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
     }
 }

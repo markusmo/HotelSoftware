@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class RoomCategory implements RoomCategoryData
+public class RoomCategory implements RoomCategoryData, IRoomCategory
 {
     private String name;
     private Collection<RoomCategoryPrice> price;

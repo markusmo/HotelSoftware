@@ -12,7 +12,6 @@
     <property name="hibernate.max_fetch_depth">4</property>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoice"/>
     <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItem"/>
-    <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItemPK"/>
     <mapping class="hotelsoftware.model.database.invoice.DBPaymentMethod"/>
     <mapping class="hotelsoftware.model.database.parties.DBAddress"/>
     <mapping class="hotelsoftware.model.database.parties.DBCompany"/>
@@ -33,7 +32,6 @@
     <mapping class="hotelsoftware.model.database.room.DBRoomOption"/>
     <mapping class="hotelsoftware.model.database.room.DBRoomStatus"/>
     <mapping class="hotelsoftware.model.database.room.DBRoomsRoomStatus"/>
-    <mapping class="hotelsoftware.model.database.room.DBRoomsRoomStatusPK"/>
     <mapping class="hotelsoftware.model.database.room.DBSeason"/>
     <mapping class="hotelsoftware.model.database.service.DBExtraService"/>
     <mapping class="hotelsoftware.model.database.service.DBHabitation"/>

@@ -21,7 +21,7 @@ import java.util.LinkedHashSet;
  * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Invoice implements InvoiceData
+public class Invoice implements InvoiceData, IInvoice
 {
     private Integer id;
     private String invoiceNumber;

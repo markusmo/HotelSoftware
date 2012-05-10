@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dunst
  */
 
-public class RoomsRoomStatus 
+public class RoomsRoomStatus implements IRoomsRoomStatus 
 {
     private Date start;
     private Date end;
-    protected RoomsRoomStatusPK roomsroomstatusPK;
+    protected Integer id;
     private RoomStatus roomstatus;
     private Room room;
 
@@ -32,16 +32,14 @@ public class RoomsRoomStatus
         this.room = room;
     }
     
-    
-
-    public RoomsRoomStatusPK getRoomsroomstatusPK()
+    public Integer getRoomsroomstatusPK()
     {
-        return roomsroomstatusPK;
+        return id;
     }
 
-    public void setRoomsroomstatusPK(RoomsRoomStatusPK roomsroomstatusPK)
+    public void setRoomsroomstatusPK(Integer id)
     {
-        this.roomsroomstatusPK = roomsroomstatusPK;
+        this.id = id;
     }
 
     public RoomStatus getRoomstatus()
@@ -58,7 +56,7 @@ public class RoomsRoomStatus
     public int hashCode()
     {
         int hash = 0;
-        hash += (roomsroomstatusPK != null ? roomsroomstatusPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -71,7 +69,7 @@ public class RoomsRoomStatus
             return false;
         }
         RoomsRoomStatus other = (RoomsRoomStatus) object;
-        if((this.roomsroomstatusPK == null && other.roomsroomstatusPK != null) || (this.roomsroomstatusPK != null && !this.roomsroomstatusPK.equals(other.roomsroomstatusPK)))
+        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
         }
@@ -81,7 +79,7 @@ public class RoomsRoomStatus
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Roomsroomstatus[ roomsroomstatusPK=" + roomsroomstatusPK + " ]";
+        return "hotelsoftware.database.model.Roomsroomstatus[ id=" + id + " ]";
     }
 
     public Date getStart()
