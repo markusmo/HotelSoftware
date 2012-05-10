@@ -230,7 +230,7 @@ public class InvoiceHome extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
-        // Search Button
+        
         
     }//GEN-LAST:event_searchButtonActionPerformed
 
