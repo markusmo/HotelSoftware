@@ -5,6 +5,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.util.HelperFunctions;
@@ -74,9 +75,9 @@ public class PdfGenerator
      * @param created das Kreierungsdatum
      * @param expiration das Fälligkeitsdatum
      */
-    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
+    public PdfGenerator(CustomerData customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
     {
-        this.customer = customer;
+        this.customer = (Customer)customer;
         this.invoiceNumber = invoiceNumber;
         this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
