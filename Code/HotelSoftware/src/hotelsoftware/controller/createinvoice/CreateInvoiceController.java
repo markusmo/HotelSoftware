@@ -6,6 +6,7 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
@@ -38,7 +39,12 @@ public class CreateInvoiceController
         //TODO Methode implementieren
         // wenn wir zum beispiel im state Zwischenrechnung sind, weil noch offene items der habitation da sind, der User aber abschließen möchte
         // das kann passieren, wenn eine Person aus-checkt, aber sein zimmerkollege noch bleibt...
-        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public Collection<CustomerData> getCustomerData()
+    {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
     
     private static class CreateInvoiceControllerHolder
