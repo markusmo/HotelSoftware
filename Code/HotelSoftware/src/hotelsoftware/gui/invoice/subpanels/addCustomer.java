@@ -1,9 +1,9 @@
 package hotelsoftware.gui.invoice.subpanels;
 
-import hotelsoftware.controller.checkin.CheckInGuiControler;
-import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Party;
@@ -20,24 +20,28 @@ import javax.swing.ImageIcon;
 public class addCustomer extends javax.swing.JPanel
 {
     private DefaultListModel listModel = new DefaultListModel();
-    private final Collection<CustomerData> URcustomers;
-    private Collection<CustomerData> customers = new ArrayList<CustomerData>();
+    private final Collection<PartyData> URcustomers;
+    private Collection<PartyData> customers = new ArrayList<PartyData>();
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
+    private PartyData THEcustomer;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**
      * Creates new form addCustomer
      */
-    public addCustomer(Collection<CustomerData> customers)
+    public addCustomer(Collection<PartyData> customers)
     {
-        if (customers != null) {
+        if (customers != null)
+        {
             URcustomers = customers;
             this.customers.addAll(URcustomers);
-        } else {
+        }
+        else
+        {
             URcustomers = null;
         }
-        
+
         initComponents();
         jLabel3.setText("<html> <font size =+2>Choose customer</font></html>");
         jLabel2.setText("<html> <font size =+2>Create new customer</font></html>");
@@ -80,6 +84,8 @@ public class addCustomer extends javax.swing.JPanel
         list = new javax.swing.JList();
         textfieldSearch = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
@@ -140,6 +146,10 @@ public class addCustomer extends javax.swing.JPanel
             }
         });
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,20 +161,16 @@ public class addCustomer extends javax.swing.JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textfieldSearch)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(85, 85, 85)
+                                        .addComponent(jCheckBox1))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -191,11 +197,19 @@ public class addCustomer extends javax.swing.JPanel
                                                     .addComponent(jLabel12)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(TextFieldZip))
-                                                .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(85, 85, 85)
-                                        .addComponent(jCheckBox1)))))
-                        .addGap(0, 31, Short.MAX_VALUE)))
+                                                .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(0, 49, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -209,14 +223,6 @@ public class addCustomer extends javax.swing.JPanel
                     .addComponent(textfieldSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -245,15 +251,27 @@ public class addCustomer extends javax.swing.JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel7)
                             .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
     {//GEN-HEADEREND:event_buttonSearchActionPerformed
-        Collection<CustomerData> searchedCustomer = search(textfieldSearch.getText());
+        Collection<PartyData> searchedCustomer = search(textfieldSearch.getText());
         customers.removeAll(customers);
         customers.addAll(URcustomers);
         customers.addAll(searchedCustomer);
@@ -312,6 +330,8 @@ public class addCustomer extends javax.swing.JPanel
     private javax.swing.JTextField TextFieldZip;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -344,7 +364,7 @@ public class addCustomer extends javax.swing.JPanel
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : CreateInvoiceController.getInstance().getAllCountries())
+        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }
@@ -352,14 +372,14 @@ public class addCustomer extends javax.swing.JPanel
 
     }
 
-    private Collection<CustomerData> search(String text)
+    private Collection<PartyData> search(String text)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void addElements2List(Collection<CustomerData> elements)
+    private void addElements2List(Collection<PartyData> elements)
     {
-        for (CustomerData data : elements)
+        for (PartyData data : elements)
         {
             listModel.addElement(data);
         }
@@ -380,5 +400,10 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setEnabled(b);
         TextFieldZip.setEnabled(b);
         ComboBoxCountry.setEnabled(b);
+    }
+
+    public PartyData getCustomerData()
+    {
+        return THEcustomer;
     }
 }

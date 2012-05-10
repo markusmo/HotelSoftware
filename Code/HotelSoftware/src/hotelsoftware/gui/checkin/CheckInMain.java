@@ -54,10 +54,7 @@ public class CheckInMain extends javax.swing.JPanel
                     "Reservation No.", "Company Name", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
                 })
         {
-            boolean[] canEdit = new boolean[]
-            {
-                false, false, false, true, false, false, false
-            };
+           
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex)
