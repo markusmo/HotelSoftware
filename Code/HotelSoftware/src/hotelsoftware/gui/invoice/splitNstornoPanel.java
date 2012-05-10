@@ -4,6 +4,8 @@
  */
 package hotelsoftware.gui.invoice;
 
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+
 /**
  *
  * @author Johannes
@@ -16,6 +18,7 @@ public class splitNstornoPanel extends javax.swing.JPanel
     public splitNstornoPanel()
     {
         initComponents();
+        init();
     }
 
     /**
@@ -28,9 +31,9 @@ public class splitNstornoPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -38,18 +41,23 @@ public class splitNstornoPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
+
+    private void init()
+    {
+       //Collection<HabitationData> habitaions = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
+    }
 }

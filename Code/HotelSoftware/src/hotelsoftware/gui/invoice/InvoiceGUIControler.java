@@ -2,6 +2,9 @@ package hotelsoftware.gui.invoice;
 
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.subpanels.addCustomer;
@@ -14,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -122,7 +126,7 @@ public final class InvoiceGUIControler implements ActionListener
                         {
                             if (text.equals(chooseCustomer))
                             {
-                                setContentPanel(new addCustomer(ctrl.getWorkingHabitationsGuests()));
+                                setContentPanel(new addCustomer());
                             }
                             else
                             {
@@ -307,15 +311,16 @@ public final class InvoiceGUIControler implements ActionListener
 
         return currentPanel;
     }
-    
-    public void setPaymentPanel() {
+
+    public void setPaymentPanel()
+    {
         setContentPanel(getPaymentPanel());
     }
-    
-    public void setIntermediatInvoicePanel() {
+
+    public void setIntermediatInvoicePanel()
+    {
         setContentPanel(getIntermediatInvoicePanel());
     }
-    
 
     /**
      *
@@ -335,5 +340,118 @@ public final class InvoiceGUIControler implements ActionListener
         PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
         JPanel generatePDFPanel = generator.generateIntermediatPanel();
         return generatePDFPanel;
+    }
+
+    public void useGuestAsCustomer(GuestData guest)
+    {
+        CreateInvoiceController.getInstance().useGuestAsCustomer(guest);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form eines Unternehmens mit gleicher Rechnungs- und Postanschrift
+     *
+     * @param companyName Der Name der Firma
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     */
+    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    {
+        createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form eines Unternehmens
+     *
+     * @param companyName Der Name der Firma
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     * @param invoiceStreet Rechnungsanschrift: die Straße
+     * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
+     * @param invoiceZip Rechnungsanschrift: die Postleitzahl
+     * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
+     * @param invoicePhone Rechnungsanschrift: die Telefonnummer
+     * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
+     * @param invoiceCountry Rechnungsanschrift: das Land
+     */
+    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        CreateInvoiceController.getInstance().createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
+                invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form einer realen Person mit gleicher Rechnungs- und Postanschrift
+     *
+     * @param firstName Der Vorname des Kunden
+     * @param lastName Der Nachname des Kunden
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     */
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    {
+        createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+    }
+
+    /**
+     * Erstellt einen neuen Kunden in Form einer realen Person
+     *
+     * @param firstName Der Vorname des Kunden
+     * @param lastName Der Nachname des Kunden
+     * @param street Postanschrift: die Straße
+     * @param city Postanschrift: der Ort/die Stadt
+     * @param zip Postanschrift: die Postleitzahl
+     * @param email Postanschrift: die E-Mail Adresse
+     * @param phone Postanschrift: die Telefonnummer
+     * @param fax Postanschrift: die Fax-Nummer
+     * @param country Postanschrift: das Land
+     * @param invoiceStreet Rechnungsanschrift: die Straße
+     * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
+     * @param invoiceZip Rechnungsanschrift: die Postleitzahl
+     * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
+     * @param invoicePhone Rechnungsanschrift: die Telefonnummer
+     * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
+     * @param invoiceCountry Rechnungsanschrift: das Land
+     */
+    public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+            String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
+    {
+        CreateInvoiceController.getInstance().createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, invoiceStreet,
+                invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
+    }
+
+    /**
+     * Gibt die Parteien zurück, welche mit den gewählten Aufenthalten in Verbindung stehen
+     *
+     * @return Eine Collection von Parteien
+     */
+    public Collection<PartyData> getWorkingHabitationsGuests()
+    {
+        return CreateInvoiceController.getInstance().getWorkingHabitationsGuests();
+    }
+
+    /**
+     *
+     * @return alle Räume die ausgweählt
+     */
+    public RoomData[] getRooms()
+    {
+       //TODO
+        return null;
     }
 }

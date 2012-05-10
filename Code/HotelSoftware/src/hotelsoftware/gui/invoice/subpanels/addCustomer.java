@@ -2,6 +2,7 @@ package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,8 +31,9 @@ public class addCustomer extends javax.swing.JPanel
     /**
      * Creates new form addCustomer
      */
-    public addCustomer(Collection<PartyData> customers)
+    public addCustomer()
     {
+        Collection<PartyData> customers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
         if (customers != null)
         {
             URcustomers = customers;
@@ -60,8 +63,8 @@ public class addCustomer extends javax.swing.JPanel
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radioButtonPerson = new javax.swing.JRadioButton();
+        RadioButtonCustomer = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         TextFieldCity = new javax.swing.JTextField();
@@ -88,18 +91,18 @@ public class addCustomer extends javax.swing.JPanel
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Private customer");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        radioButtonPerson.setSelected(true);
+        radioButtonPerson.setText("Private customer");
+        radioButtonPerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                radioButtonPersonActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Company");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        RadioButtonCustomer.setText("Company");
+        RadioButtonCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                RadioButtonCustomerActionPerformed(evt);
             }
         });
 
@@ -171,9 +174,9 @@ public class addCustomer extends javax.swing.JPanel
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(buttonCreateCustomer))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(radioButtonPerson)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
+                        .addComponent(RadioButtonCustomer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonSelectButtoner))
                     .addGroup(layout.createSequentialGroup()
@@ -240,8 +243,8 @@ public class addCustomer extends javax.swing.JPanel
                         .addComponent(jLabel2)
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)))
+                            .addComponent(radioButtonPerson)
+                            .addComponent(RadioButtonCustomer)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -288,24 +291,24 @@ public class addCustomer extends javax.swing.JPanel
         customers.addAll(searchedCustomer);
     }//GEN-LAST:event_buttonSearchActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton1ActionPerformed
-    {//GEN-HEADEREND:event_jRadioButton1ActionPerformed
+    private void radioButtonPersonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_radioButtonPersonActionPerformed
+    {//GEN-HEADEREND:event_radioButtonPersonActionPerformed
         // customerPanel = personPanel;
         jPanel2.removeAll();
         jPanel2.add(personPanel, BorderLayout.CENTER);
         jPanel2.revalidate();
         jPanel2.repaint();
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_radioButtonPersonActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton2ActionPerformed
-    {//GEN-HEADEREND:event_jRadioButton2ActionPerformed
+    private void RadioButtonCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_RadioButtonCustomerActionPerformed
+    {//GEN-HEADEREND:event_RadioButtonCustomerActionPerformed
         //  customerPanel = companyPanel;
         jPanel2.removeAll();
         jPanel2.add(companyPanel, BorderLayout.CENTER);
         jPanel2.revalidate();
         jPanel2.repaint();
 
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_RadioButtonCustomerActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
@@ -334,31 +337,56 @@ public class addCustomer extends javax.swing.JPanel
 
     private void buttonCreateCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonCreateCustomerActionPerformed
     {//GEN-HEADEREND:event_buttonCreateCustomerActionPerformed
-        Customer c = null;
-        if (list.getSelectedValue() instanceof PrivateCustomer)
+        if (radioButtonPerson.isSelected())
         {
-            c = new PrivateCustomer();
-
+            if (personPanel.isFinished())
+            {
+                InvoiceGUIControler.getInstance().createPrivateCustomer(personPanel.getFName(), personPanel.getLName(), personPanel.getStreet(), personPanel.getCity(), personPanel.getZip(), personPanel.getEmail(), personPanel.getPhone(), personPanel.getFax(), personPanel.getIdCountry());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else
         {
-            if (list.getSelectedValue() instanceof Company)
+            if (companyPanel.isFinished())
             {
-                c = new Company();
+                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        Address a = getAddress();
-        c.setInvoiceAddress(a);
-
-
+        InvoiceGUIControler.getInstance().setPaymentPanel();
     }//GEN-LAST:event_buttonCreateCustomerActionPerformed
 
     private void buttonSelectButtonerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectButtonerActionPerformed
     {//GEN-HEADEREND:event_buttonSelectButtonerActionPerformed
-        // TODO add your handling code here:
+        if (!(list.getSelectedIndex() != -1))
+        {
+            JOptionPane.showMessageDialog(list, "You have to select a person first!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+        if (jCheckBox1.isSelected())
+        {
+            GuestData gd = (GuestData) list.getSelectedValue();
+            InvoiceGUIControler.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+        }
+        else
+        {
+            InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
+        }
+
+        InvoiceGUIControler.getInstance().setPaymentPanel();
+
     }//GEN-LAST:event_buttonSelectButtonerActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
+    private javax.swing.JRadioButton RadioButtonCustomer;
     private javax.swing.JTextField TextFieldCity;
     private javax.swing.JTextField TextFieldEmail;
     private javax.swing.JTextField TextFieldFax;
@@ -380,10 +408,9 @@ public class addCustomer extends javax.swing.JPanel
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList list;
+    private javax.swing.JRadioButton radioButtonPerson;
     private javax.swing.JTextField textfieldSearch;
     // End of variables declaration//GEN-END:variables
 
@@ -394,9 +421,11 @@ public class addCustomer extends javax.swing.JPanel
         list.setModel(listModel);
 
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
-        buttonSearch.setText("");
-        buttonGroup1.add(jRadioButton1);
-        buttonGroup1.add(jRadioButton2);
+        buttonSearch.setText(
+                "");
+        buttonGroup1.add(radioButtonPerson);
+
+        buttonGroup1.add(RadioButtonCustomer);
 
         initNewCustomer();
 
@@ -405,7 +434,9 @@ public class addCustomer extends javax.swing.JPanel
         {
             ComboBoxCountry.addItem(data);
         }
-        EnableAddressInputs(false);
+
+        EnableAddressInputs(
+                false);
 
     }
 
@@ -437,18 +468,5 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setEnabled(b);
         TextFieldZip.setEnabled(b);
         ComboBoxCountry.setEnabled(b);
-    }
-
-    private Address getAddress()
-    {
-        Address a = new Address();
-        a.setCity(TextFieldCity.getText());
-        a.setEmail(TextFieldEmail.getText());
-        a.setFax(TextFieldFax.getText());
-        a.setIdCountry((Country) ComboBoxCountry.getSelectedItem());
-        a.setPhone(TextFieldPhoneNumber.getText());
-        a.setStreet(TextFieldStreet.getText());
-        a.setZip(TextFieldZip.getText());
-        return a;
     }
 }

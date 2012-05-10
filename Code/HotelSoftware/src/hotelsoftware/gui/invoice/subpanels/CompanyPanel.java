@@ -15,7 +15,7 @@ import java.util.LinkedList;
  *
  * @author Johannes
  */
-public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
+public class CompanyPanel extends javax.swing.JPanel
 {
     /**
      * Creates new form CompanyPanel
@@ -57,7 +57,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
         TextFieldPhoneNumber = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         TextFieldZip = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboBoxCompanyType = new javax.swing.JComboBox();
 
         jLabel8.setText("Street / Number:");
 
@@ -79,7 +79,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
 
         jLabel7.setText("Fax:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxCompanyType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,7 +107,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(TextFieldCompanyName, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(comboBoxCompanyType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(TextFieldStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +145,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboBoxCompanyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -173,7 +173,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     private javax.swing.JTextField TextFieldPhoneNumber;
     private javax.swing.JTextField TextFieldStreet;
     private javax.swing.JTextField TextFieldZip;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox comboBoxCompanyType;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -185,24 +185,53 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     private javax.swing.JLabel jLabelVorname;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public CustomerData getCustomer()
+    public String getCompanyName()
     {
-        Company c = new Company();
-        Address a = new Address();
-        a.setCity(TextFieldCity.getText());
-        a.setEmail(TextFieldEmail.getText());
-        a.setFax(TextFieldFax.getText());
-        a.setIdCountry((Country) ComboBoxCountry.getSelectedItem());
-        a.setPhone(TextFieldPhoneNumber.getText());
-        a.setStreet(TextFieldStreet.getText());
-        a.setZip(TextFieldZip.getText());
+        return TextFieldCompanyName.getText();
+    }
 
-        c.setCompanyType((CompanyType) jComboBox1.getSelectedItem());
-        c.setAddress(a);
-        c.setName(TextFieldCompanyName.getText());
+    public CompanyType getCompanyType()
+    {
+        return (CompanyType) comboBoxCompanyType.getSelectedItem();
+    }
 
+    public String getCity()
+    {
+        return TextFieldCity.getText();
+    }
 
-        return c;
+    public String getStreet()
+    {
+        return TextFieldStreet.getText();
+    }
+
+    public String getZip()
+    {
+        return TextFieldZip.getText();
+    }
+
+    public String getEmail()
+    {
+        return TextFieldEmail.getText();
+    }
+
+    public String getPhone()
+    {
+        return TextFieldPhoneNumber.getText();
+    }
+
+    public String getFax()
+    {
+        return TextFieldFax.getText();
+    }
+
+    public Country getIdCountry()
+    {
+        return (Country) ComboBoxCountry.getSelectedItem();
+    }
+
+    boolean isFinished()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
