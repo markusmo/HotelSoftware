@@ -32,6 +32,14 @@ public class CreateInvoiceController
     {
         return CreateInvoiceControllerHolder.INSTANCE;
     }
+
+    public void abort()
+    {
+        //TODO Methode implementieren
+        // wenn wir zum beispiel im state Zwischenrechnung sind, weil noch offene items der habitation da sind, der User aber abschließen möchte
+        // das kann passieren, wenn eine Person aus-checkt, aber sein zimmerkollege noch bleibt...
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     
     private static class CreateInvoiceControllerHolder
     {
