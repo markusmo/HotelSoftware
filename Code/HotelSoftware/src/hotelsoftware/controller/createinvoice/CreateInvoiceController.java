@@ -12,7 +12,6 @@ import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -31,6 +30,7 @@ public class CreateInvoiceController
 
     private CreateInvoiceController()
     {
+        state = new SearchState(this);
     }
 
     public static CreateInvoiceController getInstance()

@@ -7,14 +7,12 @@ import java.util.Collection;
  *da sie dort dringend benötigt werden.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface CompanyData
+public interface CompanyData extends CustomerData
 {
 
     String getCompanyname();
 
     Collection<PartyData> getContactPersonsData();
-
-    String getName();
 
     CompanyTypeData getTypeData();
     

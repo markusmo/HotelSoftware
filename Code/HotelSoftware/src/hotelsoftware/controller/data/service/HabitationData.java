@@ -16,7 +16,7 @@ import java.util.Date;
  *Dieses Interface enthält alle wichtigen Methoden die für die Klasse Habitation benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface HabitationData
+public interface HabitationData extends ServiceData
 {
     /**
      * @return the created

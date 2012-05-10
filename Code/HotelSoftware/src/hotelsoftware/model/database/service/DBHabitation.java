@@ -52,8 +52,7 @@ public class DBHabitation extends DBService implements Serializable
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser users;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitation", fetch= FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitation", fetch = FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
@@ -192,33 +191,27 @@ public class DBHabitation extends DBService implements Serializable
         return habitation;
     }
 
-        public static Collection<DBHabitation> search(String fname, String lname, String roomnr)
+    public static Collection<DBHabitation> search(String fname, String lname, String roomnr)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        String query;
-     
-                query = ""
-                        + "SELECT *"
-                        + "FROM habitations h"
-                        + "INNER JOIN allocations a ON h.id=a.idService"
-                        + "INNER JOIN guests g ON g.id=a.idGuests;"
-                        + "WHERE lname =" + lname + " AND fname=" + fname + "AND number = "+ roomnr + ";";
-          
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r INNER JOIN h.guests g "
+                + "JOIN FETCH h.invoiceItems WHERE r.number = :number OR g.fname = :fname OR g.lname = :lname");
+        q = q.setString("number", roomnr);
+        q = q.setString("fname", fname);
+        q = q.setString("lname", lname);
 
+        List<DBHabitation> retList = q.list();
 
-        //addEntity gibt den rueckgabewert an...
-        sqlquery = sqlquery.addEntity(DBHabitation.class);
-        List<DBHabitation> retList = sqlquery.list();
         if (retList == null)
         {
             return new LinkedHashSet();
         }
         return new LinkedHashSet<DBHabitation>(retList);
     }
-    
+
     public static Collection<DBHabitation> search(String fname, String lname)
     {
 
@@ -292,26 +285,28 @@ public class DBHabitation extends DBService implements Serializable
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-       /* String query = "SELECT * "
-                + "FROM habitations h "
-                + "INNER JOIN rooms r ON h.idRooms = r.id "
-                + "WHERE r.roomNumber ='" + roomnr.toString() + "'";
+        /*
+         * String query = "SELECT * "
+         * + "FROM habitations h "
+         * + "INNER JOIN rooms r ON h.idRooms = r.id "
+         * + "WHERE r.roomNumber ='" + roomnr.toString() + "'";
+         *
+         * SQLQuery sqlquery = session.createSQLQuery(query);
+         *
+         * //addEntity gibt den rueckgabewert an...
+         * sqlquery = sqlquery.addEntity(DBHabitation.class);
+         * List<DBHabitation> retList = sqlquery.list();
+         */
 
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        //addEntity gibt den rueckgabewert an...
-        sqlquery = sqlquery.addEntity(DBHabitation.class);
-        List<DBHabitation> retList = sqlquery.list();*/
-        
         //Criteria criteria = session.createCriteria(DBHabitation.class);
         //criteria = criteria.add(Restrictions.eq("rooms", 1));
-        
+
         //TODO DIstinct, bessere Möglichkeiten=
         Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems WHERE r.number = :number");
         q = q.setString("number", roomnr.toString());
 
         List<DBHabitation> retList = q.list();
-        
+
         if (retList == null)
         {
             return new LinkedHashSet();

@@ -20,7 +20,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -62,12 +61,7 @@ public class PdfGenerator
     private String invoicePath;
 
     /**
-     * Neue Instanz der Klasse PDFGenerator. Ist nur als
-     * <code>Thread</code> ausführbar.
-     * Aufruf nur als Thread (implementiert
-     * <code>Runnable</code>). Wenn generierung fertig,
-     * wird
-     * <code>notifyObservers()</code> aufgerufen.
+     * Neue Instanz der Klasse PDFGenerator für Rechnungen
      *
      * @param customer der Kunde, der die Rechung zahlt
      * @param invoiceNumber die eindeutige Rechungsnummer
@@ -77,12 +71,24 @@ public class PdfGenerator
      */
     public PdfGenerator(CustomerData customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
     {
-        this.customer = (Customer)customer;
+        this.customer = (Customer) customer;
         this.invoiceNumber = invoiceNumber;
         this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
         this.expiration = expiration;
     }
+
+    /**
+     * Neue Instanz der Klasse PDFGenerator für Zwischenrechnungen
+     * @param items die Rechnungspositionen
+     * @param created das Kreierungsdatum
+     */
+    public PdfGenerator(Collection<InvoiceItem> items, Date created)
+    {
+        this.items = items;
+        this.created = created;
+    }
+    
 
     /**
      * Konvertiert eine Rechung in ein PDF. Der Dateiname des PDFs wird mit der
@@ -102,7 +108,7 @@ public class PdfGenerator
      * aufweist
      * @throws IOException Wenn das laden des Logos einen Fehler aufweist
      */
-    private void generateInvoicePDF() throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
+    private void generateInvoicePDFwithTax() throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
     {
         Document doc = new Document(PageSize.A4);
         File temp = new File(path);
@@ -118,7 +124,27 @@ public class PdfGenerator
         addLogo(doc);
         addCustomer(doc, customer);
         addHotelAddress(doc);
-        addInvoiceBody(doc, invoiceNumber, items,
+        addInvoiceBodyWithTax(doc, invoiceNumber, items,
+                getTotalwithoutTax(items), created, expiration);
+        addThankyouMessage(doc);
+
+        doc.close();
+    }
+
+    private void generateInvoicePDFwithoutTax() throws FileNotFoundException, DocumentException, MalformedURLException, BadElementException, IOException
+    {
+        Document doc = new Document(PageSize.A4);
+        File temp = new File(path);
+        if (!temp.exists())
+        {
+            temp.mkdir();
+        }
+        this.invoicePath = path + invoiceNumber + "_intermediate" + ".pdf";
+        PdfWriter.getInstance(doc, new FileOutputStream(
+                invoicePath));
+        doc.open();
+        addMetaData(doc);
+        addInvoiceBodyWithoutTax(doc, invoiceNumber, items,
                 getTotalwithTax(items), created, expiration);
         addThankyouMessage(doc);
 
@@ -226,7 +252,7 @@ public class PdfGenerator
      * @param expiration das Fälligkeitsdatum der Rechnung
      * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
      */
-    private void addInvoiceBody(Document doc, String invoicenumber,
+    private void addInvoiceBodyWithTax(Document doc, String invoicenumber,
             Collection<InvoiceItem> items, double totalamount,
             Date created, Date expiration) throws DocumentException
     {
@@ -266,36 +292,141 @@ public class PdfGenerator
         //one header row
         table.setHeaderRows(1);
 
-        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getInstance(new Locale(
-                "en_US"));
+        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.GERMANY);
         DecimalFormatSymbols symbols = currencyFormat.getDecimalFormatSymbols();
         symbols.setGroupingSeparator(' ');
-        symbols.setCurrency(Currency.getInstance("EUR"));
+        symbols.setDecimalSeparator(',');
+        currencyFormat.setMinimumFractionDigits(2);
         currencyFormat.setDecimalFormatSymbols(symbols);
 
         for (InvoiceItem item : items)
         {
-            table.addCell(item.getAmount() + "x");
-            table.addCell(currencyFormat.format(item.getPriceWithTax()));
-            //TODO service name still missing
-            table.addCell("Service");
-            table.addCell(currencyFormat.format(item.getTotalPriceWithTax()));
+            cell = new PdfPCell(new Phrase(item.getAmount() + "x"));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(currencyFormat.format(item.getPriceWithTax())));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(item.getService().getServiceName()));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(currencyFormat.format(item.getTotalPriceWithTax())));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
         }
+
         //total amount
         table.addCell("");
         table.addCell("");
         table.addCell("Total");
-        table.addCell(currencyFormat.format(totalamount));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(totalamount)));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(cell);
+
         //10 percent sales tax
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 10%");
-        table.addCell(currencyFormat.format(percent10Total));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(percent10Total)));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(cell);
+
         //20 percent sales tax
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 20%");
-        table.addCell(currencyFormat.format(percent20Total));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(percent20Total)));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(cell);
+        //add table to paragraph
+        invoiceParagraph.add(table);
+        //add paragraph to document
+        doc.add(invoiceParagraph);
+    }
+
+    /**
+     * Fügt die Rechungsdetails zu der Rechung hinzu. Austellungsdatum,
+     * Rechungsnummer, Fälligkeitsdatum Alle Positionen werden aufgelistet in 4
+     * Spalten: Anzahl | Einzelpreis | Servicename | Preis Gesamtpreis der
+     * Rechnung ohne Taxen
+     *
+     * @param doc das Document-Object zum erstellen des PDFs
+     * @param invoiceNumber Die Rechungsnummer
+     * @param items Rechungspositionen
+     * @param totalamount der Gesamtbetrag der Rechnung
+     * @param created das Ausstellungsdatum der Rechnung
+     * @param expiration das Fälligkeitsdatum der Rechnung
+     * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
+     */
+    private void addInvoiceBodyWithoutTax(Document doc, String invoiceNumber, Collection<InvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
+    {
+        Paragraph invoiceParagraph = new Paragraph();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        //invoice creation date + invoice number
+        invoiceParagraph.add(new Paragraph(
+                "Creation date " + dateFormat.format(created), bigfont));
+        addEmptyLine(invoiceParagraph, 1);
+
+        // Table has 4 colums:
+        // amount | price per unit | servicename | price
+        PdfPTable table = new PdfPTable(4);
+        // add headers for the tablecolums
+        PdfPCell cell = new PdfPCell(new Phrase("Amount"));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Price per unit"));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Service"));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Price"));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell);
+        //one header row
+        table.setHeaderRows(1);
+
+        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.GERMANY);
+        DecimalFormatSymbols symbols = currencyFormat.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator(' ');
+        symbols.setDecimalSeparator(',');
+        currencyFormat.setMinimumFractionDigits(2);
+        currencyFormat.setDecimalFormatSymbols(symbols);
+
+        for (InvoiceItem item : items)
+        {
+            cell = new PdfPCell(new Phrase(item.getAmount() + "x"));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(currencyFormat.format(item.getPriceWithoutTax())));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(item.getService().getServiceName()));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(currencyFormat.format(item.getTotalPriceWithoutTax())));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+        }
+
+        //total amount
+        table.addCell("");
+        table.addCell("");
+        table.addCell("Total");
+        cell = new PdfPCell(new Phrase(currencyFormat.format(totalamount)));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(cell);
+
         //add table to paragraph
         invoiceParagraph.add(table);
         //add paragraph to document
@@ -334,7 +465,7 @@ public class PdfGenerator
     /**
      * Rechnet die Gesammtsumme einer Rechnung aus
      *
-     * @param items die Rechnungsposition, mit der eine Rechnung generiert wird
+     * @param items die Rechnungspositionen, mit der eine Rechnung generiert werden
      * @return
      * die Gesammtsumme einer Rechnung
      */
@@ -343,7 +474,23 @@ public class PdfGenerator
         double total = 0;
         for (InvoiceItem item : items)
         {
-            total = total + item.getPriceWithTax();
+            total = total + item.getTotalPriceWithTax();
+        }
+        return total;
+    }
+
+    /**
+     * Rechnet die Gesammtsumme einer Rechung aus, ohne Steuern
+     *
+     * @param items die Rechnungspositionen, mit der eine Rechung generiert werden
+     * @return die Gesammtsumme einer Rechung ohne Steuern
+     */
+    private double getTotalwithoutTax(Collection<InvoiceItem> items)
+    {
+        double total = 0;
+        for (InvoiceItem item : items)
+        {
+            total = total + item.getTotalPriceWithoutTax();
         }
         return total;
     }
@@ -370,9 +517,9 @@ public class PdfGenerator
 
         for (InvoiceItem item : items)
         {
-            if (item.getService().getServiceType().getTaxRate().doubleValue() == 0.2)
+            if (item.getService().getServiceType().getTaxRate().doubleValue() == 20.0)
             {
-                total = total + item.getPriceWithTax();
+                total = total + item.getTotalPriceWithTax();
             }
         }
 
@@ -391,9 +538,9 @@ public class PdfGenerator
 
         for (InvoiceItem item : items)
         {
-            if (item.getService().getServiceType().getTaxRate().doubleValue() == 0.1)
+            if (item.getService().getServiceType().getTaxRate().doubleValue() == 10.0)
             {
-                total = total + item.getPriceWithTax();
+                total = total + item.getTotalPriceWithTax();
             }
         }
 
@@ -401,15 +548,17 @@ public class PdfGenerator
     }
 
     /**
+     * Generiert ein JPanel mit einem PDFViewer für eine Rechung. Wenn das generieren fehlschlägt, gibt es ein JPanel aus
+     * welches eine Fehlermeldung enthält
      * 
-     * @return 
+     * @return ein JPanel mit einem PDFViewer
      */
     public JPanel generatePaymentPanel()
     {
         JPanel viewerComponentPanel = new JPanel();
         try
         {
-            generateInvoicePDF();
+            generateInvoicePDFwithTax();
             SwingController controller = new SwingController();
             SwingViewBuilder factory = new SwingViewBuilder(controller);
             viewerComponentPanel = factory.buildViewerPanel();
@@ -428,8 +577,33 @@ public class PdfGenerator
         }
     }
 
+    /**
+     * Generiert ein JPanel mit einem PDFViewer für eine Zwischenrechnung. Wenn das generieren fehlschlägt, gibt es ein JPanel aus
+     * welches eine Fehlermeldung enthält.
+     * 
+     * @return ein JPanel mit einem PDFViewer
+     */
     public JPanel generateIntermediatPanel()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        JPanel viewerComponentPanel = new JPanel();
+        try
+        {
+            generateInvoicePDFwithoutTax();
+            SwingController controller = new SwingController();
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            viewerComponentPanel = factory.buildViewerPanel();
+            controller.openDocument(this.invoicePath);
+            return viewerComponentPanel;
+        }
+        catch (Exception ex)
+        {
+            JLabel label = new JLabel("Error occurred generating PDF file");
+            viewerComponentPanel.add(label);
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            return viewerComponentPanel;
+        }
     }
 }
