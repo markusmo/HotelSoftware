@@ -13,7 +13,7 @@ import java.util.Date;
  *Diese Klasse beinhaltet eine Reservierungsoption die für Reservierungen  benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ReservationOption implements ReservationOptionData
+public class ReservationOption implements ReservationOptionData, IReservationOption
 {
     private Date expiration;
     private BigDecimal prepayment;
@@ -57,6 +57,7 @@ public class ReservationOption implements ReservationOptionData
      *
      * @param days The amount of days to extend
      */
+    @Override
     public void extendExpiration(int days)
     {
         long millis = expiration.getTime() + days * 864000000;

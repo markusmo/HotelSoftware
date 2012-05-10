@@ -16,7 +16,7 @@ import java.util.Collection;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Room implements RoomData
+public class Room implements RoomData, IRoom
 {
 
     private String number;
@@ -146,6 +146,7 @@ public class Room implements RoomData
                 cat));
     }
 
+    @Override
     public void changeStatus(RoomStatus status)
     {
         this.status.add(status);

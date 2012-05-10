@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dunst
  */
 
-public class RoomsRoomStatus 
+public class RoomsRoomStatus implements IRoomsRoomStatus 
 {
     private Date start;
     private Date end;

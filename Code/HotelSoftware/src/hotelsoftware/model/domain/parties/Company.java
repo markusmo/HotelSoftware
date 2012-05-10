@@ -16,7 +16,7 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Company extends Customer implements CompanyData
+public class Company extends Customer implements CompanyData, ICompany
 {
     private String companyname;
     private CompanyType companyType;
@@ -93,11 +93,13 @@ public class Company extends Customer implements CompanyData
         this.contactPersons = contactPersons;
     }
 
+    @Override
     public void removeContactPerson(Party p)
     {
         contactPersons.remove(p);
     }
 
+    @Override
     public void addContactPerson(Party p)
     {
         contactPersons.add(p);
