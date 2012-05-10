@@ -4,6 +4,9 @@
  */
 package hotelsoftware.gui.invoice.home;
 
+import hotelsoftware.controller.data.service.HabitationData;
+import java.util.Collection;
+
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
@@ -18,6 +21,12 @@ public class habitations extends javax.swing.JPanel
         initComponents();
     }
     
+    public void setTable(Collection<HabitationData> habitations)
+    {
+        HabitationsDataModel data = new HabitationsDataModel();
+        data.setData(habitations);
+        this.habitations.setModel(data);
+    }
     
 
     /**
@@ -71,9 +80,16 @@ public class habitations extends javax.swing.JPanel
                 "Last name", "First name", "Room Nr", "Arrival", "Departure"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -109,4 +125,6 @@ public class habitations extends javax.swing.JPanel
     private javax.swing.JTable habitations;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+    
 }

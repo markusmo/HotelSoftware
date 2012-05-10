@@ -23,6 +23,10 @@ public class InvoiceHome extends javax.swing.JPanel
     {
         initComponents();
     }
+    
+    private void setTable(Collection<HabitationData> habitations) {
+        availableHabitations.setTable(habitations);
+    }
 
 
     /**
@@ -235,9 +239,10 @@ public class InvoiceHome extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
-        Collection<HabitationData> habitations = ctrl.search(lnameLabel.getText(), fnameLabel.getText(), roomNrLabel.getText());
-        
-        
+        Collection<HabitationData> habitations = ctrl.search(lnameTextBox.getText(), fnameTextBox.getText(), roomNrTextbox.getText());
+        if (habitations != null) {
+            setTable(habitations);
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void fnameTextBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_fnameTextBoxActionPerformed

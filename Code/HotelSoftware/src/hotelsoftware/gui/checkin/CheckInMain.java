@@ -5,18 +5,17 @@
 package hotelsoftware.gui.checkin;
 
 import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.data.parties.CompanyData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.model.domain.parties.Company;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
-import hotelsoftware.controller.data.parties.CompanyData;
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.reservation.ReservationData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import javax.swing.JOptionPane;
@@ -54,10 +53,7 @@ public class CheckInMain extends javax.swing.JPanel
                     "Reservation No.", "Company Name", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
                 })
         {
-            boolean[] canEdit = new boolean[]
-            {
-                false, false, false, true, false, false, false
-            };
+           
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex)

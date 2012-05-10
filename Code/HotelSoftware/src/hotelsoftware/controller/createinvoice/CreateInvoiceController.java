@@ -310,11 +310,6 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-
-    Customer getCustomer()
-    {
-        return customer;
-    }
     
     void setCustomer(Customer customer)
     {
