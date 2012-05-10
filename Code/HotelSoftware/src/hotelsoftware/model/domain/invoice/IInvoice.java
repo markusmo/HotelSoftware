@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hotelsoftware.model.domain.invoice;
 
 /**
- *
+ *Dieses Interface enthällt die Methoden der Klasse Invoice, welche dort benötigt werden.
  * @author Kno
  */
 public interface IInvoice {
