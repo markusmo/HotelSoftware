@@ -310,8 +310,6 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-
-    
     
     void setCustomer(Customer customer)
     {
