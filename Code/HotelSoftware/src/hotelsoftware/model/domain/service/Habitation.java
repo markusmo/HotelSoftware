@@ -330,6 +330,15 @@ public class Habitation extends Service implements HabitationData, IHabitation
         }
         return ServiceFacade.getInstance().getHabitation(roomId);
     }
+    
+    public static Habitation searchHabitation(Integer roomnr)
+    {
+        Collection<Habitation> temp = searchHabitations(null, null, roomnr);
+        if(temp == null)
+            return null;
+        LinkedList temp2 = (LinkedList)temp;
+        return (Habitation)temp2.getFirst();
+    }
 
     @Override
     public String getServiceName()
