@@ -20,7 +20,6 @@ import java.util.Set;
  */
 public class PrivateCustomer extends Customer
 {
-
     private String fname;
     private String lname;
     private Character gender;
@@ -129,7 +128,7 @@ public class PrivateCustomer extends Customer
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
     public String toString()
     {

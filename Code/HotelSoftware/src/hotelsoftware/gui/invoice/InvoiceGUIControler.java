@@ -4,12 +4,28 @@
  */
 package hotelsoftware.gui.invoice;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
+import hotelsoftware.gui.invoice.subpanels.addCustomer;
+import hotelsoftware.model.domain.invoice.Invoice;
+import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.util.pdf.PdfGenerator;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,6 +55,7 @@ public final class InvoiceGUIControler implements ActionListener
     private JButton backButton = new JButton();
     private JButton intermediatInvoiceButton = new JButton();
     private JButton chooseCustomerButton = new JButton();
+    private JButton splitCancelButton = new JButton();
     private JButton payed = new JButton();
     
     private String invoiceHome = "Invoice Home";
@@ -71,9 +88,11 @@ public final class InvoiceGUIControler implements ActionListener
         intermediatInvoiceButton.addActionListener(this);
         
         chooseCustomerButton.setText(chooseCustomer);
-        chooseCustomerButton.addActionListener(this);        
+        chooseCustomerButton.addActionListener(this);  
+        
+        splitCancelButton.setText(splitCancel);
+        splitCancelButton.addActionListener(this);  
         // set start screen
-        //setContentPanel(new InvoiceHome());
     }
     
     public static InvoiceGUIControler getInstance()
@@ -85,6 +104,7 @@ public final class InvoiceGUIControler implements ActionListener
     {
         main = (InvoiceMain) contentPanel;
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -100,8 +120,12 @@ public final class InvoiceGUIControler implements ActionListener
             } else if (text.equals(intermediatInvoice)) {
                 setContentPanel(new IntermediatInvoice());
             } else if (text.equals(splitCancel)) {
-                // TODO adapt setContentPanel(new IntermediatInvoice());
-            } // more buttons!!!
+               setContentPanel(new splitNstornoPanel());
+            } else if (text.equals(chooseCustomer)) {
+               setContentPanel(new addCustomer(ctrl.getCustomerData()));
+            } else if (text.equals(payment)) {
+               setContentPanel(getPaymentPanel());
+            } 
         }
     }
     
@@ -136,15 +160,19 @@ public final class InvoiceGUIControler implements ActionListener
     
     public void setContentPanel(JPanel newcontent) {        
         JPanel contentPanel = getContentPanel();
-        contentPanel.removeAll();
         contentPanel.add(newcontent);
-        ((CardLayout)contentPanel.getLayout()).next(contentPanel);
+        
+        if (contentPanel.getLayout() instanceof CardLayout) {
+            CardLayout layout = (CardLayout) contentPanel.getLayout();
+            layout.next(contentPanel);
+        }
         
         setNavigation(newcontent.getClass());
         setControls(newcontent.getClass());
         
         contentPanel.repaint();
-    }
+        
+   }
     
     
     private void setNavigation(Class clazz) {
@@ -153,24 +181,28 @@ public final class InvoiceGUIControler implements ActionListener
        
 //       if (class.equals(SplitCancel.class)) {
 //               
-//       } else {
+//       } 
        
-            if (clazz.equals(InvoiceHome.class)) {             
-                navigation.add(invoiceHomeLabel);
-            } 
-            if (clazz.equals(IntermediatInvoice.class)) {
-                navigation.add(seperatorLabel);
-                navigation.add(intermediatInvoiceLabel);
-            } 
-    //        if (class.equals(CostomerSelection.class)) {
-    //            navigation.add(seperator);
-    //            navigation.add(chooseCustomer);
-    //        }
-    //        if (class.equals(Payment.class)) {
-    //            navigation.add(seperator);
-    //            navigation.add(payment);
-    //        }
-//        }
+        if (clazz.equals(InvoiceHome.class)) {             
+            navigation.add(invoiceHomeLabel);
+        } 
+        if (clazz.equals(IntermediatInvoice.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+        } 
+        if (clazz.equals(addCustomer.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(chooseCustomerLabel);
+        }
+//            if (clazz.equals(Payment.class)) {
+//                navigation.add(seperator);
+//                navigation.add(payment);
+//            }
+
         navigation.repaint();
     }
     
@@ -185,21 +217,79 @@ public final class InvoiceGUIControler implements ActionListener
         
         if (clazz.equals(InvoiceHome.class)) {             
             constructive.add(intermediatInvoiceButton);
+        }
+        if (clazz.equals(IntermediatInvoice.class)) {
+            constructive.add(splitCancelButton);
+            constructive.add(chooseCustomerButton);
             deconstructive.add(backButton);
-        } 
+        }
+         if (clazz.equals(addCustomer.class)) {
+            deconstructive.add(backButton);
+        }        
         
         getControlPanel().repaint();
     }
     
     private void abort(ActionEvent e) {
-        ctrl.abort();
-        // TODO wenn items noch offen sind, meldung dementsprechend anpassen
-        JOptionPane.showMessageDialog(getContentPanel(), "Do you really want to abort?");
+        //ctrl.abort();
+        // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
+        JPanel panel = getContentPanel();
+        
+        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.ABORT);
     }
     
     private void back(ActionEvent e) {
-        ctrl.back();   
-        ((CardLayout) getContentPanel().getLayout()).previous(getContentPanel());
+        // FIXME decomment 
+        //ctrl.back();   
+        JPanel contentPanel = getContentPanel();
+        if (contentPanel.getLayout() instanceof CardLayout) {
+            CardLayout layout = (CardLayout) contentPanel.getLayout();
+            layout.previous(getContentPanel());
+            JPanel current = getCurrentPanel(contentPanel);  
+            setNavigation(current.getClass());
+            setControls(current.getClass());
+        }
+        
+        
+        contentPanel.repaint();
     }
     
+     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
+    {
+        return ctrl.search(firstName, lastName, roomNr);
+    }
+    
+    public JPanel getCurrentPanel(JPanel currentPanel) {
+
+        for (Component component : currentPanel.getComponents()) {
+            if (component.isVisible()) {
+                if (component instanceof JPanel) 
+                    currentPanel = (JPanel) component;
+//                else if (component instanceof JScrollPane)
+//                    currentPanel = (JPanel) ((JScrollPane) component).getViewport().getComponent(0);
+            }
+        }
+
+        return currentPanel;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    private JPanel getPaymentPanel() {
+        // FIXME set expireData
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        JPanel generatePDFPanel = generator.generatePaymentPanel();
+        return generatePDFPanel;
+    }
+    
+    
+    private JPanel getIntermediatInvoicePanel() {
+        // FIXME set expireData
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        JPanel generatePDFPanel = generator.generateIntermediatPanel();
+        return generatePDFPanel;
+    }
+   
 }

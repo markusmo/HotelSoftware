@@ -17,6 +17,8 @@ public class habitations extends javax.swing.JPanel
     {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to
@@ -30,7 +32,7 @@ public class habitations extends javax.swing.JPanel
 
         jScrollPane2 = new javax.swing.JScrollPane();
         habitations = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        HabitationsLabel = new javax.swing.JLabel();
 
         habitations.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +83,7 @@ public class habitations extends javax.swing.JPanel
         habitations.setPreferredSize(null);
         jScrollPane2.setViewportView(habitations);
 
-        jLabel2.setText("Habitations");
+        HabitationsLabel.setText("Habitations");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,22 +91,22 @@ public class habitations extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(HabitationsLabel)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(HabitationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel HabitationsLabel;
     private javax.swing.JTable habitations;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

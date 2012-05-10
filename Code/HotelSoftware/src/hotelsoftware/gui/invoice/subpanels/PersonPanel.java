@@ -4,6 +4,12 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.model.domain.parties.PrivateCustomer;
+
 /**
  *
  * @author Johannes
@@ -16,6 +22,11 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
     public PersonPanel()
     {
         initComponents();
+        ComboBoxCountry.removeAllItems();
+        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        {
+            ComboBoxCountry.addItem(data);
+        }
     }
 
     /**
@@ -179,4 +190,23 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelVorname;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public CustomerData getCustomer()
+    {
+        PrivateCustomer p = new PrivateCustomer();
+        Address a = new Address();
+        a.setCity(TextFieldCity.getText());
+        a.setEmail(TextFieldEmail.getText());
+        a.setFax(TextFieldFax.getText());
+        a.setIdCountry((Country) ComboBoxCountry.getSelectedItem());
+        a.setPhone(TextFieldPhoneNumber.getText());
+        a.setStreet(TextFieldStreet.getText());
+        a.setZip(TextFieldZip.getText());
+        p.setAddress(a);
+        p.setGender((Character) ComboBoxGender.getSelectedItem());
+        p.setFname(TextFieldFirstName.getText());
+        p.setLname(TextFieldLastName.getText());
+        return p;
+    }
 }

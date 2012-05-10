@@ -4,6 +4,12 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.model.domain.parties.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
 /**
  *
  * @author Johannes
@@ -16,6 +22,11 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     public CompanyPanel()
     {
         initComponents();
+        ComboBoxCountry.removeAllItems();
+        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        {
+            ComboBoxCountry.addItem(data);
+        }
     }
 
     /**
@@ -37,7 +48,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
         ComboBoxCountry = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         TextFieldFax = new javax.swing.JTextField();
-        TextFieldFirstName = new javax.swing.JTextField();
+        TextFieldCompanyName = new javax.swing.JTextField();
         TextFieldEmail = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         TextFieldStreet = new javax.swing.JTextField();
@@ -45,8 +56,6 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
         TextFieldPhoneNumber = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         TextFieldZip = new javax.swing.JTextField();
-        TextFieldPhoneNumber1 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
         jLabel8.setText("Street / Number:");
@@ -69,8 +78,6 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
 
         jLabel7.setText("Fax:");
 
-        jLabel14.setText("Contact person:");
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -88,30 +95,30 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TextFieldFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(TextFieldStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(TextFieldCity, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(TextFieldZip))
-                        .addComponent(ComboBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ComboBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TextFieldCompanyName, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TextFieldStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,10 +126,6 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(TextFieldPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,7 +140,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelVorname)
-                            .addComponent(TextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TextFieldCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -163,11 +166,10 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
     private javax.swing.JTextField TextFieldCity;
+    private javax.swing.JTextField TextFieldCompanyName;
     private javax.swing.JTextField TextFieldEmail;
     private javax.swing.JTextField TextFieldFax;
-    private javax.swing.JTextField TextFieldFirstName;
     private javax.swing.JTextField TextFieldPhoneNumber;
-    private javax.swing.JTextField TextFieldPhoneNumber1;
     private javax.swing.JTextField TextFieldStreet;
     private javax.swing.JTextField TextFieldZip;
     private javax.swing.JComboBox jComboBox1;
@@ -175,11 +177,31 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelVorname;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public CustomerData getCustomer()
+    {
+        Company c = new Company();
+        Address a = new Address();
+        a.setCity(TextFieldCity.getText());
+        a.setEmail(TextFieldEmail.getText());
+        a.setFax(TextFieldFax.getText());
+        a.setIdCountry((Country) ComboBoxCountry.getSelectedItem());
+        a.setPhone(TextFieldPhoneNumber.getText());
+        a.setStreet(TextFieldStreet.getText());
+        a.setZip(TextFieldZip.getText());
+
+        c.setCompanyType((CompanyType) jComboBox1.getSelectedItem());
+        c.setAddress(a);
+        c.setName(TextFieldCompanyName.getText());
+
+
+        return c;
+    }
 }

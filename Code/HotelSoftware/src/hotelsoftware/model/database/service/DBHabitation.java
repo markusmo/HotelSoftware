@@ -52,7 +52,8 @@ public class DBHabitation extends DBService implements Serializable
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser users;
-    @OneToMany(mappedBy = "habitation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitation", fetch= FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
@@ -278,7 +279,8 @@ public class DBHabitation extends DBService implements Serializable
         //Criteria criteria = session.createCriteria(DBHabitation.class);
         //criteria = criteria.add(Restrictions.eq("rooms", 1));
         
-        Query q = session.createQuery("SELECT h FROM DBHabitation as h INNER JOIN h.rooms as r WHERE r.number = :number");
+        //TODO DIstinct, bessere Möglichkeiten=
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems WHERE r.number = :number");
         q = q.setString("number", roomnr.toString());
 
         List<DBHabitation> retList = q.list();

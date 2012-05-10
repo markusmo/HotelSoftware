@@ -47,8 +47,8 @@ public class DBInvoiceItem implements Serializable
     @ManyToOne(optional = false)
     private DBUser user;
     
-    @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private DBHabitation habitation;
     
     @JoinColumn(name = "idInvoices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)

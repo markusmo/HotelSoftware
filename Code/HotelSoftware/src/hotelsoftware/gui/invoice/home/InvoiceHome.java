@@ -4,12 +4,17 @@
  */
 package hotelsoftware.gui.invoice.home;
 
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import java.util.Collection;
+
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class InvoiceHome extends javax.swing.JPanel
 {
+    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
 
     /**
      * Creates new form CheckInMain
@@ -31,22 +36,22 @@ public class InvoiceHome extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         invoiceHomeTables = new javax.swing.JPanel();
-        habitations3 = new hotelsoftware.gui.invoice.home.habitations();
+        availableHabitations = new hotelsoftware.gui.invoice.home.habitations();
         dropSelectButtons = new javax.swing.JPanel();
         chooseAll = new javax.swing.JButton();
         chooseSelection = new javax.swing.JButton();
         dropSelected = new javax.swing.JButton();
         dropAll = new javax.swing.JButton();
-        habitations4 = new hotelsoftware.gui.invoice.home.habitations();
+        selectedHabitations = new hotelsoftware.gui.invoice.home.habitations();
         searchPanel = new javax.swing.JPanel();
-        label_lname = new javax.swing.JLabel();
-        labelFname = new javax.swing.JLabel();
-        label_roomRn = new javax.swing.JLabel();
-        textBoxFname = new javax.swing.JTextField();
-        textBoxRoomNumber = new javax.swing.JTextField();
-        textBoxLname = new javax.swing.JTextField();
-        buttonSearch = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
+        lnameLabel = new javax.swing.JLabel();
+        fnameLabel = new javax.swing.JLabel();
+        roomNrLabel = new javax.swing.JLabel();
+        fnameTextBox = new javax.swing.JTextField();
+        roomNrTextbox = new javax.swing.JTextField();
+        lnameTextBox = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        seperator = new javax.swing.JSeparator();
 
         setPreferredSize(new java.awt.Dimension(1220, 500));
         setRequestFocusEnabled(false);
@@ -55,7 +60,7 @@ public class InvoiceHome extends javax.swing.JPanel
         invoiceHomeTables.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        invoiceHomeTables.add(habitations3, gridBagConstraints);
+        invoiceHomeTables.add(availableHabitations, gridBagConstraints);
 
         dropSelectButtons.setMaximumSize(new java.awt.Dimension(32767, 100));
         dropSelectButtons.setPreferredSize(new java.awt.Dimension(80, 240));
@@ -120,12 +125,12 @@ public class InvoiceHome extends javax.swing.JPanel
                     .addGroup(dropSelectButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(chooseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(chooseSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dropSelectButtonsLayout.setVerticalGroup(
             dropSelectButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dropSelectButtonsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addComponent(chooseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chooseSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,38 +143,38 @@ public class InvoiceHome extends javax.swing.JPanel
         invoiceHomeTables.add(dropSelectButtons, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        invoiceHomeTables.add(habitations4, gridBagConstraints);
+        invoiceHomeTables.add(selectedHabitations, gridBagConstraints);
 
         add(invoiceHomeTables, java.awt.BorderLayout.CENTER);
 
-        label_lname.setText("Last name:");
+        lnameLabel.setText("Last name:");
 
-        labelFname.setText("First name:");
+        fnameLabel.setText("First name:");
 
-        label_roomRn.setText("Room Nr");
+        roomNrLabel.setText("Room Nr");
 
-        textBoxFname.addActionListener(new java.awt.event.ActionListener() {
+        fnameTextBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxFnameActionPerformed(evt);
+                fnameTextBoxActionPerformed(evt);
             }
         });
 
-        textBoxRoomNumber.addActionListener(new java.awt.event.ActionListener() {
+        roomNrTextbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxRoomNumberActionPerformed(evt);
+                roomNrTextboxActionPerformed(evt);
             }
         });
 
-        textBoxLname.addActionListener(new java.awt.event.ActionListener() {
+        lnameTextBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textBoxLnameActionPerformed(evt);
+                lnameTextBoxActionPerformed(evt);
             }
         });
 
-        buttonSearch.setText("Search");
-        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSearchActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
 
@@ -183,20 +188,20 @@ public class InvoiceHome extends javax.swing.JPanel
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(label_lname)
+                                .addComponent(lnameLabel)
                                 .addGap(35, 35, 35)
-                                .addComponent(textBoxLname, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lnameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(labelFname)
+                                .addComponent(fnameLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textBoxFname, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(fnameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(68, 68, 68)
-                        .addComponent(label_roomRn)
+                        .addComponent(roomNrLabel)
                         .addGap(35, 35, 35)
-                        .addComponent(textBoxRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(roomNrTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 841, Short.MAX_VALUE)
-                        .addComponent(buttonSearch))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(searchButton))
+                    .addComponent(seperator, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         searchPanelLayout.setVerticalGroup(
@@ -205,49 +210,50 @@ public class InvoiceHome extends javax.swing.JPanel
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchPanelLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(buttonSearch)
+                        .addComponent(searchButton)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(searchPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(textBoxLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label_roomRn)
-                                .addComponent(textBoxRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label_lname, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lnameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(roomNrLabel)
+                                .addComponent(roomNrTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(labelFname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fnameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(2, 2, 2))
-                            .addComponent(textBoxFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(fnameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(seperator, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         add(searchPanel, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
-    {//GEN-HEADEREND:event_buttonSearchActionPerformed
-        // Search Button
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
+    {//GEN-HEADEREND:event_searchButtonActionPerformed
+        Collection<HabitationData> habitations = ctrl.search(lnameLabel.getText(), fnameLabel.getText(), roomNrLabel.getText());
         
-    }//GEN-LAST:event_buttonSearchActionPerformed
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void textBoxFnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxFnameActionPerformed
-    {//GEN-HEADEREND:event_textBoxFnameActionPerformed
+    private void fnameTextBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_fnameTextBoxActionPerformed
+    {//GEN-HEADEREND:event_fnameTextBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxFnameActionPerformed
+    }//GEN-LAST:event_fnameTextBoxActionPerformed
 
-    private void textBoxLnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxLnameActionPerformed
-    {//GEN-HEADEREND:event_textBoxLnameActionPerformed
+    private void lnameTextBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_lnameTextBoxActionPerformed
+    {//GEN-HEADEREND:event_lnameTextBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxLnameActionPerformed
+    }//GEN-LAST:event_lnameTextBoxActionPerformed
 
-    private void textBoxRoomNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxRoomNumberActionPerformed
-    {//GEN-HEADEREND:event_textBoxRoomNumberActionPerformed
+    private void roomNrTextboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_roomNrTextboxActionPerformed
+    {//GEN-HEADEREND:event_roomNrTextboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textBoxRoomNumberActionPerformed
+    }//GEN-LAST:event_roomNrTextboxActionPerformed
 
     private void dropAllActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dropAllActionPerformed
     {//GEN-HEADEREND:event_dropAllActionPerformed
@@ -271,22 +277,22 @@ public class InvoiceHome extends javax.swing.JPanel
    }//GEN-LAST:event_chooseAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonSearch;
+    private hotelsoftware.gui.invoice.home.habitations availableHabitations;
     private javax.swing.JButton chooseAll;
     private javax.swing.JButton chooseSelection;
     private javax.swing.JButton dropAll;
     private javax.swing.JPanel dropSelectButtons;
     private javax.swing.JButton dropSelected;
-    private hotelsoftware.gui.invoice.home.habitations habitations3;
-    private hotelsoftware.gui.invoice.home.habitations habitations4;
+    private javax.swing.JLabel fnameLabel;
+    private javax.swing.JTextField fnameTextBox;
     private javax.swing.JPanel invoiceHomeTables;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelFname;
-    private javax.swing.JLabel label_lname;
-    private javax.swing.JLabel label_roomRn;
+    private javax.swing.JLabel lnameLabel;
+    private javax.swing.JTextField lnameTextBox;
+    private javax.swing.JLabel roomNrLabel;
+    private javax.swing.JTextField roomNrTextbox;
+    private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
-    private javax.swing.JTextField textBoxFname;
-    private javax.swing.JTextField textBoxLname;
-    private javax.swing.JTextField textBoxRoomNumber;
+    private hotelsoftware.gui.invoice.home.habitations selectedHabitations;
+    private javax.swing.JSeparator seperator;
     // End of variables declaration//GEN-END:variables
 }
