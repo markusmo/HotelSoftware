@@ -10,6 +10,7 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -116,9 +117,10 @@ public class CreateInvoiceController
         state.useGuestAsCustomer(guest);
     }
     
-    public Collection<InvoiceItemData> getChosenItems()
+    public Collection<InvoiceItem> getChosenItems()
     {
-        return state.getSelectedItems();
+        // FIXME implement
+        return null;
     }
     
     public void pay()
@@ -184,5 +186,10 @@ public class CreateInvoiceController
     void setState(CreateInvoiceState state)
     {
         this.state = state;
+    }
+    
+    public Customer getCustomer() {
+        // TODO implement
+        return null;
     }
 }

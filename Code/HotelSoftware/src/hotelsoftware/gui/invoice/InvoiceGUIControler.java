@@ -4,14 +4,24 @@
  */
 package hotelsoftware.gui.invoice;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.subpanels.addCustomer;
+import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.util.pdf.PdfGenerator;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -90,6 +100,7 @@ public final class InvoiceGUIControler implements ActionListener
     {
         main = (InvoiceMain) contentPanel;
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -108,6 +119,8 @@ public final class InvoiceGUIControler implements ActionListener
                setContentPanel(new splitNstornoPanel());
             } else if (text.equals(chooseCustomer)) {
                setContentPanel(new addCustomer(ctrl.getCustomerData()));
+            } else if (text.equals(payment)) {
+               setContentPanel(getPaymentPanel());
             } 
         }
     }
@@ -164,28 +177,28 @@ public final class InvoiceGUIControler implements ActionListener
        
 //       if (class.equals(SplitCancel.class)) {
 //               
-//       } else {
+//       } 
        
-            if (clazz.equals(InvoiceHome.class)) {             
-                navigation.add(invoiceHomeLabel);
-            } 
-            if (clazz.equals(IntermediatInvoice.class)) {
-                navigation.add(invoiceHomeLabel);
-                navigation.add(seperatorLabel);
-                navigation.add(intermediatInvoiceLabel);
-            } 
-            if (clazz.equals(addCustomer.class)) {
-                navigation.add(invoiceHomeLabel);
-                navigation.add(seperatorLabel);
-                navigation.add(intermediatInvoiceLabel);
-                navigation.add(seperatorLabel);
-                navigation.add(chooseCustomerLabel);
-            }
+        if (clazz.equals(InvoiceHome.class)) {             
+            navigation.add(invoiceHomeLabel);
+        } 
+        if (clazz.equals(IntermediatInvoice.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+        } 
+        if (clazz.equals(addCustomer.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(chooseCustomerLabel);
+        }
 //            if (clazz.equals(Payment.class)) {
 //                navigation.add(seperator);
 //                navigation.add(payment);
 //            }
-//        }
+
         navigation.repaint();
     }
     
@@ -251,5 +264,30 @@ public final class InvoiceGUIControler implements ActionListener
         return currentPanel;
     }
 
-    
+    private JPanel getPaymentPanel() {
+        try
+        {
+            PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), "i07051200000001", ctrl.getChosenItems(), new Date(), new Date());
+            JPanel generatePDFPanel = generator.generatePDFPanel();
+            return generatePDFPanel;
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (DocumentException ex)
+        {
+            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        catch (MalformedURLException ex)
+        {
+            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(InvoiceGUIControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return new JPanel(); // FIXME return faultPanel from pdfGenerator
+    }
+   
 }
