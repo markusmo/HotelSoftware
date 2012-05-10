@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class addCustomer extends javax.swing.JPanel
 {
-    private DefaultListModel<CustomerData> listModel = new DefaultListModel<CustomerData>();
+    private DefaultListModel listModel = new DefaultListModel();
     private final Collection<CustomerData> URcustomers;
     private Collection<CustomerData> customers = new ArrayList<CustomerData>();
     private PersonPanel personPanel = new PersonPanel();
@@ -342,7 +342,7 @@ public class addCustomer extends javax.swing.JPanel
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }
