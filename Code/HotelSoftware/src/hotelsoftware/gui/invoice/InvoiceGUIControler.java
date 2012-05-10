@@ -1,32 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.invoice;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.DocumentException;
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.subpanels.addCustomer;
 import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
