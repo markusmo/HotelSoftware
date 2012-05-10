@@ -31,6 +31,7 @@ public class CreateInvoiceController
 
     private CreateInvoiceController()
     {
+        state = new SearchState(this);
     }
 
     public static CreateInvoiceController getInstance()

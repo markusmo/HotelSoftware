@@ -198,7 +198,7 @@ public class DBHabitation extends DBService implements Serializable
         ts.begin();
         
         Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r INNER JOIN h.guests g "
-                + "JOIN FETCH h.invoiceItems WHERE r.number = :number AND g.fname = :fname AND g.lname = :lname");
+                + "JOIN FETCH h.invoiceItems WHERE r.number = :number OR g.fname = :fname OR g.lname = :lname");
         q = q.setString("number", roomnr);
         q = q.setString("fname", fname);
         q = q.setString("lname", lname);
