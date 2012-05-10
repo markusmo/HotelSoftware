@@ -4,8 +4,10 @@
  */
 package hotelsoftware.gui.invoice.home;
 
+import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import java.util.Collection;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +15,9 @@ import java.util.Collection;
  */
 public class habitations extends javax.swing.JPanel
 {
+    
+    private static final int columnCount = 5;
+    
     /**
      * Creates new form habitations
      */
@@ -21,11 +26,38 @@ public class habitations extends javax.swing.JPanel
         initComponents();
     }
     
-    public void setTable(Collection<HabitationData> habitations)
-    {
-        HabitationsDataModel data = new HabitationsDataModel();
-        //data.setData(habitations);
-        this.habitations.setModel(data);
+    private Object[][] getDataArray(Collection<HabitationData> data) {
+        Object[][] objectArray = new Object[data.size()][columnCount];
+        
+        int i = 0;
+        for(HabitationData hab: data)
+        {
+            String[] rowData = getRowData(hab);
+            for (int j = 0; j < columnCount; j++)
+            {
+                objectArray [i++][j] = rowData[j];
+            }
+        }     
+        return null;
+    }
+
+    private String[] getRowData(HabitationData data) {
+        Collection<GuestData> guests = data.getGuestsData();
+        String[] rowData = new String[columnCount];
+        for(GuestData guest: guests) {
+            rowData[0] = guest.getLname();
+            rowData[1] = guest.getFname();
+            rowData[2] = data.getRoomsData().getNumber();
+            rowData[3] = data.getStart().toString();
+            rowData[4] = data.getEnd().toString();
+        }       
+        return rowData;
+    }
+    
+    public void setTable(Collection<HabitationData> data)
+    {        
+        this.habitations.setModel(new DefaultTableModel(getDataArray(data),new String [] {"Last name", "First name", "Room Nr", "Arrival", "Departure"}));
+       
     }
     
 
