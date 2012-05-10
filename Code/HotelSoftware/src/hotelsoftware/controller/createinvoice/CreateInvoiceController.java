@@ -10,8 +10,13 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
+<<<<<<< HEAD
 import hotelsoftware.model.domain.parties.Customer;
+=======
+import hotelsoftware.model.domain.parties.Country;
+>>>>>>> f509404dded039544b3883344c7f55d53dd6620c
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -22,14 +27,13 @@ import java.util.LinkedList;
 public class CreateInvoiceController
 {
     private CreateInvoiceState state;
-    
     private Collection<Habitation> habitations;
     private Collection<InvoiceItem> selectedItems;
-    
+
     private CreateInvoiceController()
     {
     }
-    
+
     public static CreateInvoiceController getInstance()
     {
         return CreateInvoiceControllerHolder.INSTANCE;
@@ -47,101 +51,106 @@ public class CreateInvoiceController
         //throw new UnsupportedOperationException("Not yet implemented");
         return null;
     }
-    
+
     private static class CreateInvoiceControllerHolder
     {
         private static final CreateInvoiceController INSTANCE = new CreateInvoiceController();
     }
-    
+
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
         return state.search(firstName, lastName, roomNr);
     }
-    
+
     public void selectHabitations(Collection<HabitationData> habitations)
     {
         state.selectHabitations(habitations);
     }
-    
+
     public Collection<HabitationData> getSelectedHabitations()
     {
         return state.getHabitations();
     }
-    
+
     public void selectItems(Collection<InvoiceItemData> items)
     {
         state.selectItems(items);
     }
-    
+
     public void cancelItems(InvoiceItemData item, int amount)
     {
         state.cancelItems(item, amount);
     }
-    
+
     public Collection<CountryData> getAllCountries()
     {
         return state.getAllCountries();
     }
-    
+
     public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
         createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
     }
-    
+
     public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
-        state.createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet, 
+        state.createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
-    
+
     public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
         createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
     }
-    
+
     public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
-        state.createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, invoiceStreet, 
+        state.createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country, invoiceStreet,
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
-    
+
     public Collection<GuestData> getWorkingHabitationsGuests()
     {
         return state.getWorkingHabitationsGuests();
     }
-    
+
     public void useGuestAsCustomer(GuestData guest)
     {
         state.useGuestAsCustomer(guest);
     }
+<<<<<<< HEAD
     
     public Collection<InvoiceItem> getChosenItems()
+=======
+
+    public Collection<InvoiceItemData> getChosenItems()
+>>>>>>> f509404dded039544b3883344c7f55d53dd6620c
     {
         // FIXME implement
         return null;
     }
-    
+
     public void pay()
     {
         state.pay();
     }
-    
+
     public void next()
     {
         state.next();
     }
-    
+
     public void back()
     {
         state.back();
     }
-    
+
     Collection<InvoiceItem> getOpenItems()
     {
         Collection<InvoiceItem> openItems = new LinkedList<InvoiceItem>();
-        
+
         for (Habitation h : habitations)
         {
             for (InvoiceItem i : h.getInvoiceItems())
@@ -152,12 +161,13 @@ public class CreateInvoiceController
                 }
             }
         }
-        
+
         return openItems;
     }
-    
-    /******************************************************************/
-    
+
+    /**
+     * ***************************************************************
+     */
     Collection<Habitation> getHabitations()
     {
         return habitations;
@@ -187,9 +197,15 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
+<<<<<<< HEAD
     
     public Customer getCustomer() {
         // TODO implement
         return null;
     }
+=======
+    private Collection<CountryData> countries;
+
+  
+>>>>>>> f509404dded039544b3883344c7f55d53dd6620c
 }

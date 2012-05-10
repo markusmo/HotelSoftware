@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.parties.*;
 import java.util.Collection;
@@ -21,6 +22,11 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     public CompanyPanel()
     {
         initComponents();
+        ComboBoxCountry.removeAllItems();
+        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        {
+            ComboBoxCountry.addItem(data);
+        }
     }
 
     /**
@@ -194,8 +200,8 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
         c.setCompanyType((CompanyType) jComboBox1.getSelectedItem());
         c.setAddress(a);
         c.setName(TextFieldCompanyName.getText());
-       
-        
+
+
         return c;
     }
 }
