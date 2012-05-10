@@ -10,11 +10,8 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
-<<<<<<< HEAD
 import hotelsoftware.model.domain.parties.Customer;
-=======
 import hotelsoftware.model.domain.parties.Country;
->>>>>>> f509404dded039544b3883344c7f55d53dd6620c
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -120,13 +117,8 @@ public class CreateInvoiceController
     {
         state.useGuestAsCustomer(guest);
     }
-<<<<<<< HEAD
-    
+  
     public Collection<InvoiceItem> getChosenItems()
-=======
-
-    public Collection<InvoiceItemData> getChosenItems()
->>>>>>> f509404dded039544b3883344c7f55d53dd6620c
     {
         // FIXME implement
         return null;
@@ -197,15 +189,10 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-<<<<<<< HEAD
     
     public Customer getCustomer() {
         // TODO implement
         return null;
     }
-=======
-    private Collection<CountryData> countries;
-
-  
->>>>>>> f509404dded039544b3883344c7f55d53dd6620c
+   
 }
