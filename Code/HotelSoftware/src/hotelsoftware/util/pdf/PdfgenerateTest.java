@@ -5,30 +5,32 @@
 package hotelsoftware.util.pdf;
 
 import hotelsoftware.model.domain.invoice.Invoice;
-import java.util.Observable;
-import java.util.Observer;
+import javax.swing.JPanel;
 
 /**
  *
  * @author mohi
  */
-public class PdfgenerateTest implements Observer
+public class PdfgenerateTest implements PDFObserver
 {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args)
+    
+    public void start()
     {
-
         Invoice invoice = Invoice.getInvoiceByInvoiceNumber("05071200000001");
-        PdfGenerator generator = new PdfGenerator(invoice.getCustomer(), invoice.getInvoiceNumber(), invoice.getInvoiceItems(), invoice.getCreated(), invoice.getExpiration());
+        PdfGenerator generator = new PdfGenerator(this ,invoice.getCustomer(), invoice.getInvoiceNumber(), invoice.getInvoiceItems(), invoice.getCreated(), invoice.getExpiration());
         Thread thread = new Thread(generator);
         thread.start();
     }
 
     @Override
-    public void update(Observable o, Object o1)
+    public void getPDFasPanel(JPanel pdfPanel)
     {
-        System.out.println("done");
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void gererationFinished(boolean done)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

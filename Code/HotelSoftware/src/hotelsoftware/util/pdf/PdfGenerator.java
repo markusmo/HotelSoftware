@@ -16,9 +16,13 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 /**
  * Dieses Objekt generiert PDFs. Diese Klasse ist nur als Thread ausführbar, das heißt, die Methode generatePDF() wird im run() des implementierten Interfaces Runnable aufgerufen.
@@ -28,7 +32,7 @@ import java.util.logging.Logger;
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class PdfGenerator extends Observable implements Runnable
+public class PdfGenerator implements Runnable
 {
     /**
      * Dynamische Pfadgenerierung, zu dem Ort, an dem die PDFs gespeichert
@@ -44,17 +48,20 @@ public class PdfGenerator extends Observable implements Runnable
      * Die Schrift, mit der alle Überschriften dargestellt werden
      */
     private static final Font bigfont = new Font(Font.TIMES_ROMAN, 16, Font.BOLD);
-    
     private Customer customer;
     private String invoiceNumber;
     private Collection<InvoiceItem> items;
     private Date created;
     private Date expiration;
+    private PDFObserver observer;
 
     /**
-     * Neue Instanz der Klasse PDFGenerator. Ist nur als <code>Thread</code> ausführbar.
-     * Aufruf nur als Thread (implementiert <code>Runnable</code>). Wenn generierung fertig,
-     * wird <code>notifyObservers()</code> aufgerufen.
+     * Neue Instanz der Klasse PDFGenerator. Ist nur als
+     * <code>Thread</code> ausführbar.
+     * Aufruf nur als Thread (implementiert
+     * <code>Runnable</code>). Wenn generierung fertig,
+     * wird
+     * <code>notifyObservers()</code> aufgerufen.
      *
      * @param customer der Kunde, der die Rechung zahlt
      * @param invoiceNumber die eindeutige Rechungsnummer
@@ -62,8 +69,9 @@ public class PdfGenerator extends Observable implements Runnable
      * @param created das Kreierungsdatum
      * @param expiration das Fälligkeitsdatum
      */
-    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
+    public PdfGenerator(PDFObserver observer, Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
     {
+        this.observer = observer;
         this.customer = customer;
         this.invoiceNumber = invoiceNumber;
         this.items = items;
@@ -386,6 +394,15 @@ public class PdfGenerator extends Observable implements Runnable
         return total;
     }
 
+    private void generatePDFPanel()
+    {
+        JPanel panel = new JPanel();
+        
+        
+        
+        observer.getPDFasPanel(panel);
+    }
+
     @Override
     public void run()
     {
@@ -393,27 +410,33 @@ public class PdfGenerator extends Observable implements Runnable
         {
             //finally mit anderem notify
             generateInvoicePDF();
-            notifyObservers();
+            generatePDFPanel();
+            observer.gererationFinished(true);
         }
         catch (FileNotFoundException ex)
         {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            observer.gererationFinished(false);
         }
         catch (BadElementException ex)
         {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            observer.gererationFinished(false);
         }
         catch (DocumentException ex)
         {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            observer.gererationFinished(false);
         }
         catch (MalformedURLException ex)
         {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            observer.gererationFinished(false);
         }
         catch (IOException ex)
         {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            observer.gererationFinished(false);
         }
     }
 }
