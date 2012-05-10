@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface GuestData
+public interface GuestData extends PartyData
 {
     Date getBirthday();
 
