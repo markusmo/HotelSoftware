@@ -31,7 +31,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
       <SubComponents>
-        <Component class="hotelsoftware.gui.invoice.home.habitations" name="habitations3">
+        <Component class="hotelsoftware.gui.invoice.home.habitations" name="availableHabitations">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
               <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="13" weightX="0.0" weightY="0.0"/>
@@ -66,14 +66,14 @@
                               <Component id="chooseSelection" min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                       <Component id="chooseAll" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="chooseSelection" min="-2" pref="52" max="-2" attributes="0"/>
@@ -164,7 +164,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="hotelsoftware.gui.invoice.home.habitations" name="habitations4">
+        <Component class="hotelsoftware.gui.invoice.home.habitations" name="selectedHabitations">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
               <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
@@ -189,24 +189,24 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label_lname" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lnameLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="textBoxLname" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="lnameTextBox" min="-2" pref="135" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labelFname" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fnameLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="textBoxFname" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="fnameTextBox" min="-2" pref="135" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                          <Component id="label_roomRn" min="-2" max="-2" attributes="0"/>
+                          <Component id="roomNrLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="textBoxRoomNumber" min="-2" pref="135" max="-2" attributes="0"/>
+                          <Component id="roomNrTextbox" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace pref="841" max="32767" attributes="0"/>
-                          <Component id="buttonSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="seperator" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -218,75 +218,75 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="buttonSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                  <Component id="textBoxLname" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label_roomRn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textBoxRoomNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lnameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="roomNrLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="roomNrTextbox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="label_lname" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="lnameLabel" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labelFname" max="32767" attributes="0"/>
+                                  <Component id="fnameLabel" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="textBoxFname" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fnameTextBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="jSeparator2" pref="1" max="32767" attributes="0"/>
+                  <Component id="seperator" pref="1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="label_lname">
+        <Component class="javax.swing.JLabel" name="lnameLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Last name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelFname">
+        <Component class="javax.swing.JLabel" name="fnameLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="First name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="label_roomRn">
+        <Component class="javax.swing.JLabel" name="roomNrLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Room Nr"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textBoxFname">
+        <Component class="javax.swing.JTextField" name="fnameTextBox">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxFnameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fnameTextBoxActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="textBoxRoomNumber">
+        <Component class="javax.swing.JTextField" name="roomNrTextbox">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxRoomNumberActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomNrTextboxActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="textBoxLname">
+        <Component class="javax.swing.JTextField" name="lnameTextBox">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxLnameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lnameTextBoxActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonSearch">
+        <Component class="javax.swing.JButton" name="searchButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator2">
+        <Component class="javax.swing.JSeparator" name="seperator">
         </Component>
       </SubComponents>
     </Container>

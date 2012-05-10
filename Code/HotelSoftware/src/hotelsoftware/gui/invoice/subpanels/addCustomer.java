@@ -1,6 +1,7 @@
 package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
@@ -18,7 +19,7 @@ import javax.swing.ImageIcon;
  */
 public class addCustomer extends javax.swing.JPanel
 {
-    private DefaultListModel<CustomerData> listModel = new DefaultListModel<CustomerData>();
+    private DefaultListModel listModel = new DefaultListModel();
     private final Collection<CustomerData> URcustomers;
     private Collection<CustomerData> customers = new ArrayList<CustomerData>();
     private PersonPanel personPanel = new PersonPanel();
@@ -30,8 +31,13 @@ public class addCustomer extends javax.swing.JPanel
      */
     public addCustomer(Collection<CustomerData> customers)
     {
-        URcustomers = customers;
-        this.customers.addAll(URcustomers);
+        if (customers != null) {
+            URcustomers = customers;
+            this.customers.addAll(URcustomers);
+        } else {
+            URcustomers = null;
+        }
+        
         initComponents();
         jLabel3.setText("<html> <font size =+2>Choose customer</font></html>");
         jLabel2.setText("<html> <font size =+2>Create new customer</font></html>");
@@ -338,7 +344,7 @@ public class addCustomer extends javax.swing.JPanel
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        for (CountryData data : CreateInvoiceController.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }
