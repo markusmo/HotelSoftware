@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
 
 /**
  * Dieses Objekt generiert PDFs. Diese Klasse ist nur als Thread ausführbar, das heißt, die Methode generatePDF() wird im run() des implementierten Interfaces Runnable aufgerufen.
@@ -54,6 +56,7 @@ public class PdfGenerator implements Runnable
     private Date created;
     private Date expiration;
     private PDFObserver observer;
+    private String invoicePath;
 
     /**
      * Neue Instanz der Klasse PDFGenerator. Ist nur als
@@ -105,7 +108,7 @@ public class PdfGenerator implements Runnable
         {
             temp.mkdir();
         }
-        String invoicePath = path + "/" + invoiceNumber + ".pdf";
+        this.invoicePath = path + "/" + invoiceNumber + ".pdf";
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
         doc.open();
@@ -396,11 +399,11 @@ public class PdfGenerator implements Runnable
 
     private void generatePDFPanel()
     {
-        JPanel panel = new JPanel();
-        
-        
-        
-        observer.getPDFasPanel(panel);
+        SwingController controller = new SwingController();
+        SwingViewBuilder factory = new SwingViewBuilder(controller);
+        JPanel viewerComponentPanel = factory.buildViewerPanel();
+        controller.openDocument(this.invoicePath);
+        this.observer.getPDFasPanel(viewerComponentPanel);
     }
 
     @Override
@@ -411,7 +414,7 @@ public class PdfGenerator implements Runnable
             //finally mit anderem notify
             generateInvoicePDF();
             generatePDFPanel();
-            observer.gererationFinished(true);
+            this.observer.gererationFinished(true);
         }
         catch (FileNotFoundException ex)
         {
