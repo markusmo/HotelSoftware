@@ -168,7 +168,6 @@ public class DBHabitation extends DBService implements Serializable {
         SQLQuery sqlquery = session.createSQLQuery(query);
 
         DBHabitation habitation = (DBHabitation) sqlquery.uniqueResult();
-        ;
 
         return habitation;
     }

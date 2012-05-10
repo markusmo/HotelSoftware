@@ -13,7 +13,7 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Customer extends Party implements CustomerData
+public class Customer extends Party implements CustomerData, ICustomer
 {
     protected Address invoiceAddress;
     protected Collection<Invoice> invoices;
@@ -55,6 +55,7 @@ public abstract class Customer extends Party implements CustomerData
         this.invoices = invoices;
     }
 
+    @Override
     public void removeInvoice(Invoice i)
     {
         invoices.remove(i);

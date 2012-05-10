@@ -29,7 +29,7 @@ import org.hibernate.Transaction;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Habitation extends Service implements HabitationData
+public class Habitation extends Service implements HabitationData, IHabitation
 {
     private Date start;
     private Date end;
@@ -246,11 +246,13 @@ public class Habitation extends Service implements HabitationData
         this.invoiceItems = invoiceItems;
     }
 
+    @Override
     public void addInvoiceItems(InvoiceItem newInvoiceItem)
     {
         invoiceItems.add(newInvoiceItem);
     }
 
+    @Override
     public void addGuests(Guest guest)
     {
         guests.add(guest);

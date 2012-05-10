@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class InvoiceItem implements InvoiceItemData {
+public class InvoiceItem implements InvoiceItemData, IInvoiceItem {
 
     private Integer amount;
     private Date created;
@@ -118,6 +118,7 @@ public class InvoiceItem implements InvoiceItemData {
         return habitation;
     }
     
+    @Override
     public void fullfill()
     {
         invoice.setFulfilled(Boolean.TRUE);
@@ -126,6 +127,7 @@ public class InvoiceItem implements InvoiceItemData {
      * Diese Methode reduziert den RechnungsBetrag um den eingegebenen Betrag
      * @param amount 
      */
+    @Override
     public void remove(Integer amount)
     {
         if(amount > this.amount)

@@ -16,7 +16,7 @@ import java.util.*;
  * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Guest extends Party implements GuestData
+public class Guest extends Party implements GuestData, IGuest
 {   
     private Date birthday;
     private String fname;
@@ -138,11 +138,13 @@ public class Guest extends Party implements GuestData
         return new Guest(fname, lname, gender, birthday, address);
     }
 
+    @Override
     public void addHabitation(Habitation h)
     {
         habitations.add(h);
     }
 
+    @Override
     public void removeHabitation(Habitation h)
     {
         habitations.remove(h);
