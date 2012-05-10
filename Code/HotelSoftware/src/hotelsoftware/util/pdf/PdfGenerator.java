@@ -83,9 +83,9 @@ public class PdfGenerator
      * @param items die Rechnungspositionen
      * @param created das Kreierungsdatum
      */
-    public PdfGenerator(Collection<InvoiceItem> items, Date created)
+    public PdfGenerator(Collection<InvoiceItemData> items, Date created)
     {
-        this.items = items;
+        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
     }
     

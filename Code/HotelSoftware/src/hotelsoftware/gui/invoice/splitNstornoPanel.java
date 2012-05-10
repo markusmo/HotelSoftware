@@ -96,6 +96,7 @@ public class splitNstornoPanel extends javax.swing.JPanel
 
     public Collection<InvoiceItemData> getSelectedInvoiceItems()
     {
-        LinkedLsit<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
+        LinkedList<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
+        return null;
     }
 }

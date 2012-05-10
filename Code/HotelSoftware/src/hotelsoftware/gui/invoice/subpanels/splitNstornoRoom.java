@@ -125,6 +125,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
 
     public Collection<InvoiceItemData> getInvoiceItems()
     {
+        return null;
     }
 
     /**

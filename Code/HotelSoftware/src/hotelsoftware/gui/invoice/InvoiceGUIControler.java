@@ -388,7 +388,7 @@ public final class InvoiceGUIControler implements ActionListener
     private IntermediatInvoicePanel getIntermediatInvoicePanel()
     {
         // FIXME set expireData
-        PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        PdfGenerator generator = new PdfGenerator(ctrl.getChosenItems(), new Date());
         IntermediatInvoicePanel generatePDFPanel = (IntermediatInvoicePanel) generator.generateIntermediatPanel();
         return generatePDFPanel;
     }
