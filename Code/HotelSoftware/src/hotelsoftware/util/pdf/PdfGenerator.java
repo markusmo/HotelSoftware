@@ -4,8 +4,11 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.util.HelperFunctions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,6 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
@@ -34,7 +38,7 @@ import org.icepdf.ri.common.SwingViewBuilder;
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class PdfGenerator implements Runnable
+public class PdfGenerator
 {
     /**
      * Dynamische Pfadgenerierung, zu dem Ort, an dem die PDFs gespeichert
@@ -49,13 +53,12 @@ public class PdfGenerator implements Runnable
     /**
      * Die Schrift, mit der alle Überschriften dargestellt werden
      */
-    private static final Font bigfont = new Font(Font.TIMES_ROMAN, 16, Font.BOLD);
+    private static final Font bigfont = new Font(Font.TIMES_ROMAN, 14, Font.BOLD);
     private Customer customer;
     private String invoiceNumber;
     private Collection<InvoiceItem> items;
     private Date created;
     private Date expiration;
-    private PDFObserver observer;
     private String invoicePath;
 
     /**
@@ -72,12 +75,11 @@ public class PdfGenerator implements Runnable
      * @param created das Kreierungsdatum
      * @param expiration das Fälligkeitsdatum
      */
-    public PdfGenerator(PDFObserver observer, Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
+    public PdfGenerator(CustomerData customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
     {
-        this.observer = observer;
-        this.customer = customer;
+        this.customer = (Customer)customer;
         this.invoiceNumber = invoiceNumber;
-        this.items = items;
+        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
         this.expiration = expiration;
     }
@@ -108,7 +110,7 @@ public class PdfGenerator implements Runnable
         {
             temp.mkdir();
         }
-        this.invoicePath = path + "/" + invoiceNumber + ".pdf";
+        this.invoicePath = path + invoiceNumber + ".pdf";
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
         doc.open();
@@ -148,11 +150,12 @@ public class PdfGenerator implements Runnable
     private void addLogo(Document doc) throws BadElementException, MalformedURLException, IOException, DocumentException
     {
         URL url = PdfGenerator.class.getClassLoader().getResource(
-                "resources/images/logo-pdf.jpg");
+                "resources/images/logo_pdf.jpg");
         Image image = Image.getInstance(url);
+        image.scalePercent(20);
         doc.add(image);
         Paragraph empty = new Paragraph();
-        addEmptyLine(empty, 5);
+        addEmptyLine(empty, 2);
         doc.add(empty);
     }
 
@@ -203,10 +206,9 @@ public class PdfGenerator implements Runnable
         hotelParagraph.add(new Paragraph("From:", normalfont));
         hotelParagraph.add(new Paragraph(name, normalfont));
         hotelParagraph.add(new Paragraph(street, normalfont));
-        hotelParagraph.add(new Paragraph(street, normalfont));
         hotelParagraph.add(new Paragraph(zip + " " + city, normalfont));
         hotelParagraph.add(new Paragraph(country, normalfont));
-        addEmptyLine(hotelParagraph, 4);
+        addEmptyLine(hotelParagraph, 2);
         doc.add(hotelParagraph);
     }
 
@@ -397,49 +399,36 @@ public class PdfGenerator implements Runnable
         return total;
     }
 
-    private void generatePDFPanel()
+    /**
+     * 
+     * @return 
+     */
+    public JPanel generatePaymentPanel()
     {
-        SwingController controller = new SwingController();
-        SwingViewBuilder factory = new SwingViewBuilder(controller);
-        JPanel viewerComponentPanel = factory.buildViewerPanel();
-        controller.openDocument(this.invoicePath);
-        this.observer.getPDFasPanel(viewerComponentPanel);
-    }
-
-    @Override
-    public void run()
-    {
+        JPanel viewerComponentPanel = new JPanel();
         try
         {
-            //finally mit anderem notify
             generateInvoicePDF();
-            generatePDFPanel();
-            this.observer.gererationFinished(true);
+            SwingController controller = new SwingController();
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            viewerComponentPanel = factory.buildViewerPanel();
+            controller.openDocument(this.invoicePath);
+            return viewerComponentPanel;
         }
-        catch (FileNotFoundException ex)
+        catch (Exception ex)
         {
+            JLabel label = new JLabel("Error occurred generating PDF file");
+            viewerComponentPanel.add(label);
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            observer.gererationFinished(false);
         }
-        catch (BadElementException ex)
+        finally
         {
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            observer.gererationFinished(false);
+            return viewerComponentPanel;
         }
-        catch (DocumentException ex)
-        {
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            observer.gererationFinished(false);
-        }
-        catch (MalformedURLException ex)
-        {
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            observer.gererationFinished(false);
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            observer.gererationFinished(false);
-        }
+    }
+
+    public JPanel generateIntermediatPanel()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

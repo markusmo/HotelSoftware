@@ -54,8 +54,9 @@ public class NewJFrame extends javax.swing.JFrame
         c2.setFname("Egon2");
         c2.setLname("Hans2");
         cs.add(c2);
-        jPanel1.add(new addCustomer(cs), BorderLayout.CENTER);
+        //jPanel1.add(new addCustomer(cs), BorderLayout.CENTER);
         //jPanel1.add(new PersonPanel(), BorderLayout.CENTER);
+        //jPanel1.add(new CompanyPanel(), BorderLayout.CENTER);
         pack();
     }
 
