@@ -391,6 +391,7 @@ public class PdfGenerator extends Observable implements Runnable
     {
         try
         {
+            //finally mit anderem notify
             generateInvoicePDF();
             notifyObservers();
         }

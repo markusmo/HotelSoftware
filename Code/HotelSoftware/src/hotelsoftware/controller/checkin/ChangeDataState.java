@@ -4,32 +4,36 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.support.ServiceTypeNotFoundException;
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.room.RoomCategoryData;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.PartySaver;
-import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.controller.data.parties.CountryData;
-import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationItem;
-import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
-import hotelsoftware.controller.data.room.RoomCategoryData;
-import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.model.domain.service.*;
-import hotelsoftware.controller.data.service.ExtraServiceData;
+import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.ServiceSaver;
+import hotelsoftware.model.domain.service.ServiceType;
+import hotelsoftware.support.NoPriceDefinedException;
+import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -228,6 +232,7 @@ public abstract class ChangeDataState extends CheckInState
             catch (ServiceTypeNotFoundException ex)
             {
                 //Darf nie passieren, da Habitation in der Datenbank vorhanden sein muss
+                Logger.getLogger(CheckInGuiControler.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             for (Guest g : roomSel.getGuests())
