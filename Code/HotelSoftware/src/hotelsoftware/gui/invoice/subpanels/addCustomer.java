@@ -1,7 +1,11 @@
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Party;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,8 +23,8 @@ public class addCustomer extends javax.swing.JPanel
     private Collection<CustomerData> customers = new ArrayList<CustomerData>();
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
-    private iCustomerPanel customerPanel = personPanel;
 
+    // private iCustomerPanel customerPanel = personPanel;
     /**
      * Creates new form addCustomer
      */
@@ -70,6 +74,8 @@ public class addCustomer extends javax.swing.JPanel
         textfieldSearch = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
 
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Private customer");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +112,11 @@ public class addCustomer extends javax.swing.JPanel
         jLabel3.setText("jLabel3");
 
         jCheckBox1.setText("create new invoice address");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         list.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -114,8 +125,6 @@ public class addCustomer extends javax.swing.JPanel
         });
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(list);
-
-        textfieldSearch.setText("jTextField1");
 
         buttonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/search.png"))); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -244,19 +253,53 @@ public class addCustomer extends javax.swing.JPanel
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton1ActionPerformed
     {//GEN-HEADEREND:event_jRadioButton1ActionPerformed
-        customerPanel = personPanel;
+        // customerPanel = personPanel;
         jPanel2.removeAll();
         jPanel2.add(personPanel, BorderLayout.CENTER);
+        jPanel2.revalidate();
         jPanel2.repaint();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton2ActionPerformed
     {//GEN-HEADEREND:event_jRadioButton2ActionPerformed
-        customerPanel = companyPanel;
+        //  customerPanel = companyPanel;
         jPanel2.removeAll();
         jPanel2.add(companyPanel, BorderLayout.CENTER);
+        jPanel2.revalidate();
         jPanel2.repaint();
+
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
+    {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
+        if (!jCheckBox1.isSelected() && list.getSelectedIndex() != -1)
+        {
+            TextFieldCity.setEnabled(false);
+            TextFieldEmail.setEnabled(false);
+            TextFieldFax.setEnabled(false);
+            TextFieldPhoneNumber.setEnabled(false);
+            TextFieldStreet.setEnabled(false);
+            TextFieldZip.setEnabled(false);
+            Party selected = (Party) (list.getSelectedValue());
+            Address a = selected.getAddress();
+            TextFieldCity.setText(a.getCity());
+            TextFieldEmail.setText(a.getEmail());
+            TextFieldFax.setText(a.getFax());
+            TextFieldPhoneNumber.setText(a.getPhone());
+            TextFieldStreet.setText(a.getStreet());
+            TextFieldZip.setText(a.getZip());
+            ComboBoxCountry.setSelectedItem(a.getIdCountry());
+        }
+        else
+        {
+            TextFieldCity.setEnabled(true);
+            TextFieldEmail.setEnabled(true);
+            TextFieldFax.setEnabled(true);
+            TextFieldPhoneNumber.setEnabled(true);
+            TextFieldStreet.setEnabled(true);
+            TextFieldZip.setEnabled(true);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
     private javax.swing.JTextField TextFieldCity;
@@ -298,6 +341,11 @@ public class addCustomer extends javax.swing.JPanel
 
         initNewCustomer();
 
+        ComboBoxCountry.removeAllItems();
+        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        {
+            ComboBoxCountry.addItem(data);
+        }
 
     }
 

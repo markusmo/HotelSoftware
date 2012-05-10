@@ -4,11 +4,13 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.data.parties.CustomerData;
+
 /**
  *
  * @author Johannes
  */
 public interface iCustomerPanel
 {
-    
+    public CustomerData getCustomer();
 }

@@ -20,7 +20,6 @@ import java.util.Set;
  */
 public class PrivateCustomer extends Customer
 {
-
     private String fname;
     private String lname;
     private Character gender;
@@ -108,7 +107,6 @@ public class PrivateCustomer extends Customer
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
     }
-<<<<<<< HEAD
 
     @Override
     public AddressData getInvoiceAddressData()
@@ -130,12 +128,10 @@ public class PrivateCustomer extends Customer
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
     public String toString()
     {
         return fname + " " + lname;
     }
-=======
->>>>>>> fc867e20f2bf6aa017437d27d646bc476dd7d927
 }
