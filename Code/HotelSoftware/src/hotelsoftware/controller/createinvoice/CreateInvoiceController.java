@@ -191,7 +191,7 @@ public class CreateInvoiceController
         this.state = state;
     }
 
-    Customer getCustomer()
+    public Customer getCustomerData()
     {
         return customer;
     }
