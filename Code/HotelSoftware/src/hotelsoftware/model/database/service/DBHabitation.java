@@ -192,6 +192,33 @@ public class DBHabitation extends DBService implements Serializable
         return habitation;
     }
 
+        public static Collection<DBHabitation> search(String fname, String lname, String roomnr)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        String query;
+     
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests;"
+                        + "WHERE lname =" + lname + " AND fname=" + fname + "AND number = "+ roomnr + ";";
+          
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        //addEntity gibt den rueckgabewert an...
+        sqlquery = sqlquery.addEntity(DBHabitation.class);
+        List<DBHabitation> retList = sqlquery.list();
+        if (retList == null)
+        {
+            return new LinkedHashSet();
+        }
+        return new LinkedHashSet<DBHabitation>(retList);
+    }
+    
     public static Collection<DBHabitation> search(String fname, String lname)
     {
 
@@ -259,7 +286,7 @@ public class DBHabitation extends DBService implements Serializable
         return new LinkedHashSet<DBHabitation>(retList);
     }
 
-    public static Collection<DBHabitation> search(Integer roomnr)
+    public static Collection<DBHabitation> search(String roomnr)
     {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
