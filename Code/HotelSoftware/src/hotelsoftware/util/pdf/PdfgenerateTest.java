@@ -40,8 +40,8 @@ public class PdfgenerateTest extends JFrame implements PDFObserver
     {
         try
         {
-            Collection<Habitation> habs = Habitation.searchHabitations(null, null, 201);
-            Collection<InvoiceItem> items = habs.iterator().next().getInvoiceItems();
+            Collection<Habitation> habs = Habitation.searchHabitations(null, null, "201");
+            Collection<InvoiceItem> items = habs.iterator().next().getInvoiceitems();
             PrivateCustomer customer = PartyFacade.getInstance().getPrivateCustomerByName("Otto", "von Schirach");
             
             PdfGenerator generator = new PdfGenerator(customer, "i07051200000001", HelperFunctions.castCollectionUp(items, InvoiceItemData.class, InvoiceItem.class), new Date(), new Date());

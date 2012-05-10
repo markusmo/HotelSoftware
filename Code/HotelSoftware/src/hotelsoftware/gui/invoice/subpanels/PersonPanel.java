@@ -6,6 +6,7 @@ package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
@@ -23,7 +24,7 @@ public class PersonPanel extends javax.swing.JPanel implements iCustomerPanel
     {
         initComponents();
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }

@@ -4,6 +4,11 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.service.Habitation;
+import java.util.LinkedList;
+
 /**
  *
  * @author Dunst
@@ -13,6 +18,11 @@ public class InterimBillState extends CreateInvoiceState
     public InterimBillState(CreateInvoiceController context)
     {
         super(context);
+        
+        if (context.getSelectedItems() == null)
+        {
+            context.setSelectedItems(context.getOpenItems());
+        }
     }
     
     @Override
@@ -30,6 +40,6 @@ public class InterimBillState extends CreateInvoiceState
     @Override
     void back()
     {
-        
+        context.setState(new SearchState(context));
     }
 }
