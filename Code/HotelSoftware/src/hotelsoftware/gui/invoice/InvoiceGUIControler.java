@@ -135,7 +135,7 @@ public final class InvoiceGUIControler implements ActionListener
                         {
                             if (text.equals(chooseCustomer))
                             {
-                                setContentPanel(new addCustomer(ctrl.getPartyDataLinkedToSelectedHabitations()));
+                                setContentPanel(new addCustomer(ctrl.getWorkingHabitationsGuests()));
                             }
                             else
                             {
