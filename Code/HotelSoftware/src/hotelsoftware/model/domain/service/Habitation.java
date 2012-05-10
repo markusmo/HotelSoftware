@@ -230,20 +230,17 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this.habitationNumber = habitationNumber;
     }
 
-    /**
-     * @return the invoiceItems
-     */
-    public Collection<InvoiceItem> getInvoiceItems()
+    public Collection<InvoiceItem> getInvoiceitems()
     {
         return invoiceItems;
     }
 
-    /**
-     * @param invoiceItems the invoiceItems to set
-     */
     public void setInvoiceItems(Collection<InvoiceItem> invoiceItems)
     {
-        this.invoiceItems = invoiceItems;
+        if (invoiceItems != null)
+        {
+            this.invoiceItems = new LinkedHashSet<InvoiceItem>(invoiceItems);
+        }
     }
 
     @Override
@@ -276,7 +273,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
 
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
     }
 
     public ServiceTypeData getServiceTypeData()
