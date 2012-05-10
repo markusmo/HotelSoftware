@@ -10,9 +10,12 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.parties.Company;
+import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.PartyFacade;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
 import java.util.Collection;
@@ -133,32 +136,10 @@ public class CreateInvoiceControllerTest {
     @Test
     public void testGetAllCountries() {
         System.out.println("getAllCountries");
-        CreateInvoiceController instance = null;
-        Collection expResult = null;
+        CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        Collection expResult = Country.getAllCountries();
         Collection result = instance.getAllCountries();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of createCompanyCustomer method, of class CreateInvoiceController.
-     */
-    @Test
-    public void testCreateCompanyCustomer_8args() {
-        System.out.println("createCompanyCustomer");
-        String companyName = "";
-        String street = "";
-        String city = "";
-        String zip = "";
-        String email = "";
-        String phone = "";
-        String fax = "";
-        CountryData country = null;
-        CreateInvoiceController instance = null;
-        instance.createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
