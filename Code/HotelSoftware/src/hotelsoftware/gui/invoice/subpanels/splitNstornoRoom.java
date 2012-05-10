@@ -89,21 +89,25 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private Object[][] getTableModel()
     {
         int i = 0;
-        String[] nameString = new String[]
-        {
-            "Hans", "Egon", "hubsi", "Sandwich"
-        };
+       
         Object[][] value = new Object[habitation.getInvoiceItemsData().size()][];
 
         for (InvoiceItemData data : habitation.getInvoiceItemsData())
         {
+            String descritpion = "Habitation";
+            if (data.getServiceData() instanceof ExtraServiceData)
+            {
+
+                descritpion = ((ExtraServiceData) data.getServiceData()).getName();
+            }
             ButtonPanel bPanel = new ButtonPanel();
-            bPanel.addActionListener(getAL(data.getAmount(), nameString[i % nameString.length]));
+            bPanel.addActionListener(getAL(data.getAmount(), descritpion));
             buttons.add(bPanel);
             selected[i] = true;
+            
             value[i] = new Object[]
             {
-                new CheckTextPane(data.getAmount()), data.getAmount() + "", ((ExtraServiceData) data).getName(), data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
+                new CheckTextPane(data.getAmount()), data.getAmount() + "", descritpion, data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
             };
             i++;
         }
