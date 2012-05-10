@@ -4,10 +4,16 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.PrivateCustomer;
+import hotelsoftware.support.PrivateCustomerNotFoundException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Random;
@@ -34,7 +40,22 @@ public class NewJFrame extends javax.swing.JFrame
             iil.add(ii);
         }
         i.setInvoiceItems(iil);
-        jPanel1.add(new splitNstornoRoom(i), BorderLayout.CENTER);
+        //jPanel1.add(new splitNstornoRoom(i), BorderLayout.CENTER);
+        Collection<CustomerData> cs = new ArrayList<CustomerData>();
+        PrivateCustomer c = new PrivateCustomer();
+        c.setFname("Egon");
+        c.setLname("Hans");
+        cs.add(c);
+        PrivateCustomer c3 = new PrivateCustomer();
+        c3.setFname("Egon3");
+        c3.setLname("Hans3");
+        cs.add(c3);
+        PrivateCustomer c2 = new PrivateCustomer();
+        c2.setFname("Egon2");
+        c2.setLname("Hans2");
+        cs.add(c2);
+        jPanel1.add(new addCustomer(cs), BorderLayout.CENTER);
+        //jPanel1.add(new PersonPanel(), BorderLayout.CENTER);
         pack();
     }
 

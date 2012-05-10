@@ -25,7 +25,7 @@ public class PrivateCustomer extends Customer
     private String lname;
     private Character gender;
 
-    PrivateCustomer()
+    public PrivateCustomer()
     {
     }
 
@@ -129,5 +129,11 @@ public class PrivateCustomer extends Customer
     {
         // TODO Auto-generated method stub
         return null;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return fname + " " + lname;
     }
 }
