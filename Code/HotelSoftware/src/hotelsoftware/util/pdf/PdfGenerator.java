@@ -55,7 +55,6 @@ public class PdfGenerator
     private Collection<InvoiceItem> items;
     private Date created;
     private Date expiration;
-    private PDFObserver observer;
     private String invoicePath;
 
     /**
@@ -72,9 +71,8 @@ public class PdfGenerator
      * @param created das Kreierungsdatum
      * @param expiration das Fälligkeitsdatum
      */
-    public PdfGenerator(PDFObserver observer, Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
+    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
     {
-        this.observer = observer;
         this.customer = customer;
         this.invoiceNumber = invoiceNumber;
         this.items = items;
