@@ -8,7 +8,7 @@ package hotelsoftware.controller.data.service;
  *Dieses Interface enthält alle wichtigen Methoden die für die Klasse ExtraService benötigt werden.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public interface ExtraServiceData
+public interface ExtraServiceData extends ServiceData
 {
 
     String getName();

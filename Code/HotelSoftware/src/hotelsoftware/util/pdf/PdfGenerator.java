@@ -20,7 +20,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -62,12 +61,7 @@ public class PdfGenerator
     private String invoicePath;
 
     /**
-     * Neue Instanz der Klasse PDFGenerator. Ist nur als
-     * <code>Thread</code> ausführbar.
-     * Aufruf nur als Thread (implementiert
-     * <code>Runnable</code>). Wenn generierung fertig,
-     * wird
-     * <code>notifyObservers()</code> aufgerufen.
+     * Neue Instanz der Klasse PDFGenerator für Rechnungen
      *
      * @param customer der Kunde, der die Rechung zahlt
      * @param invoiceNumber die eindeutige Rechungsnummer
@@ -83,6 +77,18 @@ public class PdfGenerator
         this.created = created;
         this.expiration = expiration;
     }
+
+    /**
+     * Neue Instanz der Klasse PDFGenerator für Zwischenrechnungen
+     * @param items die Rechnungspositionen
+     * @param created das Kreierungsdatum
+     */
+    public PdfGenerator(Collection<InvoiceItem> items, Date created)
+    {
+        this.items = items;
+        this.created = created;
+    }
+    
 
     /**
      * Konvertiert eine Rechung in ein PDF. Der Dateiname des PDFs wird mit der
@@ -138,9 +144,6 @@ public class PdfGenerator
                 invoicePath));
         doc.open();
         addMetaData(doc);
-        addLogo(doc);
-        addCustomer(doc, customer);
-        addHotelAddress(doc);
         addInvoiceBodyWithoutTax(doc, invoiceNumber, items,
                 getTotalwithTax(items), created, expiration);
         addThankyouMessage(doc);
@@ -360,18 +363,12 @@ public class PdfGenerator
      */
     private void addInvoiceBodyWithoutTax(Document doc, String invoiceNumber, Collection<InvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
     {
-        double percent10Total = get10PercentTotal(items);
-        double percent20Total = get20PercentTotal(items);
         Paragraph invoiceParagraph = new Paragraph();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         //invoice creation date + invoice number
         invoiceParagraph.add(new Paragraph(
                 "Creation date " + dateFormat.format(created), bigfont));
-        invoiceParagraph.add(new Paragraph("Invoice due to " + dateFormat.format(
-                expiration), bigfont));
-        invoiceParagraph.add(new Paragraph("Invoice number: " + invoiceNumber,
-                bigfont));
         addEmptyLine(invoiceParagraph, 1);
 
         // Table has 4 colums:
@@ -430,21 +427,6 @@ public class PdfGenerator
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell);
 
-        //10 percent sales tax
-        table.addCell("");
-        table.addCell("");
-        table.addCell("sales tax 10%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(percent10Total)));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        table.addCell(cell);
-
-        //20 percent sales tax
-        table.addCell("");
-        table.addCell("");
-        table.addCell("sales tax 20%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(percent20Total)));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        table.addCell(cell);
         //add table to paragraph
         invoiceParagraph.add(table);
         //add paragraph to document

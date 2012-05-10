@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.controller.data.parties.PrivateCustomerData;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
@@ -18,7 +19,7 @@ import java.util.Set;
  * @author Hubert
  *
  */
-public class PrivateCustomer extends Customer
+public class PrivateCustomer extends Customer implements PrivateCustomerData
 {
     private String fname;
     private String lname;
@@ -61,6 +62,7 @@ public class PrivateCustomer extends Customer
         return fname + " " + lname;
     }
 
+    @Override
     public String getFname()
     {
         return fname;
@@ -71,6 +73,7 @@ public class PrivateCustomer extends Customer
         this.fname = fname;
     }
 
+    @Override
     public String getLname()
     {
         return lname;
