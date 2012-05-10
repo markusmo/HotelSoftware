@@ -7,6 +7,7 @@ package hotelsoftware.controller.createinvoice;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import java.util.Collection;
 
@@ -74,7 +75,7 @@ abstract class CreateInvoiceState
         throw new IllegalStateException();
     }
 
-    Collection<GuestData> getWorkingHabitationsGuests()
+    Collection<PartyData> getWorkingHabitationsGuests()
     {
         throw new IllegalStateException();
     }
@@ -96,6 +97,11 @@ abstract class CreateInvoiceState
     }
     
     void splitInvoice()
+    {
+        throw new IllegalStateException();
+    }
+
+    Collection<PartyData> getPartiesDataFromSelectedHabitations()
     {
         throw new IllegalStateException();
     }
