@@ -74,6 +74,7 @@ public class DBRoom implements Serializable
         this.number = roomNumber;
     }
 
+    @XmlTransient
     public Integer getId()
     {
         return id;
@@ -182,7 +183,6 @@ public class DBRoom implements Serializable
 
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
 
-        ;
         return room;
     }
 
@@ -201,7 +201,6 @@ public class DBRoom implements Serializable
 
         List<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
 
-        ;
         return new LinkedHashSet<DBRoom>(rooms);
     }
 }

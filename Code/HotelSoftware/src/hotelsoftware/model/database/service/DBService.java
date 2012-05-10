@@ -20,7 +20,7 @@ public class DBService implements Serializable
     @Basic(optional = false)
     @Column(name = "idServices", nullable = false)
     private Integer idServices;
-    @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idServiceTypes", referencedColumnName = "id", nullable=false)
     @ManyToOne(optional = false)
     private DBServiceType serviceType;
 

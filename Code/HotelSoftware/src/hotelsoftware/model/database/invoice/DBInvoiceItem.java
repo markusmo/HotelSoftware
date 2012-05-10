@@ -27,8 +27,12 @@ import org.hibernate.criterion.Restrictions;
 public class DBInvoiceItem implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DBInvoiceItemPK invoiceitemsPK;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false)
+    protected Integer id;
     
     @Basic(optional = false)
     @Column(name = "amount", nullable = false)
@@ -47,7 +51,7 @@ public class DBInvoiceItem implements Serializable
     @ManyToOne(fetch = FetchType.EAGER)
     private DBHabitation habitation;
     
-    @JoinColumn(name = "idInvoice", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idInvoices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DBInvoice invoice;
     
@@ -59,31 +63,14 @@ public class DBInvoiceItem implements Serializable
     {
     }
 
-    public DBInvoiceItem(DBInvoiceItemPK invoiceitemsPK)
+    public Integer getId()
     {
-        this.invoiceitemsPK = invoiceitemsPK;
+        return id;
     }
 
-    public DBInvoiceItem(DBInvoiceItemPK invoiceitemsPK, int amount, Date created)
+    public void setId(Integer id)
     {
-        this.invoiceitemsPK = invoiceitemsPK;
-        this.amount = amount;
-        this.created = created;
-    }
-
-    public DBInvoiceItem(int idServices, int idInvoice)
-    {
-        this.invoiceitemsPK = new DBInvoiceItemPK(idServices, idInvoice);
-    }
-
-    public DBInvoiceItemPK getInvoiceitemsPK()
-    {
-        return invoiceitemsPK;
-    }
-
-    public void setInvoiceitemsPK(DBInvoiceItemPK invoiceitemsPK)
-    {
-        this.invoiceitemsPK = invoiceitemsPK;
+        this.id = id;
     }
 
     public Integer getAmount()
@@ -173,7 +160,7 @@ public class DBInvoiceItem implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (invoiceitemsPK != null ? invoiceitemsPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -186,8 +173,8 @@ public class DBInvoiceItem implements Serializable
             return false;
         }
         DBInvoiceItem other = (DBInvoiceItem) object;
-        if ((this.invoiceitemsPK == null && other.invoiceitemsPK != null) || (this.invoiceitemsPK != null && !this.invoiceitemsPK.equals(
-                other.invoiceitemsPK)))
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
+                other.id)))
         {
             return false;
         }
@@ -197,6 +184,6 @@ public class DBInvoiceItem implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Invoiceitems[ invoiceitemsPK=" + invoiceitemsPK + " ]";
+        return "hotelsoftware.database.model.Invoiceitems[ id=" + id + " ]";
     }
 }

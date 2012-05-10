@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class User implements UserData
+public class User implements UserData, IUser
 {
 
     private Integer id;
@@ -158,6 +158,7 @@ public class User implements UserData
         return permissions;
     }
 
+    @Override
     public boolean hasPermission(Permission permission)
     {
         return getAllPermissions().contains(permission);
@@ -170,6 +171,7 @@ public class User implements UserData
      * @param newPassword 
      * Das Passwort, in das es geaendert werden soll
      */
+    @Override
     public void changePassword(String oldPassword, String newPassword)
     {
 

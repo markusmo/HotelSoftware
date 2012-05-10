@@ -219,8 +219,6 @@ public class DBReservation implements Serializable
         Criteria criteria = session.createCriteria(DBReservation.class);
         criteria.add(Restrictions.eq("id", id));
         DBReservation retList = (DBReservation) criteria.uniqueResult();
-        //TODO
-        //;
 
         return retList;
     }
@@ -240,8 +238,6 @@ public class DBReservation implements Serializable
         String query = "SELECT * FROM Reservations r";
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
-        //TODO
-        //;
 
         return new LinkedHashSet<DBReservation>(sqlquery.list());
     }
@@ -257,9 +253,11 @@ public class DBReservation implements Serializable
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-        int count = bd.intValue();
         
-        return count;
+        if (bd != null)
+            return bd;
+        else
+            return 0;
     }
 
     /**

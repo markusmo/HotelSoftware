@@ -60,8 +60,7 @@ public class InvoiceSaver
         {
             DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
             session.saveOrUpdate(dbii);
-            InvoiceItemPK pk = (InvoiceItemPK)DynamicMapper.map(dbii.getInvoiceitemsPK());
-            item.setInvoiceitemsPK(pk);
+            item.setId(dbii.getId());
         }
     }
 }

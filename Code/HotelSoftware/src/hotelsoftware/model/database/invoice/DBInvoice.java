@@ -227,9 +227,11 @@ public class DBInvoice implements Serializable
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-        int count = bd.intValue();
         
-        return count;
+        if (bd != null)
+            return bd;
+        else
+            return 0;
     }
 
     @Override

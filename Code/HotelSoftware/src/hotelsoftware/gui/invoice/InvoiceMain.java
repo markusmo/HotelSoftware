@@ -18,12 +18,20 @@ public class InvoiceMain extends javax.swing.JPanel
         return contentPanel;
     }
     
-    public JPanel getNavigationPanel() {
-        return naviagationPanel;
+    public JPanel getControlPanel() {
+        return controlPanel;
     }
     
-    public JPanel getStatePanel() {
-        return statePanel;
+    public JPanel getNavigationPanel() {
+        return navigationPanel;
+    }
+        
+    public JPanel getDeconstuctiveControlPanel() {
+        return deconstructiveControls;
+    }
+    
+     public JPanel getConstructiveControlPanel() {
+        return constructiveControls;
     }
 
     /**
@@ -46,130 +54,42 @@ public class InvoiceMain extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        statePanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        navigationPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
-        naviagationPanel = new javax.swing.JPanel();
-        deconstructiveNavigation = new javax.swing.JPanel();
-        buttonAbort = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
-        constructiveNavigation = new javax.swing.JPanel();
-        buttonSelect = new javax.swing.JButton();
-        splitCancel = new javax.swing.JButton();
-        chooseCustomerButtion = new javax.swing.JButton();
+        controlPanel = new javax.swing.JPanel();
+        deconstructiveControls = new javax.swing.JPanel();
+        constructiveControls = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        statePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        navigationPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel2.setText("Home");
-        statePanel.add(jLabel2);
+        jLabel1.setText("Navigation");
+        navigationPanel.add(jLabel1);
 
-        jLabel1.setText(">");
-        statePanel.add(jLabel1);
-
-        jLabel3.setText("Intermediat Invoice");
-        statePanel.add(jLabel3);
-
-        add(statePanel, java.awt.BorderLayout.NORTH);
+        add(navigationPanel, java.awt.BorderLayout.NORTH);
 
         contentPanel.setLayout(new java.awt.CardLayout());
         add(contentPanel, java.awt.BorderLayout.CENTER);
 
-        naviagationPanel.setLayout(new java.awt.BorderLayout());
+        controlPanel.setLayout(new java.awt.BorderLayout());
 
-        deconstructiveNavigation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        deconstructiveControls.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        controlPanel.add(deconstructiveControls, java.awt.BorderLayout.WEST);
 
-        buttonAbort.setText("Abort");
-        buttonAbort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAbortActionPerformed(evt);
-            }
-        });
-        deconstructiveNavigation.add(buttonAbort);
+        constructiveControls.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        controlPanel.add(constructiveControls, java.awt.BorderLayout.EAST);
 
-        backButton.setText("Back");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-        deconstructiveNavigation.add(backButton);
-
-        naviagationPanel.add(deconstructiveNavigation, java.awt.BorderLayout.WEST);
-
-        constructiveNavigation.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        buttonSelect.setText("Intermediat Invoice");
-        buttonSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSelectActionPerformed(evt);
-            }
-        });
-        constructiveNavigation.add(buttonSelect);
-
-        splitCancel.setText("Split/Cancel");
-        splitCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                splitCancelActionPerformed(evt);
-            }
-        });
-        constructiveNavigation.add(splitCancel);
-
-        chooseCustomerButtion.setText("Forward (Choose Customer)");
-        chooseCustomerButtion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseCustomerButtionActionPerformed(evt);
-            }
-        });
-        constructiveNavigation.add(chooseCustomerButtion);
-
-        naviagationPanel.add(constructiveNavigation, java.awt.BorderLayout.EAST);
-
-        add(naviagationPanel, java.awt.BorderLayout.PAGE_END);
+        add(controlPanel, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
-    {//GEN-HEADEREND:event_buttonSelectActionPerformed
-        InvoiceGUIControler.getInstance().setContentPanel(new IntermediatInvoice());
-    }//GEN-LAST:event_buttonSelectActionPerformed
-
-    private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
-    {//GEN-HEADEREND:event_buttonAbortActionPerformed
-        //Abort Button
-       
-    }//GEN-LAST:event_buttonAbortActionPerformed
-
-    private void splitCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_splitCancelActionPerformed
-    {//GEN-HEADEREND:event_splitCancelActionPerformed
-        InvoiceGUIControler.getInstance().setContentPanel(new splitNstornoPanel());
-   }//GEN-LAST:event_splitCancelActionPerformed
-
-    private void chooseCustomerButtionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chooseCustomerButtionActionPerformed
-    {//GEN-HEADEREND:event_chooseCustomerButtionActionPerformed
-        //InvoiceGUIControler.getInstance().setContentPanel();
-    }//GEN-LAST:event_chooseCustomerButtionActionPerformed
-
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
-    {//GEN-HEADEREND:event_backButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
-    private javax.swing.JButton buttonAbort;
-    private javax.swing.JButton buttonSelect;
-    private javax.swing.JButton chooseCustomerButtion;
-    private javax.swing.JPanel constructiveNavigation;
+    private javax.swing.JPanel constructiveControls;
     private javax.swing.JPanel contentPanel;
-    private javax.swing.JPanel deconstructiveNavigation;
+    private javax.swing.JPanel controlPanel;
+    private javax.swing.JPanel deconstructiveControls;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel naviagationPanel;
-    private javax.swing.JButton splitCancel;
-    private javax.swing.JPanel statePanel;
+    private javax.swing.JPanel navigationPanel;
     // End of variables declaration//GEN-END:variables
 }

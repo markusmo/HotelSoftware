@@ -213,8 +213,6 @@ public class DBRoomCategory implements Serializable
          
         List<DBRoom> rooms = query.list();
         
-        //TODO
-        //;
         return new LinkedHashSet<DBRoom>(rooms);
     }
     
