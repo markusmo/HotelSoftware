@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  */
 public class addCustomer extends javax.swing.JPanel
 {
-    private DefaultListModel<CustomerData> listModel = new DefaultListModel<CustomerData>();
+    private DefaultListModel listModel = new DefaultListModel();
     private final Collection<CustomerData> URcustomers;
     private Collection<CustomerData> customers = new ArrayList<CustomerData>();
     private PersonPanel personPanel = new PersonPanel();
