@@ -279,7 +279,7 @@ public final class InvoiceGUIControler implements ActionListener
      */
     private JPanel getPaymentPanel() {
         // FIXME set expireData
-        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
         JPanel generatePDFPanel = generator.generatePaymentPanel();
         return generatePDFPanel;
     }
@@ -287,7 +287,7 @@ public final class InvoiceGUIControler implements ActionListener
     
     private JPanel getIntermediatInvoicePanel() {
         // FIXME set expireData
-        PdfGenerator generator = new PdfGenerator(ctrl.getCustomer(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
+        PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
         JPanel generatePDFPanel = generator.generateIntermediatPanel();
         return generatePDFPanel;
     }
