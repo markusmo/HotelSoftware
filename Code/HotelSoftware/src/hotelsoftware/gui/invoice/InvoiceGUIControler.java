@@ -320,6 +320,15 @@ public final class InvoiceGUIControler implements ActionListener
 
         return currentPanel;
     }
+    
+    public void setPaymentPanel() {
+        setContentPanel(getPaymentPanel());
+    }
+    
+    public void setIntermediatInvoicePanel() {
+        setContentPanel(getIntermediatInvoicePanel());
+    }
+    
 
     /**
      *
