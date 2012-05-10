@@ -1,6 +1,7 @@
 package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
@@ -30,12 +31,18 @@ public class addCustomer extends javax.swing.JPanel
      */
     public addCustomer(Collection<CustomerData> customers)
     {
-        URcustomers = customers;
-        this.customers.addAll(URcustomers);
+        if (customers != null) {
+            URcustomers = customers;
+            this.customers.addAll(URcustomers);
+        } else {
+            URcustomers = null;
+        }
+        
         initComponents();
         jLabel3.setText("<html> <font size =+2>Choose customer</font></html>");
         jLabel2.setText("<html> <font size =+2>Create new customer</font></html>");
         init();
+        
     }
 
     /**
@@ -156,51 +163,53 @@ public class addCustomer extends javax.swing.JPanel
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(257, 257, 257)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(3, 3, 3))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addGap(3, 3, 3))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addGap(4, 4, 4)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(4, 4, 4)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ComboBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(TextFieldCity, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel12)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(TextFieldZip))
-                                        .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(671, 671, 671)
-                                .addComponent(jCheckBox1)))
-                        .addGap(0, 160, Short.MAX_VALUE)))
+                                            .addComponent(ComboBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(TextFieldCity, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jLabel12)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(TextFieldZip))
+                                                .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(85, 85, 85)
+                                        .addComponent(jCheckBox1)))))
+                        .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textfieldSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textfieldSearch))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
@@ -209,7 +218,6 @@ public class addCustomer extends javax.swing.JPanel
                             .addComponent(jRadioButton1)
                             .addComponent(jRadioButton2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -237,7 +245,7 @@ public class addCustomer extends javax.swing.JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel7)
                             .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -274,12 +282,7 @@ public class addCustomer extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
         if (!jCheckBox1.isSelected() && list.getSelectedIndex() != -1)
         {
-            TextFieldCity.setEnabled(false);
-            TextFieldEmail.setEnabled(false);
-            TextFieldFax.setEnabled(false);
-            TextFieldPhoneNumber.setEnabled(false);
-            TextFieldStreet.setEnabled(false);
-            TextFieldZip.setEnabled(false);
+            EnableAddressInputs(false);
             Party selected = (Party) (list.getSelectedValue());
             Address a = selected.getAddress();
             TextFieldCity.setText(a.getCity());
@@ -288,16 +291,12 @@ public class addCustomer extends javax.swing.JPanel
             TextFieldPhoneNumber.setText(a.getPhone());
             TextFieldStreet.setText(a.getStreet());
             TextFieldZip.setText(a.getZip());
+
             ComboBoxCountry.setSelectedItem(a.getIdCountry());
         }
         else
         {
-            TextFieldCity.setEnabled(true);
-            TextFieldEmail.setEnabled(true);
-            TextFieldFax.setEnabled(true);
-            TextFieldPhoneNumber.setEnabled(true);
-            TextFieldStreet.setEnabled(true);
-            TextFieldZip.setEnabled(true);
+            EnableAddressInputs(true);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,7 +332,7 @@ public class addCustomer extends javax.swing.JPanel
 
         addElements2List(customers);
         list.setModel(listModel);
-
+           
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
         buttonSearch.setText("");
         buttonGroup1.add(jRadioButton1);
@@ -342,10 +341,11 @@ public class addCustomer extends javax.swing.JPanel
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
+        for (CountryData data : CreateInvoiceController.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }
+        EnableAddressInputs(false);
 
     }
 
@@ -366,5 +366,16 @@ public class addCustomer extends javax.swing.JPanel
     private void initNewCustomer()
     {
         jPanel2.add(personPanel, BorderLayout.CENTER);
+    }
+
+    private void EnableAddressInputs(boolean b)
+    {
+        TextFieldCity.setEnabled(b);
+        TextFieldEmail.setEnabled(b);
+        TextFieldFax.setEnabled(b);
+        TextFieldPhoneNumber.setEnabled(b);
+        TextFieldStreet.setEnabled(b);
+        TextFieldZip.setEnabled(b);
+        ComboBoxCountry.setEnabled(b);
     }
 }

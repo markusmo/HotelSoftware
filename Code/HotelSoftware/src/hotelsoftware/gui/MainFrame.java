@@ -198,8 +198,11 @@ public class MainFrame extends javax.swing.JFrame
 
         if (checkState())
         {
-            cigc.getContentpane().removeAll();           
-            InvoiceGUIControler.getInstance().setContentPanel(new InvoiceHome());
+            cigc.getContentpane().removeAll();    
+            cigc.getContentpane().add(new InvoiceMain(), BorderLayout.CENTER);
+            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
+            InvoiceGUIControler.getInstance().setContentPanel(new InvoiceHome());            
+            cigc.getContentpane().repaint();            
         }
     }//GEN-LAST:event_invoiceButtonActionPerformed
 
@@ -252,7 +255,7 @@ public class MainFrame extends javax.swing.JFrame
         checkOutButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/logout-icon.png")));
         invoiceButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
-                "resources/images/Maps-icon.png")));
+                "resources/images/invoice.png")));
         journalButton.setIcon(new ImageIcon(
                 MainFrame.class.getClassLoader().getResource(
                 "resources/images/Address-Book-icon.png")));
