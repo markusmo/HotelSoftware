@@ -4,10 +4,10 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.model.domain.room.Room;
+import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
  *

@@ -3,9 +3,7 @@ package hotelsoftware.model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,6 +39,7 @@ public class DynamicMapper
 
     private static Object map(Object urObject, int counter)
     {
+        assert(counter < 0):"counter ist zu niedrig: "+counter;
         if (counter > 0)
         {
             try
