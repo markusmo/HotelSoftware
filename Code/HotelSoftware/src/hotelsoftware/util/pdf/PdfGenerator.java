@@ -4,8 +4,10 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.util.HelperFunctions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
@@ -71,11 +74,11 @@ public class PdfGenerator
      * @param created das Kreierungsdatum
      * @param expiration das Fälligkeitsdatum
      */
-    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItem> items, Date created, Date expiration)
+    public PdfGenerator(Customer customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
     {
         this.customer = customer;
         this.invoiceNumber = invoiceNumber;
-        this.items = items;
+        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
         this.expiration = expiration;
     }
@@ -395,13 +398,31 @@ public class PdfGenerator
         return total;
     }
 
-    public JPanel generatePDFPanel() throws FileNotFoundException, DocumentException, BadElementException, MalformedURLException, IOException
+    /**
+     * 
+     * @return 
+     */
+    public JPanel generatePDFPanel()
     {
-        generateInvoicePDF();
-        SwingController controller = new SwingController();
-        SwingViewBuilder factory = new SwingViewBuilder(controller);
-        JPanel viewerComponentPanel = factory.buildViewerPanel();
-        controller.openDocument(this.invoicePath);
-        return viewerComponentPanel;
+        JPanel viewerComponentPanel = new JPanel();
+        try
+        {
+            generateInvoicePDF();
+            SwingController controller = new SwingController();
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            viewerComponentPanel = factory.buildViewerPanel();
+            controller.openDocument(this.invoicePath);
+            return viewerComponentPanel;
+        }
+        catch (Exception ex)
+        {
+            JLabel label = new JLabel("Error occurred generating PDF file");
+            viewerComponentPanel.add(label);
+            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            return viewerComponentPanel;
+        }
     }
 }
