@@ -5,6 +5,7 @@ import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
 import hotelsoftware.gui.invoice.IntermediatInvoice;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.login.LoginWindow;
 import java.awt.*;
@@ -197,12 +198,8 @@ public class MainFrame extends javax.swing.JFrame
 
         if (checkState())
         {
-            cigc.getContentpane().removeAll();
-            InvoiceMain invoice = new InvoiceMain();
-            invoice.getContentPanel().add(new InvoiceHome());
-            cigc.getContentpane().add(invoice, BorderLayout.CENTER);
-            ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-            cigc.getContentpane().repaint();
+            cigc.getContentpane().removeAll();           
+            InvoiceGUIControler.getInstance().setContentPanel(new InvoiceHome());
         }
     }//GEN-LAST:event_invoiceButtonActionPerformed
 
