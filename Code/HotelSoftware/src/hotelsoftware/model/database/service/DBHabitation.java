@@ -93,7 +93,7 @@ public class DBHabitation extends DBService implements Serializable
     }
 
     @XmlTransient
-    public Collection<DBInvoiceItem> getInvoiceitems()
+    public Collection<DBInvoiceItem> getInvoiceItems()
     {
         return invoiceItems;
     }

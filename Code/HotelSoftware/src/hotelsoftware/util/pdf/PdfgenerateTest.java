@@ -30,7 +30,7 @@ import javax.swing.JPanel;
  *
  * @author mohi
  */
-public class PdfgenerateTest extends JFrame implements PDFObserver
+public class PdfgenerateTest extends JFrame
 {
     public PdfgenerateTest()
     {
@@ -41,7 +41,7 @@ public class PdfgenerateTest extends JFrame implements PDFObserver
         try
         {
             Collection<Habitation> habs = Habitation.searchHabitations(null, null, "201");
-            Collection<InvoiceItem> items = habs.iterator().next().getInvoiceitems();
+            Collection<InvoiceItem> items = habs.iterator().next().getInvoiceItems();
             PrivateCustomer customer = PartyFacade.getInstance().getPrivateCustomerByName("Otto", "von Schirach");
             
             PdfGenerator generator = new PdfGenerator(customer, "i07051200000001", HelperFunctions.castCollectionUp(items, InvoiceItemData.class, InvoiceItem.class), new Date(), new Date());
@@ -57,18 +57,6 @@ public class PdfgenerateTest extends JFrame implements PDFObserver
         {
             Logger.getLogger(PdfgenerateTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void getPDFasPanel(JPanel pdfPanel)
-    {
-        this.getContentPane().add(pdfPanel);
-    }
-
-    @Override
-    public void gererationFinished(boolean done)
-    {
-        System.out.println("got something");
     }
 
     public static void main(String args[])

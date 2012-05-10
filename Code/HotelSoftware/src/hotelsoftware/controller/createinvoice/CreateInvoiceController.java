@@ -266,7 +266,7 @@ public class CreateInvoiceController
 
         for (Habitation h : habitations)
         {
-            for (InvoiceItem i : h.getInvoiceitems())
+            for (InvoiceItem i : h.getInvoiceItems())
             {
                 if (i.getInvoice() != null && !i.getInvoice().isFulfilled())
                 {
