@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.parties.CountryData;
 import java.util.Collection;
 
@@ -28,7 +29,7 @@ class CreateInvoiceGuiControler
     {
         if (countries == null)
         {
-            countries = CreateInvoiceControler.getAllCountries();
+            countries = CreateInvoiceController.getInstance().getAllCountries();
         }
         return countries;
     }

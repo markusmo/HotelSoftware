@@ -36,7 +36,7 @@ public class addCustomer extends javax.swing.JPanel
         jLabel3.setText("<html> <font size =+2>Choose customer</font></html>");
         jLabel2.setText("<html> <font size =+2>Create new customer</font></html>");
         init();
-        
+
     }
 
     /**
@@ -274,19 +274,22 @@ public class addCustomer extends javax.swing.JPanel
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
-        if (!jCheckBox1.isSelected() && list.getSelectedIndex() != -1)
+        if (!jCheckBox1.isSelected())
         {
-            EnableAddressInputs(false);
-            Party selected = (Party) (list.getSelectedValue());
-            Address a = selected.getAddress();
-            TextFieldCity.setText(a.getCity());
-            TextFieldEmail.setText(a.getEmail());
-            TextFieldFax.setText(a.getFax());
-            TextFieldPhoneNumber.setText(a.getPhone());
-            TextFieldStreet.setText(a.getStreet());
-            TextFieldZip.setText(a.getZip());
+            if (list.getSelectedIndex() != -1)
+            {
+                EnableAddressInputs(false);
+                Party selected = (Party) (list.getSelectedValue());
+                Address a = selected.getAddress();
+                TextFieldCity.setText(a.getCity());
+                TextFieldEmail.setText(a.getEmail());
+                TextFieldFax.setText(a.getFax());
+                TextFieldPhoneNumber.setText(a.getPhone());
+                TextFieldStreet.setText(a.getStreet());
+                TextFieldZip.setText(a.getZip());
 
-            ComboBoxCountry.setSelectedItem(a.getIdCountry());
+                ComboBoxCountry.setSelectedItem(a.getIdCountry());
+            }
         }
         else
         {
@@ -326,7 +329,7 @@ public class addCustomer extends javax.swing.JPanel
 
         addElements2List(customers);
         list.setModel(listModel);
-           
+
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
         buttonSearch.setText("");
         buttonGroup1.add(jRadioButton1);
