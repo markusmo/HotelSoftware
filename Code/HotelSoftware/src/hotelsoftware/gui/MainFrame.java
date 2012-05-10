@@ -4,7 +4,6 @@ import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.home.InvoiceHome;
-import hotelsoftware.gui.invoice.IntermediatInvoice;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.login.LoginWindow;

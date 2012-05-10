@@ -42,8 +42,6 @@ public class Habitation extends Service implements HabitationData, IHabitation
 
     public Habitation()
     {
-        guests = new LinkedHashSet();
-        invoiceItems = new LinkedHashSet();
     }
 
     private Habitation(Date start, Date end)
@@ -51,19 +49,6 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this();
         this.start = start;
         this.end = end;
-    }
-
-    private Habitation(Date start, Date end, Date created, BigDecimal price, Room room, User user)
-    {
-        super();
-        this.start = start;
-        this.end = end;
-        this.created = created;
-        super.setPrice(price);
-        this.rooms = room;
-        this.guests = new LinkedHashSet<Guest>();
-        this.users = user;
-        this.invoiceItems = new LinkedHashSet<InvoiceItem>();
     }
 
     /**
@@ -230,7 +215,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
         this.habitationNumber = habitationNumber;
     }
 
-    public Collection<InvoiceItem> getInvoiceitems()
+    public Collection<InvoiceItem> getInvoiceItems()
     {
         return invoiceItems;
     }
@@ -246,12 +231,22 @@ public class Habitation extends Service implements HabitationData, IHabitation
     @Override
     public void addInvoiceItems(InvoiceItem newInvoiceItem)
     {
+        if (invoiceItems == null)
+        {
+            invoiceItems = new LinkedList<InvoiceItem>();
+        }
+        
         invoiceItems.add(newInvoiceItem);
     }
 
     @Override
     public void addGuests(Guest guest)
     {
+        if (guests == null)
+        {
+            guests = new LinkedList<Guest>();
+        }
+        
         guests.add(guest);
     }
 
@@ -273,7 +268,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
 
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceitems());
+        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
     }
 
     public ServiceTypeData getServiceTypeData()

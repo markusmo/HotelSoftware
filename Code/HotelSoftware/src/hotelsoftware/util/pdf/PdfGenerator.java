@@ -271,6 +271,7 @@ public class PdfGenerator
         DecimalFormatSymbols symbols = currencyFormat.getDecimalFormatSymbols();
         symbols.setGroupingSeparator(' ');
         symbols.setCurrency(Currency.getInstance("EUR"));
+        currencyFormat.setDecimalFormatSymbols(symbols);
 
         for (InvoiceItem item : items)
         {

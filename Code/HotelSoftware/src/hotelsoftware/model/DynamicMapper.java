@@ -59,9 +59,7 @@ public class DynamicMapper
                         {
                             Method getterMethodCurrentLevel = getMethod(
                                     setterMethod, returnvalue);
-
-                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(
-                                    returnvalue) == null)
+                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
                             {
                                 if (getterMethodNewLevel.getReturnType().equals(
                                         Collection.class))

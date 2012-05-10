@@ -4,9 +4,6 @@
  */
 package hotelsoftware.gui.invoice.home;
 
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.service.HabitationData;
-import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,31 +14,30 @@ public class HabitationsDataModel extends DefaultTableModel
 {
     
     
-    public void setData(Collection<HabitationData> habitations) {
-        for(HabitationData data: habitations) {
-            addRow(getRowData(data));
-        }
-    }
-    
-    private String[] getRowData(HabitationData data) {
-        Collection<GuestData> guests = data.getGuestsData();
-        String[] rowData = new String[5];
-        for(GuestData guest: guests) {
-            rowData[0] = guest.getLname();
-            rowData[1] = guest.getFname();
-            rowData[2] = data.getRoomsData().getNumber();
-            rowData[3] = data.getStart().toString();
-            rowData[4] = data.getEnd().toString();
-        }       
-        return rowData;
-    }
+//    public void setData(Collection<HabitationData> habitations) {
+//        for(HabitationData data: habitations) {
+//            addRow(getRowData(data));            
+//        }
+//    }
+//    
+//    public void getSelectedData() {
+//        
+//    }
+//    
+//    private String[] getRowData(HabitationData data) {
+//        Collection<GuestData> guests = data.getGuestsData();
+//        String[] rowData = new String[5];
+//        for(GuestData guest: guests) {
+//            rowData[0] = guest.getLname();
+//            rowData[1] = guest.getFname();
+//            rowData[2] = data.getRoomsData().getNumber();
+//            rowData[3] = data.getStart().toString();
+//            rowData[4] = data.getEnd().toString();
+//        }       
+//        return rowData;
+//    }
 
-    @Override
-    public void addRow(Object[] rowData)
-    {
-        super.addRow(rowData);
-    }
-    
+   
     
     
 //     habitations.setModel(new javax.swing.table.DefaultTableModel(

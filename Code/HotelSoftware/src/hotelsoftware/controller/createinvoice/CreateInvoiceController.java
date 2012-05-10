@@ -52,6 +52,7 @@ public class CreateInvoiceController
      */
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
+        // FIXME throws nullPointerEx
         return state.search(firstName, lastName, roomNr);
     }
 
@@ -266,7 +267,7 @@ public class CreateInvoiceController
 
         for (Habitation h : habitations)
         {
-            for (InvoiceItem i : h.getInvoiceitems())
+            for (InvoiceItem i : h.getInvoiceItems())
             {
                 if (i.getInvoice() != null && !i.getInvoice().isFulfilled())
                 {

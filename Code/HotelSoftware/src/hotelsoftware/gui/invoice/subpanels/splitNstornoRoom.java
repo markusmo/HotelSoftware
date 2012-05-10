@@ -134,6 +134,8 @@ public class splitNstornoRoom extends javax.swing.JPanel
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setMaximumSize(new java.awt.Dimension(32767, 600));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

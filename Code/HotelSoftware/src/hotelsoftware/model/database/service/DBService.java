@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "services", catalog = "`roomanizer-dev`", schema = "")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
-public class DBService implements Serializable
+public abstract class DBService implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
