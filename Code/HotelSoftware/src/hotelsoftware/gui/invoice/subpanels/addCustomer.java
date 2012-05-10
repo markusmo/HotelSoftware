@@ -2,6 +2,7 @@ package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.model.domain.parties.Address;
@@ -19,17 +20,17 @@ import javax.swing.ImageIcon;
 public class addCustomer extends javax.swing.JPanel
 {
     private DefaultListModel listModel = new DefaultListModel();
-    private final Collection<CustomerData> URcustomers;
-    private Collection<CustomerData> customers = new ArrayList<CustomerData>();
+    private final Collection<PartyData> URcustomers;
+    private Collection<PartyData> customers = new ArrayList<PartyData>();
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
-    private CustomerData THEcustomer;
+    private PartyData THEcustomer;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**
      * Creates new form addCustomer
      */
-    public addCustomer(Collection<CustomerData> customers)
+    public addCustomer(Collection<PartyData> customers)
     {
         if (customers != null)
         {
@@ -270,7 +271,7 @@ public class addCustomer extends javax.swing.JPanel
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
     {//GEN-HEADEREND:event_buttonSearchActionPerformed
-        Collection<CustomerData> searchedCustomer = search(textfieldSearch.getText());
+        Collection<PartyData> searchedCustomer = search(textfieldSearch.getText());
         customers.removeAll(customers);
         customers.addAll(URcustomers);
         customers.addAll(searchedCustomer);
@@ -371,14 +372,14 @@ public class addCustomer extends javax.swing.JPanel
 
     }
 
-    private Collection<CustomerData> search(String text)
+    private Collection<PartyData> search(String text)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void addElements2List(Collection<CustomerData> elements)
+    private void addElements2List(Collection<PartyData> elements)
     {
-        for (CustomerData data : elements)
+        for (PartyData data : elements)
         {
             listModel.addElement(data);
         }
@@ -401,7 +402,7 @@ public class addCustomer extends javax.swing.JPanel
         ComboBoxCountry.setEnabled(b);
     }
 
-    public CustomerData getCustomerData()
+    public PartyData getCustomerData()
     {
         return THEcustomer;
     }

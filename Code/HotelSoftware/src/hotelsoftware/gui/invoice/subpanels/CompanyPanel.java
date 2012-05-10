@@ -6,6 +6,7 @@ package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.model.domain.parties.*;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -23,7 +24,7 @@ public class CompanyPanel extends javax.swing.JPanel implements iCustomerPanel
     {
         initComponents();
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : CreateInvoiceGuiControler.getInstance().getAllCountries())
+        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }

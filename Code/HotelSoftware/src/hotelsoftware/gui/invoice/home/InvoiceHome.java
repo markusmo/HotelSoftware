@@ -4,12 +4,17 @@
  */
 package hotelsoftware.gui.invoice.home;
 
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import java.util.Collection;
+
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class InvoiceHome extends javax.swing.JPanel
 {
+    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
 
     /**
      * Creates new form CheckInMain
@@ -230,6 +235,7 @@ public class InvoiceHome extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
+        Collection<HabitationData> habitations = ctrl.search(lnameLabel.getText(), fnameLabel.getText(), roomNrLabel.getText());
         
         
     }//GEN-LAST:event_searchButtonActionPerformed

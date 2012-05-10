@@ -16,19 +16,19 @@ public class InterimBillState extends CreateInvoiceState
     }
     
     @Override
-    public void next()
+    void next()
     {
         context.setState(new PaymentState(context));
     }
     
-    //@Override
-    public void splitInvoice()
+    @Override
+    void splitInvoice()
     {
         context.setState(new SplitInvoiceState(context));
     }
     
     @Override
-    public void back()
+    void back()
     {
         
     }
