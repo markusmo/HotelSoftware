@@ -94,4 +94,9 @@ abstract class CreateInvoiceState
     {
         throw new IllegalStateException();
     }
+    
+    void splitInvoice()
+    {
+        throw new IllegalStateException();
+    }
 }

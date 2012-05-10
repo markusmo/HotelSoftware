@@ -8,6 +8,7 @@ import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
@@ -26,6 +27,7 @@ public class CreateInvoiceController
     private CreateInvoiceState state;
     private Collection<Habitation> habitations;
     private Collection<InvoiceItem> selectedItems;
+    private Customer customer;
 
     private CreateInvoiceController()
     {
@@ -38,12 +40,12 @@ public class CreateInvoiceController
 
     public void abort()
     {
-        //TODO Methode implementieren
-        // wenn wir zum beispiel im state Zwischenrechnung sind, weil noch offene items der habitation da sind, der User aber abschließen möchte
-        // das kann passieren, wenn eine Person aus-checkt, aber sein zimmerkollege noch bleibt...
+        state = new SearchState(this);
+        habitations = null;
+        selectedItems = null;
     }
 
-    public Collection<CustomerData> getCustomerData()
+    public Collection<PartyData> getCustomerData()
     {
         //throw new UnsupportedOperationException("Not yet implemented");
         return null;
@@ -117,11 +119,10 @@ public class CreateInvoiceController
     {
         state.useGuestAsCustomer(guest);
     }
-  
+
     public Collection<InvoiceItem> getChosenItems()
     {
-        // FIXME implement
-        return null;
+        return selectedItems;
     }
 
     public void pay()
@@ -189,10 +190,14 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-    
-    public Customer getCustomer() {
-        // TODO implement
-        return null;
+
+    Customer getCustomer()
+    {
+        return customer;
     }
-   
+    
+    void setCustomer(Customer customer)
+    {
+        this.customer = customer;
+    }
 }
