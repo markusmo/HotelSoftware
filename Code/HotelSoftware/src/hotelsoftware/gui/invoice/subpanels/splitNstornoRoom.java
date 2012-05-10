@@ -4,26 +4,18 @@
  */
 package hotelsoftware.gui.invoice.subpanels;
 
-import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.service.ExtraServiceData;
+import hotelsoftware.controller.data.service.HabitationData;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.EventObject;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -34,14 +26,24 @@ public class splitNstornoRoom extends javax.swing.JPanel
     /**
      * Creates new form splitNstornoRoom
      */
-    private InvoiceData invoice;
+    private HabitationData habitation;
     private Boolean[] selected;
     private LinkedList<ButtonPanel> buttons = new LinkedList<ButtonPanel>();
+    private final JCheckBox c;
 
-    public splitNstornoRoom(InvoiceData invoice)
+    public splitNstornoRoom(HabitationData habitation, final JCheckBox c)
     {
-        this.invoice = invoice;
-        selected = new Boolean[invoice.getInvoiceItemsData().size()];
+        if (habitation == null)
+        {
+            throw new NullPointerException("Habitation is null");
+        }
+        if (c == null)
+        {
+            throw new NullPointerException("CheckBox is null");
+        }
+        this.c = c;
+        this.habitation = habitation;
+        selected = new Boolean[habitation.getInvoiceItemsData().size()];
         initComponents();
         initTable();
     }
@@ -53,7 +55,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
 
 
         jTable1.setModel(new DefaultTableModel(
-                (invoice.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
+                (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
                 new String[]
                 {
                     "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
@@ -91,9 +93,9 @@ public class splitNstornoRoom extends javax.swing.JPanel
         {
             "Hans", "Egon", "hubsi", "Sandwich"
         };
-        Object[][] value = new Object[invoice.getInvoiceItemsData().size()][];
+        Object[][] value = new Object[habitation.getInvoiceItemsData().size()][];
 
-        for (InvoiceItemData data : invoice.getInvoiceItemsData())
+        for (InvoiceItemData data : habitation.getInvoiceItemsData())
         {
             ButtonPanel bPanel = new ButtonPanel();
             bPanel.addActionListener(getAL(data.getAmount(), nameString[i % nameString.length]));
@@ -101,7 +103,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
             selected[i] = true;
             value[i] = new Object[]
             {
-                new CheckTextPane(data.getAmount()), data.getAmount() + "", nameString[i % nameString.length], "Single price", "Total price", bPanel
+                new CheckTextPane(data.getAmount()), data.getAmount() + "", ((ExtraServiceData) data).getName(), data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
             };
             i++;
         }
@@ -119,6 +121,10 @@ public class splitNstornoRoom extends javax.swing.JPanel
             }
         };
         return al;
+    }
+
+    public Collection<InvoiceItemData> getInvoiceItems()
+    {
     }
 
     /**

@@ -2,16 +2,17 @@ package hotelsoftware.gui.invoice.subpanels;
 
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Party;
+import hotelsoftware.model.domain.parties.*;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,14 +25,15 @@ public class addCustomer extends javax.swing.JPanel
     private Collection<PartyData> customers = new ArrayList<PartyData>();
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
-    private PartyData THEcustomer;
+    private CustomerData THEcustomer;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**
      * Creates new form addCustomer
      */
-    public addCustomer(Collection<PartyData> customers)
+    public addCustomer()
     {
+        Collection<PartyData> customers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
         if (customers != null)
         {
             URcustomers = customers;
@@ -61,8 +63,8 @@ public class addCustomer extends javax.swing.JPanel
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radioButtonPerson = new javax.swing.JRadioButton();
+        RadioButtonCustomer = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         TextFieldCity = new javax.swing.JTextField();
@@ -84,23 +86,23 @@ public class addCustomer extends javax.swing.JPanel
         list = new javax.swing.JList();
         textfieldSearch = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonSelectButtoner = new javax.swing.JButton();
+        buttonCreateCustomer = new javax.swing.JButton();
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Private customer");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        radioButtonPerson.setSelected(true);
+        radioButtonPerson.setText("Private customer");
+        radioButtonPerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                radioButtonPersonActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Company");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        RadioButtonCustomer.setText("Company");
+        RadioButtonCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                RadioButtonCustomerActionPerformed(evt);
             }
         });
 
@@ -146,9 +148,19 @@ public class addCustomer extends javax.swing.JPanel
             }
         });
 
-        jButton1.setText("jButton1");
+        buttonSelectButtoner.setText("Select customer");
+        buttonSelectButtoner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectButtonerActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        buttonCreateCustomer.setText("Create new customer");
+        buttonCreateCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateCustomerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -158,15 +170,28 @@ public class addCustomer extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonCreateCustomer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(radioButtonPerson)
+                        .addGap(18, 18, 18)
+                        .addComponent(RadioButtonCustomer)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonSelectButtoner))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(textfieldSearch)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(textfieldSearch)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(85, 85, 85)
@@ -197,19 +222,8 @@ public class addCustomer extends javax.swing.JPanel
                                                     .addComponent(jLabel12)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(TextFieldZip))
-                                                .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(0, 49, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                                                .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 40, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -218,11 +232,19 @@ public class addCustomer extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textfieldSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textfieldSearch))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioButtonPerson)
+                            .addComponent(RadioButtonCustomer)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -251,20 +273,12 @@ public class addCustomer extends javax.swing.JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel7)
                             .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))))
+                        .addGap(49, 49, 49)
+                        .addComponent(buttonSelectButtoner)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(buttonCreateCustomer)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -277,24 +291,24 @@ public class addCustomer extends javax.swing.JPanel
         customers.addAll(searchedCustomer);
     }//GEN-LAST:event_buttonSearchActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton1ActionPerformed
-    {//GEN-HEADEREND:event_jRadioButton1ActionPerformed
+    private void radioButtonPersonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_radioButtonPersonActionPerformed
+    {//GEN-HEADEREND:event_radioButtonPersonActionPerformed
         // customerPanel = personPanel;
         jPanel2.removeAll();
         jPanel2.add(personPanel, BorderLayout.CENTER);
         jPanel2.revalidate();
         jPanel2.repaint();
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_radioButtonPersonActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton2ActionPerformed
-    {//GEN-HEADEREND:event_jRadioButton2ActionPerformed
+    private void RadioButtonCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_RadioButtonCustomerActionPerformed
+    {//GEN-HEADEREND:event_RadioButtonCustomerActionPerformed
         //  customerPanel = companyPanel;
         jPanel2.removeAll();
         jPanel2.add(companyPanel, BorderLayout.CENTER);
         jPanel2.revalidate();
         jPanel2.repaint();
 
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_RadioButtonCustomerActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
@@ -320,18 +334,69 @@ public class addCustomer extends javax.swing.JPanel
             EnableAddressInputs(true);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void buttonCreateCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonCreateCustomerActionPerformed
+    {//GEN-HEADEREND:event_buttonCreateCustomerActionPerformed
+        if (radioButtonPerson.isSelected())
+        {
+            if (personPanel.isFinished())
+            {
+                InvoiceGUIControler.getInstance().createPrivateCustomer(personPanel.getFName(), personPanel.getLName(), personPanel.getStreet(), personPanel.getCity(), personPanel.getZip(), personPanel.getEmail(), personPanel.getPhone(), personPanel.getFax(), personPanel.getIdCountry());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+        {
+            if (companyPanel.isFinished())
+            {
+                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        InvoiceGUIControler.getInstance().setPaymentPanel();
+    }//GEN-LAST:event_buttonCreateCustomerActionPerformed
+
+    private void buttonSelectButtonerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectButtonerActionPerformed
+    {//GEN-HEADEREND:event_buttonSelectButtonerActionPerformed
+        if (!(list.getSelectedIndex() != -1))
+        {
+            JOptionPane.showMessageDialog(list, "You have to select a person first!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+        if (jCheckBox1.isSelected())
+        {
+            GuestData gd = (GuestData) list.getSelectedValue();
+            InvoiceGUIControler.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+        }
+        else
+        {
+            InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
+        }
+
+        InvoiceGUIControler.getInstance().setPaymentPanel();
+
+    }//GEN-LAST:event_buttonSelectButtonerActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
+    private javax.swing.JRadioButton RadioButtonCustomer;
     private javax.swing.JTextField TextFieldCity;
     private javax.swing.JTextField TextFieldEmail;
     private javax.swing.JTextField TextFieldFax;
     private javax.swing.JTextField TextFieldPhoneNumber;
     private javax.swing.JTextField TextFieldStreet;
     private javax.swing.JTextField TextFieldZip;
+    private javax.swing.JButton buttonCreateCustomer;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonSearch;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonSelectButtoner;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -343,10 +408,9 @@ public class addCustomer extends javax.swing.JPanel
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList list;
+    private javax.swing.JRadioButton radioButtonPerson;
     private javax.swing.JTextField textfieldSearch;
     // End of variables declaration//GEN-END:variables
 
@@ -357,9 +421,11 @@ public class addCustomer extends javax.swing.JPanel
         list.setModel(listModel);
 
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
-        buttonSearch.setText("");
-        buttonGroup1.add(jRadioButton1);
-        buttonGroup1.add(jRadioButton2);
+        buttonSearch.setText(
+                "");
+        buttonGroup1.add(radioButtonPerson);
+
+        buttonGroup1.add(RadioButtonCustomer);
 
         initNewCustomer();
 
@@ -368,7 +434,9 @@ public class addCustomer extends javax.swing.JPanel
         {
             ComboBoxCountry.addItem(data);
         }
-        EnableAddressInputs(false);
+
+        EnableAddressInputs(
+                false);
 
     }
 
@@ -400,10 +468,5 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setEnabled(b);
         TextFieldZip.setEnabled(b);
         ComboBoxCountry.setEnabled(b);
-    }
-
-    public PartyData getCustomerData()
-    {
-        return THEcustomer;
     }
 }

@@ -4,18 +4,35 @@
  */
 package hotelsoftware.gui.invoice;
 
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.checkin.subpanels.GuestPanel;
+import hotelsoftware.gui.invoice.subpanels.splitNstornoRoom;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
+import hotelsoftware.gui.misc.CheckTabComponent;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import javax.swing.JCheckBox;
+
 /**
  *
  * @author Johannes
  */
 public class splitNstornoPanel extends javax.swing.JPanel
 {
+    private HashMap<JCheckBox, splitNstornoRoom> inverseRooms = new HashMap<JCheckBox, splitNstornoRoom>();
+    private HashMap<splitNstornoRoom, JCheckBox> rooms = new HashMap<splitNstornoRoom, JCheckBox>();
+
     /**
      * Creates new form splitNstornoPanel
      */
     public splitNstornoPanel()
     {
         initComponents();
+        init();
     }
 
     /**
@@ -28,9 +45,9 @@ public class splitNstornoPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -38,18 +55,47 @@ public class splitNstornoPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
+
+    private void init()
+    {
+        for (HabitationData d : InvoiceGUIControler.getInstance().getSelectedHabitations())
+        {
+            addNewSplitNStornoRoomPanel(d);
+        }
+    }
+
+    private void addNewSplitNStornoRoomPanel(HabitationData data)
+    {
+        JCheckBox c = new JCheckBox();
+        CheckTabComponent tabComponent = new CheckTabComponent(tabbedPane, c);
+        splitNstornoRoom snsrp = new splitNstornoRoom(data, c);
+        rooms.put(snsrp, c);
+        inverseRooms.put(c, snsrp);
+
+        tabbedPane.add(snsrp, tabbedPane.getTabCount());
+
+        tabbedPane.setTitleAt(tabbedPane.getTabCount() - 1, data.getRoomsData().getNumber());
+
+
+        tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, tabComponent);
+    }
+
+    public Collection<InvoiceItemData> getSelectedInvoiceItems()
+    {
+        LinkedLsit<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
+    }
 }
