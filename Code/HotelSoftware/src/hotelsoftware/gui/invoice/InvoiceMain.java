@@ -68,6 +68,7 @@ public class InvoiceMain extends javax.swing.JPanel
 
         add(navigationPanel, java.awt.BorderLayout.NORTH);
 
+        contentPanel.setMaximumSize(new java.awt.Dimension(1400, 400));
         contentPanel.setLayout(new java.awt.CardLayout());
         add(contentPanel, java.awt.BorderLayout.CENTER);
 

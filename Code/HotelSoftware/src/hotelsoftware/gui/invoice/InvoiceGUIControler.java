@@ -53,7 +53,9 @@ public final class InvoiceGUIControler implements ActionListener
     private JButton intermediatInvoiceButton = new JButton();
     private JButton chooseCustomerButton = new JButton();
     private JButton splitCancelButton = new JButton();
-    private JButton payed = new JButton();
+    private JButton payedButton = new JButton();
+    
+    
     private String invoiceHome = "Invoice Home";
     private String intermediatInvoice = "Intermediat Invoice";
     private String chooseCustomer = "Customer Selection";
@@ -62,6 +64,7 @@ public final class InvoiceGUIControler implements ActionListener
     private String seperator = ">";
     private String abort = "Abort";
     private String back = "Back";
+    private String payed = "Payed";
 
     private InvoiceGUIControler()
     {
@@ -88,7 +91,9 @@ public final class InvoiceGUIControler implements ActionListener
 
         splitCancelButton.setText(splitCancel);
         splitCancelButton.addActionListener(this);
-        // set start screen
+        
+        payedButton.setText(payed);
+        payedButton.addActionListener(this);
     }
 
     public static InvoiceGUIControler getInstance()
@@ -123,7 +128,7 @@ public final class InvoiceGUIControler implements ActionListener
                 {
                     if (text.equals(intermediatInvoice))
                     {
-                        setContentPanel(new IntermediatInvoice());
+                        setContentPanel(getIntermediatInvoicePanel());
                     }
                     else
                     {
@@ -143,6 +148,13 @@ public final class InvoiceGUIControler implements ActionListener
                                 {
                                     setContentPanel(getPaymentPanel());
                                 }
+                                else
+                                {
+                                    if (text.equals((payed))){
+                                        ctrl.pay();
+                                        //TODO ask for new State (Zwischenrechnung oder Ende)
+                                    }
+                                }
                             }
                         }
                     }
@@ -161,9 +173,7 @@ public final class InvoiceGUIControler implements ActionListener
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
     }
 
-//    public JPanel getContentPanel() {
-//        return main.getContentPanel();
-//    }
+
     private JPanel getContentPanel()
     {
         return main.getContentPanel();
@@ -212,21 +222,25 @@ public final class InvoiceGUIControler implements ActionListener
         JPanel navigation = getNavigationPanel();
         navigation.removeAll();
 
-//       if (class.equals(SplitCancel.class)) {
-//               
-//       } 
+        if (clazz.equals(splitNstornoPanel.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(splitCancelLabel);
+        } 
 
-        if (clazz.equals(InvoiceHome.class))
+        else if (clazz.equals(InvoiceHome.class))
         {
             navigation.add(invoiceHomeLabel);
         }
-        if (clazz.equals(IntermediatInvoice.class))
+        else if (clazz.equals(IntermediatInvoicePanel.class))
         {
             navigation.add(invoiceHomeLabel);
             navigation.add(seperatorLabel);
             navigation.add(intermediatInvoiceLabel);
         }
-        if (clazz.equals(addCustomer.class))
+        else if (clazz.equals(addCustomer.class))
         {
             navigation.add(invoiceHomeLabel);
             navigation.add(seperatorLabel);
@@ -234,10 +248,15 @@ public final class InvoiceGUIControler implements ActionListener
             navigation.add(seperatorLabel);
             navigation.add(chooseCustomerLabel);
         }
-//            if (clazz.equals(Payment.class)) {
-//                navigation.add(seperator);
-//                navigation.add(payment);
-//            }
+        else if (clazz.equals(PaymentPanel.class)) {
+            navigation.add(invoiceHomeLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(intermediatInvoiceLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(chooseCustomerLabel);
+            navigation.add(seperatorLabel);
+            navigation.add(paymentLabel);
+            }
 
         navigation.repaint();
     }
@@ -255,18 +274,25 @@ public final class InvoiceGUIControler implements ActionListener
         if (clazz.equals(InvoiceHome.class))
         {
             constructive.add(intermediatInvoiceButton);
-        }
-        if (clazz.equals(IntermediatInvoice.class))
+        } else if (clazz.equals(IntermediatInvoicePanel.class))
         {
             constructive.add(splitCancelButton);
             constructive.add(chooseCustomerButton);
             deconstructive.add(backButton);
         }
-        if (clazz.equals(addCustomer.class))
+        else if (clazz.equals(addCustomer.class))
         {
             deconstructive.add(backButton);
         }
-
+        else if (clazz.equals(splitNstornoPanel.class))
+        {
+            deconstructive.add(backButton);
+            constructive.add(intermediatInvoiceButton);
+        } else if (clazz.equals(PaymentPanel.class))
+        {
+            deconstructive.add(backButton);
+            constructive.add(payedButton);
+        }
         getControlPanel().repaint();
     }
 
@@ -334,19 +360,19 @@ public final class InvoiceGUIControler implements ActionListener
      *
      * @return
      */
-    private JPanel getPaymentPanel()
+    private PaymentPanel getPaymentPanel()
     {
         // FIXME set expireData
         PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
-        JPanel generatePDFPanel = generator.generatePaymentPanel();
+        PaymentPanel generatePDFPanel = (PaymentPanel) generator.generatePaymentPanel();
         return generatePDFPanel;
     }
 
-    private JPanel getIntermediatInvoicePanel()
+    private IntermediatInvoicePanel getIntermediatInvoicePanel()
     {
         // FIXME set expireData
         PdfGenerator generator = new PdfGenerator(ctrl.getCustomerData(), HelperFunctions.getNewContinousNumber(Invoice.class), ctrl.getChosenItems(), new Date(), new Date());
-        JPanel generatePDFPanel = generator.generateIntermediatPanel();
+        IntermediatInvoicePanel generatePDFPanel = (IntermediatInvoicePanel) generator.generateIntermediatPanel();
         return generatePDFPanel;
     }
 }
