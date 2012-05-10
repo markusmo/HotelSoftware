@@ -45,7 +45,7 @@ public class PdfgenerateTest extends JFrame implements PDFObserver
             PrivateCustomer customer = PartyFacade.getInstance().getPrivateCustomerByName("Otto", "von Schirach");
             
             PdfGenerator generator = new PdfGenerator(customer, "i07051200000001", HelperFunctions.castCollectionUp(items, InvoiceItemData.class, InvoiceItem.class), new Date(), new Date());
-            JPanel generatePDFPanel = generator.generatePDFPanel();
+            JPanel generatePDFPanel = generator.generatePaymentPanel();
             
             this.getContentPane().add(generatePDFPanel);
         }

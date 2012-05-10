@@ -403,7 +403,7 @@ public class PdfGenerator
      * 
      * @return 
      */
-    public JPanel generatePDFPanel()
+    public JPanel generatePaymentPanel()
     {
         JPanel viewerComponentPanel = new JPanel();
         try
@@ -425,5 +425,10 @@ public class PdfGenerator
         {
             return viewerComponentPanel;
         }
+    }
+
+    public JPanel generateIntermediatPanel()
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -118,7 +118,7 @@ public class CreateInvoiceController
         state.useGuestAsCustomer(guest);
     }
   
-    public Collection<InvoiceItem> getChosenItems()
+    public Collection<InvoiceItemData> getChosenItems()
     {
         // FIXME implement
         return null;
@@ -190,7 +190,7 @@ public class CreateInvoiceController
         this.state = state;
     }
     
-    public Customer getCustomer() {
+    public CustomerData getCustomer() {
         // TODO implement
         return null;
     }
