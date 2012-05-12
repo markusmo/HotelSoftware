@@ -325,7 +325,7 @@ public class CreateInvoiceControllerTest {
     public void testGetOpenItems() {
         System.out.println("getOpenItems");
         CreateInvoiceController instance = CreateInvoiceController.getInstance();
-        Collection<Habitation> openItems = Habitation.searchHabitations(null, null, 201);
+        Collection<Habitation> openItems = Habitation.searchHabitations(null, null, "201");
         instance.setHabitations(openItems);
         
         Collection expResult = null;
