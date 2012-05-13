@@ -139,7 +139,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 
     private void searchHabitations()
     {
-        // lösche aktuellen Table
+        // lÃ¶sche aktuellen Table
         availableHabitations.setTable(null);
         
         String lname = lnameTextBox.getText();
@@ -152,7 +152,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
              availableHabitations.setTable(habitations);
              habitationsData = habitations;
         }
-        availableHabitations.requestFocusInWindow();
+       // availableHabitations.requestFocusInWindow();
     }
     
     
