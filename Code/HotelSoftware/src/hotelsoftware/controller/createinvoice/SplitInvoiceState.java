@@ -5,6 +5,7 @@
 package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -15,6 +16,15 @@ import java.util.Collection;
  */
 public class SplitInvoiceState extends CreateInvoiceState
 {
+
+    @Override
+    Collection<HabitationData> getHabitations()
+    {
+        // TODO implement
+        return super.getHabitations();
+    }
+    
+    
     public SplitInvoiceState(CreateInvoiceController context)
     {
         super(context);

@@ -28,7 +28,7 @@ public class InterimBillState extends CreateInvoiceState
     @Override
     void next()
     {
-        context.setState(new PaymentState(context));
+        context.setState(new SelectCustomerState(context));
     }
     
     @Override

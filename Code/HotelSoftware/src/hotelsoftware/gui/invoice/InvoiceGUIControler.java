@@ -17,6 +17,7 @@ import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -91,31 +92,35 @@ public final class InvoiceGUIControler implements ActionListener
             else
             {
                 if (text.equals(back))
-                {
+                {                    
                     back(e);
                 }
                 else
                 {
                     if (text.equals(intermediatInvoice))
                     {
+                        ctrl.next();
                         setContentPanel(getIntermediatInvoicePanel());
                     }
                     else
                     {
                         if (text.equals(splitCancel))
                         {
+                            ctrl.splitInvoice();
                             setContentPanel(new splitNstornoPanel());
                         }
                         else
                         {
                             if (text.equals(chooseCustomer))
                             {
+                                ctrl.next();
                                 setContentPanel(new addCustomer());
                             }
                             else
                             {
                                 if (text.equals(payment))
                                 {
+                                    ctrl.next();
                                     setContentPanel(getPaymentPanel());
                                 }
                                 else
@@ -178,6 +183,11 @@ public final class InvoiceGUIControler implements ActionListener
     {
         getConstructiveControlPanel().removeAll();
         getDeconstructiveControlPanel().removeAll();
+    }
+
+    public void setSelectedHabitations(Collection<HabitationData> selectedRows)
+    {
+        ctrl.selectHabitations(selectedRows);
     }
 
     private static class invoiceGUIControlerHolder
@@ -314,6 +324,7 @@ public final class InvoiceGUIControler implements ActionListener
                 setter.setControls();
             }
         }
+        
         contentPanel.repaint();
     }
 
