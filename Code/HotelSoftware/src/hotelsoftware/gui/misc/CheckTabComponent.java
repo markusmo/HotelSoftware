@@ -1,9 +1,7 @@
 package hotelsoftware.gui.misc;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.FlowLayout;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  * Wird vom tabComponent verwendet;

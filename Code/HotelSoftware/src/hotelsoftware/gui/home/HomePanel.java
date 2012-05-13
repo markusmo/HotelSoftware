@@ -2,9 +2,11 @@ package hotelsoftware.gui.home;
 
 import hotelsoftware.util.weatherservice.CurrentWeather;
 import hotelsoftware.util.weatherservice.CurrentWeatherPanel;
-import hotelsoftware.util.weatherservice.Weather;
 import hotelsoftware.util.weatherservice.ForeCastWeatherPanel;
-import java.awt.*;
+import hotelsoftware.util.weatherservice.Weather;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

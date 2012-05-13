@@ -14,25 +14,26 @@ import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import javax.swing.*;
 
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, KeyListener
+public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 {
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
     private Collection<HabitationData> habitationsData;
     
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
-    
-    private LinkedList<Integer> pressedKeys = new LinkedList();
-    
+        
     private FocusTraversalPolicy focusTraversal;
     private LinkedList<Component> order;
 
@@ -51,8 +52,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
        order = new LinkedList();
        order.add(roomNrTextbox);
        order.add(lnameTextBox);
-       order.add(fnameTextBox);
-       order.add(invoiceHomeTables);
+       order.add(fnameTextBox);  
        
        focusTraversal = new FocusTraversalPolicy() {
            
@@ -103,43 +103,45 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
             }
         };
        
-       setFocusTraversalPolicy(focusTraversal);
-       //roomNrTextbox.requestFocusInWindow();
-       availableHabitations.addKeyListener(this);
-       selectedHabitations.addKeyListener(this);
-       dropSelectButtons.addKeyListener(this);
+       registerActionMap();
+       
+       this.setFocusTraversalPolicy(focusTraversal);
+       this.setFocusCycleRoot(true);
+       roomNrTextbox.requestFocusInWindow();
     }
 
     private void chooseAll()
     {
-        setSelectedHabitationsTable(habitationsData);
-        removeAvailableHabitations();
+        selectedHabitations.setTable(availableHabitations.clearTable());
         checkSelected();
     }
 
     private void chooseSelected()
     {
         selectedHabitations.setTable(availableHabitations.getSelectedRows());
-        // TODO remove from available table!
+        availableHabitations.removeSelectedRows();
         checkSelected();
     }
 
     private void dropAll()
     {
-        selectedHabitations.removeAllRows();
-        // TODO add data to available table!
+        Collection<HabitationData> removed = selectedHabitations.clearTable();
+        availableHabitations.setTable(removed);
         checkSelected();
     }
 
     private void dropSelected()
     {
         Collection<HabitationData> removed = selectedHabitations.removeSelectedRows();
-        // TODO add Data to available table!
+        availableHabitations.setTable(removed);
         checkSelected();
     }
 
     private void searchHabitations()
     {
+        // lösche aktuellen Table
+        availableHabitations.setTable(null);
+        
         String lname = lnameTextBox.getText();
         String fname = fnameTextBox.getText();
         String roomNr = roomNrTextbox.getText();
@@ -154,11 +156,6 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
     }
     
     
-    private void setSelectedHabitationsTable(Collection<HabitationData> habitations) {
-        selectedHabitations.setTable(habitations);
-    }
-
-
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -460,51 +457,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
         ctrl.repaintControlPanel();
     }
 
-    private void removeAvailableHabitations()
-    {
-        // TODO implement availableHabitations.removeAll();
-    }
-
-   @Override
-    public void keyTyped(KeyEvent e)
-    {
-        if (KeyEvent.VK_R == e.getKeyCode()) {
-            if (pressedKeys.contains(KeyEvent.VK_CONTROL)) {
-                if (pressedKeys.contains(KeyEvent.VK_SHIFT)) {
-                    chooseAll();
-                } else {
-                    chooseSelected();
-                }
-            }
-        } else if (KeyEvent.VK_L == e.getKeyCode()) {
-            if (pressedKeys.contains(KeyEvent.VK_CONTROL)) {
-                if (pressedKeys.contains(KeyEvent.VK_SHIFT)) {
-                    dropAll();
-                } else {
-                    dropSelected();
-                }
-            }
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e)
-    {
-        if (KeyEvent.VK_ENTER == e.getKeyCode()) {
-            // FIXME nur im search panel
-            searchHabitations();
-        } else if (e.isControlDown()) {
-            pressedKeys.add(e.getKeyCode());
-        } else if (e.isShiftDown() ) {
-            pressedKeys.add(e.getKeyCode());
-        } 
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e)
-    {
-        pressedKeys.clear();
-    }
+    
 
     @Override
     public boolean isFocusable()
@@ -512,5 +465,76 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
         return true;
     }
     
-    
+     /**
+     * Registriert die Shortcuts fuer die Buttons.
+     */
+    private void registerActionMap()
+    {
+        KeyStroke strgR = KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK);
+        KeyStroke strgShiftR = KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK);
+        KeyStroke strgL = KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK);
+        KeyStroke strgShiftL = KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK);
+        KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        
+        InputMap map = ctrl.getInvoiceMainPanel().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        map.put(strgR, "strgR");
+        map.put(strgShiftR, "strgShiftR");
+        map.put(strgL, "strgL");
+        map.put(strgShiftL, "strgShiftL");
+        map.put(enter, "enter");
+        
+        Action strgRPressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                chooseSelected();
+            }
+        };
+        
+        Action strgShiftRPressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                chooseAll();
+            }
+        };
+
+        Action strgLPressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                dropSelected();                
+            }
+        };
+        
+        Action strgShiftLPressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                dropAll();
+            }
+        };
+        
+        Action enterPressed = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                searchHabitations();
+            }
+        };
+        
+
+        ActionMap amap = ctrl.getInvoiceMainPanel().getActionMap();
+        amap.put("strgR", strgRPressed);
+        amap.put("strgShiftR", strgShiftRPressed);
+        amap.put("strgL", strgLPressed);
+        amap.put("strgShiftL", strgShiftLPressed);
+        amap.put("enter", enterPressed);
+
+    }
 }
