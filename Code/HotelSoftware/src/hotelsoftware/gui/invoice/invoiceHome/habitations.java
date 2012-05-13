@@ -88,7 +88,7 @@ public class habitations extends javax.swing.JPanel
                 // setze adaptiere Liste
                 this.data = origin.toArray(new HabitationData[origin.size()]);
             } else {
-                this.data = new HabitationData[0]; 
+                this.data = data.toArray(new HabitationData[data.size()]);
             }            
         } else {
             if (this.data == null) {
