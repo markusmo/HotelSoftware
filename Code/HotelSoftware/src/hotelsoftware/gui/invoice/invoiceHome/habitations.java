@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.gui.invoice.invoiceHome;
 
 import hotelsoftware.controller.data.parties.GuestData;
@@ -19,10 +15,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class habitations extends javax.swing.JPanel
 {
-    
-    private static final int columnCount = 5;    
+    private static final int columnCount = 5;
     private HabitationData[] data;
-    
+
     /**
      * Creates new form habitations
      */
@@ -31,93 +26,111 @@ public class habitations extends javax.swing.JPanel
         initComponents();
         habitations.addKeyListener(parent);
     }
-    
+
     public habitations()
     {
         initComponents();
     }
-    
-    
-    
-    
-    private Object[][] getDataArray() {
+
+    private Object[][] getDataArray()
+    {
         Object[][] objectArray = new Object[data.length][columnCount];
-        
+
         int i = 0;
-        for(HabitationData hab: data)
+        for (HabitationData hab : data)
         {
             String[] rowData = getRowData(hab);
             for (int j = 0; j < columnCount; j++)
             {
-                objectArray [i][j] = rowData[j];
+                objectArray[i][j] = rowData[j];
             }
             i++;
-        }     
+        }
         return objectArray;
     }
-    
-    public int getRowCount() {
+
+    public int getRowCount()
+    {
         return habitations.getRowCount();
     }
 
-    private String[] getRowData(HabitationData data) {
+    private String[] getRowData(HabitationData data)
+    {
         Collection<GuestData> guests = data.getGuestsData();
         String[] rowData = new String[columnCount];
-        for(GuestData guest: guests) {
+        for (GuestData guest : guests)
+        {
             rowData[0] = guest.getLname();
             rowData[1] = guest.getFname();
             rowData[2] = data.getRoomsData().getNumber();
             rowData[3] = data.getStart().toString();
             rowData[4] = data.getEnd().toString();
-        }       
+        }
         return rowData;
     }
-    
-    public void setTable(Collection<HabitationData> data)
-    {       
-        if (data != null) {            
-            if (this.data != null) {
-                // überprüfe doppelte Einträge
-                LinkedList<HabitationData> origin = new LinkedList((List<HabitationData>)Arrays.asList(this.data));
 
-                for (HabitationData item : data) {
-                    if (!origin.contains(item)) {
+    public void setTable(Collection<HabitationData> data)
+    {
+        if (data != null)
+        {
+            if (this.data != null)
+            {
+                // �berpr�fe doppelte Eintr�ge
+                LinkedList<HabitationData> origin = new LinkedList((List<HabitationData>) Arrays.asList(this.data));
+
+                for (HabitationData item : data)
+                {
+                    if (!origin.contains(item))
+                    {
                         origin.add(item);
                     }
                 }
                 // setze adaptiere Liste
                 this.data = origin.toArray(new HabitationData[origin.size()]);
-            } else {
-                this.data = new HabitationData[0]; 
-            }            
-        } else {
-            if (this.data == null) {
-                this.data = new HabitationData[0];                
+            }
+            else
+            {
+                this.data = data.toArray(new HabitationData[data.size()]);
             }
         }
-        this.habitations.setModel(new DefaultTableModel(getDataArray(),new String [] {"Last name", "First name", "Room Nr", "Arrival", "Departure"}));
-       
+        else
+        {
+            if (this.data == null)
+            {
+                this.data = new HabitationData[0];
+            }
+        }
+        this.habitations.setModel(new DefaultTableModel(getDataArray(), new String[]
+                {
+                    "Last name", "First name", "Room Nr", "Arrival", "Departure"
+                }));
+
     }
-    
-    public Collection<HabitationData> clearTable() {
+
+    public Collection<HabitationData> clearTable()
+    {
         List<HabitationData> removed = Arrays.asList(data);
-        
+
         this.data = new HabitationData[0];
-        this.habitations.setModel(new DefaultTableModel(getDataArray(),new String [] {"Last name", "First name", "Room Nr", "Arrival", "Departure"}));
-        
+        this.habitations.setModel(new DefaultTableModel(getDataArray(), new String[]
+                {
+                    "Last name", "First name", "Room Nr", "Arrival", "Departure"
+                }));
+
         return removed;
     }
-    
-    public Collection<HabitationData> getSelectedRows() {
+
+    public Collection<HabitationData> getSelectedRows()
+    {
         int[] selectedRows = habitations.getSelectedRows();
         Collection<HabitationData> result = new LinkedList();
-        
-        for (Integer row : selectedRows) {
+
+        for (Integer row : selectedRows)
+        {
             result.add(data[row]);
         }
         return result;
     }
-    
 
     /**
      * This method is called from within the constructor to
@@ -180,28 +193,35 @@ public class habitations extends javax.swing.JPanel
     Collection<HabitationData> removeSelectedRows()
     {
         Collection<HabitationData> removed = getSelectedRows();
-        
+
         int[] selectedRows = habitations.getSelectedRows();
-                
+
         Collection<HabitationData> newData = new LinkedList();
-        
-        for (int i = 0; i < data.length; i++) {
+
+        for (int i = 0; i < data.length; i++)
+        {
             boolean isSelected = false;
-            for (int j = 0; j < selectedRows.length; j++) {
-                 if (selectedRows[j] == i) {
-                     isSelected = true;
-                 }
+            for (int j = 0; j < selectedRows.length; j++)
+            {
+                if (selectedRows[j] == i)
+                {
+                    isSelected = true;
+                }
             }
-            if(!isSelected) {
+            if (!isSelected)
+            {
                 newData.add(data[i]);
             }
         }
-            
+
         clearTable();
         setTable(newData);
-        
+
         return removed;
     }
 
-       
+    Collection<HabitationData> getRows()
+    {
+        return Arrays.asList(data);
+    }
 }

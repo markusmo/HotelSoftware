@@ -195,4 +195,9 @@ public class Guest extends Party implements GuestData, IGuest
     {
         return PartyFacade.getInstance().getGuestFromReservationNumber(reservationNumber);
     }
+    
+    public String toString()
+    {
+        return fname + " " + lname;
+    }
 }

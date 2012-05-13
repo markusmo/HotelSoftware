@@ -6,13 +6,16 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.model.domain.parties.*;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.Party;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -33,10 +36,10 @@ public class addCustomer extends javax.swing.JPanel
      */
     public addCustomer()
     {
-        Collection<PartyData> customers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
-        if (customers != null)
+        Collection<PartyData> allCustomers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
+        if (allCustomers != null)
         {
-            URcustomers = customers;
+            URcustomers = allCustomers;
             this.customers.addAll(URcustomers);
         }
         else
@@ -139,6 +142,11 @@ public class addCustomer extends javax.swing.JPanel
             public Object getElementAt(int i) { return strings[i]; }
         });
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                listPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(list);
 
         buttonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/search.png"))); // NOI18N
@@ -191,7 +199,6 @@ public class addCustomer extends javax.swing.JPanel
                                             .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(85, 85, 85)
@@ -312,26 +319,15 @@ public class addCustomer extends javax.swing.JPanel
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
-        if (!jCheckBox1.isSelected())
+        if (jCheckBox1.isSelected())
         {
-            if (list.getSelectedIndex() != -1)
-            {
-                EnableAddressInputs(false);
-                Party selected = (Party) (list.getSelectedValue());
-                Address a = selected.getAddress();
-                TextFieldCity.setText(a.getCity());
-                TextFieldEmail.setText(a.getEmail());
-                TextFieldFax.setText(a.getFax());
-                TextFieldPhoneNumber.setText(a.getPhone());
-                TextFieldStreet.setText(a.getStreet());
-                TextFieldZip.setText(a.getZip());
-
-                ComboBoxCountry.setSelectedItem(a.getIdCountry());
-            }
+            EnableAddressInputs(true);
+            EmptyAddressInputs();
         }
         else
         {
-            EnableAddressInputs(true);
+            EnableAddressInputs(false);
+            FillAddressInputs((GuestData) list.getSelectedValue());
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -384,6 +380,11 @@ public class addCustomer extends javax.swing.JPanel
         InvoiceGUIControler.getInstance().setPaymentPanel();
 
     }//GEN-LAST:event_buttonSelectButtonerActionPerformed
+
+    private void listPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_listPropertyChange
+    {//GEN-HEADEREND:event_listPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listPropertyChange
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
     private javax.swing.JRadioButton RadioButtonCustomer;
@@ -416,7 +417,23 @@ public class addCustomer extends javax.swing.JPanel
 
     private void init()
     {
-
+        list.addListSelectionListener(new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent e)
+            {
+                if (jCheckBox1.isSelected())
+                {
+                    EnableAddressInputs(true);
+                    EmptyAddressInputs();
+                }
+                else
+                {
+                    EnableAddressInputs(false);
+                    FillAddressInputs((GuestData) list.getSelectedValue());
+                }
+            }
+        });
         addElements2List(customers);
         list.setModel(listModel);
 
@@ -469,5 +486,26 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setEnabled(b);
         TextFieldZip.setEnabled(b);
         ComboBoxCountry.setEnabled(b);
+    }
+
+    private void EmptyAddressInputs()
+    {
+        TextFieldCity.setText("");
+        TextFieldEmail.setText("");
+        TextFieldFax.setText("");
+        TextFieldPhoneNumber.setText("");
+        TextFieldStreet.setText("");
+        TextFieldZip.setText("");
+    }
+
+    private void FillAddressInputs(GuestData d)
+    {
+        TextFieldCity.setText(d.getAddressData().getCity());
+        TextFieldEmail.setText(d.getAddressData().getEmail());
+        TextFieldFax.setText(d.getAddressData().getFax());
+        TextFieldPhoneNumber.setText(d.getAddressData().getPhone());
+        TextFieldStreet.setText(d.getAddressData().getStreet());
+        TextFieldZip.setText(d.getAddressData().getZip());
+        ComboBoxCountry.setSelectedItem(d.getAddressData().getIdCountry());
     }
 }
