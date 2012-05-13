@@ -4,8 +4,8 @@
  */
 package hotelsoftware.gui.login;
 
-import hotelsoftware.gui.MainFrame;
 import hotelsoftware.controller.login.LoginController;
+import hotelsoftware.gui.MainFrame;
 import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.util.RoomanizerProperties;
 import java.awt.Dimension;
@@ -14,8 +14,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

@@ -5,10 +5,10 @@
 package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.controller.checkin.CheckInGuiControler;
-import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
+import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -16,7 +16,6 @@ import java.awt.Window;
 import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 /**
  * Dieses Panel ist dazu da, um die Informationen eines Gastes einzutragen.

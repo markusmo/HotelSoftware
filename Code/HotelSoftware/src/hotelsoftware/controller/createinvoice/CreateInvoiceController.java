@@ -10,6 +10,7 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
@@ -36,6 +37,8 @@ public class CreateInvoiceController
     public static CreateInvoiceController getInstance()
     {
         return CreateInvoiceControllerHolder.INSTANCE;
+        
+        // TODO implement use case controller!
     }
 
     private static class CreateInvoiceControllerHolder
@@ -53,7 +56,6 @@ public class CreateInvoiceController
      */
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
-        // FIXME throws nullPointerEx
         return state.search(firstName, lastName, roomNr);
     }
 

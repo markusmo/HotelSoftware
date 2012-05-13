@@ -5,7 +5,6 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
 import hotelsoftware.gui.invoice.customerSelection.addCustomer;
 import hotelsoftware.gui.invoice.intermediatInvoice.IntermediatInvoicePanel;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
@@ -17,15 +16,13 @@ import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Date;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -489,4 +486,8 @@ public final class InvoiceGUIControler implements ActionListener
     {
         return CreateInvoiceController.getInstance().getSelectedHabitations();
     }
+     
+     public JPanel getInvoiceMainPanel() {
+         return main;
+     }
 }

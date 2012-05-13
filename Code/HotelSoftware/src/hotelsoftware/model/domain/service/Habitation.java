@@ -339,4 +339,35 @@ public class Habitation extends Service implements HabitationData, IHabitation
     {
         throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Habitation other = (Habitation) obj;
+        if ((this.habitationNumber == null) ? (other.habitationNumber != null) : !this.habitationNumber.equals(other.habitationNumber))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 37 * hash + (this.habitationNumber != null ? this.habitationNumber.hashCode() : 0);
+        return hash;
+    }
+
+   
+    
+    
 }
