@@ -20,19 +20,16 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * 
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, KeyListener
 {
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
     private Collection<HabitationData> habitationsData;
-    
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
-    
     private LinkedList<Integer> pressedKeys = new LinkedList();
-    
     private FocusTraversalPolicy focusTraversal;
     private LinkedList<Component> order;
 
@@ -47,40 +44,45 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
 
     private void init()
     {
-               
-       order = new LinkedList();
-       order.add(roomNrTextbox);
-       order.add(lnameTextBox);
-       order.add(fnameTextBox);
-       order.add(invoiceHomeTables);
-       
-       focusTraversal = new FocusTraversalPolicy() {
-           
-           private Component currentComponent = roomNrLabel;
-           
+
+        order = new LinkedList();
+        order.add(roomNrTextbox);
+        order.add(lnameTextBox);
+        order.add(fnameTextBox);
+        order.add(invoiceHomeTables);
+
+        focusTraversal = new FocusTraversalPolicy()
+        {
+            private Component currentComponent = roomNrLabel;
 
             @Override
             public Component getComponentAfter(Container aContainer, Component aComponent)
             {
                 int current = order.indexOf(currentComponent);
-                
-                if (order.size() < current + 1) {
+
+                if (order.size() < current + 1)
+                {
                     return order.get(current + 1);
-                } else {
+                }
+                else
+                {
                     return getFirstComponent(aContainer);
                 }
-                
+
             }
 
             @Override
             public Component getComponentBefore(Container aContainer, Component aComponent)
             {
                 int current = order.indexOf(currentComponent);
-                
-                if (current - 1 < 0) {
+
+                if (current - 1 < 0)
+                {
                     return getLastComponent(aContainer);
-                } else {
-                    return order.get(current - 1);                    
+                }
+                else
+                {
+                    return order.get(current - 1);
                 }
             }
 
@@ -102,12 +104,12 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
                 return getFirstComponent(aContainer);
             }
         };
-       
-       setFocusTraversalPolicy(focusTraversal);
-       //roomNrTextbox.requestFocusInWindow();
-       availableHabitations.addKeyListener(this);
-       selectedHabitations.addKeyListener(this);
-       dropSelectButtons.addKeyListener(this);
+
+        setFocusTraversalPolicy(focusTraversal);
+        //roomNrTextbox.requestFocusInWindow();
+        availableHabitations.addKeyListener(this);
+        selectedHabitations.addKeyListener(this);
+        dropSelectButtons.addKeyListener(this);
     }
 
     private void chooseAll()
@@ -143,21 +145,21 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
         String lname = lnameTextBox.getText();
         String fname = fnameTextBox.getText();
         String roomNr = roomNrTextbox.getText();
-        
+
         Collection<HabitationData> habitations = ctrl.search(fname, lname, roomNr);
-       
-        if (habitations != null) {
-             availableHabitations.setTable(habitations);
-             habitationsData = habitations;
+
+        if (habitations != null)
+        {
+            availableHabitations.setTable(habitations);
+            habitationsData = habitations;
         }
         availableHabitations.requestFocusInWindow();
     }
-    
-    
-    private void setSelectedHabitationsTable(Collection<HabitationData> habitations) {
+
+    private void setSelectedHabitationsTable(Collection<HabitationData> habitations)
+    {
         selectedHabitations.setTable(habitations);
     }
-
 
     /**
      * This method is called from within the constructor to
@@ -407,7 +409,6 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
     {//GEN-HEADEREND:event_chooseAllActionPerformed
         chooseAll();
    }//GEN-LAST:event_chooseAllActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private hotelsoftware.gui.invoice.invoiceHome.habitations availableHabitations;
     private javax.swing.JButton chooseAll;
@@ -430,9 +431,12 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
 
     private void checkSelected()
     {
-        if (selectedHabitations.getRowCount() > 0) {
+        if (selectedHabitations.getRowCount() > 0)
+        {
             iiB.setEnabled(true);
-        } else {
+        }
+        else
+        {
             iiB.setEnabled(false);
         }
     }
@@ -441,18 +445,19 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
     public void setControls()
     {
         ctrl.clearControlPanel();
-        
+
         aB = new AbortButton();
         ctrl.getDeconstructiveControlPanel().add(aB);
-        
+
         iiB = new IntermediatInvoiceButton();
         ctrl.getConstructiveControlPanel().add(iiB);
-        iiB.addActionListener(new ActionListener() {
-
+        iiB.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                ctrl.setSelectedHabitations(selectedHabitations.getSelectedRows());
+                //  ctrl.setSelectedHabitations(selectedHabitations.getSelectedRows());
+                ctrl.setSelectedHabitations(selectedHabitations.getRows());
             }
         });
         iiB.setEnabled(false);
@@ -465,23 +470,37 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
         // TODO implement availableHabitations.removeAll();
     }
 
-   @Override
+    @Override
     public void keyTyped(KeyEvent e)
     {
-        if (KeyEvent.VK_R == e.getKeyCode()) {
-            if (pressedKeys.contains(KeyEvent.VK_CONTROL)) {
-                if (pressedKeys.contains(KeyEvent.VK_SHIFT)) {
+        if (KeyEvent.VK_R == e.getKeyCode())
+        {
+            if (pressedKeys.contains(KeyEvent.VK_CONTROL))
+            {
+                if (pressedKeys.contains(KeyEvent.VK_SHIFT))
+                {
                     chooseAll();
-                } else {
+                }
+                else
+                {
                     chooseSelected();
                 }
             }
-        } else if (KeyEvent.VK_L == e.getKeyCode()) {
-            if (pressedKeys.contains(KeyEvent.VK_CONTROL)) {
-                if (pressedKeys.contains(KeyEvent.VK_SHIFT)) {
-                    dropAll();
-                } else {
-                    dropSelected();
+        }
+        else
+        {
+            if (KeyEvent.VK_L == e.getKeyCode())
+            {
+                if (pressedKeys.contains(KeyEvent.VK_CONTROL))
+                {
+                    if (pressedKeys.contains(KeyEvent.VK_SHIFT))
+                    {
+                        dropAll();
+                    }
+                    else
+                    {
+                        dropSelected();
+                    }
                 }
             }
         }
@@ -490,14 +509,25 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
     @Override
     public void keyPressed(KeyEvent e)
     {
-        if (KeyEvent.VK_ENTER == e.getKeyCode()) {
+        if (KeyEvent.VK_ENTER == e.getKeyCode())
+        {
             // FIXME nur im search panel
             searchHabitations();
-        } else if (e.isControlDown()) {
-            pressedKeys.add(e.getKeyCode());
-        } else if (e.isShiftDown() ) {
-            pressedKeys.add(e.getKeyCode());
-        } 
+        }
+        else
+        {
+            if (e.isControlDown())
+            {
+                pressedKeys.add(e.getKeyCode());
+            }
+            else
+            {
+                if (e.isShiftDown())
+                {
+                    pressedKeys.add(e.getKeyCode());
+                }
+            }
+        }
     }
 
     @Override
@@ -511,6 +541,4 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter, K
     {
         return true;
     }
-    
-    
 }

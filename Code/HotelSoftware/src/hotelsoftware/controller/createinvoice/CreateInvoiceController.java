@@ -45,6 +45,7 @@ public class CreateInvoiceController
 
     /**
      * Sucht nach Aufenthalten anhand der angegebenen Suchparameter, leere Parameter werden ignoriert
+     *
      * @param firstName Der Vorname eines Gastes der zum Aufenthalt gehört
      * @param lastName Der Nachname eines Gastes der zum Aufenthalt gehört
      * @param roomNr Die Raum Nummer des zum Aufenthalt gehörigen Raums
@@ -58,6 +59,7 @@ public class CreateInvoiceController
 
     /**
      * Wählt die Aufenthalte aus für die Rechnung(en) erstellt werden sollen
+     *
      * @param habitations Die ausgewählten Aufenthalte
      */
     public void selectHabitations(Collection<HabitationData> habitations)
@@ -72,6 +74,7 @@ public class CreateInvoiceController
 
     /**
      * Wählt die gewünschten Rechnungsposten für eine zu erstellende Rechnung aus
+     *
      * @param items Die für die Rechnung relevanten Posten
      */
     public void selectItems(Collection<InvoiceItemData> items)
@@ -81,6 +84,7 @@ public class CreateInvoiceController
 
     /**
      * Storniert Rechnungsposten
+     *
      * @param item Der zu stornierende Posten
      * @param amount Die Anzahl der zu stornierenden Posten
      */
@@ -91,6 +95,7 @@ public class CreateInvoiceController
 
     /**
      * Gibt alle in der Datenbank vorhandenen Länder zurück
+     *
      * @return Eine Collection mit den Ländern
      */
     public Collection<CountryData> getAllCountries()
@@ -100,6 +105,7 @@ public class CreateInvoiceController
 
     /**
      * Erstellt einen neuen Kunden in Form eines Unternehmens mit gleicher Rechnungs- und Postanschrift
+     *
      * @param companyName Der Name der Firma
      * @param street Postanschrift: die Straße
      * @param city Postanschrift: der Ort/die Stadt
@@ -107,7 +113,7 @@ public class CreateInvoiceController
      * @param email Postanschrift: die E-Mail Adresse
      * @param phone Postanschrift: die Telefonnummer
      * @param fax Postanschrift: die Fax-Nummer
-     * @param country  Postanschrift: das Land
+     * @param country Postanschrift: das Land
      */
     public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
@@ -116,6 +122,7 @@ public class CreateInvoiceController
 
     /**
      * Erstellt einen neuen Kunden in Form eines Unternehmens
+     *
      * @param companyName Der Name der Firma
      * @param street Postanschrift: die Straße
      * @param city Postanschrift: der Ort/die Stadt
@@ -123,14 +130,14 @@ public class CreateInvoiceController
      * @param email Postanschrift: die E-Mail Adresse
      * @param phone Postanschrift: die Telefonnummer
      * @param fax Postanschrift: die Fax-Nummer
-     * @param country  Postanschrift: das Land
+     * @param country Postanschrift: das Land
      * @param invoiceStreet Rechnungsanschrift: die Straße
      * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
      * @param invoiceZip Rechnungsanschrift: die Postleitzahl
      * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
      * @param invoicePhone Rechnungsanschrift: die Telefonnummer
      * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
-     * @param invoiceCountry  Rechnungsanschrift: das Land
+     * @param invoiceCountry Rechnungsanschrift: das Land
      */
     public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
@@ -141,6 +148,7 @@ public class CreateInvoiceController
 
     /**
      * Erstellt einen neuen Kunden in Form einer realen Person mit gleicher Rechnungs- und Postanschrift
+     *
      * @param firstName Der Vorname des Kunden
      * @param lastName Der Nachname des Kunden
      * @param street Postanschrift: die Straße
@@ -149,7 +157,7 @@ public class CreateInvoiceController
      * @param email Postanschrift: die E-Mail Adresse
      * @param phone Postanschrift: die Telefonnummer
      * @param fax Postanschrift: die Fax-Nummer
-     * @param country  Postanschrift: das Land
+     * @param country Postanschrift: das Land
      */
     public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
@@ -158,6 +166,7 @@ public class CreateInvoiceController
 
     /**
      * Erstellt einen neuen Kunden in Form einer realen Person
+     *
      * @param firstName Der Vorname des Kunden
      * @param lastName Der Nachname des Kunden
      * @param street Postanschrift: die Straße
@@ -166,14 +175,14 @@ public class CreateInvoiceController
      * @param email Postanschrift: die E-Mail Adresse
      * @param phone Postanschrift: die Telefonnummer
      * @param fax Postanschrift: die Fax-Nummer
-     * @param country  Postanschrift: das Land
+     * @param country Postanschrift: das Land
      * @param invoiceStreet Rechnungsanschrift: die Straße
      * @param invoiceCity Rechnungsanschrift: der Ort/die Stadt
      * @param invoiceZip Rechnungsanschrift: die Postleitzahl
      * @param invoiceEmail Rechnungsanschrift: die E-Mail Adresse
      * @param invoicePhone Rechnungsanschrift: die Telefonnummer
      * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
-     * @param invoiceCountry  Rechnungsanschrift: das Land
+     * @param invoiceCountry Rechnungsanschrift: das Land
      */
     public void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
@@ -184,6 +193,7 @@ public class CreateInvoiceController
 
     /**
      * Gibt die Parteien zurück, welche mit den gewählten Aufenthalten in Verbindung stehen
+     *
      * @return Eine Collection von Parteien
      */
     public Collection<PartyData> getWorkingHabitationsGuests()
@@ -193,6 +203,7 @@ public class CreateInvoiceController
 
     /**
      * Verwendet einen Gast als Kunden, der die Rechnugn bezahlt
+     *
      * @param guest Der zu verwendende Gast
      */
     public void useGuestAsCustomer(GuestData guest)
@@ -202,6 +213,7 @@ public class CreateInvoiceController
 
     /**
      * Gibt die ausgewählten Rechnungsposten zurück
+     *
      * @return Die gewählten Posten
      */
     public Collection<InvoiceItemData> getChosenItems()
@@ -232,7 +244,7 @@ public class CreateInvoiceController
     {
         state.back();
     }
-    
+
     /**
      * Geht in SplitInvoice State über
      */
@@ -240,7 +252,7 @@ public class CreateInvoiceController
     {
         state.splitInvoice();
     }
-    
+
     /**
      * Bricht den aktuellen Vorgang ab
      * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
@@ -259,6 +271,7 @@ public class CreateInvoiceController
 
     /**
      * Gibt die noch offenen Posten der aktuellen Rechnung an
+     *
      * @return Eine COllection mit noch offenen Posten
      */
     Collection<InvoiceItem> getOpenItems()
@@ -269,9 +282,16 @@ public class CreateInvoiceController
         {
             for (InvoiceItem i : h.getInvoiceItems())
             {
-                if (i.getInvoice() != null && !i.getInvoice().isFulfilled())
+                if (i.getInvoice() == null)
                 {
                     openItems.add(i);
+                }
+                else
+                {
+                    if (!i.getInvoice().isFulfilled())
+                    {
+                        openItems.add(i);
+                    }
                 }
             }
         }
@@ -311,7 +331,7 @@ public class CreateInvoiceController
     {
         this.state = state;
     }
-    
+
     void setCustomer(Customer customer)
     {
         this.customer = customer;
