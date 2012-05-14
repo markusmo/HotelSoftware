@@ -6,10 +6,20 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.Service;
+import hotelsoftware.model.domain.users.Permission;
+import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,8 +30,6 @@ public class SplitInvoiceState extends CreateInvoiceState
     @Override
     Collection<HabitationData> getHabitations()
     {
-        // TODO implement
-        //return super.getHabitations();
         return HelperFunctions.castCollectionUp(context.getHabitations(), HabitationData.class, Habitation.class);
     }
 
@@ -31,16 +39,56 @@ public class SplitInvoiceState extends CreateInvoiceState
     }
 
     @Override
-    void selectItems(Collection<InvoiceItemData> items)
+    void selectItems(Map<InvoiceItemData, Integer> items)
     {
-        context.setSelectedItems(HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class));
+        Collection<InvoiceItem> col = new LinkedList<InvoiceItem>();
+        
+        for (Entry<InvoiceItemData, Integer> entry : items.entrySet())
+        {
+            if (entry.getValue().equals(entry.getKey().getAmount()))
+            {
+                col.add((InvoiceItem) entry.getKey());
+            }
+            else
+            {
+                InvoiceItem newItem = new InvoiceItem();
+                newItem.setAmount(entry.getValue());
+                newItem.setCreated(entry.getKey().getCreated());
+                newItem.setService((Service)entry.getKey().getServiceData());
+                newItem.setUser(LoginController.getInstance().getCurrentUser());
+                
+                col.add(newItem);
+                
+                InvoiceItem oldItem = (InvoiceItem) entry.getKey();
+                //TODO testen ob das gespeichert wird
+                oldItem.setAmount(oldItem.getAmount() - entry.getValue());
+                
+                oldItem.getHabitation().addInvoiceItems(newItem);
+            }
+        }
+        
+        context.setSelectedItems(col);
     }
 
     @Override
-    void cancelItems(InvoiceItemData item, int amount)
+    boolean cancelItems(InvoiceItemData item, int amount)
     {
-        InvoiceItem ii = (InvoiceItem) item;
-        ii.remove(amount);
+        try
+        {
+            if (LoginController.getInstance().getCurrentUser().hasPermission(Permission.getPermissionByName("CancelItems")))
+            {
+                InvoiceItem ii = (InvoiceItem) item;
+                ii.remove(amount);
+                
+                return true;
+            }
+        }
+        catch (PermissionNotFoundException ex)
+        {
+            Logger.getLogger(SplitInvoiceState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     @Override

@@ -101,7 +101,7 @@ public class CreateInvoiceController implements UseCaseController
      */
     public void selectItems(Map<InvoiceItemData, Integer> items)
     {
-        //state.selectItems(items);
+        state.selectItems(items);
     }
 
     /**
@@ -109,10 +109,11 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @param item Der zu stornierende Posten
      * @param amount Die Anzahl der zu stornierenden Posten
+     * @return FALSE wenn der aktuelle User nicht über die benötigten Berechtigungen verfügt
      */
-    public void cancelItems(InvoiceItemData item, int amount)
+    public boolean cancelItems(InvoiceItemData item, int amount)
     {
-        state.cancelItems(item, amount);
+        return state.cancelItems(item, amount);
     }
 
     /**
