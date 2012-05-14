@@ -4,10 +4,7 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.invoice.InvoiceData;
-import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.PrivateCustomerData;
-import java.util.Set;
 
 /**
  *
@@ -19,7 +16,6 @@ public interface IPrivateCustomer extends ICustomer, PrivateCustomerData{
     String getFname();
 
     Character getGender();
-
 
     String getLname();
 
