@@ -10,35 +10,34 @@ import org.hibernate.Session;
 
 /**
  * Zum Speichern von Services in die Datenbank.
+ *
  * @author mohi
  */
-public class InvoiceSaver
-{
-    private InvoiceSaver()
-    {
+public class InvoiceSaver {
+
+    private InvoiceSaver() {
     }
 
-    public static InvoiceSaver getInstance()
-    {
+    public static InvoiceSaver getInstance() {
         return InvoiceSaverHolder.INSTANCE;
     }
 
-    private static class InvoiceSaverHolder
-    {
+    private static class InvoiceSaverHolder {
+
         private static final InvoiceSaver INSTANCE = new InvoiceSaver();
     }
 
     /**
-     * Diese Methode speichert oder erneuert alle Zahlungsmethoden, Rechungen und Rechnungspositionen,
-     * die neu erstellt oder bearbeitet wurden.
-     * @param session
-     * Die Hibernate Session, auf der das saveOrUpdate() ausgefuehrt werden soll
-     * @param paymentmethods
-     * Alle neuen/bearbeiteten/vorhandenen Zahlungsmethoden
-     * @param invoices
-     * Alle neuen/bearbeiteten/vorhandenen Rechungen 
-     * @param invoiceitems
-     * Alle neuen/bearbeiteten/vorhandenen Rechungspositionen
+     * Diese Methode speichert oder erneuert alle Zahlungsmethoden, Rechungen
+     * und Rechnungspositionen, die neu erstellt oder bearbeitet wurden.
+     *
+     * @param session Die Hibernate Session, auf der das saveOrUpdate()
+     * ausgefuehrt werden soll
+     * @param paymentmethods Alle neuen/bearbeiteten/vorhandenen
+     * Zahlungsmethoden
+     * @param invoices Alle neuen/bearbeiteten/vorhandenen Rechungen
+     * @param invoiceitems Alle neuen/bearbeiteten/vorhandenen
+     * Rechungspositionen
      */
     public void saveOrUpdate(Session session, Collection<PaymentMethod> paymentmethods, Collection<Invoice> invoices , Collection<InvoiceItem> invoiceitems)
     {

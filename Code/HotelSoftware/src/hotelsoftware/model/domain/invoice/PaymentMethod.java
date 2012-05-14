@@ -10,7 +10,7 @@ import java.util.Set;
  * Diese Klasse repraesentiert eine Zahlungsmethode, mit der das System arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class PaymentMethod implements PaymentMethodData
+public class PaymentMethod implements IPaymentMethod
 {
     private Integer id;
     private String method;
@@ -30,11 +30,13 @@ public class PaymentMethod implements PaymentMethodData
         return method;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -43,6 +45,7 @@ public class PaymentMethod implements PaymentMethodData
         }
     }
 
+    @Override
     public void setMethod(String method)
     {
         this.method = method;

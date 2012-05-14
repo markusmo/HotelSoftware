@@ -1,15 +1,55 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
+import java.util.Collection;
+import java.util.Date;
 
 /**
- *Dieses Interface enthällt die Methoden der Klasse Guest, welche dort benötigt werden.
+ *
  * @author Kno
  */
-public interface IGuest {
+public interface IGuest extends IParty, GuestData{
 
-    void addHabitation(Habitation h);
+    void addHabitation(IHabitation h);
 
-    void removeHabitation(Habitation h);
+    Date getBirthday();
+
+    Collection<IHabitation> getCurrentHabitations();
+
+    String getFname();
+
+    Character getGender();
+
+    Collection<IHabitation> getHabitations();
+
+    String getLname();
+
+    Collection<IReservation> getReservations();
+
+    void removeHabitation(IHabitation h);
+
+    void setBirthday(Date birthday);
+
+    void setCurrentHabitations(Collection<IHabitation> habitations);
+
+    void setFname(String fname);
+
+    void setGender(Character gender);
+
+    void setLname(String lname);
+
+    void setReservations(Collection<IReservation> reservations);
+
+    String toString();
     
 }

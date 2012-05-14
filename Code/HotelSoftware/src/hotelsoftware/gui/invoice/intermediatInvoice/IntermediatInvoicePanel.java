@@ -9,16 +9,16 @@ import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.ChooseCustomerButton;
 import hotelsoftware.gui.invoice.buttons.SplitCancelButton;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * diese Panel hält die Zwischenrechnung mit der Menüleiste für die Speicherung, den Druck etc.
  */
 public class IntermediatInvoicePanel extends JPanel implements ControlsSetter
 {
@@ -31,7 +31,7 @@ public class IntermediatInvoicePanel extends JPanel implements ControlsSetter
     
     public IntermediatInvoicePanel() {
         setLayout(new BorderLayout());
-        setMaximumSize(new Dimension(1200, 400));
+        setMaximumSize(new Dimension(1000, 400));
     }
 
     @Override

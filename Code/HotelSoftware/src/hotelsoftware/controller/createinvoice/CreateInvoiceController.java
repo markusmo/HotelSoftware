@@ -12,9 +12,11 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,8 +30,8 @@ import java.util.Map;
 public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
-    private Collection<Habitation> habitations;
-    private Collection<InvoiceItem> selectedItems;
+    private Collection<IHabitation> habitations;
+    private Collection<IInvoiceItem> selectedItems;
     private Collection<InvoiceItem> splittedItems;
 
     private Customer customer;
@@ -77,7 +79,7 @@ public class CreateInvoiceController implements UseCaseController
      * @param roomNr Die Raum Nummer des zum Aufenthalt gehörigen Raums
      * @return Eine Collection aus den dazu gefundenen Aufenthalten
      */
-    public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
+    public Collection<HabitationData> searchHabitations(String firstName, String lastName, String roomNr)
     {
         return state.search(firstName, lastName, roomNr);
     }
@@ -244,7 +246,7 @@ public class CreateInvoiceController implements UseCaseController
      */
     public Collection<InvoiceItemData> getChosenItems()
     {
-        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, InvoiceItem.class);
+        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, IInvoiceItem.class);
     }
 
     /**
@@ -289,13 +291,13 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @return Eine COllection mit noch offenen Posten
      */
-    Collection<InvoiceItem> getOpenItems()
+    Collection<IInvoiceItem> getOpenItems()
     {
-        Collection<InvoiceItem> openItems = new LinkedList<InvoiceItem>();
+        Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
 
-        for (Habitation h : habitations)
+        for (IHabitation h : habitations)
         {
-            for (InvoiceItem i : h.getInvoiceItems())
+            for (IInvoiceItem i : h.getInvoiceItems())
             {
                 if (i.getInvoice() == null)
                 {
@@ -317,22 +319,22 @@ public class CreateInvoiceController implements UseCaseController
     /**
      * ***************************************************************
      */
-    Collection<Habitation> getHabitations()
+    Collection<IHabitation> getHabitations()
     {
         return habitations;
     }
 
-    void setHabitations(Collection<Habitation> habitations)
+    void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
     }
 
-    Collection<InvoiceItem> getSelectedItems()
+    Collection<IInvoiceItem> getSelectedItems()
     {
         return selectedItems;
     }
 
-    void setSelectedItems(Collection<InvoiceItem> selectedItems)
+    void setSelectedItems(Collection<IInvoiceItem> selectedItems)
     {
         this.selectedItems = selectedItems;
     }
@@ -350,6 +352,11 @@ public class CreateInvoiceController implements UseCaseController
     void setCustomer(Customer customer)
     {
         this.customer = customer;
+    }
+
+	public Collection<PartyData> searchParties(String text)
+    {
+        return state.searchParties(text);
     }
     
     void addSplittedItems(InvoiceItem item)

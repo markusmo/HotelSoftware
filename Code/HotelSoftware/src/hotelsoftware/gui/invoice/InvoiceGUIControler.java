@@ -9,7 +9,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.customerSelection.addCustomer;
 import hotelsoftware.gui.invoice.intermediatInvoice.IntermediatInvoicePanel;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.labels.SeperatorLabel;
 import hotelsoftware.gui.invoice.payment.PaymentPanel;
 import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
 import hotelsoftware.model.domain.invoice.Invoice;
@@ -51,7 +51,6 @@ public final class InvoiceGUIControler implements ActionListener
     private JLabel chooseCustomerLabel = new JLabel();
     private JLabel splitCancelLabel = new JLabel();
     private JLabel paymentLabel = new JLabel();
-    private JLabel seperatorLabel = new JLabel();
     // Bezeichnungen
     private final String invoiceHome = "Invoice Home";
     private final String intermediatInvoice = "Intermediat Invoice";
@@ -70,8 +69,7 @@ public final class InvoiceGUIControler implements ActionListener
         intermediatInvoiceLabel.setText(intermediatInvoice);
         chooseCustomerLabel.setText(chooseCustomer);
         splitCancelLabel.setText(splitCancel);
-        paymentLabel.setText(payment);
-        seperatorLabel.setText(seperator);
+        paymentLabel.setText(payment);       
     }
 
     public static InvoiceGUIControler getInstance()
@@ -222,6 +220,16 @@ public final class InvoiceGUIControler implements ActionListener
         return CreateInvoiceController.getInstance().cancelItems(iid, amount);
     }
 
+    public String getPaymentString()
+    {
+        return payment;
+    }
+
+    public String getSeperatorString()
+    {
+        return seperator;
+    }
+
     private static class invoiceGUIControlerHolder
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
@@ -293,10 +301,10 @@ public final class InvoiceGUIControler implements ActionListener
 
         if (clazz.equals(splitNstornoPanel.class))
         {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
+            navigation.add(invoiceHomeLabel);            
+            navigation.add(new SeperatorLabel());
             navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
+            navigation.add(new SeperatorLabel());
             navigation.add(splitCancelLabel);
         }
         else
@@ -310,7 +318,7 @@ public final class InvoiceGUIControler implements ActionListener
                 if (clazz.equals(IntermediatInvoicePanel.class))
                 {
                     navigation.add(invoiceHomeLabel);
-                    navigation.add(seperatorLabel);
+                    navigation.add(new SeperatorLabel());
                     navigation.add(intermediatInvoiceLabel);
                 }
                 else
@@ -318,9 +326,9 @@ public final class InvoiceGUIControler implements ActionListener
                     if (clazz.equals(addCustomer.class))
                     {
                         navigation.add(invoiceHomeLabel);
-                        navigation.add(seperatorLabel);
+                        navigation.add(new SeperatorLabel());
                         navigation.add(intermediatInvoiceLabel);
-                        navigation.add(seperatorLabel);
+                        navigation.add(new SeperatorLabel());
                         navigation.add(chooseCustomerLabel);
                     }
                     else
@@ -328,11 +336,11 @@ public final class InvoiceGUIControler implements ActionListener
                         if (clazz.equals(PaymentPanel.class))
                         {
                             navigation.add(invoiceHomeLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(intermediatInvoiceLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(chooseCustomerLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(paymentLabel);
                         }
                     }
@@ -353,6 +361,7 @@ public final class InvoiceGUIControler implements ActionListener
         if (JOptionPane.showConfirmDialog(main, "Do you really want to abort?", "Abort", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)== 0)
         {            
             ctrl.clear(); // abort the Use case
+            getContentPanel().removeAll();
             setContentPanel(new InvoiceHome());
         }
     }
@@ -394,7 +403,11 @@ public final class InvoiceGUIControler implements ActionListener
      */
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
-        return ctrl.search(firstName, lastName, roomNr);
+        return ctrl.searchHabitations(firstName, lastName, roomNr);
+    }
+    
+    public Collection<PartyData> searchParties(String text){
+        return ctrl.searchParties(text);
     }
 
     /**

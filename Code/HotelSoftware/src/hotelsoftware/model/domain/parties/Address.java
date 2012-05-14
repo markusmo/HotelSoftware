@@ -7,7 +7,7 @@ import hotelsoftware.controller.data.parties.AddressData;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Address implements AddressData
+public class Address implements AddressData, IAddress
 {
     private Integer id;
     private String street;
@@ -68,6 +68,7 @@ public class Address implements AddressData
         return street;
     }
 
+    @Override
     public void setStreet(String street)
     {
         this.street = street;
@@ -79,6 +80,7 @@ public class Address implements AddressData
         return city;
     }
 
+    @Override
     public void setCity(String city)
     {
         this.city = city;
@@ -90,6 +92,7 @@ public class Address implements AddressData
         return zip;
     }
 
+    @Override
     public void setZip(String zip)
     {
         this.zip = zip;
@@ -101,6 +104,7 @@ public class Address implements AddressData
         return email;
     }
 
+    @Override
     public void setEmail(String email)
     {
         this.email = email;
@@ -112,6 +116,7 @@ public class Address implements AddressData
         return phone;
     }
 
+    @Override
     public void setPhone(String phone)
     {
         this.phone = phone;
@@ -123,6 +128,7 @@ public class Address implements AddressData
         return fax;
     }
 
+    @Override
     public void setFax(String fax)
     {
         this.fax = fax;
@@ -134,16 +140,19 @@ public class Address implements AddressData
         return idCountry;
     }
 
+    @Override
     public void setIdCountry(Country country)
     {
         this.idCountry = country;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)

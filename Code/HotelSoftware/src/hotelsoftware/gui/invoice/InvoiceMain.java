@@ -59,6 +59,7 @@ public class InvoiceMain extends javax.swing.JPanel
         deconstructiveControls = new javax.swing.JPanel();
         constructiveControls = new javax.swing.JPanel();
 
+        setMaximumSize(new java.awt.Dimension(1200, 600));
         setLayout(new java.awt.BorderLayout());
 
         navigationPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
@@ -68,7 +69,8 @@ public class InvoiceMain extends javax.swing.JPanel
 
         add(navigationPanel, java.awt.BorderLayout.NORTH);
 
-        contentPanel.setMaximumSize(new java.awt.Dimension(1400, 400));
+        contentPanel.setMaximumSize(new java.awt.Dimension(1200, 400));
+        contentPanel.setMinimumSize(new java.awt.Dimension(600, 400));
         contentPanel.setLayout(new java.awt.CardLayout());
         add(contentPanel, java.awt.BorderLayout.CENTER);
 
@@ -91,4 +93,9 @@ public class InvoiceMain extends javax.swing.JPanel
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel navigationPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void setFocus()
+    {
+        requestFocus();
+    }
 }

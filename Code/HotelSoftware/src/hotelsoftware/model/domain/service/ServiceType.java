@@ -11,7 +11,7 @@ import java.util.Set;
  * Diese Klasse bildet eine Serviceart ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ServiceType implements ServiceTypeData
+public class ServiceType implements IServiceType
 {
     private String type;
     private Integer id;
@@ -20,6 +20,7 @@ public class ServiceType implements ServiceTypeData
     /**
      * @return the id
      */
+    @Override
     public Integer getId()
     {
         return id;
@@ -28,6 +29,7 @@ public class ServiceType implements ServiceTypeData
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -80,16 +82,19 @@ public class ServiceType implements ServiceTypeData
     /**
      * @param type the type to set
      */
+    @Override
     public void setName(String type)
     {
         this.type = type;
     }
     
+    @Override
     public BigDecimal getTaxRate()
     {
         return taxRate;
     }
 
+    @Override
     public void setTaxRate(BigDecimal taxRate)
     {
         this.taxRate = taxRate;

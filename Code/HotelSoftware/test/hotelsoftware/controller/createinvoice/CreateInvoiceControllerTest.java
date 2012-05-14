@@ -70,7 +70,7 @@ public class CreateInvoiceControllerTest {
         String roomNr = "";
         CreateInvoiceController instance = CreateInvoiceController.getInstance();
         Collection expResult = null;
-        Collection result = instance.search(firstName, lastName, roomNr);
+        Collection result = instance.searchHabitations(firstName, lastName, roomNr);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -137,8 +137,9 @@ public class CreateInvoiceControllerTest {
     public void testGetAllCountries() {
         System.out.println("getAllCountries");
         CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        SelectCustomerState customerState = new SelectCustomerState(instance);
         Collection expResult = Country.getAllCountries();
-        Collection result = instance.getAllCountries();
+        Collection result = customerState.getAllCountries();
         assertEquals(expResult, result);
     }
 

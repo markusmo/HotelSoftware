@@ -13,6 +13,8 @@ import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.parties.IGuest;
+import hotelsoftware.model.domain.room.IRoom;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
@@ -270,20 +272,20 @@ abstract class CheckInState
     class RoomSelection
     {
         private RoomCategory category;
-        private Room room;
-        private Collection<Guest> guests;
+        private IRoom room;
+        private Collection<IGuest> guests;
 
         RoomSelection(RoomCategory category)
         {
             this(category, null);
         }
 
-        RoomSelection(RoomCategoryData category, Room room)
+        RoomSelection(RoomCategoryData category, IRoom room)
         {
             this.category = (RoomCategory) category;
             this.room = room;
             this.room.setCategory((RoomCategory) category);
-            guests = new LinkedHashSet<Guest>();
+            guests = new LinkedHashSet<IGuest>();
         }
 
         RoomCategory getCategory()
@@ -296,7 +298,7 @@ abstract class CheckInState
             this.category = category;
         }
 
-        Room getRoom()
+        IRoom getRoom()
         {
             return room;
         }
@@ -316,12 +318,12 @@ abstract class CheckInState
             guests.remove(g);
         }
 
-        Collection<Guest> getGuests()
+        Collection<IGuest> getGuests()
         {
             return guests;
         }
 
-        void setGuests(Collection<Guest> guests)
+        void setGuests(Collection<IGuest> guests)
         {
             this.guests = guests;
         }

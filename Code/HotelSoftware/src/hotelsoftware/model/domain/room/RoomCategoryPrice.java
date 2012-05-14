@@ -6,65 +6,75 @@ import java.math.BigDecimal;
  * Mit dieser Klasse verwaltet das System die Zimmerkategoriepreise
  * @author Johannes
  */
-public class RoomCategoryPrice
+public class RoomCategoryPrice implements IRoomCategoryPrice
 {
-    protected RoomCategoryPricePK roomcategorypricesPK;
+    protected IRoomCategoryPricePK roomcategorypricesPK;
     private BigDecimal price;
     private BigDecimal priceMin;  
-    private Season seasons;  
-    private RoomCategory roomcategories;
+    private ISeason seasons;  
+    private IRoomCategory roomcategories;
 
     public RoomCategoryPrice()
     {
     }
 
    
+    @Override
     public BigDecimal getPrice()
     {
         return price;
     }
 
+    @Override
     public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
 
+    @Override
     public BigDecimal getPriceMin()
     {
         return priceMin;
     }
 
+    @Override
     public void setPriceMin(BigDecimal priceMin)
     {
         this.priceMin = priceMin;
     }
 
-    public RoomCategory getRoomcategories()
+    @Override
+    public IRoomCategory getRoomcategories()
     {
         return roomcategories;
     }
 
-    public void setRoomcategories(RoomCategory roomcategories)
+    @Override
+    public void setRoomcategories(IRoomCategory roomcategories)
     {
         this.roomcategories = roomcategories;
     }
 
-    public RoomCategoryPricePK getRoomcategorypricesPK()
+    @Override
+    public IRoomCategoryPricePK getRoomcategorypricesPK()
     {
         return roomcategorypricesPK;
     }
 
-    public void setRoomcategorypricesPK(RoomCategoryPricePK roomcategorypricesPK)
+    @Override
+    public void setRoomcategorypricesPK(IRoomCategoryPricePK roomcategorypricesPK)
     {
         this.roomcategorypricesPK = roomcategorypricesPK;
     }
 
-    public Season getSeasons()
+    @Override
+    public ISeason getSeasons()
     {
         return seasons;
     }
 
-    public void setSeasons(Season seasons)
+    @Override
+    public void setSeasons(ISeason seasons)
     {
         this.seasons = seasons;
     }

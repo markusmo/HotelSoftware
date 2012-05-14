@@ -12,18 +12,15 @@ import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Country;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.PartySaver;
+import hotelsoftware.model.domain.parties.*;
+import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationItem;
+import hotelsoftware.model.domain.room.IRoom;
+import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
-import hotelsoftware.model.domain.service.ExtraService;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.ServiceSaver;
-import hotelsoftware.model.domain.service.ServiceType;
+import hotelsoftware.model.domain.service.*;
 import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.util.HelperFunctions;
@@ -52,7 +49,7 @@ public abstract class ChangeDataState extends CheckInState
         
         if (r != null)
         {
-            for (ReservationItem data : context.getReservation().getReservationItems())
+            for (IReservationItem data : context.getReservation().getReservationItems())
             {
                 for (Integer i = 0; i < data.getAmount(); i++)
                 {
@@ -120,7 +117,7 @@ public abstract class ChangeDataState extends CheckInState
     {
         RoomCategory cat = (RoomCategory) category;
 
-        return new HelperFunctions<RoomData, Room>().castCollectionUp(cat.getFreeRooms(context.getStartDate(), context.getEndDate()));
+        return new HelperFunctions<RoomData, IRoom>().castCollectionUp(cat.getFreeRooms(context.getStartDate(), context.getEndDate()));
     }
 
     @Override
@@ -143,7 +140,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<RoomCategoryData> getAllCategories()
     {
-        return new HelperFunctions<RoomCategoryData, RoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
+        return new HelperFunctions<RoomCategoryData, IRoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
     }
 
     @Override
@@ -152,13 +149,13 @@ public abstract class ChangeDataState extends CheckInState
         RoomData d = context.getRoomSelections().get(selectionIndex).getRoom();
         if (d == null)
         {
-            for (RoomCategory cat : RoomCategory.getAllCategorys())
+            for (IRoomCategory cat : RoomCategory.getAllCategorys())
             {
-                Collection<Room> rooms = cat.getFreeRooms(context.getStartDate(), context.getEndDate());
+                Collection<IRoom> rooms = cat.getFreeRooms(context.getStartDate(), context.getEndDate());
                 
                 if (rooms.size() > 0)
                 {
-                    Room first = rooms.iterator().next();
+                    IRoom first = rooms.iterator().next();
                     context.getRoomSelections().put(selectionIndex, new RoomSelection(cat, first));
                     throw new NoRoomsInCategoryAvailableException(cat, first);
                 }
@@ -187,9 +184,9 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getServices()
     {
-        Collection<ExtraService> services = ExtraService.getAllExtraServices();
+        Collection<IExtraService> services = ExtraService.getAllExtraServices();
 
-        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(services);
+        return new HelperFunctions<ExtraServiceData, IExtraService>().castCollectionUp(services);
     }
 
     /**
@@ -210,8 +207,8 @@ public abstract class ChangeDataState extends CheckInState
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
         context.setHabitations(new LinkedList<Habitation>());
-        LinkedList<Guest> guests = new LinkedList<Guest>();
-        LinkedList<Address> addresses = new LinkedList<Address>();
+        LinkedList<IGuest> guests = new LinkedList<IGuest>();
+        LinkedList<IAddress> addresses = new LinkedList<IAddress>();
 
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
@@ -234,7 +231,7 @@ public abstract class ChangeDataState extends CheckInState
                 Logger.getLogger(CheckInGuiControler.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            for (Guest g : roomSel.getGuests())
+            for (IGuest g : roomSel.getGuests())
             {
                 h.addGuests(g);
                 g.addHabitation(h);

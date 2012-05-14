@@ -7,6 +7,7 @@ import hotelsoftware.controller.data.parties.CompanyData;
 import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -16,11 +17,11 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Company extends Customer implements CompanyData, ICompany
+public class Company extends Customer implements ICompany
 {
     private String companyname;
-    private CompanyType companyType;
-    private Collection<Party> contactPersons;
+    private ICompanyType companyType;
+    private Collection<IParty> contactPersons;
 
     public Company()
     {
@@ -40,15 +41,15 @@ public class Company extends Customer implements CompanyData, ICompany
      * @return
      * Eine neue Instanz der Klasse
      */
-    public static Company create(String name, CompanyType typ, Address address,
-            Address invoiceAddress)
+    public static Company create(String name, ICompanyType typ, IAddress address,
+            IAddress invoiceAddress)
     {
         return new Company(name, typ, address, invoiceAddress,
-                new LinkedHashSet<Party>());
+                new LinkedHashSet<IParty>());
     }
 
-    private Company(String name, CompanyType type, Address address,
-            Address invoiceAddress, Collection<Party> partys)
+    private Company(String name, ICompanyType type, IAddress address,
+            IAddress invoiceAddress, Collection<IParty> partys)
     {
         super(address, invoiceAddress);
         this.companyname = name;
@@ -68,39 +69,44 @@ public class Company extends Customer implements CompanyData, ICompany
         return companyname;
     }
 
+    @Override
     public void setName(String companyname)
     {
         this.companyname = companyname;
     }
 
-    public CompanyType getCompanyType()
+    @Override
+    public ICompanyType getCompanyType()
     {
         return companyType;
     }
 
-    public void setCompanyType(CompanyType type)
+    @Override
+    public void setCompanyType(ICompanyType type)
     {
         this.companyType = type;
     }
 
-    public Collection<Party> getContactPersons()
+    @Override
+    public Collection<IParty> getContactPersons()
     {
         return contactPersons;
     }
 
-    public void setContactPersons(Collection<Party> contactPersons)
+    @Override
+    public void setContactPersons(Collection<IParty> contactPersons)
     {
         this.contactPersons = contactPersons;
     }
 
     @Override
-    public void removeContactPerson(Party p)
+    public void removeContactPerson(IParty p)
     {
         contactPersons.remove(p);
     }
 
     @Override
-    public void addContactPerson(Party p)
+    public void addContactPerson(IParty p)
     {
         contactPersons.add(p);
     }
@@ -118,11 +124,13 @@ public class Company extends Customer implements CompanyData, ICompany
         return PartyFacade.getInstance().getCompanyByName(name);
     }
 
+    @Override
     public Collection<PartyData> getContactPersonsData()
     {
-        return new HelperFunctions<PartyData, Party>().castCollectionUp(getContactPersons());
+        return new HelperFunctions<PartyData, IParty>().castCollectionUp(getContactPersons());
     }
 
+    @Override
     public CompanyTypeData getTypeData()
     {
         return (CompanyTypeData) getCompanyType();
@@ -143,6 +151,7 @@ public class Company extends Customer implements CompanyData, ICompany
     @Override
     public Collection<InvoiceData> getInvoicesData()
     {
-        return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(getInvoices());
+        return new HelperFunctions<InvoiceData, IInvoice>().castCollectionUp(getInvoices());
     }
+
 }

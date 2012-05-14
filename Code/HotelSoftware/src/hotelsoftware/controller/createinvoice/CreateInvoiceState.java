@@ -94,7 +94,7 @@ abstract class CreateInvoiceState
     
     void back()
     {
-        throw new IllegalStateException();
+        throw new IllegalStateException(getClass().getName());
     }
     
     void splitInvoice()
@@ -103,6 +103,11 @@ abstract class CreateInvoiceState
     }
 
     Collection<PartyData> getPartiesDataFromSelectedHabitations()
+    {
+        throw new IllegalStateException();
+    }
+    
+    Collection<PartyData> searchParties(String text)
     {
         throw new IllegalStateException();
     }

@@ -26,7 +26,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *Dieses Panel ist dafür da, damit man die reservierungsnummer kontrolieren kann, als auch einen kommentar zu hinterlassen
+ * Dieses Panel ist dafür da, damit man die reservierungsnummer kontrolieren kann, als auch einen kommentar zu hinterlassen
+ *
  * @author Johannes
  */
 public class CheckinTwo extends javax.swing.JPanel
@@ -66,7 +67,7 @@ public class CheckinTwo extends javax.swing.JPanel
         DateChooserArrival.setSelectedDate(dateToCalendar(reservation.getStartDate()));
         DateChooserDeparture.setSelectedDate(dateToCalendar(reservation.getEndDate()));
 
-      
+
         textBoxReservationNumber.setText(reservation.getReservationNumber());
 
         //################### Create Panels
@@ -97,16 +98,18 @@ public class CheckinTwo extends javax.swing.JPanel
         inserGuestsFromReservation();
         StartUpdater();
     }
-/**
- * Diese Methode macht ein kurzes Update
- */
+
+    /**
+     * Diese Methode startet den Updater
+     */
     private void StartUpdater()
     {
         new Updater().start();
     }
-/**
- * Diese Methode aktualisiert alle Räume in der Ansicht
- */
+
+    /**
+     * Diese Methode aktualisiert alle Räume in der Ansicht
+     */
     private void updateRooms()
     {
         for (RoomPanel r : rooms)
@@ -114,9 +117,10 @@ public class CheckinTwo extends javax.swing.JPanel
             r.refresh();
         }
     }
-/**
- * Diese Methode ermöglicht einen WalkIn für den WalkIn gast
- */
+
+    /**
+     * Diese Methode ermöglicht einen WalkIn für den WalkIn gast
+     */
     public void initWalkIn()
     {
         TabbedPaneRooms.removeAll();
@@ -134,7 +138,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
         cigc.changeInformation(today, today);
 
-        
+
         textBoxReservationNumber.setText("");
 
         //################### Create Panel
@@ -148,7 +152,7 @@ public class CheckinTwo extends javax.swing.JPanel
                 new ButtonTabComponentPlus(getRoomPannelAddListener()));
         TabbedPaneRooms.setEnabledAt(TabbedPaneRooms.getTabCount() - 1, false);
 
-       
+
         StartUpdater();
     }
 
@@ -332,7 +336,9 @@ public class CheckinTwo extends javax.swing.JPanel
         catch (CouldNotSaveException ex)
         {
             // TODO message Box
-            JOptionPane.showConfirmDialog(this, "Failed to save."/*ex.getMessage()*/, "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(this, "Failed to save."/*
+                     * ex.getMessage()
+                     */, "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CheckinTwo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ButtonCheckInActionPerformed
@@ -373,8 +379,9 @@ public class CheckinTwo extends javax.swing.JPanel
 
     /**
      * Diese Methode führt letzendlich den CheckIn aus
+     *
      * @throws NoPriceDefinedException
-     * @throws CouldNotSaveException 
+     * @throws CouldNotSaveException
      */
     private void doTheCheckIn() throws NoPriceDefinedException, CouldNotSaveException
     {

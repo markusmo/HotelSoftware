@@ -9,6 +9,7 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;
@@ -23,6 +24,12 @@ public class SelectCustomerState extends CreateInvoiceState
     public SelectCustomerState(CreateInvoiceController context)
     {
         super(context);
+    }
+    
+    @Override
+    public Collection<PartyData> searchParties(String text)
+    {
+        return HelperFunctions.castCollectionUp(Party.searchParties(text), PartyData.class, Party.class);
     }
     
     @Override
@@ -48,9 +55,9 @@ public class SelectCustomerState extends CreateInvoiceState
     {
         Set<PartyData> set = new HashSet<PartyData>();
         
-        for (Habitation h : context.getHabitations())
+        for (IHabitation h : context.getHabitations())
         {
-            for (Guest g : h.getGuests())
+            for (IGuest g : h.getGuests())
             {
                 set.add(g);
             }

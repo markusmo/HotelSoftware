@@ -6,6 +6,8 @@ package hotelsoftware.controller.checkin;
 
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.model.domain.room.IRoom;
+import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 
@@ -28,7 +30,7 @@ public class NoRoomsInCategoryAvailableException extends Exception
         return room;
     }
     
-    public NoRoomsInCategoryAvailableException(RoomCategory cat, Room room)
+    public NoRoomsInCategoryAvailableException(IRoomCategory cat, IRoom room)
     {
         this.category = cat;
         this.room = room;
