@@ -337,8 +337,8 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         }
         else
         {
-            EnableAddressInputs(false);
-            FillAddressInputs((GuestData) list.getSelectedValue());
+            EnableAddressInputs(false);            
+            FillAddressInputs((PartyData) list.getSelectedValue());
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -450,7 +450,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
                 else
                 {
                     EnableAddressInputs(false);
-                    FillAddressInputs((GuestData) list.getSelectedValue());
+                    FillAddressInputs((PartyData) list.getSelectedValue());
                 }
             }
         });
@@ -529,7 +529,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         TextFieldZip.setText("");
     }
 
-    private void FillAddressInputs(GuestData d)
+    private void FillAddressInputs(PartyData d)
     {
         TextFieldCity.setText(d.getAddressData().getCity());
         TextFieldEmail.setText(d.getAddressData().getEmail());
