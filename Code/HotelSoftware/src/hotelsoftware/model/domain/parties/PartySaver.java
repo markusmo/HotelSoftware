@@ -21,12 +21,14 @@ import java.util.Set;
  * @author Hubert
  *
  */
-public class PartySaver {
-
-    private PartySaver() {
+public class PartySaver
+{
+    private PartySaver()
+    {
     }
 
-    public static PartySaver getInstance() {
+    public static PartySaver getInstance()
+    {
         return PartySaverHolder.INSTANCE;
     }
 
@@ -36,18 +38,21 @@ public class PartySaver {
      * @author Hubert
      *
      */
-    private static class PartySaverHolder {
-
+    private static class PartySaverHolder
+    {
         private static final PartySaver INSTANCE = new PartySaver();
     }
 
     public void saveOrUpdate(Session session, Collection<IAddress> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<IGuest> guests) throws FailedToSaveToDatabaseException {
+            Collection<IGuest> guests)
+    {
 
-        if (addresses != null) {
-            for (IAddress addresse : addresses) {
+        if (addresses != null)
+        {
+            for (IAddress addresse : addresses)
+            {
                 DBAddress dbadr = (DBAddress) DynamicMapper.map(addresse);
 
                 session.saveOrUpdate(dbadr);
@@ -55,8 +60,10 @@ public class PartySaver {
             }
         }
 
-        if (companytypes != null) {
-            for (CompanyType type : companytypes) {
+        if (companytypes != null)
+        {
+            for (CompanyType type : companytypes)
+            {
                 DBCompanyType dbct = (DBCompanyType) DynamicMapper.map(type);
 
                 session.saveOrUpdate(dbct);
@@ -64,8 +71,10 @@ public class PartySaver {
             }
         }
 
-        if (companys != null) {
-            for (Company company : companys) {
+        if (companys != null)
+        {
+            for (Company company : companys)
+            {
                 DBCompany dbc = (DBCompany) DynamicMapper.map(company);
 
                 session.saveOrUpdate(dbc);
@@ -73,8 +82,10 @@ public class PartySaver {
             }
         }
 
-        if (privateCustomers != null) {
-            for (PrivateCustomer privatecustomer : privateCustomers) {
+        if (privateCustomers != null)
+        {
+            for (PrivateCustomer privatecustomer : privateCustomers)
+            {
                 DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(
                         privatecustomer);
 
@@ -83,8 +94,10 @@ public class PartySaver {
             }
         }
 
-        if (guests != null) {
-            for (IGuest guest : guests) {
+        if (guests != null)
+        {
+            for (IGuest guest : guests)
+            {
                 DBGuest dbg = (DBGuest) DynamicMapper.map(guest);
 
                 session.saveOrUpdate(dbg);
@@ -107,16 +120,20 @@ public class PartySaver {
     public void saveOrUpdate(Collection<IAddress> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<IGuest> guests) throws FailedToSaveToDatabaseException {
+            Collection<IGuest> guests) throws FailedToSaveToDatabaseException
+    {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         saveOrUpdate(session, addresses, companytypes, companys, privateCustomers, guests);
 
-        try {
+        try
+        {
             ts.commit();
-        } catch (HibernateException ex) {
+        }
+        catch (HibernateException ex)
+        {
             ts.rollback();
             throw new FailedToSaveToDatabaseException();
         }

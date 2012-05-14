@@ -7,7 +7,7 @@ import hotelsoftware.controller.data.parties.AddressData;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Address implements AddressData, IAddress
+public class Address implements IAddress
 {
     private Integer id;
     private String street;

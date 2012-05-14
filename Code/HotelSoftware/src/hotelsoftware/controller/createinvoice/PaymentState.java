@@ -8,6 +8,8 @@ import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.*;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.IAddress;
+import hotelsoftware.model.domain.parties.PartySaver;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
@@ -49,12 +51,15 @@ public class PaymentState extends CreateInvoiceState
         }
         
         LinkedList<IInvoice> invoices = new LinkedList<IInvoice>();
+        LinkedList<IAddress> addresses = new LinkedList<IAddress>();
         invoices.add(invoice);
+        addresses.add((IAddress)context.getCustomerData().getAddressData());
         
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
+        PartySaver.getInstance().saveOrUpdate(session, addresses, null, null, null, null);
         InvoiceSaver.getInstance().saveOrUpdate(session, null, invoices, invoice.getInvoiceItems());
         
         ts.commit();

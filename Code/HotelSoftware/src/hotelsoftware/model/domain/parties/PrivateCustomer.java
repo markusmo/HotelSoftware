@@ -1,15 +1,8 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.parties.PrivateCustomerData;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
-import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.controller.data.invoice.InvoiceData;
-import hotelsoftware.model.domain.invoice.Invoice;
-
-import java.util.Collection;
-import java.util.Set;
 
 /**
  * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen
@@ -115,27 +108,6 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
     {
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
-    }
-
-    @Override
-    public AddressData getInvoiceAddressData()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Set<InvoiceData> getInvoicesData()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public AddressData getAddressData()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
