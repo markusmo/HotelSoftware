@@ -1,13 +1,11 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.support.CompanyNotFoundException;
-import hotelsoftware.controller.data.parties.PartyData;
-import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.controller.data.parties.CompanyData;
-import hotelsoftware.controller.data.parties.CompanyTypeData;
-import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.invoice.IInvoice;
+import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -152,6 +150,12 @@ public class Company extends Customer implements ICompany
     public Collection<InvoiceData> getInvoicesData()
     {
         return new HelperFunctions<InvoiceData, IInvoice>().castCollectionUp(getInvoices());
+    }
+    
+    @Override
+    public String toString()
+    {
+        return companyname;
     }
 
 }
