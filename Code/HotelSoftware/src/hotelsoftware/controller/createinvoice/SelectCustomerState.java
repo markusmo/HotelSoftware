@@ -55,7 +55,7 @@ public class SelectCustomerState extends CreateInvoiceState
         
         for (Habitation h : context.getHabitations())
         {
-            for (Guest g : h.getGuests())
+            for (IGuest g : h.getGuests())
             {
                 set.add(g);
             }
