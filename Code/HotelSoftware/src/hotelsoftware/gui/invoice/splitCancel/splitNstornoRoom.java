@@ -149,7 +149,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
                     }
                     else
                     {
-                        //updateAmounts();
+                        updateAmounts();
                     }
                 }
             }
