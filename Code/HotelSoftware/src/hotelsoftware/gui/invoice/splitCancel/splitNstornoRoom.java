@@ -125,7 +125,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
             }
             ButtonPanel bPanel = new ButtonPanel();
             CheckTextPane checkTextPane = new CheckTextPane(data.getAmount());
-            bPanel.addActionListener(getAL(data.getAmount(), descritpion));
+            bPanel.addActionListener(getAL(data, descritpion));
             buttons.add(bPanel);
             checkTexts.add(checkTextPane);
             selected[i] = true;
@@ -139,19 +139,21 @@ public class splitNstornoRoom extends javax.swing.JPanel
         return value;
     }
 
-    private ActionListener getAL(final int max, final String str, final InvoiceItemData iid)
+    private ActionListener getAL(final InvoiceItemData iid, final String str)
     {
         ActionListener al = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-               int amount =  (new StornoFrame(str, max, jTable1)).getValue();
-               if(amount > 0){
-                   if(!(InvoiceGUIControler.getInstance().cancelItems(iid, amount))){
-                       
-                   }
-               }
+                int amount = (new StornoFrame(str, iid.getAmount(), jTable1)).getValue();
+                if (amount > 0)
+                {
+                    if (!(InvoiceGUIControler.getInstance().cancelItems(iid, amount)))
+                    {
+                        JOptionPane.showMessageDialog(jTable1, "You don nott the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         };
         return al;
