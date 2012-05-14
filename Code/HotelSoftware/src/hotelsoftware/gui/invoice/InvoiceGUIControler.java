@@ -21,15 +21,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Date;
-<<<<<<< HEAD
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-=======
 import java.util.Map;
 import javax.swing.*;
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
 
 /**
  *
@@ -105,13 +102,8 @@ public final class InvoiceGUIControler implements ActionListener
             }
             else
             {
-<<<<<<< HEAD
                 if (text.equals(back)) // back Button
-                {                    
-=======
-                if (text.equals(back))
-                {
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
+                {     
                     back(e);
                 }
                 else
@@ -137,7 +129,6 @@ public final class InvoiceGUIControler implements ActionListener
                             }
                             else
                             {
-<<<<<<< HEAD
                                 if (text.equals((payed)))
                                 {
                                     ctrl.pay();
@@ -150,21 +141,15 @@ public final class InvoiceGUIControler implements ActionListener
                                         setIntermediatInvoicePanel(); //FIXME eventuell nur layer-Wechsel im Layout
                                     }
                                 }
-=======
-//                                if (text.equals(payment))
-//                                {
-//                                    ctrl.next();
-//                                    setContentPanel(getPaymentPanel());
-//                                }
-//                                else
-//                                {
-                                if (text.equals((payed)))
+                                else 
                                 {
-                                    ctrl.pay();
-                                    //TODO ask for new State (Zwischenrechnung oder Ende)
+                                    if (text.equals(payment))
+                                {
+                                    ctrl.next();
+                                    setContentPanel(getPaymentPanel());
+                                }    
                                 }
-//                                } 
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
+                                                            
                             }
                         }
                     }
@@ -273,11 +258,7 @@ public final class InvoiceGUIControler implements ActionListener
      * @param newcontent 
      */
     public void setContentPanel(JPanel newcontent)
-<<<<<<< HEAD
-    {        
-=======
-    {
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
+    {     
         JPanel contentPanel = getContentPanel();
         contentPanel.add(newcontent);
 
@@ -294,17 +275,7 @@ public final class InvoiceGUIControler implements ActionListener
         }
 
         setNavigation(newcontent.getClass());
-<<<<<<< HEAD
         
-=======
-
-        // setze die Controls
-        if (newcontent instanceof ControlsSetter)
-        {
-            ControlsSetter setter = (ControlsSetter) newcontent;
-            setter.setControls();
-        }
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
         contentPanel.repaint();
 
     }
@@ -377,21 +348,12 @@ public final class InvoiceGUIControler implements ActionListener
      * @param e 
      */
     private void abort(ActionEvent e)
-<<<<<<< HEAD
     {        
         if (JOptionPane.showConfirmDialog(main, "Do you really want to abort?", "Abort", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)== 0)
         {            
             ctrl.clear(); // abort the Use case
             setContentPanel(new InvoiceHome());
         }
-=======
-    {
-        ctrl.clear();
-        // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
-        JPanel panel = getContentPanel();
-
-        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.WARNING_MESSAGE);
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
     }
 
     /**
@@ -604,19 +566,15 @@ public final class InvoiceGUIControler implements ActionListener
         return CreateInvoiceController.getInstance().getWorkingHabitationsGuests();
     }
 
-<<<<<<< HEAD
     /**
      * gibt das Workingset das Erstellen der Rechnung zurück (Controller)
      * 
      * @return workingset
      */
-=======
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
     public Collection<HabitationData> getSelectedHabitations()
     {
         return ctrl.getSelectedHabitations();
     }
-<<<<<<< HEAD
      
     /**
      * gibt das Hauptpanel zurück
@@ -626,16 +584,9 @@ public final class InvoiceGUIControler implements ActionListener
      public JPanel getInvoiceMainPanel() {
          return main;
      }
-=======
-
-    public JPanel getInvoiceMainPanel()
-    {
-        return main;
-    }
 
     public void selectItems(Map<InvoiceItemData, Integer> items)
     {
         CreateInvoiceController.getInstance().selectItems(items);
     }
->>>>>>> dc27bd280e2d2abf0b28e8ba92b54880d18b52ed
 }
