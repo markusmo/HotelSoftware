@@ -181,12 +181,14 @@ public class User implements UserData, IUser
         }
     }
 
+    @Override
     public Collection<PermissionData> getAllPermissionsData()
     {
         return new HelperFunctions<PermissionData, Permission>().castCollectionUp(
                 getAllPermissions());
     }
 
+    @Override
     public Collection<RoleData> getRolesData()
     {
         return new HelperFunctions<RoleData, Role>().castCollectionUp(getRoles());
