@@ -21,14 +21,12 @@ import java.util.Set;
  * @author Hubert
  *
  */
-public class PartySaver
-{
-    private PartySaver()
-    {
+public class PartySaver {
+
+    private PartySaver() {
     }
 
-    public static PartySaver getInstance()
-    {
+    public static PartySaver getInstance() {
         return PartySaverHolder.INSTANCE;
     }
 
@@ -38,55 +36,60 @@ public class PartySaver
      * @author Hubert
      *
      */
-    private static class PartySaverHolder
-    {
+    private static class PartySaverHolder {
+
         private static final PartySaver INSTANCE = new PartySaver();
     }
 
     public void saveOrUpdate(Session session, Collection<Address> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<Guest> guests) throws FailedToSaveToDatabaseException
-    {
-        for (Address addresse : addresses)
-        {
-            DBAddress dbadr = (DBAddress) DynamicMapper.map(addresse);
+            Collection<Guest> guests) throws FailedToSaveToDatabaseException {
 
-            session.saveOrUpdate(dbadr);
-            addresse.setId(dbadr.getId());
+        if (addresses != null) {
+            for (Address addresse : addresses) {
+                DBAddress dbadr = (DBAddress) DynamicMapper.map(addresse);
+
+                session.saveOrUpdate(dbadr);
+                addresse.setId(dbadr.getId());
+            }
         }
 
-        for (CompanyType type : companytypes)
-        {
-            DBCompanyType dbct = (DBCompanyType) DynamicMapper.map(type);
+        if (companytypes != null) {
+            for (CompanyType type : companytypes) {
+                DBCompanyType dbct = (DBCompanyType) DynamicMapper.map(type);
 
-            session.saveOrUpdate(dbct);
-            type.setId(dbct.getId());
+                session.saveOrUpdate(dbct);
+                type.setId(dbct.getId());
+            }
         }
 
-        for (Company company : companys)
-        {
-            DBCompany dbc = (DBCompany) DynamicMapper.map(company);
+        if (companys != null) {
+            for (Company company : companys) {
+                DBCompany dbc = (DBCompany) DynamicMapper.map(company);
 
-            session.saveOrUpdate(dbc);
-            company.setIdParties(dbc.getIdParties());
+                session.saveOrUpdate(dbc);
+                company.setIdParties(dbc.getIdParties());
+            }
         }
 
-        for (PrivateCustomer privatecustomer : privateCustomers)
-        {
-            DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(
-                    privatecustomer);
+        if (privateCustomers != null) {
+            for (PrivateCustomer privatecustomer : privateCustomers) {
+                DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(
+                        privatecustomer);
 
-            session.saveOrUpdate(dbpc);
-            privatecustomer.setIdParties(dbpc.getIdParties());
+                session.saveOrUpdate(dbpc);
+                privatecustomer.setIdParties(dbpc.getIdParties());
+            }
         }
 
-        for (Guest guest : guests)
-        {
-            DBGuest dbg = (DBGuest) DynamicMapper.map(guest);
+        if (guests != null) {
+            for (Guest guest : guests) {
+                DBGuest dbg = (DBGuest) DynamicMapper.map(guest);
 
-            session.saveOrUpdate(dbg);
-            guest.setIdParties(dbg.getIdParties());
+                session.saveOrUpdate(dbg);
+                guest.setIdParties(dbg.getIdParties());
+            }
         }
     }
 
@@ -104,20 +107,16 @@ public class PartySaver
     public void saveOrUpdate(Collection<Address> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<Guest> guests) throws FailedToSaveToDatabaseException
-    {
+            Collection<Guest> guests) throws FailedToSaveToDatabaseException {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         saveOrUpdate(session, addresses, companytypes, companys, privateCustomers, guests);
 
-        try
-        {
+        try {
             ts.commit();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             ts.rollback();
             throw new FailedToSaveToDatabaseException();
         }
@@ -132,77 +131,53 @@ public class PartySaver
      * @param guests gäste
      */
     /*
-     * public void rollback(Set<Address> addresses,
-     * Set<CompanyType> companytypes, Set<Company> companys,
-     * Set<PrivateCustomer> privateCustomers,
-     * Set<Guest> guests)
-     * {
-     * Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-     * Transaction ts = session.beginTransaction();
-     * ts.begin();
+     * public void rollback(Set<Address> addresses, Set<CompanyType>
+     * companytypes, Set<Company> companys, Set<PrivateCustomer>
+     * privateCustomers, Set<Guest> guests) { Session session =
+     * HibernateUtil.getSessionFactory().getCurrentSession(); Transaction ts =
+     * session.beginTransaction(); ts.begin();
      *
-     * for (Address addresse : addresses)
-     * {
-     * DBAddress dbadr;
+     * for (Address addresse : addresses) { DBAddress dbadr;
      *
-     * if (addresse.getId() != null)
-     * {
-     * dbadr = (DBAddress) session.createCriteria(DBAddress.class).add(Restrictions.eq(
-     * "id", addresse.getId())).uniqueResult();
+     * if (addresse.getId() != null) { dbadr = (DBAddress)
+     * session.createCriteria(DBAddress.class).add(Restrictions.eq( "id",
+     * addresse.getId())).uniqueResult();
      *
      * Address temp = (Address) DynamicMapper.map(dbadr);
      *
-     * addresse.setStreet(temp.getStreet());
-     * addresse.setCity(temp.getCity());
-     * addresse.setZip(temp.getZip());
-     * addresse.setEmail(temp.getEmail());
-     * addresse.setPhone(temp.getPhone());
-     * addresse.setFax(temp.getFax());
-     * addresse.setIdCountry(temp.getIdCountry());
-     * }
-     * }
+     * addresse.setStreet(temp.getStreet()); addresse.setCity(temp.getCity());
+     * addresse.setZip(temp.getZip()); addresse.setEmail(temp.getEmail());
+     * addresse.setPhone(temp.getPhone()); addresse.setFax(temp.getFax());
+     * addresse.setIdCountry(temp.getIdCountry()); } }
      *
-     * for (CompanyType companyType : companytypes)
-     * {
-     * DBCompanyType dbct;
+     * for (CompanyType companyType : companytypes) { DBCompanyType dbct;
      *
-     * if (companyType.getId() != null)
-     * {
-     * dbct = (DBCompanyType) session.createCriteria(
-     * DBCompanyType.class).add(Restrictions.eq("id",
+     * if (companyType.getId() != null) { dbct = (DBCompanyType)
+     * session.createCriteria( DBCompanyType.class).add(Restrictions.eq("id",
      * companyType.getId())).uniqueResult();
      *
      * CompanyType temp = (CompanyType) DynamicMapper.map(dbct);
-     * companyType.setName(temp.getName());
-     * }
-     * }
+     * companyType.setName(temp.getName()); } }
      *
-     * for (Company company : companys)
-     * {
-     * DBCompany dbc;
+     * for (Company company : companys) { DBCompany dbc;
      *
-     * if (company.getId() != null)
-     * {
-     * dbc = (DBCompany) session.createCriteria(DBCompany.class).add(Restrictions.eq(
-     * "id", company.getId())).uniqueResult();
+     * if (company.getId() != null) { dbc = (DBCompany)
+     * session.createCriteria(DBCompany.class).add(Restrictions.eq( "id",
+     * company.getId())).uniqueResult();
      *
      * Company temp = (Company) DynamicMapper.map(dbc);
      * company.setAddress(temp.getAddress());
      * company.setCompanyname(temp.getCompanyname());
      * company.setContactPersons(temp.getContactPersons());
      * company.setInvoiceAddress(temp.getInvoiceAddress());
-     * company.setInvoices(temp.getInvoices());
-     * company.setType(temp.getType());
-     * }
-     * }
+     * company.setInvoices(temp.getInvoices()); company.setType(temp.getType());
+     * } }
      *
-     * for (PrivateCustomer privateCustomer : privateCustomers)
-     * {
+     * for (PrivateCustomer privateCustomer : privateCustomers) {
      * DBPrivateCustomer dbpc;
      *
-     * if (privateCustomer.getId() != null)
-     * {
-     * dbpc = (DBPrivateCustomer) session.createCriteria(
+     * if (privateCustomer.getId() != null) { dbpc = (DBPrivateCustomer)
+     * session.createCriteria(
      * DBPrivateCustomer.class).add(Restrictions.eq("id",
      * privateCustomer.getId())).uniqueResult();
      *
@@ -212,28 +187,20 @@ public class PartySaver
      * privateCustomer.setGender(temp.getGender());
      * privateCustomer.setInvoiceAddress(temp.getInvoiceAddress());
      * privateCustomer.setInvoices(temp.getInvoices());
-     * privateCustomer.setLname(temp.getLname());
-     * }
-     * }
+     * privateCustomer.setLname(temp.getLname()); } }
      *
-     * for (Guest guest : guests)
-     * {
-     * DBGuest dbg;
+     * for (Guest guest : guests) { DBGuest dbg;
      *
-     * if (guest.getId() != null)
-     * {
-     * dbg = (DBGuest) session.createCriteria(DBGuest.class).add(Restrictions.eq(
-     * "id", guest.getId())).uniqueResult();
+     * if (guest.getId() != null) { dbg = (DBGuest)
+     * session.createCriteria(DBGuest.class).add(Restrictions.eq( "id",
+     * guest.getId())).uniqueResult();
      *
      * Guest temp = (Guest) DynamicMapper.map(dbg);
      * guest.setAddress(temp.getAddress());
      * guest.setBirthday(temp.getBirthday());
      * guest.setCurrentHabitations(temp.getCurrentHabitations());
-     * guest.setFname(temp.getFname());
-     * guest.setGender(temp.getGender());
-     * guest.setLname(temp.getLname());
-     * }
-     * }
+     * guest.setFname(temp.getFname()); guest.setGender(temp.getGender());
+     * guest.setLname(temp.getLname()); } }
      *
      * }
      */
