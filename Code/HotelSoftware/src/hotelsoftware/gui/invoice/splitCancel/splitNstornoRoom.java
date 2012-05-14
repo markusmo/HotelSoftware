@@ -13,10 +13,7 @@ import hotelsoftware.model.domain.service.Service;
 import hotelsoftware.model.domain.users.User;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Collection;
-import java.util.EventObject;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
@@ -154,31 +151,16 @@ public class splitNstornoRoom extends javax.swing.JPanel
         return al;
     }
 
-    public Collection<InvoiceItemData> getInvoiceItems()
+    Map<InvoiceItemData, Integer> getSelectedItems()
     {
-        LinkedList<InvoiceItemData> values = new LinkedList<InvoiceItemData>();
-        LinkedList<InvoiceItemData> newItems = (LinkedList<InvoiceItemData>) items.clone();
+        HashMap<InvoiceItemData, Integer> values = new HashMap<InvoiceItemData, Integer>();
         int i = 0;
         for (Iterator iter = checkTexts.listIterator(); iter.hasNext();)
         {
             CheckTextPane pane = (CheckTextPane) iter.next();
             if (pane.isSelected())
             {
-                if (pane.getText().equals("0".trim()))
-                {
-                    values.add(newItems.get(i));
-                }
-                else
-                {
-                    InvoiceItemData id = newItems.get(i);
-                    InvoiceItem ii = new InvoiceItem();
-                    ii.setAmount(Integer.parseInt(pane.getText()));
-                    ii.setCreated(id.getCreated());
-                    ii.setHabitation((Habitation) id.getHabitationData());
-                    ii.setService((Service) id.getServiceData());
-                    ii.setUser((User) id.getUserData());
-                    values.add(ii);
-                }
+                values.put(items.get(i), pane.getInteger());
             }
             i++;
         }
@@ -456,13 +438,15 @@ public class splitNstornoRoom extends javax.swing.JPanel
     {
         private JCheckBox checki = new JCheckBox();
         private JTextField texti = new JTextField();
+        private final int max;
 
         public CheckTextPane(final int max)
         {
             super(new FlowLayout(FlowLayout.LEFT));
+            this.max = max;
             checki.setSelected(true);
             texti.setColumns(5);
-            texti.setText("0");
+            texti.setText(max + "");
             setBackground(Color.white);
             //texti.setDocument(new JTextFieldLimit(max));
             texti.setInputVerifier(new InputVerifier()
@@ -484,7 +468,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 public void keyTyped(KeyEvent e)
                 {
                     char c = e.getKeyChar();
-                    if (!((c >= '0') && (c <= '9')
+                    if (!((c >= '1') && (c <= '9')
                             || (c == KeyEvent.VK_BACK_SPACE)
                             || (c == KeyEvent.VK_DELETE)))
                     {
@@ -509,9 +493,14 @@ public class splitNstornoRoom extends javax.swing.JPanel
             return checki;
         }
 
-        private String getText()
+        public String getText()
         {
             return texti.getText();
+        }
+
+        public Integer getInteger()
+        {
+            return new Integer(texti.getText());
         }
     }
 
