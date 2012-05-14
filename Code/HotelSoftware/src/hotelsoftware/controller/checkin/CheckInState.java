@@ -273,11 +273,6 @@ abstract class CheckInState
         private Room room;
         private Collection<Guest> guests;
 
-        RoomSelection()
-        {
-            this(null, null);
-        }
-
         RoomSelection(RoomCategory category)
         {
             this(category, null);
