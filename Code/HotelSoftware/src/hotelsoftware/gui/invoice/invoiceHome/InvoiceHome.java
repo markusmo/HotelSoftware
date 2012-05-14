@@ -107,6 +107,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
        
        this.setFocusTraversalPolicy(focusTraversal);
        this.setFocusCycleRoot(true);
+       
        roomNrTextbox.requestFocusInWindow();
     }
 
