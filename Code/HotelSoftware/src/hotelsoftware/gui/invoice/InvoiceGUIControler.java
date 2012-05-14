@@ -5,6 +5,8 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.GuiController;
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.customerSelection.addCustomer;
 import hotelsoftware.gui.invoice.intermediatInvoice.IntermediatInvoicePanel;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
@@ -14,6 +16,7 @@ import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -299,10 +302,18 @@ public final class InvoiceGUIControler implements ActionListener
     private void abort(ActionEvent e)
     {
         ctrl.abort();
+        
         // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
         JPanel panel = getContentPanel();
 
-        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.WARNING_MESSAGE);
+        if (JOptionPane.showConfirmDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)== 0)
+        {
+            setContentPanel(new InvoiceHome());
+        }
+        
+        // is in switching state
+        
+        
     }
 
     private void back(ActionEvent e)
