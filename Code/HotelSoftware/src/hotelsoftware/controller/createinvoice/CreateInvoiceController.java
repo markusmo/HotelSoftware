@@ -46,6 +46,21 @@ public class CreateInvoiceController implements UseCaseController
     {
         return CreateInvoiceControllerHolder.INSTANCE;
     }
+    
+    /**
+     * Schnittstelle für die Einbindung in einen Check-Out Vorgang
+     * @param habitation Der bereits gesuchte Aufenthalt der ausgecheckt werden soll
+     * @return Der Controller der die Suche bereits übersprungen hat
+     */
+    public static CreateInvoiceController getInstance(IHabitation habitation)
+    {
+        CreateInvoiceControllerHolder.INSTANCE.setState(new InterimBillState(CreateInvoiceControllerHolder.INSTANCE));
+        Collection<IHabitation> habitations = new LinkedList<IHabitation>();
+        habitations.add(habitation);
+        CreateInvoiceControllerHolder.INSTANCE.setHabitations(habitations);
+        
+        return CreateInvoiceControllerHolder.INSTANCE;
+    }
 
     @Override
     public boolean isInSwitchingState()

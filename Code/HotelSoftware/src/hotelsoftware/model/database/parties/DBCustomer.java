@@ -25,7 +25,7 @@ public class DBCustomer extends DBParty implements Serializable
     private Set<DBInvoice> invoicesCollection;
     
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBAddress invoiceAddress;
 
     public DBCustomer()
