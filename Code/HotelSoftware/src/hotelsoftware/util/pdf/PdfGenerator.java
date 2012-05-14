@@ -19,16 +19,14 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.util.Resources;
 
 /**
  * Dieses Objekt generiert PDFs. Diese Klasse ist nur als Thread ausführbar, das heißt, die Methode generatePDF() wird im run() des implementierten Interfaces Runnable aufgerufen.
@@ -85,6 +83,7 @@ public class PdfGenerator
 
     /**
      * Neue Instanz der Klasse PDFGenerator für Zwischenrechnungen
+     *
      * @param items die Rechnungspositionen
      * @param created das Kreierungsdatum
      */
@@ -93,7 +92,6 @@ public class PdfGenerator
         this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
         this.created = created;
     }
-    
 
     /**
      * Konvertiert eine Rechung in ein PDF. Der Dateiname des PDFs wird mit der
@@ -132,7 +130,7 @@ public class PdfGenerator
         addInvoiceBodyWithTax(doc, invoiceNumber, items,
                 getTotalwithoutTax(items), created, expiration);
         addThankyouMessage(doc);
-        
+
         doc.close();
     }
 
@@ -145,7 +143,7 @@ public class PdfGenerator
             temp.mkdir();
         }
         Random rand = new Random();
-        this.invoicePath = path + intermediate+rand.nextInt() + "_intermediate" + ".pdf";
+        this.invoicePath = path + intermediate + rand.nextInt() + "_intermediate" + ".pdf";
         intermediate++;
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
@@ -556,7 +554,7 @@ public class PdfGenerator
     /**
      * Generiert ein JPanel mit einem PDFViewer für eine Rechung. Wenn das generieren fehlschlägt, gibt es ein JPanel aus
      * welches eine Fehlermeldung enthält
-     * 
+     *
      * @return ein JPanel mit einem PDFViewer
      */
     public JPanel generatePaymentPanel()
@@ -566,7 +564,7 @@ public class PdfGenerator
         {
             generateInvoicePDFwithTax();
             SwingController controller = new SwingController();
-            SwingViewBuilder factory = new SwingViewBuilder(controller);
+            SwingViewBuilder factory = new SwingViewBuilder(controller);            
             viewerComponentPanel = factory.buildViewerPanel();
             controller.openDocument(this.invoicePath);
             return viewerComponentPanel;
@@ -586,7 +584,7 @@ public class PdfGenerator
     /**
      * Generiert ein JPanel mit einem PDFViewer für eine Zwischenrechnung. Wenn das generieren fehlschlägt, gibt es ein JPanel aus
      * welches eine Fehlermeldung enthält.
-     * 
+     *
      * @return ein JPanel mit einem PDFViewer
      */
     public JPanel generateIntermediatPanel()
