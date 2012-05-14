@@ -4,6 +4,7 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
@@ -22,7 +23,7 @@ import java.util.LinkedList;
  *
  * @author Dunst
  */
-public class CreateInvoiceController
+public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
     private Collection<Habitation> habitations;
@@ -37,8 +38,18 @@ public class CreateInvoiceController
     public static CreateInvoiceController getInstance()
     {
         return CreateInvoiceControllerHolder.INSTANCE;
-        
-        // TODO implement use case controller!
+    }
+
+    @Override
+    public boolean isInSwitchingState()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void clear()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private static class CreateInvoiceControllerHolder
