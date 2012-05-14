@@ -11,37 +11,43 @@ import java.util.Collection;
  *Diese Klasse stellt ein Land da, von welchem eine Person oder eine Firma kommt
  * @author Dunst
  */
-public class Country implements CountryData, ICountry
+public class Country implements ICountry
 {
     private Integer id;
     private String name;
     private String nameShort;
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         this.id = id;
     }
 
+    @Override
     public String getName()
     {
         return name;
     }
 
+    @Override
     public void setName(String name)
     {
         this.name = name;
     }
     
+    @Override
     public String getNameShort()
     {
         return nameShort;
     }
 
+    @Override
     public void setNameShort(String nameShort)
     {
         this.nameShort = nameShort;

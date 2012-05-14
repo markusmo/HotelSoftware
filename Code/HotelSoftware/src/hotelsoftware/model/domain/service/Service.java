@@ -9,14 +9,11 @@ import java.math.BigDecimal;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Service implements ServiceData
+public abstract class Service implements ServiceData, IService
 {
     private Integer idServices;
     protected BigDecimal price;
-    protected ServiceType serviceType;
-
-    
-    public abstract String getServiceName();
+    protected IServiceType serviceType;
     
     public Service()
     {
@@ -25,6 +22,7 @@ public abstract class Service implements ServiceData
     /**
      * @return the id
      */
+    @Override
     public Integer getIdServices()
     {
         return idServices;
@@ -33,6 +31,7 @@ public abstract class Service implements ServiceData
     /**
      * @param id the id to set
      */
+    @Override
     public void setIdServices(Integer id)
     {
         if (this.idServices == null)
@@ -41,7 +40,7 @@ public abstract class Service implements ServiceData
         }
     }
 
-    protected Service(BigDecimal price, ServiceType serviceType)
+    protected Service(BigDecimal price, IServiceType serviceType)
     {
         this.price = price;
         this.serviceType = serviceType;
@@ -59,6 +58,7 @@ public abstract class Service implements ServiceData
     /**
      * @param price the price to set
      */
+    @Override
     public void setPrice(BigDecimal price)
     {
         this.price = price;
@@ -67,7 +67,8 @@ public abstract class Service implements ServiceData
     /**
      * @return the serviceType
      */
-    public ServiceType getServiceType()
+    @Override
+    public IServiceType getServiceType()
     {
         return serviceType;
     }
@@ -75,7 +76,8 @@ public abstract class Service implements ServiceData
     /**
      * @param serviceType the serviceType to set
      */
-    public void setServiceType(ServiceType serviceType)
+    @Override
+    public void setServiceType(IServiceType serviceType)
     {
         this.serviceType = serviceType;
     }

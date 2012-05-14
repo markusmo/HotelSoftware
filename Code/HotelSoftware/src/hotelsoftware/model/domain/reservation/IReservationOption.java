@@ -1,10 +1,18 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.controller.data.reservation.ReservationOptionData;
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
- *Dieses Interface enthällt die Methoden der Klasse ReservationOption, welche dort benötigt werden.
+ *
  * @author Kno
  */
-public interface IReservationOption {
+public interface IReservationOption extends ReservationOptionData {
 
     /**
      * Diese Methode wird benötigt um das Ablaufdatum zu verlängern
@@ -13,6 +21,26 @@ public interface IReservationOption {
      */
     void extendExpiration(int days);
 
+    String getComment();
+
+    Date getExpiration();
+
+    Integer getId();
+
+    BigDecimal getPrepayment();
+
+    IReservation getReservation();
+
     Boolean isFulfilled();
+
+    void setComment(String comment);
+
+    void setExpiration(Date expiration);
+
+    void setFulfilled(Boolean fulfilled);
+
+    void setPrepayment(BigDecimal prepayment);
+
+    void setReservation(IReservation reservation);
     
 }

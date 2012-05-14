@@ -5,9 +5,8 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.data.service.ServiceData;
 import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.Service;
-import hotelsoftware.model.domain.service.ServiceType;
+import hotelsoftware.model.domain.service.*;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.model.domain.users.User;
 import java.util.Date;
 
@@ -17,22 +16,22 @@ import java.util.Date;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class InvoiceItem implements InvoiceItemData, IInvoiceItem
+public class InvoiceItem implements IInvoiceItem
 {
     private Integer id;
     private Integer amount;
     private Date created;
-    private Service service;
-    private User user;
-    private Habitation habitation;
-    private Invoice invoice;
+    private IService service;
+    private IUser user;
+    private IHabitation habitation;
+    private IInvoice invoice;
 
     public InvoiceItem()
     {
     }
 
-    private InvoiceItem(Service service, int amount, User user,
-            Habitation habitation)
+    private InvoiceItem(IService service, int amount, IUser user,
+            IHabitation habitation)
     {
         this.amount = amount;
         this.service = service;
@@ -49,16 +48,18 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
      * @return Eine Rechungsposition, mit einer Anzahl von Services, zugehoerig
      * zu einem Aufenthalt mit dem User, der sie erstellt hat.
      */
-    public static InvoiceItem createInvoiceItem(Service service, int amount, Habitation habitation)
+    public static InvoiceItem createInvoiceItem(IService service, int amount, IHabitation habitation)
     {
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         this.id = id;
@@ -70,6 +71,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
         return amount;
     }
 
+    @Override
     public void setAmount(int amount)
     {
         this.amount = amount;
@@ -81,42 +83,50 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
         return created;
     }
 
+    @Override
     public void setCreated(Date created)
     {
         this.created = created;
     }
 
-    public Service getService()
+    @Override
+    public IService getService()
     {
         return service;
     }
 
-    public void setService(Service service)
+    @Override
+    public void setService(IService service)
     {
         this.service = service;
     }
 
-    public Invoice getInvoice()
+    @Override
+    public IInvoice getInvoice()
     {
         return invoice;
     }
 
-    public void setInvoice(Invoice invoices)
+    @Override
+    public void setInvoice(IInvoice invoices)
     {
         this.invoice = invoices;
     }
 
-    public User getUser()
+    @Override
+    public IUser getUser()
     {
         return user;
     }
 
-    public void setUser(User user)
+    @Override
+    public void setUser(IUser user)
     {
         this.user = user;
     }
 
-    public Habitation getHabitation()
+    @Override
+    public IHabitation getHabitation()
     {
         return habitation;
     }
@@ -148,7 +158,8 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
         }
     }
 
-    public void setHabitation(Habitation habitation)
+    @Override
+    public void setHabitation(IHabitation habitation)
     {
         this.habitation = habitation;
     }
@@ -158,6 +169,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
      *
      * @return Preis des Services * Anzahl der Konsumation + Steuern
      */
+    @Override
     public double getTotalPriceWithTax()
     {
         double price = getPriceWithTax() * this.amount;
@@ -169,6 +181,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
      *
      * @return Einzelpreis mit Steuer
      */
+    @Override
     public double getPriceWithTax()
     {
         double price = 0;
@@ -183,6 +196,7 @@ public class InvoiceItem implements InvoiceItemData, IInvoiceItem
      *
      * @return Einzelpreis ohne Steuer
      */
+    @Override
     public double getPriceWithoutTax()
     {
         return this.getService().getPrice().doubleValue();

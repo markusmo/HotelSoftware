@@ -16,18 +16,20 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class RoomCategory implements RoomCategoryData, IRoomCategory
+public class RoomCategory implements IRoomCategory
 {
     private String name;
-    private Collection<RoomCategoryPrice> price;
+    private Collection<IRoomCategoryPrice> price;
     private Integer bedCount;
     private Integer id;
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;
@@ -37,6 +39,7 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
     {
     }
 
+    @Override
     public void setBedCount(int bedCount)
     {
         this.bedCount = bedCount;
@@ -48,23 +51,25 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
         return name;
     }
 
+    @Override
     public void setName(String name)
     {
         this.name = name;
     }
 
     @Override
-    public Collection<RoomCategoryPrice> getPrice()
+    public Collection<IRoomCategoryPrice> getPrice()
     {
         return price;
     }
 
-    public void setPrice(Collection<RoomCategoryPrice> price)
+    @Override
+    public void setPrice(Collection<IRoomCategoryPrice> price)
     {
         this.price = price;
     }
 
-    private RoomCategory(String name, Set<RoomCategoryPrice> price,
+    private RoomCategory(String name, Set<IRoomCategoryPrice> price,
             int bedAmount)
     {
         this.name = name;
@@ -78,7 +83,7 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
      * @param name Der Name der gesuchten Kategorie
      * @return Die gesuchte Kategorie mit dem eingegebenen Namen
      */
-    public static RoomCategory getCategoryByName(String name)
+    public static IRoomCategory getCategoryByName(String name)
     {
         DBRoomCategory c = DBRoomCategory.getRoomCategoryByName(name);
         return (RoomCategory) DynamicMapper.map(c);
@@ -89,10 +94,10 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
      *
      * @return Alle Kategorieen, die verfuegbar sind.
      */
-    public static Collection<RoomCategory> getAllCategorys()
+    public static Collection<IRoomCategory> getAllCategorys()
     {
         Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
-        return (Collection<RoomCategory>) DynamicMapper.mapCollection(dbc);
+        return (Collection<IRoomCategory>) DynamicMapper.mapCollection(dbc);
     }
 
     /**
@@ -102,11 +107,12 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
      * @param ende Das ende der Periode
      * @return Alle freien Zimmer in der angegebenen Periode
      */
-    public Collection<Room> getFreeRooms(Date start, Date ende)
+    @Override
+    public Collection<IRoom> getFreeRooms(Date start, Date ende)
     {
         DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(this);
         Collection<DBRoom> dbc = cat.getFreeRooms(start, ende);
-        return (Collection<Room>) DynamicMapper.mapCollection((Set<DBRoom>) dbc);
+        return (Collection<IRoom>) DynamicMapper.mapCollection((Set<DBRoom>) dbc);
     }
 
     /**
@@ -114,19 +120,22 @@ public class RoomCategory implements RoomCategoryData, IRoomCategory
      * @return 
      * Alle Zimmer, die das System kennt
      */
-    public Collection<Room> getAllRooms()
+    @Override
+    public Collection<IRoom> getAllRooms()
     {
         return Room.getRoomsByCategory(this);
     }
 
+    @Override
     public Integer getBedCount()
     {
         return bedCount;
     }
 
+    @Override
     public BigDecimal getPriceFor(Date startDate) throws NoPriceDefinedException
     {        
-        for (RoomCategoryPrice p : price)
+        for (IRoomCategoryPrice p : price)
         {
             Calendar dateCal = Calendar.getInstance();
             dateCal.setTime(startDate);

@@ -6,6 +6,7 @@ import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.model.domain.invoice.Invoice;
 
 import java.util.Collection;
 import java.util.Set;
@@ -19,7 +20,7 @@ import java.util.Set;
  * @author Hubert
  *
  */
-public class PrivateCustomer extends Customer implements PrivateCustomerData
+public class PrivateCustomer extends Customer implements IPrivateCustomer
 {
     private String fname;
     private String lname;
@@ -68,6 +69,7 @@ public class PrivateCustomer extends Customer implements PrivateCustomerData
         return fname;
     }
 
+    @Override
     public void setFname(String fname)
     {
         this.fname = fname;
@@ -79,16 +81,19 @@ public class PrivateCustomer extends Customer implements PrivateCustomerData
         return lname;
     }
 
+    @Override
     public void setLname(String lname)
     {
         this.lname = lname;
     }
 
+    @Override
     public Character getGender()
     {
         return gender;
     }
 
+    @Override
     public void setGender(Character gender)
     {
         this.gender = gender;
@@ -137,4 +142,5 @@ public class PrivateCustomer extends Customer implements PrivateCustomerData
     {
         return fname + " " + lname;
     }
+
 }

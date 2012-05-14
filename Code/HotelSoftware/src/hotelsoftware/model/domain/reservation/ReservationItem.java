@@ -6,29 +6,32 @@ package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.controller.data.reservation.ReservationItemData;
 import hotelsoftware.controller.data.room.RoomCategoryData;
+import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
  *Diese Klasse beinhaltet die Items in einer Reservierung
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ReservationItem implements ReservationItemData
+public class ReservationItem implements IReservationItem
 {
     private Integer amount;
-    private RoomCategory reservedCategory;
-    private ReservationItemPK reservationItemPK;
-    private Reservation reservation;
+    private IRoomCategory reservedCategory;
+    private IReservationItemPK reservationItemPK;
+    private IReservation reservation;
 
     public ReservationItem()
     {
     }
 
-    public Reservation getReservation()
+    @Override
+    public IReservation getReservation()
     {
         return reservation;
     }
 
-    public void setReservation(Reservation reservation)
+    @Override
+    public void setReservation(IReservation reservation)
     {
         this.reservation = reservation;
     }
@@ -40,12 +43,14 @@ public class ReservationItem implements ReservationItemData
     }
 
 
-    public ReservationItemPK getReservationitemsPK()
+    @Override
+    public IReservationItemPK getReservationitemsPK()
     {
         return reservationItemPK;
     }
 
-    public void setReservationitemsPK(ReservationItemPK reservationItemPK)
+    @Override
+    public void setReservationitemsPK(IReservationItemPK reservationItemPK)
     {
         if (this.reservationItemPK == null)
         {
@@ -53,26 +58,31 @@ public class ReservationItem implements ReservationItemData
         }
     }
 
+    @Override
     public Integer getAmount()
     {
         return amount;
     }
 
+    @Override
     public void setAmount(int amount)
     {
         this.amount = amount;
     }
 
-    public RoomCategory getRoomCategory()
+    @Override
+    public IRoomCategory getRoomCategory()
     {
         return reservedCategory;
     }
 
-    public void setRoomCategory(RoomCategory reservedCategory)
+    @Override
+    public void setRoomCategory(IRoomCategory reservedCategory)
     {
         this.reservedCategory = reservedCategory;
     }
 
+    @Override
     public RoomCategoryData getReservedCategoryData()
     {
         return getRoomCategory();

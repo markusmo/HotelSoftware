@@ -1,10 +1,16 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.controller.data.parties.CompanyTypeData;
+
 /**
- *Dieses Interface enthällt die Methoden der Klasse CompanyType, welche dort benötigt werden.
+ *
  * @author Kno
  */
-public interface ICompanyType {
+public interface ICompanyType extends CompanyTypeData{
 
     /**
      * Instanziert einen neuen Firmen-Typ (z.B. GMBH, Reisebuero, etc.)
@@ -14,5 +20,13 @@ public interface ICompanyType {
      * Eine neue Instanz des Firmentyps
      */
     CompanyType create(String typ);
+
+    Integer getId();
+
+    String getName();
+
+    void setId(Integer id);
+
+    void setName(String typ);
     
 }

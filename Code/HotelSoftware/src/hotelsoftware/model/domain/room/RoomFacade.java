@@ -42,7 +42,7 @@ public class RoomFacade
      * @param cat Die Zimmerkategorie
      * @return Alle Zimmer nach dieser Kategorie
      */
-    public Collection<Room> getRoomsByCategory(RoomCategory cat)
+    public Collection<IRoom> getRoomsByCategory(RoomCategory cat)
     {
         return Room.getRoomsByCategory(cat);
     }

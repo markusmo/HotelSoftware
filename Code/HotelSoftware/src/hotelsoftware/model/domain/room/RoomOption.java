@@ -10,7 +10,7 @@ import java.util.Set;
  * Diese Klasse bildet die Zimmeroptionen (Raucher, Seeblick, usw.) ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class RoomOption implements RoomOptionData, IRoomOption
+public class RoomOption implements IRoomOption
 {
     private Integer id;
     private String name;
@@ -37,16 +37,19 @@ public class RoomOption implements RoomOptionData, IRoomOption
         return name;
     }
 
+    @Override
     public void setName(String name)
     {
         this.name = name;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)

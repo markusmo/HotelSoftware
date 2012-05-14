@@ -10,44 +10,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dunst
  */
 
-public class RoomsRoomStatus implements IRoomsRoomStatus 
+public class RoomsRoomStatus implements IRoomRoomStatus 
 {
     private Date start;
     private Date end;
     protected Integer id;
-    private RoomStatus roomstatus;
-    private Room room;
+    private IRoomStatus roomstatus;
+    private IRoom room;
 
     public RoomsRoomStatus()
     {
     }
 
-    public Room getRoom()
+    @Override
+    public IRoom getRoom()
     {
         return room;
     }
 
-    public void setRoom(Room room)
+    @Override
+    public void setRoom(IRoom room)
     {
         this.room = room;
     }
     
+    @Override
     public Integer getRoomsroomstatusPK()
     {
         return id;
     }
 
+    @Override
     public void setRoomsroomstatusPK(Integer id)
     {
         this.id = id;
     }
 
-    public RoomStatus getRoomstatus()
+    @Override
+    public IRoomStatus getRoomstatus()
     {
         return roomstatus;
     }
 
-    public void setRoomstatus(RoomStatus roomstatus)
+    @Override
+    public void setRoomstatus(IRoomStatus roomstatus)
     {
         this.roomstatus = roomstatus;
     }
@@ -82,21 +88,25 @@ public class RoomsRoomStatus implements IRoomsRoomStatus
         return "hotelsoftware.database.model.Roomsroomstatus[ id=" + id + " ]";
     }
 
+    @Override
     public Date getStart()
     {
         return start;
     }
 
+    @Override
     public void setStart(Date start)
     {
         this.start = start;
     }
 
+    @Override
     public Date getEnd()
     {
         return end;
     }
 
+    @Override
     public void setEnd(Date end)
     {
         this.end = end;
