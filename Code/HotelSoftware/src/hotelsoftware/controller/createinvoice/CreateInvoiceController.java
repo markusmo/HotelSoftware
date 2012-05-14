@@ -18,6 +18,7 @@ import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  *
@@ -98,7 +99,7 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @param items Die für die Rechnung relevanten Posten
      */
-    public void selectItems(Collection<InvoiceItemData> items)
+    public void selectItems(Map<InvoiceItemData, Integer> items)
     {
         state.selectItems(items);
     }
@@ -108,10 +109,11 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @param item Der zu stornierende Posten
      * @param amount Die Anzahl der zu stornierenden Posten
+     * @return FALSE wenn der aktuelle User nicht über die benötigten Berechtigungen verfügt
      */
-    public void cancelItems(InvoiceItemData item, int amount)
+    public boolean cancelItems(InvoiceItemData item, int amount)
     {
-        state.cancelItems(item, amount);
+        return state.cancelItems(item, amount);
     }
 
     /**
