@@ -115,19 +115,19 @@ public final class InvoiceGUIControler implements ActionListener
                             }
                             else
                             {
-                                if (text.equals(payment))
-                                {
-                                    ctrl.next();
-                                    setContentPanel(getPaymentPanel());
-                                }
-                                else
-                                {
+//                                if (text.equals(payment))
+//                                {
+//                                    ctrl.next();
+//                                    setContentPanel(getPaymentPanel());
+//                                }
+//                                else
+//                                {
                                     if (text.equals((payed)))
                                     {
                                         ctrl.pay();
                                         //TODO ask for new State (Zwischenrechnung oder Ende)
                                     }
-                                } 
+//                                } 
                             }
                         }
                     }
@@ -351,6 +351,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     public void setPaymentPanel()
     {
+         ctrl.next();
         setContentPanel(getPaymentPanel());
     }
 

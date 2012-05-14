@@ -376,7 +376,8 @@ public class addCustomer extends javax.swing.JPanel
         {
             InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
         }
-
+        
+        
         InvoiceGUIControler.getInstance().setPaymentPanel();
 
     }//GEN-LAST:event_buttonSelectButtonerActionPerformed
