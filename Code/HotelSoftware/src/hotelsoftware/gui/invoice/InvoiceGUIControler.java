@@ -222,8 +222,14 @@ public final class InvoiceGUIControler implements ActionListener
 
     public void setContentPanel(JPanel newcontent)
     {
+        // setze die Controls
+        if (newcontent instanceof ControlsSetter) {
+            ControlsSetter setter = (ControlsSetter) newcontent;
+            setter.setControls();
+        }
+        
         JPanel contentPanel = getContentPanel();
-        contentPanel.add(newcontent);
+        contentPanel.add(newcontent, BorderLayout.CENTER);
 
         if (contentPanel.getLayout() instanceof CardLayout)
         {
@@ -233,11 +239,7 @@ public final class InvoiceGUIControler implements ActionListener
 
         setNavigation(newcontent.getClass());
         
-        // setze die Controls
-        if (newcontent instanceof ControlsSetter) {
-            ControlsSetter setter = (ControlsSetter) newcontent;
-            setter.setControls();
-        }
+        
         contentPanel.repaint();
 
     }
@@ -301,8 +303,12 @@ public final class InvoiceGUIControler implements ActionListener
 
     private void abort(ActionEvent e)
     {
+<<<<<<< HEAD
         ctrl.abort();
         
+=======
+        ctrl.clear();
+>>>>>>> 7fdf0f52669eea18c91206715c3a496f374a4dcc
         // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
         JPanel panel = getContentPanel();
 
