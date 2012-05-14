@@ -26,11 +26,6 @@ public class Company extends Customer implements ICompany
     public Company()
     {
     }
-    
-    @Override
-    public void addInvoice(Invoice i) throws NeverUseThisMethodException{
-        throw new NeverUseThisMethodException();
-    }
 
     /**
      * Instanziert eine neue Firma/Reisebuero, abgebildet als Kunde, fuer das System

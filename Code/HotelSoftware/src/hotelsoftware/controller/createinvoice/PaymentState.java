@@ -64,7 +64,7 @@ public class PaymentState extends CreateInvoiceState
         if (context.getOpenItems().size() > 0)
         {
             context.setSelectedItems(context.getOpenItems());
-            context.setState(new SplitInvoiceState(context));
+            context.setState(new InterimBillState(context));
         }
         else
         {

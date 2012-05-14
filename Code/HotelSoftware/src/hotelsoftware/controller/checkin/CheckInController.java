@@ -40,7 +40,7 @@ public class CheckInController implements UseCaseController
     {
         Permission p = Permission.getPermissionByName("Check-In");
         
-        if (LoginController.getInstance().getCurrentUser().hasPermission(p))
+        if (!LoginController.getInstance().getCurrentUser().hasPermission(p))
         {
             throw new PermissionDeniedException(p);
         }
