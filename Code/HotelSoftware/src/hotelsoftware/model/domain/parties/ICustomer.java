@@ -16,9 +16,6 @@ import java.util.Collection;
  * @author Kno
  */
 public interface ICustomer extends IParty, CustomerData{
-
-    void addInvoice(Invoice i);
-
     IAddress getInvoiceAddress();
 
     Collection<IInvoice> getInvoices();

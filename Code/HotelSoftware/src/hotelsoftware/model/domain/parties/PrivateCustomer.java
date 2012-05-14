@@ -29,6 +29,7 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
     public PrivateCustomer()
     {
     }
+    
 
     /**
      * Instanziert einen neuen Privatkunden
