@@ -39,11 +39,11 @@ public class InvoiceSaver {
      * @param invoiceitems Alle neuen/bearbeiteten/vorhandenen
      * Rechungspositionen
      */
-    public void saveOrUpdate(Session session, Collection<PaymentMethod> paymentmethods, Collection<Invoice> invoices , Collection<InvoiceItem> invoiceitems)
+    public void saveOrUpdate(Session session, Collection<IPaymentMethod> paymentmethods, Collection<IInvoice> invoices , Collection<IInvoiceItem> invoiceitems)
     {
         if (paymentmethods != null)
         {
-            for(PaymentMethod method : paymentmethods)
+            for(IPaymentMethod method : paymentmethods)
             {
                 DBPaymentMethod dbm = (DBPaymentMethod)DynamicMapper.map(method);
                 session.merge(dbm);
@@ -53,7 +53,7 @@ public class InvoiceSaver {
         
         if (invoices != null)
         {
-            for(Invoice invoice : invoices)
+            for(IInvoice invoice : invoices)
             {
                 DBInvoice dbi = (DBInvoice)DynamicMapper.map(invoice);
                 if (dbi.getId() == null)
@@ -71,7 +71,7 @@ public class InvoiceSaver {
         
         if (invoiceitems != null)
         {
-            for(InvoiceItem item : invoiceitems)
+            for(IInvoiceItem item : invoiceitems)
             {
                 DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
                 if (dbii.getId() == null)

@@ -6,10 +6,7 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.invoice.InvoiceSaver;
-import hotelsoftware.model.domain.invoice.PaymentMethod;
+import hotelsoftware.model.domain.invoice.*;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
@@ -40,18 +37,18 @@ public class PaymentState extends CreateInvoiceState
         invoice.setDiscount(BigDecimal.ZERO);
         invoice.setExpiration(new Date()); //Barzahlung --> sofort
         invoice.setFulfilled(Boolean.TRUE);
-        invoice.setInvoiceItems(HelperFunctions.castCollectionDown(context.getChosenItems(), InvoiceItemData.class, InvoiceItem.class));
+        invoice.setInvoiceItems(HelperFunctions.castCollectionDown(context.getChosenItems(), InvoiceItemData.class, IInvoiceItem.class));
         invoice.setPaymentMethod(PaymentMethod.getPaymentMethodByName("Cash"));
         invoice.setUser(LoginController.getInstance().getCurrentUser());
         invoice.setInvoiceNumber(HelperFunctions.getNewContinousNumber(Invoice.class));
         
-        for (InvoiceItem ii : invoice.getInvoiceItems())
+        for (IInvoiceItem ii : invoice.getInvoiceItems())
         {
             ii.setInvoice(invoice);
             System.out.println(ii.getId());
         }
         
-        LinkedList<Invoice> invoices = new LinkedList<Invoice>();
+        LinkedList<IInvoice> invoices = new LinkedList<IInvoice>();
         invoices.add(invoice);
         
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

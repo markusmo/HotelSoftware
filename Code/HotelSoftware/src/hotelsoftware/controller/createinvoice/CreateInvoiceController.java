@@ -379,13 +379,13 @@ public class CreateInvoiceController implements UseCaseController
         return splittedItems;
     }
     
-    Collection<InvoiceItem> getAllInvoiceItems()
+    Collection<IInvoiceItem> getAllInvoiceItems()
     {
-        Collection<InvoiceItem> col = new HashSet<InvoiceItem>();
+        Collection<IInvoiceItem> col = new HashSet<IInvoiceItem>();
         
-        for (Habitation h : getHabitations())
+        for (IHabitation h : getHabitations())
         {
-            for (InvoiceItem ii : h.getInvoiceItems())
+            for (IInvoiceItem ii : h.getInvoiceItems())
             {
                 col.add(ii);
             }
