@@ -94,7 +94,7 @@ abstract class CreateInvoiceState
     
     void back()
     {
-        throw new IllegalStateException();
+        throw new IllegalStateException(getClass().getName());
     }
     
     void splitInvoice()

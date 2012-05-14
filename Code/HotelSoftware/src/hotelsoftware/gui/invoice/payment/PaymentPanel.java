@@ -11,6 +11,8 @@ import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.PayedButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**

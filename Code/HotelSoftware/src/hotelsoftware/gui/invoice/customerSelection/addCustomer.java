@@ -572,6 +572,8 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
     @Override
     public void setControls()
     {
+        isAlive = true;
+        StartUpdater();
         ctrl.clearControlPanel();
 
         aB = new AbortButton();

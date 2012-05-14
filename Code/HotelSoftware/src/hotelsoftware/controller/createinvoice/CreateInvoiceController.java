@@ -74,7 +74,7 @@ public class CreateInvoiceController implements UseCaseController
      * @param roomNr Die Raum Nummer des zum Aufenthalt gehörigen Raums
      * @return Eine Collection aus den dazu gefundenen Aufenthalten
      */
-    public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
+    public Collection<HabitationData> searchHabitations(String firstName, String lastName, String roomNr)
     {
         return state.search(firstName, lastName, roomNr);
     }
@@ -347,5 +347,12 @@ public class CreateInvoiceController implements UseCaseController
     void setCustomer(Customer customer)
     {
         this.customer = customer;
+    }
+
+    public Collection<PartyData> searchParties(String text)
+    {
+        LinkedList<PartyData> data = new LinkedList<PartyData>();
+
+        return data;
     }
 }
