@@ -58,6 +58,7 @@ public class SelectCustomerState extends CreateInvoiceState
         return set;
     }
     
+    @Override
     void createPrivateCustomer(String firstName, String lastName, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {

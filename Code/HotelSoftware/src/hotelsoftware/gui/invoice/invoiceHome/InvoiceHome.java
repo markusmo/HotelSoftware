@@ -8,7 +8,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -23,11 +23,13 @@ import javax.swing.*;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * Das ist der Start-Screen für den Use case "Rechnung erstellen"
+ * Hier können die Aufentahlte ausgewählt werden
  */
 public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 {
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
-    private Collection<HabitationData> habitationsData;
     
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
@@ -45,76 +47,22 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     }
 
     private void init()
-    {
-               
-       order = new LinkedList();
-       order.add(roomNrTextbox);
-       order.add(lnameTextBox);
-       order.add(fnameTextBox);  
-       
-       focusTraversal = new FocusTraversalPolicy() {
-           
-           private Component currentComponent = roomNrLabel;
-           
-
-            @Override
-            public Component getComponentAfter(Container aContainer, Component aComponent)
-            {
-                int current = order.indexOf(currentComponent);
-                
-                if (order.size() < current + 1) {
-                    return order.get(current + 1);
-                } else {
-                    return getFirstComponent(aContainer);
-                }
-                
-            }
-
-            @Override
-            public Component getComponentBefore(Container aContainer, Component aComponent)
-            {
-                int current = order.indexOf(currentComponent);
-                
-                if (current - 1 < 0) {
-                    return getLastComponent(aContainer);
-                } else {
-                    return order.get(current - 1);                    
-                }
-            }
-
-            @Override
-            public Component getFirstComponent(Container aContainer)
-            {
-                return order.getFirst();
-            }
-
-            @Override
-            public Component getLastComponent(Container aContainer)
-            {
-                return order.getLast();
-            }
-
-            @Override
-            public Component getDefaultComponent(Container aContainer)
-            {
-                return getFirstComponent(aContainer);
-            }
-        };
-       
-       registerActionMap();
-       
-       this.setFocusTraversalPolicy(focusTraversal);
-       this.setFocusCycleRoot(true);
-       
-       roomNrTextbox.requestFocusInWindow();
+    {        
+       registerActionMap();        
     }
 
+    /**
+     * die verfügbaren Aufgenthalte werden in die ausgewählten Aufenthalte überführt
+     */
     private void chooseAll()
     {
         selectedHabitations.setTable(availableHabitations.clearTable());
         checkSelected();
     }
 
+    /**
+     * die verfügbaren und markierten Aufgenthalte werden in die ausgewählten Aufenthalte überführt
+     */
     private void chooseSelected()
     {
         selectedHabitations.setTable(availableHabitations.getSelectedRows());
@@ -122,6 +70,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * die ausgewählten Aufenthalte kommen zurück in die verfügbaren
+     */
     private void dropAll()
     {
         Collection<HabitationData> removed = selectedHabitations.clearTable();
@@ -129,6 +80,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * die ausgewählten und markierten Aufenthalte kommen zurück in die verfügbaren
+     */
     private void dropSelected()
     {
         Collection<HabitationData> removed = selectedHabitations.removeSelectedRows();
@@ -136,6 +90,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * sucht Aufenthalte und gibt diese im Anschluss in den verfügbaren Aufenthalten aus
+     */
     private void searchHabitations()
     {
         // lösche aktuellen Table
@@ -149,9 +106,8 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
        
         if (habitations != null) {
              availableHabitations.setTable(habitations);
-             habitationsData = habitations;
         }
-       // availableHabitations.requestFocusInWindow();
+        availableHabitations.setFocus();
     }
     
     
@@ -424,6 +380,10 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     private javax.swing.JSeparator seperator;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Methode überprüft, ob bereits Aufenthalte ausgewählt wurden
+     * wenn ja, dann wird der Button "IntermediatInvoice" enabled - es kann weitergeganen werden
+     */
     private void checkSelected()
     {
         if (selectedHabitations.getRowCount() > 0) {
@@ -457,12 +417,6 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     }
 
     
-
-    @Override
-    public boolean isFocusable()
-    {
-        return true;
-    }
     
      /**
      * Registriert die Shortcuts fuer die Buttons.
@@ -535,5 +489,10 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         amap.put("strgShiftL", strgShiftLPressed);
         amap.put("enter", enterPressed);
 
+    }
+
+    public void setFocus()
+    {            
+       roomNrTextbox.requestFocusInWindow();
     }
 }

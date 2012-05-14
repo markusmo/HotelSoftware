@@ -7,16 +7,10 @@ package hotelsoftware.gui.invoice.splitCancel;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.Service;
-import hotelsoftware.model.domain.users.User;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Collection;
-import java.util.EventObject;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
@@ -77,11 +71,9 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private void initTable()
     {
         jTable1.addMouseListener(new JTableButtonMouseListener(jTable1));
-        //jTable1.setDefaultRenderer(JTextField.class, new );
-
 
         jTable1.setModel(new DefaultTableModel(
-                (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
+                (items == null ? new Object[50][] : getTableModel()),
                 new String[]
                 {
                     "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
@@ -127,7 +119,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
             }
             ButtonPanel bPanel = new ButtonPanel();
             CheckTextPane checkTextPane = new CheckTextPane(data.getAmount());
-            bPanel.addActionListener(getAL(data.getAmount(), descritpion));
+            bPanel.addActionListener(getAL(data, descritpion));
             buttons.add(bPanel);
             checkTexts.add(checkTextPane);
             selected[i] = true;
@@ -141,44 +133,78 @@ public class splitNstornoRoom extends javax.swing.JPanel
         return value;
     }
 
-    private ActionListener getAL(final int i, final String str)
+    private ActionListener getAL(final InvoiceItemData iid, final String str)
     {
         ActionListener al = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                (new StornoFrame(str, i, jTable1)).getValue();
+                int amount = (new StornoFrame(str, iid.getAmount(), jTable1)).getValue();
+                if (amount > 0)
+                {
+                    if (!(InvoiceGUIControler.getInstance().cancelItems(iid, amount)))
+                    {
+                        JOptionPane.showMessageDialog(jTable1, "You don not have the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else
+                    {
+                        updateAmounts();
+                    }
+                }
             }
         };
         return al;
     }
 
-    public Collection<InvoiceItemData> getInvoiceItems()
+    private void updateAmounts()
     {
-        LinkedList<InvoiceItemData> values = new LinkedList<InvoiceItemData>();
-        LinkedList<InvoiceItemData> newItems = (LinkedList<InvoiceItemData>) items.clone();
+        items = new LinkedList<InvoiceItemData>(habitation.getInvoiceItemsData());
+        buttons.removeAll(buttons);
+        checkTexts.removeAll(checkTexts);
+
+        jTable1.setModel(new DefaultTableModel(
+                (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
+                new String[]
+                {
+                    "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
+                })
+        {
+            boolean[] canEdit = new boolean[]
+            {
+                true, false, false, false, false, true
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit[columnIndex];
+            }
+
+            @Override
+            public Class getColumnClass(int c)
+            {
+                return getValueAt(0, c).getClass();
+            }
+        });
+        jTable1.getColumn("Selection amount").setCellRenderer(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
+        jTable1.getColumn("Selection amount").setCellEditor(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
+        jTable1.getColumn("Cancellation").setCellRenderer(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
+        jTable1.getColumn("Cancellation").setCellEditor(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
+        jTable1.setRowHeight(30);
+        jTable1.repaint();
+    }
+
+    Map<InvoiceItemData, Integer> getSelectedItems()
+    {
+        HashMap<InvoiceItemData, Integer> values = new HashMap<InvoiceItemData, Integer>();
         int i = 0;
         for (Iterator iter = checkTexts.listIterator(); iter.hasNext();)
         {
             CheckTextPane pane = (CheckTextPane) iter.next();
             if (pane.isSelected())
             {
-                if (pane.getText().equals("0".trim()))
-                {
-                    values.add(newItems.get(i));
-                }
-                else
-                {
-                    InvoiceItemData id = newItems.get(i);
-                    InvoiceItem ii = new InvoiceItem();
-                    ii.setAmount(Integer.parseInt(pane.getText()));
-                    ii.setCreated(id.getCreated());
-                    ii.setHabitation((Habitation) id.getHabitationData());
-                    ii.setService((Service) id.getServiceData());
-                    ii.setUser((User) id.getUserData());
-                    values.add(ii);
-                }
+                values.put(items.get(i), pane.getInteger());
             }
             i++;
         }
@@ -268,8 +294,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
         {
             Object[] options =
             {
-                "Cancel",
-                "Abort"
+                "Confirm"
             };
             int n = JOptionPane.showOptionDialog(comp, spinnerPane, "Cancellation",
                     JOptionPane.YES_NO_OPTION,
@@ -456,13 +481,15 @@ public class splitNstornoRoom extends javax.swing.JPanel
     {
         private JCheckBox checki = new JCheckBox();
         private JTextField texti = new JTextField();
+        private final int max;
 
         public CheckTextPane(final int max)
         {
             super(new FlowLayout(FlowLayout.LEFT));
+            this.max = max;
             checki.setSelected(true);
             texti.setColumns(5);
-            texti.setText("0");
+            texti.setText(max + "");
             setBackground(Color.white);
             //texti.setDocument(new JTextFieldLimit(max));
             texti.setInputVerifier(new InputVerifier()
@@ -484,7 +511,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 public void keyTyped(KeyEvent e)
                 {
                     char c = e.getKeyChar();
-                    if (!((c >= '0') && (c <= '9')
+                    if (!((c >= '1') && (c <= '9')
                             || (c == KeyEvent.VK_BACK_SPACE)
                             || (c == KeyEvent.VK_DELETE)))
                     {
@@ -509,9 +536,14 @@ public class splitNstornoRoom extends javax.swing.JPanel
             return checki;
         }
 
-        private String getText()
+        public String getText()
         {
             return texti.getText();
+        }
+
+        public Integer getInteger()
+        {
+            return new Integer(texti.getText());
         }
     }
 

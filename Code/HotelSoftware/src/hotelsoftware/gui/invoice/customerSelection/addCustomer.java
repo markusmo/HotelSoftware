@@ -4,13 +4,19 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.gui.GuiController;
+import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.buttons.AbortButton;
+import hotelsoftware.gui.invoice.buttons.BackButton;
+import hotelsoftware.gui.invoice.buttons.PaymentButton;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.Party;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,7 +27,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Johannes
  */
-public class addCustomer extends javax.swing.JPanel
+public class addCustomer extends javax.swing.JPanel implements ControlsSetter
 {
     private DefaultListModel listModel = new DefaultListModel();
     private final Collection<PartyData> URcustomers;
@@ -29,6 +35,11 @@ public class addCustomer extends javax.swing.JPanel
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
     private CustomerData THEcustomer;
+    private boolean isAlive = true;
+    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private PaymentButton pmB;
+    private AbortButton aB;
+    private BackButton bB;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**
@@ -67,7 +78,7 @@ public class addCustomer extends javax.swing.JPanel
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         radioButtonPerson = new javax.swing.JRadioButton();
-        RadioButtonCustomer = new javax.swing.JRadioButton();
+        RadioButtonCompany = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         TextFieldCity = new javax.swing.JTextField();
@@ -89,7 +100,7 @@ public class addCustomer extends javax.swing.JPanel
         list = new javax.swing.JList();
         textfieldSearch = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
-        buttonSelectButtoner = new javax.swing.JButton();
+        buttonSelectCustomer = new javax.swing.JButton();
         buttonCreateCustomer = new javax.swing.JButton();
 
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -102,10 +113,10 @@ public class addCustomer extends javax.swing.JPanel
             }
         });
 
-        RadioButtonCustomer.setText("Company");
-        RadioButtonCustomer.addActionListener(new java.awt.event.ActionListener() {
+        RadioButtonCompany.setText("Company");
+        RadioButtonCompany.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButtonCustomerActionPerformed(evt);
+                RadioButtonCompanyActionPerformed(evt);
             }
         });
 
@@ -142,11 +153,6 @@ public class addCustomer extends javax.swing.JPanel
             public Object getElementAt(int i) { return strings[i]; }
         });
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                listPropertyChange(evt);
-            }
-        });
         jScrollPane1.setViewportView(list);
 
         buttonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/search.png"))); // NOI18N
@@ -156,10 +162,10 @@ public class addCustomer extends javax.swing.JPanel
             }
         });
 
-        buttonSelectButtoner.setText("Select customer");
-        buttonSelectButtoner.addActionListener(new java.awt.event.ActionListener() {
+        buttonSelectCustomer.setText("Select customer");
+        buttonSelectCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSelectButtonerActionPerformed(evt);
+                buttonSelectCustomerActionPerformed(evt);
             }
         });
 
@@ -184,9 +190,9 @@ public class addCustomer extends javax.swing.JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(radioButtonPerson)
                         .addGap(18, 18, 18)
-                        .addComponent(RadioButtonCustomer)
+                        .addComponent(RadioButtonCompany)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonSelectButtoner))
+                        .addComponent(buttonSelectCustomer))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -230,7 +236,7 @@ public class addCustomer extends javax.swing.JPanel
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(TextFieldZip))
                                                 .addComponent(TextFieldStreet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGap(0, 40, Short.MAX_VALUE)))
+                        .addGap(0, 201, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -245,13 +251,13 @@ public class addCustomer extends javax.swing.JPanel
                             .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textfieldSearch))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(radioButtonPerson)
-                            .addComponent(RadioButtonCustomer)))
+                            .addComponent(RadioButtonCompany)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -281,9 +287,9 @@ public class addCustomer extends javax.swing.JPanel
                             .addComponent(jLabel7)
                             .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
-                        .addComponent(buttonSelectButtoner)
+                        .addComponent(buttonSelectCustomer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCreateCustomer)
                 .addContainerGap())
@@ -307,15 +313,15 @@ public class addCustomer extends javax.swing.JPanel
         jPanel2.repaint();
     }//GEN-LAST:event_radioButtonPersonActionPerformed
 
-    private void RadioButtonCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_RadioButtonCustomerActionPerformed
-    {//GEN-HEADEREND:event_RadioButtonCustomerActionPerformed
+    private void RadioButtonCompanyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_RadioButtonCompanyActionPerformed
+    {//GEN-HEADEREND:event_RadioButtonCompanyActionPerformed
         //  customerPanel = companyPanel;
         jPanel2.removeAll();
         jPanel2.add(companyPanel, BorderLayout.CENTER);
         jPanel2.revalidate();
         jPanel2.repaint();
 
-    }//GEN-LAST:event_RadioButtonCustomerActionPerformed
+    }//GEN-LAST:event_RadioButtonCompanyActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
@@ -342,6 +348,7 @@ public class addCustomer extends javax.swing.JPanel
             else
             {
                 JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
         else
@@ -353,13 +360,15 @@ public class addCustomer extends javax.swing.JPanel
             else
             {
                 JOptionPane.showMessageDialog(list, "You have to fill out the required fields!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
+        isAlive = false;
         InvoiceGUIControler.getInstance().setPaymentPanel();
     }//GEN-LAST:event_buttonCreateCustomerActionPerformed
 
-    private void buttonSelectButtonerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectButtonerActionPerformed
-    {//GEN-HEADEREND:event_buttonSelectButtonerActionPerformed
+    private void buttonSelectCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectCustomerActionPerformed
+    {//GEN-HEADEREND:event_buttonSelectCustomerActionPerformed
         if (!(list.getSelectedIndex() != -1))
         {
             JOptionPane.showMessageDialog(list, "You have to select a person first!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -376,11 +385,11 @@ public class addCustomer extends javax.swing.JPanel
         {
             InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
         }
-        
-        
+
+        isAlive = false;
         InvoiceGUIControler.getInstance().setPaymentPanel();
 
-    }//GEN-LAST:event_buttonSelectButtonerActionPerformed
+    }//GEN-LAST:event_buttonSelectCustomerActionPerformed
 
     private void listPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_listPropertyChange
     {//GEN-HEADEREND:event_listPropertyChange
@@ -388,7 +397,7 @@ public class addCustomer extends javax.swing.JPanel
     }//GEN-LAST:event_listPropertyChange
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
-    private javax.swing.JRadioButton RadioButtonCustomer;
+    private javax.swing.JRadioButton RadioButtonCompany;
     private javax.swing.JTextField TextFieldCity;
     private javax.swing.JTextField TextFieldEmail;
     private javax.swing.JTextField TextFieldFax;
@@ -398,7 +407,7 @@ public class addCustomer extends javax.swing.JPanel
     private javax.swing.JButton buttonCreateCustomer;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonSearch;
-    private javax.swing.JButton buttonSelectButtoner;
+    private javax.swing.JButton buttonSelectCustomer;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -439,12 +448,13 @@ public class addCustomer extends javax.swing.JPanel
         list.setModel(listModel);
 
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
-        buttonSearch.setText(
-                "");
+        buttonSearch.setText("");
         buttonGroup1.add(radioButtonPerson);
 
-        buttonGroup1.add(RadioButtonCustomer);
+        buttonGroup1.add(RadioButtonCompany);
 
+        buttonCreateCustomer.setEnabled(false);
+        buttonSelectCustomer.setEnabled(false);
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
@@ -453,9 +463,8 @@ public class addCustomer extends javax.swing.JPanel
             ComboBoxCountry.addItem(data);
         }
 
-        EnableAddressInputs(
-                false);
-
+        EnableAddressInputs(false);
+        StartUpdater();
     }
 
     private Collection<PartyData> search(String text)
@@ -464,11 +473,22 @@ public class addCustomer extends javax.swing.JPanel
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    /**
+     * Diese Methode startet den Updater
+     */
+    private void StartUpdater()
+    {
+        new Updater().start();
+    }
+
     private void addElements2List(Collection<PartyData> elements)
     {
         for (PartyData data : elements)
         {
-            listModel.addElement(data);
+            if (!listModel.contains(data))
+            {
+                listModel.addElement(data);
+            }
         }
         listModel.trimToSize();
     }
@@ -508,5 +528,87 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setText(d.getAddressData().getStreet());
         TextFieldZip.setText(d.getAddressData().getZip());
         ComboBoxCountry.setSelectedItem(d.getAddressData().getIdCountry());
+    }
+
+    private boolean isAlive()
+    {
+        return isAlive;
+    }
+
+    private void isFinished()
+    {
+        if (list.getSelectedIndex() != -1)
+        {
+            buttonSelectCustomer.setEnabled(true);
+        }
+        else
+        {
+            buttonSelectCustomer.setEnabled(false);
+        }
+        if (radioButtonPerson.isSelected())
+        {
+            if (personPanel.isFinished())
+            {
+                buttonCreateCustomer.setEnabled(true);
+            }
+            else
+            {
+                buttonCreateCustomer.setEnabled(false);
+            }
+        }
+        else
+        {
+            if (companyPanel.isFinished())
+            {
+                buttonCreateCustomer.setEnabled(true);
+            }
+            else
+            {
+                buttonCreateCustomer.setEnabled(false);
+            }
+        }
+    }
+
+    @Override
+    public void setControls()
+    {
+        ctrl.clearControlPanel();
+
+        aB = new AbortButton();
+        ctrl.getDeconstructiveControlPanel().add(aB);
+
+        bB = new BackButton();
+        ctrl.getDeconstructiveControlPanel().add(bB);
+
+        pmB = new PaymentButton();
+        //ctrl.getConstructiveControlPanel().add(pmB);
+
+        ctrl.repaintControlPanel();
+    }
+
+    private class Updater extends Thread
+    {
+        public Updater()
+        {
+            setDaemon(true);
+        }
+
+        @Override
+        public void run()
+        {
+            while (addCustomer.this.isAlive())
+            {
+                try
+                {
+                    Thread.sleep(500);
+                    addCustomer.this.isFinished();
+                }
+                catch (InterruptedException ex)
+                {
+                    Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
     }
 }

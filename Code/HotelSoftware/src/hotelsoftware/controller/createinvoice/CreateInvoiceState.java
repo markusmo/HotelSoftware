@@ -10,6 +10,7 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -39,12 +40,12 @@ abstract class CreateInvoiceState
         throw new IllegalStateException();
     }
 
-    void cancelItems(InvoiceItemData item, int amount)
+    boolean cancelItems(InvoiceItemData item, int amount)
     {
         throw new IllegalStateException();
     }
 
-    void selectItems(Collection<InvoiceItemData> items)
+    void selectItems(Map<InvoiceItemData, Integer> items)
     {
         throw new IllegalStateException();
     }

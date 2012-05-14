@@ -18,6 +18,7 @@ import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  *
@@ -33,6 +34,7 @@ public class CreateInvoiceController implements UseCaseController
     private CreateInvoiceController()
     {
         state = new SearchState(this);
+        GuiController.getInstance().addUseCaseController(this);
     }
 
     public static CreateInvoiceController getInstance()
@@ -43,13 +45,20 @@ public class CreateInvoiceController implements UseCaseController
     @Override
     public boolean isInSwitchingState()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return state instanceof SearchState;
     }
 
+    /**
+     * Bricht den aktuellen Vorgang ab
+     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
+     */
     @Override
     public void clear()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        state = new SearchState(this);
+        habitations = null;
+        selectedItems = null;
+        customer = null;
     }
 
     private static class CreateInvoiceControllerHolder
@@ -90,7 +99,7 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @param items Die für die Rechnung relevanten Posten
      */
-    public void selectItems(Collection<InvoiceItemData> items)
+    public void selectItems(Map<InvoiceItemData, Integer> items)
     {
         state.selectItems(items);
     }
@@ -100,10 +109,11 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @param item Der zu stornierende Posten
      * @param amount Die Anzahl der zu stornierenden Posten
+     * @return FALSE wenn der aktuelle User nicht über die benötigten Berechtigungen verfügt
      */
-    public void cancelItems(InvoiceItemData item, int amount)
+    public boolean cancelItems(InvoiceItemData item, int amount)
     {
-        state.cancelItems(item, amount);
+        return state.cancelItems(item, amount);
     }
 
     /**
@@ -264,17 +274,6 @@ public class CreateInvoiceController implements UseCaseController
     public void splitInvoice()
     {
         state.splitInvoice();
-    }
-
-    /**
-     * Bricht den aktuellen Vorgang ab
-     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
-     */
-    public void abort()
-    {
-        state = new SearchState(this);
-        habitations = null;
-        selectedItems = null;
     }
 
     public CustomerData getCustomerData()

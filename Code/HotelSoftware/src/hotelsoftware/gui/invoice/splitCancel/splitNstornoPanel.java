@@ -10,11 +10,14 @@ import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.misc.CheckTabComponent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import javax.swing.JCheckBox;
 
 /**
@@ -25,7 +28,6 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
 {
     private HashMap<JCheckBox, splitNstornoRoom> inverseRooms = new HashMap<JCheckBox, splitNstornoRoom>();
     private HashMap<splitNstornoRoom, JCheckBox> rooms = new HashMap<splitNstornoRoom, JCheckBox>();
-    
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
@@ -37,7 +39,7 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
     public splitNstornoPanel()
     {
         initComponents();
-        init();        
+        init();
     }
 
     /**
@@ -99,35 +101,39 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
         tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, tabComponent);
     }
 
-    public Collection<InvoiceItemData> getSelectedInvoiceItems()
-    {
-        LinkedList<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
-
-        for (JCheckBox c : inverseRooms.keySet())
-        {
-            if (c.isSelected())
-            {
-                items.addAll(inverseRooms.get(c).getInvoiceItems());
-            }
-        }
-
-        return items;
-    }
-
     @Override
     public void setControls()
     {
         ctrl.clearControlPanel();
-        
+
         aB = new AbortButton();
         ctrl.getDeconstructiveControlPanel().add(aB);
-        
-        bB = new BackButton();
-        ctrl.getDeconstructiveControlPanel().add(bB);
-        
+
         iiB = new IntermediatInvoiceButton();
         ctrl.getConstructiveControlPanel().add(iiB);
-        
+
+        iiB.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                ctrl.selectItems(getSelectedItems());
+            }
+        });
+
         ctrl.repaintControlPanel();
+    }
+
+    private Map<InvoiceItemData, Integer> getSelectedItems()
+    {
+        HashMap<InvoiceItemData, Integer> items = new HashMap<InvoiceItemData, Integer>();
+        for (JCheckBox c : inverseRooms.keySet())
+        {
+            if (c.isSelected())
+            {
+                items.putAll(inverseRooms.get(c).getSelectedItems());
+            }
+        }
+        return items;
     }
 }

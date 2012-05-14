@@ -1,6 +1,7 @@
 package hotelsoftware.gui.invoice;
 
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
+import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
@@ -8,7 +9,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.customerSelection.addCustomer;
 import hotelsoftware.gui.invoice.intermediatInvoice.IntermediatInvoicePanel;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.labels.SeperatorLabel;
 import hotelsoftware.gui.invoice.payment.PaymentPanel;
 import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
 import hotelsoftware.model.domain.invoice.Invoice;
@@ -19,29 +20,37 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.util.Map;
 import javax.swing.*;
 
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * diese Klasse übernimmt die Abhandlung des Use cases "Rechnung erstellen" auf GUI-Ebene
  */
 public final class InvoiceGUIControler implements ActionListener
 {
+    /**
+     * Use case Controller auf der Controller-Ebene
+     */
     private CreateInvoiceController ctrl = CreateInvoiceController.getInstance();
+    /**
+     * Hauptpanel, in dem die Navigation, die Controls und der Content (Screens für einzelne Schritte) untergebracht sind
+     */
     private InvoiceMain main;
-    
     //Navigation labels
     private JLabel invoiceHomeLabel = new JLabel();
     private JLabel intermediatInvoiceLabel = new JLabel();
     private JLabel chooseCustomerLabel = new JLabel();
     private JLabel splitCancelLabel = new JLabel();
     private JLabel paymentLabel = new JLabel();
-    private JLabel seperatorLabel = new JLabel();
-    
     // Bezeichnungen
     private final String invoiceHome = "Invoice Home";
     private final String intermediatInvoice = "Intermediat Invoice";
@@ -60,9 +69,7 @@ public final class InvoiceGUIControler implements ActionListener
         intermediatInvoiceLabel.setText(intermediatInvoice);
         chooseCustomerLabel.setText(chooseCustomer);
         splitCancelLabel.setText(splitCancel);
-        paymentLabel.setText(payment);
-        seperatorLabel.setText(seperator);
-
+        paymentLabel.setText(payment);       
     }
 
     public static InvoiceGUIControler getInstance()
@@ -70,9 +77,14 @@ public final class InvoiceGUIControler implements ActionListener
         return invoiceGUIControlerHolder.INSTANCE;
     }
 
-    void setMain(JPanel contentPanel)
+    /**
+     * setzten des Hauptpanels
+     * 
+     * @param contentPanel 
+     */
+    void setMain(InvoiceMain contentPanel)
     {
-        main = (InvoiceMain) contentPanel;
+        main = contentPanel;
     }
 
     @Override
@@ -83,52 +95,60 @@ public final class InvoiceGUIControler implements ActionListener
             JButton button = (JButton) e.getSource();
             String text = button.getText();
 
-            if (text.equals(abort))
+            if (text.equals(abort)) // abort Button
             {
                 abort(e);
             }
             else
             {
-                if (text.equals(back))
-                {                    
+                if (text.equals(back)) // back Button
+                {     
                     back(e);
                 }
                 else
                 {
-                    if (text.equals(intermediatInvoice))
+                    if (text.equals(intermediatInvoice)) //intermediatInvoice Button
                     {
                         ctrl.next();
                         setContentPanel(getIntermediatInvoicePanel());
                     }
                     else
                     {
-                        if (text.equals(splitCancel))
+                        if (text.equals(splitCancel)) // splitCancel Button 
                         {
                             ctrl.splitInvoice();
                             setContentPanel(new splitNstornoPanel());
                         }
                         else
                         {
-                            if (text.equals(chooseCustomer))
+                            if (text.equals(chooseCustomer)) // chooseCustomer Button
                             {
                                 ctrl.next();
                                 setContentPanel(new addCustomer());
                             }
                             else
                             {
-//                                if (text.equals(payment))
-//                                {
-//                                    ctrl.next();
-//                                    setContentPanel(getPaymentPanel());
-//                                }
-//                                else
-//                                {
-                                    if (text.equals((payed)))
+                                if (text.equals((payed)))
+                                {
+                                    ctrl.pay();
+                                    if (ctrl.isInSwitchingState()) // frage nach neuem Zustand (Zwischenrechnung oder Ende)
                                     {
-                                        ctrl.pay();
-                                        //TODO ask for new State (Zwischenrechnung oder Ende)
+                                        setContentPanel(new InvoiceHome());                                        
+                                    }                                    
+                                    else 
+                                    {
+                                        setIntermediatInvoicePanel(); //FIXME eventuell nur layer-Wechsel im Layout
                                     }
-//                                } 
+                                }
+                                else 
+                                {
+                                    if (text.equals(payment))
+                                {
+                                    ctrl.next();
+                                    setContentPanel(getPaymentPanel());
+                                }    
+                                }
+                                                            
                             }
                         }
                     }
@@ -139,7 +159,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     public Collection<CountryData> getAllCountries()
     {
-        return CreateInvoiceController.getInstance().getAllCountries();
+        return ctrl.getAllCountries();
     }
 
     public String getIntermediatInvoiceString()
@@ -177,15 +197,37 @@ public final class InvoiceGUIControler implements ActionListener
         getControlPanel().repaint();
     }
 
+    /**
+     * löscht die Buttons auf dem ControlPanel (Achtung: subPanels - nicht direkt aufrufen)
+     */
     public void clearControlPanel()
     {
         getConstructiveControlPanel().removeAll();
         getDeconstructiveControlPanel().removeAll();
     }
 
+    /**
+     * setzt die Aufenthalte (Workinset) im Controller
+     * @param selectedRows 
+     */
     public void setSelectedHabitations(Collection<HabitationData> selectedRows)
     {
         ctrl.selectHabitations(selectedRows);
+    }
+
+    public boolean cancelItems(InvoiceItemData iid, int amount)
+    {
+        return CreateInvoiceController.getInstance().cancelItems(iid, amount);
+    }
+
+    public String getPaymentString()
+    {
+        return payment;
+    }
+
+    public String getSeperatorString()
+    {
+        return seperator;
     }
 
     private static class invoiceGUIControlerHolder
@@ -218,14 +260,14 @@ public final class InvoiceGUIControler implements ActionListener
         return main.getControlPanel();
     }
 
+    /**
+     * setzt den Content, die Navigation und die Controls
+     * das Setzen der Controls wird an die Content-Panels weitergeleitet
+     * 
+     * @param newcontent 
+     */
     public void setContentPanel(JPanel newcontent)
-    {
-        // setze die Controls
-        if (newcontent instanceof ControlsSetter) {
-            ControlsSetter setter = (ControlsSetter) newcontent;
-            setter.setControls();
-        }
-        
+    {     
         JPanel contentPanel = getContentPanel();
         contentPanel.add(newcontent, BorderLayout.CENTER);
 
@@ -234,14 +276,24 @@ public final class InvoiceGUIControler implements ActionListener
             CardLayout layout = (CardLayout) contentPanel.getLayout();
             layout.next(contentPanel);
         }
+        
+        // setze die Controls
+        if (newcontent instanceof ControlsSetter) {
+            ControlsSetter setter = (ControlsSetter) newcontent;
+            setter.setControls();
+        }
 
         setNavigation(newcontent.getClass());
-        
         
         contentPanel.repaint();
 
     }
-
+    
+    /**
+     * setzt die Navigation bzw. Fortschrittsbalken
+     * 
+     * @param clazz Klasse, welche im Content ist (entsprechend dieser wird die Navigation zusammengebaut
+     */
     private void setNavigation(Class clazz)
     {
         JPanel navigation = getNavigationPanel();
@@ -249,10 +301,10 @@ public final class InvoiceGUIControler implements ActionListener
 
         if (clazz.equals(splitNstornoPanel.class))
         {
-            navigation.add(invoiceHomeLabel);
-            navigation.add(seperatorLabel);
+            navigation.add(invoiceHomeLabel);            
+            navigation.add(new SeperatorLabel());
             navigation.add(intermediatInvoiceLabel);
-            navigation.add(seperatorLabel);
+            navigation.add(new SeperatorLabel());
             navigation.add(splitCancelLabel);
         }
         else
@@ -266,7 +318,7 @@ public final class InvoiceGUIControler implements ActionListener
                 if (clazz.equals(IntermediatInvoicePanel.class))
                 {
                     navigation.add(invoiceHomeLabel);
-                    navigation.add(seperatorLabel);
+                    navigation.add(new SeperatorLabel());
                     navigation.add(intermediatInvoiceLabel);
                 }
                 else
@@ -274,9 +326,9 @@ public final class InvoiceGUIControler implements ActionListener
                     if (clazz.equals(addCustomer.class))
                     {
                         navigation.add(invoiceHomeLabel);
-                        navigation.add(seperatorLabel);
+                        navigation.add(new SeperatorLabel());
                         navigation.add(intermediatInvoiceLabel);
-                        navigation.add(seperatorLabel);
+                        navigation.add(new SeperatorLabel());
                         navigation.add(chooseCustomerLabel);
                     }
                     else
@@ -284,11 +336,11 @@ public final class InvoiceGUIControler implements ActionListener
                         if (clazz.equals(PaymentPanel.class))
                         {
                             navigation.add(invoiceHomeLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(intermediatInvoiceLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(chooseCustomerLabel);
-                            navigation.add(seperatorLabel);
+                            navigation.add(new SeperatorLabel());
                             navigation.add(paymentLabel);
                         }
                     }
@@ -299,18 +351,29 @@ public final class InvoiceGUIControler implements ActionListener
         navigation.repaint();
     }
 
+    /**
+     * ruft den CofirmDialog auf und bei Abbruch kommt man auf den StartScreen zurück
+     * 
+     * @param e 
+     */
     private void abort(ActionEvent e)
-    {
-        ctrl.abort();
-        // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
-        JPanel panel = getContentPanel();
-
-        JOptionPane.showMessageDialog(panel, "Do you really want to abort?", "Abort", JOptionPane.WARNING_MESSAGE);
+    {        
+        if (JOptionPane.showConfirmDialog(main, "Do you really want to abort?", "Abort", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)== 0)
+        {            
+            ctrl.clear(); // abort the Use case
+            getContentPanel().removeAll();
+            setContentPanel(new InvoiceHome());
+        }
     }
 
+    /**
+     * er wird bei den sogenannten Screens (Content) ein Schritt zurück gegangen
+     * 
+     * @param e 
+     */
     private void back(ActionEvent e)
     {
-        ctrl.back();   
+        ctrl.back();
         JPanel contentPanel = getContentPanel();
         if (contentPanel.getLayout() instanceof CardLayout)
         {
@@ -318,43 +381,64 @@ public final class InvoiceGUIControler implements ActionListener
             layout.previous(getContentPanel());
             JPanel current = getCurrentPanel(contentPanel);
             setNavigation(current.getClass());
+            
             // setze die Controls
-            if (current instanceof ControlsSetter) {
+            if (current instanceof ControlsSetter)
+            {
                 ControlsSetter setter = (ControlsSetter) current;
                 setter.setControls();
             }
         }
-        
+
         contentPanel.repaint();
     }
 
+    /**
+     * Suche nach Aufentalten (Delegation an Controller)
+     * 
+     * @param firstName
+     * @param lastName
+     * @param roomNr
+     * @return 
+     */
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
         return ctrl.search(firstName, lastName, roomNr);
     }
 
-    public JPanel getCurrentPanel(JPanel currentPanel)
+    /**
+     * sucht die sichtbare Karte aus dem CardLayoutPanel heraus
+     * 
+     * @param cardLayoutPanel
+     * @return sichtbares Panel
+     */
+    public JPanel getCurrentPanel(JPanel cardLayoutPanel)
     {
 
-        for (Component component : currentPanel.getComponents())
+        for (Component component : cardLayoutPanel.getComponents())
         {
             if (component.isVisible())
             {
                 if (component instanceof JPanel)
                 {
-                    currentPanel = (JPanel) component;
+                    cardLayoutPanel = (JPanel) component;
                 }
+                // um JScrollPanes ebenfalls zu berücksichtigen
 //                else if (component instanceof JScrollPane)
 //                    currentPanel = (JPanel) ((JScrollPane) component).getViewport().getComponent(0);
             }
         }
 
-        return currentPanel;
+        return cardLayoutPanel;
     }
 
+    /**
+     * ruft setContentPanel auf
+     * da dieses Panel zuerst generiert werden muss wird es über diese Methode aufgerufen
+     */
     public void setPaymentPanel()
     {
-         ctrl.next();
+        ctrl.next();
         setContentPanel(getPaymentPanel());
     }
 
@@ -364,7 +448,8 @@ public final class InvoiceGUIControler implements ActionListener
     }
 
     /**
-     *
+     * generiert ein Panel für die Rechnung
+     * 
      * @return
      */
     private PaymentPanel getPaymentPanel()
@@ -375,6 +460,11 @@ public final class InvoiceGUIControler implements ActionListener
         return generatePDFPanel;
     }
 
+    /**
+     * generiert ein Panel für die Zwischenrechnung
+     * 
+     * @return 
+     */
     private IntermediatInvoicePanel getIntermediatInvoicePanel()
     {
         PdfGenerator generator = new PdfGenerator(ctrl.getChosenItems(), new Date());
@@ -385,7 +475,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     public void useGuestAsCustomer(GuestData guest)
     {
-        CreateInvoiceController.getInstance().useGuestAsCustomer(guest);
+        ctrl.useGuestAsCustomer(guest);
     }
 
     /**
@@ -486,12 +576,27 @@ public final class InvoiceGUIControler implements ActionListener
         return CreateInvoiceController.getInstance().getWorkingHabitationsGuests();
     }
 
-     public Collection<HabitationData> getSelectedHabitations()
+    /**
+     * gibt das Workingset das Erstellen der Rechnung zurück (Controller)
+     * 
+     * @return workingset
+     */
+    public Collection<HabitationData> getSelectedHabitations()
     {
-        return CreateInvoiceController.getInstance().getSelectedHabitations();
+        return ctrl.getSelectedHabitations();
     }
      
+    /**
+     * gibt das Hauptpanel zurück
+     * 
+     * @return Hauptpanel Use case Rechnung erstellen
+     */
      public JPanel getInvoiceMainPanel() {
          return main;
      }
+
+    public void selectItems(Map<InvoiceItemData, Integer> items)
+    {
+        CreateInvoiceController.getInstance().selectItems(items);
+    }
 }
