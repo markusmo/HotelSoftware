@@ -7,6 +7,10 @@ import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.buttons.AbortButton;
+import hotelsoftware.gui.invoice.buttons.BackButton;
+import hotelsoftware.gui.invoice.buttons.PaymentButton;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Johannes
  */
-public class addCustomer extends javax.swing.JPanel
+public class addCustomer extends javax.swing.JPanel implements ControlsSetter
 {
     private DefaultListModel listModel = new DefaultListModel();
     private final Collection<PartyData> URcustomers;
@@ -32,6 +36,10 @@ public class addCustomer extends javax.swing.JPanel
     private CompanyPanel companyPanel = new CompanyPanel();
     private CustomerData THEcustomer;
     private boolean isAlive = true;
+    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private PaymentButton pmB;
+    private AbortButton aB;
+    private BackButton bB;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**

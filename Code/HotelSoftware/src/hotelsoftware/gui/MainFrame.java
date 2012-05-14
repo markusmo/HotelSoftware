@@ -198,9 +198,12 @@ public class MainFrame extends javax.swing.JFrame
         if (checkState())
         {
             cigc.getContentpane().removeAll();    
-            cigc.getContentpane().add(new InvoiceMain(), BorderLayout.CENTER);
+            InvoiceMain invoiceMain = new InvoiceMain();
+            cigc.getContentpane().add(invoiceMain, BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
-            InvoiceGUIControler.getInstance().setContentPanel(new InvoiceHome());            
+            InvoiceHome invoiceHome = new InvoiceHome();
+            InvoiceGUIControler.getInstance().setContentPanel(invoiceHome);     
+            invoiceHome.setFocus();            
             cigc.getContentpane().repaint();            
         }
     }//GEN-LAST:event_invoiceButtonActionPerformed

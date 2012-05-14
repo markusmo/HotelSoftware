@@ -12,15 +12,18 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * Tabelle für die Aufenthalte
+ * 
  */
 public class habitations extends javax.swing.JPanel
 {
     private static final int columnCount = 5;
-    private HabitationData[] data;
+    
+    //FIXME diese Daten und auch viele Funktionen, die hier stehen, werden in Zukunft in einem eigenen TableModel gehalten!
+    private HabitationData[] data = new HabitationData[0];
 
-    /**
-     * Creates new form habitations
-     */
+    
     public habitations(KeyListener parent)
     {
         initComponents();
@@ -32,6 +35,10 @@ public class habitations extends javax.swing.JPanel
         initComponents();
     }
 
+    /**
+     * erzeugt einen Array aus der Daten-Kollektion
+     * @return Daten für die Tabelle (JTable)
+     */
     private Object[][] getDataArray()
     {
         Object[][] objectArray = new Object[data.length][columnCount];
@@ -54,6 +61,12 @@ public class habitations extends javax.swing.JPanel
         return habitations.getRowCount();
     }
 
+    /**
+     * erzeugt einen Aufenthalt für die Tabelle
+     * 
+     * @param data
+     * @return 
+     */
     private String[] getRowData(HabitationData data)
     {
         Collection<GuestData> guests = data.getGuestsData();
@@ -69,6 +82,12 @@ public class habitations extends javax.swing.JPanel
         return rowData;
     }
 
+    /**
+     * setzt die Tabelle mit den neuen Daten
+     * alte Daten werden überschrieben
+     * 
+     * @param data 
+     */
     public void setTable(Collection<HabitationData> data)
     {
         if (data != null)
@@ -103,10 +122,20 @@ public class habitations extends javax.swing.JPanel
         this.habitations.setModel(new DefaultTableModel(getDataArray(), new String[]
                 {
                     "Last name", "First name", "Room Nr", "Arrival", "Departure"
-                }));
-
+                }){
+                    @Override
+                    public boolean isCellEditable(int row, int column)
+                    {
+                        return false;
+                    }
+                });
     }
 
+    /**
+     * löscht die aktuelle Tabelle
+     * 
+     * @return alle Inhalte, die gelöscht werden 
+     */
     public Collection<HabitationData> clearTable()
     {
         List<HabitationData> removed = Arrays.asList(data);
@@ -120,6 +149,10 @@ public class habitations extends javax.swing.JPanel
         return removed;
     }
 
+    /**
+     * 
+     * @return alle Aufenthalte, die selektiert sind
+     */
     public Collection<HabitationData> getSelectedRows()
     {
         int[] selectedRows = habitations.getSelectedRows();
@@ -190,6 +223,11 @@ public class habitations extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * entfernt die Ausgewählten Reihen
+     * 
+     * @return die zu entfernenden Reihen 
+     */
     Collection<HabitationData> removeSelectedRows()
     {
         Collection<HabitationData> removed = getSelectedRows();
@@ -220,8 +258,17 @@ public class habitations extends javax.swing.JPanel
         return removed;
     }
 
+    /**
+     * 
+     * @return alle Daten der Tabelle
+     */
     Collection<HabitationData> getRows()
     {
         return Arrays.asList(data);
+    }
+
+    void setFocus()
+    {
+        habitations.requestFocus();
     }
 }
