@@ -20,8 +20,6 @@ public class SplitInvoiceState extends CreateInvoiceState
     @Override
     Collection<HabitationData> getHabitations()
     {
-        // TODO implement
-        //return super.getHabitations();
         return HelperFunctions.castCollectionUp(context.getHabitations(), HabitationData.class, Habitation.class);
     }
 
