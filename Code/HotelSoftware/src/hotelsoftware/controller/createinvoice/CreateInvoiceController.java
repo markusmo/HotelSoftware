@@ -351,8 +351,6 @@ public class CreateInvoiceController implements UseCaseController
 
     public Collection<PartyData> searchParties(String text)
     {
-        LinkedList<PartyData> data = new LinkedList<PartyData>();
-
-        return data;
+        return state.searchParties(text);
     }
 }

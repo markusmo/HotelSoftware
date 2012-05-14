@@ -298,7 +298,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
     {//GEN-HEADEREND:event_buttonSearchActionPerformed
-        Collection<PartyData> searchedCustomer = search(textfieldSearch.getText());
+        Collection<PartyData> searchedCustomer = ctrl.searchParties(textfieldSearch.getText());
         customers.removeAll(customers);
         customers.addAll(URcustomers);
         customers.addAll(searchedCustomer);

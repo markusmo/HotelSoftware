@@ -397,7 +397,7 @@ public final class InvoiceGUIControler implements ActionListener
     }
 
     /**
-     * Suche nach Aufentalten (Delegation an Controller)
+     * Suche nach Aufenthalten (Delegation an Controller)
      *
      * @param firstName
      * @param lastName
@@ -407,6 +407,10 @@ public final class InvoiceGUIControler implements ActionListener
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {
         return ctrl.searchHabitations(firstName, lastName, roomNr);
+    }
+    
+    public Collection<PartyData> searchParties(String text){
+        return ctrl.searchParties(text);
     }
 
     /**

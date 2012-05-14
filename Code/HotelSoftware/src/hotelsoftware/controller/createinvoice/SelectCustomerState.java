@@ -26,6 +26,12 @@ public class SelectCustomerState extends CreateInvoiceState
     }
     
     @Override
+    public Collection<PartyData> searchParties(String text)
+    {
+        return HelperFunctions.castCollectionUp(Party.searchParties(text), PartyData.class, Party.class);
+    }
+    
+    @Override
     public Collection<CountryData> getAllCountries()
     {
         return HelperFunctions.castCollectionUp(Country.getAllCountries(), CountryData.class, Country.class); 

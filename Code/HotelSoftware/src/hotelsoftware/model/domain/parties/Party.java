@@ -2,6 +2,11 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.parties.DBCompany;
+import hotelsoftware.model.database.parties.DBGuest;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Klasse die eine oder Mehrere Personen beschreibt. Sie ist abstrakt, da von ihr alle Kunden und auch die Gäste erben.
@@ -48,6 +53,19 @@ public class Party implements PartyData
     public AddressData getAddressData()
     {
         return address;
+    }
+    
+    public static Collection<Party> searchParties(String text){
+        String[] words = text.split(" ");
+        LinkedList<Party> list = new LinkedList<Party>();
+        
+        for(String s : words)
+        {
+            list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByFName(s)));
+            list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByLName(s)));
+            list.addAll(DynamicMapper.mapCollection(DBCompany.getCompaniesByName(s)));
+        }
+        return list;
     }
 
     @Override

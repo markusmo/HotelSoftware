@@ -106,4 +106,9 @@ abstract class CreateInvoiceState
     {
         throw new IllegalStateException();
     }
+    
+    Collection<PartyData> searchParties(String text)
+    {
+        throw new IllegalStateException();
+    }
 }
