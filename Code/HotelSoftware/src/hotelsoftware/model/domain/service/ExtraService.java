@@ -14,7 +14,7 @@ import java.util.Set;
  * Diese Klasse bildet Extraservices (Essen, Getraenke, usw.) ab, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ExtraService extends Service implements ExtraServiceData
+public class ExtraService extends Service implements IExtraService
 {
     private String name;
 
@@ -24,6 +24,7 @@ public class ExtraService extends Service implements ExtraServiceData
         return name;
     }
     
+    @Override
     public void setName(String name)
     {
         this.name = name;
@@ -33,7 +34,7 @@ public class ExtraService extends Service implements ExtraServiceData
     {
     }
 
-    private ExtraService(String name, BigDecimal price, ServiceType type)
+    private ExtraService(String name, BigDecimal price, IServiceType type)
     {
         super(price, type);
         this.name = name;
@@ -50,7 +51,7 @@ public class ExtraService extends Service implements ExtraServiceData
      * @return 
      * eine neue Instanz
      */
-    public static ExtraService createExtraService(String name, BigDecimal price, ServiceType type)
+    public static ExtraService createExtraService(String name, BigDecimal price, IServiceType type)
     {
         return new ExtraService(name, price, type);
     }
@@ -60,9 +61,9 @@ public class ExtraService extends Service implements ExtraServiceData
      * @return 
      * Alle Extraservices die vorhanden sind
      */
-    public static Set<ExtraService> getAllExtraServices()
+    public static Set<IExtraService> getAllExtraServices()
     {
-        Set<ExtraService> extraServices = (Set<ExtraService>) DynamicMapper.map(DBExtraService.getAllExtraServices());
+        Set<IExtraService> extraServices = (Set<IExtraService>) DynamicMapper.map(DBExtraService.getAllExtraServices());
         return extraServices;
     }
 
@@ -87,6 +88,7 @@ public class ExtraService extends Service implements ExtraServiceData
         return extraService;
     }
 
+    @Override
     public ServiceTypeData getServiceTypeData()
     {
         return (ServiceTypeData) getServiceType();

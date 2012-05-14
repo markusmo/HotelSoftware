@@ -13,6 +13,10 @@ import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
+import hotelsoftware.model.domain.parties.IGuest;
+import hotelsoftware.model.domain.room.IRoom;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
@@ -29,15 +33,15 @@ import org.hibernate.Transaction;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Habitation extends Service implements HabitationData, IHabitation
+public class Habitation extends Service implements IHabitation
 {
     private Date start;
     private Date end;
     private Date created;
-    private Collection<Guest> guests;
-    private Room rooms;
-    private User users;
-    private Collection<InvoiceItem> invoiceItems;
+    private Collection<IGuest> guests;
+    private IRoom rooms;
+    private IUser users;
+    private Collection<IInvoiceItem> invoiceItems;
     private String habitationNumber;
 
     public Habitation()
@@ -100,6 +104,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param start the start to set
      */
+    @Override
     public void setStart(Date start)
     {
         this.start = start;
@@ -117,6 +122,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param end the end to set
      */
+    @Override
     public void setEnd(Date end)
     {
         this.end = end;
@@ -152,6 +158,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param created the created to set
      */
+    @Override
     public void setCreated(Date created)
     {
         this.created = created;
@@ -160,7 +167,8 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @return the guestsCollection
      */
-    public Collection<Guest> getGuests()
+    @Override
+    public Collection<IGuest> getGuests()
     {
         return guests;
     }
@@ -168,7 +176,8 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param guests the guestsCollection to set
      */
-    public void setGuests(Collection<Guest> guests)
+    @Override
+    public void setGuests(Collection<IGuest> guests)
     {
         this.guests = guests;
     }
@@ -176,7 +185,8 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @return the idRooms
      */
-    public Room getRooms()
+    @Override
+    public IRoom getRooms()
     {
         return rooms;
     }
@@ -184,7 +194,8 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param rooms the idRooms to set
      */
-    public void setRooms(Room rooms)
+    @Override
+    public void setRooms(IRoom rooms)
     {
         this.rooms = rooms;
     }
@@ -192,7 +203,8 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @return the idUsers
      */
-    public User getUsers()
+    @Override
+    public IUser getUsers()
     {
         return users;
     }
@@ -200,51 +212,56 @@ public class Habitation extends Service implements HabitationData, IHabitation
     /**
      * @param users the idUsers to set
      */
-    public void setUsers(User users)
+    @Override
+    public void setUsers(IUser users)
     {
         this.users = users;
     }
 
+    @Override
     public String getHabitationNumber()
     {
         return habitationNumber;
     }
 
+    @Override
     public void setHabitationNumber(String habitationNumber)
     {
         this.habitationNumber = habitationNumber;
     }
 
-    public Collection<InvoiceItem> getInvoiceItems()
+    @Override
+    public Collection<IInvoiceItem> getInvoiceItems()
     {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(Collection<InvoiceItem> invoiceItems)
+    @Override
+    public void setInvoiceItems(Collection<IInvoiceItem> invoiceItems)
     {
         if (invoiceItems != null)
         {
-            this.invoiceItems = new LinkedHashSet<InvoiceItem>(invoiceItems);
+            this.invoiceItems = new LinkedHashSet<IInvoiceItem>(invoiceItems);
         }
     }
 
     @Override
-    public void addInvoiceItems(InvoiceItem newInvoiceItem)
+    public void addInvoiceItems(IInvoiceItem newInvoiceItem)
     {
         if (invoiceItems == null)
         {
-            invoiceItems = new LinkedList<InvoiceItem>();
+            invoiceItems = new LinkedList<IInvoiceItem>();
         }
         
         invoiceItems.add(newInvoiceItem);
     }
 
     @Override
-    public void addGuests(Guest guest)
+    public void addGuests(IGuest guest)
     {
         if (guests == null)
         {
-            guests = new LinkedList<Guest>();
+            guests = new LinkedList<IGuest>();
         }
         
         guests.add(guest);
@@ -253,24 +270,28 @@ public class Habitation extends Service implements HabitationData, IHabitation
     @Override
     public Collection<GuestData> getGuestsData()
     {
-        return new HelperFunctions<GuestData, Guest>().castCollectionUp(getGuests());
+        return new HelperFunctions<GuestData, IGuest>().castCollectionUp(getGuests());
     }
 
+    @Override
     public RoomData getRoomsData()
     {
         return (RoomData) getRooms();
     }
 
+    @Override
     public UserData getUsersData()
     {
         return (UserData) getUsers();
     }
 
+    @Override
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
+        return new HelperFunctions<InvoiceItemData, IInvoiceItem>().castCollectionUp(getInvoiceItems());
     }
 
+    @Override
     public ServiceTypeData getServiceTypeData()
     {
         return (ServiceType) getServiceType();
@@ -297,7 +318,7 @@ public class Habitation extends Service implements HabitationData, IHabitation
         builder.append(newline);
 
         builder.append("<ul>");
-        for (Guest g : guests)
+        for (IGuest g : guests)
         {
             builder.append("<li>");
             builder.append(g.getFname());

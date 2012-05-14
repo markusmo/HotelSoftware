@@ -21,18 +21,18 @@ public class Room implements RoomData, IRoom
 {
 
     private String number;
-    private Collection<RoomOption> options;
-    private RoomCategory category;
-    private Collection<RoomStatus> status;
+    private Collection<IRoomOption> options;
+    private IRoomCategory category;
+    private Collection<IRoomStatus> status;
     private Integer id;
 
-    private Room(String number, RoomCategory category)
+    private Room(String number, IRoomCategory category)
     {
         this.number = number;
         this.category = category;
     }
 
-    public static Room create(String number, RoomCategory category)
+    public static Room create(String number, IRoomCategory category)
     {
         return new Room(number, category);
     }
@@ -41,22 +41,26 @@ public class Room implements RoomData, IRoom
     {
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(int id)
     {
         this.id = id;
     }
 
-    public RoomCategory getCategory()
+    @Override
+    public IRoomCategory getCategory()
     {
         return category;
     }
 
-    public void setCategory(RoomCategory category)
+    @Override
+    public void setCategory(IRoomCategory category)
     {
         this.category = category;
     }
@@ -73,27 +77,32 @@ public class Room implements RoomData, IRoom
         return number;
     }
 
+    @Override
     public void setNumber(String number)
     {
         this.number = number;
     }
 
-    public Collection<RoomOption> getOptions()
+    @Override
+    public Collection<IRoomOption> getOptions()
     {
         return options;
     }
 
-    public void setOptions(Collection<RoomOption> options)
+    @Override
+    public void setOptions(Collection<IRoomOption> options)
     {
         this.options = options;
     }
 
-    public Collection<RoomStatus> getStatus()
+    @Override
+    public Collection<IRoomStatus> getStatus()
     {
         return status;
     }
 
-    public void setStatus(Collection<RoomStatus> status)
+    @Override
+    public void setStatus(Collection<IRoomStatus> status)
     {
         this.status = status;
     }
@@ -113,14 +122,14 @@ public class Room implements RoomData, IRoom
     @Override
     public Collection<RoomOptionData> getOptionsData()
     {
-        return new HelperFunctions<RoomOptionData, RoomOption>().castCollectionUp(
+        return new HelperFunctions<RoomOptionData, IRoomOption>().castCollectionUp(
                 getOptions());
     }
 
     @Override
     public Collection<RoomStatusData> getStatusData()
     {
-        return new HelperFunctions<RoomStatusData, RoomStatus>().castCollectionUp(
+        return new HelperFunctions<RoomStatusData, IRoomStatus>().castCollectionUp(
                 getStatus());
     }
 
@@ -141,20 +150,21 @@ public class Room implements RoomData, IRoom
      * @param category Die Kategorie nach der gesucht wird
      * @return Alle Zimmer nach dieser Kategorie
      */
-    public static Collection<Room> getRoomsByCategory(RoomCategory category)
+    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
     {
         DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Collection<Room>) DynamicMapper.map(DBRoom.getRoomsByCategory(
+        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
                 cat));
     }
 
     @Override
-    public void changeStatus(RoomStatus status)
+    public void changeStatus(IRoomStatus status)
     {
         this.status.add(status);
     }
 
-    public void addOption(RoomOption option)
+    @Override
+    public void addOption(IRoomOption option)
     {
         this.options.add(option);
     }

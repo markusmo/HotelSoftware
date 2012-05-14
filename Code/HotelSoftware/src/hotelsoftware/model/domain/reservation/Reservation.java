@@ -8,6 +8,9 @@ import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.model.domain.parties.IGuest;
+import hotelsoftware.model.domain.parties.IParty;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -20,19 +23,19 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Reservation implements ReservationData
+public class Reservation implements IReservation
 {
     private Date startDate;
     private Date endDate;
     private String comment;
     private Date created;
-    private Collection<ReservationOption> reservationOptions;
-    private Party party;
-    private Collection<ReservationItem> reservationItems;
-    private Collection<Guest> guests;
+    private Collection<IReservationOption> reservationOptions;
+    private IParty party;
+    private Collection<IReservationItem> reservationItems;
+    private Collection<IGuest> guests;
     private Integer id;
     private String reservationNumber;
-    private User user;
+    private IUser user;
 
     public Reservation()
     {
@@ -73,37 +76,44 @@ public class Reservation implements ReservationData
         return endDate;
     }
 
-    public Collection<ReservationOption> getReservationOptions()
+    @Override
+    public Collection<IReservationOption> getReservationOptions()
     {
         return reservationOptions;
     }
 
-    public Party getParty()
+    @Override
+    public IParty getParty()
     {
         return party;
     }
 
-    public void setParty(Party party)
+    @Override
+    public void setParty(IParty party)
     {
         this.party = party;
     }
 
-    public Collection<ReservationItem> getReservationItems()
+    @Override
+    public Collection<IReservationItem> getReservationItems()
     {
         return reservationItems;
     }
 
-    public void setReservationItems(Collection<ReservationItem> reservationItems)
+    @Override
+    public void setReservationItems(Collection<IReservationItem> reservationItems)
     {
         this.reservationItems = reservationItems;
     }
     
-    public Collection<Guest> getGuests()
+    @Override
+    public Collection<IGuest> getGuests()
     {
         return guests;
     }
 
-    public void setGuests(Collection<Guest> guests)
+    @Override
+    public void setGuests(Collection<IGuest> guests)
     {
         this.guests = guests;
     }
@@ -114,36 +124,43 @@ public class Reservation implements ReservationData
         return startDate;
     }
 
+    @Override
     public void setComment(String comment)
     {
         this.comment = comment;
     }
 
+    @Override
     public void setCreated(Date created)
     {
         this.created = created;
     }
 
+    @Override
     public void setEndDate(Date end)
     {
         this.endDate = end;
     }
 
-    public void setReservationOptions(Set<ReservationOption> reservationOptions)
+    @Override
+    public void setReservationOptions(Set<IReservationOption> reservationOptions)
     {
         this.reservationOptions = reservationOptions;
     }
 
+    @Override
     public void setStartDate(Date start)
     {
         this.startDate = start;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -152,22 +169,26 @@ public class Reservation implements ReservationData
         }
     }
 
+    @Override
     public Collection<ReservationOptionData> getOptionCollectionData()
     {
-        return new HelperFunctions<ReservationOptionData, ReservationOption>().castCollectionUp(reservationOptions);
+        return new HelperFunctions<ReservationOptionData, IReservationOption>().castCollectionUp(reservationOptions);
     }
 
+    @Override
     public PartyData getPartyData()
     {
         return (PartyData) getParty();
     }
 
+    @Override
     public Collection<ReservationItemData> getReservationItemCollectionData()
     {
-        return new HelperFunctions<ReservationItemData, ReservationItem>().castCollectionUp(
+        return new HelperFunctions<ReservationItemData, IReservationItem>().castCollectionUp(
                 reservationItems);
     }
 
+    @Override
     public Integer getGuestAmount()
     {
         return ReservationFacade.getInstance().getGuestAmount(this);
@@ -215,39 +236,46 @@ public class Reservation implements ReservationData
         return ReservationFacade.getInstance().getAllReservations();
     }
 
+    @Override
     public void setReservationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
     }
 
+    @Override
     public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
         setParty(Guest.getGuestFromReservationNumber(reservationNumber));
     }
 
+    @Override
     public String getReservationNumber()
     {
         return this.reservationNumber;
     }
 
+    @Override
     public String getReserationNumber()
     {
         return this.reservationNumber;
     }
     
-    public User getUser()
+    @Override
+    public IUser getUser()
     {
         return user;
     }
 
-    public void setUser(User user)
+    @Override
+    public void setUser(IUser user)
     {
         this.user = user;
     }
 
+    @Override
     public Collection<GuestData> getGuestsData()
     {
-        return new HelperFunctions<GuestData, Guest>().castCollectionUp(getGuests());
+        return new HelperFunctions<GuestData, IGuest>().castCollectionUp(getGuests());
     }
 }

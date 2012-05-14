@@ -9,7 +9,10 @@ import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
@@ -21,7 +24,7 @@ import java.util.LinkedHashSet;
  * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Invoice implements InvoiceData, IInvoice
+public class Invoice implements IInvoice
 {
     private Integer id;
     private String invoiceNumber;
@@ -29,10 +32,10 @@ public class Invoice implements InvoiceData, IInvoice
     private Date expiration;
     private Boolean fulfilled;
     private Date created;
-    private PaymentMethod paymentMethod;
-    private Customer customer;
-    private User user;
-    private Collection<InvoiceItem> invoiceItems;
+    private IPaymentMethod paymentMethod;
+    private ICustomer customer;
+    private IUser user;
+    private Collection<IInvoiceItem> invoiceItems;
 
     public Invoice()
     {
@@ -55,14 +58,14 @@ public class Invoice implements InvoiceData, IInvoice
      * @return 
      * Eine Neue Rechung.
      */
-    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, Boolean fulfilled, PaymentMethod paymentmethod, Customer customer)
+    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, Boolean fulfilled, IPaymentMethod paymentmethod, ICustomer customer)
     {
         return new Invoice(invoiceNr, discount, expiration, fulfilled, paymentmethod, customer, LoginController.getInstance().getCurrentUser());
     }
 
     private Invoice(String invoiceNr, BigDecimal discount, Date expiration,
-            Boolean fulfilled, PaymentMethod paymentMethod,
-            Customer customer, User user)
+            Boolean fulfilled, IPaymentMethod paymentMethod,
+            ICustomer customer, IUser user)
     {
         this.invoiceNumber = invoiceNr;
         this.discount = discount;
@@ -71,7 +74,7 @@ public class Invoice implements InvoiceData, IInvoice
         this.paymentMethod = paymentMethod;
         this.customer = customer;
         this.user = user;
-        this.invoiceItems = new LinkedHashSet<InvoiceItem>();
+        this.invoiceItems = new LinkedHashSet<IInvoiceItem>();
     }
 
     @Override
@@ -80,6 +83,7 @@ public class Invoice implements InvoiceData, IInvoice
         return created;
     }
 
+    @Override
     public BigDecimal getDiscount()
     {
         return discount;
@@ -102,22 +106,26 @@ public class Invoice implements InvoiceData, IInvoice
         return fulfilled;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
-    public Customer getCustomer()
+    @Override
+    public ICustomer getCustomer()
     {
         return customer;
     }
 
-    public User getUser()
+    @Override
+    public IUser getUser()
     {
         return user;
     }
 
-    public PaymentMethod getPaymentMethod()
+    @Override
+    public IPaymentMethod getPaymentMethod()
     {
         return paymentMethod;
     }
@@ -128,57 +136,68 @@ public class Invoice implements InvoiceData, IInvoice
         return invoiceNumber;
     }
 
-    public Collection<InvoiceItem> getInvoiceItems()
+    @Override
+    public Collection<IInvoiceItem> getInvoiceItems()
     {
         return invoiceItems;
     }
 
+    @Override
     public void setCreated(Date created)
     {
         this.created = created;
     }
 
+    @Override
     public void setDiscount(BigDecimal discount)
     {
         this.discount = discount;
     }
 
+    @Override
     public void setExpiration(Date expiration)
     {
         this.expiration = expiration;
     }
     
+    @Override
     public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
     }
 
+    @Override
     public void setId(Integer id)
     {
         this.id = id;
     }
 
-    public void setCustomer(Customer customer)
+    @Override
+    public void setCustomer(ICustomer customer)
     {
         this.customer = customer;
     }
 
-    public void setUser(User user)
+    @Override
+    public void setUser(IUser user)
     {
         this.user = user;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod)
+    @Override
+    public void setPaymentMethod(IPaymentMethod paymentMethod)
     {
         this.paymentMethod = paymentMethod;
     }
 
+    @Override
     public void setInvoiceNumber(String invoiceNumber)
     {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public void setInvoiceItems(Collection<InvoiceItem> invoiceitemsCollection)
+    @Override
+    public void setInvoiceItems(Collection<IInvoiceItem> invoiceitemsCollection)
     {
         this.invoiceItems = invoiceitemsCollection;
     }
@@ -196,12 +215,13 @@ public class Invoice implements InvoiceData, IInvoice
      * @return
      * eine neue Rechnung auf eine Belegung
      */
-    public Invoice getInvoiceByHabitation(Habitation habitation)
+    @Override
+    public IInvoice getInvoiceByHabitation(IHabitation habitation)
     {
-        Invoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, paymentMethod, customer);
-        LinkedHashSet<InvoiceItem> items = new LinkedHashSet<InvoiceItem>();
+        IInvoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, paymentMethod, customer);
+        LinkedHashSet<IInvoiceItem> items = new LinkedHashSet<IInvoiceItem>();
 
-        for (InvoiceItem item : this.invoiceItems)
+        for (IInvoiceItem item : this.invoiceItems)
         {
             if (item.getHabitation().equals(habitation))
             {
@@ -221,7 +241,7 @@ public class Invoice implements InvoiceData, IInvoice
      * @return 
      * die Rechung mit der Rechungsnummer
      */
-    public static Invoice getInvoiceByInvoiceNumber(String invoicenumber)
+    public static IInvoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
         return InvoiceFacade.getInstance().getInvoiceByInvoiceNumber(invoicenumber);
     }
@@ -231,11 +251,12 @@ public class Invoice implements InvoiceData, IInvoice
      * @return 
      * Totalbetrag der Rechung ohne Steuern
      */
+    @Override
     public double getTotalwithoutTax()
     {
         double total = 0;
         
-        for(InvoiceItem i : invoiceItems)
+        for(IInvoiceItem i : invoiceItems)
         {
             total = total + i.getTotalPriceWithoutTax();
         }
@@ -248,11 +269,12 @@ public class Invoice implements InvoiceData, IInvoice
      * @return 
      * Totalbetrag der Rechung mit Steuern
      */
+    @Override
     public double getTotalwithTax()
     {
         double total = 0;
         
-        for(InvoiceItem i : invoiceItems)
+        for(IInvoiceItem i : invoiceItems)
         {
             total = total + i.getTotalPriceWithTax();
         }
@@ -281,6 +303,6 @@ public class Invoice implements InvoiceData, IInvoice
     @Override
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, InvoiceItem>().castCollectionUp(getInvoiceItems());
+        return new HelperFunctions<InvoiceItemData, IInvoiceItem>().castCollectionUp(getInvoiceItems());
     }
 }
