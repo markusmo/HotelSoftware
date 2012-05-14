@@ -230,4 +230,48 @@ public class InvoiceItem implements IInvoiceItem
     {
         return (UserData) getUser();
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final InvoiceItem other = (InvoiceItem) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if (this.created != other.created && (this.created == null || !this.created.equals(other.created)))
+        {
+            return false;
+        }
+        if (this.service != other.service && (this.service == null || !this.service.equals(other.service)))
+        {
+            return false;
+        }
+        if (this.habitation != other.habitation && (this.habitation == null || !this.habitation.equals(other.habitation)))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 53 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 53 * hash + (this.created != null ? this.created.hashCode() : 0);
+        hash = 53 * hash + (this.service != null ? this.service.hashCode() : 0);
+        hash = 53 * hash + (this.habitation != null ? this.habitation.hashCode() : 0);
+        return hash;
+    }
+    
+    
 }

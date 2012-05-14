@@ -16,8 +16,10 @@ import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -28,8 +30,10 @@ import java.util.Map;
 public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
-    private Collection<Habitation> habitations;
-    private Collection<InvoiceItem> selectedItems;
+    private Collection<IHabitation> habitations;
+    private Collection<IInvoiceItem> selectedItems;
+    private Collection<InvoiceItem> splittedItems;
+
     private Customer customer;
 
     private CreateInvoiceController()
@@ -242,7 +246,7 @@ public class CreateInvoiceController implements UseCaseController
      */
     public Collection<InvoiceItemData> getChosenItems()
     {
-        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, InvoiceItem.class);
+        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, IInvoiceItem.class);
     }
 
     /**
@@ -291,7 +295,7 @@ public class CreateInvoiceController implements UseCaseController
     {
         Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
 
-        for (Habitation h : habitations)
+        for (IHabitation h : habitations)
         {
             for (IInvoiceItem i : h.getInvoiceItems())
             {
@@ -311,26 +315,26 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-
+    
     /**
      * ***************************************************************
      */
-    Collection<Habitation> getHabitations()
+    Collection<IHabitation> getHabitations()
     {
         return habitations;
     }
 
-    void setHabitations(Collection<Habitation> habitations)
+    void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
     }
 
-    Collection<InvoiceItem> getSelectedItems()
+    Collection<IInvoiceItem> getSelectedItems()
     {
         return selectedItems;
     }
 
-    void setSelectedItems(Collection<InvoiceItem> selectedItems)
+    void setSelectedItems(Collection<IInvoiceItem> selectedItems)
     {
         this.selectedItems = selectedItems;
     }
@@ -350,8 +354,43 @@ public class CreateInvoiceController implements UseCaseController
         this.customer = customer;
     }
 
-    public Collection<PartyData> searchParties(String text)
+	public Collection<PartyData> searchParties(String text)
     {
         return state.searchParties(text);
+    }
+    
+    void addSplittedItems(InvoiceItem item)
+    {
+        if (splittedItems == null)
+        {
+            splittedItems = new LinkedList<InvoiceItem>();
+        }
+        
+        splittedItems.add(item);
+    }
+    
+    void setSplittedItems(Collection<InvoiceItem> items)
+    {
+        splittedItems = items;
+    }
+
+    Collection<InvoiceItem> getSplittedItems()
+    {
+        return splittedItems;
+    }
+    
+    Collection<IInvoiceItem> getAllInvoiceItems()
+    {
+        Collection<IInvoiceItem> col = new HashSet<IInvoiceItem>();
+        
+        for (IHabitation h : getHabitations())
+        {
+            for (IInvoiceItem ii : h.getInvoiceItems())
+            {
+                col.add(ii);
+            }
+        }
+        
+        return col;
     }
 }

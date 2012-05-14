@@ -51,8 +51,8 @@ public class DBInvoiceItem implements Serializable
     @ManyToOne(optional = false)
     private DBHabitation habitation;
     
-    @JoinColumn(name = "idInvoices", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "idInvoices", referencedColumnName = "id", nullable = false, insertable = false, updatable = true)
+    @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBInvoice invoice;
     
     @JoinColumn(name = "idServices", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)

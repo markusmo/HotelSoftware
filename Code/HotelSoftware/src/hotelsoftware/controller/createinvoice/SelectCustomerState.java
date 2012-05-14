@@ -9,6 +9,7 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ public class SelectCustomerState extends CreateInvoiceState
         c.setFname(guest.getFname());
         c.setLname(guest.getLname());
         c.setAddress((Address)guest.getAddressData());
+        c.setInvoiceAddress((Address)guest.getAddressData());
         
         context.setCustomer(c);
     }
@@ -53,7 +55,7 @@ public class SelectCustomerState extends CreateInvoiceState
     {
         Set<PartyData> set = new HashSet<PartyData>();
         
-        for (Habitation h : context.getHabitations())
+        for (IHabitation h : context.getHabitations())
         {
             for (IGuest g : h.getGuests())
             {

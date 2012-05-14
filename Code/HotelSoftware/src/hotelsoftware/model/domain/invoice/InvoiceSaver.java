@@ -39,28 +39,51 @@ public class InvoiceSaver {
      * @param invoiceitems Alle neuen/bearbeiteten/vorhandenen
      * Rechungspositionen
      */
-    public void saveOrUpdate(Session session, Set<PaymentMethod> paymentmethods, Set<Invoice> invoices, Set<InvoiceItem> invoiceitems) {
-        if (paymentmethods != null) {
-            for (PaymentMethod method : paymentmethods) {
-                DBPaymentMethod dbm = (DBPaymentMethod) DynamicMapper.map(method);
-                session.saveOrUpdate(dbm);
+    public void saveOrUpdate(Session session, Collection<IPaymentMethod> paymentmethods, Collection<IInvoice> invoices , Collection<IInvoiceItem> invoiceitems)
+    {
+        if (paymentmethods != null)
+        {
+            for(IPaymentMethod method : paymentmethods)
+            {
+                DBPaymentMethod dbm = (DBPaymentMethod)DynamicMapper.map(method);
+                session.merge(dbm);
                 method.setId(dbm.getId());
             }
         }
-
-        if (invoices != null) {
-            for (Invoice invoice : invoices) {
-                DBInvoice dbi = (DBInvoice) DynamicMapper.map(invoice);
-                session.saveOrUpdate(dbi);
-                invoice.setId(dbi.getId());
+        
+        if (invoices != null)
+        {
+            for(IInvoice invoice : invoices)
+            {
+                DBInvoice dbi = (DBInvoice)DynamicMapper.map(invoice);
+                if (dbi.getId() == null)
+                {
+                    session.saveOrUpdate(dbi);
+                    invoice.setId(dbi.getId());
+                }
+                else
+                {
+                    session.merge(dbi);
+                }
+                
             }
         }
-
-        if (invoiceitems != null) {
-            for (InvoiceItem item : invoiceitems) {
-                DBInvoiceItem dbii = (DBInvoiceItem) DynamicMapper.map(item);
-                session.saveOrUpdate(dbii);
-                item.setId(dbii.getId());
+        
+        if (invoiceitems != null)
+        {
+            for(IInvoiceItem item : invoiceitems)
+            {
+                DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
+                if (dbii.getId() == null)
+                {
+                    session.saveOrUpdate(dbii);
+                    item.setId(dbii.getId());
+                }
+                else
+                {
+                    DBInvoiceItem newii = (DBInvoiceItem)session.merge(dbii);
+                    session.update(newii);
+                }
             }
         }
     }

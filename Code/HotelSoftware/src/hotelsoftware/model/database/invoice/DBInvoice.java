@@ -62,7 +62,7 @@ public class DBInvoice implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private Boolean fulfilled;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice")
     private Set<DBInvoiceItem> invoiceItems;
     
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)
@@ -70,7 +70,7 @@ public class DBInvoice implements Serializable
     private DBPaymentMethod paymentMethod;
     
     @JoinColumn(name = "idCustomers", referencedColumnName = "idParties", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBCustomer customer;
     
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)

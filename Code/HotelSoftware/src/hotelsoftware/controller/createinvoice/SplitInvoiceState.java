@@ -7,8 +7,10 @@ package hotelsoftware.controller.createinvoice;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.login.LoginController;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.model.domain.service.Service;
 import hotelsoftware.model.domain.users.Permission;
 import hotelsoftware.support.PermissionNotFoundException;
@@ -30,7 +32,7 @@ public class SplitInvoiceState extends CreateInvoiceState
     @Override
     Collection<HabitationData> getHabitations()
     {
-        return HelperFunctions.castCollectionUp(context.getHabitations(), HabitationData.class, Habitation.class);
+        return HelperFunctions.castCollectionUp(context.getHabitations(), HabitationData.class, IHabitation.class);
     }
 
     public SplitInvoiceState(CreateInvoiceController context)
@@ -41,13 +43,13 @@ public class SplitInvoiceState extends CreateInvoiceState
     @Override
     void selectItems(Map<InvoiceItemData, Integer> items)
     {
-        Collection<InvoiceItem> col = new LinkedList<InvoiceItem>();
+        Collection<IInvoiceItem> col = new LinkedList<IInvoiceItem>();
         
         for (Entry<InvoiceItemData, Integer> entry : items.entrySet())
         {
             if (entry.getValue().equals(entry.getKey().getAmount()))
             {
-                col.add((InvoiceItem) entry.getKey());
+                col.add((IInvoiceItem) entry.getKey());
             }
             else
             {
@@ -64,6 +66,7 @@ public class SplitInvoiceState extends CreateInvoiceState
                 oldItem.setAmount(oldItem.getAmount() - entry.getValue());
                 
                 oldItem.getHabitation().addInvoiceItems(newItem);
+                context.addSplittedItems(newItem);
             }
         }
         
