@@ -232,6 +232,6 @@ public class CompanyPanel extends javax.swing.JPanel
 
     boolean isFinished()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return !TextFieldCompanyName.getText().trim().isEmpty();
     }
 }
