@@ -12,6 +12,7 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
@@ -286,13 +287,13 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @return Eine COllection mit noch offenen Posten
      */
-    Collection<InvoiceItem> getOpenItems()
+    Collection<IInvoiceItem> getOpenItems()
     {
-        Collection<InvoiceItem> openItems = new LinkedList<InvoiceItem>();
+        Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
 
         for (Habitation h : habitations)
         {
-            for (InvoiceItem i : h.getInvoiceItems())
+            for (IInvoiceItem i : h.getInvoiceItems())
             {
                 if (i.getInvoice() == null)
                 {
