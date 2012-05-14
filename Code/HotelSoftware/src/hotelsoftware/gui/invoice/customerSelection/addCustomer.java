@@ -155,6 +155,12 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(list);
 
+        textfieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldSearchActionPerformed(evt);
+            }
+        });
+
         buttonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/search.png"))); // NOI18N
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,9 +305,8 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSearchActionPerformed
     {//GEN-HEADEREND:event_buttonSearchActionPerformed
         Collection<PartyData> searchedCustomer = ctrl.searchParties(textfieldSearch.getText());
-        customers.removeAll(customers);
-        customers.addAll(URcustomers);
-        customers.addAll(searchedCustomer);
+        addElements2List(searchedCustomer);
+        textfieldSearch.setText("");
     }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void radioButtonPersonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_radioButtonPersonActionPerformed
@@ -395,6 +400,11 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
     {//GEN-HEADEREND:event_listPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_listPropertyChange
+
+    private void textfieldSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textfieldSearchActionPerformed
+    {//GEN-HEADEREND:event_textfieldSearchActionPerformed
+        buttonSearchActionPerformed(evt);
+    }//GEN-LAST:event_textfieldSearchActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboBoxCountry;
     private javax.swing.JRadioButton RadioButtonCompany;

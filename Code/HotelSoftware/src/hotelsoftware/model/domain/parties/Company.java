@@ -151,5 +151,11 @@ public class Company extends Customer implements ICompany
     {
         return new HelperFunctions<InvoiceData, IInvoice>().castCollectionUp(getInvoices());
     }
+    
+    @Override
+    public String toString()
+    {
+        return companyname;
+    }
 
 }
