@@ -8,10 +8,6 @@ import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.Service;
-import hotelsoftware.model.domain.users.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -75,11 +71,9 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private void initTable()
     {
         jTable1.addMouseListener(new JTableButtonMouseListener(jTable1));
-        //jTable1.setDefaultRenderer(JTextField.class, new );
-
 
         jTable1.setModel(new DefaultTableModel(
-                (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
+                (items == null ? new Object[50][] : getTableModel()),
                 new String[]
                 {
                     "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
@@ -151,7 +145,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 {
                     if (!(InvoiceGUIControler.getInstance().cancelItems(iid, amount)))
                     {
-                        JOptionPane.showMessageDialog(jTable1, "You don nott the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(jTable1, "You don not have the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else
                     {
@@ -165,6 +159,10 @@ public class splitNstornoRoom extends javax.swing.JPanel
 
     private void updateAmounts()
     {
+        items = new LinkedList<InvoiceItemData>(habitation.getInvoiceItemsData());
+        buttons.removeAll(buttons);
+        checkTexts.removeAll(checkTexts);
+        
         jTable1.setModel(new DefaultTableModel(
                 (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
                 new String[]
