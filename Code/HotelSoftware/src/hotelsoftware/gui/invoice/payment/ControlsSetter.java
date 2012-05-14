@@ -7,6 +7,8 @@ package hotelsoftware.gui.invoice.payment;
 /**
  *
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * Diese Methode kann vom Controler aufgerufen werden, um die für den Control-Setter interessanten Buttons zu setzten
  */
 public interface ControlsSetter
 {
