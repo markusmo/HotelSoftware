@@ -10,6 +10,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import java.util.Collection;
 import java.util.Date;
 
