@@ -569,6 +569,23 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         }
     }
 
+    @Override
+    public void setControls()
+    {
+        ctrl.clearControlPanel();
+
+        aB = new AbortButton();
+        ctrl.getDeconstructiveControlPanel().add(aB);
+
+        bB = new BackButton();
+        ctrl.getDeconstructiveControlPanel().add(bB);
+
+        pmB = new PaymentButton();
+        //ctrl.getConstructiveControlPanel().add(pmB);
+
+        ctrl.repaintControlPanel();
+    }
+
     private class Updater extends Thread
     {
         public Updater()
