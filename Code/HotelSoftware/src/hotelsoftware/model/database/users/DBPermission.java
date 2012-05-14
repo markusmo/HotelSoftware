@@ -1,21 +1,16 @@
 package hotelsoftware.model.database.users;
 
-import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Diese Klasse bildet die Befugnisse fuer das System auf die Datenbank ab.
@@ -30,12 +25,6 @@ import org.hibernate.criterion.Restrictions;
     })
 })
 @XmlRootElement
-//@NamedQueries(
-//{
-//    @NamedQuery(name = "Permissions.findAll", query = "SELECT p FROM Permissions p"),
-//    @NamedQuery(name = "Permissions.findById", query = "SELECT p FROM Permissions p WHERE p.id = :id"),
-//    @NamedQuery(name = "Permissions.findByName", query = "SELECT p FROM Permissions p WHERE p.name = :name")
-//})
 public class DBPermission implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -123,14 +112,13 @@ public class DBPermission implements Serializable
      * Ein Set mit allen Befugnissen, die verfuegbar sind
      * @throws HibernateException 
      */
-    public static Set<DBPermission> getPermissions() throws HibernateException
+    public static Collection<DBPermission> getPermissions() throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBPermission.class);
         List<DBPermission> retList = criteria.list();
-        ;
 
         return new LinkedHashSet<DBPermission>(retList);
     }
@@ -151,7 +139,6 @@ public class DBPermission implements Serializable
         ts.begin();
         Criteria criteria = session.createCriteria(DBPermission.class);
         List<DBPermission> retList = criteria.list();
-        ;
 
         for (DBPermission permissions : retList)
         {

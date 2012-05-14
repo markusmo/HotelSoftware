@@ -87,7 +87,7 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Set<DBPermission> getPermissions()
+    public Collection<DBPermission> getPermissions()
     {
         return permissions;
     }
@@ -128,7 +128,7 @@ public class DBRole implements Serializable
     }
 
     @XmlTransient
-    public Set<DBUser> getUsers()
+    public Collection<DBUser> getUsers()
     {
         return users;
     }

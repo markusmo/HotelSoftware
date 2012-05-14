@@ -15,6 +15,7 @@ import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -225,7 +226,7 @@ public final class InvoiceGUIControler implements ActionListener
     public void setContentPanel(JPanel newcontent)
     {
         JPanel contentPanel = getContentPanel();
-        contentPanel.add(newcontent);
+        contentPanel.add(newcontent, BorderLayout.CENTER);
 
         if (contentPanel.getLayout() instanceof CardLayout)
         {

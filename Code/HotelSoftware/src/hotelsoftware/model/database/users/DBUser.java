@@ -10,6 +10,7 @@ import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
@@ -209,7 +210,7 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBInvoice> getInvoices()
+    public Collection<DBInvoice> getInvoices()
     {
         return invoices;
     }
@@ -220,7 +221,7 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBReservation> getReservations()
+    public Collection<DBReservation> getReservations()
     {
         return reservations;
     }
@@ -231,7 +232,7 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBHabitation> getHabitations()
+    public Collection<DBHabitation> getHabitations()
     {
         return habitations;
     }
@@ -242,7 +243,7 @@ public class DBUser implements Serializable
     }
 
     @XmlTransient
-    public Set<DBRole> getRoles()
+    public Collection<DBRole> getRoles()
     {
         return roles;
     }
