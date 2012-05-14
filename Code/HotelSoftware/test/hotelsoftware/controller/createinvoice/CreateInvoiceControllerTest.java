@@ -137,8 +137,9 @@ public class CreateInvoiceControllerTest {
     public void testGetAllCountries() {
         System.out.println("getAllCountries");
         CreateInvoiceController instance = CreateInvoiceController.getInstance();
+        SelectCustomerState customerState = new SelectCustomerState(instance);
         Collection expResult = Country.getAllCountries();
-        Collection result = instance.getAllCountries();
+        Collection result = customerState.getAllCountries();
         assertEquals(expResult, result);
     }
 
