@@ -153,7 +153,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
              availableHabitations.setTable(habitations);
              habitationsData = habitations;
         }
-        availableHabitations.requestFocusInWindow();
+       // availableHabitations.requestFocusInWindow();
     }
     
     
@@ -450,7 +450,8 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                ctrl.setSelectedHabitations(selectedHabitations.getSelectedRows());
+              // ctrl.setSelectedHabitations(selectedHabitations.getSelectedRows());
+                ctrl.setSelectedHabitations(selectedHabitations.getRows());
             }
         });
         iiB.setEnabled(false);

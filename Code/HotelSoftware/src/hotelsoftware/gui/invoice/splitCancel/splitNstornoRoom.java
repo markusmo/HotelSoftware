@@ -7,10 +7,15 @@ package hotelsoftware.gui.invoice.splitCancel;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.Service;
+import hotelsoftware.model.domain.users.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collection;
 import java.util.EventObject;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +34,8 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private HabitationData habitation;
     private Boolean[] selected;
     private LinkedList<ButtonPanel> buttons = new LinkedList<ButtonPanel>();
+    private LinkedList<CheckTextPane> checkTexts = new LinkedList<CheckTextPane>();
+    private LinkedList<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
     private final JCheckBox c;
 
     public splitNstornoRoom(HabitationData habitation, final JCheckBox c)
@@ -41,8 +48,27 @@ public class splitNstornoRoom extends javax.swing.JPanel
         {
             throw new NullPointerException("CheckBox is null");
         }
+        c.setSelected(true);
+        c.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (c.isSelected())
+                {
+                    jTable1.setEnabled(true);
+                    selectAll();
+                }
+                else
+                {
+                    jTable1.setEnabled(false);
+                    deselectAll();
+                }
+            }
+        });
         this.c = c;
         this.habitation = habitation;
+        items = new LinkedList<InvoiceItemData>(habitation.getInvoiceItemsData());
         selected = new Boolean[habitation.getInvoiceItemsData().size()];
         initComponents();
         initTable();
@@ -89,25 +115,26 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private Object[][] getTableModel()
     {
         int i = 0;
-       
-        Object[][] value = new Object[habitation.getInvoiceItemsData().size()][];
 
-        for (InvoiceItemData data : habitation.getInvoiceItemsData())
+        Object[][] value = new Object[items.size()][];
+
+        for (InvoiceItemData data : items)
         {
             String descritpion = "Habitation";
             if (data.getServiceData() instanceof ExtraServiceData)
             {
-
                 descritpion = ((ExtraServiceData) data.getServiceData()).getName();
             }
             ButtonPanel bPanel = new ButtonPanel();
+            CheckTextPane checkTextPane = new CheckTextPane(data.getAmount());
             bPanel.addActionListener(getAL(data.getAmount(), descritpion));
             buttons.add(bPanel);
+            checkTexts.add(checkTextPane);
             selected[i] = true;
-            
+
             value[i] = new Object[]
             {
-                new CheckTextPane(data.getAmount()), data.getAmount() + "", descritpion, data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
+                checkTextPane, data.getAmount() + "", descritpion, data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
             };
             i++;
         }
@@ -129,7 +156,51 @@ public class splitNstornoRoom extends javax.swing.JPanel
 
     public Collection<InvoiceItemData> getInvoiceItems()
     {
-        return null;
+        LinkedList<InvoiceItemData> values = new LinkedList<InvoiceItemData>();
+        LinkedList<InvoiceItemData> newItems = (LinkedList<InvoiceItemData>) items.clone();
+        int i = 0;
+        for (Iterator iter = checkTexts.listIterator(); iter.hasNext();)
+        {
+            CheckTextPane pane = (CheckTextPane) iter.next();
+            if (pane.isSelected())
+            {
+                if (pane.getText().equals("0".trim()))
+                {
+                    values.add(newItems.get(i));
+                }
+                else
+                {
+                    InvoiceItemData id = newItems.get(i);
+                    InvoiceItem ii = new InvoiceItem();
+                    ii.setAmount(Integer.parseInt(pane.getText()));
+                    ii.setCreated(id.getCreated());
+                    ii.setHabitation((Habitation) id.getHabitationData());
+                    ii.setService((Service) id.getServiceData());
+                    ii.setUser((User) id.getUserData());
+                    values.add(ii);
+                }
+            }
+            i++;
+        }
+        return values;
+    }
+
+    private void selectAll()
+    {
+        for (CheckTextPane cb : checkTexts)
+        {
+            cb.getCheckBox().setSelected(true);
+        }
+        repaint();
+    }
+
+    private void deselectAll()
+    {
+        for (CheckTextPane cb : checkTexts)
+        {
+            cb.getCheckBox().setSelected(false);
+        }
+        repaint();
     }
 
     /**
@@ -431,6 +502,16 @@ public class splitNstornoRoom extends javax.swing.JPanel
         public boolean isSelected()
         {
             return checki.isSelected();
+        }
+
+        public JCheckBox getCheckBox()
+        {
+            return checki;
+        }
+
+        private String getText()
+        {
+            return texti.getText();
         }
     }
 
