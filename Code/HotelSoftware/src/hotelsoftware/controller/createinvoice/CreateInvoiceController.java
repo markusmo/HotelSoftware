@@ -33,6 +33,7 @@ public class CreateInvoiceController implements UseCaseController
     private CreateInvoiceController()
     {
         state = new SearchState(this);
+        GuiController.getInstance().addUseCaseController(this);
     }
 
     public static CreateInvoiceController getInstance()
@@ -43,13 +44,20 @@ public class CreateInvoiceController implements UseCaseController
     @Override
     public boolean isInSwitchingState()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return state instanceof SearchState;
     }
 
+    /**
+     * Bricht den aktuellen Vorgang ab
+     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
+     */
     @Override
     public void clear()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        state = new SearchState(this);
+        habitations = null;
+        selectedItems = null;
+        customer = null;
     }
 
     private static class CreateInvoiceControllerHolder
@@ -264,17 +272,6 @@ public class CreateInvoiceController implements UseCaseController
     public void splitInvoice()
     {
         state.splitInvoice();
-    }
-
-    /**
-     * Bricht den aktuellen Vorgang ab
-     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
-     */
-    public void abort()
-    {
-        state = new SearchState(this);
-        habitations = null;
-        selectedItems = null;
     }
 
     public CustomerData getCustomerData()
