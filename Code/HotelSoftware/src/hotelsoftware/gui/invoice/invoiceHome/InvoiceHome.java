@@ -23,6 +23,9 @@ import javax.swing.*;
 /**
  * 
  * @author Lins Christian (christian.lins87@gmail.com)
+ * 
+ * Das ist der Start-Screen für den Use case "Rechnung erstellen"
+ * Hier können die Aufentahlte ausgewählt werden
  */
 public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 {
@@ -45,8 +48,10 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     }
 
     private void init()
-    {
+    {        
+       registerActionMap();
                
+       // Fokus und Tab-Order
        order = new LinkedList();
        order.add(roomNrTextbox);
        order.add(lnameTextBox);
@@ -101,20 +106,24 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
             }
         };
        
-       registerActionMap();
        
        this.setFocusTraversalPolicy(focusTraversal);
-       this.setFocusCycleRoot(true);
-       
+       this.setFocusCycleRoot(true);       
        roomNrTextbox.requestFocusInWindow();
     }
 
+    /**
+     * die verfügbaren Aufgenthalte werden in die ausgewählten Aufenthalte überführt
+     */
     private void chooseAll()
     {
         selectedHabitations.setTable(availableHabitations.clearTable());
         checkSelected();
     }
 
+    /**
+     * die verfügbaren und markierten Aufgenthalte werden in die ausgewählten Aufenthalte überführt
+     */
     private void chooseSelected()
     {
         selectedHabitations.setTable(availableHabitations.getSelectedRows());
@@ -122,6 +131,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * die ausgewählten Aufenthalte kommen zurück in die verfügbaren
+     */
     private void dropAll()
     {
         Collection<HabitationData> removed = selectedHabitations.clearTable();
@@ -129,6 +141,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * die ausgewählten und markierten Aufenthalte kommen zurück in die verfügbaren
+     */
     private void dropSelected()
     {
         Collection<HabitationData> removed = selectedHabitations.removeSelectedRows();
@@ -136,6 +151,9 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         checkSelected();
     }
 
+    /**
+     * sucht Aufenthalte und gibt diese im Anschluss in den verfügbaren Aufenthalten aus
+     */
     private void searchHabitations()
     {
         // lösche aktuellen Table
@@ -151,7 +169,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
              availableHabitations.setTable(habitations);
              habitationsData = habitations;
         }
-       // availableHabitations.requestFocusInWindow();
+       //TODO availableHabitations.requestFocusInWindow();
     }
     
     
@@ -424,6 +442,10 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     private javax.swing.JSeparator seperator;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Methode überprüft, ob bereits Aufenthalte ausgewählt wurden
+     * wenn ja, dann wird der Button "IntermediatInvoice" enabled - es kann weitergeganen werden
+     */
     private void checkSelected()
     {
         if (selectedHabitations.getRowCount() > 0) {
@@ -457,12 +479,6 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     }
 
     
-
-    @Override
-    public boolean isFocusable()
-    {
-        return true;
-    }
     
      /**
      * Registriert die Shortcuts fuer die Buttons.
