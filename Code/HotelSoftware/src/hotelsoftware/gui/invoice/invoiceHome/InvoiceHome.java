@@ -8,7 +8,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -30,7 +30,6 @@ import javax.swing.*;
 public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 {
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
-    private Collection<HabitationData> habitationsData;
     
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
@@ -49,67 +48,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 
     private void init()
     {        
-       registerActionMap();
-               
-       // Fokus und Tab-Order
-       order = new LinkedList();
-       order.add(roomNrTextbox);
-       order.add(lnameTextBox);
-       order.add(fnameTextBox);  
-       
-       focusTraversal = new FocusTraversalPolicy() {
-           
-           private Component currentComponent = roomNrLabel;
-           
-
-            @Override
-            public Component getComponentAfter(Container aContainer, Component aComponent)
-            {
-                int current = order.indexOf(currentComponent);
-                
-                if (order.size() < current + 1) {
-                    return order.get(current + 1);
-                } else {
-                    return getFirstComponent(aContainer);
-                }
-                
-            }
-
-            @Override
-            public Component getComponentBefore(Container aContainer, Component aComponent)
-            {
-                int current = order.indexOf(currentComponent);
-                
-                if (current - 1 < 0) {
-                    return getLastComponent(aContainer);
-                } else {
-                    return order.get(current - 1);                    
-                }
-            }
-
-            @Override
-            public Component getFirstComponent(Container aContainer)
-            {
-                return order.getFirst();
-            }
-
-            @Override
-            public Component getLastComponent(Container aContainer)
-            {
-                return order.getLast();
-            }
-
-            @Override
-            public Component getDefaultComponent(Container aContainer)
-            {
-                return getFirstComponent(aContainer);
-            }
-        };
-       
-       
-       this.setFocusTraversalPolicy(focusTraversal);
-       this.setFocusCycleRoot(true);       
-       roomNrTextbox.requestFocusInWindow();
+       registerActionMap();        
     }
 
     /**
@@ -167,9 +106,8 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
        
         if (habitations != null) {
              availableHabitations.setTable(habitations);
-             habitationsData = habitations;
         }
-       //TODO availableHabitations.requestFocusInWindow();
+        availableHabitations.setFocus();
     }
     
     
@@ -551,5 +489,10 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         amap.put("strgShiftL", strgShiftLPressed);
         amap.put("enter", enterPressed);
 
+    }
+
+    public void setFocus()
+    {            
+       roomNrTextbox.requestFocusInWindow();
     }
 }

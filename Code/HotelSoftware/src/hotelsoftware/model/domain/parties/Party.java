@@ -54,4 +54,23 @@ public class Party implements IParty
     {
         return address;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Party other = (Party) obj;
+        if (this.idParties != other.idParties && (this.idParties == null || !this.idParties.equals(other.idParties)))
+        {
+            return false;
+        }
+        return true;
+    }
 }

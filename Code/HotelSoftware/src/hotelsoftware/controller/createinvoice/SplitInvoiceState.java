@@ -85,6 +85,7 @@ public class SplitInvoiceState extends CreateInvoiceState
         }
         catch (PermissionNotFoundException ex)
         {
+            ex.printStackTrace();
             Logger.getLogger(SplitInvoiceState.class.getName()).log(Level.SEVERE, null, ex);
         }
         
