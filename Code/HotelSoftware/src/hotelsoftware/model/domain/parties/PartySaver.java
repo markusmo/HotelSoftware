@@ -41,13 +41,13 @@ public class PartySaver {
         private static final PartySaver INSTANCE = new PartySaver();
     }
 
-    public void saveOrUpdate(Session session, Collection<Address> addresses,
+    public void saveOrUpdate(Session session, Collection<IAddress> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<Guest> guests) throws FailedToSaveToDatabaseException {
+            Collection<IGuest> guests) throws FailedToSaveToDatabaseException {
 
         if (addresses != null) {
-            for (Address addresse : addresses) {
+            for (IAddress addresse : addresses) {
                 DBAddress dbadr = (DBAddress) DynamicMapper.map(addresse);
 
                 session.saveOrUpdate(dbadr);
@@ -84,7 +84,7 @@ public class PartySaver {
         }
 
         if (guests != null) {
-            for (Guest guest : guests) {
+            for (IGuest guest : guests) {
                 DBGuest dbg = (DBGuest) DynamicMapper.map(guest);
 
                 session.saveOrUpdate(dbg);
@@ -104,10 +104,10 @@ public class PartySaver {
      * @throws FailedToSaveToDatabaseException konnte nicht in der datenbank
      * eingetragen werden
      */
-    public void saveOrUpdate(Collection<Address> addresses,
+    public void saveOrUpdate(Collection<IAddress> addresses,
             Collection<CompanyType> companytypes, Collection<Company> companys,
             Collection<PrivateCustomer> privateCustomers,
-            Collection<Guest> guests) throws FailedToSaveToDatabaseException {
+            Collection<IGuest> guests) throws FailedToSaveToDatabaseException {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
