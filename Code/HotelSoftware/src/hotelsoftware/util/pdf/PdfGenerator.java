@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -130,7 +131,8 @@ public class PdfGenerator
         addHotelAddress(doc);
         addInvoiceBodyWithTax(doc, invoiceNumber, items,
                 getTotalwithoutTax(items), created, expiration);
-
+        addThankyouMessage(doc);
+        
         doc.close();
     }
 
@@ -142,7 +144,8 @@ public class PdfGenerator
         {
             temp.mkdir();
         }
-        this.invoicePath = path + intermediate +new Date().toString()+ "_intermediate" + ".pdf";
+        Random rand = new Random();
+        this.invoicePath = path + intermediate+rand.nextInt() + "_intermediate" + ".pdf";
         intermediate++;
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
@@ -150,7 +153,6 @@ public class PdfGenerator
         addMetaData(doc);
         addInvoiceBodyWithoutTax(doc, invoiceNumber, items,
                 getTotalwithTax(items), created, expiration);
-        addThankyouMessage(doc);
 
         doc.close();
     }
@@ -182,7 +184,7 @@ public class PdfGenerator
         URL url = PdfGenerator.class.getClassLoader().getResource(
                 "resources/images/logo_pdf.jpg");
         Image image = Image.getInstance(url);
-        image.scalePercent(20);
+        image.scalePercent(15);
         doc.add(image);
         Paragraph empty = new Paragraph();
         addEmptyLine(empty, 2);
