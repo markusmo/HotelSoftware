@@ -153,10 +153,43 @@ public class splitNstornoRoom extends javax.swing.JPanel
                     {
                         JOptionPane.showMessageDialog(jTable1, "You don nott the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    else
+                    {
+                        //updateAmounts();
+                    }
                 }
             }
         };
         return al;
+    }
+
+    private void updateAmounts()
+    {
+        jTable1.setModel(new DefaultTableModel(
+                (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
+                new String[]
+                {
+                    "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
+                })
+        {
+            boolean[] canEdit = new boolean[]
+            {
+                true, false, false, false, false, true
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit[columnIndex];
+            }
+
+            @Override
+            public Class getColumnClass(int c)
+            {
+                return getValueAt(0, c).getClass();
+            }
+        });
+        jTable1.repaint();
     }
 
     Map<InvoiceItemData, Integer> getSelectedItems()

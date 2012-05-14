@@ -189,7 +189,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     public boolean cancelItems(InvoiceItemData iid, int amount)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return CreateInvoiceController.getInstance().cancelItems(iid, amount);
     }
 
     private static class invoiceGUIControlerHolder
