@@ -142,5 +142,4 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
     {
         return fname + " " + lname;
     }
-
 }

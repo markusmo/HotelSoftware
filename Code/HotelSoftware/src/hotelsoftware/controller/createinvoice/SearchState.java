@@ -6,6 +6,7 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 
@@ -29,7 +30,7 @@ public class SearchState extends CreateInvoiceState
     @Override
     public void selectHabitations(Collection<HabitationData> habitations)
     {
-        context.setHabitations(HelperFunctions.castCollectionDown(habitations, HabitationData.class, Habitation.class));
+        context.setHabitations(HelperFunctions.castCollectionDown(habitations, HabitationData.class, IHabitation.class));
     }
     
     @Override

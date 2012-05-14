@@ -16,6 +16,7 @@ import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -28,8 +29,8 @@ import java.util.Map;
 public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
-    private Collection<Habitation> habitations;
-    private Collection<InvoiceItem> selectedItems;
+    private Collection<IHabitation> habitations;
+    private Collection<IInvoiceItem> selectedItems;
     private Customer customer;
 
     private CreateInvoiceController()
@@ -242,7 +243,7 @@ public class CreateInvoiceController implements UseCaseController
      */
     public Collection<InvoiceItemData> getChosenItems()
     {
-        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, InvoiceItem.class);
+        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, IInvoiceItem.class);
     }
 
     /**
@@ -291,7 +292,7 @@ public class CreateInvoiceController implements UseCaseController
     {
         Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
 
-        for (Habitation h : habitations)
+        for (IHabitation h : habitations)
         {
             for (IInvoiceItem i : h.getInvoiceItems())
             {
@@ -315,22 +316,22 @@ public class CreateInvoiceController implements UseCaseController
     /**
      * ***************************************************************
      */
-    Collection<Habitation> getHabitations()
+    Collection<IHabitation> getHabitations()
     {
         return habitations;
     }
 
-    void setHabitations(Collection<Habitation> habitations)
+    void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
     }
 
-    Collection<InvoiceItem> getSelectedItems()
+    Collection<IInvoiceItem> getSelectedItems()
     {
         return selectedItems;
     }
 
-    void setSelectedItems(Collection<InvoiceItem> selectedItems)
+    void setSelectedItems(Collection<IInvoiceItem> selectedItems)
     {
         this.selectedItems = selectedItems;
     }
