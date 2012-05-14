@@ -9,6 +9,7 @@ import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.*;
 
@@ -16,14 +17,14 @@ import java.util.*;
  * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Guest extends Party implements GuestData, IGuest
+public class Guest extends Party implements IGuest
 {   
     private Date birthday;
     private String fname;
     private String lname;
     private Character gender;
-    private Collection<Habitation> habitations;
-    private Collection<Reservation> reservations;
+    private Collection<IHabitation> habitations;
+    private Collection<IReservation> reservations;
 
     public Guest()
     {
@@ -35,6 +36,7 @@ public class Guest extends Party implements GuestData, IGuest
         return fname;
     }
 
+    @Override
     public void setFname(String fname)
     {
         this.fname = fname;
@@ -46,6 +48,7 @@ public class Guest extends Party implements GuestData, IGuest
         return lname;
     }
 
+    @Override
     public void setLname(String lname)
     {
         this.lname = lname;
@@ -57,32 +60,38 @@ public class Guest extends Party implements GuestData, IGuest
         return gender;
     }
 
+    @Override
     public void setGender(Character gender)
     {
         this.gender = gender;
     }
 
-    public Collection<Habitation> getHabitations()
+    @Override
+    public Collection<IHabitation> getHabitations()
     {
         return habitations;
     }
 
+    @Override
     public void setBirthday(Date birthday)
     {
         this.birthday = birthday;
     }
 
-    public void setCurrentHabitations(Collection<Habitation> habitations)
+    @Override
+    public void setCurrentHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
     }
     
-    public Collection<Reservation> getReservations()
+    @Override
+    public Collection<IReservation> getReservations()
     {
         return reservations;
     }
 
-    public void setReservations(Collection<Reservation> reservations)
+    @Override
+    public void setReservations(Collection<IReservation> reservations)
     {
         this.reservations = reservations;
     }
@@ -93,20 +102,21 @@ public class Guest extends Party implements GuestData, IGuest
         return birthday;
     }
 
-    public Collection<Habitation> getCurrentHabitations()
+    @Override
+    public Collection<IHabitation> getCurrentHabitations()
     {
         return habitations;
     }
 
     private Guest(String fname, String lname, Character gender, Date birthday,
-            Address address)
+            IAddress address)
     {
         this(fname, lname, gender, birthday, address,
-                new LinkedHashSet<Habitation>());
+                new LinkedHashSet<IHabitation>());
     }
 
     private Guest(String fname, String lname, Character gender, Date birthday,
-            Address address, Collection<Habitation> habitations)
+            IAddress address, Collection<IHabitation> habitations)
     {
         super(address);
         this.fname = fname;
@@ -139,13 +149,13 @@ public class Guest extends Party implements GuestData, IGuest
     }
 
     @Override
-    public void addHabitation(Habitation h)
+    public void addHabitation(IHabitation h)
     {
         habitations.add(h);
     }
 
     @Override
-    public void removeHabitation(Habitation h)
+    public void removeHabitation(IHabitation h)
     {
         habitations.remove(h);
     }
@@ -168,14 +178,16 @@ public class Guest extends Party implements GuestData, IGuest
         return PartyFacade.getInstance().getGuestByName(fname, lname);
     }
 
+    @Override
     public Collection<HabitationData> getCurrentHabitationsData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getCurrentHabitations());
+        return new HelperFunctions<HabitationData, IHabitation>().castCollectionUp(getCurrentHabitations());
     }
 
+    @Override
     public Collection<HabitationData> getHabitationsData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(getHabitations());
+        return new HelperFunctions<HabitationData, IHabitation>().castCollectionUp(getHabitations());
     }
 
     @Override
@@ -196,6 +208,7 @@ public class Guest extends Party implements GuestData, IGuest
         return PartyFacade.getInstance().getGuestFromReservationNumber(reservationNumber);
     }
     
+    @Override
     public String toString()
     {
         return fname + " " + lname;

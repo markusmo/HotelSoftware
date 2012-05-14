@@ -1,13 +1,34 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.model.domain.invoice.Invoice;
+import java.util.Collection;
 
 /**
- *Dieses Interface enthällt die Methoden der Klasse Customer, welche dort benötigt werden.
+ *
  * @author Kno
  */
-public interface ICustomer {
+public interface ICustomer extends IParty, CustomerData{
 
-    void removeInvoice(Invoice i);
+    void addInvoice(Invoice i);
+
+    IAddress getInvoiceAddress();
+
+    Collection<IInvoice> getInvoices();
+
+    void addInvoice(IInvoice i);
+    
+    void removeInvoice(IInvoice i);
+
+    void setInvoiceAddress(IAddress invoiceAddress);
+
+    void setInvoices(Collection<IInvoice> invoices);
     
 }

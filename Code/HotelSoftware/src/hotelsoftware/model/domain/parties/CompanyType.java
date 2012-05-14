@@ -14,7 +14,7 @@ import java.util.Set;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class CompanyType implements CompanyTypeData, ICompanyType
+public class CompanyType implements ICompanyType
 {
     private Integer id;
     private String typ;
@@ -41,11 +41,13 @@ public class CompanyType implements CompanyTypeData, ICompanyType
         this.typ = typ;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -54,6 +56,7 @@ public class CompanyType implements CompanyTypeData, ICompanyType
         }
     }
 
+    @Override
     public void setName(String typ)
     {
         this.typ = typ;

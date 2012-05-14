@@ -4,6 +4,7 @@ import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -13,31 +14,33 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Customer extends Party implements CustomerData, ICustomer
+public abstract class Customer extends Party implements ICustomer
 {
-    protected Address invoiceAddress;
-    protected Collection<Invoice> invoices;
+    protected IAddress invoiceAddress;
+    protected Collection<IInvoice> invoices;
 
     public Customer()
     {
     }
 
-    public Address getInvoiceAddress()
+    @Override
+    public IAddress getInvoiceAddress()
     {
         return invoiceAddress;
     }
 
-    public void setInvoiceAddress(Address invoiceAddress)
+    @Override
+    public void setInvoiceAddress(IAddress invoiceAddress)
     {
         this.invoiceAddress = invoiceAddress;
     }
 
-    protected Customer(Address address, Address invoiceAddress)
+    protected Customer(IAddress address, IAddress invoiceAddress)
     {
-        this(address, invoiceAddress, new LinkedHashSet<Invoice>());
+        this(address, invoiceAddress, new LinkedHashSet<IInvoice>());
     }
 
-    protected Customer(Address address, Address invoiceAddress, Collection<Invoice> invoices)
+    protected Customer(IAddress address, IAddress invoiceAddress, Collection<IInvoice> invoices)
     {
         super(address);
 
@@ -45,23 +48,26 @@ public abstract class Customer extends Party implements CustomerData, ICustomer
         this.invoices = invoices;
     }
 
-    public Collection<Invoice> getInvoices()
+    @Override
+    public Collection<IInvoice> getInvoices()
     {
         return invoices;
     }
 
-    public void setInvoices(Collection<Invoice> invoices)
+    @Override
+    public void setInvoices(Collection<IInvoice> invoices)
     {
         this.invoices = invoices;
     }
 
     @Override
-    public void removeInvoice(Invoice i)
+    public void removeInvoice(IInvoice i)
     {
         invoices.remove(i);
     }
 
-    public void addInvoice(Invoice i)
+    @Override
+    public void addInvoice(IInvoice i)
     {
         invoices.add(i);
     }
@@ -75,6 +81,6 @@ public abstract class Customer extends Party implements CustomerData, ICustomer
     @Override
     public Collection<InvoiceData> getInvoicesData()
     {
-        return new HelperFunctions<InvoiceData, Invoice>().castCollectionUp(invoices);
+        return new HelperFunctions<InvoiceData, IInvoice>().castCollectionUp(invoices);
     }
 }

@@ -2,6 +2,7 @@ package hotelsoftware.model.domain.invoice;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import java.util.Collection;
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class InvoiceFacade
      * @return
      * eine neue Rechung, in der alle Positionen auf eine Belegung stimmen.
      */
-    public Invoice getInvoiceByHabitaion(Invoice invoice, Habitation habitation)
+    public IInvoice getInvoiceByHabitaion(IInvoice invoice, IHabitation habitation)
     {
         return invoice.getInvoiceByHabitation(habitation);
     }

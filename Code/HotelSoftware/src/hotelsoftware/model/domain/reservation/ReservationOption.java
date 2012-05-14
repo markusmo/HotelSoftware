@@ -13,25 +13,27 @@ import java.util.Date;
  *Diese Klasse beinhaltet eine Reservierungsoption die für Reservierungen  benötigt werden
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ReservationOption implements ReservationOptionData, IReservationOption
+public class ReservationOption implements IReservationOption
 {
     private Date expiration;
     private BigDecimal prepayment;
     private Boolean fulfilled;
     private Integer id;
-    private Reservation reservation;
+    private IReservation reservation;
     private String comment;
 
     public ReservationOption()
     {
     }
 
-    public Reservation getReservation()
+    @Override
+    public IReservation getReservation()
     {
         return reservation;
     }
 
-    public void setReservation(Reservation reservation)
+    @Override
+    public void setReservation(IReservation reservation)
     {
         this.reservation = reservation;
     }
@@ -47,6 +49,7 @@ public class ReservationOption implements ReservationOptionData, IReservationOpt
         return expiration;
     }
 
+    @Override
     public void setExpiration(Date expiration)
     {
         this.expiration = expiration;
@@ -70,6 +73,7 @@ public class ReservationOption implements ReservationOptionData, IReservationOpt
         return fulfilled;
     }
 
+    @Override
     public void setFulfilled(Boolean fulfilled)
     {
         this.fulfilled = fulfilled;
@@ -81,10 +85,12 @@ public class ReservationOption implements ReservationOptionData, IReservationOpt
         return prepayment;
     }
 
+    @Override
     public void setPrepayment(BigDecimal prepayment)
     {
         this.prepayment = prepayment;
     }
+    @Override
     public Integer getId()
     {
         return id;
@@ -98,11 +104,13 @@ public class ReservationOption implements ReservationOptionData, IReservationOpt
         }
     }
     
+    @Override
     public String getComment()
     {
         return comment;
     }
 
+    @Override
     public void setComment(String comment)
     {
         this.comment = comment;

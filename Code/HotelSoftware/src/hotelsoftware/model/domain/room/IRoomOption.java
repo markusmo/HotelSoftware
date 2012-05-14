@@ -1,11 +1,25 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.controller.data.room.RoomOptionData;
+
 /**
- *Dieses Interface enthällt die Methoden der Klasse RoomOption, welche dort benötigt werden.
+ *
  * @author Kno
  */
-public interface IRoomOption {
+public interface IRoomOption extends RoomOptionData{
 
-    RoomOption create(String name);
+    IRoomOption create(String name);
+
+    Integer getId();
+
+    String getName();
+
+    void setId(Integer id);
+
+    void setName(String name);
     
 }
