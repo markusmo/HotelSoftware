@@ -7,6 +7,7 @@ package hotelsoftware.gui.invoice.splitCancel;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.Service;
@@ -138,14 +139,19 @@ public class splitNstornoRoom extends javax.swing.JPanel
         return value;
     }
 
-    private ActionListener getAL(final int i, final String str)
+    private ActionListener getAL(final int max, final String str, final InvoiceItemData iid)
     {
         ActionListener al = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                (new StornoFrame(str, i, jTable1)).getValue();
+               int amount =  (new StornoFrame(str, max, jTable1)).getValue();
+               if(amount > 0){
+                   if(!(InvoiceGUIControler.getInstance().cancelItems(iid, amount))){
+                       
+                   }
+               }
             }
         };
         return al;
@@ -250,8 +256,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
         {
             Object[] options =
             {
-                "Cancel",
-                "Abort"
+                "Confirm"
             };
             int n = JOptionPane.showOptionDialog(comp, spinnerPane, "Cancellation",
                     JOptionPane.YES_NO_OPTION,

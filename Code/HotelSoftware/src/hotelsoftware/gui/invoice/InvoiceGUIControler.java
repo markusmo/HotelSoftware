@@ -187,6 +187,11 @@ public final class InvoiceGUIControler implements ActionListener
         ctrl.selectHabitations(selectedRows);
     }
 
+    public boolean cancelItems(InvoiceItemData iid, int amount)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     private static class invoiceGUIControlerHolder
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
