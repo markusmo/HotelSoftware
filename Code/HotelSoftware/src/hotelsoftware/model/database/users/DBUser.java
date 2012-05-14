@@ -40,7 +40,7 @@ public class DBUser implements Serializable
     @ManyToMany(mappedBy = "users", fetch= FetchType.EAGER)
     private Set<DBRole> roles;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToMany(mappedBy = "users")
     private Set<DBHabitation> habitations;
     
     @OneToMany(mappedBy = "user")

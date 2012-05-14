@@ -64,6 +64,7 @@ public class SplitInvoiceState extends CreateInvoiceState
                 oldItem.setAmount(oldItem.getAmount() - entry.getValue());
                 
                 oldItem.getHabitation().addInvoiceItems(newItem);
+                context.addSplittedItems(newItem);
             }
         }
         

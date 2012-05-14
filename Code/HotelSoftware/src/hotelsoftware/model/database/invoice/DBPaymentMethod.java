@@ -29,6 +29,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * Diese Klasse bildet eine Zahlungsmethode auf der Datenbank ab.
+ *
  * @author mohi
  */
 @Entity
@@ -42,7 +43,6 @@ import org.hibernate.criterion.Restrictions;
 @XmlRootElement
 public class DBPaymentMethod implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,9 +107,10 @@ public class DBPaymentMethod implements Serializable
 
     /**
      * Kommuniziert mit der Datenbank und gibt alle Zahlungsmethoden aus
+     *
      * @return
      * Ein Set aus allen verfuegbaren Zahlungsmethoden
-     * @throws HibernateException 
+     * @throws HibernateException
      */
     public static Set<DBPaymentMethod> getPaymentMethods() throws HibernateException
     {
@@ -125,11 +126,12 @@ public class DBPaymentMethod implements Serializable
 
     /**
      * Kommuniziert mit der Datenbank und gibt eine Zahlungsmethode nach dem eingegebenen Namen aus
+     *
      * @param method
      * Die Zahlungsmethode, die gesucht wird
      * @return
      * Ein Objekt, dass die Zahlungsmethode abbildet
-     * @throws HibernateException 
+     * @throws HibernateException
      * Dieser Fehler wird geworfen, wenn die Tanksation fehlgeschlagen wird
      */
     public static DBPaymentMethod getPaymentMethodByName(String method) throws HibernateException
@@ -138,18 +140,18 @@ public class DBPaymentMethod implements Serializable
         Transaction ts = session.beginTransaction();
         ts.begin();
         Criteria criteria = session.createCriteria(DBPaymentMethod.class);
-        DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("name", method)).uniqueResult();
-        ;
+        DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("method", method)).uniqueResult();
 
         return ret;
     }
 
     /**
      * Speichert die Zahlungsart in der Datenbank ab
+     *
      * @param name
      * the new paymentmethod to be created
      * @throws HibernateException
-     * @throws FailedToSaveToDatabaseException 
+     * @throws FailedToSaveToDatabaseException
      */
     public static void savePaymentMethod(String name) throws FailedToSaveToDatabaseException
     {
@@ -160,21 +162,23 @@ public class DBPaymentMethod implements Serializable
         {
             session.save(new DBPaymentMethod(name));
             ts.commit();
-        } catch (HibernateException e)
+        }
+        catch (HibernateException e)
         {
             ts.rollback();
             throw new FailedToSaveToDatabaseException();
-        } finally
+        }
+        finally
         {
-            ;
         }
     }
 
     /**
      * Löscht Zahlungsmethoden aus der Datenbank
+     *
      * @param name
      * the name of the method to delete
-     * @throws FaildToDeleteFromDatabaseException 
+     * @throws FaildToDeleteFromDatabaseException
      */
     public static void deletePaymentMethod(String name) throws FaildToDeleteFromDatabaseException
     {
@@ -186,7 +190,8 @@ public class DBPaymentMethod implements Serializable
             DBPaymentMethod method = (DBPaymentMethod) session.createCriteria(
                     DBPaymentMethod.class).add(Restrictions.like("name", name)).uniqueResult();
             session.delete(method);
-        } catch (HibernateException ex)
+        }
+        catch (HibernateException ex)
         {
             ts.rollback();
             throw new FaildToDeleteFromDatabaseException();

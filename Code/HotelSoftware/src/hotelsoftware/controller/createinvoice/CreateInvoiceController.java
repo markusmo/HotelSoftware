@@ -17,6 +17,7 @@ import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -29,6 +30,8 @@ public class CreateInvoiceController implements UseCaseController
     private CreateInvoiceState state;
     private Collection<Habitation> habitations;
     private Collection<InvoiceItem> selectedItems;
+    private Collection<InvoiceItem> splittedItems;
+
     private Customer customer;
 
     private CreateInvoiceController()
@@ -310,7 +313,7 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-
+    
     /**
      * ***************************************************************
      */
@@ -347,5 +350,40 @@ public class CreateInvoiceController implements UseCaseController
     void setCustomer(Customer customer)
     {
         this.customer = customer;
+    }
+    
+    void addSplittedItems(InvoiceItem item)
+    {
+        if (splittedItems == null)
+        {
+            splittedItems = new LinkedList<InvoiceItem>();
+        }
+        
+        splittedItems.add(item);
+    }
+    
+    void setSplittedItems(Collection<InvoiceItem> items)
+    {
+        splittedItems = items;
+    }
+
+    Collection<InvoiceItem> getSplittedItems()
+    {
+        return splittedItems;
+    }
+    
+    Collection<InvoiceItem> getAllInvoiceItems()
+    {
+        Collection<InvoiceItem> col = new HashSet<InvoiceItem>();
+        
+        for (Habitation h : getHabitations())
+        {
+            for (InvoiceItem ii : h.getInvoiceItems())
+            {
+                col.add(ii);
+            }
+        }
+        
+        return col;
     }
 }

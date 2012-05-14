@@ -38,6 +38,7 @@ public class SelectCustomerState extends CreateInvoiceState
         c.setFname(guest.getFname());
         c.setLname(guest.getLname());
         c.setAddress((Address)guest.getAddressData());
+        c.setInvoiceAddress((Address)guest.getAddressData());
         
         context.setCustomer(c);
     }

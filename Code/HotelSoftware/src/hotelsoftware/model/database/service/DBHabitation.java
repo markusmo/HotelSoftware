@@ -52,7 +52,7 @@ public class DBHabitation extends DBService implements Serializable
     @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBUser users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "habitation", fetch = FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
 
     public DBHabitation()
@@ -198,7 +198,7 @@ public class DBHabitation extends DBService implements Serializable
         ts.begin();
         
         Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r INNER JOIN h.guests g "
-                + "JOIN FETCH h.invoiceItems WHERE r.number = :number OR g.fname = :fname OR g.lname = :lname");
+                + "JOIN FETCH h.invoiceItems as ii LEFT JOIN FETCH ii.invoice WHERE r.number LIKE :number OR g.fname LIKE :fname OR g.lname LIKE :lname");
         q = q.setString("number", roomnr);
         q = q.setString("fname", fname);
         q = q.setString("lname", lname);
@@ -301,8 +301,8 @@ public class DBHabitation extends DBService implements Serializable
         //Criteria criteria = session.createCriteria(DBHabitation.class);
         //criteria = criteria.add(Restrictions.eq("rooms", 1));
 
-        //TODO DIstinct, bessere Möglichkeiten=
-        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems WHERE r.number = :number");
+        //TODO DIstinct, bessere Möglichkeiten?
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems as ii JOIN FETCH ii.invoice WHERE r.number = :number");
         q = q.setString("number", roomnr.toString());
 
         List<DBHabitation> retList = q.list();
