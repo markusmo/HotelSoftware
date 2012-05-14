@@ -10,7 +10,7 @@ import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
-import hotelsoftware.gui.invoice.payment.ControlsSetter;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.misc.CheckTabComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -108,9 +108,6 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
 
         aB = new AbortButton();
         ctrl.getDeconstructiveControlPanel().add(aB);
-
-        bB = new BackButton();
-        ctrl.getDeconstructiveControlPanel().add(bB);
 
         iiB = new IntermediatInvoiceButton();
         ctrl.getConstructiveControlPanel().add(iiB);

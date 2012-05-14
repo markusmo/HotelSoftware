@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.invoice.payment;
 
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;

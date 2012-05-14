@@ -5,6 +5,10 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.buttons.AbortButton;
+import hotelsoftware.gui.invoice.buttons.BackButton;
+import hotelsoftware.gui.invoice.buttons.PaymentButton;
+import hotelsoftware.gui.invoice.ControlsSetter;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Party;
@@ -21,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Johannes
  */
-public class addCustomer extends javax.swing.JPanel
+public class addCustomer extends javax.swing.JPanel implements ControlsSetter
 {
     private DefaultListModel listModel = new DefaultListModel();
     private final Collection<PartyData> URcustomers;
@@ -29,6 +33,11 @@ public class addCustomer extends javax.swing.JPanel
     private PersonPanel personPanel = new PersonPanel();
     private CompanyPanel companyPanel = new CompanyPanel();
     private CustomerData THEcustomer;
+    
+    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private PaymentButton pmB;
+    private AbortButton aB;
+    private BackButton bB;
 
     // private iCustomerPanel customerPanel = personPanel;
     /**
@@ -508,5 +517,22 @@ public class addCustomer extends javax.swing.JPanel
         TextFieldStreet.setText(d.getAddressData().getStreet());
         TextFieldZip.setText(d.getAddressData().getZip());
         ComboBoxCountry.setSelectedItem(d.getAddressData().getIdCountry());
+    }
+
+    @Override
+    public void setControls()
+    {
+        ctrl.clearControlPanel();
+
+        aB = new AbortButton();
+        ctrl.getDeconstructiveControlPanel().add(aB);
+
+        bB = new BackButton();
+        ctrl.getDeconstructiveControlPanel().add(bB);
+
+        pmB = new PaymentButton();
+        ctrl.getConstructiveControlPanel().add(pmB);
+
+        ctrl.repaintControlPanel();
     }
 }
