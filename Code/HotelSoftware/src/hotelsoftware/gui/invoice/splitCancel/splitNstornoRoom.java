@@ -162,7 +162,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
         items = new LinkedList<InvoiceItemData>(habitation.getInvoiceItemsData());
         buttons.removeAll(buttons);
         checkTexts.removeAll(checkTexts);
-        
+
         jTable1.setModel(new DefaultTableModel(
                 (habitation.getInvoiceItemsData() == null ? new Object[50][] : getTableModel()),
                 new String[]
@@ -187,6 +187,11 @@ public class splitNstornoRoom extends javax.swing.JPanel
                 return getValueAt(0, c).getClass();
             }
         });
+        jTable1.getColumn("Selection amount").setCellRenderer(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
+        jTable1.getColumn("Selection amount").setCellEditor(new CheckTextPaneEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(0)), jTable1.getDefaultEditor(jTable1.getColumnClass(0))));
+        jTable1.getColumn("Cancellation").setCellRenderer(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
+        jTable1.getColumn("Cancellation").setCellEditor(new JButtonEditorAndRenderer(jTable1.getDefaultRenderer(jTable1.getColumnClass(5)), jTable1.getDefaultEditor(jTable1.getColumnClass(5))));
+        jTable1.setRowHeight(30);
         jTable1.repaint();
     }
 
