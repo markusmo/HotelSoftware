@@ -40,6 +40,10 @@ import org.icepdf.ri.common.SwingViewBuilder;
 public class PdfGenerator
 {
     /**
+     * für intermediate Invoice
+     */
+    private static int intermediate = 0;
+    /**
      * Dynamische Pfadgenerierung, zu dem Ort, an dem die PDFs gespeichert
      * werden
      */
@@ -126,7 +130,6 @@ public class PdfGenerator
         addHotelAddress(doc);
         addInvoiceBodyWithTax(doc, invoiceNumber, items,
                 getTotalwithoutTax(items), created, expiration);
-        addThankyouMessage(doc);
 
         doc.close();
     }
@@ -139,7 +142,8 @@ public class PdfGenerator
         {
             temp.mkdir();
         }
-        this.invoicePath = path + invoiceNumber + "_intermediate" + ".pdf";
+        this.invoicePath = path + intermediate +new Date().toString()+ "_intermediate" + ".pdf";
+        intermediate++;
         PdfWriter.getInstance(doc, new FileOutputStream(
                 invoicePath));
         doc.open();
