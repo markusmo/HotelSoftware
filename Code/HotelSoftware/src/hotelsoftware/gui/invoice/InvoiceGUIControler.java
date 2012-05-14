@@ -299,7 +299,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     private void abort(ActionEvent e)
     {
-        ctrl.abort();
+        ctrl.clear();
         // FIXME wenn items noch offen sind, meldung dementsprechend anpassen
         JPanel panel = getContentPanel();
 
