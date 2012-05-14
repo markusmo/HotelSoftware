@@ -4,6 +4,7 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
@@ -23,7 +24,7 @@ import java.util.Map;
  *
  * @author Dunst
  */
-public class CreateInvoiceController
+public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
     private Collection<Habitation> habitations;
@@ -33,13 +34,31 @@ public class CreateInvoiceController
     private CreateInvoiceController()
     {
         state = new SearchState(this);
+        GuiController.getInstance().addUseCaseController(this);
     }
 
     public static CreateInvoiceController getInstance()
     {
         return CreateInvoiceControllerHolder.INSTANCE;
-        
-        // TODO implement use case controller!
+    }
+
+    @Override
+    public boolean isInSwitchingState()
+    {
+        return state instanceof SearchState;
+    }
+
+    /**
+     * Bricht den aktuellen Vorgang ab
+     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
+     */
+    @Override
+    public void clear()
+    {
+        state = new SearchState(this);
+        habitations = null;
+        selectedItems = null;
+        customer = null;
     }
 
     private static class CreateInvoiceControllerHolder
@@ -254,17 +273,6 @@ public class CreateInvoiceController
     public void splitInvoice()
     {
         state.splitInvoice();
-    }
-
-    /**
-     * Bricht den aktuellen Vorgang ab
-     * Kann auch daran liegen, dass nicht alle Posten beglichen werden sollen
-     */
-    public void abort()
-    {
-        state = new SearchState(this);
-        habitations = null;
-        selectedItems = null;
     }
 
     public CustomerData getCustomerData()
