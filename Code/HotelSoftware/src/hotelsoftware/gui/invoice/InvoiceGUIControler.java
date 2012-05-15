@@ -143,10 +143,10 @@ public final class InvoiceGUIControler implements ActionListener
                                 else 
                                 {
                                     if (text.equals(payment))
-                                {
-                                    ctrl.next();
-                                    setContentPanel(getPaymentPanel());
-                                }    
+                                    {
+                                        ctrl.next();
+                                        setContentPanel(getPaymentPanel());
+                                    }    
                                 }
                                                             
                             }
@@ -207,7 +207,7 @@ public final class InvoiceGUIControler implements ActionListener
     }
 
     /**
-     * setzt die Aufenthalte (Workinset) im Controller
+     * setzt die Aufenthalte (Workingset) im Controller
      * @param selectedRows 
      */
     public void setSelectedHabitations(Collection<HabitationData> selectedRows)
@@ -378,8 +378,17 @@ public final class InvoiceGUIControler implements ActionListener
         if (contentPanel.getLayout() instanceof CardLayout)
         {
             CardLayout layout = (CardLayout) contentPanel.getLayout();
-            layout.previous(getContentPanel());
+            
+            JPanel last = getCurrentPanel(contentPanel);            
+            layout.previous(getContentPanel());            
             JPanel current = getCurrentPanel(contentPanel);
+            
+            if (last instanceof PaymentPanel || last instanceof IntermediatInvoicePanel)
+            {                 
+                    layout.removeLayoutComponent(last);
+            }
+            
+            
             setNavigation(current.getClass());
             
             // setze die Controls
@@ -418,14 +427,15 @@ public final class InvoiceGUIControler implements ActionListener
      */
     public JPanel getCurrentPanel(JPanel cardLayoutPanel)
     {
-
+        JPanel current = new JPanel();
+        
         for (Component component : cardLayoutPanel.getComponents())
         {
             if (component.isVisible())
             {
                 if (component instanceof JPanel)
                 {
-                    cardLayoutPanel = (JPanel) component;
+                    current = (JPanel) component;
                 }
                 // um JScrollPanes ebenfalls zu berücksichtigen
 //                else if (component instanceof JScrollPane)
@@ -433,7 +443,7 @@ public final class InvoiceGUIControler implements ActionListener
             }
         }
 
-        return cardLayoutPanel;
+        return current;
     }
 
     /**
