@@ -14,16 +14,9 @@ import java.util.Date;
  *
  * @author Kno
  */
-public interface IRoomCategory extends RoomCategoryData {
-
+public interface IRoomCategory extends RoomCategoryData
+{
     boolean equals(Object obj);
-
-    /**
-     * Gibt alle Zimmer aus die vorhanden sind
-     *
-     * @return Alle Zimmer, die das System kennt
-     */
-    Collection<IRoom> getAllRooms();
 
     Collection<IRoomCategoryPrice> getPrice();
 
@@ -47,6 +40,8 @@ public interface IRoomCategory extends RoomCategoryData {
     void setName(String name);
 
     void setPrice(Collection<IRoomCategoryPrice> price);
-
-    String toString();
+    
+    Collection<IRoom> getRooms();
+    
+    void setRooms(Collection<IRoom> rooms);
 }

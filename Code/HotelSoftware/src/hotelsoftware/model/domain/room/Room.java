@@ -9,6 +9,7 @@ import hotelsoftware.controller.data.room.RoomOptionData;
 import hotelsoftware.controller.data.room.RoomStatusData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 
@@ -17,13 +18,14 @@ import java.util.Collection;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Room implements RoomData, IRoom
+public class Room implements IRoom
 {
 
     private String number;
     private Collection<IRoomOption> options;
     private IRoomCategory category;
     private Collection<IRoomStatus> status;
+    private Collection<IHabitation> habitations;
     private Integer id;
 
     private Room(String number, IRoomCategory category)
@@ -52,7 +54,7 @@ public class Room implements RoomData, IRoom
     {
         this.id = id;
     }
-
+    
     @Override
     public IRoomCategory getCategory()
     {
@@ -116,7 +118,7 @@ public class Room implements RoomData, IRoom
     @Override
     public Collection<HabitationData> getHabitationCollectionData()
     {
-        return null;
+        return HelperFunctions.castCollectionUp(habitations, HabitationData.class, IHabitation.class);
     }
 
     @Override
@@ -167,5 +169,17 @@ public class Room implements RoomData, IRoom
     public void addOption(IRoomOption option)
     {
         this.options.add(option);
+    }
+
+    @Override
+    public Collection<IHabitation> getHabitations()
+    {
+        return habitations;
+    }
+
+    @Override
+    public void setHabitations(Collection<IHabitation> habitations)
+    {
+        this.habitations = habitations;
     }
 }

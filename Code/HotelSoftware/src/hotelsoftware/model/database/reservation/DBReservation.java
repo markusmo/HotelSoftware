@@ -122,7 +122,7 @@ public class DBReservation implements Serializable
         ts.begin();
 
         String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + 
-                fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatePerson p WHERE p.fname like '" + 
+                fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatepersons p WHERE p.fname like '" + 
                 fname + "%' AND p.lname like '" + lname + "%')";
         SQLQuery sqlquery = session.createSQLQuery(query);
 

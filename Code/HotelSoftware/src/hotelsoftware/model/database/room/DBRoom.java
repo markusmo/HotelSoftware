@@ -3,6 +3,7 @@ package hotelsoftware.model.database.room;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,7 +97,7 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Set<DBRoomOption> getOptions()
+    public Collection<DBRoomOption> getOptions()
     {
         return options;
     }
@@ -117,7 +118,7 @@ public class DBRoom implements Serializable
     }
 
     @XmlTransient
-    public Set<DBHabitation> getHabitations()
+    public Collection<DBHabitation> getHabitations()
     {
         return habitations;
     }
@@ -191,9 +192,9 @@ public class DBRoom implements Serializable
      * @param cat
      * Die Kategorie, nach der gesucht wird
      * @return 
-     * Gibt ein Set mit den Raeumen, der gesuchten Kategorie
+     * Gibt eine Collection mit den Raeumen, der gesuchten Kategorie
      */
-    public static Set<DBRoom> getRoomsByCategory(DBRoomCategory cat)
+    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

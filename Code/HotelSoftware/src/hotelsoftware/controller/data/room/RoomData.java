@@ -23,4 +23,5 @@ public interface RoomData
     Collection<RoomOptionData> getOptionsData();
 
     Collection<RoomStatusData> getStatusData();
+    
 }

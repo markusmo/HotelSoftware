@@ -497,6 +497,4 @@ public class CheckInGuiControler
     {
         return cic.getHabitationsData();
     }
-    
-  
 }

@@ -169,7 +169,7 @@ public class DBRoomCategory implements Serializable
         Transaction ts = session.beginTransaction();
         
         DBRoomCategory cats = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
-        ;
+        
         return cats;
     }
     
@@ -184,7 +184,7 @@ public class DBRoomCategory implements Serializable
         Transaction ts = session.beginTransaction();
         
         List<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();
-        ;
+        
         return new LinkedHashSet<DBRoomCategory>(cats);
     }
     
