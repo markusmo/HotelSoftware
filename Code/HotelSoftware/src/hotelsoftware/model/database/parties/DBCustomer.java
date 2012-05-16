@@ -33,7 +33,7 @@ public class DBCustomer extends DBParty implements Serializable
     }
 
     @XmlTransient
-    public Set<DBInvoice> getInvoices()
+    public Collection<DBInvoice> getInvoices()
     {
         return invoicesCollection;
     }

@@ -28,7 +28,7 @@ public class DBParty implements Serializable
     private Set<DBCompany> companiesCollection;
     
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, cascade= CascadeType.ALL)
     private DBAddress address;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "party")

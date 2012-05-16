@@ -51,15 +51,12 @@ public class PaymentState extends CreateInvoiceState
         }
         
         LinkedList<IInvoice> invoices = new LinkedList<IInvoice>();
-        LinkedList<IAddress> addresses = new LinkedList<IAddress>();
         invoices.add(invoice);
-        addresses.add((IAddress)context.getCustomerData().getAddressData());
         
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        PartySaver.getInstance().saveOrUpdate(session, addresses, null, null, null, null);
         InvoiceSaver.getInstance().saveOrUpdate(session, null, invoices, invoice.getInvoiceItems());
         
         ts.commit();

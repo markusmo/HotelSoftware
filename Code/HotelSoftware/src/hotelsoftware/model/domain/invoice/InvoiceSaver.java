@@ -56,15 +56,8 @@ public class InvoiceSaver {
             for(IInvoice invoice : invoices)
             {
                 DBInvoice dbi = (DBInvoice)DynamicMapper.map(invoice);
-                if (dbi.getId() == null)
-                {
-                    session.saveOrUpdate(dbi);
-                    invoice.setId(dbi.getId());
-                }
-                else
-                {
-                    session.merge(dbi);
-                }
+                session.saveOrUpdate(session.merge(dbi));
+                invoice.setId(dbi.getId());
                 
             }
         }

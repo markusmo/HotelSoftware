@@ -55,8 +55,15 @@ public class PartySaver
             {
                 DBAddress dbadr = (DBAddress) DynamicMapper.map(addresse);
 
-                session.saveOrUpdate(dbadr);
-                addresse.setId(dbadr.getId());
+                if (dbadr.getId() == null)
+                {
+                    session.saveOrUpdate(dbadr);
+                    addresse.setId(dbadr.getId());
+                }
+                else
+                {
+                    session.saveOrUpdate(session.merge(dbadr));
+                }
             }
         }
 
