@@ -103,144 +103,143 @@ public class DBReservation implements Serializable
         return new DBReservation();
     }
 
-    /**
-     * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
-     * Abfrage naehert sich an den namen an.
-     *
-     * @param fname
-     * Der Vorname der Person, die reserviert hat
-     * @param lname
-     * Der Nachname einer Person, die reserviert hat
-     * @return
-     * Gibt eine Set aus Reservierungen aus
-     */
-    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
-    {
+//    /**
+//     * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
+//     * Abfrage naehert sich an den namen an.
+//     *
+//     * @param fname
+//     * Der Vorname der Person, die reserviert hat
+//     * @param lname
+//     * Der Nachname einer Person, die reserviert hat
+//     * @return
+//     * Gibt eine Set aus Reservierungen aus
+//     */
+//    public static Collection<DBReservation> getReservationsByNameApprox(String fname, String lname)
+//    {
+//
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + 
+//                fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatepersons p WHERE p.fname like '" + 
+//                fname + "%' AND p.lname like '" + lname + "%')";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//
+//
+//        //addEntity gibt den rueckgabewert an...
+//        sqlquery = sqlquery.addEntity(DBReservation.class);
+//        List<DBReservation> retList = sqlquery.list();
+//
+//        return new LinkedHashSet<DBReservation>(retList);
+//
+//    }
 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+//    /**
+//     * Gibt ein Reservierungen aus, die nach genauen Namen eienr Person gesucht werden, der reserviert hat
+//     *
+//     * @param fname
+//     * Der Vorname der Person
+//     * @param lname
+//     * Der Nachname der Person
+//     * @return
+//     * Ein Set aus Reservierungen
+//     */
+//    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
+//    {
+//
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//
+//        sqlquery.addEntity(DBReservation.class);
+//        List<DBReservation> retList = sqlquery.list();
+//
+//        return new LinkedHashSet<DBReservation>(retList);
+//
+//    }
+   
+//    public static Collection getReservationsByCompanyNameApprox(String companyName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//
+//        sqlquery.addEntity(DBReservation.class);
+//        List<DBReservation> retList = sqlquery.list();
+//
+//        return new LinkedHashSet<DBReservation>(retList);
+//    }
 
-        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '" + 
-                fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatepersons p WHERE p.fname like '" + 
-                fname + "%' AND p.lname like '" + lname + "%')";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+//    /**
+//     * Gibt eine Reservierung aus, die nach der eindeutigen Reservierungsnummer identifiziert wird.
+//     *
+//     * @param reservationNr
+//     * Die eindeutige Reservierungsnummer
+//     * @return
+//     * Eine Reservierung, mit der angegebenen Reservierungsnummer
+//     */
+//    public static DBReservation getReservationByNumber(String reservationNr)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM Reservations r WHERE reservationNumber = :resNr";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//        sqlquery.setString("resNr", reservationNr);
+//        sqlquery.addEntity(DBReservation.class);
+//
+//        DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
+//        
+//        return reservation;
+//    }
 
+//    /**
+//     * Sucht eine Reservierung nach der in der Datenbank hinterlegten ID
+//     *
+//     * @param id
+//     * Die ID der Reservierung
+//     * @return
+//     * Die Reservierung, mit der angegebenen ID
+//     */
+//    public static DBReservation getReservationById(int id)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        Criteria criteria = session.createCriteria(DBReservation.class);
+//        criteria.add(Restrictions.eq("id", id));
+//        DBReservation retList = (DBReservation) criteria.uniqueResult();
+//
+//        return retList;
+//    }
 
-        //addEntity gibt den rueckgabewert an...
-        sqlquery = sqlquery.addEntity(DBReservation.class);
-        List<DBReservation> retList = sqlquery.list();
-
-        return new LinkedHashSet<DBReservation>(retList);
-
-    }
-
-    /**
-     * Gibt ein Reservierungen aus, die nach genauen Namen eienr Person gesucht werden, der reserviert hat
-     *
-     * @param fname
-     * Der Vorname der Person
-     * @param lname
-     * Der Nachname der Person
-     * @return
-     * Ein Set aus Reservierungen
-     */
-    public static Collection<DBReservation> getReservationsByName(String fname, String lname)
-    {
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        sqlquery.addEntity(DBReservation.class);
-        List<DBReservation> retList = sqlquery.list();
-
-        return new LinkedHashSet<DBReservation>(retList);
-
-    }
-    
-    public static Collection getReservationsByCompanyNameApprox(String companyName)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        sqlquery.addEntity(DBReservation.class);
-        List<DBReservation> retList = sqlquery.list();
-
-        return new LinkedHashSet<DBReservation>(retList);
-    }
-
-    /**
-     * Gibt eine Reservierung aus, die nach der eindeutigen Reservierungsnummer identifiziert wird.
-     *
-     * @param reservationNr
-     * Die eindeutige Reservierungsnummer
-     * @return
-     * Eine Reservierung, mit der angegebenen Reservierungsnummer
-     */
-    public static DBReservation getReservationByNumber(String reservationNr)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r WHERE reservationNumber = :resNr";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-        sqlquery.setString("resNr", reservationNr);
-        sqlquery.addEntity(DBReservation.class);
-
-        DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
-        
-        ts.commit();
-        return reservation;
-    }
-
-    /**
-     * Sucht eine Reservierung nach der in der Datenbank hinterlegten ID
-     *
-     * @param id
-     * Die ID der Reservierung
-     * @return
-     * Die Reservierung, mit der angegebenen ID
-     */
-    public static DBReservation getReservationById(int id)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        Criteria criteria = session.createCriteria(DBReservation.class);
-        criteria.add(Restrictions.eq("id", id));
-        DBReservation retList = (DBReservation) criteria.uniqueResult();
-
-        return retList;
-    }
-
-    /**
-     * Gibt alle Reservierungen aus
-     *
-     * @return
-     * Alle Reservierungen, ab den aktuellen Datum verfuebar sind
-     */
-    public static Collection<DBReservation> getAllReservations()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-        sqlquery.addEntity(DBReservation.class);
-
-        return new LinkedHashSet<DBReservation>(sqlquery.list());
-    }
+//    /**
+//     * Gibt alle Reservierungen aus
+//     *
+//     * @return
+//     * Alle Reservierungen, ab den aktuellen Datum verfuebar sind
+//     */
+//    public static Collection<DBReservation> getAllReservations()
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM Reservations r";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//        sqlquery.addEntity(DBReservation.class);
+//
+//        return new LinkedHashSet<DBReservation>(sqlquery.list());
+//    }
     
     public static int getHighestId()
     {
@@ -260,31 +259,31 @@ public class DBReservation implements Serializable
             return 0;
     }
 
-    /**
-     * Gibt die Anzahl der Gaeste aus die Reserviert haben
-     *
-     * @return
-     * Anzahl der reservierten Gaeste
-     */
-    public int getGuestAmount()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "Select sum(ri.amount * c.bedCount) "
-                + "From Reservations r INNER JOIN ReservationItems ri on r.id = ri.idReservations "
-                + "INNER JOIN roomCategories c on ri.idRoomCategories = c.id "
-                + "WHERE r.id = " + this.id;
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-
-        //addEntity gibt den rueckgabewert an...
-        BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
-        int count = bd.intValue();
-        
-        return count;
-    }
+//    /**
+//     * Gibt die Anzahl der Gaeste aus die Reserviert haben
+//     *
+//     * @return
+//     * Anzahl der reservierten Gaeste
+//     */
+//    public int getGuestAmount()
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "Select sum(ri.amount * c.bedCount) "
+//                + "From Reservations r INNER JOIN ReservationItems ri on r.id = ri.idReservations "
+//                + "INNER JOIN roomCategories c on ri.idRoomCategories = c.id "
+//                + "WHERE r.id = " + this.id;
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//
+//
+//        //addEntity gibt den rueckgabewert an...
+//        BigDecimal bd = (BigDecimal) sqlquery.uniqueResult();
+//        int count = bd.intValue();
+//        
+//        return count;
+//    }
 
     public Integer getId()
     {
