@@ -359,9 +359,9 @@ public class CreateInvoiceController implements UseCaseController
      *
      * @return Eine Collection mit noch offenen Posten
      */
-    Collection<IInvoiceItem> getOpenItems(HabitationData habitation)
+    public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
     {
-        Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
+        Collection<InvoiceItemData> openItems = new LinkedList<InvoiceItemData>();
         IHabitation h = (IHabitation)habitation;
         
         for (IInvoiceItem i : h.getInvoiceItems())

@@ -12,6 +12,7 @@ import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.invoice.labels.SeperatorLabel;
 import hotelsoftware.gui.invoice.payment.PaymentPanel;
 import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
@@ -259,6 +260,11 @@ public final class InvoiceGUIControler implements ActionListener
     private JPanel getControlPanel()
     {
         return main.getControlPanel();
+    }
+    
+    public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
+    {
+        return CreateInvoiceController.getInstance().getOpenItems(habitation);
     }
 
     /**
