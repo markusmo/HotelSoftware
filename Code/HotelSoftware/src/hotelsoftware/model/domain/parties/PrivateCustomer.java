@@ -6,7 +6,7 @@ import hotelsoftware.support.PrivateCustomerNotFoundException;
 
 /**
  * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen
- * Geshlecht, einen Vornamen und einen Nachnamen. Da diese Klasse von Customer
+ * Geschlecht, einen Vornamen und einen Nachnamen. Da diese Klasse von Customer
  * erbt, erbt sie auch von der Klasse Party und hat somit eine Addresse und eine
  * Id.
  *
@@ -108,6 +108,18 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
     {
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
                 lastname);
+    }
+    
+    public static PrivateCustomer getPrivateCustomerByFName(String firstname)
+            throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
+    {
+        return PartyFacade.getInstance().getPrivateCustomerByFName(firstname);
+    }
+    
+    public static PrivateCustomer getPrivateCustomerByLName(String lastname)
+            throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
+    {
+        return PartyFacade.getInstance().getPrivateCustomerByLName(lastname);
     }
 
     @Override

@@ -5,6 +5,7 @@ import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBGuest;
+import hotelsoftware.model.database.parties.DBPrivateCustomer;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -69,6 +70,8 @@ public class Party implements IParty
             list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByFName(s)));
             list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByLName(s)));
             list.addAll(DynamicMapper.mapCollection(DBCompany.getCompaniesByName(s)));
+            list.addAll(DynamicMapper.mapCollection(DBPrivateCustomer.getPrivateCustomerByFName(s)));
+            list.addAll(DynamicMapper.mapCollection(DBPrivateCustomer.getPrivateCustomerByLName(s)));
         }
         return list;
     }

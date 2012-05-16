@@ -175,7 +175,7 @@ public class DBGuest extends DBParty implements Serializable {
         }
 
         List<DBGuest> retList = criteria.list();
-        ;
+        
 
         return new LinkedHashSet<DBGuest>(retList);
     }
