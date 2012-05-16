@@ -388,6 +388,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         }
         else
         {
+            //FIXME Guest und Company (neue Methode oder zwei getrennte)
             InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
         }
 

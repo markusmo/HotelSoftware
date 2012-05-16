@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.invoice.splitCancel;
 
+import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
@@ -62,8 +63,8 @@ public class splitNstornoRoom extends javax.swing.JPanel
         });
         this.c = c;
         this.habitation = habitation;
-        items = new LinkedList<InvoiceItemData>(habitation.getInvoiceItemsData());
-        selected = new Boolean[habitation.getInvoiceItemsData().size()];
+        items = new LinkedList<InvoiceItemData>(InvoiceGUIControler.getInstance().getOpenItems(habitation));
+        selected = new Boolean[InvoiceGUIControler.getInstance().getOpenItems(habitation).size()];
         initComponents();
         initTable();
     }
