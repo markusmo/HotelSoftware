@@ -1,15 +1,13 @@
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.support.LoginFailureException;
-import hotelsoftware.controller.data.users.RoleData;
 import hotelsoftware.controller.data.users.PermissionData;
+import hotelsoftware.controller.data.users.RoleData;
 import hotelsoftware.controller.data.users.UserData;
+import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.util.HelperFunctions;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * Bildet einen Benutzer im System ab.

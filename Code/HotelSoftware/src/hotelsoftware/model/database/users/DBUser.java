@@ -176,28 +176,28 @@ public class DBUser implements Serializable
         return retList;
     }
     
-    /**
-     * Ueberprueft, ob ein User mit dem Passwort und Usernamen in der
-     * Datenbank ist und gibt diesen zurueck
-     * @param username
-     * Der Benutzername, des gesuchten Benutzers
-     * @param password
-     * Das Passwort, des gesuchten Benutzers
-     * @return
-     * Den  Benutzer, der eingeloggt werden sollte
-     * @throws HibernateException 
-     * Wirft einen Fehler, wenn etwas mit der Transaktion fehllschlaegt.
-     */
-    public static DBUser login(String username, String password) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username), 
-                Restrictions.eq("password", password))).uniqueResult();
-        
-        return retUser;
-    }
+//    /**
+//     * Ueberprueft, ob ein User mit dem Passwort und Usernamen in der
+//     * Datenbank ist und gibt diesen zurueck
+//     * @param username
+//     * Der Benutzername, des gesuchten Benutzers
+//     * @param password
+//     * Das Passwort, des gesuchten Benutzers
+//     * @return
+//     * Den  Benutzer, der eingeloggt werden sollte
+//     * @throws HibernateException 
+//     * Wirft einen Fehler, wenn etwas mit der Transaktion fehllschlaegt.
+//     */
+//    public static DBUser login(String username, String password) throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username), 
+//                Restrictions.eq("password", password))).uniqueResult();
+//        
+//        return retUser;
+//    }
 
     public Boolean getActive()
     {

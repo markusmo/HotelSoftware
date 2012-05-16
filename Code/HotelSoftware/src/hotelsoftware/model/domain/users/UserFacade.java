@@ -1,15 +1,21 @@
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.support.LoginFailureException;
-import hotelsoftware.support.PermissionNotFoundException;
+import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.support.LoginFailureException;
+import hotelsoftware.support.PermissionNotFoundException;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Fassadenklasse, die alle Objekte des Package User verwaltet
+ *
  * @author Dunst
  */
 public class UserFacade
@@ -17,19 +23,20 @@ public class UserFacade
     private UserFacade()
     {
     }
-    
+
     public static UserFacade getInstance()
     {
         return UserFacadeHolder.INSTANCE;
     }
-    
+
     private static class UserFacadeHolder
     {
         private static final UserFacade INSTANCE = new UserFacade();
     }
-    
+
     /**
      * Ueberprueft, ob ein User in der Datenbank hinterlegt ist
+     *
      * @param username
      * Der Benutzername des Users
      * @param password
@@ -41,44 +48,60 @@ public class UserFacade
      */
     public User login(String username, String password) throws LoginFailureException
     {
-        DBUser dbuser = DBUser.login(username, password);
-        
-        if (dbuser == null)
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username),
+                Restrictions.eq("password", password))).uniqueResult();
+
+        if (retUser == null)
         {
             throw new LoginFailureException();
         }
-        
-        return (User) DynamicMapper.map(dbuser);
+
+        return (User) DynamicMapper.map(retUser);
     }
-    
+
     /**
      * Gibt alle vorhandenen Befugnisse aus
-     * @return 
+     *
+     * @return
      * Alle Befugnisse, die vorhanden sind
      */
     public Collection<Permission> getAllPermissions()
     {
-        return DynamicMapper.mapCollection(DBPermission.getPermissions());
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBPermission.class);
+        List<DBPermission> retList = criteria.list();
+
+        return DynamicMapper.mapCollection(retList);
     }
-    
+
     /**
      * Gibt eine Befugnis gesucht nach Namen aus
+     *
      * @param name
      * der Name der Befugnis
      * @return
      * Die gesuchte Befugnis
-     * @throws PermissionNotFoundException 
+     * @throws PermissionNotFoundException
      * Wirft einen Fehler, wenn die Befugnis nicht gefunden wird.
      */
     public Permission getPermissionByName(String name) throws PermissionNotFoundException
     {
-        DBPermission p = DBPermission.getPermissionByName(name);
-        
-        if (p == null)
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBPermission.class);
+        List<DBPermission> retValue = criteria.list();
+
+        if (retValue == null)
         {
             throw new PermissionNotFoundException(name);
         }
-        
-        return (Permission) DynamicMapper.map(p);
+
+        return (Permission) DynamicMapper.map(retValue);
     }
 }

@@ -8,7 +8,9 @@ import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -47,7 +49,7 @@ public class ServiceFacade
         Transaction ts = session.beginTransaction();
         ts.begin();
         List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
-        
+
         return DynamicMapper.mapCollection(extraServices);
     }
 
@@ -66,20 +68,19 @@ public class ServiceFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class)
-                .add(Restrictions.eq("name", name))
-                .uniqueResult();
-        
+        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
+
         if (extraService == null)
         {
             throw new ServiceNotFoundException();
         }
         return (ExtraService) DynamicMapper.map(extraService);
     }
-    
+
     /**
      * Gibt alle Verpflegungsarten aus
-     * @return 
+     *
+     * @return
      * Alle Verpflegungsarten, die vorhanden sind.
      */
     public Collection<IExtraService> getAllHabitationServices()
@@ -87,13 +88,13 @@ public class ServiceFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        
+
         SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
                 + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
-        
+
         query.addEntity(DBExtraService.class);
         Collection<DBExtraService> retList = query.list();
-        
+
         return DynamicMapper.mapCollection(retList);
     }
 
@@ -121,21 +122,124 @@ public class ServiceFacade
         return DBHabitation.getHighestId();
     }
 
+    /**
+     * Sucht Aufenthalte nach einem Namen eines Gastes
+     *
+     * @param fname der Nachname eines Gastes
+     * @param lname der Vorname eines Gastes
+     * @return eine Liste von Aufenthalten, die diesen Gast enthalten
+     */
     public Collection<Habitation> getHabitations(String fname, String lname)
     {
-        Collection<DBHabitation> p = DBHabitation.search(fname, lname);
-        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        String query;
+        if (fname == null)
+        {
+            if (lname == null)
+            {
+                // VOR UND NACHNAME SIND LEER
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests;";
+            }
+            else
+            {
+                // NUR VORNAME IST LEER
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests"
+                        + "WHERE lname =" + lname + ";";
+            }
+        }
+        else
+        {
+            if (lname == null)
+            {
+                //NUR NACHNAME IST LEER
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests"
+                        + "WHERE lname =" + lname + ";";
+            }
+            else
+            {
+                //NICHTS IST LEER
+                query = ""
+                        + "SELECT *"
+                        + "FROM habitations h"
+                        + "INNER JOIN allocations a ON h.id=a.idService"
+                        + "INNER JOIN guests g ON g.id=a.idGuests"
+                        + "WHERE lname =" + lname + " AND fname=" + fname + ";";
+            }
+        }
+
+
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        sqlquery = sqlquery.addEntity(DBHabitation.class);
+        Collection<DBHabitation> retList = sqlquery.list();
+
+        if (retList == null)
+        {
+            return new LinkedHashSet();
+        }
+
+        return DynamicMapper.mapCollection(retList);
     }
 
-      public Collection<Habitation> getHabitation(String fname, String lname, String roomId)
+    /**
+     * Sucht Aufenthalte nach dem Namen eines Gastes und seiner Zimmernummer
+     *
+     * @param fname der Vorname des Gastes
+     * @param lname der Nachname des Gastes
+     * @param roomnumber die Zimmernummer des Gastes
+     * @return
+     */
+    public Collection<Habitation> getHabitation(String fname, String lname, String roomnumber)
     {
-        Collection<DBHabitation> p = DBHabitation.search(fname, lname, roomId);
-        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r INNER JOIN h.guests g "
+                + "JOIN FETCH h.invoiceItems as ii LEFT JOIN FETCH ii.invoice WHERE r.number LIKE :number OR g.fname LIKE :fname OR g.lname LIKE :lname");
+        q = q.setString("number", roomnumber);
+        q = q.setString("fname", fname);
+        q = q.setString("lname", lname);
+
+        List<DBHabitation> retList = q.list();
+
+        if (retList == null)
+        {
+            return new LinkedHashSet();
+        }
+
+        return DynamicMapper.mapCollection(retList);
     }
-    
-    public Collection<Habitation> getHabitation(String roomId)
+
+    public Collection<Habitation> getHabitation(String roomNumber)
     {
-        Collection<DBHabitation> p = DBHabitation.search(roomId);
-        return (Collection<Habitation>) DynamicMapper.mapCollection(p);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems as ii JOIN FETCH ii.invoice WHERE r.number = :number");
+        q = q.setString("number", roomNumber);
+
+        List<DBHabitation> retList = q.list();
+
+        if (retList == null)
+        {
+            return new LinkedHashSet();
+        }
+        
+        return DynamicMapper.mapCollection(retList);
     }
 }
