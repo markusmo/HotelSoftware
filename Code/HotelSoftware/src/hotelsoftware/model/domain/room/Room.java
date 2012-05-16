@@ -143,21 +143,21 @@ public class Room implements IRoom
      */
     public static Room getRoomByNumber(String number)
     {
-        return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
+        return RoomFacade.getInstance().getRoomByNumber(number);
     }
 
-    /**
-     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
-     *
-     * @param category Die Kategorie nach der gesucht wird
-     * @return Alle Zimmer nach dieser Kategorie
-     */
-    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
-    {
-        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
-                cat));
-    }
+//    /**
+//     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
+//     *
+//     * @param category Die Kategorie nach der gesucht wird
+//     * @return Alle Zimmer nach dieser Kategorie
+//     */
+//    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
+//    {
+//        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
+//        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
+//                cat));
+//    }
 
     @Override
     public void changeStatus(IRoomStatus status)

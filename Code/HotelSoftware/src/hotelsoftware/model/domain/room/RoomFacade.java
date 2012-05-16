@@ -1,6 +1,14 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.room.DBRoom;
+import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Die Fassadenklasse, die das Package Room verwaltet
@@ -33,17 +41,49 @@ public class RoomFacade
      */
     public Room getRoomByNumber(String number)
     {
-        return Room.getRoomByNumber(number);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
+        return (Room) DynamicMapper.map(room);
     }
 
     /**
-     * Alle Zimmer nach einer Kategorie
-     *
-     * @param cat Die Zimmerkategorie
-     * @return Alle Zimmer nach dieser Kategorie
+     * Gibt alle Kategorien aus.
+     * @return eine Liste von allen Kategorien
      */
-    public Collection<IRoom> getRoomsByCategory(RoomCategory cat)
+    public Collection<IRoomCategory> getAllCategorys()
     {
-        return Room.getRoomsByCategory(cat);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        List<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();
+        return (Collection<IRoomCategory>) DynamicMapper.mapCollection(cats);
     }
+    
+    /**
+     * Gibt eine Kategorie nach einen Namen aus
+     * @param name der Name der Kategorie
+     * @return Die gefundene Kategorie mit dem angegebenen Namen
+     */
+    public IRoomCategory getCategoryByName(String name)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        DBRoomCategory cat = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
+        return (RoomCategory) DynamicMapper.map(cat);
+    }
+    
+//    /**
+//     * Alle Zimmer nach einer Kategorie
+//     *
+//     * @param cat Die Zimmerkategorie
+//     * @return Alle Zimmer nach dieser Kategorie
+//     */
+//    public Collection<IRoom> getRoomsByCategory(RoomCategory cat)
+//    {
+//        return Room.getRoomsByCategory(cat);
+//    }
 }

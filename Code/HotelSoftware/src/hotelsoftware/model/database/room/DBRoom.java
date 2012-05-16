@@ -169,39 +169,39 @@ public class DBRoom implements Serializable
         return "hotelsoftware.database.model.Rooms[ id=" + id + " ]";
     }
 
-    /**
-     * Gibt einen Raum nach der angegebenen Zimmernummer aus
-     * @param number
-     * Die Zimmernummer, nach der gesucht wird
-     * @return 
-     * Das Zimmer mit der Zimmernummer.
-     */
-    public static DBRoom getRoomByNumber(String number)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
-
-        return room;
-    }
-
-    /**
-     * Sucht Zimmer nach einer Kategorie und gibt diese aus
-     * @param cat
-     * Die Kategorie, nach der gesucht wird
-     * @return 
-     * Gibt eine Collection mit den Raeumen, der gesuchten Kategorie
-     */
-    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        List<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
-
-        return new LinkedHashSet<DBRoom>(rooms);
-    }
+//    /**
+//     * Gibt einen Raum nach der angegebenen Zimmernummer aus
+//     * @param number
+//     * Die Zimmernummer, nach der gesucht wird
+//     * @return 
+//     * Das Zimmer mit der Zimmernummer.
+//     */
+//    public static DBRoom getRoomByNumber(String number)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
+//
+//        return room;
+//    }
+//
+//    /**
+//     * Sucht Zimmer nach einer Kategorie und gibt diese aus
+//     * @param cat
+//     * Die Kategorie, nach der gesucht wird
+//     * @return 
+//     * Gibt eine Collection mit den Raeumen, der gesuchten Kategorie
+//     */
+//    public static Collection<DBRoom> getRoomsByCategory(DBRoomCategory cat)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        List<DBRoom> rooms = session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", cat)).list();
+//
+//        return new LinkedHashSet<DBRoom>(rooms);
+//    }
 }

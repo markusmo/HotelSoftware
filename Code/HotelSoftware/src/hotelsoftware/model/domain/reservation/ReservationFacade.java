@@ -5,7 +5,6 @@ import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;

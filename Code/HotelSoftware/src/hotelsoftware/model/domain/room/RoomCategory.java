@@ -1,17 +1,11 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.support.NoPriceDefinedException;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.support.NoPriceDefinedException;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Dies Klasse bildet die Zimmerkategorie ab, mit der das System arbeitet.
@@ -88,8 +82,7 @@ public class RoomCategory implements IRoomCategory
      */
     public static IRoomCategory getCategoryByName(String name)
     {
-        DBRoomCategory c = DBRoomCategory.getRoomCategoryByName(name);
-        return (RoomCategory) DynamicMapper.map(c);
+        return RoomFacade.getInstance().getCategoryByName(name);
     }
 
     /**
@@ -99,8 +92,7 @@ public class RoomCategory implements IRoomCategory
      */
     public static Collection<IRoomCategory> getAllCategorys()
     {
-        Collection<DBRoomCategory> dbc = DBRoomCategory.getAllCategories();
-        return (Collection<IRoomCategory>) DynamicMapper.mapCollection(dbc);
+        return RoomFacade.getInstance().getAllCategorys();
     }
 
     /**
