@@ -4,17 +4,10 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.reservation.ReservationData;
-import hotelsoftware.controller.data.reservation.ReservationItemData;
-import hotelsoftware.controller.data.reservation.ReservationOptionData;
-import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.IGuest;
 import hotelsoftware.model.domain.parties.IParty;
-import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.model.domain.users.IUser;
-import hotelsoftware.model.domain.users.User;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -23,15 +16,8 @@ import java.util.Set;
  *
  * @author Kno
  */
-public interface IReservation extends ReservationData{
-
-    String getComment();
-
-    Date getCreated();
-
-    Date getEndDate();
-
-    Integer getGuestAmount();
+public interface IReservation extends ReservationData
+{
 
     Collection<IGuest> getGuests();
 
@@ -43,11 +29,7 @@ public interface IReservation extends ReservationData{
 
     Collection<IReservationItem> getReservationItems();
 
-    String getReservationNumber();
-
     Collection<IReservationOption> getReservationOptions();
-
-    Date getStartDate();
 
     IUser getUser();
 

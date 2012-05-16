@@ -5,10 +5,12 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.controller.data.room.RoomCategoryData;
+import hotelsoftware.controller.data.service.HabitationData;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -20,6 +22,7 @@ public class RoomCategory implements IRoomCategory
 {
     private String name;
     private Collection<IRoomCategoryPrice> price;
+    private Collection<IRoom> rooms;
     private Integer bedCount;
     private Integer id;
 
@@ -104,26 +107,34 @@ public class RoomCategory implements IRoomCategory
      * sucht nach freien Räumen in einer Periode in der Datenbank
      *
      * @param start Der Start der Periode
-     * @param ende Das ende der Periode
+     * @param end Das ende der Periode
      * @return Alle freien Zimmer in der angegebenen Periode
      */
     @Override
-    public Collection<IRoom> getFreeRooms(Date start, Date ende)
+    public Collection<IRoom> getFreeRooms(Date start, Date end)
     {
-        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(this);
-        Collection<DBRoom> dbc = cat.getFreeRooms(start, ende);
-        return (Collection<IRoom>) DynamicMapper.mapCollection((Set<DBRoom>) dbc);
-    }
-
-    /**
-     * Gibt alle Zimmer aus die vorhanden sind
-     * @return 
-     * Alle Zimmer, die das System kennt
-     */
-    @Override
-    public Collection<IRoom> getAllRooms()
-    {
-        return Room.getRoomsByCategory(this);
+        Collection<IRoom> freeRooms = new LinkedList<IRoom>();
+        
+        for (IRoom r : this.rooms)
+        {
+            boolean free = true;
+            
+            for (HabitationData h : r.getHabitationCollectionData())
+            {
+                if ((h.getStart().before(start) && h.getEnd().after(start)) || (h.getStart().before(end) && h.getEnd().after(end)))
+                {
+                    free = false;
+                    break;
+                }
+            }
+            
+            if (free)
+            {
+                freeRooms.add(r);
+            }
+        }
+        
+        return freeRooms;
     }
 
     @Override
@@ -190,6 +201,18 @@ public class RoomCategory implements IRoomCategory
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Collection<IRoom> getRooms()
+    {
+        return rooms;
+    }
+
+    @Override
+    public void setRooms(Collection<IRoom> rooms)
+    {
+        this.rooms = rooms;
     }
 
 }
