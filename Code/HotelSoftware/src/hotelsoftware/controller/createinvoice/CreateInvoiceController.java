@@ -15,6 +15,7 @@ import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
@@ -253,6 +254,28 @@ public class CreateInvoiceController implements UseCaseController
     {
         state.useGuestAsCustomer(guest);
     }
+    
+    /**
+     * Verwendet eine vorhandene Partei als Kunden
+     *
+     * @param party Die Partei die verwendet werden soll
+     */
+    public void useExistingParty(PartyData party)
+    {
+        if (party instanceof Guest)
+        {
+            state.useGuestAsCustomer((Guest) party);
+        }
+        else if (party instanceof Customer)
+        {
+            state.useCustomer((Customer) party);
+        }
+        else
+        {
+            //Unerreichbarer Code
+            assert(true) : "Party muss instanceof Guest oder Customer sein, da darüberliegende Klassen abstrakt sind";
+        }
+    }
 
     /**
      * Gibt die ausgewählten Rechnungsposten zurück
@@ -324,6 +347,34 @@ public class CreateInvoiceController implements UseCaseController
                     {
                         openItems.add(i);
                     }
+                }
+            }
+        }
+
+        return openItems;
+    }
+    
+    /**
+     * Gibt die noch offenen Posten der aktuellen Rechnung an
+     *
+     * @return Eine Collection mit noch offenen Posten
+     */
+    Collection<IInvoiceItem> getOpenItems(HabitationData habitation)
+    {
+        Collection<IInvoiceItem> openItems = new LinkedList<IInvoiceItem>();
+        IHabitation h = (IHabitation)habitation;
+        
+        for (IInvoiceItem i : h.getInvoiceItems())
+        {
+            if (i.getInvoice() == null)
+            {
+                openItems.add(i);
+            }
+            else
+            {
+                if (!i.getInvoice().isFulfilled())
+                {
+                    openItems.add(i);
                 }
             }
         }

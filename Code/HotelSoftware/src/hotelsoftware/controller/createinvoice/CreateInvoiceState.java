@@ -9,6 +9,7 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.parties.Customer;
 import java.util.Collection;
 import java.util.Map;
 
@@ -62,6 +63,11 @@ abstract class CreateInvoiceState
     }
 
     void useGuestAsCustomer(GuestData guest)
+    {
+        throw new IllegalStateException();
+    }
+    
+    void useCustomer(Customer customer)
     {
         throw new IllegalStateException();
     }

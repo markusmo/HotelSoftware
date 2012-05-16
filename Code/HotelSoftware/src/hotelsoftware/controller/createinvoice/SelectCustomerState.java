@@ -51,6 +51,12 @@ public class SelectCustomerState extends CreateInvoiceState
     }
     
     @Override
+    void useCustomer(Customer customer)
+    {
+        context.setCustomer(customer);
+    }
+    
+    @Override
     Collection<PartyData> getWorkingHabitationsGuests()
     {
         Set<PartyData> set = new HashSet<PartyData>();
