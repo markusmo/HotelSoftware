@@ -76,7 +76,7 @@ public class ReservationSaver {
 
         if (reservations != null) {
             for (Reservation reservation : reservations) {
-                DBReservation dbpp = DBReservation.getReservationById(reservation.getId());
+                DBReservation dbpp = (DBReservation)DynamicMapper.map(ReservationFacade.getInstance().getReservationById(reservation.getId()));
                 DBReservation dbp = (DBReservation) DynamicMapper.map(reservation);
 
                 dbp = DynamicMapper.mapTwoObjects(dbpp, dbp);
