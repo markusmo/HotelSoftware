@@ -35,6 +35,7 @@ public class InterimBillState extends CreateInvoiceState
     @Override
     void back()
     {
+        context.clear();
         context.setState(new SearchState(context));
     }
 }
