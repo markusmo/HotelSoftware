@@ -230,7 +230,7 @@ public class ServiceFacade
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r JOIN FETCH h.invoiceItems as ii JOIN FETCH ii.invoice WHERE r.number = :number");
+        Query q = session.createQuery("SELECT DISTINCT h FROM DBHabitation as h INNER JOIN h.rooms as r LEFT JOIN FETCH h.invoiceItems as ii LEFT JOIN FETCH ii.invoice WHERE r.number = :number");
         q = q.setString("number", roomNumber);
 
         List<DBHabitation> retList = q.list();

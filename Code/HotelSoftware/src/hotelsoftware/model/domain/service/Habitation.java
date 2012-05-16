@@ -252,7 +252,7 @@ public class Habitation extends Service implements IHabitation
         {
             invoiceItems = new LinkedList<IInvoiceItem>();
         }
-        
+
         invoiceItems.add(newInvoiceItem);
     }
 
@@ -263,7 +263,7 @@ public class Habitation extends Service implements IHabitation
         {
             guests = new LinkedList<IGuest>();
         }
-        
+
         guests.add(guest);
     }
 
@@ -341,18 +341,21 @@ public class Habitation extends Service implements IHabitation
         {
             return ServiceFacade.getInstance().getHabitations(fName, lName);
         }
-        if(fName != null && lName != null)
+        if (fName != null && lName != null)
+        {
             return ServiceFacade.getInstance().getHabitation(fName, lName, roomId);
+        }
         return ServiceFacade.getInstance().getHabitation(roomId);
     }
-    
+
     public static Habitation searchHabitation(String roomnr)
     {
         Collection<Habitation> temp = searchHabitations(null, null, roomnr);
-        if(temp == null)
+        if (temp == null)
+        {
             return null;
-        LinkedList temp2 = (LinkedList)temp;
-        return (Habitation)temp2.getFirst();
+        }
+        return (Habitation) temp.iterator().next();
     }
 
     @Override
@@ -387,8 +390,4 @@ public class Habitation extends Service implements IHabitation
         hash = 37 * hash + (this.habitationNumber != null ? this.habitationNumber.hashCode() : 0);
         return hash;
     }
-
-   
-    
-    
 }

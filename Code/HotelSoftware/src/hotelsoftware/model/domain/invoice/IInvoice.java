@@ -35,15 +35,6 @@ public interface IInvoice extends InvoiceData{
 
     Integer getId();
 
-    /**
-     * Gibt eine neue Rechnung aus, die die Rechnungspositionen zu einer jeweiligen Belegung ausgibt.
-     * @param habitation
-     * die Belegung auf die gebucht wurde
-     * @return
-     * eine neue Rechnung auf eine Belegung
-     */
-    IInvoice getInvoiceByHabitation(IHabitation habitation);
-
     Collection<IInvoiceItem> getInvoiceItems();
 
     String getInvoiceNumber();
