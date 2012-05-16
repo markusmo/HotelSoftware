@@ -2,8 +2,12 @@ package hotelsoftware.model.database.parties;
 
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -109,4 +113,32 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
         
     }
     
+    public static Set<DBPrivateCustomer> getPrivateCustomerByFName(String firstName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq(
+                        "fname", firstName));
+        List<DBPrivateCustomer> cust = criteria.list();
+        return new LinkedHashSet<DBPrivateCustomer>(cust);
+    }
+    
+    public static Set<DBPrivateCustomer> getPrivateCustomerByLName(String lastName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq(
+                        "lname", lastName));
+        List<DBPrivateCustomer> cust = criteria.list();
+        return new LinkedHashSet<DBPrivateCustomer>(cust);
+    }
 }
+
+
+

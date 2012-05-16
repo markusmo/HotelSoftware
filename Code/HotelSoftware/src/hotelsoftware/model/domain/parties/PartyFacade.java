@@ -93,6 +93,34 @@ public class PartyFacade
 
         return (PrivateCustomer) DynamicMapper.map(c);
     }
+    
+    public PrivateCustomer getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
+                                    GuestNotFoundException
+    {
+        Set<DBPrivateCustomer> c = DBPrivateCustomer.getPrivateCustomerByFName(
+                firstName);
+
+        if (c == null)
+        {
+            throw new GuestNotFoundException();
+        }
+
+        return (PrivateCustomer) DynamicMapper.map(c);
+    }
+    
+    public PrivateCustomer getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
+                                    GuestNotFoundException
+    {
+        Set<DBPrivateCustomer> c = DBPrivateCustomer.getPrivateCustomerByLName(
+                lastName);
+
+        if (c == null)
+        {
+            throw new GuestNotFoundException();
+        }
+
+        return (PrivateCustomer) DynamicMapper.map(c);
+    }
 
     Guest getGuestFromReservationNumber(String reservationNumber)
     {
