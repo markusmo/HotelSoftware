@@ -139,21 +139,40 @@ public class DBGuest extends DBParty implements Serializable
     }
 
     @Override
-    public boolean equals(Object object)
+    public boolean equals(Object obj)
     {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBGuest))
+        if (obj == null)
         {
             return false;
         }
-        DBGuest other = (DBGuest) object;
-        if ((this.getIdParties() == null && other.getIdParties() != null)
-                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBGuest other = (DBGuest) obj;
+        if ((this.fname == null) ? (other.fname != null) : !this.fname.equals(other.fname))
+        {
+            return false;
+        }
+        if ((this.lname == null) ? (other.lname != null) : !this.lname.equals(other.lname))
+        {
+            return false;
+        }
+        if (this.birthday != other.birthday && (this.birthday == null || !this.birthday.equals(other.birthday)))
+        {
+            return false;
+        }
+        if (this.habitations != other.habitations && (this.habitations == null || !this.habitations.equals(other.habitations)))
+        {
+            return false;
+        }
+        if (this.reservations != other.reservations && (this.reservations == null || !this.reservations.equals(other.reservations)))
         {
             return false;
         }
         return true;
     }
+
 
     @Override
     public String toString()

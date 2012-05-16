@@ -72,21 +72,29 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
     }
 
     @Override
-    public boolean equals(Object object)
+    public boolean equals(Object obj)
     {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBPrivateCustomer))
+        if (obj == null)
         {
             return false;
         }
-        DBPrivateCustomer other = (DBPrivateCustomer) object;
-        if ((this.getIdParties() == null && other.getIdParties() != null) || 
-                (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBPrivateCustomer other = (DBPrivateCustomer) obj;
+        if ((this.fname == null) ? (other.fname != null) : !this.fname.equals(other.fname))
+        {
+            return false;
+        }
+        if ((this.lname == null) ? (other.lname != null) : !this.lname.equals(other.lname))
         {
             return false;
         }
         return true;
     }
+    
+    
 
     @Override
     public String toString()
