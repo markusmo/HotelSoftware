@@ -60,23 +60,6 @@ public class InvoiceFacade
     }
 
     /**
-     * Gibt eine neue Rechnung zu einer Belegung generiert aus einer bestehenden Rechnung
-     * die bestehende Rechung verliert dabei die Rechungspositionen, die der neuen Rechung
-     * hinzugefügt werden.
-     *
-     * @param invoice
-     * Die Rechung, die alle Positionen enthält.
-     * @param habitation
-     * Die Belegung, auf die gefiltert wird.
-     * @return
-     * eine neue Rechung, in der alle Positionen auf eine Belegung stimmen.
-     */
-    public IInvoice getInvoiceByHabitaion(IInvoice invoice, IHabitation habitation)
-    {
-        return invoice.getInvoiceByHabitation(habitation);
-    }
-
-    /**
      * Gibt alle Zahlungsmethoden aus.
      *
      * @return

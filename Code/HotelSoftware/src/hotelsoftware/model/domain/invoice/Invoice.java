@@ -1,24 +1,15 @@
 package hotelsoftware.model.domain.invoice;
 
-import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.invoice.PaymentMethodData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.users.UserData;
-import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.invoice.DBInvoice;
-import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.ICustomer;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.model.domain.users.IUser;
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
@@ -39,42 +30,6 @@ public class Invoice implements IInvoice
 
     public Invoice()
     {
-    }
-
-    /**
-     * Zum Instanzieren einer neuen Rechung.
-     * @param invoiceNr
-     * Die Rechnunsnummer, muss eindeutig sein
-     * @param discount
-     * Der Rabatt auf die Rechung
-     * @param expiration
-     * Das Auslaufsdatum
-     * @param fulfilled
-     * Ob die Rechnung schon gezahlt wurde, oder nicht
-     * @param paymentmethod
-     * Die Zahlungsmethode
-     * @param customer
-     * Der Kunde, der die Rechung zahlt
-     * @return 
-     * Eine Neue Rechung.
-     */
-    public static Invoice create(String invoiceNr, BigDecimal discount, Date expiration, Boolean fulfilled, IPaymentMethod paymentmethod, ICustomer customer)
-    {
-        return new Invoice(invoiceNr, discount, expiration, fulfilled, paymentmethod, customer, LoginController.getInstance().getCurrentUser());
-    }
-
-    private Invoice(String invoiceNr, BigDecimal discount, Date expiration,
-            Boolean fulfilled, IPaymentMethod paymentMethod,
-            ICustomer customer, IUser user)
-    {
-        this.invoiceNumber = invoiceNr;
-        this.discount = discount;
-        this.expiration = expiration;
-        this.fulfilled = fulfilled;
-        this.paymentMethod = paymentMethod;
-        this.customer = customer;
-        this.user = user;
-        this.invoiceItems = new LinkedHashSet<IInvoiceItem>();
     }
 
     @Override
@@ -206,32 +161,6 @@ public class Invoice implements IInvoice
     public String getPaymentMethodName()
     {
         return paymentMethod.getMethod();
-    }
-
-    /**
-     * Gibt eine neue Rechnung aus, die die Rechnungspositionen zu einer jeweiligen Belegung ausgibt.
-     * @param habitation
-     * die Belegung auf die gebucht wurde
-     * @return
-     * eine neue Rechnung auf eine Belegung
-     */
-    @Override
-    public IInvoice getInvoiceByHabitation(IHabitation habitation)
-    {
-        IInvoice invoice = Invoice.create(invoiceNumber, discount, expiration, fulfilled, paymentMethod, customer);
-        LinkedHashSet<IInvoiceItem> items = new LinkedHashSet<IInvoiceItem>();
-
-        for (IInvoiceItem item : this.invoiceItems)
-        {
-            if (item.getHabitation().equals(habitation))
-            {
-                items.add(item);
-            }
-        }
-        this.invoiceItems.removeAll(items);
-        invoice.setInvoiceItems(items);
-
-        return invoice;
     }
 
     /**

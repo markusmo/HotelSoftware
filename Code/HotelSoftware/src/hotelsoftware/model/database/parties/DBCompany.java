@@ -83,19 +83,32 @@ public class DBCompany extends DBCustomer implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
-        if (!(object instanceof DBCompany)) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        DBCompany other = (DBCompany) object;
-        if ((this.getIdParties() == null && other.getIdParties() != null)
-                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties()))) {
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBCompany other = (DBCompany) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
+        {
+            return false;
+        }
+        if (this.contactPersons != other.contactPersons && (this.contactPersons == null || !this.contactPersons.equals(other.contactPersons)))
+        {
+            return false;
+        }
+        if (this.companyType != other.companyType && (this.companyType == null || !this.companyType.equals(other.companyType)))
+        {
             return false;
         }
         return true;
     }
+
 
     @Override
     public String toString() {

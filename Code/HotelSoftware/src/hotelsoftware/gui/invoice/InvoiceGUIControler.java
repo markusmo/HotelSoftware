@@ -12,7 +12,6 @@ import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.invoice.labels.SeperatorLabel;
 import hotelsoftware.gui.invoice.payment.PaymentPanel;
 import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
-import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
@@ -23,12 +22,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.util.Map;
-import javax.swing.*;
 
 /**
  *
@@ -53,15 +51,15 @@ public final class InvoiceGUIControler implements ActionListener
     private JLabel splitCancelLabel = new JLabel();
     private JLabel paymentLabel = new JLabel();
     // Bezeichnungen
-    private final String invoiceHome = "Invoice Home";
-    private final String intermediatInvoice = "Intermediat Invoice";
-    private final String chooseCustomer = "Customer Selection";
-    private final String splitCancel = "Split/Cancel";
-    private final String payment = "Payment";
-    private final String seperator = ">";
-    private final String abort = "Abort";
-    private final String back = "Back";
-    private final String payed = "Payed";
+    private static final String invoiceHome = "Invoice Home";
+    private static final String intermediatInvoice = "Intermediat Invoice";
+    private static final String chooseCustomer = "Customer Selection";
+    private static final String splitCancel = "Split/Cancel";
+    private static final String payment = "Payment";
+    private static final String seperator = ">";
+    private static final String abort = "Abort";
+    private static final String back = "Back";
+    private static final String payed = "Payed";
 
     private InvoiceGUIControler()
     {

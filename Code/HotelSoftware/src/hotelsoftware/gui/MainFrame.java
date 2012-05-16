@@ -3,9 +3,9 @@ package hotelsoftware.gui;
 import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.gui.invoice.InvoiceMain;
+import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.login.LoginWindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -402,7 +402,7 @@ public class MainFrame extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //roomOverviewButtonActionPerformed(e);
+                invoiceButtonActionPerformed(e);
             }
         };
         Action f5pressed = new AbstractAction()

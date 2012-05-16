@@ -27,7 +27,7 @@ public class RoomanizerProperties
                 "resources/roomanizer.cfg");
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 config.openStream()));
-        String line = new String();
+        String line = "";
         while ((line = reader.readLine()) != null)
         {
             String[] split = line.split(";");
