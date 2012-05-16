@@ -63,7 +63,7 @@ public class ExtraService extends Service implements IExtraService
      */
     public static Set<IExtraService> getAllExtraServices()
     {
-        Set<IExtraService> extraServices = (Set<IExtraService>) DynamicMapper.map(DBExtraService.getAllExtraServices());
+        Set<IExtraService> extraServices = (Set<IExtraService>) ServiceFacade.getInstance().getAllExtraServices();
         return extraServices;
     }
 
@@ -76,16 +76,9 @@ public class ExtraService extends Service implements IExtraService
      * @throws ServiceNotFoundException 
      * Wirft einen Fehler, wenn der Service nicht gefunden wird.
      */
-    public static ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
+    public static IExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
-        ExtraService extraService = (ExtraService) DynamicMapper.map(DBExtraService.getExtraServiceByName(name));
-
-        if (extraService == null)
-        {
-            throw new ServiceNotFoundException();
-        }
-
-        return extraService;
+        return ServiceFacade.getInstance().getExtraServiceByName(name);
     }
 
     @Override
@@ -99,10 +92,9 @@ public class ExtraService extends Service implements IExtraService
      * @return 
      * Alle Verpflegungsarten, die vorhanden sind.
      */
-    public static Collection<ExtraService> getAllHabitationServices()
+    public static Collection<IExtraService> getAllHabitationServices()
     {
-        Collection<ExtraService> extraServices = (Collection<ExtraService>) DynamicMapper.mapCollection(DBExtraService.getAllHabitationServices());
-        return extraServices;
+        return ServiceFacade.getInstance().getAllHabitationServices();
     }
 
     @Override

@@ -15,7 +15,6 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.model.domain.room.IRoom;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.Room;
@@ -172,7 +171,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
-        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
+        return new HelperFunctions<ExtraServiceData, IExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
     }
 
     @Override

@@ -6,7 +6,13 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBServiceType;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.List;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Ist die Fassadenklasse, die das Package Service verwaltet
@@ -35,9 +41,14 @@ public class ServiceFacade
      * @return
      * Alle Extraservices, die vorhanden sind
      */
-    public Collection getAllExtraServices()
+    public Collection<IExtraService> getAllExtraServices()
     {
-        return DynamicMapper.mapCollection(DBExtraService.getAllExtraServices());
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
+        
+        return DynamicMapper.mapCollection(extraServices);
     }
 
     /**
@@ -52,13 +63,38 @@ public class ServiceFacade
      */
     public ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
-        DBExtraService p = DBExtraService.getExtraServiceByName(name);
-
-        if (p == null)
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class)
+                .add(Restrictions.eq("name", name))
+                .uniqueResult();
+        
+        if (extraService == null)
         {
             throw new ServiceNotFoundException();
         }
-        return (ExtraService) DynamicMapper.map(p);
+        return (ExtraService) DynamicMapper.map(extraService);
+    }
+    
+    /**
+     * Gibt alle Verpflegungsarten aus
+     * @return 
+     * Alle Verpflegungsarten, die vorhanden sind.
+     */
+    public Collection<IExtraService> getAllHabitationServices()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
+                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
+        
+        query.addEntity(DBExtraService.class);
+        Collection<DBExtraService> retList = query.list();
+        
+        return DynamicMapper.mapCollection(retList);
     }
 
     /**

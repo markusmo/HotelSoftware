@@ -358,7 +358,7 @@ public class Habitation extends Service implements IHabitation
     @Override
     public String getServiceName()
     {
-        throw new UnsupportedOperationException("Not implemented yet (but in future it will return the name of the habiation!");
+        return this.habitationNumber;
     }
 
     @Override
