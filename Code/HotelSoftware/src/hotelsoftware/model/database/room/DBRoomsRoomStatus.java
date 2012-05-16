@@ -32,11 +32,11 @@ public class DBRoomsRoomStatus implements Serializable
     @Column(name = "id", nullable = false)
     protected Integer id;
     
-    @JoinColumn(name = "idRoomStatus", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idRoomStatus", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private DBRoomStatus roomstatus;
     
-    @JoinColumn(name = "idRooms", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idRooms", referencedColumnName = "id")
     @ManyToOne(fetch= FetchType.EAGER)
     private DBRoom room;
 

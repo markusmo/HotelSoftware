@@ -82,6 +82,17 @@ public class CreateInvoiceController implements UseCaseController
         customer = null;
     }
 
+    void addInvoiceItemToHabitation(IHabitation habitation, IInvoiceItem item)
+    {
+        for (IHabitation h : habitations)
+        {
+            if (h.equals(habitation))
+            {
+                h.addInvoiceItems(item);
+            }
+        }
+    }
+
     private static class CreateInvoiceControllerHolder
     {
         private static final CreateInvoiceController INSTANCE = new CreateInvoiceController();
@@ -420,7 +431,7 @@ public class CreateInvoiceController implements UseCaseController
         this.customer = customer;
     }
 
-	public Collection<PartyData> searchParties(String text)
+    public Collection<PartyData> searchParties(String text)
     {
         return state.searchParties(text);
     }

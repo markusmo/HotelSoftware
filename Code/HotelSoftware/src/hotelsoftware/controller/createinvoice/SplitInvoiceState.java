@@ -9,9 +9,7 @@ import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
-import hotelsoftware.model.domain.service.Service;
 import hotelsoftware.model.domain.users.Permission;
 import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.util.HelperFunctions;
@@ -19,7 +17,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,19 +50,23 @@ public class SplitInvoiceState extends CreateInvoiceState
             }
             else
             {
-                InvoiceItem newItem = new InvoiceItem();
-                newItem.setAmount(entry.getValue());
-                newItem.setCreated(entry.getKey().getCreated());
-                newItem.setService((Service)entry.getKey().getServiceData());
-                newItem.setUser(LoginController.getInstance().getCurrentUser());
-                
-                col.add(newItem);
-                
                 InvoiceItem oldItem = (InvoiceItem) entry.getKey();
-                //TODO testen ob das gespeichert wird
-                oldItem.setAmount(oldItem.getAmount() - entry.getValue());
                 
-                oldItem.getHabitation().addInvoiceItems(newItem);
+                InvoiceItem newItem = new InvoiceItem();
+                newItem.setAmount(oldItem.getAmount() - entry.getValue());
+                newItem.setCreated(oldItem.getCreated());
+                newItem.setService(oldItem.getService());
+                newItem.setUser(LoginController.getInstance().getCurrentUser());
+                newItem.setHabitation(oldItem.getHabitation());
+                newItem.setPrice(oldItem.getPrice());
+                
+                oldItem.setAmount(entry.getValue());
+                
+                //TODO testen ob das gespeichert wird
+                context.addInvoiceItemToHabitation(oldItem.getHabitation(), newItem);
+                
+                col.add(oldItem);
+                
                 context.addSplittedItems(newItem);
             }
         }

@@ -4,6 +4,7 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
+import hotelsoftware.model.database.parties.DBCustomer;
 import java.util.Collection;
 import java.util.Set;
 import org.hibernate.Session;
@@ -55,10 +56,28 @@ public class InvoiceSaver {
         {
             for(IInvoice invoice : invoices)
             {
+                //SO FUNKTIONIERTS!!!!!!!!!!!!!!!!!!!!!!!!!!
                 DBInvoice dbi = (DBInvoice)DynamicMapper.map(invoice);
-                session.saveOrUpdate(session.merge(dbi));
-                invoice.setId(dbi.getId());
+                Integer id = (Integer)session.save(session.merge(dbi));
+                invoice.setId(id);
+                dbi.setId(id);
                 
+                for(IInvoiceItem item : invoice.getInvoiceItems())
+                {
+                    DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
+                    dbii.setInvoice(dbi);
+                    
+                    if (dbii.getId() == null)
+                    {
+                        session.saveOrUpdate(dbii);
+                        item.setId(dbii.getId());
+                    }
+                    else
+                    {
+                        DBInvoiceItem newii = (DBInvoiceItem)session.merge(dbii);
+                        session.update(newii);
+                    }
+                }
             }
         }
         

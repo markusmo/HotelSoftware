@@ -24,6 +24,7 @@ public class InvoiceItem implements IInvoiceItem
     private IUser user;
     private IHabitation habitation;
     private IInvoice invoice;
+    private Integer price;
 
     public InvoiceItem()
     {
@@ -228,6 +229,16 @@ public class InvoiceItem implements IInvoiceItem
     public UserData getUserData()
     {
         return (UserData) getUser();
+    }
+    
+    public Integer getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(Integer price)
+    {
+        this.price = price;
     }
 
     @Override

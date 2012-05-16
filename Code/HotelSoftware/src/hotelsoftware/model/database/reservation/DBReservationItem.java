@@ -23,11 +23,11 @@ public class DBReservationItem implements Serializable
     @Column(name = "amount", nullable = false)
     private Integer amount;
     
-    @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", updatable=false, insertable=false)
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
     private DBRoomCategory roomCategory;
     
-    @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idReservations", referencedColumnName = "id", updatable=false, insertable=false)
     @ManyToOne(optional = false)
     private DBReservation reservation;
 

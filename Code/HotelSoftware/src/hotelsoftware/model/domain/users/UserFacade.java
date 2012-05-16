@@ -94,8 +94,8 @@ public class UserFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(DBPermission.class);
-        List<DBPermission> retValue = criteria.list();
+        Criteria criteria = session.createCriteria(DBPermission.class).add(Restrictions.eq("name", name));
+        DBPermission retValue = (DBPermission)criteria.uniqueResult();
 
         if (retValue == null)
         {

@@ -47,17 +47,21 @@ public class DBInvoiceItem implements Serializable
     @ManyToOne(optional = false)
     private DBUser user;
     
-    @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idHabitations", referencedColumnName = "idServices")
     @ManyToOne(optional = false)
     private DBHabitation habitation;
     
-    @JoinColumn(name = "idInvoices", referencedColumnName = "id", nullable = false, insertable = false, updatable = true)
-    @ManyToOne(optional = false, cascade= CascadeType.ALL)
+    @JoinColumn(name = "idInvoices", referencedColumnName = "id")
+    @ManyToOne(optional = true)
     private DBInvoice invoice;
     
-    @JoinColumn(name = "idServices", referencedColumnName = "idServices", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idServices", referencedColumnName = "idServices")
     @ManyToOne(optional = false)
     private DBService service;
+    
+    @Basic(optional = false)
+    @Column(name = "price", nullable = false)
+    private Integer price;
 
     public DBInvoiceItem()
     {
@@ -132,6 +136,16 @@ public class DBInvoiceItem implements Serializable
     {
         this.habitation = habitation;
     }
+    
+    public Integer getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(Integer price)
+    {
+        this.price = price;
+    }
 
     /**
      * Kommuniziert mit der Datenbank und holt ein alle Rechungspositionen fuer eine Belegung ein
@@ -151,7 +165,6 @@ public class DBInvoiceItem implements Serializable
         ts.begin();
         List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
-        ;
 
         return new LinkedHashSet<DBInvoiceItem>(retList);
     }

@@ -246,8 +246,8 @@ public abstract class ChangeDataState extends CheckInState
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction ts = session.beginTransaction();
             ts.begin();
-            ServiceSaver.getInstance().saveOrUpdate(session, new LinkedList(), context.getHabitations(), new LinkedList());
-            PartySaver.getInstance().saveOrUpdate(session, addresses, new LinkedList(), new LinkedList(), new LinkedList(), guests);
+            ServiceSaver.getInstance().saveOrUpdate(session, null, context.getHabitations(), null);
+            PartySaver.getInstance().saveOrUpdate(session, null, null, null, null, guests);
             ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)

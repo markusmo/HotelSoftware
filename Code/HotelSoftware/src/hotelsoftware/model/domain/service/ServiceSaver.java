@@ -18,17 +18,19 @@ import org.hibernate.Transaction;
  *
  * @author Tobias
  */
-public class ServiceSaver {
-
-    private ServiceSaver() {
+public class ServiceSaver
+{
+    private ServiceSaver()
+    {
     }
 
-    public static ServiceSaver getInstance() {
+    public static ServiceSaver getInstance()
+    {
         return ServiceSaverHolder.INSTANCE;
     }
 
-    private static class ServiceSaverHolder {
-
+    private static class ServiceSaverHolder
+    {
         private static final ServiceSaver INSTANCE = new ServiceSaver();
     }
 
@@ -43,11 +45,15 @@ public class ServiceSaver {
      * Speichern fehlschlaegt
      */
     public void saveOrUpdate(Session session, Collection<ExtraService> extraServices, Collection<Habitation> habitations,
-            Collection<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException {
+            Collection<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
+    {
 
-        try {
-            if (serviceTypes != null) {
-                for (ServiceType serviceType : serviceTypes) {
+        try
+        {
+            if (serviceTypes != null)
+            {
+                for (ServiceType serviceType : serviceTypes)
+                {
                     DBServiceType dbp = (DBServiceType) DynamicMapper.map(serviceType);
 
                     session.saveOrUpdate(dbp);
@@ -55,8 +61,10 @@ public class ServiceSaver {
                 }
             }
 
-            if (extraServices != null) {
-                for (ExtraService extraService : extraServices) {
+            if (extraServices != null)
+            {
+                for (ExtraService extraService : extraServices)
+                {
                     DBExtraService dbp = (DBExtraService) DynamicMapper.map(extraService);
 
                     session.saveOrUpdate(dbp);
@@ -64,23 +72,31 @@ public class ServiceSaver {
                 }
             }
 
-            if (habitations != null) {
-                for (Habitation habitation : habitations) {
+            if (habitations != null)
+            {
+                for (Habitation habitation : habitations)
+                {
                     DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);
 
                     session.saveOrUpdate(dbp);
                     habitation.setIdServices(dbp.getIdServices());
                 }
             }
-        } catch (HibernateException ex) {
+        }
+        catch (HibernateException ex)
+        {
             throw new FailedToSaveToDatabaseException();
         }
     }
 
     public void saveOrUpdate(Collection<ExtraService> extraServices, Collection<Habitation> habitations, Collection<ServiceType> serviceTypes)
-            throws FailedToSaveToDatabaseException {
-        if ((extraServices == null) || (habitations == null) || (serviceTypes == null)) {
-        } else {
+            throws FailedToSaveToDatabaseException
+    {
+        if ((extraServices == null) || (habitations == null) || (serviceTypes == null))
+        {
+        }
+        else
+        {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction ts = session.beginTransaction();
             ts.begin();
