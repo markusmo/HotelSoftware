@@ -196,25 +196,25 @@ public class DBInvoice implements Serializable
         this.customer = customer;
     }
 
-    /**
-     * Kommuniziert mit der Datenbank und liefert eine Rechung zurueck.
-     * @param invoicenumber
-     * Eine eindeutige Rechungsnummer
-     * @return
-     * die Rechnung, zu der gegebenen Rechungsnummer
-     * @throws HibernateException
-     * Dieser Fehler wird geworfen, wenn etwas bei der Transaktion fehlschlaegt
-     */
-    public static DBInvoice getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq(
-                "invoiceNumber",
-                invoicenumber)).uniqueResult();
-        return retInvoices;
-    }
+//    /**
+//     * Kommuniziert mit der Datenbank und liefert eine Rechung zurueck.
+//     * @param invoicenumber
+//     * Eine eindeutige Rechungsnummer
+//     * @return
+//     * die Rechnung, zu der gegebenen Rechungsnummer
+//     * @throws HibernateException
+//     * Dieser Fehler wird geworfen, wenn etwas bei der Transaktion fehlschlaegt
+//     */
+//    public static DBInvoice getInvoiceByInvoiceNumber(String invoicenumber) throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq(
+//                "invoiceNumber",
+//                invoicenumber)).uniqueResult();
+//        return retInvoices;
+//    }
     
     public static int getHighestId()
     {

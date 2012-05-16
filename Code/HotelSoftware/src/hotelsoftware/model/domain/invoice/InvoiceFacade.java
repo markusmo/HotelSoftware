@@ -1,10 +1,17 @@
 package hotelsoftware.model.domain.invoice;
+
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.invoice.DBInvoice;
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.domain.service.IHabitation;
-import java.util.Collection;
+import hotelsoftware.util.HibernateUtil;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Fassade die das Package Invoice managed, alle relevanten Methoden sind auf dieser abgebildet.
@@ -22,11 +29,11 @@ public class InvoiceFacade
         return InvoiceFacadeHolder.INSTANCE;
     }
 
-        static int getHighestInvoiceId()
+    static int getHighestInvoiceId()
     {
         return DBInvoice.getHighestId();
     }
-    
+
     private static class InvoiceFacadeHolder
     {
         private static final InvoiceFacade INSTANCE = new InvoiceFacade();
@@ -42,8 +49,14 @@ public class InvoiceFacade
      */
     public Invoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
-        DBInvoice dbi = DBInvoice.getInvoiceByInvoiceNumber(invoicenumber);
-        return (Invoice) DynamicMapper.map(dbi);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class)
+                .add(Restrictions.eq("invoiceNumber",invoicenumber))
+                .uniqueResult();
+        
+        return (Invoice) DynamicMapper.map(retInvoices);
     }
 
     /**
@@ -71,7 +84,12 @@ public class InvoiceFacade
      */
     public Set<PaymentMethod> getAllPaymentMethods()
     {
-        return PaymentMethod.getAllPaymentMethods();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        List<DBPaymentMethod> retList = session.createCriteria(DBPaymentMethod.class).list();
+        
+        return new LinkedHashSet<PaymentMethod>(DynamicMapper.mapCollection(retList));
     }
 
     /**
@@ -84,6 +102,13 @@ public class InvoiceFacade
      */
     public PaymentMethod getPaymentMethodByName(String name)
     {
-        return PaymentMethod.getPaymentMethodByName(name);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        DBPaymentMethod ret = (DBPaymentMethod) session.createCriteria(DBPaymentMethod.class)
+                .add(Restrictions.eq("method", name))
+                .uniqueResult();
+        
+        return (PaymentMethod)DynamicMapper.map(ret);
     }
 }

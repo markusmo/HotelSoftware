@@ -44,6 +44,17 @@ public class HelperFunctions<T, U extends T>
         return newCol;
     }
 
+    /**
+     * castCollectionUp v2. Mapt eine Collection auf eine andere. Wird genutzt um die Data Interfaces and die
+     * GUI weiter zu geben. Statisch aufrufbar
+     *
+     * @param <T> diese Klasse erweitert U
+     * @param <U> diese Klasse ist die super-Klasse von T
+     * @param col die Collection, die gemappt werden sollte
+     * @param cls1 die Klasse auf die gemapt wird
+     * @param cls2 die innere Klasse der Collection, die übergeben wird
+     * @return eine neue Collection mit der inneren Klasse T
+     */
     public static <T, U extends T> Collection<T> castCollectionUp(Collection<U> col, Class<T> cls1, Class<U> cls2)
     {
         Collection<T> newCol = new LinkedHashSet<T>();
@@ -58,6 +69,15 @@ public class HelperFunctions<T, U extends T>
         return newCol;
     }
 
+    /**
+     * Mapt eine Collection auf eine andere. Wird genutzt um die Data Interfaces and die
+     * Controller weiter zu geben.
+     *
+     * @param col
+     * Die Collection die gemappt werden soll
+     * @return
+     * eine neue Collection
+     */
     @Deprecated
     public Collection<U> castCollectionDown(Collection<T> col)
     {
@@ -72,21 +92,37 @@ public class HelperFunctions<T, U extends T>
 
         return newCol;
     }
-    
-        public static <T, U extends T> Collection<U> castCollectionDown(Collection<T> col, Class<T> cls1, Class<U> cls2)
+
+   /**
+     * castCollectionDown v2. Mapt eine Collection auf eine andere. Wird genutzt um die Data Interfaces and die
+     * GUI weiter zu geben. Statisch aufrufbar
+     *
+     * @param <T> diese Klasse erweitert U
+     * @param <U> diese Klasse ist die super-Klasse von T
+     * @param col die Collection, die gemappt werden sollte
+     * @param cls1 die Klasse auf die gemapt wird
+     * @param cls2 die innere Klasse der Collection, die übergeben wird
+     * @return eine neue Collection mit der inneren Klasse U
+     */
+    public static <T, U extends T> Collection<U> castCollectionDown(Collection<T> col, Class<T> cls1, Class<U> cls2)
     {
         Collection<U> newCol = new LinkedHashSet<U>();
         if (col != null)
         {
             for (T t : col)
             {
-                newCol.add((U)t);
+                newCol.add((U) t);
             }
         }
 
         return newCol;
     }
 
+    /**
+     * Liefert eine fortlaufende Nummer als String zurück, je nach Klasse
+     * @param cls die Klasse, für die eine Nummer benötigt wird
+     * @return eine fortlaufende Nummer
+     */
     public static String getNewContinousNumber(Class cls)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");

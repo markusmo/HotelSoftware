@@ -19,14 +19,16 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
-import org.icepdf.ri.util.Resources;
 
 /**
  * Dieses Objekt generiert PDFs. Diese Klasse ist nur als Thread ausführbar, das heißt, die Methode generatePDF() wird im run() des implementierten Interfaces Runnable aufgerufen.
