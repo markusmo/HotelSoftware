@@ -58,8 +58,7 @@ public class PaymentMethod implements IPaymentMethod
      */
     public static Set<PaymentMethod> getAllPaymentMethods()
     {
-        Set<DBPaymentMethod> dbpm = DBPaymentMethod.getPaymentMethods();
-        return (Set<PaymentMethod>)DynamicMapper.map(dbpm);
+        return InvoiceFacade.getInstance().getAllPaymentMethods();
     }
 
     /**
@@ -71,7 +70,6 @@ public class PaymentMethod implements IPaymentMethod
      */
     public static PaymentMethod getPaymentMethodByName(String method)
     {
-        DBPaymentMethod dbpm = DBPaymentMethod.getPaymentMethodByName(method);
-        return (PaymentMethod)DynamicMapper.map(dbpm);
+        return InvoiceFacade.getInstance().getPaymentMethodByName(method);
     }
 }

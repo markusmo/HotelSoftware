@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class DynamicMapper
 {
-
     /**
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
@@ -39,7 +38,7 @@ public class DynamicMapper
 
     private static Object map(Object urObject, int counter)
     {
-        assert(counter >= 0 ):"counter ist zu niedrig: "+counter;
+        assert (counter >= 0) : "counter ist zu niedrig: " + counter;
         if (counter > 0)
         {
             try
@@ -67,7 +66,8 @@ public class DynamicMapper
                                     setterMethod.invoke(returnvalue,
                                             mapCollection((Collection) getterMethodNewLevel.invoke(
                                             urObject), counter - 1));
-                                } else
+                                }
+                                else
                                 {
                                     Object o = getterMethodNewLevel.invoke(
                                             urObject);
@@ -87,14 +87,15 @@ public class DynamicMapper
                 }
 
                 return returnvalue;
-            } 
+            }
             catch (Exception e)
             {
                 //e.printStackTrace();
                 return null;
             }
         }
-        else{
+        else
+        {
             //System.out.println(counter);
         }
         return null;
@@ -102,9 +103,10 @@ public class DynamicMapper
 
     /**
      * Konvertiert den vollwertigen (mit Package) Klassennamen nach Namenskonvention um
+     *
      * @param name
      * Vollwertiger Name der Klasse
-     * @return 
+     * @return
      * Vollwertiger Name der Klasse in einem anderen Package
      */
     private static String convertClassName(String name)
@@ -119,7 +121,8 @@ public class DynamicMapper
         {
             return pkg.replaceAll(".database.", ".domain.") + cls.substring(
                     PRE.length());
-        } else
+        }
+        else
         {
             return pkg.replaceAll(".domain.", ".database.") + PRE + cls;
         }
@@ -127,9 +130,10 @@ public class DynamicMapper
 
     /**
      * Mappt Collections dynamisch
+     *
      * @param urCollection
      * die Collection die auf eine andere gemappt werden muss
-     * @return 
+     * @return
      * eine neue Collection
      */
     public static Collection mapCollection(Collection urCollection)
@@ -140,11 +144,12 @@ public class DynamicMapper
     /**
      * Mappt Collections dynamisch um, atm noch mit Rekursiostiefe, da indirekte
      * Rekursion auftreten kann
+     *
      * @param urCollection
      * Die Collection die gemappt werden muss
      * @param counter
      * Die Rekursionstiefe
-     * @return 
+     * @return
      * eine neue Collection
      */
     private static Collection mapCollection(Collection urCollection, int counter)
@@ -162,7 +167,8 @@ public class DynamicMapper
                 }
 
                 return returnValue;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -171,6 +177,15 @@ public class DynamicMapper
         return null;
     }
 
+    /**
+     * Diese Methode mapt alle Attribute des Objekts A auf das Objekt B, wobei nur Werte überschrieben
+     * werden, die nicht NULL sind.
+     *
+     * @param <T> Klasse der zu mappenden Objekte
+     * @param mappingObject Objekt mit den gesetzten Attributen
+     * @param mapToObject Objekt mit den nicht gesetzten Attributen
+     * @return ein Objekt, bei dem alle Attribute gesetzt sind, die verfügbar waren
+     */
     public static <T> T mapTwoObjects(T mappingObject, T mapToObject)
     {
         for (Method setterMethod : mapToObject.getClass().getMethods())
@@ -209,7 +224,7 @@ public class DynamicMapper
                 }
             }
         }
-        
+
         return mapToObject;
     }
 
@@ -229,12 +244,14 @@ public class DynamicMapper
         try
         {
             m2 = o.getClass().getMethod(m.getName().replace("set", "get"));
-        } catch (NoSuchMethodException e)
+        }
+        catch (NoSuchMethodException e)
         {
             try
             {
                 m2 = o.getClass().getMethod(m.getName().replace("set", "is"));
-            } catch (NoSuchMethodException e2)
+            }
+            catch (NoSuchMethodException e2)
             {
                 // ignore
             }

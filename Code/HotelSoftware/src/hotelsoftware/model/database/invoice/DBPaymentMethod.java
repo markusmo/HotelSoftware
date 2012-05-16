@@ -105,45 +105,44 @@ public class DBPaymentMethod implements Serializable
         this.method = method;
     }
 
-    /**
-     * Kommuniziert mit der Datenbank und gibt alle Zahlungsmethoden aus
-     *
-     * @return
-     * Ein Set aus allen verfuegbaren Zahlungsmethoden
-     * @throws HibernateException
-     */
-    public static Set<DBPaymentMethod> getPaymentMethods() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPaymentMethod.class);
-        List<DBPaymentMethod> retList = criteria.list();
-        ;
+//    /**
+//     * Kommuniziert mit der Datenbank und gibt alle Zahlungsmethoden aus
+//     *
+//     * @return
+//     * Ein Set aus allen verfuegbaren Zahlungsmethoden
+//     * @throws HibernateException
+//     */
+//    public static Set<DBPaymentMethod> getPaymentMethods() throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBPaymentMethod.class);
+//        List<DBPaymentMethod> retList = criteria.list();
+//
+//        return new LinkedHashSet<DBPaymentMethod>(retList);
+//    }
 
-        return new LinkedHashSet<DBPaymentMethod>(retList);
-    }
-
-    /**
-     * Kommuniziert mit der Datenbank und gibt eine Zahlungsmethode nach dem eingegebenen Namen aus
-     *
-     * @param method
-     * Die Zahlungsmethode, die gesucht wird
-     * @return
-     * Ein Objekt, dass die Zahlungsmethode abbildet
-     * @throws HibernateException
-     * Dieser Fehler wird geworfen, wenn die Tanksation fehlgeschlagen wird
-     */
-    public static DBPaymentMethod getPaymentMethodByName(String method) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPaymentMethod.class);
-        DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("method", method)).uniqueResult();
-
-        return ret;
-    }
+//    /**
+//     * Kommuniziert mit der Datenbank und gibt eine Zahlungsmethode nach dem eingegebenen Namen aus
+//     *
+//     * @param method
+//     * Die Zahlungsmethode, die gesucht wird
+//     * @return
+//     * Ein Objekt, dass die Zahlungsmethode abbildet
+//     * @throws HibernateException
+//     * Dieser Fehler wird geworfen, wenn die Tanksation fehlgeschlagen wird
+//     */
+//    public static DBPaymentMethod getPaymentMethodByName(String method) throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBPaymentMethod.class);
+//        DBPaymentMethod ret = (DBPaymentMethod) criteria.add(Restrictions.eq("method", method)).uniqueResult();
+//
+//        return ret;
+//    }
 
     /**
      * Speichert die Zahlungsart in der Datenbank ab
