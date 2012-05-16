@@ -168,7 +168,7 @@ public class ReservationFacade
         int retValue = 0;
         for(IReservationItem res : reservationItems)
         {
-            retValue += res.getAmount();
+            retValue += res.getRoomCategory().getBedCount();
         }
         return retValue;
     }

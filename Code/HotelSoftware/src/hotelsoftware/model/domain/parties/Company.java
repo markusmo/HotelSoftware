@@ -121,6 +121,16 @@ public class Company extends Customer implements ICompany
     {
         return PartyFacade.getInstance().getCompanyByName(name);
     }
+    
+    /**
+     * Gibt Firmen nach Namen aus
+     * @param name der Name der Firma
+     * @return eine Liste mit ähnlichen Namen
+     */
+    public static Collection<Company> getCompaniesByName(String name)
+    {
+        return PartyFacade.getInstance().getCompaniesByName(name);
+    }
 
     @Override
     public Collection<PartyData> getContactPersonsData()

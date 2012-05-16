@@ -30,15 +30,16 @@ import org.hibernate.criterion.Restrictions;
 @Table(name = "guests", catalog = "`roomanizer-dev`", schema = "")
 @XmlRootElement
 @PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "idParties")
-public class DBGuest extends DBParty implements Serializable {
-
+public class DBGuest extends DBParty implements Serializable
+{
     /**
      * Diese Methode sucht nach einem Gast mithilfe einer Reservierung
      *
      * @param reservation ist eine Reservierung die für einen gast reserviert
      * @return gibt ein Objekt vom Gast zurück
      */
-    public static Object getGuestFromReservation(Reservation reservation) {
+    public static Object getGuestFromReservation(Reservation reservation)
+    {
         throw new UnsupportedOperationException("Not yet implemented");
     }
     @Basic(optional = false)
@@ -51,200 +52,235 @@ public class DBGuest extends DBParty implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     private static final long serialVersionUID = 1;
-    @JoinTable(name = "allocations", joinColumns = {
+    @JoinTable(name = "allocations", joinColumns =
+    {
         @JoinColumn(name = "idGuests", referencedColumnName = "idParties", nullable = false)
-    }, inverseJoinColumns = {
+    }, inverseJoinColumns =
+    {
         @JoinColumn(name = "idHabitations", referencedColumnName = "idServices", nullable = false)
     })
     @ManyToMany
     private Set<DBHabitation> habitations;
-    @JoinTable(name = "reservationsGuests", joinColumns = {
+    @JoinTable(name = "reservationsGuests", joinColumns =
+    {
         @JoinColumn(name = "idGuests", referencedColumnName = "idParties", nullable = false)
-    }, inverseJoinColumns = {
+    }, inverseJoinColumns =
+    {
         @JoinColumn(name = "idReservations", referencedColumnName = "id", nullable = false)
     })
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<DBReservation> reservations;
 
-    public DBGuest() {
+    public DBGuest()
+    {
     }
 
     @XmlTransient
-    public Collection<DBHabitation> getHabitations() {
+    public Collection<DBHabitation> getHabitations()
+    {
         return habitations;
     }
 
-    public void setHabitations(Collection<DBHabitation> habitationsCollection) {
-        if (habitationsCollection != null) {
+    public void setHabitations(Collection<DBHabitation> habitationsCollection)
+    {
+        if (habitationsCollection != null)
+        {
             this.habitations = new LinkedHashSet<DBHabitation>(habitationsCollection);
         }
     }
 
     @XmlTransient
-    public Collection<DBReservation> getReservations() {
+    public Collection<DBReservation> getReservations()
+    {
         return reservations;
     }
 
-    public void setReservations(Collection<DBReservation> reservations) {
-        if (reservations != null) {
+    public void setReservations(Collection<DBReservation> reservations)
+    {
+        if (reservations != null)
+        {
             this.reservations = new LinkedHashSet<DBReservation>(reservations);
         }
     }
 
-    /**
-     * sucht einen Gast mithilfe einer reservierungsnummer heraus.
-     *
-     * @param reservationNumber dies ist die nummer welche die reservierung
-     * identifiziert
-     * @return gibt den passenden Datensatz vom typ DBGuest zurück
-     */
-    public static DBGuest getGuestFromReservationNumber(String reservationNumber) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idParties FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
-        //countQuery.setInteger("id", this.id);
-
-        //addEntity gibt den rueckgabewert an...
-        sqlquery.addEntity(DBGuest.class);
-        DBGuest guest = (DBGuest) sqlquery.uniqueResult();
-        //;
-
-        return guest;
-    }
+//    /**
+//     * sucht einen Gast mithilfe einer reservierungsnummer heraus.
+//     *
+//     * @param reservationNumber dies ist die nummer welche die reservierung
+//     * identifiziert
+//     * @return gibt den passenden Datensatz vom typ DBGuest zurück
+//     */
+//    public static DBGuest getGuestFromReservationNumber(String reservationNumber)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idParties FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//
+//        //Query countQuery = session.getNamedQuery("Reservations.countGuests");
+//        //countQuery.setInteger("id", this.id);
+//
+//        //addEntity gibt den rueckgabewert an...
+//        sqlquery.addEntity(DBGuest.class);
+//        DBGuest guest = (DBGuest) sqlquery.uniqueResult();
+//        //;
+//
+//        return guest;
+//    }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBGuest)) {
+        if (!(object instanceof DBGuest))
+        {
             return false;
         }
         DBGuest other = (DBGuest) object;
         if ((this.getIdParties() == null && other.getIdParties() != null)
-                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties()))) {
+                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "hotelsoftware.database.model.Guests[ id=" + getIdParties() + " ]";
     }
 
-    /**
-     * Diese Methode sucht nach einen Gast mithilfe des Namens
-     *
-     * @param firstName dies ist der Vorname des Gastes.
-     * @param lastName dies ist der Nachname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
-     * enthält.
-     */
-    public static Set<DBGuest> getGuestsByName(String firstName, String lastName) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
+//    /**
+//     * Diese Methode sucht nach einen Gast mithilfe des Namens
+//     *
+//     * @param firstName dies ist der Vorname des Gastes.
+//     * @param lastName dies ist der Nachname des Gastes.
+//     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+//     * enthält.
+//     */
+//    public static Set<DBGuest> getGuestsByName(String firstName, String lastName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBGuest.class);
+//
+//        if (firstName.isEmpty() && lastName.isEmpty())
+//        {
+//            return null;
+//        }
+//        if (firstName.isEmpty())
+//        {
+//            criteria = criteria.add(Restrictions.eq(
+//                    "lname", lastName));
+//        }
+//        else
+//        {
+//            if (lastName.isEmpty())
+//            {
+//                criteria = criteria.add(Restrictions.eq(
+//                        "fname", firstName));
+//            }
+//            else
+//            {
+//                criteria = criteria.add(Restrictions.eq(
+//                        "lname", lastName)).add(Restrictions.eq(
+//                        "fname", firstName));
+//            }
+//        }
+//
+//        List<DBGuest> retList = criteria.list();
+//
+//
+//        return new LinkedHashSet<DBGuest>(retList);
+//    }
 
-        if (firstName.isEmpty() && lastName.isEmpty()) {
-            return null;
-        }
-        if (firstName.isEmpty()) {
-            criteria = criteria.add(Restrictions.eq(
-                    "lname", lastName));
-        } else {
-            if (lastName.isEmpty()) {
-                criteria = criteria.add(Restrictions.eq(
-                        "fname", firstName));
-            } else {
-                criteria = criteria.add(Restrictions.eq(
-                        "lname", lastName)).add(Restrictions.eq(
-                        "fname", firstName));
-            }
-        }
+//    /**
+//     * Diese Methode sucht nach einen Gast mithilfe des Vornamens
+//     *
+//     * @param firstName dies ist der Vorname des Gastes.
+//     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+//     * enthält.
+//     */
+//    public static Set<DBGuest> getGuestsByFName(String firstName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBGuest.class);
+//
+//        if (firstName.isEmpty())
+//        {
+//            return null;
+//        }
+//        criteria = criteria.add(Restrictions.eq(
+//                "fname", firstName));
+//        List<DBGuest> retList = criteria.list();
+//        return new LinkedHashSet<DBGuest>(retList);
+//    }
 
-        List<DBGuest> retList = criteria.list();
-        
+//    /**
+//     * Diese Methode sucht nach einen Gast mithilfe des Nachnamens
+//     *
+//     * @param lastName dies ist der Nachname des Gastes.
+//     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+//     * enthält.
+//     */
+//    public static Set<DBGuest> getGuestsByLName(String lastName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBGuest.class);
+//
+//        if (lastName.isEmpty())
+//        {
+//            return null;
+//        }
+//        criteria = criteria.add(Restrictions.eq(
+//                "lname", lastName));
+//        List<DBGuest> retList = criteria.list();
+//        return new LinkedHashSet<DBGuest>(retList);
+//    }
 
-        return new LinkedHashSet<DBGuest>(retList);
-    }
-
-    /**
-     * Diese Methode sucht nach einen Gast mithilfe des Vornamens
-     *
-     * @param firstName dies ist der Vorname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
-     * enthält.
-     */
-    public static Set<DBGuest> getGuestsByFName(String firstName) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
-
-        if (firstName.isEmpty()) {
-            return null;
-        }
-        criteria = criteria.add(Restrictions.eq(
-                "fname", firstName));
-        List<DBGuest> retList = criteria.list();
-        return new LinkedHashSet<DBGuest>(retList);
-    }
-
-    /**
-     * Diese Methode sucht nach einen Gast mithilfe des Nachnamens
-     *
-     * @param lastName dies ist der Nachname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
-     * enthält.
-     */
-    public static Set<DBGuest> getGuestsByLName(String lastName) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
-
-        if (lastName.isEmpty()) {
-            return null;
-        }
-        criteria = criteria.add(Restrictions.eq(
-                "lname", lastName));
-        List<DBGuest> retList = criteria.list();
-        return new LinkedHashSet<DBGuest>(retList);
-    }
-
-    public String getFname() {
+    public String getFname()
+    {
         return fname;
     }
 
-    public void setFname(String fname) {
+    public void setFname(String fname)
+    {
         this.fname = fname;
     }
 
-    public String getLname() {
+    public String getLname()
+    {
         return lname;
     }
 
-    public void setLname(String lname) {
+    public void setLname(String lname)
+    {
         this.lname = lname;
     }
 
-    public Date getBirthday() {
+    public Date getBirthday()
+    {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Date birthday)
+    {
         this.birthday = birthday;
     }
 }

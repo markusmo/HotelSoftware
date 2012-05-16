@@ -19,7 +19,8 @@ import java.util.*;
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Guest extends Party implements IGuest
-{   
+{
+
     private Date birthday;
     private String fname;
     private String lname;
@@ -180,6 +181,26 @@ public class Guest extends Party implements IGuest
         return PartyFacade.getInstance().getGuestByName(fname, lname);
     }
 
+    /**
+     * Sucht einen Gast nach Vornamen
+     * @param fname der Vorname des Gastes
+     * @return eine Liste von Gästen mit diesem Vornamen
+     */
+    public static Collection<Guest> getGuestByFName(String fname)
+    {
+        return PartyFacade.getInstance().getGuestsByFName(fname);
+    }
+    
+    /**
+     * Sucht einen Gast nach seinem Nachnamen
+     * @param lname der Nachname des Gastes
+     * @return eine Liste von Gästen mit diesem Nachnamen
+     */
+    public static Collection<Guest> getGuestByLName(String lname)
+    {
+        return PartyFacade.getInstance().getGuestsByLName(lname);
+    }
+    
     @Override
     public Collection<HabitationData> getCurrentHabitationsData()
     {

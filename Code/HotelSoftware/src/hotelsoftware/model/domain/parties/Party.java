@@ -6,8 +6,13 @@ import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.DBCompany;
 import hotelsoftware.model.database.parties.DBGuest;
 import hotelsoftware.model.database.parties.DBPrivateCustomer;
+import hotelsoftware.support.CompanyNotFoundException;
+import hotelsoftware.support.GuestNotFoundException;
+import hotelsoftware.support.PrivateCustomerNotFoundException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Klasse die eine oder Mehrere Personen beschreibt. Sie ist abstrakt, da von ihr alle Kunden und auch die Gäste erben.
@@ -60,18 +65,39 @@ public class Party implements IParty
     {
         return address;
     }
-    
-    public static Collection<Party> searchParties(String text){
+
+    /**
+     * Sucht Parteien nach einem Text-Pattern
+     * @param text das Pattern
+     * @return eine Liste von Parteien, die dem Pattern ähnlich sind
+     */
+    public static Collection<Party> searchParties(String text)
+    {
         String[] words = text.split(" ");
         LinkedList<Party> list = new LinkedList<Party>();
-        
-        for(String s : words)
+
+        for (String s : words)
         {
-            list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByFName(s)));
-            list.addAll(DynamicMapper.mapCollection(DBGuest.getGuestsByLName(s)));
-            list.addAll(DynamicMapper.mapCollection(DBCompany.getCompaniesByName(s)));
-            list.addAll(DynamicMapper.mapCollection(DBPrivateCustomer.getPrivateCustomerByFName(s)));
-            list.addAll(DynamicMapper.mapCollection(DBPrivateCustomer.getPrivateCustomerByLName(s)));
+            list.addAll(Guest.getGuestByFName(s));
+            list.addAll(Guest.getGuestByLName(s));
+            list.addAll(Company.getCompaniesByName(s));
+            try
+            {
+                list.addAll(PrivateCustomer.getPrivateCustomerByFName(s));
+                list.addAll(PrivateCustomer.getPrivateCustomerByLName(s));
+            }
+            catch (CompanyNotFoundException ex)
+            {
+                Logger.getLogger(Party.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (PrivateCustomerNotFoundException ex)
+            {
+                Logger.getLogger(Party.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (GuestNotFoundException ex)
+            {
+                Logger.getLogger(Party.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return list;
     }

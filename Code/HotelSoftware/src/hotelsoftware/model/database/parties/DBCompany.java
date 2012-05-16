@@ -102,39 +102,39 @@ public class DBCompany extends DBCustomer implements Serializable {
         return "hotelsoftware.database.model.Companies[ id=" + getIdParties() + " ]";
     }
 
-    /**
-     * Diese Methode sucht nach einer Firma anhand eines Namens.
-     *
-     * @param name Dies ist der Name der Firma
-     * @return Es wird ein Objekt der Klasse DBCompany zurückgegeben
-     * @throws HibernateException Dieser Fehler wird geworfen, falls ein Problem
-     * mit Hibernate besteht.
-     */
-    public static DBCompany getCompanyByName(String name)
-            throws HibernateException {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(
-                "name", name));
-        return (DBCompany) criteria.uniqueResult();
-    }
+//    /**
+//     * Diese Methode sucht nach einer Firma anhand eines Namens.
+//     *
+//     * @param name Dies ist der Name der Firma
+//     * @return Es wird ein Objekt der Klasse DBCompany zurückgegeben
+//     * @throws HibernateException Dieser Fehler wird geworfen, falls ein Problem
+//     * mit Hibernate besteht.
+//     */
+//    public static DBCompany getCompanyByName(String name)
+//            throws HibernateException {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(
+//                "name", name));
+//        return (DBCompany) criteria.uniqueResult();
+//    }
 
-    /**
-     * Diese Methode sucht nach einer Firma anhand eines Namens.
-     *
-     * @param name Dies ist der Name der Firma
-     * @return Es wird ein Objekt der Klasse DBCompany zurückgegeben
-     * @throws HibernateException Dieser Fehler wird geworfen, falls ein Problem
-     * mit Hibernate besteht.
-     */
-    public static Collection<DBCompany> getCompaniesByName(String name)
-            throws HibernateException {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.like(
-                "name", name));
-        return criteria.list();
-    }
+//    /**
+//     * Diese Methode sucht nach einer Firma anhand eines Namens.
+//     *
+//     * @param name Dies ist der Name der Firma
+//     * @return Es wird ein Objekt der Klasse DBCompany zurückgegeben
+//     * @throws HibernateException Dieser Fehler wird geworfen, falls ein Problem
+//     * mit Hibernate besteht.
+//     */
+//    public static Collection<DBCompany> getCompaniesByName(String name)
+//            throws HibernateException {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.like(
+//                "name", name));
+//        return criteria.list();
+//    }
 }

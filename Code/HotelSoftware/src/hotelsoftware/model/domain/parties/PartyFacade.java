@@ -1,14 +1,19 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.parties.*;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.parties.*;
-import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.controller.data.reservation.ReservationData;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Kommunikationsklasse zwischen den Schichten. Sie dient als Übersetzer.
@@ -17,7 +22,6 @@ import java.util.Set;
  */
 public class PartyFacade
 {
-
     private PartyFacade()
     {
     }
@@ -27,15 +31,28 @@ public class PartyFacade
         return PartyFacadeHolder.INSTANCE;
     }
 
-    public Collection<Country> getAllCountries()
-    {
-        return DynamicMapper.mapCollection(DBCountry.getAllCountries());
-    }
-
     private static class PartyFacadeHolder
     {
-
         private static final PartyFacade INSTANCE = new PartyFacade();
+    }
+
+    /**
+     * gibt alle Länder aus
+     *
+     * @return
+     * Alle Länder in der Datenbank
+     */
+    public Collection<Country> getAllCountries()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "SELECT * FROM countries c ORDER BY name ASC";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        sqlquery.addEntity(DBCountry.class);
+        Collection<DBCountry> countries = sqlquery.list();
+        return DynamicMapper.mapCollection(countries);
     }
 
     /**
@@ -46,12 +63,17 @@ public class PartyFacade
      */
     public Set<CompanyType> getAllTypes()
     {
-        return (Set<CompanyType>) DynamicMapper.mapCollection(
-                DBCompanyType.getAllTypes());
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBCompanyType.class);
+        List<DBCompanyType> retList = criteria.list();
+
+        return (Set<CompanyType>) DynamicMapper.mapCollection(retList);
     }
 
     /**
-     * sucht nach einer Firma mit entsprechendem nammen
+     * sucht nach einer Firma mit entsprechendem Namen
      *
      * @param name name
      * @return Firmenobjekt
@@ -60,7 +82,12 @@ public class PartyFacade
     public Company getCompanyByName(String name)
             throws CompanyNotFoundException
     {
-        DBCompany c = DBCompany.getCompanyByName(name);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(
+                "name", name));
+        DBCompany c = (DBCompany) criteria.uniqueResult();
 
         if (c == null)
         {
@@ -71,7 +98,7 @@ public class PartyFacade
     }
 
     /**
-     * sucht einen PrivateCustomer mit entsprechendem namen
+     * sucht einen PrivateCustomer mit entsprechendem Namen
      *
      * @param firstName vorname
      * @param lastName nachname
@@ -81,51 +108,97 @@ public class PartyFacade
      */
     public PrivateCustomer getPrivateCustomerByName(String firstName,
             String lastName) throws PrivateCustomerNotFoundException,
-                                    GuestNotFoundException
+            GuestNotFoundException
     {
-        DBPrivateCustomer c = DBPrivateCustomer.getPrivateCustomerByName(
-                firstName, lastName);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
 
-        if (c == null)
+        DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class).add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName))).uniqueResult();
+
+        if (cust == null)
         {
             throw new GuestNotFoundException();
         }
 
-        return (PrivateCustomer) DynamicMapper.map(c);
+        return (PrivateCustomer) DynamicMapper.map(cust);
     }
-    
-    public PrivateCustomer getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
-                                    GuestNotFoundException
-    {
-        Set<DBPrivateCustomer> c = DBPrivateCustomer.getPrivateCustomerByFName(
-                firstName);
 
-        if (c == null)
+    /**
+     * Sucht einen Privatkunden nach Vornamen
+     *
+     * @param firstName der Vorname des Kunden
+     * @return eine Set von allen Kunden mit diesem Vornamen
+     * @throws PrivateCustomerNotFoundException
+     * @throws GuestNotFoundException
+     */
+    public Set<PrivateCustomer> getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
+            GuestNotFoundException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq(
+                "fname", firstName));
+        Collection<DBPrivateCustomer> cust = criteria.list();
+
+        if (cust == null)
         {
             throw new GuestNotFoundException();
         }
 
-        return (PrivateCustomer) DynamicMapper.map(c);
+        return (Set<PrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
-    
-    public PrivateCustomer getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
-                                    GuestNotFoundException
-    {
-        Set<DBPrivateCustomer> c = DBPrivateCustomer.getPrivateCustomerByLName(
-                lastName);
 
-        if (c == null)
+    /**
+     * Sucht einen Privatkunden nach einen Nachnamen
+     *
+     * @param lastName der Nachname des Kunden
+     * @return ein Set von Privatkunden mit diesem Nachnamen
+     * @throws PrivateCustomerNotFoundException
+     * @throws GuestNotFoundException
+     */
+    public Set<PrivateCustomer> getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
+            GuestNotFoundException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq(
+                "lname", lastName));
+        Collection<DBPrivateCustomer> cust = criteria.list();
+
+        if (cust == null)
         {
             throw new GuestNotFoundException();
         }
 
-        return (PrivateCustomer) DynamicMapper.map(c);
+        return (Set<PrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
 
-    Guest getGuestFromReservationNumber(String reservationNumber)
+    /**
+     * Gibt einen Gast nach der Reservierungsnummer aus
+     *
+     * @param reservationNumber die Reservierungsnummer nach der gesucht wird
+     * @return einen Gast, der zu dieser Reservierung passt
+     */
+    public Guest getGuestFromReservationNumber(String reservationNumber)
     {
-        return (Guest) DynamicMapper.map(DBGuest.getGuestFromReservationNumber(
-                reservationNumber));
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idParties FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+        sqlquery.addEntity(DBGuest.class);
+        DBGuest guest = (DBGuest) sqlquery.uniqueResult();
+
+        return (Guest) DynamicMapper.map(guest);
     }
 
     /**
@@ -137,17 +210,112 @@ public class PartyFacade
      * @throws CompanyNotFoundException Firma nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    @SuppressWarnings("unchecked")
     public Set<Guest> getGuestByName(String firstName, String lastName)
             throws CompanyNotFoundException, GuestNotFoundException
     {
-        Set<DBGuest> c = DBGuest.getGuestsByName(firstName, lastName);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBGuest.class);
 
-        if (c == null)
+        if (firstName.isEmpty() && lastName.isEmpty())
+        {
+            return null;
+        }
+        if (firstName.isEmpty())
+        {
+            criteria = criteria.add(Restrictions.eq(
+                    "lname", lastName));
+        }
+        else
+        {
+            if (lastName.isEmpty())
+            {
+                criteria = criteria.add(Restrictions.eq(
+                        "fname", firstName));
+            }
+            else
+            {
+                criteria = criteria.add(Restrictions.eq(
+                        "lname", lastName)).add(Restrictions.eq(
+                        "fname", firstName));
+            }
+        }
+
+        List<DBGuest> retList = criteria.list();
+
+        if (retList == null)
         {
             throw new GuestNotFoundException();
         }
 
-        return (Set<Guest>) DynamicMapper.map(c);
+        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+    }
+
+    /**
+     * Diese Methode sucht nach einen Gast mithilfe des Vornamens
+     *
+     * @param firstName dies ist der Vorname des Gastes.
+     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+     * enthält.
+     */
+    public Set<Guest> getGuestsByFName(String firstName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBGuest.class);
+
+        if (firstName.isEmpty())
+        {
+            return null;
+        }
+        criteria = criteria.add(Restrictions.eq(
+                "fname", firstName));
+        Collection<DBGuest> retList = criteria.list();
+
+        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+    }
+
+    /**
+     * Diese Methode sucht nach einen Gast mithilfe des Nachnamens
+     *
+     * @param lastName dies ist der Nachname des Gastes.
+     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+     * enthält.
+     */
+    public Set<Guest> getGuestsByLName(String lastName)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBGuest.class);
+
+        if (lastName.isEmpty())
+        {
+            return null;
+        }
+        criteria = criteria.add(Restrictions.eq(
+                "lname", lastName));
+        Collection<DBGuest> retList = criteria.list();
+
+        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+    }
+    /**
+     * Diese Methode sucht nach Firmen anhand eines Namens.
+     *
+     * @param name Dies ist der Name der Firma
+     * @return Eine Liste von Firmen mit ähnlichen Namen
+     */
+    public Collection<Company> getCompaniesByName(String name)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBCompany.class)
+                .add(Restrictions.like("name", name));
+        Collection<DBCompany> retList = criteria.list();
+        
+        return DynamicMapper.mapCollection(retList);
     }
 }

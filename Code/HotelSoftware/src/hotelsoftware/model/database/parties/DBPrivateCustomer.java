@@ -93,51 +93,52 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
     {
         return "hotelsoftware.model.database.parties.Privatecustomer[ id=" + getIdParties() + " ]";
     }
-   /**
-    * Diese Methode sucht nach einem Privatkunden mithilfe eines namens. Hierbei reicht der Vor- oder der Nachname
-    * @param firstName der Vorname der Privatperson.
-    * @param lastName Dies ist der Nachname der PrivatPerson.
-    * @return Diese Methode gibt ein Objekt vom typ DBPrivteCustomer zurück.
-    */
-    public static DBPrivateCustomer getPrivateCustomerByName(String firstName, String lastName)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class)
-                .add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName)))
-                .uniqueResult();
-        
-        return cust;
-        
-    }
     
-    public static Set<DBPrivateCustomer> getPrivateCustomerByFName(String firstName)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
-        criteria = criteria.add(Restrictions.eq(
-                        "fname", firstName));
-        List<DBPrivateCustomer> cust = criteria.list();
-        return new LinkedHashSet<DBPrivateCustomer>(cust);
-    }
+//   /**
+//    * Diese Methode sucht nach einem Privatkunden mithilfe eines namens. Hierbei reicht der Vor- oder der Nachname
+//    * @param firstName der Vorname der Privatperson.
+//    * @param lastName Dies ist der Nachname der PrivatPerson.
+//    * @return Diese Methode gibt ein Objekt vom typ DBPrivteCustomer zurück.
+//    */
+//    public static DBPrivateCustomer getPrivateCustomerByName(String firstName, String lastName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        
+//        DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class)
+//                .add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName)))
+//                .uniqueResult();
+//        
+//        return cust;
+//        
+//    }
     
-    public static Set<DBPrivateCustomer> getPrivateCustomerByLName(String lastName)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
-        criteria = criteria.add(Restrictions.eq(
-                        "lname", lastName));
-        List<DBPrivateCustomer> cust = criteria.list();
-        return new LinkedHashSet<DBPrivateCustomer>(cust);
-    }
+//    public static Set<DBPrivateCustomer> getPrivateCustomerByFName(String firstName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        
+//        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+//        criteria = criteria.add(Restrictions.eq(
+//                        "fname", firstName));
+//        List<DBPrivateCustomer> cust = criteria.list();
+//        return new LinkedHashSet<DBPrivateCustomer>(cust);
+//    }
+    
+//    public static Set<DBPrivateCustomer> getPrivateCustomerByLName(String lastName)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        
+//        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
+//        criteria = criteria.add(Restrictions.eq(
+//                        "lname", lastName));
+//        List<DBPrivateCustomer> cust = criteria.list();
+//        return new LinkedHashSet<DBPrivateCustomer>(cust);
+//    }
 }
 
 

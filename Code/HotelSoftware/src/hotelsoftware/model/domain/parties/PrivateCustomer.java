@@ -3,6 +3,8 @@ package hotelsoftware.model.domain.parties;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Privatperson die als Ansprechpartner für Rechnungen dient. Sie besitzt einen
@@ -110,13 +112,29 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
                 lastname);
     }
     
-    public static PrivateCustomer getPrivateCustomerByFName(String firstname)
+    /**
+     * Sucht Privatkunden nach Vornamen
+     * @param firstname der Vorname des Privatkunden
+     * @return ein Set von Privatkunden mit ähnlichen Namen
+     * @throws CompanyNotFoundException
+     * @throws PrivateCustomerNotFoundException
+     * @throws GuestNotFoundException 
+     */
+    public static Set<PrivateCustomer> getPrivateCustomerByFName(String firstname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByFName(firstname);
     }
     
-    public static PrivateCustomer getPrivateCustomerByLName(String lastname)
+    /**
+     * Sucht Privatkunden nach Nachnamen
+     * @param lastname der Nachname des Privatkunden
+     * @return ein Set von Privatkunden mit ähnlichen Namen
+     * @throws CompanyNotFoundException
+     * @throws PrivateCustomerNotFoundException
+     * @throws GuestNotFoundException 
+     */
+    public static Set<PrivateCustomer> getPrivateCustomerByLName(String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByLName(lastname);

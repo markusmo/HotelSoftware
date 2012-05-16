@@ -144,21 +144,22 @@ public class DBCountry implements Serializable
     {
         this.dBAddressCollection = dBAddressCollection;
     }
-    /**
-     * Diese Mthode sucht alle Länder aus der Datenbank
-     * @return 
-     * Eine Liste mit allen Ländern
-     */
-    public static Collection<DBCountry> getAllCountries()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM countries c ORDER BY name ASC";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-        sqlquery.addEntity(DBCountry.class);
-
-        return sqlquery.list();
-    }
+    
+//    /**
+//     * Diese Mthode sucht alle Länder aus der Datenbank
+//     * @return 
+//     * Eine Liste mit allen Ländern
+//     */
+//    public static Collection<DBCountry> getAllCountries()
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//
+//        String query = "SELECT * FROM countries c ORDER BY name ASC";
+//        SQLQuery sqlquery = session.createSQLQuery(query);
+//        sqlquery.addEntity(DBCountry.class);
+//
+//        return sqlquery.list();
+//    }
 }
