@@ -1,9 +1,6 @@
 package hotelsoftware.gui.invoice.customerSelection;
 
-import hotelsoftware.controller.data.parties.CountryData;
-import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.parties.*;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
@@ -337,7 +334,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         }
         else
         {
-            EnableAddressInputs(false);            
+            EnableAddressInputs(false);
             FillAddressInputs((PartyData) list.getSelectedValue());
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
@@ -383,13 +380,32 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
 
         if (jCheckBox1.isSelected())
         {
-            GuestData gd = (GuestData) list.getSelectedValue();
-            InvoiceGUIControler.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+            PartyData pd = (PartyData) list.getSelectedValue();
+            if (pd instanceof GuestData)
+            {
+                GuestData gd = (GuestData) pd;
+                InvoiceGUIControler.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+            }
+            else
+            {
+                if (pd instanceof CompanyData)
+                {
+                    CompanyData cd = (CompanyData) pd;
+                     InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                }
+                else
+                {
+                    if (pd instanceof PrivateCustomerData)
+                    {
+                        PrivateCustomerData pcd  = (PrivateCustomerData) pd;
+                        InvoiceGUIControler.getInstance().createPrivateCustomer(pcd.getFname(), pcd.getLname(), pcd.getAddressData().getStreet(), pcd.getAddressData().getCity(), pcd.getAddressData().getZip(), pcd.getAddressData().getEmail(), pcd.getAddressData().getPhone(), pcd.getAddressData().getFax(), pcd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                    }
+                }
+            }
         }
         else
         {
-            //FIXME Guest und Company (neue Methode oder zwei getrennte)
-            InvoiceGUIControler.getInstance().useGuestAsCustomer((GuestData) list.getSelectedValue());
+            InvoiceGUIControler.getInstance().useExistingParty((PartyData) list.getSelectedValue());
         }
 
         isAlive = false;
@@ -459,13 +475,16 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         list.setModel(listModel);
 
         buttonSearch.setIcon(new ImageIcon(ButtonIconTabComponent.class.getClassLoader().getResource("resources/images/search.png")));
-        buttonSearch.setText("");
+        buttonSearch.setText(
+                "");
         buttonGroup1.add(radioButtonPerson);
 
         buttonGroup1.add(RadioButtonCompany);
 
-        buttonCreateCustomer.setEnabled(false);
-        buttonSelectCustomer.setEnabled(false);
+        buttonCreateCustomer.setEnabled(
+                false);
+        buttonSelectCustomer.setEnabled(
+                false);
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
@@ -474,7 +493,8 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
             ComboBoxCountry.addItem(data);
         }
 
-        EnableAddressInputs(false);
+        EnableAddressInputs(
+                false);
         StartUpdater();
     }
 
@@ -597,6 +617,8 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         //ctrl.getConstructiveControlPanel().add(pmB);
 
         ctrl.repaintControlPanel();
+
+
     }
 
     private class Updater extends Thread

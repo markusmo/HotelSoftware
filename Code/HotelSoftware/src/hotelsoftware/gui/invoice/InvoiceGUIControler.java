@@ -230,6 +230,11 @@ public final class InvoiceGUIControler implements ActionListener
         return seperator;
     }
 
+    public void useExistingParty(PartyData data)
+    {
+        CreateInvoiceController.getInstance().useExistingParty(data);
+    }
+
     private static class invoiceGUIControlerHolder
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
@@ -259,7 +264,7 @@ public final class InvoiceGUIControler implements ActionListener
     {
         return main.getControlPanel();
     }
-    
+
     public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
     {
         return CreateInvoiceController.getInstance().getOpenItems(habitation);
