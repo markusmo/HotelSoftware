@@ -65,7 +65,7 @@ public class InvoiceItemManagerAdapter implements IInvoiceItemManager
         List<InvoiceItemEntity> tmpList = invoiceQuery.list();
 
         InvoiceItemAdapter adapter = new InvoiceItemAdapter();
-        adapter.setOurAdapter((DBInvoiceItem)DynamicMapper.map(invoiceQuery.uniqueResult()));
+        adapter.setOurType((DBInvoiceItem)DynamicMapper.map(invoiceQuery.uniqueResult()));
         return adapter;
     }
 

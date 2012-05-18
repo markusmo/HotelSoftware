@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Johannes
  */
-public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.IHabitation>
+public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.Habitation>
 {
     private hotelsoftware.model.domain.service.Habitation habitation;
 
@@ -148,13 +148,13 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     }
 
     @Override
-    public hotelsoftware.model.domain.service.IHabitation getOurType()
+    public hotelsoftware.model.domain.service.Habitation getOurType()
     {
         return habitation;
     }
 
     @Override
-    public void setOurType(hotelsoftware.model.domain.service.IHabitation type)
+    public void setOurType(hotelsoftware.model.domain.service.Habitation type)
     {
         this.habitation = (hotelsoftware.model.domain.service.Habitation) type;
     }
