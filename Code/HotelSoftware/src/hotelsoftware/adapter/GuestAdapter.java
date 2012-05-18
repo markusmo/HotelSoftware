@@ -2,6 +2,7 @@ package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.person.Guest;
 import hotelsoftware.model.domain.parties.IGuest;
+import java.util.Date;
 
 /**
  *
@@ -10,6 +11,42 @@ import hotelsoftware.model.domain.parties.IGuest;
 public class GuestAdapter extends Guest implements Adapter<hotelsoftware.model.domain.parties.IGuest>
 {
     private hotelsoftware.model.domain.parties.Guest guest;
+
+    @Override
+    public Date getBirthday()
+    {
+        return guest.getBirthday();
+    }
+
+    @Override
+    public String getFirstName()
+    {
+        return guest.getFname();
+    }
+
+    @Override
+    public String getLastName()
+    {
+        return guest.getLname();
+    }
+
+    @Override
+    public void setBirthday(Date birthday)
+    {
+        guest.setBirthday(birthday);
+    }
+
+    @Override
+    public void setFirstName(String firstName)
+    {
+        guest.setFname(firstName);
+    }
+
+    @Override
+    public void setLastName(String lastName)
+    {
+        guest.setLname(lastName);
+    }
 
     @Override
     public IGuest getOurType()
