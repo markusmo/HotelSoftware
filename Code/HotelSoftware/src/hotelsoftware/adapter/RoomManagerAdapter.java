@@ -110,7 +110,6 @@ public class RoomManagerAdapter implements IRoomManager
             Set<RoomsRoomStatus> statusse = new HashSet<RoomsRoomStatus>();
             statusse.add(ourStatus);
             RoomSaver.getInstance().saveOrUpdate(null, null, null, statusse);
-            throw new UnsupportedOperationException("Not supported yet.");
         }
         catch (FailedToSaveToDatabaseException ex)
         {
