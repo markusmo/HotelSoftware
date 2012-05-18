@@ -148,6 +148,14 @@ public class HelperFunctions<T, U extends T>
         return prefix + date + nf.format(id + 1);
     }
     
+    /**
+     * 
+     * @param <T> Die zu adaptierende Klasse
+     * @param <U> Die Adapterklasse
+     * @param col Eien Collection aus zu adaptierenden Objekten
+     * @param clazz Die Adapterklassen
+     * @return Die adaptierte Liste
+     */
     public static <T, U extends Adapter<T>>  List<U> getAdaptedList(Collection<T> col, Class<U> clazz)
     {
         LinkedList<U> list = new LinkedList<U>();
