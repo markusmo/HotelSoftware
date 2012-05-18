@@ -1,11 +1,12 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.room.Category;
-import at.fhv.roomanizer.domain.room.IRoom;
 import at.fhv.roomanizer.domain.room.Price;
 import at.fhv.roomanizer.domain.room.Room;
+import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.util.HelperFunctions;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Johannes
  */
-public class CategoryAdapter extends Category implements Adapter<hotelsoftware.model.domain.room.RoomCategory>
+public class CategoryAdapter extends Category implements Adapter<hotelsoftware.model.domain.room.IRoomCategory>
 {
     private hotelsoftware.model.domain.room.RoomCategory category;
 
@@ -45,7 +46,7 @@ public class CategoryAdapter extends Category implements Adapter<hotelsoftware.m
     @Override
     public List<Price> getPrice()
     {
-       throw new UnsupportedOperationException();
+        return new LinkedList(HelperFunctions.castCollectionUp(HelperFunctions.getAdaptedList(category.getPrice(), PriceAdapter.class), Price.class, PriceAdapter.class));
     }
 
     @Override
@@ -57,36 +58,36 @@ public class CategoryAdapter extends Category implements Adapter<hotelsoftware.m
     @Override
     public void setId(int id)
     {
-       category.setId(id);
+        category.setId(id);
     }
 
     @Override
     public void setName(String name)
     {
-       category.setName(name);
+        category.setName(name);
     }
 
     @Override
     public void setPrice(List<Price> price)
     {
-        throw new UnsupportedOperationException();
+        category.setPrice(HelperFunctions.getOurList(HelperFunctions.castCollectionDown(price, Price.class, PriceAdapter.class)));
     }
 
     @Override
     public void setRooms(List<Room> rooms)
     {
-        category.setRooms(HelperFunctions.getOurList(HelperFunctions.castCollectionDown(rooms, Room.getClass(), RoomAdapter.class)));
+        category.setRooms(HelperFunctions.getOurList(HelperFunctions.castCollectionDown(rooms, Room.class, RoomAdapter.class)));
     }
 
     @Override
-    public RoomCategory getOurType()
+    public IRoomCategory getOurType()
     {
         return category;
     }
 
     @Override
-    public void setOurType(RoomCategory type)
+    public void setOurType(IRoomCategory type)
     {
-        category = type;
+        category = (RoomCategory) type;
     }
 }
