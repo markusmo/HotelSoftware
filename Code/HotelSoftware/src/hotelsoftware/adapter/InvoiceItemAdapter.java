@@ -8,13 +8,14 @@ import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import java.util.Date;
 
 /**
  *
  * @author Johannes
  */
-public class InvoiceItemAdapter extends InvoiceItem
+public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoftware.model.domain.invoice.IInvoiceItem>
 {
     private hotelsoftware.model.domain.invoice.InvoiceItem invoiceItem;
 
@@ -45,7 +46,7 @@ public class InvoiceItemAdapter extends InvoiceItem
     @Override
     public double getPrice()
     {
-       return invoiceItem.getPrice();
+        return invoiceItem.getPrice();
     }
 
     @Override
@@ -101,6 +102,16 @@ public class InvoiceItemAdapter extends InvoiceItem
     {
         super.setUser(user);
     }
-    
-    
+
+    @Override
+    public IInvoiceItem getOurType()
+    {
+        return invoiceItem;
+    }
+
+    @Override
+    public void setOurType(IInvoiceItem type)
+    {
+        invoiceItem = (hotelsoftware.model.domain.invoice.InvoiceItem) type;
+    }
 }
