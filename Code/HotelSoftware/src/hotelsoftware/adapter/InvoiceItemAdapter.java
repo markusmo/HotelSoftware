@@ -52,49 +52,49 @@ public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoft
     @Override
     public Service getService()
     {
-        return super.getService();
+        return new ServiceAdapter(invoiceItem.getService());
     }
 
     @Override
     public User getUser()
     {
-        return super.getUser();
+        return new UserAdapter(invoiceItem.getUser());
     }
 
     @Override
     public void setAmount(int amount)
     {
-        super.setAmount(amount);
+        invoiceItem.setAmount(amount);
     }
 
     @Override
     public void setCreated(Date created)
     {
-        super.setCreated(created);
+        invoiceItem.setCreated(created);
     }
 
     @Override
     public void setHabitation(Habitation habitation)
     {
-        super.setHabitation(habitation);
+        invoiceItem.setHabitation((new HabitationAdapter(habitation)).getOurType());
     }
 
     @Override
     public void setId(int id)
     {
-        super.setId(id);
+        invoiceItem.setId(id);
     }
 
     @Override
     public void setPrice(double price)
     {
-        super.setPrice(price);
+        invoiceItem.setPrice((int) price);
     }
 
     @Override
     public void setService(Service service)
     {
-        super.setService(service);
+       invoiceItem.setService((new ServiceAdapter(service)).getOurType());
     }
 
     @Override

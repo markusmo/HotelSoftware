@@ -7,6 +7,7 @@ package hotelsoftware.adapter;
 import at.fhv.roomanizer.domain.service.IType;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.domain.service.Type;
+import java.math.BigDecimal;
 
 /**
  *
@@ -15,19 +16,24 @@ import at.fhv.roomanizer.domain.service.Type;
 public class ServiceAdapter extends Service implements Adapter<hotelsoftware.model.domain.service.IService>
 {
     private hotelsoftware.model.domain.service.IService ourService;
-    
+
     public ServiceAdapter(hotelsoftware.model.domain.service.IService ourservice)
     {
         this.ourService = ourservice;
     }
-    
+
+    ServiceAdapter(Service service)
+    {
+        ourService.setIdServices(service.getId());
+        ourService.setServiceType(new ServiceTypeAdapter(service.getType()).getOurType());
+    }
+
     @Override
     public void setId(int id)
     {
         this.ourService.setIdServices(id);
     }
 
-   
     @Override
     public int getId()
     {
@@ -37,7 +43,7 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
     @Override
     public void setType(Type type)
     {
-        //TODO implement
+        ourService.setServiceType((new ServiceTypeAdapter(type)).getOurType());
     }
 
     @Override
@@ -63,5 +69,4 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
     {
         this.ourService = type;
     }
-    
 }
