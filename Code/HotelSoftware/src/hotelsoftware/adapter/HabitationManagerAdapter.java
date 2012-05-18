@@ -5,6 +5,7 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
+import at.fhv.roomanizer.domain.IHabitation;
 import at.fhv.roomanizer.persistence.manager.HabitationManager;
 import at.fhv.roomanizer.persistence.manager.IHabitationManager;
 import hotelsoftware.util.HelperFunctions;
@@ -46,21 +47,23 @@ public class HabitationManagerAdapter implements IHabitationManager
     public List<Habitation> getAllHabitations() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         return new LinkedList<Habitation>(HelperFunctions.castCollectionUp(
-                HelperFunctions.getAdaptedList(hotelsoftware.model.domain.service.Habitation.getAllHabitations(), HabitationAdapter.class),
+                HelperFunctions.getAdaptedList(HelperFunctions.castCollectionUp(hotelsoftware.model.domain.service.Habitation.getAllHabitations(), 
+                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.Habitation.class), HabitationAdapter.class),
                 Habitation.class, HabitationAdapter.class));
     }
 
     @Override
     public Habitation getHabitationById(int habitationID) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new HabitationAdapter(hotelsoftware.model.domain.service.Habitation.getHabitationById(habitationID));
     }
 
     @Override
     public List<Habitation> getHabitationsByDate(Date date) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         return new LinkedList<Habitation>(HelperFunctions.castCollectionUp(
-                HelperFunctions.getAdaptedList(hotelsoftware.model.domain.service.Habitation.getHabitationsByDate(date), HabitationAdapter.class),
+                HelperFunctions.getAdaptedList(HelperFunctions.castCollectionUp(hotelsoftware.model.domain.service.Habitation.getHabitationsByDate(date), 
+                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.Habitation.class), HabitationAdapter.class),
                 Habitation.class, HabitationAdapter.class));
     }
 

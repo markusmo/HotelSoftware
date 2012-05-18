@@ -21,6 +21,7 @@ public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoft
     
     public InvoiceItemAdapter()
     {
+        this.invoiceItem = new hotelsoftware.model.domain.invoice.InvoiceItem();
     }
 
     @Override
@@ -98,13 +99,13 @@ public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoft
     @Override
     public void setService(Service service)
     {
-       invoiceItem.setService((new ServiceAdapter(service)).getOurType());
+       invoiceItem.setService(((ServiceAdapter)service).getOurType());
     }
 
     @Override
     public void setUser(User user)
     {
-        super.setUser(user);
+        this.invoiceItem.setUser(((UserAdapter)user).getOurType());
     }
 
     @Override

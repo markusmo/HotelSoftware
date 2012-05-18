@@ -25,14 +25,18 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
 
     public ServiceAdapter(Service service)
     {
-        //TODO instanceof Abfrage?
-        this.ourService = new ExtraService();
+        this();
         this.ourService.setIdServices(service.getId());
-        this.ourService.setServiceType(new ServiceTypeAdapter(service.getType()).getOurType());
+        this.ourService.setServiceType(new TypeAdapter(service.getType()).getOurType());
     }
     
     public ServiceAdapter()
     {
+        //TODO instanceof Abfrage?
+        this.ourService = new ExtraService();
+        //Workaround wegen Unterschieden im Domänenmodell (Team F hat Service nicht abstrakt gemacht)
+        ((ExtraService)this.ourService).setName("");
+        ((ExtraService)this.ourService).setPrice(BigDecimal.ZERO);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
     @Override
     public void setType(Type type)
     {
-        ourService.setServiceType((new ServiceTypeAdapter(type)).getOurType());
+        ourService.setServiceType((new TypeAdapter(type)).getOurType());
     }
 
     @Override

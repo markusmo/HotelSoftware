@@ -10,6 +10,9 @@ import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
+import hotelsoftware.adapter.InvoiceItemAdapter;
+import hotelsoftware.adapter.ServiceAdapter;
+import hotelsoftware.adapter.ServiceManagerAdapter;
 import hotelsoftware.adapter.UserControllerAdapter;
 
 public class PrePaymentController
@@ -21,7 +24,7 @@ public class PrePaymentController
         IHabitationManager habManager = ManagerFactory.getHabitationManager();
         Habitation habitation = habManager.getHabitationById(habitationId);
 
-        InvoiceItem prePaymentItem = new InvoiceItem();
+        InvoiceItem prePaymentItem = new InvoiceItemAdapter();
         prePaymentItem.setAmount(1);
         prePaymentItem.setHabitation(habitation);
         prePaymentItem.setPrice(0 - amount);
@@ -30,8 +33,8 @@ public class PrePaymentController
         //TODO Workaround: Not much of a beauty ^^
         prePaymentItem.setUser((User) new UserControllerAdapter().loadFirstUser());
 
-        Service service = new Service();
-        service.setType(serviceManager.getTypeByName("PrePayment"));
+        Service service = new ServiceAdapter(((ServiceManagerAdapter)serviceManager).getExtraServiceByName("PrePayment"));
+        //service.setType(serviceManager.getTypeByName("PrePayment"));
         prePaymentItem.setService(service);
         serviceManager.saveService(service);
 

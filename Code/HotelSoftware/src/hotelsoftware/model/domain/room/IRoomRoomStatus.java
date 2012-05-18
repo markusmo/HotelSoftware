@@ -4,27 +4,18 @@
  */
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.controller.data.room.RoomsRoomStatusData;
 import java.util.Date;
 
 /**
  *
  * @author Kno
  */
-public interface IRoomRoomStatus {
-
-    boolean equals(Object object);
-
-    Date getEnd();
-
+public interface IRoomRoomStatus extends RoomsRoomStatusData
+{
     IRoom getRoom();
 
-    Integer getRoomsroomstatusPK();
-
     IRoomStatus getRoomstatus();
-
-    Date getStart();
-
-    int hashCode();
 
     void setEnd(Date end);
 
@@ -35,7 +26,4 @@ public interface IRoomRoomStatus {
     void setRoomstatus(IRoomStatus roomstatus);
 
     void setStart(Date start);
-
-    String toString();
-    
 }

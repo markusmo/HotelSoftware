@@ -1,9 +1,8 @@
 package hotelsoftware.model.domain.room;
 
-import java.io.Serializable;
+import hotelsoftware.controller.data.room.RoomData;
+import hotelsoftware.controller.data.room.RoomStatusData;
 import java.util.Date;
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Bildet den Status eines Zimmer auf einen Zeitraum ab.
@@ -110,6 +109,18 @@ public class RoomsRoomStatus implements IRoomRoomStatus
     public void setEnd(Date end)
     {
         this.end = end;
-    }    
+    }
+
+    @Override
+    public RoomData getRoomData()
+    {
+        return getRoom();
+    }
+
+    @Override
+    public RoomStatusData getRoomstatusData()
+    {
+        return getRoomstatus();
+    }
 }
 

@@ -193,4 +193,16 @@ public class HelperFunctions<T, U extends T>
         
         return list;
     }
+    
+    public static <T extends V, U extends Adapter<T>, V>  List<V> getOurList(Collection<U> col, Class<V> returnClass)
+    {
+        LinkedList<V> list = new LinkedList<V>();
+        
+        for (U u : col)
+        {
+            list.add(u.getOurType());
+        }
+        
+        return list;
+    }
 }

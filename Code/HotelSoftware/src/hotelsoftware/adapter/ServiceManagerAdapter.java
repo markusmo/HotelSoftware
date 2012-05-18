@@ -4,6 +4,7 @@
  */
 package hotelsoftware.adapter;
 
+import at.fhv.roomanizer.domain.service.ExtraService;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.domain.service.Type;
 import at.fhv.roomanizer.persistence.manager.IServiceManager;
@@ -11,6 +12,7 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.service.IServiceType;
 import hotelsoftware.model.domain.service.ServiceSaver;
 import hotelsoftware.model.domain.service.ServiceType;
+import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
@@ -74,6 +76,20 @@ public class ServiceManagerAdapter implements IServiceManager
         {
             Logger.getLogger(ServiceManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+    
+    public ExtraService getExtraServiceByName(String name)
+    {
+        try
+        {
+            return new ExtraServiceAdapter(hotelsoftware.model.domain.service.ExtraService.getExtraServiceByName(name));
+        }
+        catch (ServiceNotFoundException ex)
+        {
+            Logger.getLogger(ServiceManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return null;
     }
 

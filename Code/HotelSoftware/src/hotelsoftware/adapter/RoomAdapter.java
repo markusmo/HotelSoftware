@@ -5,11 +5,16 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
+import at.fhv.roomanizer.domain.IHabitation;
 import at.fhv.roomanizer.domain.reservation.Reservation;
 import at.fhv.roomanizer.domain.room.*;
+import hotelsoftware.model.domain.room.IRoomRoomStatus;
+import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.RoomsRoomStatus;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  *
@@ -22,7 +27,7 @@ public class RoomAdapter extends Room implements Adapter<hotelsoftware.model.dom
     public RoomAdapter()
     {
     }
-    
+
     public RoomAdapter(hotelsoftware.model.domain.room.IRoom room)
     {
         this.room = (hotelsoftware.model.domain.room.Room) room;
@@ -31,106 +36,115 @@ public class RoomAdapter extends Room implements Adapter<hotelsoftware.model.dom
     @Override
     public void addHabitation(Habitation habitation)
     {
-        room.getHabitations().add((new HabitationAdapter(habitation)).getOurType());
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void addReservation(Reservation reservation)
     {
-        super.addReservation(reservation);
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void addStatus(Status status, Date start, Date end)
     {
-        super.addStatus(status, start, end);
+        IRoomRoomStatus st = new RoomsRoomStatus();
+        st.setRoomstatus(((StatusAdapter) status).getOurType());
+        st.setStart(start);
+        st.setEnd(end);
+        this.room.getStatus().add(st);
     }
 
     @Override
     public boolean checkAvailability(Date start, Date end)
     {
-        return super.checkAvailability(start, end);
+        return this.room.isFree(start, end);
     }
 
     @Override
     public Category getCategory()
     {
-        return super.getCategory();
+        return new CategoryAdapter((RoomCategory) this.room.getCategory());
     }
 
     @Override
     public List<Habitation> getHabitations()
     {
-        return super.getHabitations();
+        return new LinkedList<Habitation>(
+                HelperFunctions.castCollectionUp(HelperFunctions.getAdaptedList(room.getHabitations(), HabitationAdapter.class),
+                Habitation.class, HabitationAdapter.class));
     }
 
     @Override
     public ICategory getICategory()
     {
-        return super.getICategory();
+        return getCategory();
     }
 
     @Override
     public List<IRoomStatus> getIStatus()
     {
-        return super.getIStatus();
+        return new LinkedList<IRoomStatus>(
+                HelperFunctions.castCollectionUp(HelperFunctions.getAdaptedList(room.getStatus(), RoomStatusAdapter.class),
+                IRoomStatus.class, RoomStatusAdapter.class));
     }
 
     @Override
     public int getId()
     {
-        return super.getId();
+        return this.room.getId();
     }
 
     @Override
     public String getNumber()
     {
-        return super.getNumber();
+        return this.room.getNumber();
     }
 
     @Override
     public List<Reservation> getReservations()
     {
-        return super.getReservations();
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public List<RoomStatus> getStatus()
     {
-        return super.getStatus();
+        return new LinkedList<RoomStatus>(
+                HelperFunctions.castCollectionUp(HelperFunctions.getAdaptedList(room.getStatus(), RoomStatusAdapter.class),
+                RoomStatus.class, RoomStatusAdapter.class));
     }
 
     @Override
     public void setCategory(Category category)
     {
-        super.setCategory(category);
+        this.room.setCategory(((CategoryAdapter) category).getOurType());
     }
 
     @Override
     public void setHabitations(List<Habitation> habitationList)
     {
-        super.setHabitations(habitationList);
+        this.room.setHabitations(HelperFunctions.getOurList(HelperFunctions.castCollectionDown(habitationList, Habitation.class, HabitationAdapter.class),
+                hotelsoftware.model.domain.service.IHabitation.class));
     }
 
     @Override
     public void setId(int id)
     {
-        super.setId(id);
+        this.room.setId(id);
     }
 
     @Override
     public void setNumber(String number)
     {
-        super.setNumber(number);
+        this.room.setNumber(number);
     }
 
     @Override
     public void setStatus(List<RoomStatus> statusList)
     {
-        super.setStatus(statusList);
+        this.room.setStatus(HelperFunctions.getOurList(HelperFunctions.castCollectionDown(statusList, RoomStatus.class, RoomStatusAdapter.class)));
     }
-    
-    
 
     @Override
     public void setOurType(hotelsoftware.model.domain.room.IRoom type)

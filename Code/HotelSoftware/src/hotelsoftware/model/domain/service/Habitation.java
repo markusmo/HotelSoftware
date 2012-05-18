@@ -367,6 +367,11 @@ public class Habitation extends Service implements IHabitation
         }
         return (Habitation) temp.iterator().next();
     }
+    
+    public static Habitation getHabitationById(int id)
+    {
+        return ServiceFacade.getInstance().getHabitationById(id);
+    }
 
     @Override
     public String getServiceName()

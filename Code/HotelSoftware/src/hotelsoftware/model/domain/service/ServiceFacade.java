@@ -258,11 +258,22 @@ public class ServiceFacade
     public static Collection<Habitation> getAllHabitations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
         
         Query habitationQuery = session.createQuery("from DBHabitation order by startDate");
 
         List<DBHabitation> tmpList = habitationQuery.list();
 
         return DynamicMapper.mapCollection(tmpList);
+    }
+    
+    public Habitation getHabitationById(int id)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
+        Query habitationQuery = session.createQuery("from DBHabitation WHERE idServices = :id");
+        habitationQuery.setInteger("id", id);
+
+        return (Habitation) DynamicMapper.map(habitationQuery.uniqueResult());
     }
 }

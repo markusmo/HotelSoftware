@@ -4,11 +4,7 @@
  */
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.controller.data.room.RoomOptionData;
-import hotelsoftware.controller.data.room.RoomStatusData;
-import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.IHabitation;
 import java.util.Collection;
 
@@ -21,7 +17,7 @@ public interface IRoom extends RoomData
 
     void addOption(IRoomOption option);
 
-    void changeStatus(IRoomStatus status);
+    void changeStatus(IRoomRoomStatus status);
 
     IRoomCategory getCategory();
 
@@ -29,7 +25,7 @@ public interface IRoom extends RoomData
 
     Collection<IRoomOption> getOptions();
 
-    Collection<IRoomStatus> getStatus();
+    Collection<IRoomRoomStatus> getStatus();
 
     void setCategory(IRoomCategory category);
 
@@ -39,7 +35,7 @@ public interface IRoom extends RoomData
 
     void setOptions(Collection<IRoomOption> options);
 
-    void setStatus(Collection<IRoomStatus> status);
+    void setStatus(Collection<IRoomRoomStatus> status);
     
     Collection<IHabitation> getHabitations();
     

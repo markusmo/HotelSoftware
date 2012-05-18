@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Locale;
 import javax.swing.*;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -219,8 +220,23 @@ public class MainFrame extends javax.swing.JFrame
         {
             Display display = new Display();
             Shell shell = new Shell(display);
+            shell.setLayout(new FillLayout());
+            
             HabitationView view = new HabitationView(shell, SWT.NONE);
-           
+            shell.open();
+            
+            //Dafuq SWT, seriously DAFUQ?
+            shell.pack();
+            while (!shell.isDisposed())
+            {
+                if (!display.readAndDispatch())
+                {
+                    display.sleep();
+                }
+                shell.forceActive();
+            }
+
+            display.dispose();
         }
     }//GEN-LAST:event_prepaymentButtonActionPerformed
 
