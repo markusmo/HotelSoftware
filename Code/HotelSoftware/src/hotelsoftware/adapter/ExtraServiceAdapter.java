@@ -18,9 +18,9 @@ public class ExtraServiceAdapter extends ExtraService implements Adapter<hotelso
     
     public ExtraServiceAdapter(){}
     
-    public ExtraServiceAdapter(hotelsoftware.model.domain.service.ExtraService ourExtraService)
+    public ExtraServiceAdapter(hotelsoftware.model.domain.service.IExtraService ourExtraService)
     {
-        this.ourExtraService = ourExtraService;
+        this.ourExtraService = (hotelsoftware.model.domain.service.ExtraService)ourExtraService;
     }
     
     @Override
