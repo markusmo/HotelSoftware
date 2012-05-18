@@ -14,7 +14,7 @@ import at.fhv.roomanizer.domain.service.Type;
 import at.fhv.roomanizer.persistence.ObjectConverter;
 import at.fhv.roomanizer.persistence.entity.service.TypeEntity;
 
-public class ServiceManager extends Manager {
+public class ServiceManager extends Manager implements IServiceManager {
 
 	protected ServiceManager(Session session) {
 		super(session);
@@ -29,6 +29,7 @@ public class ServiceManager extends Manager {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
+    @Override
 	public List<Type> getAllTypes() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		Query typeQuery = _session.createQuery("from TypeEntity");
 		
@@ -53,6 +54,7 @@ public class ServiceManager extends Manager {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
+    @Override
 	public Type getTypeByName(String typeName) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		Query query = _session.createQuery("from TypeEntity where name = :typeName");
 		query.setString("typeName", typeName);
@@ -69,6 +71,7 @@ public class ServiceManager extends Manager {
 		
 	}
 	
+    @Override
 	public void saveService(Service service) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		Transaction tx = _session.beginTransaction();
 		
