@@ -61,11 +61,8 @@ public class InvoiceItemManagerAdapter implements IInvoiceItemManager
         invoiceQuery.setMaxResults(1);
         invoiceQuery.setInteger("habitationID", habitation.getId());
 
-        @SuppressWarnings("unchecked")
-        List<InvoiceItemEntity> tmpList = invoiceQuery.list();
-
         InvoiceItemAdapter adapter = new InvoiceItemAdapter();
-        adapter.setOurType((DBInvoiceItem)DynamicMapper.map(invoiceQuery.uniqueResult()));
+        adapter.setOurType((hotelsoftware.model.domain.invoice.InvoiceItem)DynamicMapper.map(invoiceQuery.uniqueResult()));
         return adapter;
     }
 

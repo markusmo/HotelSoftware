@@ -98,9 +98,7 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public Status getStatusByName(String name) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        StatusAdapter sa = new StatusAdapter();
-        sa.setOurType(hotelsoftware.model.domain.room.RoomStatus.getRoomStatusByName(name));
-        return sa;
+        return new StatusAdapter(hotelsoftware.model.domain.room.RoomStatus.getRoomStatusByName(name));
     }
 
     @Override
