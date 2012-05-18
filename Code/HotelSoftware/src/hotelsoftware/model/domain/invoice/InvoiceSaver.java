@@ -88,8 +88,8 @@ public class InvoiceSaver {
                 DBInvoiceItem dbii = (DBInvoiceItem)DynamicMapper.map(item);
                 if (dbii.getId() == null)
                 {
-                    session.saveOrUpdate(dbii);
-                    item.setId(dbii.getId());
+                    Integer id = (Integer) session.save(session.merge(dbii));
+                    item.setId(id);
                 }
                 else
                 {

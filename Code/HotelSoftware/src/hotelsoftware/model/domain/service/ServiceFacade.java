@@ -270,6 +270,7 @@ public class ServiceFacade
     public Habitation getHabitationById(int id)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
         
         Query habitationQuery = session.createQuery("from DBHabitation WHERE idServices = :id");
         habitationQuery.setInteger("id", id);
