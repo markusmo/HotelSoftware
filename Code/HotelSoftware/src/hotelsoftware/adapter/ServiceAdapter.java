@@ -7,14 +7,12 @@ package hotelsoftware.adapter;
 import at.fhv.roomanizer.domain.service.IType;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.domain.service.Type;
-import hotelsoftware.model.domain.service.IServiceType;
-import hotelsoftware.model.domain.service.ServiceType;
 
 /**
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class ServiceAdapter extends Service
+public class ServiceAdapter extends Service implements Adapter<hotelsoftware.model.domain.service.IService>
 {
     private hotelsoftware.model.domain.service.IService ourService;
     
@@ -52,6 +50,18 @@ public class ServiceAdapter extends Service
     public IType getIType()
     {
         return (IType) new TypeAdapter(ourService.getServiceType());
+    }
+
+    @Override
+    public hotelsoftware.model.domain.service.IService getOurType()
+    {
+        return this.ourService;
+    }
+
+    @Override
+    public void setOurType(hotelsoftware.model.domain.service.IService type)
+    {
+        this.ourService = type;
     }
     
 }
