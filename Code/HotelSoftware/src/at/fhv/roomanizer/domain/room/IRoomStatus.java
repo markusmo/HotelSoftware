@@ -3,7 +3,7 @@ package at.fhv.roomanizer.domain.room;
 import java.util.Date;
 
 public interface IRoomStatus {
-	public Room getRoom();
+	public IRoom getRoom();
 
 	public IStatus getIStatus();
 
