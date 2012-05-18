@@ -8,7 +8,6 @@ import hotelsoftware.util.HibernateUtil;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -29,14 +28,14 @@ public class InvoiceFacade
         return InvoiceFacadeHolder.INSTANCE;
     }
 
-    static int getHighestInvoiceId()
-    {
-        return DBInvoice.getHighestId();
-    }
-
     private static class InvoiceFacadeHolder
     {
         private static final InvoiceFacade INSTANCE = new InvoiceFacade();
+    }
+    
+    static int getHighestInvoiceId()
+    {
+        return DBInvoice.getHighestId();
     }
 
     /**
