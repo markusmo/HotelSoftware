@@ -11,6 +11,16 @@ import java.util.Date;
 public class GuestAdapter extends Guest implements Adapter<hotelsoftware.model.domain.parties.IGuest>
 {
     private hotelsoftware.model.domain.parties.Guest guest;
+    
+    public GuestAdapter()
+    {
+        
+    }
+    
+    public GuestAdapter(hotelsoftware.model.domain.parties.Guest guest)
+    {
+        this.guest = guest;
+    }
 
     @Override
     public Date getBirthday()

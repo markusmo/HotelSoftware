@@ -11,6 +11,7 @@ import at.fhv.roomanizer.domain.room.RoomStatus;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
+import hotelsoftware.adapter.RoomStatusAdapter;
 import hotelsoftware.adapter.UserControllerAdapter;
 
 public class DayEndClosingController
@@ -48,7 +49,7 @@ public class DayEndClosingController
             invoiceManager.saveInvoiceItem(roomInvoice);
 
             //Save the room status per day-end closing
-            RoomStatus roomStatus = new RoomStatus();
+            RoomStatus roomStatus = new RoomStatusAdapter(new hotelsoftware.model.domain.room.RoomsRoomStatus());
             roomStatus.setRoom(habitation.getRoom());
 
             Status occupiedDirtyStatus = roomManager.getStatusByName("Occupied - Dirty");

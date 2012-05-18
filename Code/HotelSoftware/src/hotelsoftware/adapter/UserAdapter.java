@@ -16,17 +16,22 @@ public class UserAdapter extends User implements Adapter<hotelsoftware.model.dom
 {
     private hotelsoftware.model.domain.users.User user;
 
-    UserAdapter(hotelsoftware.model.domain.users.IUser user)
+    public UserAdapter(hotelsoftware.model.domain.users.IUser user)
     {
        this.user = (hotelsoftware.model.domain.users.User) user;
     }
 
-    UserAdapter(User user)
+    public UserAdapter(User user)
     {
+        this.user = new hotelsoftware.model.domain.users.User();
         this.user.setActive(user.getActive());
         this.user.setId(user.getId());
         this.user.setPassword(user.getPassword());
         this.user.setUsername(user.getUsername());
+    }
+    
+    public UserAdapter()
+    {
     }
 
     @Override

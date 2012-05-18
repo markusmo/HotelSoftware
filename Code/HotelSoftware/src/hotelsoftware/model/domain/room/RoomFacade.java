@@ -81,7 +81,7 @@ public class RoomFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
-        DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("name", name)).uniqueResult();
+        DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("statusName", name)).uniqueResult();
         return (RoomStatus) DynamicMapper.map(status);
     }
 }

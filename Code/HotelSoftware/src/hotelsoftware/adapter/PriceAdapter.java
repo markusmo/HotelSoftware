@@ -19,6 +19,10 @@ import java.math.BigDecimal;
 public class PriceAdapter extends Price implements Adapter<IRoomCategoryPrice>
 {
     private RoomCategoryPrice price;
+    
+    public PriceAdapter()
+    {
+    }
 
     @Override
     public ISeason getISeason()

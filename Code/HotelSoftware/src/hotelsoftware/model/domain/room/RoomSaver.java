@@ -118,7 +118,7 @@ public class RoomSaver
             }
         }
         
-        if (status != null)
+        if (roomStatus != null)
         {
             for (RoomsRoomStatus stat : roomStatus)
             {

@@ -18,6 +18,15 @@ import java.util.List;
 public class CategoryAdapter extends Category implements Adapter<hotelsoftware.model.domain.room.IRoomCategory>
 {
     private hotelsoftware.model.domain.room.RoomCategory category;
+    
+    public CategoryAdapter()
+    {
+    }
+    
+    public CategoryAdapter(hotelsoftware.model.domain.room.RoomCategory cat)
+    {
+        this.category = cat;
+    }
 
     @Override
     public void addRoom(Room r)

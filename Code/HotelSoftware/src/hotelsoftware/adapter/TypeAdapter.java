@@ -6,6 +6,7 @@ package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.service.Type;
 import hotelsoftware.model.domain.service.IServiceType;
+import hotelsoftware.model.domain.service.ServiceType;
 import java.math.BigDecimal;
 
 /**
@@ -16,9 +17,21 @@ public class TypeAdapter extends Type implements Adapter<IServiceType>
 {
     private IServiceType ourType;
 
+    public TypeAdapter()
+    {
+    }
+    
     public TypeAdapter(IServiceType ourType)
     {
         this.ourType = ourType;
+    }
+    
+    public TypeAdapter(Type theirType)
+    {
+        this.ourType = new ServiceType();
+        ourType.setId(theirType.getId());
+        ourType.setName(theirType.getName());
+        ourType.setTaxRate(BigDecimal.valueOf(theirType.getTaxRate()));
     }
 
     @Override

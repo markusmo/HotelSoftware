@@ -63,7 +63,7 @@ public class DBInvoice implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private Boolean fulfilled;
     
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", fetch= FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
     
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)

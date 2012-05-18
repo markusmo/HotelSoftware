@@ -37,7 +37,7 @@ public class DBCompany extends DBCustomer implements Serializable {
     }, inverseJoinColumns = {
         @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
     })
-    @ManyToMany
+    @ManyToMany (fetch= FetchType.EAGER)
     private Set<DBParty> contactPersons;
     @JoinColumn(name = "idCompanyTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)

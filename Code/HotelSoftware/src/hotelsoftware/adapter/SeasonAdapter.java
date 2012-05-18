@@ -16,12 +16,13 @@ public class SeasonAdapter extends Season implements Adapter<hotelsoftware.model
 {
     private hotelsoftware.model.domain.room.Season season;
 
-    SeasonAdapter(ISeason seasons)
+    public SeasonAdapter(ISeason seasons)
     {
-        season.setEnd(seasons.getEnd());
-        season.setStart(seasons.getStart());
-        season.setId(seasons.getId());
-        season.setName(seasons.getName());
+        this.season = new hotelsoftware.model.domain.room.Season();
+        this.season.setEnd(seasons.getEnd());
+        this.season.setStart(seasons.getStart());
+        this.season.setId(seasons.getId());
+        this.season.setName(seasons.getName());
     }
 
     public SeasonAdapter(hotelsoftware.model.domain.room.ISeason seasons)
@@ -29,7 +30,7 @@ public class SeasonAdapter extends Season implements Adapter<hotelsoftware.model
         this.season = (hotelsoftware.model.domain.room.Season) seasons;
     }
 
-    SeasonAdapter()
+    public SeasonAdapter()
     {
     }
 

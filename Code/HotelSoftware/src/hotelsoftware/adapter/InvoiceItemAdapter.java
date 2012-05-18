@@ -18,6 +18,10 @@ import java.util.Date;
 public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoftware.model.domain.invoice.IInvoiceItem>
 {
     private hotelsoftware.model.domain.invoice.InvoiceItem invoiceItem;
+    
+    public InvoiceItemAdapter()
+    {
+    }
 
     @Override
     public int getAmount()

@@ -19,6 +19,7 @@ class ServiceTypeAdapter extends Type implements Adapter<IServiceType>
 
     public ServiceTypeAdapter(Type type)
     {
+        this.type = new ServiceType();
         this.type.setId(type.getId());
         this.type.setName(type.getName());
         this.type.setTaxRate(BigDecimal.valueOf(type.getTaxRate()));
@@ -27,6 +28,10 @@ class ServiceTypeAdapter extends Type implements Adapter<IServiceType>
     public ServiceTypeAdapter(IServiceType type)
     {
         this.type = (ServiceType) type;
+    }
+    
+    public ServiceTypeAdapter()
+    {
     }
 
     @Override

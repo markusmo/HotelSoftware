@@ -19,7 +19,11 @@ public class RoomAdapter extends Room implements Adapter<hotelsoftware.model.dom
 {
     private hotelsoftware.model.domain.room.Room room;
 
-    RoomAdapter(hotelsoftware.model.domain.room.IRoom room)
+    public RoomAdapter()
+    {
+    }
+    
+    public RoomAdapter(hotelsoftware.model.domain.room.IRoom room)
     {
         this.room = (hotelsoftware.model.domain.room.Room) room;
     }

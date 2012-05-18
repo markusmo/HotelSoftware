@@ -56,7 +56,7 @@ public class InvoiceItemManagerAdapter implements IInvoiceItemManager
     public InvoiceItem getHabitationInvoiceItem(Habitation habitation) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        
+        Transaction t = session.beginTransaction();
         Query invoiceQuery = session.createQuery("from DBInvoiceItem where idServices = :habitationID and idHabitations = :habitationID");
         invoiceQuery.setMaxResults(1);
         invoiceQuery.setInteger("habitationID", habitation.getId());

@@ -8,6 +8,8 @@ import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.person.Guest;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.room.Room;
+import at.fhv.roomanizer.domain.service.IType;
+import at.fhv.roomanizer.domain.service.Type;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
@@ -22,14 +24,19 @@ import java.util.List;
 public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.Habitation>
 {
     private hotelsoftware.model.domain.service.Habitation habitation;
+    
+    public HabitationAdapter()
+    {
+    }
 
-    HabitationAdapter(IHabitation habitation)
+    public HabitationAdapter(hotelsoftware.model.domain.service.IHabitation habitation)
     {
         this.habitation = (hotelsoftware.model.domain.service.Habitation) habitation;
     }
 
-    HabitationAdapter(Habitation habitation)
+    public HabitationAdapter(Habitation habitation)
     {
+        this.habitation = new hotelsoftware.model.domain.service.Habitation();
         this.habitation.setCreated(habitation.getCreated());
         this.habitation.setEnd(habitation.getEnd());
         this.habitation.setStart(habitation.getStart());
@@ -37,6 +44,38 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
         this.habitation.setPrice(BigDecimal.valueOf(habitation.getPrice()));
         this.habitation.setUsers((new UserAdapter(habitation.getUser())).getOurType());
     }
+
+    @Override
+    public IType getIType()
+    {
+        return getType();
+    }
+
+    @Override
+    public int getId()
+    {
+        return this.habitation.getIdServices();
+    }
+
+    @Override
+    public Type getType()
+    {
+        return new TypeAdapter(this.habitation.getServiceType());
+    }
+
+    @Override
+    public void setId(int id)
+    {
+        this.habitation.setIdServices(id);
+    }
+
+    @Override
+    public void setType(Type type)
+    {
+        this.habitation.setServiceType((new TypeAdapter(type)).getOurType());
+    }
+    
+    
 
     @Override
     public void addGuest(Guest guest)
@@ -54,6 +93,7 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     @Override
     public String getDeposit()
     {
+        //TODO
         return "Fixme";
     }
 
