@@ -4,8 +4,9 @@
  */
 package hotelsoftware.adapter;
 
-import at.fhv.roomanizer.domain.IHabitation;
+import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.persistence.manager.IHabitationManager;
+import hotelsoftware.util.HelperFunctions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
@@ -18,25 +19,25 @@ public class HabitationManagerAdapter implements IHabitationManager
 {
 
     @Override
-    public List<IHabitation> getAllHabitations() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
+    public List<Habitation> getAllHabitations() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public IHabitation getHabitationById(int habitationID) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
+    public Habitation getHabitationById(int habitationID) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<IHabitation> getHabitationsByDate(Date date) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
+    public List<Habitation> getHabitationsByDate(Date date) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return HelperFunctions.getAdaptedList(hotelsoftware.model.domain.service.Habitation.getHabitationsByDate(date), HabitationAdapter.class);
     }
 
     @Override
-    public void saveHabitation(IHabitation habitation) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
+    public void saveHabitation(Habitation habitation) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

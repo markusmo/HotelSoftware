@@ -86,6 +86,11 @@ public class Habitation extends Service implements IHabitation
         habitation.setUsers(LoginController.getInstance().getCurrentUser());
         return habitation;
     }
+    
+    public static Collection<Habitation> getHabitationsByDate(Date date)
+    {
+        return ServiceFacade.getHabitationsByDate(date);
+    }
 
     public static int getHighestId()
     {

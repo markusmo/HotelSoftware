@@ -110,7 +110,6 @@ public class RoomsRoomStatus implements IRoomRoomStatus
     public void setEnd(Date end)
     {
         this.end = end;
-    }
-    
+    }    
 }
 

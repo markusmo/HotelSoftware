@@ -1,5 +1,7 @@
 package hotelsoftware.model.domain.service;
 
+import at.fhv.roomanizer.persistence.ObjectConverter;
+import at.fhv.roomanizer.persistence.entity.HabitationEntity;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.model.DynamicMapper;
@@ -7,9 +9,7 @@ import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.util.HibernateUtil;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -222,6 +222,18 @@ public class ServiceFacade
         }
 
         return DynamicMapper.mapCollection(retList);
+    }
+    
+    public static Collection<Habitation> getHabitationsByDate(Date date)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
+        Query habitationQuery = session.createQuery("from DBHabitation where :date between startDate and endDate order by startDate");
+        habitationQuery.setDate("date", date);
+
+        List<DBHabitation> tmpList = habitationQuery.list();
+
+        return DynamicMapper.mapCollection(tmpList);
     }
 
     public Collection<Habitation> getHabitation(String roomNumber)

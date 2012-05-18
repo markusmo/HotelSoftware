@@ -6,10 +6,15 @@ package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.room.*;
 import at.fhv.roomanizer.persistence.manager.IRoomManager;
+import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.RoomSaver;
+import hotelsoftware.model.domain.room.RoomsRoomStatus;
+import hotelsoftware.util.HelperFunctions;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,13 +26,14 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public List<Category> getAllCategories() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        RoomCategory.getAllCategorys();
+        //return HelperFunctions.getAdaptedList(RoomCategory.getAllCategorys(), CategoryAdapter.class);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public List<Room> getAllRooms() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
+       // return HelperFunctions.getAdaptedList(hotelsoftware.model.domain.room.Room.getAllRooms(), Room.class);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -40,7 +46,7 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public Category getCategoryByName(String name) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //RoomCategory.getCategoryByName(name)
     }
 
     @Override
@@ -70,13 +76,25 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public Status getStatusByName(String name) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        StatusAdapter sa = new StatusAdapter(hotelsoftware.model.domain.room.RoomStatus.getRoomStatusByName(name));
+        return sa;
     }
 
     @Override
     public void saveRoomStatus(RoomStatus status) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try
+        {
+            RoomsRoomStatus ourStatus = ((Adapter<RoomsRoomStatus>)status).getOurType();
+            Set<RoomsRoomStatus> statusse = new HashSet<RoomsRoomStatus>();
+            statusse.add(ourStatus);
+            RoomSaver.getInstance().saveOrUpdate(null, null, null, statusse);
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        catch (FailedToSaveToDatabaseException ex)
+        {
+            Logger.getLogger(RoomManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
