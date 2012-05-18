@@ -8,13 +8,14 @@ import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import java.util.Date;
 
 /**
  *
  * @author Johannes
  */
-public class InvoiceItemAdapter extends InvoiceItem
+public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoftware.model.domain.invoice.IInvoiceItem>
 {
     private hotelsoftware.model.domain.invoice.InvoiceItem invoiceItem;
 
@@ -45,55 +46,55 @@ public class InvoiceItemAdapter extends InvoiceItem
     @Override
     public double getPrice()
     {
-       return invoiceItem.getPrice();
+        return invoiceItem.getPrice();
     }
 
     @Override
     public Service getService()
     {
-        return super.getService();
+        return new ServiceAdapter(invoiceItem.getService());
     }
 
     @Override
     public User getUser()
     {
-        return super.getUser();
+        return new UserAdapter(invoiceItem.getUser());
     }
 
     @Override
     public void setAmount(int amount)
     {
-        super.setAmount(amount);
+        invoiceItem.setAmount(amount);
     }
 
     @Override
     public void setCreated(Date created)
     {
-        super.setCreated(created);
+        invoiceItem.setCreated(created);
     }
 
     @Override
     public void setHabitation(Habitation habitation)
     {
-        super.setHabitation(habitation);
+        invoiceItem.setHabitation((new HabitationAdapter(habitation)).getOurType());
     }
 
     @Override
     public void setId(int id)
     {
-        super.setId(id);
+        invoiceItem.setId(id);
     }
 
     @Override
     public void setPrice(double price)
     {
-        super.setPrice(price);
+        invoiceItem.setPrice((int) price);
     }
 
     @Override
     public void setService(Service service)
     {
-        super.setService(service);
+       invoiceItem.setService((new ServiceAdapter(service)).getOurType());
     }
 
     @Override
@@ -101,6 +102,16 @@ public class InvoiceItemAdapter extends InvoiceItem
     {
         super.setUser(user);
     }
-    
-    
+
+    @Override
+    public IInvoiceItem getOurType()
+    {
+        return invoiceItem;
+    }
+
+    @Override
+    public void setOurType(IInvoiceItem type)
+    {
+        invoiceItem = (hotelsoftware.model.domain.invoice.InvoiceItem) type;
+    }
 }
