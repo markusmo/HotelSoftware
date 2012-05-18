@@ -9,17 +9,15 @@ import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.persistence.ManagerFactory;
-import at.fhv.roomanizer.persistence.manager.HabitationManager;
-import at.fhv.roomanizer.persistence.manager.InvoiceItemManager;
-import at.fhv.roomanizer.persistence.manager.ServiceManager;
+import at.fhv.roomanizer.persistence.manager.*;
 
 public class PrePaymentController
 {
     public void savePrePayment(int habitationId, float amount, Date currentDate) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException
     {
-        InvoiceItemManager iiManager = ManagerFactory.getInvoiceItemManager();
+        IInvoiceItemManager iiManager = ManagerFactory.getInvoiceItemManager();
         ServiceManager serviceManager = ManagerFactory.getServiceManager();
-        HabitationManager habManager = ManagerFactory.getHabitationManager();
+        IHabitationManager habManager = ManagerFactory.getHabitationManager();
         Habitation habitation = habManager.getHabitationById(habitationId);
 
         InvoiceItem prePaymentItem = new InvoiceItem();

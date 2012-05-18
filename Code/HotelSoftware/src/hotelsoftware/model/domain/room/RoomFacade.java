@@ -3,6 +3,7 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.model.database.room.DBRoomStatus;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +30,6 @@ public class RoomFacade
 
     private static class RoomFacadeHolder
     {
-
         private static final RoomFacade INSTANCE = new RoomFacade();
     }
 
@@ -76,14 +76,12 @@ public class RoomFacade
         return (RoomCategory) DynamicMapper.map(cat);
     }
     
-//    /**
-//     * Alle Zimmer nach einer Kategorie
-//     *
-//     * @param cat Die Zimmerkategorie
-//     * @return Alle Zimmer nach dieser Kategorie
-//     */
-//    public Collection<IRoom> getRoomsByCategory(RoomCategory cat)
-//    {
-//        return Room.getRoomsByCategory(cat);
-//    }
+    public RoomStatus getRoomStatusByName(String name)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        
+        DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("name", name)).uniqueResult();
+        return (RoomStatus) DynamicMapper.map(status);
+    }
 }

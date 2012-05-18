@@ -13,6 +13,7 @@ import at.fhv.roomanizer.domain.person.Guest;
 import at.fhv.roomanizer.domain.person.IGuest;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.HabitationManager;
+import at.fhv.roomanizer.persistence.manager.IHabitationManager;
 import at.fhv.roomanizer.persistence.manager.PersonManager;
 
 /**
@@ -35,7 +36,7 @@ public class HabitationController {
 	public List<IHabitation> loadAllHabitations()
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, IllegalArgumentException, InvocationTargetException {
-		HabitationManager habManager = ManagerFactory.getHabitationManager();
+		IHabitationManager habManager = ManagerFactory.getHabitationManager();
 		List<Habitation> allHabitations = habManager.getAllHabitations();
 		List<IHabitation> allIHabitations = new ArrayList<IHabitation>();
 		for (Habitation h : allHabitations) {
@@ -103,7 +104,7 @@ public class HabitationController {
 	private List<Habitation> loadAllHabitationsforChange()
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, IllegalArgumentException, InvocationTargetException {
-		HabitationManager habManager = ManagerFactory.getHabitationManager();
+		IHabitationManager habManager = ManagerFactory.getHabitationManager();
 		List<Habitation> allHabitations = habManager.getAllHabitations();
 		return allHabitations;
 	}
@@ -201,13 +202,13 @@ public class HabitationController {
 		perManager.saveGuest(tempguest);
 
 		// save habitation
-		HabitationManager habManager = ManagerFactory.getHabitationManager();
+		IHabitationManager habManager = ManagerFactory.getHabitationManager();
 		habManager.saveHabitation(tempHabitation);
 
 	}
 
 	public List<IHabitation> getActiveHabitationsList(Date currentDate) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException {
-		HabitationManager habitationManager = ManagerFactory.getHabitationManager();
+		IHabitationManager habitationManager = ManagerFactory.getHabitationManager();
 		List<Habitation> tmpList = habitationManager.getHabitationsByDate(currentDate);
 
 		List<IHabitation> iHabitationList = new ArrayList<IHabitation>();

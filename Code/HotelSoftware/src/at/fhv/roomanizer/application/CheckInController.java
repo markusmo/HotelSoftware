@@ -22,10 +22,7 @@ import at.fhv.roomanizer.domain.room.Room;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.domain.service.Type;
 import at.fhv.roomanizer.persistence.ManagerFactory;
-import at.fhv.roomanizer.persistence.manager.HabitationManager;
-import at.fhv.roomanizer.persistence.manager.PersonManager;
-import at.fhv.roomanizer.persistence.manager.ReservationManager;
-import at.fhv.roomanizer.persistence.manager.RoomManager;
+import at.fhv.roomanizer.persistence.manager.*;
 
 /**
  * The CheckInController is responsible for the correct sequence of functions
@@ -222,7 +219,7 @@ public class CheckInController {
 						"The start-date is after the end-date");
 			}
 
-			HabitationManager habManager = ManagerFactory
+			IHabitationManager habManager = ManagerFactory
 					.getHabitationManager();
 
 			// creating habitation
@@ -325,7 +322,7 @@ public class CheckInController {
 			Type t = sc.loadTypeByName("Habitation");
 			tempHabitation.setType(t);
 			
-			RoomManager roomManager = ManagerFactory.getRoomManager();
+			IRoomManager roomManager = ManagerFactory.getRoomManager();
 			roomManager.saveRoomStatus(temproom.getStatus().get(temproom.getStatus().size() - 1));
 			
 			habManager.saveHabitation(tempHabitation);

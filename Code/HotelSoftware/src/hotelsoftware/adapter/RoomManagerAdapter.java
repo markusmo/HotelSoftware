@@ -22,6 +22,27 @@ import java.util.logging.Logger;
  */
 public class RoomManagerAdapter implements IRoomManager
 {
+    private RoomManagerAdapter()
+    {
+    }
+    
+    
+    private static RoomManagerAdapter INSTANCE;
+
+    /**
+     * Returns the singleton-instance of the HabitationManagerAdapter
+     *
+     * @return
+     */
+    public static RoomManagerAdapter getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new RoomManagerAdapter();
+        }
+
+        return INSTANCE;
+    }
 
     @Override
     public List<Category> getAllCategories() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
@@ -47,6 +68,7 @@ public class RoomManagerAdapter implements IRoomManager
     public Category getCategoryByName(String name) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         //RoomCategory.getCategoryByName(name)
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -76,7 +98,8 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public Status getStatusByName(String name) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        StatusAdapter sa = new StatusAdapter(hotelsoftware.model.domain.room.RoomStatus.getRoomStatusByName(name));
+        StatusAdapter sa = new StatusAdapter();
+        sa.setOurType(hotelsoftware.model.domain.room.RoomStatus.getRoomStatusByName(name));
         return sa;
     }
 

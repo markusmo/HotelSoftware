@@ -141,7 +141,7 @@ public class HabitationManager extends Manager implements IHabitationManager
 
         return _instance;
     }
-
+/*
     public static void main(String[] args) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
         List<Habitation> habitations = new ArrayList<Habitation>();
@@ -181,5 +181,5 @@ public class HabitationManager extends Manager implements IHabitationManager
         {
             e.printStackTrace();
         }
-    }
+    }*/
 }
