@@ -10,13 +10,14 @@ import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
+import hotelsoftware.adapter.UserControllerAdapter;
 
 public class PrePaymentController
 {
     public void savePrePayment(int habitationId, float amount, Date currentDate) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException
     {
         IInvoiceItemManager iiManager = ManagerFactory.getInvoiceItemManager();
-        ServiceManager serviceManager = ManagerFactory.getServiceManager();
+        IServiceManager serviceManager = ManagerFactory.getServiceManager();
         IHabitationManager habManager = ManagerFactory.getHabitationManager();
         Habitation habitation = habManager.getHabitationById(habitationId);
 
@@ -27,7 +28,7 @@ public class PrePaymentController
         prePaymentItem.setCreated(currentDate);
 
         //TODO Workaround: Not much of a beauty ^^
-        prePaymentItem.setUser((User) new UserController().loadFirstUser());
+        prePaymentItem.setUser((User) new UserControllerAdapter().loadFirstUser());
 
         Service service = new Service();
         service.setType(serviceManager.getTypeByName("PrePayment"));

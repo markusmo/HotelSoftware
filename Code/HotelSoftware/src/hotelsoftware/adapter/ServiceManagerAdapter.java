@@ -33,7 +33,7 @@ public class ServiceManagerAdapter implements IServiceManager
     {
     }
 
-    public ServiceManagerAdapter getInstance()
+    public static ServiceManagerAdapter getInstance()
     {
         return ServiceManagerAdapterHolder.INSTANCE;
     }

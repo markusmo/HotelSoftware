@@ -142,7 +142,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="journalButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt; Journal&lt;/b&gt; &lt;br/&gt; F5 &lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;Day end closing&lt;/b&gt; &lt;br/&gt; F5 &lt;/html&gt;"/>
         <Property name="actionCommand" type="java.lang.String" value=""/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[73, 73]"/>

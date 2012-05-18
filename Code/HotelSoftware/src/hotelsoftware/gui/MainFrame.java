@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.Locale;
 import javax.swing.*;
+import org.eclipse.swt.widgets.MessageBox;
 
 /**
  * Diese Klasse ist die Main-Klasse dieses Projekts. Von hier wird das Programm
@@ -114,7 +115,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        journalButton.setText("<html><b> Journal</b> <br/> F5 </html>");
+        journalButton.setText("<html><b>Day end closing</b> <br/> F5 </html>");
         journalButton.setActionCommand("");
         journalButton.setMaximumSize(new java.awt.Dimension(73, 73));
         journalButton.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -221,6 +222,8 @@ public class MainFrame extends javax.swing.JFrame
         // TODO add your handling code here:
         if (checkState())
         {
+            at.fhv.roomanizer.ui.swt.GuiController.getInstance().dayEndClosing();
+            JOptionPane.showMessageDialog(this, "Day end closing successfully done.");
         }
     }//GEN-LAST:event_journalButtonActionPerformed
 

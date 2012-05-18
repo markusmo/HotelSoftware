@@ -11,6 +11,7 @@ import at.fhv.roomanizer.domain.room.RoomStatus;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
+import hotelsoftware.adapter.UserControllerAdapter;
 
 public class DayEndClosingController
 {
@@ -41,7 +42,7 @@ public class DayEndClosingController
                 roomInvoice.setService(habitation);
 
                 //TODO Workaround: Not much of a beauty ^^
-                roomInvoice.setUser((User) new UserController().loadFirstUser());
+                roomInvoice.setUser((User) new UserControllerAdapter().loadFirstUser());
             }
 
             invoiceManager.saveInvoiceItem(roomInvoice);

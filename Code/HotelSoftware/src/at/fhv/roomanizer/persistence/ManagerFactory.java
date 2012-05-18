@@ -6,6 +6,7 @@ import hotelsoftware.adapter.InvoiceItemManagerAdapter;
 import org.hibernate.Session;
 
 import hotelsoftware.adapter.RoomManagerAdapter;
+import hotelsoftware.adapter.ServiceManagerAdapter;
 
 /**
  * ManagerFactory is responsible for the creation of the different Hibernate-Managers
@@ -77,7 +78,7 @@ public class ManagerFactory
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static ServiceManager getServiceManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public static IServiceManager getServiceManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         return ServiceManagerAdapter.getInstance();
     }
