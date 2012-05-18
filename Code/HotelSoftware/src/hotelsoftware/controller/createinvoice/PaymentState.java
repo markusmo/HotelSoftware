@@ -47,7 +47,6 @@ public class PaymentState extends CreateInvoiceState
         for (IInvoiceItem ii : invoice.getInvoiceItems())
         {
             ii.setInvoice(invoice);
-            System.out.println(ii.getId());
         }
         
         LinkedList<IInvoice> invoices = new LinkedList<IInvoice>();
@@ -57,7 +56,7 @@ public class PaymentState extends CreateInvoiceState
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        InvoiceSaver.getInstance().saveOrUpdate(session, null, invoices, invoice.getInvoiceItems());
+        InvoiceSaver.getInstance().saveOrUpdate(session, null, invoices, HelperFunctions.castCollectionUp(context.getSplittedItems(), IInvoiceItem.class, InvoiceItem.class));
         
         ts.commit();
         

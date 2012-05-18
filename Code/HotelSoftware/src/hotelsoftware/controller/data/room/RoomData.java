@@ -6,7 +6,6 @@ package hotelsoftware.controller.data.room;
 
 import hotelsoftware.controller.data.service.HabitationData;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  *Dieses Interaface enthält alle wichtigen Methoden für die Klasse RoomData
@@ -22,6 +21,6 @@ public interface RoomData
 
     Collection<RoomOptionData> getOptionsData();
 
-    Collection<RoomStatusData> getStatusData();
+    Collection<RoomsRoomStatusData> getStatusData();
     
 }

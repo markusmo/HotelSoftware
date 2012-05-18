@@ -106,47 +106,47 @@ public class DBPermission implements Serializable
         return "hotelsoftware.database.model.Permissions[ id=" + id + " ]";
     }
     
-    /**
-     * Gibt alle Befugnisse aus
-     * @return
-     * Ein Set mit allen Befugnissen, die verfuegbar sind
-     * @throws HibernateException 
-     */
-    public static Collection<DBPermission> getPermissions() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPermission.class);
-        List<DBPermission> retList = criteria.list();
-
-        return new LinkedHashSet<DBPermission>(retList);
-    }
+//    /**
+//     * Gibt alle Befugnisse aus
+//     * @return
+//     * Ein Set mit allen Befugnissen, die verfuegbar sind
+//     * @throws HibernateException 
+//     */
+//    public static Collection<DBPermission> getPermissions() throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBPermission.class);
+//        List<DBPermission> retList = criteria.list();
+//
+//        return new LinkedHashSet<DBPermission>(retList);
+//    }
     
-    /**
-     * Sucht eine spezielle Befugnis in der Datenbank
-     * @param permission
-     * Die Befugnis, nach der gesucht wird
-     * @return
-     * Die Befugnis, nach der gesucht wird
-     * @throws HibernateException 
-     * Wirft einen Fehler, wenn etwas bei der Transaktion fehleschlaegt
-     */
-    public static DBPermission getPermissionByName(String permission) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPermission.class);
-        List<DBPermission> retList = criteria.list();
-
-        for (DBPermission permissions : retList)
-        {
-            if (permissions.getName().equals(permission))
-            {
-                return permissions;
-            }
-        }
-        return null;
-    }   
+//    /**
+//     * Sucht eine spezielle Befugnis in der Datenbank
+//     * @param permission
+//     * Die Befugnis, nach der gesucht wird
+//     * @return
+//     * Die Befugnis, nach der gesucht wird
+//     * @throws HibernateException 
+//     * Wirft einen Fehler, wenn etwas bei der Transaktion fehleschlaegt
+//     */
+//    public static DBPermission getPermissionByName(String permission) throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        Criteria criteria = session.createCriteria(DBPermission.class);
+//        List<DBPermission> retList = criteria.list();
+//
+//        for (DBPermission permissions : retList)
+//        {
+//            if (permissions.getName().equals(permission))
+//            {
+//                return permissions;
+//            }
+//        }
+//        return null;
+//    }   
 }

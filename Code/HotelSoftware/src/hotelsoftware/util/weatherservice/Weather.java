@@ -76,18 +76,17 @@ public class Weather
         {
             String googleWeatherUrl = "http://www.google.de/ig/api?weather=" + cityName + "&hl=" + LANG;
 
-            String xmlString = "";
-            String line = "";
+            StringBuilder xmlBuilder = new StringBuilder();
 
-            LinkedList<Weather> list = new LinkedList<Weather>();
             try
             {
+                String line = "";
                 URL url = new URL(googleWeatherUrl);
                 InputStream in = url.openStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in, Charset.forName("Latin1")));
                 while ((line = bufferedReader.readLine()) != null)
                 {
-                    xmlString += line;
+                    xmlBuilder.append(line);
                 }
             }
             catch (MalformedURLException e)
@@ -100,7 +99,7 @@ public class Weather
             {
             }
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            InputSource source = new InputSource(new StringReader(xmlString));
+            InputSource source = new InputSource(new StringReader(xmlBuilder.toString()));
             doc = builder.parse(source);
             init = true;
 

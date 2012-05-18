@@ -2,17 +2,16 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.*;
+import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -48,10 +47,8 @@ public class PartyFacade
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM countries c ORDER BY name ASC";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-        sqlquery.addEntity(DBCountry.class);
-        Collection<DBCountry> countries = sqlquery.list();
+        Criteria criteria = session.createCriteria(DBCountry.class);
+        Collection<DBCountry> countries = criteria.list();
         return DynamicMapper.mapCollection(countries);
     }
 

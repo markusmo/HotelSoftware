@@ -5,11 +5,8 @@
 package hotelsoftware.gui.invoice.customerSelection;
 
 import hotelsoftware.controller.data.parties.CountryData;
-import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
-import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
-import hotelsoftware.model.domain.parties.PrivateCustomer;
 
 /**
  *

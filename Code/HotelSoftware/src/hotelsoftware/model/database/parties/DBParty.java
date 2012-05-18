@@ -2,6 +2,7 @@ package hotelsoftware.model.database.parties;
 
 import hotelsoftware.model.database.reservation.DBReservation;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,37 +26,37 @@ public class DBParty implements Serializable
     private Integer idParties;
     
     @ManyToMany(mappedBy = "contactPersons")
-    private Set<DBCompany> companiesCollection;
+    private Set<DBCompany> companies;
     
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = true, cascade= CascadeType.ALL)
+    @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBAddress address;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "party")
-    private Set<DBReservation> reservationsCollection;
+    private Set<DBReservation> reservations;
 
     public DBParty()
     {
     }
 
-    public Set<DBCompany> getCompaniesCollection()
+    public Collection<DBCompany> getCompanies()
     {
-        return companiesCollection;
+        return companies;
     }
 
-    public void setCompaniesCollection(Set<DBCompany> companiesCollection)
+    public void setCompanies(Set<DBCompany> companies)
     {
-        this.companiesCollection = companiesCollection;
+        this.companies = companies;
     }
 
-    public Set<DBReservation> getReservationsCollection()
+    public Collection<DBReservation> getReservations()
     {
-        return reservationsCollection;
+        return reservations;
     }
 
-    public void setReservationsCollection(Set<DBReservation> reservationsCollection)
+    public void setReservations(Set<DBReservation> reservations)
     {
-        this.reservationsCollection = reservationsCollection;
+        this.reservations = reservations;
     }
 
     public DBParty(Integer id)
@@ -73,17 +74,6 @@ public class DBParty implements Serializable
         this.idParties = id;
     }
 
-    @XmlTransient
-    public Set<DBCompany> getCompanies()
-    {
-        return companiesCollection;
-    }
-
-    public void setCompanies(Set<DBCompany> companiesCollection)
-    {
-        this.companiesCollection = companiesCollection;
-    }
-
     public DBAddress getAddress()
     {
         return address;
@@ -92,17 +82,6 @@ public class DBParty implements Serializable
     public void setAddress(DBAddress address)
     {
         this.address = address;
-    }
-
-    @XmlTransient
-    public Set<DBReservation> getReservationsCollectio()
-    {
-        return reservationsCollection;
-    }
-
-    public void setReservations(Set<DBReservation> reservationsCollection)
-    {
-        this.reservationsCollection = reservationsCollection;
     }
 
     @Override

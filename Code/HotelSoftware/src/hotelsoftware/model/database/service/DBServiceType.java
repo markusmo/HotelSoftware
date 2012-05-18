@@ -55,7 +55,7 @@ public class DBServiceType implements Serializable
     @Basic(optional = false)
     @Column(name = "taxRate", nullable = false, precision = 5, scale = 2)
     private BigDecimal taxRate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceType")
+    @OneToMany(mappedBy = "serviceType")
     private Set<DBService> dBServiceCollection;
 
     public DBServiceType()

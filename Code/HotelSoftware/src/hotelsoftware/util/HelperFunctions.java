@@ -1,11 +1,12 @@
 package hotelsoftware.util;
 
+import hotelsoftware.adapter.Adapter;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Behelftklasse, die Dynamisch Collections mapt
@@ -145,5 +146,63 @@ public class HelperFunctions<T, U extends T>
         nf.setGroupingUsed(false);
 
         return prefix + date + nf.format(id + 1);
+    }
+    
+    /**
+     * 
+     * @param <T> Die zu adaptierende Klasse
+     * @param <U> Die Adapterklasse
+     * @param col Eien Collection aus zu adaptierenden Objekten
+     * @param clazz Die Adapterklassen
+     * @return Die adaptierte Liste
+     */
+    public static <T, U extends Adapter<T>>  List<U> getAdaptedList(Collection<T> col, Class<U> clazz)
+    {
+        LinkedList<U> list = new LinkedList<U>();
+        
+        for (T t : col)
+        {
+            try
+            {
+                U u = clazz.newInstance();
+                u.setOurType(t);
+                
+                list.add(u);
+            }
+            catch (InstantiationException ex)
+            {
+                Logger.getLogger(HelperFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (IllegalAccessException ex)
+            {
+                Logger.getLogger(HelperFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return list;
+    }
+    
+    public static <T, U extends Adapter<T>>  List<T> getOurList(Collection<U> col)
+    {
+        LinkedList<T> list = new LinkedList<T>();
+        
+        for (U u : col)
+        {
+            list.add(u.getOurType());
+        }
+        
+        return list;
+    }
+    
+    public static <T extends V, U extends Adapter<T>, V>  List<V> getOurList(Collection<U> col, Class<V> returnClass)
+    {
+        LinkedList<V> list = new LinkedList<V>();
+        
+        for (U u : col)
+        {
+            list.add(u.getOurType());
+        }
+        
+        return list;
     }
 }

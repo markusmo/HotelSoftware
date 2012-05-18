@@ -51,15 +51,15 @@ public final class InvoiceGUIControler implements ActionListener
     private JLabel splitCancelLabel = new JLabel();
     private JLabel paymentLabel = new JLabel();
     // Bezeichnungen
-    private final String invoiceHome = "Invoice Home";
-    private final String intermediatInvoice = "Intermediat Invoice";
-    private final String chooseCustomer = "Customer Selection";
-    private final String splitCancel = "Split/Cancel";
-    private final String payment = "Payment";
-    private final String seperator = ">";
-    private final String abort = "Abort";
-    private final String back = "Back";
-    private final String payed = "Payed";
+    private static final String invoiceHome = "Invoice Home";
+    private static final String intermediatInvoice = "Intermediat Invoice";
+    private static final String chooseCustomer = "Customer Selection";
+    private static final String splitCancel = "Split/Cancel";
+    private static final String payment = "Payment";
+    private static final String seperator = ">";
+    private static final String abort = "Abort";
+    private static final String back = "Back";
+    private static final String payed = "Payed";
 
     private InvoiceGUIControler()
     {
@@ -230,6 +230,11 @@ public final class InvoiceGUIControler implements ActionListener
         return seperator;
     }
 
+    public void useExistingParty(PartyData data)
+    {
+        CreateInvoiceController.getInstance().useExistingParty(data);
+    }
+
     private static class invoiceGUIControlerHolder
     {
         private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
@@ -259,7 +264,7 @@ public final class InvoiceGUIControler implements ActionListener
     {
         return main.getControlPanel();
     }
-    
+
     public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
     {
         return CreateInvoiceController.getInstance().getOpenItems(habitation);

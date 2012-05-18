@@ -5,6 +5,7 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.model.database.room.DBRoomOption;
 import hotelsoftware.model.database.room.DBRoomStatus;
+import hotelsoftware.model.database.room.DBRoomsRoomStatus;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.Set;
@@ -18,17 +19,19 @@ import org.hibernate.Transaction;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class RoomSaver {
-
-    private RoomSaver() {
+public class RoomSaver
+{
+    private RoomSaver()
+    {
     }
 
-    public static RoomSaver getInstance() {
+    public static RoomSaver getInstance()
+    {
         return RoomSaverHolder.INSTANCE;
     }
 
-    private static class RoomSaverHolder {
-
+    private static class RoomSaverHolder
+    {
         private static final RoomSaver INSTANCE = new RoomSaver();
     }
 
@@ -40,21 +43,26 @@ public class RoomSaver {
      * @param status
      * @throws FailedToSaveToDatabaseException
      */
-    public void saveOrUpdate(Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status, Set<RoomsRoomStatus> roomStatus) throws FailedToSaveToDatabaseException
+    {
 
         Session session = null;
         Transaction ts = null;
 
-        try {
+        try
+        {
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             ts = session.beginTransaction();
             ts.begin();
 
-            saveOrUpdate(session, categories, options, status);
+            saveOrUpdate(session, categories, options, status, roomStatus);
 
             ts.commit();
-        } catch (HibernateException ex) {
-            if (ts != null) {
+        }
+        catch (HibernateException ex)
+        {
+            if (ts != null)
+            {
                 ts.rollback();
             }
 
@@ -73,10 +81,14 @@ public class RoomSaver {
      * @throws FailedToSaveToDatabaseException Wirft einen Fehler, wenn das
      * sichern in die Datenbank fehllschlaegt
      */
-    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status, Set<RoomsRoomStatus> roomStatus) 
+            throws FailedToSaveToDatabaseException
+    {
 
-        if (categories != null) {
-            for (RoomCategory category : categories) {
+        if (categories != null)
+        {
+            for (RoomCategory category : categories)
+            {
                 DBRoomCategory dbCat = (DBRoomCategory) DynamicMapper.map(category);
 
                 session.saveOrUpdate(dbCat);
@@ -84,8 +96,10 @@ public class RoomSaver {
             }
         }
 
-        if (options != null) {
-            for (RoomOption option : options) {
+        if (options != null)
+        {
+            for (RoomOption option : options)
+            {
                 DBRoomOption dbOpt = (DBRoomOption) DynamicMapper.map(option);
 
                 session.saveOrUpdate(dbOpt);
@@ -93,12 +107,25 @@ public class RoomSaver {
             }
         }
 
-        if (status != null) {
-            for (RoomStatus stat : status) {
+        if (status != null)
+        {
+            for (RoomStatus stat : status)
+            {
                 DBRoomStatus dbStat = (DBRoomStatus) DynamicMapper.map(stat);
 
                 session.saveOrUpdate(dbStat);
                 stat.setId(dbStat.getId());
+            }
+        }
+        
+        if (roomStatus != null)
+        {
+            for (RoomsRoomStatus stat : roomStatus)
+            {
+                DBRoomsRoomStatus dbStat = (DBRoomsRoomStatus) DynamicMapper.map(stat);
+
+                session.saveOrUpdate(dbStat);
+                stat.setRoomsroomstatusPK(dbStat.getId());
             }
         }
     }

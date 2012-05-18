@@ -57,7 +57,7 @@ public class DBReservation implements Serializable
     @Column(name = "comment", length = 255)
     private String comment;
     
-    @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false, updatable=false, insertable=false)
+    @JoinColumn(name = "idParties", referencedColumnName = "idParties")
     @ManyToOne(optional = false)
     private DBParty party;
     
@@ -66,7 +66,7 @@ public class DBReservation implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
-    @JoinColumn(name = "idUsers", referencedColumnName = "id", updatable=false, insertable=false)
+    @JoinColumn(name = "idUsers", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
     private DBUser user;
     
@@ -76,8 +76,7 @@ public class DBReservation implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", fetch= FetchType.EAGER)
     private Set<DBReservationOption> reservationOptions;
 
-
-    @ManyToMany(mappedBy = "reservations", fetch= FetchType.EAGER)
+    @ManyToMany(mappedBy = "reservationsCollection", fetch= FetchType.EAGER)
     private Set<DBGuest> guests;
 
     public DBReservation()

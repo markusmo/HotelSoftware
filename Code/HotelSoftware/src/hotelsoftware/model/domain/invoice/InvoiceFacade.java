@@ -8,7 +8,6 @@ import hotelsoftware.util.HibernateUtil;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -29,14 +28,14 @@ public class InvoiceFacade
         return InvoiceFacadeHolder.INSTANCE;
     }
 
-    static int getHighestInvoiceId()
-    {
-        return DBInvoice.getHighestId();
-    }
-
     private static class InvoiceFacadeHolder
     {
         private static final InvoiceFacade INSTANCE = new InvoiceFacade();
+    }
+    
+    static int getHighestInvoiceId()
+    {
+        return DBInvoice.getHighestId();
     }
 
     /**
@@ -57,23 +56,6 @@ public class InvoiceFacade
                 .uniqueResult();
         
         return (Invoice) DynamicMapper.map(retInvoices);
-    }
-
-    /**
-     * Gibt eine neue Rechnung zu einer Belegung generiert aus einer bestehenden Rechnung
-     * die bestehende Rechung verliert dabei die Rechungspositionen, die der neuen Rechung
-     * hinzugefügt werden.
-     *
-     * @param invoice
-     * Die Rechung, die alle Positionen enthält.
-     * @param habitation
-     * Die Belegung, auf die gefiltert wird.
-     * @return
-     * eine neue Rechung, in der alle Positionen auf eine Belegung stimmen.
-     */
-    public IInvoice getInvoiceByHabitaion(IInvoice invoice, IHabitation habitation)
-    {
-        return invoice.getInvoiceByHabitation(habitation);
     }
 
     /**

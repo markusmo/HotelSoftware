@@ -4,8 +4,6 @@
  */
 package hotelsoftware.util.weatherservice;
 
-import java.util.List;
-
 /**
  *Dieses Fenster zeigt die Wetterinformation an für tests
  * @author Johannes
@@ -18,7 +16,7 @@ public class WeatherInfos extends javax.swing.JFrame
     public WeatherInfos()
     {
         initComponents();
-        Weather w = new CurrentWeather();
+        //Weather w = new CurrentWeather();
        /* List<Weather> list = w.getCurrent();
         list.addAll(w.getForeCasts());
         for (Weather w2 : list)

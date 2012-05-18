@@ -15,7 +15,6 @@ import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.model.domain.room.IRoom;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.Room;
@@ -172,7 +171,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
-        return new HelperFunctions<ExtraServiceData, ExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
+        return new HelperFunctions<ExtraServiceData, IExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
     }
 
     @Override
@@ -247,8 +246,8 @@ public abstract class ChangeDataState extends CheckInState
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction ts = session.beginTransaction();
             ts.begin();
-            ServiceSaver.getInstance().saveOrUpdate(session, new LinkedList(), context.getHabitations(), new LinkedList());
-            PartySaver.getInstance().saveOrUpdate(session, addresses, new LinkedList(), new LinkedList(), new LinkedList(), guests);
+            ServiceSaver.getInstance().saveOrUpdate(session, null, context.getHabitations(), null);
+            PartySaver.getInstance().saveOrUpdate(session, null, null, null, null, guests);
             ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)

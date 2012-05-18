@@ -16,6 +16,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -62,7 +63,7 @@ public class DBInvoice implements Serializable
     @Column(name = "fulfilled", nullable = false)
     private Boolean fulfilled;
     
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", fetch= FetchType.EAGER)
     private Set<DBInvoiceItem> invoiceItems;
     
     @JoinColumn(name = "idpaymentMethods", referencedColumnName = "id", nullable = false)

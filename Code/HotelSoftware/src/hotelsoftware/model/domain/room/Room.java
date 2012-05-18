@@ -1,17 +1,15 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.controller.data.room.*;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.controller.data.room.RoomCategoryData;
-import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.controller.data.room.RoomOptionData;
-import hotelsoftware.controller.data.room.RoomStatusData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Bildet ein Zimmer ab, mit dem das System arbeitet.
@@ -24,7 +22,7 @@ public class Room implements IRoom
     private String number;
     private Collection<IRoomOption> options;
     private IRoomCategory category;
-    private Collection<IRoomStatus> status;
+    private Collection<IRoomRoomStatus> status;
     private Collection<IHabitation> habitations;
     private Integer id;
 
@@ -98,13 +96,13 @@ public class Room implements IRoom
     }
 
     @Override
-    public Collection<IRoomStatus> getStatus()
+    public Collection<IRoomRoomStatus> getStatus()
     {
         return status;
     }
 
     @Override
-    public void setStatus(Collection<IRoomStatus> status)
+    public void setStatus(Collection<IRoomRoomStatus> status)
     {
         this.status = status;
     }
@@ -129,9 +127,9 @@ public class Room implements IRoom
     }
 
     @Override
-    public Collection<RoomStatusData> getStatusData()
+    public Collection<RoomsRoomStatusData> getStatusData()
     {
-        return new HelperFunctions<RoomStatusData, IRoomStatus>().castCollectionUp(
+        return new HelperFunctions<RoomsRoomStatusData, IRoomRoomStatus>().castCollectionUp(
                 getStatus());
     }
 
@@ -143,24 +141,24 @@ public class Room implements IRoom
      */
     public static Room getRoomByNumber(String number)
     {
-        return (Room) DynamicMapper.map(DBRoom.getRoomByNumber(number));
+        return RoomFacade.getInstance().getRoomByNumber(number);
     }
 
-    /**
-     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
-     *
-     * @param category Die Kategorie nach der gesucht wird
-     * @return Alle Zimmer nach dieser Kategorie
-     */
-    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
-    {
-        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
-                cat));
-    }
+//    /**
+//     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
+//     *
+//     * @param category Die Kategorie nach der gesucht wird
+//     * @return Alle Zimmer nach dieser Kategorie
+//     */
+//    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
+//    {
+//        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
+//        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
+//                cat));
+//    }
 
     @Override
-    public void changeStatus(IRoomStatus status)
+    public void changeStatus(IRoomRoomStatus status)
     {
         this.status.add(status);
     }
@@ -181,5 +179,11 @@ public class Room implements IRoom
     public void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
+    }
+
+    public boolean isFree(Date start, Date end)
+    {
+        //TODO implement - see RoomCategory
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

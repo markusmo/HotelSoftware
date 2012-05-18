@@ -18,9 +18,9 @@ public interface IInvoiceItem extends InvoiceItemData{
 
     void fullfill();
 
-    Integer getAmount();
+    Integer getPrice();
 
-    Date getCreated();
+    void setPrice(Integer price);
 
     IHabitation getHabitation();
 

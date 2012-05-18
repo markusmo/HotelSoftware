@@ -87,59 +87,59 @@ public class DBExtraService extends DBService implements Serializable
         return true;
     }
 
-    /**
-     * Gibt alle Verpflegungsarten aus
-     * @return 
-     * Alle Verpflegunsarten, die verfuegbar sind
-     */
-    public static Collection<DBExtraService> getAllHabitationServices()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
-                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
-        
-        query.addEntity(DBExtraService.class);
-        Collection<DBExtraService> retList = query.list();
-        
-        return retList;
-    }
+//    /**
+//     * Gibt alle Verpflegungsarten aus
+//     * @return 
+//     * Alle Verpflegunsarten, die verfuegbar sind
+//     */
+//    public static Collection<DBExtraService> getAllHabitationServices()
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        
+//        SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
+//                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
+//        
+//        query.addEntity(DBExtraService.class);
+//        Collection<DBExtraService> retList = query.list();
+//        
+//        return retList;
+//    }
 
-    /**
-     * Liefert einen spezifischen Extraservice aus
-     * @param name
-     * Der Service nach dem gesucht wird.
-     * @return
-     * Den Extraservice mit dem angegebenen Namen
-     * @throws HibernateException 
-     * Wirft einen Fehler, wenn etwas bei der Transaktion fehllschlaegt
-     */
-    public static DBExtraService getExtraServiceByName(String name) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
-        return extraService;
-    }
+//    /**
+//     * Liefert einen spezifischen Extraservice aus
+//     * @param name
+//     * Der Service nach dem gesucht wird.
+//     * @return
+//     * Den Extraservice mit dem angegebenen Namen
+//     * @throws HibernateException 
+//     * Wirft einen Fehler, wenn etwas bei der Transaktion fehllschlaegt
+//     */
+//    public static DBExtraService getExtraServiceByName(String name) throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        DBExtraService extraService = (DBExtraService) session.createCriteria(DBExtraService.class).add(Restrictions.eq("name", name)).uniqueResult();
+//        return extraService;
+//    }
 
-    /**
-     * Gibt alle Extraservices aus
-     * @return
-     * Alle Extraservices, die verfuegbar sind
-     * @throws HibernateException 
-     * Wirft einen Fehler, wenn etwas mit der Transaktion fehlschlaegt
-     */
-    public static Set<DBExtraService> getAllExtraServices() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
-        return new LinkedHashSet<DBExtraService>(extraServices);
-    }
+//    /**
+//     * Gibt alle Extraservices aus
+//     * @return
+//     * Alle Extraservices, die verfuegbar sind
+//     * @throws HibernateException 
+//     * Wirft einen Fehler, wenn etwas mit der Transaktion fehlschlaegt
+//     */
+//    public static Set<DBExtraService> getAllExtraServices() throws HibernateException
+//    {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction ts = session.beginTransaction();
+//        ts.begin();
+//        List<DBExtraService> extraServices = (List<DBExtraService>) session.createCriteria(DBExtraService.class).list();
+//        return new LinkedHashSet<DBExtraService>(extraServices);
+//    }
 
     @Override
     public String toString()
