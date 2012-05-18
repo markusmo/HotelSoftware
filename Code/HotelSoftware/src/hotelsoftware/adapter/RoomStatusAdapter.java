@@ -5,17 +5,19 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.room.*;
+import hotelsoftware.model.domain.room.IRoomRoomStatus;
 import java.util.Date;
 
 /**
  *
  * @author Tobias
  */
-public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus implements hotelsoftware.adapter.Adapter{
+public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
+implements hotelsoftware.adapter.Adapter<hotelsoftware.model.domain.room.IRoomRoomStatus>{
 
-    private hotelsoftware.model.domain.room.RoomsRoomStatus ourRoomsRoomStatus;
+    private hotelsoftware.model.domain.room.IRoomRoomStatus ourRoomsRoomStatus;
     
-    public RoomStatusAdapter(hotelsoftware.model.domain.room.RoomsRoomStatus roomsRoomStatus){
+    public RoomStatusAdapter(hotelsoftware.model.domain.room.IRoomRoomStatus roomsRoomStatus){
         this.ourRoomsRoomStatus = roomsRoomStatus;
     }
     
@@ -26,7 +28,7 @@ public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
 
     @Override
     public IStatus getIStatus() {
-        return (IStatus)this.ourRoomsRoomStatus.getRoomstatus();
+        return new StatusAdapter(this.ourRoomsRoomStatus.getRoomstatus());
     }
 
     @Override
@@ -36,7 +38,7 @@ public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
 
     @Override
     public Room getRoom() {
-        return this.ourRoomsRoomStatus.getRoom();
+        return new RoomAdapter(this.ourRoomsRoomStatus.getRoom());
     }
 
     @Override
@@ -46,7 +48,7 @@ public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
 
     @Override
     public Status getStatus() {
-        return (Status)this.ourRoomsRoomStatus.getRoomstatus();
+        return new StatusAdapter(this.ourRoomsRoomStatus.getRoomstatus());
     }
 
     @Override
@@ -61,7 +63,8 @@ public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
 
     @Override
     public void setRoom(Room room) {
-        this.ourRoomsRoomStatus.setRoom((IRoom)room);
+        RoomAdapter adapter = (RoomAdapter)room;
+        this.ourRoomsRoomStatus.setRoom(adapter.getOurType());
     }
 
     @Override
@@ -71,17 +74,18 @@ public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus 
 
     @Override
     public void setStatus(Status status) {
-        this.ourRoomsRoomStatus.setRoomstatus((IRoomStatus)status);
+        StatusAdapter adapter = (StatusAdapter)status;
+        this.ourRoomsRoomStatus.setRoomstatus(adapter.getOurType());
     }
 
     @Override
-    public Object getOurType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IRoomRoomStatus getOurType() {
+        return ourRoomsRoomStatus;
     }
 
     @Override
-    public void setOurType(Object type) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setOurType(IRoomRoomStatus type) {
+        this.ourRoomsRoomStatus = type;
     }
     
 }

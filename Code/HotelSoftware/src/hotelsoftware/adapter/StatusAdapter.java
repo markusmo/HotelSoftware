@@ -4,40 +4,50 @@
  */
 package hotelsoftware.adapter;
 
+import hotelsoftware.model.domain.room.IRoomStatus;
+import hotelsoftware.model.domain.room.RoomStatus;
+
 /**
  *
  * @author Tobias
  */
-public class StatusAdapter extends at.fhv.roomanizer.domain.room.Status implements hotelsoftware.adapter.Adapter{
+public class StatusAdapter extends at.fhv.roomanizer.domain.room.Status 
+implements hotelsoftware.adapter.Adapter<hotelsoftware.model.domain.room.IRoomStatus>{
 
+    private hotelsoftware.model.domain.room.IRoomStatus ourRoomStatus;
+    
+    public StatusAdapter(hotelsoftware.model.domain.room.IRoomStatus roomStatus){
+        this.ourRoomStatus = roomStatus;
+    }
+    
     @Override
     public int getId() {
-        return super.getId();
+        return this.ourRoomStatus.getId();
     }
 
     @Override
     public String getName() {
-        return super.getName();
+        return this.ourRoomStatus.getStatusName();
     }
 
     @Override
     public void setId(int id) {
-        super.setId(id);
+        this.ourRoomStatus.setId(id);
     }
 
     @Override
     public void setName(String name) {
-        super.setName(name);
+        this.ourRoomStatus.setStatusName(name);
     }
 
     @Override
-    public Object getOurType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IRoomStatus getOurType() {
+        return ourRoomStatus;
     }
 
     @Override
-    public void setOurType(Object type) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void setOurType(IRoomStatus type) {
+        this.ourRoomStatus = type;
+     }
     
 }
