@@ -1,5 +1,6 @@
 package hotelsoftware.gui;
 
+import at.fhv.roomanizer.ui.swt.habitation.HabitationView;
 import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
@@ -13,7 +14,10 @@ import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.Locale;
 import javax.swing.*;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Diese Klasse ist die Main-Klasse dieses Projekts. Von hier wird das Programm
@@ -63,8 +67,8 @@ public class MainFrame extends javax.swing.JFrame
         jPanel1 = new javax.swing.JPanel();
         checkInButton = new javax.swing.JButton();
         invoiceButton = new javax.swing.JButton();
-        checkOutButton = new javax.swing.JButton();
-        journalButton = new javax.swing.JButton();
+        prepaymentButton = new javax.swing.JButton();
+        dayendclosinglButton = new javax.swing.JButton();
         escButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,25 +108,25 @@ public class MainFrame extends javax.swing.JFrame
             }
         });
 
-        checkOutButton.setText("<html><b> Check Out</b> <br/> F3 </html>");
-        checkOutButton.setActionCommand("");
-        checkOutButton.setMaximumSize(new java.awt.Dimension(73, 73));
-        checkOutButton.setMinimumSize(new java.awt.Dimension(73, 73));
-        checkOutButton.setPreferredSize(new java.awt.Dimension(80, 80));
-        checkOutButton.addActionListener(new java.awt.event.ActionListener() {
+        prepaymentButton.setText("<html><b>Prepayment</b> <br/> F3 </html>");
+        prepaymentButton.setActionCommand("");
+        prepaymentButton.setMaximumSize(new java.awt.Dimension(73, 73));
+        prepaymentButton.setMinimumSize(new java.awt.Dimension(73, 73));
+        prepaymentButton.setPreferredSize(new java.awt.Dimension(80, 80));
+        prepaymentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkOutButtonActionPerformed(evt);
+                prepaymentButtonActionPerformed(evt);
             }
         });
 
-        journalButton.setText("<html><b>Day end closing</b> <br/> F5 </html>");
-        journalButton.setActionCommand("");
-        journalButton.setMaximumSize(new java.awt.Dimension(73, 73));
-        journalButton.setMinimumSize(new java.awt.Dimension(73, 73));
-        journalButton.setPreferredSize(new java.awt.Dimension(80, 80));
-        journalButton.addActionListener(new java.awt.event.ActionListener() {
+        dayendclosinglButton.setText("<html><b>Day end closing</b> <br/> F5 </html>");
+        dayendclosinglButton.setActionCommand("");
+        dayendclosinglButton.setMaximumSize(new java.awt.Dimension(73, 73));
+        dayendclosinglButton.setMinimumSize(new java.awt.Dimension(73, 73));
+        dayendclosinglButton.setPreferredSize(new java.awt.Dimension(80, 80));
+        dayendclosinglButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                journalButtonActionPerformed(evt);
+                dayendclosinglButtonActionPerformed(evt);
             }
         });
 
@@ -147,11 +151,11 @@ public class MainFrame extends javax.swing.JFrame
                 .addGap(28, 28, 28)
                 .addComponent(checkInButton, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addGap(28, 28, 28)
-                .addComponent(checkOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(prepaymentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addComponent(invoiceButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addGap(40, 40, 40)
-                .addComponent(journalButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addComponent(dayendclosinglButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addGap(43, 43, 43)
                 .addComponent(escButton, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addContainerGap())
@@ -166,10 +170,10 @@ public class MainFrame extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prepaymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(invoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(journalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dayendclosinglButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(escButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
@@ -198,34 +202,37 @@ public class MainFrame extends javax.swing.JFrame
 
         if (checkState())
         {
-            cigc.getContentpane().removeAll();    
+            cigc.getContentpane().removeAll();
             InvoiceMain invoiceMain = new InvoiceMain();
             cigc.getContentpane().add(invoiceMain, BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             InvoiceHome invoiceHome = new InvoiceHome();
-            InvoiceGUIControler.getInstance().setContentPanel(invoiceHome);     
-            invoiceHome.setFocus();            
-            cigc.getContentpane().repaint();            
+            InvoiceGUIControler.getInstance().setContentPanel(invoiceHome);
+            invoiceHome.setFocus();
+            cigc.getContentpane().repaint();
         }
     }//GEN-LAST:event_invoiceButtonActionPerformed
 
-    private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkOutButtonActionPerformed
-    {//GEN-HEADEREND:event_checkOutButtonActionPerformed
-        // TODO add your handling code here:
+    private void prepaymentButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_prepaymentButtonActionPerformed
+    {//GEN-HEADEREND:event_prepaymentButtonActionPerformed
         if (checkState())
         {
+            Display display = new Display();
+            Shell shell = new Shell(display);
+            HabitationView view = new HabitationView(shell, SWT.NONE);
+           
         }
-    }//GEN-LAST:event_checkOutButtonActionPerformed
+    }//GEN-LAST:event_prepaymentButtonActionPerformed
 
-    private void journalButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_journalButtonActionPerformed
-    {//GEN-HEADEREND:event_journalButtonActionPerformed
+    private void dayendclosinglButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dayendclosinglButtonActionPerformed
+    {//GEN-HEADEREND:event_dayendclosinglButtonActionPerformed
         // TODO add your handling code here:
         if (checkState())
         {
             at.fhv.roomanizer.ui.swt.GuiController.getInstance().dayEndClosing();
             JOptionPane.showMessageDialog(this, "Day end closing successfully done.");
         }
-    }//GEN-LAST:event_journalButtonActionPerformed
+    }//GEN-LAST:event_dayendclosinglButtonActionPerformed
 
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
     {//GEN-HEADEREND:event_jButton11ActionPerformed
@@ -257,11 +264,11 @@ public class MainFrame extends javax.swing.JFrame
                 "resources/images/home-icon.png")));
         checkInButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/checkin-icon.png")));
-        checkOutButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
+        prepaymentButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/logout-icon.png")));
         invoiceButton.setIcon(new ImageIcon(MainFrame.class.getClassLoader().getResource(
                 "resources/images/invoice.png")));
-        journalButton.setIcon(new ImageIcon(
+        dayendclosinglButton.setIcon(new ImageIcon(
                 MainFrame.class.getClassLoader().getResource(
                 "resources/images/Address-Book-icon.png")));
         escButton.setIcon(new ImageIcon(
@@ -347,12 +354,12 @@ public class MainFrame extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkInButton;
-    private javax.swing.JButton checkOutButton;
+    private javax.swing.JButton dayendclosinglButton;
     private javax.swing.JButton escButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JButton invoiceButton;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton journalButton;
+    private javax.swing.JButton prepaymentButton;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -366,7 +373,7 @@ public class MainFrame extends javax.swing.JFrame
         KeyStroke f4 = KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0);
         KeyStroke f5 = KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0);
         KeyStroke esc = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        
+
         InputMap map = this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         map.put(f1, "f1pressed");
         map.put(f2, "f2pressed");
@@ -397,7 +404,7 @@ public class MainFrame extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                checkOutButtonActionPerformed(e);
+                prepaymentButtonActionPerformed(e);
             }
         };
         Action f4pressed = new AbstractAction()
@@ -413,7 +420,7 @@ public class MainFrame extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                journalButtonActionPerformed(e);
+                dayendclosinglButtonActionPerformed(e);
             }
         };
         Action escpressed = new AbstractAction()
