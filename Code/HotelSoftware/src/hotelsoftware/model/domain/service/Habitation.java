@@ -91,6 +91,11 @@ public class Habitation extends Service implements IHabitation
     {
         return ServiceFacade.getHabitationsByDate(date);
     }
+    
+    public static Collection<Habitation> getAllHabitations()
+    {
+        return ServiceFacade.getAllHabitations();
+    }
 
     public static int getHighestId()
     {

@@ -254,4 +254,15 @@ public class ServiceFacade
         
         return DynamicMapper.mapCollection(retList);
     }
+    
+    public static Collection<Habitation> getAllHabitations()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
+        Query habitationQuery = session.createQuery("from DBHabitation order by startDate");
+
+        List<DBHabitation> tmpList = habitationQuery.list();
+
+        return DynamicMapper.mapCollection(tmpList);
+    }
 }

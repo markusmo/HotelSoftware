@@ -45,7 +45,9 @@ public class HabitationManagerAdapter implements IHabitationManager
     @Override
     public List<Habitation> getAllHabitations() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new LinkedList<Habitation>(HelperFunctions.castCollectionUp(
+                HelperFunctions.getAdaptedList(hotelsoftware.model.domain.service.Habitation.getAllHabitations(), HabitationAdapter.class),
+                Habitation.class, HabitationAdapter.class));
     }
 
     @Override
