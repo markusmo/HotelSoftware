@@ -1,13 +1,11 @@
 package at.fhv.roomanizer.persistence;
 
+import at.fhv.roomanizer.persistence.manager.*;
+import hotelsoftware.adapter.HabitationManagerAdapter;
+import hotelsoftware.adapter.InvoiceItemManagerAdapter;
 import org.hibernate.Session;
 
-import at.fhv.roomanizer.persistence.manager.HabitationManager;
-import at.fhv.roomanizer.persistence.manager.InvoiceItemManager;
-import at.fhv.roomanizer.persistence.manager.PersonManager;
-import at.fhv.roomanizer.persistence.manager.ReservationManager;
-import at.fhv.roomanizer.persistence.manager.RoomManager;
-import at.fhv.roomanizer.persistence.manager.ServiceManager;
+import hotelsoftware.adapter.RoomManagerAdapter;
 
 /**
  * ManagerFactory is responsible for the creation of the different Hibernate-Managers
@@ -29,7 +27,7 @@ public class ManagerFactory
      */
     public static ReservationManager getReserveationManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
-        return ReservationManagerAdapter.getInstance();
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     /**
@@ -42,7 +40,7 @@ public class ManagerFactory
      */
     public static PersonManager getPersonmanager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
-        return PersonManagerAdapter.getInstance();
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     /**
@@ -53,7 +51,7 @@ public class ManagerFactory
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static RoomManager getRoomManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public static IRoomManager getRoomManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         return RoomManagerAdapter.getInstance();
     }
@@ -66,7 +64,7 @@ public class ManagerFactory
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static HabitationManager getHabitationManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public static IHabitationManager getHabitationManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         return HabitationManagerAdapter.getInstance();
     }
@@ -84,7 +82,7 @@ public class ManagerFactory
         return ServiceManagerAdapter.getInstance();
     }
 
-    public static InvoiceItemManager getInvoiceItemManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public static IInvoiceItemManager getInvoiceItemManager() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
         return InvoiceItemManagerAdapter.getInstance();
     }

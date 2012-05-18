@@ -17,6 +17,7 @@ import at.fhv.roomanizer.domain.room.IRoom;
 import at.fhv.roomanizer.domain.room.Room;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.persistence.ManagerFactory;
+import at.fhv.roomanizer.persistence.manager.IRoomManager;
 import at.fhv.roomanizer.persistence.manager.RoomManager;
 
 /**
@@ -39,7 +40,7 @@ public class CategoryController {
 	 * @throws IllegalArgumentException 
 	 */
 	public List<ICategory> loadCategories() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException{
-		RoomManager roomMan = ManagerFactory.getRoomManager();
+		IRoomManager roomMan = ManagerFactory.getRoomManager();
 		List<Category> allCategories = roomMan.getAllCategories();
 		List<ICategory> allICategories = new ArrayList<ICategory>();
 		for (ICategory ic : allCategories) {
@@ -58,7 +59,7 @@ public class CategoryController {
 	 * @throws InvocationTargetException
 	 */
 	private List<Category> loadAllCategies() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException{
-		RoomManager roomMan = ManagerFactory.getRoomManager();
+		IRoomManager roomMan = ManagerFactory.getRoomManager();
 		return roomMan.getAllCategories();
 	}
 	
@@ -94,7 +95,7 @@ public class CategoryController {
 	public List<IRoom> loadRooms() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException {
 
-		RoomManager roomManager = ManagerFactory.getRoomManager();
+		IRoomManager roomManager = ManagerFactory.getRoomManager();
 		List<Room> allRooms = roomManager.getAllRooms();
 		List<IRoom> allIRooms = new ArrayList<IRoom>();
 		for (Room r : allRooms) {
@@ -143,7 +144,7 @@ public class CategoryController {
 	public List<IRoom> availableRooms(Date start, Date end,
 			String categoryName, int amount) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NotEnoughRoomsInCategory, NotEnoughRoomsException {
 		// loading Category from db
-		RoomManager roomManager = ManagerFactory.getRoomManager();
+		IRoomManager roomManager = ManagerFactory.getRoomManager();
 
 
 		Category curCategory = roomManager.getCategoryByName(categoryName);
@@ -183,7 +184,7 @@ public class CategoryController {
 	 */
 	public List<Status> loadAllStates() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		// loading sates from db
-		RoomManager roomManager = ManagerFactory.getRoomManager();
+		IRoomManager roomManager = ManagerFactory.getRoomManager();
 
 		List<Status> allStatesList = roomManager.getAllStatus();
 		
@@ -223,7 +224,7 @@ public class CategoryController {
 	 */
 	public IPrice loadPriceForSeason(Date date, String category) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException{
 		Category tempCategory = (Category) loadCategoryByName(category);
-		RoomManager rM = ManagerFactory.getRoomManager();
+		IRoomManager rM = ManagerFactory.getRoomManager();
 		IPrice price = rM.getCategoryPriceByDate(tempCategory, date); 
 		return price;
 	}

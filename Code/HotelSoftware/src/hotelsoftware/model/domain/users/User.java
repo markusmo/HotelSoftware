@@ -14,7 +14,7 @@ import java.util.LinkedHashSet;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class User implements UserData, IUser
+public class User implements IUser
 {
 
     private Integer id;
@@ -40,41 +40,49 @@ public class User implements UserData, IUser
         this.roles = roles;
     }
 
+    @Override
     public String getPassword()
     {
         return password;
     }
 
+    @Override
     public void setPassword(String password)
     {
         this.password = password;
     }
 
+    @Override
     public Collection<Role> getRoles()
     {
         return roles;
     }
 
+    @Override
     public void setRoles(Collection<Role> roles)
     {
         this.roles = roles;
     }
 
+    @Override
     public String getUsername()
     {
         return username;
     }
 
+    @Override
     public void setUsername(String username)
     {
         this.username = username;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -83,11 +91,13 @@ public class User implements UserData, IUser
         }
     }
     
+    @Override
     public Boolean getActive()
     {
         return active;
     }
 
+    @Override
     public void setActive(Boolean active)
     {
         this.active = active;
@@ -139,6 +149,7 @@ public class User implements UserData, IUser
      *
      * @return Eine Liste aller Befugnisse des Benutzers
      */
+    @Override
     public Collection<Permission> getAllPermissions()
     {
         Collection<Permission> permissions = new HashSet<Permission>();

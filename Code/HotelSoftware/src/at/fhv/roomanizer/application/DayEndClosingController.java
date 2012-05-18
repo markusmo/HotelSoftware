@@ -10,17 +10,15 @@ import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.room.RoomStatus;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.persistence.ManagerFactory;
-import at.fhv.roomanizer.persistence.manager.HabitationManager;
-import at.fhv.roomanizer.persistence.manager.InvoiceItemManager;
-import at.fhv.roomanizer.persistence.manager.RoomManager;
+import at.fhv.roomanizer.persistence.manager.*;
 
 public class DayEndClosingController
 {
     public void runDayEndClosing(Date currentDate) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException
     {
-        HabitationManager habitationManager = ManagerFactory.getHabitationManager();
-        InvoiceItemManager invoiceManager = ManagerFactory.getInvoiceItemManager();
-        RoomManager roomManager = ManagerFactory.getRoomManager();
+        IHabitationManager habitationManager = ManagerFactory.getHabitationManager();
+        IInvoiceItemManager invoiceManager = ManagerFactory.getInvoiceItemManager();
+        IRoomManager roomManager = ManagerFactory.getRoomManager();
 
         List<Habitation> habitationList = habitationManager.getHabitationsByDate(currentDate);
 
