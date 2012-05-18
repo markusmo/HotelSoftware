@@ -115,14 +115,7 @@ public class DBGuest extends DBParty implements Serializable
         {
             return false;
         }
-        if (this.habitations != other.habitations && (this.habitations == null || !this.habitations.equals(other.habitations)))
-        {
-            return false;
-        }
-        if (this.reservations != other.reservations && (this.reservations == null || !this.reservations.equals(other.reservations)))
-        {
-            return false;
-        }
+
         return true;
     }
 

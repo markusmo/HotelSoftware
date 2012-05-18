@@ -32,7 +32,7 @@ public class DBCompany extends DBCustomer implements Serializable {
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @JoinTable(name = "companiespersons", joinColumns = {
+    @JoinTable(name = "companieparties", joinColumns = {
         @JoinColumn(name = "idCompanies", referencedColumnName = "idParties", nullable = false)
     }, inverseJoinColumns = {
         @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
