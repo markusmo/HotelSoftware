@@ -10,6 +10,7 @@ import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.room.Room;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,13 +19,23 @@ import java.util.List;
  *
  * @author Johannes
  */
-public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.Habitation>
+public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.IHabitation>
 {
     private hotelsoftware.model.domain.service.Habitation habitation;
 
     HabitationAdapter(IHabitation habitation)
     {
         this.habitation = (hotelsoftware.model.domain.service.Habitation) habitation;
+    }
+
+    HabitationAdapter(Habitation habitation)
+    {
+        this.habitation.setCreated(habitation.getCreated());
+        this.habitation.setEnd(habitation.getEnd());
+        this.habitation.setStart(habitation.getStart());
+        this.habitation.setIdServices(habitation.getId());
+        this.habitation.setPrice(BigDecimal.valueOf(habitation.getPrice()));
+        this.habitation.setUsers((new UserAdapter(habitation.getUser())).getOurType());
     }
 
     @Override
@@ -55,7 +66,7 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     @Override
     public List<Guest> getGuests()
     {
-        return HelperFunctions.getAdaptedList(habitation.getGuests(), getClass());
+        return new LinkedList(HelperFunctions.getAdaptedList(habitation.getGuests(), GuestAdapter.class));
     }
 
     @Override
@@ -137,14 +148,14 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     }
 
     @Override
-    public hotelsoftware.model.domain.service.Habitation getOurType()
+    public hotelsoftware.model.domain.service.IHabitation getOurType()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return habitation;
     }
 
     @Override
-    public void setOurType(hotelsoftware.model.domain.service.Habitation type)
+    public void setOurType(hotelsoftware.model.domain.service.IHabitation type)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.habitation = (hotelsoftware.model.domain.service.Habitation) type;
     }
 }

@@ -4,61 +4,6 @@
  */
 package hotelsoftware.adapter;
 
-<<<<<<< HEAD
-/**
- *
- * @author Markus Mohanty <markus.mo at gmx.net>
- */
-public class UserAdapter extends at.fhv.roomanizer.domain.person.User
-{
-    private hotelsoftware.model.domain.users.IUser ourUser;
-    
-    public UserAdapter(hotelsoftware.model.domain.users.IUser ourUser)
-    {
-        this.ourUser = ourUser;
-    }
-    
-    @Override
-    public void setId(int id)
-    {
-        this.ourUser.setId(id);
-    }
-
-    @Override
-    public String getUsername()
-    {
-        return this.ourUser.getUsername();
-    }
-
-    @Override
-    public void setUsername(String username)
-    {
-        this.ourUser.setUsername(username);
-    }
-
-    @Override
-    public String getPassword()
-    {
-        return this.ourUser.getPassword();
-    }
-
-    @Override
-    public void setPassword(String password)
-    {
-        this.ourUser.setPassword(password);
-    }
-
-    @Override
-    public boolean getActive()
-    {
-        return this.ourUser.getActive();
-    }
-
-    @Override
-    public void setActive(boolean active)
-    {
-        this.ourUser.setActive(active);
-=======
 import at.fhv.roomanizer.domain.person.User;
 
 
@@ -67,13 +12,27 @@ import at.fhv.roomanizer.domain.person.User;
  *
  * @author Johannes
  */
-public class UserAdapter extends User implements Adapter<hotelsoftware.model.domain.users.User>
+public class UserAdapter extends User implements Adapter<hotelsoftware.model.domain.users.IUser>
 {
     private hotelsoftware.model.domain.users.User user;
 
     UserAdapter(hotelsoftware.model.domain.users.IUser user)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+       this.user = (hotelsoftware.model.domain.users.User) user;
+    }
+
+    UserAdapter(User user)
+    {
+        this.user.setActive(user.getActive());
+        this.user.setId(user.getId());
+        this.user.setPassword(user.getPassword());
+        this.user.setUsername(user.getUsername());
+    }
+
+    @Override
+    public boolean getActive()
+    {
+        return user.getActive();
     }
 
     @Override
@@ -83,15 +42,52 @@ public class UserAdapter extends User implements Adapter<hotelsoftware.model.dom
     }
 
     @Override
-    public hotelsoftware.model.domain.users.User getOurType()
+    public String getPassword()
+    {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername()
+    {
+     return user.getUsername();
+    }
+
+    @Override
+    public void setActive(boolean active)
+    {
+        user.setActive(active);
+    }
+
+    @Override
+    public void setId(int id)
+    {
+        user.setId(id);
+    }
+
+    @Override
+    public void setPassword(String password)
+    {
+       user.setPassword(password);
+    }
+
+    @Override
+    public void setUsername(String username)
+    {
+        user.setUsername(username);
+    }
+
+    
+   
+    @Override
+    public hotelsoftware.model.domain.users.IUser getOurType()
     {
        return user;
     }
 
     @Override
-    public void setOurType(hotelsoftware.model.domain.users.User type)
+    public void setOurType(hotelsoftware.model.domain.users.IUser type)
     {
-        user = type;
->>>>>>> ff6384fd29d4d97e384c6d2f677a9a5655214f02
+        user = (hotelsoftware.model.domain.users.User) type;
     }
 }
