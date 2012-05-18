@@ -8,6 +8,8 @@ import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.person.Guest;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.room.Room;
+import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.util.HelperFunctions;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +18,14 @@ import java.util.List;
  *
  * @author Johannes
  */
-public class HabitationAdapter extends Habitation
+public class HabitationAdapter extends Habitation implements Adapter<hotelsoftware.model.domain.service.Habitation>
 {
     private hotelsoftware.model.domain.service.Habitation habitation;
+
+    HabitationAdapter(IHabitation habitation)
+    {
+        this.habitation = (hotelsoftware.model.domain.service.Habitation) habitation;
+    }
 
     @Override
     public void addGuest(Guest guest)
@@ -48,7 +55,7 @@ public class HabitationAdapter extends Habitation
     @Override
     public List<Guest> getGuests()
     {
-        return new LinkedList(habitation.getGuests());
+        return HelperFunctions.getAdaptedList(habitation.getGuests(), getClass());
     }
 
     @Override
@@ -66,13 +73,13 @@ public class HabitationAdapter extends Habitation
     @Override
     public Date getStart()
     {
-        return super.getStart();
+        return habitation.getStart();
     }
 
     @Override
     public User getUser()
     {
-        return super.getUser();
+        return new UserAdapter(habitation.getUsers());
     }
 
     @Override
@@ -127,5 +134,17 @@ public class HabitationAdapter extends Habitation
     public void setUser(User user)
     {
         super.setUser(user);
+    }
+
+    @Override
+    public hotelsoftware.model.domain.service.Habitation getOurType()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setOurType(hotelsoftware.model.domain.service.Habitation type)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
