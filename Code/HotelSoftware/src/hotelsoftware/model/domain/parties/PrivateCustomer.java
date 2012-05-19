@@ -105,7 +105,7 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
      * @throws PrivateCustomerNotFoundException Kunde nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public static PrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
+    public static IPrivateCustomer getPrivateCustomerByName(String firstname, String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByName(firstname,
@@ -120,7 +120,7 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
      * @throws PrivateCustomerNotFoundException
      * @throws GuestNotFoundException 
      */
-    public static Set<PrivateCustomer> getPrivateCustomerByFName(String firstname)
+    public static Set<IPrivateCustomer> getPrivateCustomerByFName(String firstname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByFName(firstname);
@@ -134,7 +134,7 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
      * @throws PrivateCustomerNotFoundException
      * @throws GuestNotFoundException 
      */
-    public static Set<PrivateCustomer> getPrivateCustomerByLName(String lastname)
+    public static Set<IPrivateCustomer> getPrivateCustomerByLName(String lastname)
             throws CompanyNotFoundException, PrivateCustomerNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getPrivateCustomerByLName(lastname);

@@ -71,10 +71,10 @@ public class Party implements IParty
      * @param text das Pattern
      * @return eine Liste von Parteien, die dem Pattern ähnlich sind
      */
-    public static Collection<Party> searchParties(String text)
+    public static Collection<IParty> searchParties(String text)
     {
         String[] words = text.split(" ");
-        LinkedList<Party> list = new LinkedList<Party>();
+        LinkedList<IParty> list = new LinkedList<IParty>();
 
         for (String s : words)
         {
@@ -119,5 +119,14 @@ public class Party implements IParty
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 23 * hash + (this.address != null ? this.address.hashCode() : 0);
+        hash = 23 * hash + (this.idParties != null ? this.idParties.hashCode() : 0);
+        return hash;
     }
 }

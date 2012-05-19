@@ -46,7 +46,7 @@ public class UserFacade
      * @throws LoginFailureException
      * Wirft einen Fehler, wenn kein User gefunden wurde oder das Passwort oder Benutzername nicht uebereinstimmen
      */
-    public User login(String username, String password) throws LoginFailureException
+    public IUser login(String username, String password) throws LoginFailureException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -59,7 +59,7 @@ public class UserFacade
             throw new LoginFailureException();
         }
 
-        return (User) DynamicMapper.map(retUser);
+        return (IUser) DynamicMapper.map(retUser);
     }
 
     /**
@@ -68,7 +68,7 @@ public class UserFacade
      * @return
      * Alle Befugnisse, die vorhanden sind
      */
-    public Collection<Permission> getAllPermissions()
+    public Collection<IPermission> getAllPermissions()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -89,7 +89,7 @@ public class UserFacade
      * @throws PermissionNotFoundException
      * Wirft einen Fehler, wenn die Befugnis nicht gefunden wird.
      */
-    public Permission getPermissionByName(String name) throws PermissionNotFoundException
+    public IPermission getPermissionByName(String name) throws PermissionNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -102,6 +102,6 @@ public class UserFacade
             throw new PermissionNotFoundException(name);
         }
 
-        return (Permission) DynamicMapper.map(retValue);
+        return (IPermission) DynamicMapper.map(retValue);
     }
 }

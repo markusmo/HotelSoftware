@@ -32,7 +32,7 @@ public class Room implements IRoom
         this.category = category;
     }
 
-    public static Room create(String number, IRoomCategory category)
+    public static IRoom create(String number, IRoomCategory category)
     {
         return new Room(number, category);
     }
@@ -139,7 +139,7 @@ public class Room implements IRoom
      * @param number Die gewuenschte Zimmernummer
      * @return Das Zimmer mit der gesuchten Zimmernummer
      */
-    public static Room getRoomByNumber(String number)
+    public static IRoom getRoomByNumber(String number)
     {
         return RoomFacade.getInstance().getRoomByNumber(number);
     }

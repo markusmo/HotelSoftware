@@ -42,7 +42,7 @@ public class UserSaver {
      * @param permissions
      * @throws FailedToSaveToDatabaseException
      */
-    public void saveOrUpdate(Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Set<IUser> users, Set<IRole> roles, Set<IPermission> permissions) throws FailedToSaveToDatabaseException {
         Session session = null;
         Transaction ts = null;
 
@@ -79,10 +79,10 @@ public class UserSaver {
      * @throws FailedToSaveToDatabaseException Wirft diesen Fehler, wenn die
      * Sicherung fehlschlaegt.
      */
-    public void saveOrUpdate(Session session, Set<User> users, Set<Role> roles, Set<Permission> permissions) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Session session, Set<IUser> users, Set<IRole> roles, Set<IPermission> permissions) throws FailedToSaveToDatabaseException {
 
         if (permissions != null) {
-            for (Permission permission : permissions) {
+            for (IPermission permission : permissions) {
                 DBPermission dbp = (DBPermission) DynamicMapper.map(permission);
 
                 session.saveOrUpdate(dbp);
@@ -91,7 +91,7 @@ public class UserSaver {
         }
 
         if (roles != null) {
-            for (Role role : roles) {
+            for (IRole role : roles) {
                 DBRole dbr = (DBRole) DynamicMapper.map(role);
 
                 session.saveOrUpdate(dbr);
@@ -100,7 +100,7 @@ public class UserSaver {
         }
 
         if (users != null) {
-            for (User user : users) {
+            for (IUser user : users) {
                 DBUser dbu = (DBUser) DynamicMapper.map(user);
 
                 session.saveOrUpdate(dbu);
@@ -116,12 +116,12 @@ public class UserSaver {
      * @param roles Rollen, die wiederhergestellt werden muessen
      * @param permissions Befugnisse, die wiederhergestellt werden muessen
      */
-    public void rollback(Set<User> users, Set<Role> roles, Set<Permission> permissions) {
+    public void rollback(Set<IUser> users, Set<IRole> roles, Set<IPermission> permissions) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        for (User user : users) {
+        for (IUser user : users) {
             DBUser dbu;
 
             if (user.getId() != null) {
@@ -135,7 +135,7 @@ public class UserSaver {
             }
         }
 
-        for (Role role : roles) {
+        for (IRole role : roles) {
             DBRole dbr;
 
             if (role.getId() != null) {
@@ -148,7 +148,7 @@ public class UserSaver {
             }
         }
 
-        for (Permission permission : permissions) {
+        for (IPermission permission : permissions) {
             DBPermission dbp;
 
             if (permission.getId() != null) {

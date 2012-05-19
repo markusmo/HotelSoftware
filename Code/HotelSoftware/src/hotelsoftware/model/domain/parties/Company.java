@@ -116,7 +116,7 @@ public class Company extends Customer implements ICompany
      * @return Firmenobjekt
      * @throws CompanyNotFoundException Firma wurde nicht gefunden
      */
-    public static Company getCompanyByName(String name)
+    public static ICompany getCompanyByName(String name)
             throws CompanyNotFoundException
     {
         return PartyFacade.getInstance().getCompanyByName(name);
@@ -127,7 +127,7 @@ public class Company extends Customer implements ICompany
      * @param name der Name der Firma
      * @return eine Liste mit ähnlichen Namen
      */
-    public static Collection<Company> getCompaniesByName(String name)
+    public static Collection<ICompany> getCompaniesByName(String name)
     {
         return PartyFacade.getInstance().getCompaniesByName(name);
     }

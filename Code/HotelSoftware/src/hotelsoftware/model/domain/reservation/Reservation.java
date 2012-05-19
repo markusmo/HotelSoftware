@@ -1,17 +1,13 @@
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.database.users.DBUser;
-import hotelsoftware.controller.data.reservation.ReservationItemData;
-import hotelsoftware.controller.data.reservation.ReservationOptionData;
-import hotelsoftware.controller.data.reservation.ReservationData;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.reservation.ReservationItemData;
+import hotelsoftware.controller.data.reservation.ReservationOptionData;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.IGuest;
 import hotelsoftware.model.domain.parties.IParty;
 import hotelsoftware.model.domain.users.IUser;
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 import java.util.Date;
@@ -48,7 +44,7 @@ public class Reservation implements IReservation
      * @return
      * eine neue leere Instanz.
      */
-    public static Reservation newInstance()
+    public static IReservation newInstance()
     {
         return new Reservation();
     }
@@ -194,13 +190,13 @@ public class Reservation implements IReservation
         return ReservationFacade.getInstance().getGuestAmount(this);
     }
     
-    public static Collection<Reservation> search(String firstName, String lastName, String companyName, String reservationNumber)
+    public static Collection<IReservation> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        Collection<Reservation> results = new LinkedList<Reservation>();
+        Collection<IReservation> results = new LinkedList<IReservation>();
         
         if (reservationNumber.length() > 0)
         {
-            Reservation r = getReservationByNumber(reservationNumber);
+            IReservation r = getReservationByNumber(reservationNumber);
             results.add(r);
         }
         if (firstName.length() > 0 || lastName.length() > 0)
@@ -215,23 +211,23 @@ public class Reservation implements IReservation
         return results;
     }
 
-    public static Reservation getReservationByNumber(String reservationNr)
+    public static IReservation getReservationByNumber(String reservationNr)
     {
         return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
     
-    private static Collection<Reservation> getReservationsByCompanyNameApprox(String companyName)
+    private static Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
         return ReservationFacade.getInstance().getReservationsByCompanyNameApprox(companyName);
     }
     
-    public static Collection<Reservation> getReservationsByNameApprox(String firstName, String lastName)
+    public static Collection<IReservation> getReservationsByNameApprox(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByNameApprox(
                 firstName, lastName);
     }
 
-    public static Collection<Reservation> getAllReservations()
+    public static Collection<IReservation> getAllReservations()
     {
         return ReservationFacade.getInstance().getAllReservations();
     }

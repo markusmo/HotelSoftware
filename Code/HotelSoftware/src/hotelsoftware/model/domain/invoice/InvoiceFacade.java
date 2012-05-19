@@ -46,7 +46,7 @@ public class InvoiceFacade
      * @return
      * die Rechung.
      */
-    public Invoice getInvoiceByInvoiceNumber(String invoicenumber)
+    public IInvoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -64,14 +64,14 @@ public class InvoiceFacade
      * @return
      * Eine Collection aus allen Zahlungsmethoden
      */
-    public Set<PaymentMethod> getAllPaymentMethods()
+    public Set<IPaymentMethod> getAllPaymentMethods()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
         List<DBPaymentMethod> retList = session.createCriteria(DBPaymentMethod.class).list();
         
-        return new LinkedHashSet<PaymentMethod>(DynamicMapper.mapCollection(retList));
+        return new LinkedHashSet<IPaymentMethod>(DynamicMapper.mapCollection(retList));
     }
 
     /**
@@ -82,7 +82,7 @@ public class InvoiceFacade
      * @return
      * Die spezifische Zahlungsmethode.
      */
-    public PaymentMethod getPaymentMethodByName(String name)
+    public IPaymentMethod getPaymentMethodByName(String name)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

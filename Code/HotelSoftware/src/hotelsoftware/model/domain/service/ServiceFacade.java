@@ -63,7 +63,7 @@ public class ServiceFacade
      * @throws ServiceNotFoundException
      * Wirft einen Fehler, wenn der Service nicht gefunden wird.
      */
-    public ExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
+    public IExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -74,7 +74,7 @@ public class ServiceFacade
         {
             throw new ServiceNotFoundException();
         }
-        return (ExtraService) DynamicMapper.map(extraService);
+        return (IExtraService) DynamicMapper.map(extraService);
     }
 
     /**
@@ -106,7 +106,7 @@ public class ServiceFacade
      * Der Service mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException
      */
-    public ServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
+    public IServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
     {
         DBServiceType p = DBServiceType.getTypeByName(name);
 
@@ -114,7 +114,7 @@ public class ServiceFacade
         {
             throw new ServiceTypeNotFoundException();
         }
-        return (ServiceType) DynamicMapper.map(p);
+        return (IServiceType) DynamicMapper.map(p);
     }
 
     static int getHighestHabitationId()
@@ -129,7 +129,7 @@ public class ServiceFacade
      * @param lname der Vorname eines Gastes
      * @return eine Liste von Aufenthalten, die diesen Gast enthalten
      */
-    public Collection<Habitation> getHabitations(String fname, String lname)
+    public Collection<IHabitation> getHabitations(String fname, String lname)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -202,7 +202,7 @@ public class ServiceFacade
      * @param roomnumber die Zimmernummer des Gastes
      * @return
      */
-    public Collection<Habitation> getHabitation(String fname, String lname, String roomnumber)
+    public Collection<IHabitation> getHabitation(String fname, String lname, String roomnumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -224,7 +224,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(retList);
     }
     
-    public static Collection<Habitation> getHabitationsByDate(Date date)
+    public static Collection<IHabitation> getHabitationsByDate(Date date)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         
@@ -236,7 +236,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(tmpList);
     }
 
-    public Collection<Habitation> getHabitation(String roomNumber)
+    public Collection<IHabitation> getHabitation(String roomNumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -255,7 +255,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(retList);
     }
     
-    public static Collection<Habitation> getAllHabitations()
+    public static Collection<IHabitation> getAllHabitations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
@@ -267,7 +267,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(tmpList);
     }
     
-    public Habitation getHabitationById(int id)
+    public IHabitation getHabitationById(int id)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
@@ -275,6 +275,6 @@ public class ServiceFacade
         Query habitationQuery = session.createQuery("from DBHabitation WHERE idServices = :id");
         habitationQuery.setInteger("id", id);
 
-        return (Habitation) DynamicMapper.map(habitationQuery.uniqueResult());
+        return (IHabitation) DynamicMapper.map(habitationQuery.uniqueResult());
     }
 }

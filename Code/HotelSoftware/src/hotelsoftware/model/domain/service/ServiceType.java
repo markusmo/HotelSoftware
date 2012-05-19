@@ -45,7 +45,7 @@ public class ServiceType implements IServiceType
      * @return
      * eine neue Instanz
      */
-    public static ServiceType createServiceType(String name)
+    public static IServiceType createServiceType(String name)
     {
         return new ServiceType(name);
     }
@@ -55,10 +55,10 @@ public class ServiceType implements IServiceType
      * @return 
      * Alle Servicearten, die vorhanden sind.
      */
-    public static Set<ServiceType> getAllServiceTypes()
+    public static Set<IServiceType> getAllServiceTypes()
     {
         Set<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
-        return (Set<ServiceType>) DynamicMapper.map(serviceType);
+        return (Set<IServiceType>) DynamicMapper.map(serviceType);
     }
 
     public ServiceType()
@@ -106,7 +106,7 @@ public class ServiceType implements IServiceType
      * Der Servicetyp mit dem angegebenen Namen
      * @throws ServiceTypeNotFoundException 
      */
-    public static ServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
+    public static IServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
     {
         return ServiceFacade.getInstance().getServiceTypeByName(name);
     }

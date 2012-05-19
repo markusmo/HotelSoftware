@@ -1,32 +1,22 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
-import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.controller.data.users.UserData;
-import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.parties.IGuest;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.IRoom;
 import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.util.HelperFunctions;
-import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * Dies Klasse bildet einen Aufenthalt ab, mit der das System arbeitet
@@ -65,7 +55,7 @@ public class Habitation extends Service implements IHabitation
      * @return
      * neuen Aufenthalt mit fuer die angegebene Periode
      */
-    public static Habitation createHabitation(Date start, Date end)
+    public static IHabitation createHabitation(Date start, Date end)
     {
         return new Habitation(start, end);
     }
@@ -78,7 +68,7 @@ public class Habitation extends Service implements IHabitation
      * @return
      * Eine neue Instanz
      */
-    public static Habitation createWithReservationData(Reservation reservation)
+    public static IHabitation createWithReservationData(Reservation reservation)
     {
         Habitation habitation = new Habitation();
         habitation.setStart(reservation.getStartDate());
@@ -87,12 +77,12 @@ public class Habitation extends Service implements IHabitation
         return habitation;
     }
     
-    public static Collection<Habitation> getHabitationsByDate(Date date)
+    public static Collection<IHabitation> getHabitationsByDate(Date date)
     {
         return ServiceFacade.getHabitationsByDate(date);
     }
     
-    public static Collection<Habitation> getAllHabitations()
+    public static Collection<IHabitation> getAllHabitations()
     {
         return ServiceFacade.getAllHabitations();
     }
@@ -345,7 +335,7 @@ public class Habitation extends Service implements IHabitation
         return builder.toString();
     }
 
-    public static Collection<Habitation> searchHabitations(String fName, String lName, String roomId)
+    public static Collection<IHabitation> searchHabitations(String fName, String lName, String roomId)
     {
         if (roomId == null)
         {
@@ -358,9 +348,9 @@ public class Habitation extends Service implements IHabitation
         return ServiceFacade.getInstance().getHabitation(roomId);
     }
 
-    public static Habitation searchHabitation(String roomnr)
+    public static IHabitation searchHabitation(String roomnr)
     {
-        Collection<Habitation> temp = searchHabitations(null, null, roomnr);
+        Collection<IHabitation> temp = searchHabitations(null, null, roomnr);
         if (temp == null)
         {
             return null;
@@ -368,7 +358,7 @@ public class Habitation extends Service implements IHabitation
         return (Habitation) temp.iterator().next();
     }
     
-    public static Habitation getHabitationById(int id)
+    public static IHabitation getHabitationById(int id)
     {
         return ServiceFacade.getInstance().getHabitationById(id);
     }

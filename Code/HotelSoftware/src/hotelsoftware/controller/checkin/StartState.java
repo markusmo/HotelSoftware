@@ -5,6 +5,7 @@
 package hotelsoftware.controller.checkin;
 
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.reservation.ReservationItem;
 import hotelsoftware.controller.data.reservation.ReservationData;
@@ -29,7 +30,7 @@ class StartState extends CheckInState
     @Override
     Collection<ReservationData> getAllReservations()
     {
-        return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.getAllReservations());
+        return new HelperFunctions<ReservationData, IReservation>().castCollectionUp(Reservation.getAllReservations());
     }
 
     /**
@@ -42,7 +43,7 @@ class StartState extends CheckInState
     @Override
     Collection<ReservationData> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
-        return new HelperFunctions<ReservationData, Reservation>().castCollectionUp(Reservation.search(firstName, lastName, companyName, reservationNumber));
+        return new HelperFunctions<ReservationData, IReservation>().castCollectionUp(Reservation.search(firstName, lastName, companyName, reservationNumber));
     }
 
     /**

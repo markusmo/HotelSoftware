@@ -37,7 +37,7 @@ public class ReservationItem implements IReservationItem
     }
     
     
-    public static ReservationItem newReservationItem()
+    public static IReservationItem newReservationItem()
     {
         return new ReservationItem();
     }

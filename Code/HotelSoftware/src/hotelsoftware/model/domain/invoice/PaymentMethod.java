@@ -56,7 +56,7 @@ public class PaymentMethod implements IPaymentMethod
      * @return 
      * eine Collection aus allen Zahlungsmethoden
      */
-    public static Set<PaymentMethod> getAllPaymentMethods()
+    public static Set<IPaymentMethod> getAllPaymentMethods()
     {
         return InvoiceFacade.getInstance().getAllPaymentMethods();
     }
@@ -68,7 +68,7 @@ public class PaymentMethod implements IPaymentMethod
      * @return
      * das Zahlungsmethoden Objekt
      */
-    public static PaymentMethod getPaymentMethodByName(String method)
+    public static IPaymentMethod getPaymentMethodByName(String method)
     {
         return InvoiceFacade.getInstance().getPaymentMethodByName(method);
     }

@@ -48,10 +48,10 @@ public class ServiceManagerAdapter implements IServiceManager
     @Override
     public List<Type> getAllTypes() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        Set<ServiceType> allServiceTypes = ServiceType.getAllServiceTypes();
+        Set<IServiceType> allServiceTypes = ServiceType.getAllServiceTypes();
         Collection<IServiceType> servicetypes = new LinkedList<IServiceType>();
 
-        for (ServiceType s : allServiceTypes)
+        for (IServiceType s : allServiceTypes)
         {
             servicetypes.add(s);
         }

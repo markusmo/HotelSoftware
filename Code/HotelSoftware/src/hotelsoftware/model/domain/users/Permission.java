@@ -9,7 +9,7 @@ import java.util.Collection;
  * dar, mit der das System arbeitet
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public class Permission implements PermissionData
+public class Permission implements IPermission
 {
     private Integer id;
     private String name;
@@ -20,16 +20,19 @@ public class Permission implements PermissionData
         return name;
     }
 
+    @Override
     public void setName(String permission)
     {
         this.name = permission;
     }
     
+    @Override
     public Integer getId()
     {
         return id;
     }
 
+    @Override
     public void setId(Integer id)
     {
         if (this.id == null)
@@ -54,7 +57,7 @@ public class Permission implements PermissionData
      * @return 
      * eine neue Instanz.
      */
-    public static Permission create(String name)
+    public static IPermission create(String name)
     {
         return new Permission(name);
     }
@@ -64,7 +67,7 @@ public class Permission implements PermissionData
      * @return 
      * Alle Befugnisse, die vorhanden sind.
      */
-    public static Collection<Permission> getAllPermissions()
+    public static Collection<IPermission> getAllPermissions()
     {
         return UserFacade.getInstance().getAllPermissions();
     }
@@ -76,7 +79,7 @@ public class Permission implements PermissionData
      * @return
      * Die gesuchte Befugnis
      */
-    public static Permission getPermissionByName(String name) throws PermissionNotFoundException
+    public static IPermission getPermissionByName(String name) throws PermissionNotFoundException
     {
         return UserFacade.getInstance().getPermissionByName(name);
     }

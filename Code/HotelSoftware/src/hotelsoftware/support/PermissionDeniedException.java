@@ -4,7 +4,7 @@
  */
 package hotelsoftware.support;
 
-import hotelsoftware.model.domain.users.Permission;
+import hotelsoftware.model.domain.users.IPermission;
 
 /**
  *Diese Exception ist dafür da, falls die Rechte nicht gewährt werden
@@ -12,14 +12,14 @@ import hotelsoftware.model.domain.users.Permission;
  */
 public class PermissionDeniedException extends Exception
 {
-    private Permission missingPermission;
+    private IPermission missingPermission;
     
-    public PermissionDeniedException(Permission missing)
+    public PermissionDeniedException(IPermission missing)
     {
         this.missingPermission = missing;
     }
     
-    public Permission getMissingPermission()
+    public IPermission getMissingPermission()
     {
         return missingPermission;
     }

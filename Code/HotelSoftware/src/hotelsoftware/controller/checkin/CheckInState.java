@@ -303,7 +303,7 @@ abstract class CheckInState
             return room;
         }
 
-        void setRoom(Room room)
+        void setRoom(IRoom room)
         {
             this.room = room;
         }

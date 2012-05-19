@@ -32,7 +32,7 @@ public interface IUser extends UserData
      *
      * @return Eine Liste aller Befugnisse des Benutzers
      */
-    Collection<Permission> getAllPermissions();
+    Collection<IPermission> getAllPermissions();
 
     Collection<PermissionData> getAllPermissionsData();
 
@@ -40,13 +40,11 @@ public interface IUser extends UserData
 
     String getPassword();
 
-    Collection<Role> getRoles();
+    Collection<IRole> getRoles();
 
     Collection<RoleData> getRolesData();
 
     String getUsername();
-
-    boolean hasPermission(Permission permission);
 
     void setActive(Boolean active);
 
@@ -54,7 +52,7 @@ public interface IUser extends UserData
 
     void setPassword(String password);
 
-    void setRoles(Collection<Role> roles);
+    void setRoles(Collection<IRole> roles);
 
     void setUsername(String username);
     

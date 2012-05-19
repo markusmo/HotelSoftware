@@ -145,7 +145,7 @@ public class Guest extends Party implements IGuest
      * @return
      * Eine neue Instanz eines Gastes
      */
-    public static Guest create(String fname, String lname, Character gender,
+    public static IGuest create(String fname, String lname, Character gender,
             Date birthday, Address address)
     {
         return new Guest(fname, lname, gender, birthday, address);
@@ -175,7 +175,7 @@ public class Guest extends Party implements IGuest
      * @throws GuestNotFoundException 
      * Wirft ein diesen Fehler, wenn der Gast nicht gefunden wurde.
      */
-    public static Collection<Guest> getGuestByName(String fname, String lname)
+    public static Collection<IGuest> getGuestByName(String fname, String lname)
             throws CompanyNotFoundException, GuestNotFoundException
     {
         return PartyFacade.getInstance().getGuestByName(fname, lname);
@@ -186,7 +186,7 @@ public class Guest extends Party implements IGuest
      * @param fname der Vorname des Gastes
      * @return eine Liste von Gästen mit diesem Vornamen
      */
-    public static Collection<Guest> getGuestByFName(String fname)
+    public static Collection<IGuest> getGuestByFName(String fname)
     {
         return PartyFacade.getInstance().getGuestsByFName(fname);
     }
@@ -196,7 +196,7 @@ public class Guest extends Party implements IGuest
      * @param lname der Nachname des Gastes
      * @return eine Liste von Gästen mit diesem Nachnamen
      */
-    public static Collection<Guest> getGuestByLName(String lname)
+    public static Collection<IGuest> getGuestByLName(String lname)
     {
         return PartyFacade.getInstance().getGuestsByLName(lname);
     }
@@ -226,7 +226,7 @@ public class Guest extends Party implements IGuest
      * @return
      * Der Gast, der zu dieser Reservierung gehoert
      */
-    public static Guest getGuestFromReservationNumber(String reservationNumber)
+    public static IGuest getGuestFromReservationNumber(String reservationNumber)
     {
         return PartyFacade.getInstance().getGuestFromReservationNumber(reservationNumber);
     }

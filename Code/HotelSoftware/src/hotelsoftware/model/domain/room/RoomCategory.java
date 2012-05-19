@@ -196,6 +196,18 @@ public class RoomCategory implements IRoomCategory
     }
 
     @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 19 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 19 * hash + (this.price != null ? this.price.hashCode() : 0);
+        hash = 19 * hash + (this.rooms != null ? this.rooms.hashCode() : 0);
+        hash = 19 * hash + (this.bedCount != null ? this.bedCount.hashCode() : 0);
+        hash = 19 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public Collection<IRoom> getRooms()
     {
         return rooms;

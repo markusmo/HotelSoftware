@@ -39,14 +39,14 @@ public class RoomFacade
      * @param number die Nummer des Zimmers
      * @return das Zimmer mit der gesuchten Nummer
      */
-    public Room getRoomByNumber(String number)
+    public IRoom getRoomByNumber(String number)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
-        return (Room) DynamicMapper.map(room);
+        return (IRoom) DynamicMapper.map(room);
     }
 
     /**
@@ -76,12 +76,12 @@ public class RoomFacade
         return (RoomCategory) DynamicMapper.map(cat);
     }
     
-    public RoomStatus getRoomStatusByName(String name)
+    public IRoomStatus getRoomStatusByName(String name)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
         DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("statusName", name)).uniqueResult();
-        return (RoomStatus) DynamicMapper.map(status);
+        return (IRoomStatus) DynamicMapper.map(status);
     }
 }

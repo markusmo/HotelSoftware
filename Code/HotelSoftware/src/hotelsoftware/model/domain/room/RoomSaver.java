@@ -43,7 +43,7 @@ public class RoomSaver
      * @param status
      * @throws FailedToSaveToDatabaseException
      */
-    public void saveOrUpdate(Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status, Set<RoomsRoomStatus> roomStatus) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Set<IRoomCategory> categories, Set<IRoomOption> options, Set<IRoomStatus> status, Set<IRoomRoomStatus> roomStatus) throws FailedToSaveToDatabaseException
     {
 
         Session session = null;
@@ -81,13 +81,13 @@ public class RoomSaver
      * @throws FailedToSaveToDatabaseException Wirft einen Fehler, wenn das
      * sichern in die Datenbank fehllschlaegt
      */
-    public void saveOrUpdate(Session session, Set<RoomCategory> categories, Set<RoomOption> options, Set<RoomStatus> status, Set<RoomsRoomStatus> roomStatus) 
+    public void saveOrUpdate(Session session, Set<IRoomCategory> categories, Set<IRoomOption> options, Set<IRoomStatus> status, Set<IRoomRoomStatus> roomStatus) 
             throws FailedToSaveToDatabaseException
     {
 
         if (categories != null)
         {
-            for (RoomCategory category : categories)
+            for (IRoomCategory category : categories)
             {
                 DBRoomCategory dbCat = (DBRoomCategory) DynamicMapper.map(category);
 
@@ -98,7 +98,7 @@ public class RoomSaver
 
         if (options != null)
         {
-            for (RoomOption option : options)
+            for (IRoomOption option : options)
             {
                 DBRoomOption dbOpt = (DBRoomOption) DynamicMapper.map(option);
 
@@ -109,7 +109,7 @@ public class RoomSaver
 
         if (status != null)
         {
-            for (RoomStatus stat : status)
+            for (IRoomStatus stat : status)
             {
                 DBRoomStatus dbStat = (DBRoomStatus) DynamicMapper.map(stat);
 
@@ -120,7 +120,7 @@ public class RoomSaver
         
         if (roomStatus != null)
         {
-            for (RoomsRoomStatus stat : roomStatus)
+            for (IRoomRoomStatus stat : roomStatus)
             {
                 DBRoomsRoomStatus dbStat = (DBRoomsRoomStatus) DynamicMapper.map(stat);
 

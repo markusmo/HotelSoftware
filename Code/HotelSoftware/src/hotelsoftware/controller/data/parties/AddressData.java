@@ -1,6 +1,6 @@
 package hotelsoftware.controller.data.parties;
 
-import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.model.domain.parties.ICountry;
 
 /**
  *Dieses Interface enthält die get Methoden für die Klasse Adresse, welche dort dann implementiert werden.
@@ -11,7 +11,7 @@ public interface AddressData
 
     String getCity();
 
-    Country getIdCountry();
+    ICountry getIdCountry();
 
     String getEmail();
 

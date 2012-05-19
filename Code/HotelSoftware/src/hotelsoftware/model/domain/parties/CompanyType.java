@@ -30,8 +30,7 @@ public class CompanyType implements ICompanyType
      * @return 
      * Eine neue Instanz des Firmentyps
      */
-    @Override
-    public CompanyType create(String typ)
+    public static ICompanyType create(String typ)
     {
         return new CompanyType(typ);
     }
@@ -73,9 +72,9 @@ public class CompanyType implements ICompanyType
      *
      * @return Kollektion aus Firmentypen
      */
-    public static Set<CompanyType> getAllTypes()
+    public static Set<ICompanyType> getAllTypes()
     {
         Set<DBCompanyType> dbct = DBCompanyType.getAllTypes();
-        return (Set<CompanyType>) DynamicMapper.map(dbct);
+        return (Set<ICompanyType>) DynamicMapper.mapCollection(dbct);
     }
 }

@@ -48,7 +48,7 @@ public class InvoiceItem implements IInvoiceItem
      * @return Eine Rechungsposition, mit einer Anzahl von Services, zugehoerig
      * zu einem Aufenthalt mit dem User, der sie erstellt hat.
      */
-    public static InvoiceItem createInvoiceItem(IService service, int amount, IHabitation habitation)
+    public static IInvoiceItem createInvoiceItem(IService service, int amount, IHabitation habitation)
     {
         return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
     }
@@ -184,10 +184,9 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getPriceWithTax()
     {
-        double price = 0;
         double temp = this.getService().getPrice().doubleValue();
         double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
-        price = temp + (temp * tax);
+        double price = temp + (temp * tax);
         return price;
     }
 
@@ -231,11 +230,13 @@ public class InvoiceItem implements IInvoiceItem
         return (UserData) getUser();
     }
     
+    @Override
     public Integer getPrice()
     {
         return price;
     }
 
+    @Override
     public void setPrice(Integer price)
     {
         this.price = price;
