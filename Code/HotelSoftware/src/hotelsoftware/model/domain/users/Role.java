@@ -36,7 +36,8 @@ public class Role implements IRole
         return name;
     }
 
-    void setName(String name)
+    @Override
+    public void setName(String name)
     {
         this.name = name;
     }
@@ -47,7 +48,8 @@ public class Role implements IRole
         return id;
     }
 
-    void setId(Integer id)
+    @Override
+    public void setId(Integer id)
     {
         if (this.id == null)
         {

@@ -10,7 +10,7 @@ import hotelsoftware.model.domain.room.Room;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.model.domain.parties.IGuest;
@@ -264,7 +264,7 @@ abstract class CheckInState
         throw new IllegalStateException();
     }
     
-    Collection<Habitation> getHabitationsOverview()
+    Collection<IHabitation> getHabitationsOverview()
     {
         throw new IllegalStateException();
     }

@@ -375,7 +375,7 @@ public class CheckInController implements UseCaseController
     
     public Collection<HabitationData> getHabitationsData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(state.getHabitationsOverview());
+        return new HelperFunctions<HabitationData, IHabitation>().castCollectionUp(state.getHabitationsOverview());
     }
     
     Collection<IHabitation> getHabitations()
