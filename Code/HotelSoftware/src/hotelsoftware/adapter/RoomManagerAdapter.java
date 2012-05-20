@@ -7,12 +7,14 @@ package hotelsoftware.adapter;
 import at.fhv.roomanizer.domain.room.*;
 import at.fhv.roomanizer.persistence.manager.IRoomManager;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
-import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.IRoomRoomStatus;
 import hotelsoftware.model.domain.room.RoomSaver;
 import hotelsoftware.model.domain.room.RoomsRoomStatus;
-import hotelsoftware.util.HelperFunctions;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -107,7 +109,7 @@ public class RoomManagerAdapter implements IRoomManager
         try
         {
             RoomsRoomStatus ourStatus = ((Adapter<RoomsRoomStatus>)status).getOurType();
-            Set<RoomsRoomStatus> statusse = new HashSet<RoomsRoomStatus>();
+            Set<IRoomRoomStatus> statusse = new HashSet<IRoomRoomStatus>();
             statusse.add(ourStatus);
             RoomSaver.getInstance().saveOrUpdate(null, null, null, statusse);
         }

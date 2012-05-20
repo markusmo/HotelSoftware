@@ -12,8 +12,6 @@ import hotelsoftware.controller.data.room.RoomOptionData;
  */
 public interface IRoomOption extends RoomOptionData{
 
-    IRoomOption create(String name);
-
     Integer getId();
 
     String getName();

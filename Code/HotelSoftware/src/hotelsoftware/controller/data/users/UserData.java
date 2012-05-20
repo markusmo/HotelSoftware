@@ -4,7 +4,7 @@
  */
 package hotelsoftware.controller.data.users;
 
-import hotelsoftware.model.domain.users.Permission;
+import hotelsoftware.model.domain.users.IPermission;
 import java.util.Collection;
 
 /**
@@ -19,6 +19,6 @@ public interface UserData
 
     String getUsername();
 
-    boolean hasPermission(Permission permission);
+    boolean hasPermission(IPermission permission);
     
 }

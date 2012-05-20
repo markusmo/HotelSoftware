@@ -48,7 +48,7 @@ public class HabitationManagerAdapter implements IHabitationManager
     {
         return new LinkedList<Habitation>(HelperFunctions.castCollectionUp(
                 HelperFunctions.getAdaptedList(HelperFunctions.castCollectionUp(hotelsoftware.model.domain.service.Habitation.getAllHabitations(), 
-                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.Habitation.class), HabitationAdapter.class),
+                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.IHabitation.class), HabitationAdapter.class),
                 Habitation.class, HabitationAdapter.class));
     }
 
@@ -63,7 +63,7 @@ public class HabitationManagerAdapter implements IHabitationManager
     {
         return new LinkedList<Habitation>(HelperFunctions.castCollectionUp(
                 HelperFunctions.getAdaptedList(HelperFunctions.castCollectionUp(hotelsoftware.model.domain.service.Habitation.getHabitationsByDate(date), 
-                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.Habitation.class), HabitationAdapter.class),
+                hotelsoftware.model.domain.service.IHabitation.class, hotelsoftware.model.domain.service.IHabitation.class), HabitationAdapter.class),
                 Habitation.class, HabitationAdapter.class));
     }
 

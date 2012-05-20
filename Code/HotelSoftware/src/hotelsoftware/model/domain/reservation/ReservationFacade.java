@@ -43,7 +43,7 @@ public class ReservationFacade
      * @param reservationNr Die eindeutige Reservierungsnummer
      * @return Die Reservierung, die gesucht wurde
      */
-    public Reservation getReservationByNumber(String reservationNr)
+    public IReservation getReservationByNumber(String reservationNr)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -56,7 +56,7 @@ public class ReservationFacade
 
         DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
 
-        return (Reservation) DynamicMapper.map(reservation);
+        return (IReservation) DynamicMapper.map(reservation);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ReservationFacade
      * @param lname Der Nachname des Gastes/Kunden
      * @return Die gesuchte Reservierung
      */
-    public Collection<Reservation> getReservationsByName(String fname, String lname)
+    public Collection<IReservation> getReservationsByName(String fname, String lname)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -78,10 +78,10 @@ public class ReservationFacade
         sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
 
-        return (Collection<Reservation>) DynamicMapper.mapCollection(retList);
+        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
-    public Collection<Reservation> getReservationsByNameApprox(String fname,
+    public Collection<IReservation> getReservationsByNameApprox(String fname,
             String lname)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -98,10 +98,10 @@ public class ReservationFacade
         sqlquery = sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
 
-        return (Collection<Reservation>) DynamicMapper.mapCollection(retList);
+        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
-    public Collection<Reservation> getReservationsByCompanyNameApprox(String companyName)
+    public Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -113,7 +113,7 @@ public class ReservationFacade
         sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
 
-        return (Collection<Reservation>) DynamicMapper.mapCollection(retList);
+        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     /**
@@ -122,7 +122,7 @@ public class ReservationFacade
      * @param id Die eindeutige ID
      * @return Die gesuchte Reservierung
      */
-    public Reservation getReservationById(int id)
+    public IReservation getReservationById(int id)
     {
                 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -132,7 +132,7 @@ public class ReservationFacade
         criteria.add(Restrictions.eq("id", id));
         DBReservation retValue = (DBReservation) criteria.uniqueResult();
         
-        return (Reservation) DynamicMapper.map(retValue);
+        return (IReservation) DynamicMapper.map(retValue);
     }
 
     /**
@@ -140,7 +140,7 @@ public class ReservationFacade
      *
      * @return Alle vorhandenen Reservierungen
      */
-    public Collection<Reservation> getAllReservations()
+    public Collection<IReservation> getAllReservations()
     {
                 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -152,7 +152,7 @@ public class ReservationFacade
         
         Collection<DBReservation> retList = sqlquery.list();
         
-        return (Collection<Reservation>) DynamicMapper.mapCollection(retList);
+        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     /**
@@ -161,7 +161,7 @@ public class ReservationFacade
      * @param reservation Die Reservierung
      * @return Die Anzahl, der Gaeste in einer Reservierung.
      */
-    public Integer getGuestAmount(Reservation reservation)
+    public Integer getGuestAmount(IReservation reservation)
     {
         Collection<IReservationItem> reservationItems = reservation.getReservationItems();
         int retValue = 0;

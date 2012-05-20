@@ -1,7 +1,5 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.parties.AddressData;
-
 /**
  * Klasse die die Attribute einer Addresse hällt. Hier werden alle Kontaktdaten einer Party (Gruppierung oder Person) gehalten.
  *
@@ -16,7 +14,7 @@ public class Address implements IAddress
     private String email;
     private String phone;
     private String fax;
-    private Country idCountry;
+    private ICountry idCountry;
 
     /**
      * Instanziert eine neue Adresse
@@ -38,7 +36,7 @@ public class Address implements IAddress
      * @return
      * Eine neue Adresse
      */
-    public static Address create(String street, String city, String zip,
+    public static IAddress create(String street, String city, String zip,
             String email, String phone, String fax, Country country)
     {
         return new Address(street, city, zip, email, phone, fax, country);
@@ -135,13 +133,13 @@ public class Address implements IAddress
     }
 
     @Override
-    public Country getIdCountry()
+    public ICountry getIdCountry()
     {
         return idCountry;
     }
 
     @Override
-    public void setIdCountry(Country country)
+    public void setIdCountry(ICountry country)
     {
         this.idCountry = country;
     }

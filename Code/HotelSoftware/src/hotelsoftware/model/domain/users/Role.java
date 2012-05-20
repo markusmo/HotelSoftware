@@ -1,6 +1,5 @@
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.controller.data.users.RoleData;
 import hotelsoftware.controller.data.users.PermissionData;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -12,19 +11,21 @@ import java.util.Set;
  *
  * @author Dunst
  */
-public class Role implements RoleData
+public class Role implements IRole
 {
 
     private Integer id;
     private String name;
-    private Collection<Permission> permissions;
+    private Collection<IPermission> permissions;
 
-    public Collection<Permission> getPermissions()
+    @Override
+    public Collection<IPermission> getPermissions()
     {
         return permissions;
     }
 
-    public void setPermissions(Collection<Permission> permissions)
+    @Override
+    public void setPermissions(Collection<IPermission> permissions)
     {
         this.permissions = permissions;
     }
@@ -35,17 +36,20 @@ public class Role implements RoleData
         return name;
     }
 
-    void setName(String name)
+    @Override
+    public void setName(String name)
     {
         this.name = name;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
     }
 
-    void setId(Integer id)
+    @Override
+    public void setId(Integer id)
     {
         if (this.id == null)
         {
@@ -59,10 +63,10 @@ public class Role implements RoleData
 
     private Role(String name)
     {
-        this(name, new HashSet<Permission>());
+        this(name, new HashSet<IPermission>());
     }
 
-    private Role(String name, Collection<Permission> permissions)
+    private Role(String name, Collection<IPermission> permissions)
     {
         this.name = name;
         this.permissions = permissions;
@@ -77,14 +81,15 @@ public class Role implements RoleData
      * @return 
      * eine neue Instanz
      */
-    public static Role create(String name, Collection<Permission> permissions)
+    public static Role create(String name, Collection<IPermission> permissions)
     {
         return new Role(name, permissions);
     }
 
+    @Override
     public Collection<PermissionData> getPermissionsData()
     {
-        return new HelperFunctions<PermissionData, Permission>().castCollectionUp(
+        return new HelperFunctions<PermissionData, IPermission>().castCollectionUp(
                 getPermissions());
     }
 }

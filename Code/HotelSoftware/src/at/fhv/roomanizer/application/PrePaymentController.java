@@ -7,13 +7,11 @@ import java.util.List;
 import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.domain.person.User;
+import at.fhv.roomanizer.domain.service.ExtraService;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
-import hotelsoftware.adapter.InvoiceItemAdapter;
-import hotelsoftware.adapter.ServiceAdapter;
-import hotelsoftware.adapter.ServiceManagerAdapter;
-import hotelsoftware.adapter.UserControllerAdapter;
+import hotelsoftware.adapter.*;
 
 public class PrePaymentController
 {

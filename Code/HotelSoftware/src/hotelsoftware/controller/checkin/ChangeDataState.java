@@ -102,7 +102,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<CountryData> getAllCountries()
     {
-        return new HelperFunctions<CountryData, Country>().castCollectionUp(Country.getAllCountries());
+        return new HelperFunctions<CountryData, ICountry>().castCollectionUp(Country.getAllCountries());
     }
 
     @Override
@@ -123,7 +123,7 @@ public abstract class ChangeDataState extends CheckInState
     public void changeRoom(int selectionIndex, String roomNumber)
     {
         RoomSelection sel = context.getRoomSelections().get(selectionIndex);
-        Room room = Room.getRoomByNumber(roomNumber);
+        IRoom room = Room.getRoomByNumber(roomNumber);
 
         sel.setRoom(room);
     }
@@ -205,7 +205,7 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
     {
-        context.setHabitations(new LinkedList<Habitation>());
+        context.setHabitations(new LinkedList<IHabitation>());
         LinkedList<IGuest> guests = new LinkedList<IGuest>();
         LinkedList<IAddress> addresses = new LinkedList<IAddress>();
 

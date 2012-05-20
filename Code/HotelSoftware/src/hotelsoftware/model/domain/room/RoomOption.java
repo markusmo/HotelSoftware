@@ -25,8 +25,7 @@ public class RoomOption implements IRoomOption
         DBRoomOption.safeNewRoomOption(name);
     }
 
-    @Override
-    public RoomOption create(String name)
+    public static IRoomOption create(String name)
     {
         return new RoomOption(name);
     }
@@ -63,9 +62,9 @@ public class RoomOption implements IRoomOption
      * @return 
      * Alle Zimmeroptionen, die verfuegbar sind.
      */
-    public static Set<RoomOption> getRoomOptions()
+    public static Set<IRoomOption> getRoomOptions()
     {
         Set<DBRoomOption> dbro = DBRoomOption.getRoomOptions();
-        return (Set<RoomOption>) DynamicMapper.map(dbro);
+        return (Set<IRoomOption>) DynamicMapper.map(dbro);
     }
 }

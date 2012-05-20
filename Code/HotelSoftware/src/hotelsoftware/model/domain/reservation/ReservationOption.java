@@ -10,11 +10,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- *Diese Klasse beinhaltet eine Reservierungsoption die für Reservierungen  benötigt werden
+ * Diese Klasse beinhaltet eine Reservierungsoption die für Reservierungen
+ * benötigt werden
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ReservationOption implements IReservationOption
 {
+
     private Date expiration;
     private BigDecimal prepayment;
     private Boolean fulfilled;
@@ -37,7 +40,7 @@ public class ReservationOption implements IReservationOption
     {
         this.reservation = reservation;
     }
-    
+
     public static ReservationOption newOption()
     {
         return new ReservationOption();
@@ -90,20 +93,13 @@ public class ReservationOption implements IReservationOption
     {
         this.prepayment = prepayment;
     }
+
     @Override
     public Integer getId()
     {
         return id;
     }
 
-    void setId(Integer id)
-    {
-        if (this.id == null)
-        {
-            this.id = id;
-        }
-    }
-    
     @Override
     public String getComment()
     {
@@ -114,5 +110,14 @@ public class ReservationOption implements IReservationOption
     public void setComment(String comment)
     {
         this.comment = comment;
+    }
+
+    @Override
+    public void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
     }
 }

@@ -44,15 +44,15 @@ public class ServiceSaver
      * @throws FailedToSaveToDatabaseException Wirft einen Fehler, wenn das
      * Speichern fehlschlaegt
      */
-    public void saveOrUpdate(Session session, Collection<ExtraService> extraServices, Collection<Habitation> habitations,
-            Collection<ServiceType> serviceTypes) throws FailedToSaveToDatabaseException
+    public void saveOrUpdate(Session session, Collection<IExtraService> extraServices, Collection<IHabitation> habitations,
+            Collection<IServiceType> serviceTypes) throws FailedToSaveToDatabaseException
     {
 
         try
         {
             if (serviceTypes != null)
             {
-                for (ServiceType serviceType : serviceTypes)
+                for (IServiceType serviceType : serviceTypes)
                 {
                     DBServiceType dbp = (DBServiceType) DynamicMapper.map(serviceType);
 
@@ -63,7 +63,7 @@ public class ServiceSaver
 
             if (extraServices != null)
             {
-                for (ExtraService extraService : extraServices)
+                for (IExtraService extraService : extraServices)
                 {
                     DBExtraService dbp = (DBExtraService) DynamicMapper.map(extraService);
 
@@ -74,7 +74,7 @@ public class ServiceSaver
 
             if (habitations != null)
             {
-                for (Habitation habitation : habitations)
+                for (IHabitation habitation : habitations)
                 {
                     DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);
 
@@ -89,7 +89,7 @@ public class ServiceSaver
         }
     }
 
-    public void saveOrUpdate(Collection<ExtraService> extraServices, Collection<Habitation> habitations, Collection<ServiceType> serviceTypes)
+    public void saveOrUpdate(Collection<IExtraService> extraServices, Collection<IHabitation> habitations, Collection<IServiceType> serviceTypes)
             throws FailedToSaveToDatabaseException
     {
         if ((extraServices == null) || (habitations == null) || (serviceTypes == null))

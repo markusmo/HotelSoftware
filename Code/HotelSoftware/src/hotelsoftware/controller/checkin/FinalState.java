@@ -4,7 +4,7 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
 import java.util.Collection;
 
 /**
@@ -19,7 +19,7 @@ public class FinalState extends CheckInState
     }
     
     @Override
-    Collection<Habitation> getHabitationsOverview()
+    Collection<IHabitation> getHabitationsOverview()
     {
         return context.getHabitations();
     }

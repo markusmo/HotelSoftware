@@ -9,14 +9,13 @@ import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.users.DBRole;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.service.Habitation;
-import hotelsoftware.model.domain.users.Permission;
+import hotelsoftware.model.domain.users.IPermission;
+import hotelsoftware.model.domain.users.IRole;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.model.domain.users.Role;
 import hotelsoftware.model.domain.users.User;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 /**
  *Diese Klasse ist dafür da, um Dynamic Mapper tests durchzuführen
@@ -30,12 +29,12 @@ public class TestDynamicMapper
      */
     public static void main(String[] args)
     {
-        LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+        LinkedHashSet<IRole> roles = new LinkedHashSet<IRole>();
         
-        roles.add(Role.create("Harry", new LinkedHashSet<Permission>()));
-        roles.add(Role.create("Todes", new LinkedHashSet<Permission>()));
+        roles.add(Role.create("Harry", new LinkedHashSet<IPermission>()));
+        roles.add(Role.create("Todes", new LinkedHashSet<IPermission>()));
         
-        User user = User.create("Markus", "Mohanty", roles);
+        IUser user = User.create("Markus", "Mohanty", roles);
         
         DBUser dbUser = (DBUser) DynamicMapper.map(user);
         

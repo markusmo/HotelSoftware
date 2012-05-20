@@ -45,8 +45,8 @@ public class ReservationSaver {
      * @param reservationItems
      * @throws FailedToSaveToDatabaseException
      */
-    public void saveOrUpdate(Collection<Reservation> reservations, Collection<ReservationOption> options,
-            Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Collection<IReservation> reservations, Collection<IReservationOption> options,
+            Collection<IReservationItem> reservationItems) throws FailedToSaveToDatabaseException {
 
         Session session = null;
         Transaction ts = null;
@@ -71,11 +71,11 @@ public class ReservationSaver {
         }
     }
 
-    public void saveOrUpdate(Session session, Collection<Reservation> reservations, Collection<ReservationOption> options,
-            Collection<ReservationItem> reservationItems) throws FailedToSaveToDatabaseException {
+    public void saveOrUpdate(Session session, Collection<IReservation> reservations, Collection<IReservationOption> options,
+            Collection<IReservationItem> reservationItems) throws FailedToSaveToDatabaseException {
 
         if (reservations != null) {
-            for (Reservation reservation : reservations) {
+            for (IReservation reservation : reservations) {
                 DBReservation dbpp = (DBReservation)DynamicMapper.map(ReservationFacade.getInstance().getReservationById(reservation.getId()));
                 DBReservation dbp = (DBReservation) DynamicMapper.map(reservation);
 
@@ -87,7 +87,7 @@ public class ReservationSaver {
         }
 
         if (options != null) {
-            for (ReservationOption option : options) {
+            for (IReservationOption option : options) {
                 DBReservationOption dbo = (DBReservationOption) DynamicMapper.map(option);
 
                 session.saveOrUpdate(dbo);
@@ -96,7 +96,7 @@ public class ReservationSaver {
         }
 
         if (options != null) {
-            for (ReservationItem item : reservationItems) {
+            for (IReservationItem item : reservationItems) {
                 DBReservationItem dbi = (DBReservationItem) DynamicMapper.map(item);
 
                 session.saveOrUpdate(dbi);

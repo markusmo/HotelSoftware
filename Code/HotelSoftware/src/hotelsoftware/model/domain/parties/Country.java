@@ -53,7 +53,7 @@ public class Country implements ICountry
         this.nameShort = nameShort;
     }
     
-    public static Collection<Country> getAllCountries()
+    public static Collection<ICountry> getAllCountries()
     {
         return PartyFacade.getInstance().getAllCountries();
     }

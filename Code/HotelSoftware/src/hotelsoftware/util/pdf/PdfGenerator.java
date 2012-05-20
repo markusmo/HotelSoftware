@@ -6,7 +6,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.util.HelperFunctions;
 import java.io.File;
@@ -60,7 +60,7 @@ public class PdfGenerator
     private static final Font bigfont = new Font(Font.TIMES_ROMAN, 14, Font.BOLD);
     private Customer customer;
     private String invoiceNumber;
-    private Collection<InvoiceItem> items;
+    private Collection<IInvoiceItem> items;
     private Date created;
     private Date expiration;
     private String invoicePath;
@@ -78,7 +78,7 @@ public class PdfGenerator
     {
         this.customer = (Customer) customer;
         this.invoiceNumber = invoiceNumber;
-        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
+        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, IInvoiceItem.class);
         this.created = created;
         this.expiration = expiration;
     }
@@ -91,7 +91,7 @@ public class PdfGenerator
      */
     public PdfGenerator(Collection<InvoiceItemData> items, Date created)
     {
-        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, InvoiceItem.class);
+        this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, IInvoiceItem.class);
         this.created = created;
     }
 
@@ -259,7 +259,7 @@ public class PdfGenerator
      * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
      */
     private void addInvoiceBodyWithTax(Document doc, String invoicenumber,
-            Collection<InvoiceItem> items, double totalamount,
+            Collection<IInvoiceItem> items, double totalamount,
             Date created, Date expiration) throws DocumentException
     {
         double percent10Total = get10PercentTotal(items);
@@ -305,7 +305,7 @@ public class PdfGenerator
         currencyFormat.setMinimumFractionDigits(2);
         currencyFormat.setDecimalFormatSymbols(symbols);
 
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             cell = new PdfPCell(new Phrase(item.getAmount() + "x"));
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -367,7 +367,7 @@ public class PdfGenerator
      * @param expiration das Fälligkeitsdatum der Rechnung
      * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
      */
-    private void addInvoiceBodyWithoutTax(Document doc, String invoiceNumber, Collection<InvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
+    private void addInvoiceBodyWithoutTax(Document doc, String invoiceNumber, Collection<IInvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
     {
         Paragraph invoiceParagraph = new Paragraph();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -406,7 +406,7 @@ public class PdfGenerator
         currencyFormat.setMinimumFractionDigits(2);
         currencyFormat.setDecimalFormatSymbols(symbols);
 
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             cell = new PdfPCell(new Phrase(item.getAmount() + "x"));
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -475,10 +475,10 @@ public class PdfGenerator
      * @return
      * die Gesammtsumme einer Rechnung
      */
-    private double getTotalwithTax(Collection<InvoiceItem> items)
+    private double getTotalwithTax(Collection<IInvoiceItem> items)
     {
         double total = 0;
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             total = total + item.getTotalPriceWithTax();
         }
@@ -491,10 +491,10 @@ public class PdfGenerator
      * @param items die Rechnungspositionen, mit der eine Rechung generiert werden
      * @return die Gesammtsumme einer Rechung ohne Steuern
      */
-    private double getTotalwithoutTax(Collection<InvoiceItem> items)
+    private double getTotalwithoutTax(Collection<IInvoiceItem> items)
     {
         double total = 0;
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             total = total + item.getTotalPriceWithoutTax();
         }
@@ -517,11 +517,11 @@ public class PdfGenerator
      * @param items alle Rechnungspositionen
      * @return der Totalbetrag aller Services mit 20% Mehrwertsteuer
      */
-    private double get20PercentTotal(Collection<InvoiceItem> items)
+    private double get20PercentTotal(Collection<IInvoiceItem> items)
     {
         double total = 0;
 
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 20.0)
             {
@@ -538,11 +538,11 @@ public class PdfGenerator
      * @param items alle Rechnungspositionen
      * @return der Totalbetrag aller Services mit 10% Mehrwertsteuer
      */
-    private double get10PercentTotal(Collection<InvoiceItem> items)
+    private double get10PercentTotal(Collection<IInvoiceItem> items)
     {
         double total = 0;
 
-        for (InvoiceItem item : items)
+        for (IInvoiceItem item : items)
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 10.0)
             {

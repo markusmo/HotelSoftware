@@ -1,6 +1,7 @@
 package hotelsoftware.controller.login;
 
 import hotelsoftware.model.domain.users.User;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.support.LoginFailureException;
 
 /**
@@ -10,7 +11,7 @@ import hotelsoftware.support.LoginFailureException;
 public class LoginController
 {
     
-    private User user;
+    private IUser user;
     
     private LoginController()
     {
@@ -35,7 +36,7 @@ public class LoginController
      * @return 
      * den Aktuellen User
      */
-    public User getCurrentUser()
+    public IUser getCurrentUser()
     {
         return user;
     }

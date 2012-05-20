@@ -2,7 +2,6 @@ package hotelsoftware.model.domain.users;
 
 import hotelsoftware.controller.data.users.PermissionData;
 import hotelsoftware.controller.data.users.RoleData;
-import hotelsoftware.controller.data.users.UserData;
 import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -22,7 +21,7 @@ public class User implements IUser
     private String password;
     private Boolean active;
 
-    private Collection<Role> roles;
+    private Collection<IRole> roles;
 
     public User()
     {
@@ -30,10 +29,10 @@ public class User implements IUser
 
     private User(String username, String password)
     {
-        this(username, password, new LinkedHashSet<Role>());
+        this(username, password, new LinkedHashSet<IRole>());
     }
 
-    private User(String username, String password, Collection<Role> roles)
+    private User(String username, String password, Collection<IRole> roles)
     {
         this.username = username;
         this.password = password;
@@ -53,13 +52,13 @@ public class User implements IUser
     }
 
     @Override
-    public Collection<Role> getRoles()
+    public Collection<IRole> getRoles()
     {
         return roles;
     }
 
     @Override
-    public void setRoles(Collection<Role> roles)
+    public void setRoles(Collection<IRole> roles)
     {
         this.roles = roles;
     }
@@ -115,11 +114,11 @@ public class User implements IUser
      * @throws LoginFailureException Wirft einen Fehler, wenn der Login
      * fehlschlaegt (Password und/oder Benutzername stimmen nicht ueberein)
      */
-    public static User login(String username, String password) throws LoginFailureException
+    public static IUser login(String username, String password) throws LoginFailureException
     {
         System.out.println("Username: " + username);
         System.out.println("Passwort: " + password);
-        User user = UserFacade.getInstance().login(username, password);
+        IUser user = UserFacade.getInstance().login(username, password);
 
         if (user == null)
         {
@@ -137,8 +136,8 @@ public class User implements IUser
      * @param roles Rolle, des neuen Benutzers
      * @return eine neue Instanz
      */
-    public static User create(String username, String password,
-            Collection<Role> roles)
+    public static IUser create(String username, String password,
+            Collection<IRole> roles)
     {
         return new User(username, password, roles);
 
@@ -150,16 +149,16 @@ public class User implements IUser
      * @return Eine Liste aller Befugnisse des Benutzers
      */
     @Override
-    public Collection<Permission> getAllPermissions()
+    public Collection<IPermission> getAllPermissions()
     {
-        Collection<Permission> permissions = new HashSet<Permission>();
+        Collection<IPermission> permissions = new HashSet<IPermission>();
 
         // adding permissions
-        for (Role role : this.getRoles())
+        for (IRole role : this.getRoles())
         {
-            Collection<Permission> rolePermissions = role.getPermissions();
+            Collection<IPermission> rolePermissions = role.getPermissions();
 
-            for (Permission permission : rolePermissions)
+            for (IPermission permission : rolePermissions)
             {
                 permissions.add(permission);
             }
@@ -168,7 +167,7 @@ public class User implements IUser
     }
 
     @Override
-    public boolean hasPermission(Permission permission)
+    public boolean hasPermission(IPermission permission)
     {
         return getAllPermissions().contains(permission);
     }
@@ -193,13 +192,13 @@ public class User implements IUser
     @Override
     public Collection<PermissionData> getAllPermissionsData()
     {
-        return new HelperFunctions<PermissionData, Permission>().castCollectionUp(
+        return new HelperFunctions<PermissionData, IPermission>().castCollectionUp(
                 getAllPermissions());
     }
 
     @Override
     public Collection<RoleData> getRolesData()
     {
-        return new HelperFunctions<RoleData, Role>().castCollectionUp(getRoles());
+        return new HelperFunctions<RoleData, IRole>().castCollectionUp(getRoles());
     }
 }

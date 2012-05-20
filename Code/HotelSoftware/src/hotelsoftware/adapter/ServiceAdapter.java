@@ -28,15 +28,17 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
         this();
         this.ourService.setIdServices(service.getId());
         this.ourService.setServiceType(new TypeAdapter(service.getType()).getOurType());
+        this.ourService.setPrice(BigDecimal.ZERO);
+        this.ourService.setIdServices(service.getId());
+        this.ourService.setServiceType(((TypeAdapter)service.getType()).getOurType());
+        //TODO muss wegen unneinigkeiten in der Domänenschicht manuell gesetzt werden -.-
+        ((ExtraService)this.ourService).setName("PrePayment");
     }
     
     public ServiceAdapter()
     {
         //TODO instanceof Abfrage?
         this.ourService = new ExtraService();
-        //Workaround wegen Unterschieden im Domänenmodell (Team F hat Service nicht abstrakt gemacht)
-        ((ExtraService)this.ourService).setName("");
-        ((ExtraService)this.ourService).setPrice(BigDecimal.ZERO);
     }
 
     @Override

@@ -44,8 +44,8 @@ public class PartySaver
     }
 
     public void saveOrUpdate(Session session, Collection<IAddress> addresses,
-            Collection<CompanyType> companytypes, Collection<Company> companys,
-            Collection<PrivateCustomer> privateCustomers,
+            Collection<ICompanyType> companytypes, Collection<ICompany> companys,
+            Collection<IPrivateCustomer> privateCustomers,
             Collection<IGuest> guests)
     {
 
@@ -69,7 +69,7 @@ public class PartySaver
 
         if (companytypes != null)
         {
-            for (CompanyType type : companytypes)
+            for (ICompanyType type : companytypes)
             {
                 DBCompanyType dbct = (DBCompanyType) DynamicMapper.map(type);
 
@@ -80,7 +80,7 @@ public class PartySaver
 
         if (companys != null)
         {
-            for (Company company : companys)
+            for (ICompany company : companys)
             {
                 DBCompany dbc = (DBCompany) DynamicMapper.map(company);
 
@@ -91,7 +91,7 @@ public class PartySaver
 
         if (privateCustomers != null)
         {
-            for (PrivateCustomer privatecustomer : privateCustomers)
+            for (IPrivateCustomer privatecustomer : privateCustomers)
             {
                 DBPrivateCustomer dbpc = (DBPrivateCustomer) DynamicMapper.map(
                         privatecustomer);
@@ -125,8 +125,8 @@ public class PartySaver
      * eingetragen werden
      */
     public void saveOrUpdate(Collection<IAddress> addresses,
-            Collection<CompanyType> companytypes, Collection<Company> companys,
-            Collection<PrivateCustomer> privateCustomers,
+            Collection<ICompanyType> companytypes, Collection<ICompany> companys,
+            Collection<IPrivateCustomer> privateCustomers,
             Collection<IGuest> guests) throws FailedToSaveToDatabaseException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

@@ -21,6 +21,8 @@ import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.model.domain.users.IPermission;
 import hotelsoftware.model.domain.users.Permission;
 import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.support.PermissionDeniedException;
@@ -38,7 +40,7 @@ public class CheckInController implements UseCaseController
 
     public static CheckInController getInstance() throws PermissionNotFoundException, PermissionDeniedException
     {
-        Permission p = Permission.getPermissionByName("Check-In");
+        IPermission p = Permission.getPermissionByName("Check-In");
         
         if (!LoginController.getInstance().getCurrentUser().hasPermission(p))
         {
@@ -61,7 +63,7 @@ public class CheckInController implements UseCaseController
     private int counter;
     private Collection<ReservationItemData> reservationItems;
     private CheckInState state;
-    private Collection<Habitation> habitations;
+    private Collection<IHabitation> habitations;
 
     public static CheckInController getController()
     {
@@ -373,10 +375,10 @@ public class CheckInController implements UseCaseController
     
     public Collection<HabitationData> getHabitationsData()
     {
-        return new HelperFunctions<HabitationData, Habitation>().castCollectionUp(state.getHabitationsOverview());
+        return new HelperFunctions<HabitationData, IHabitation>().castCollectionUp(state.getHabitationsOverview());
     }
     
-    Collection<Habitation> getHabitations()
+    Collection<IHabitation> getHabitations()
     {
         return habitations;
     }
@@ -499,7 +501,7 @@ public class CheckInController implements UseCaseController
        state.createNewWalkIn();
     }
 
-    void setHabitations(Collection<Habitation> habitations)
+    void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
     }

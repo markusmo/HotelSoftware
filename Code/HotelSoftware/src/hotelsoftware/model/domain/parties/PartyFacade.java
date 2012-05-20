@@ -41,7 +41,7 @@ public class PartyFacade
      * @return
      * Alle Länder in der Datenbank
      */
-    public Collection<Country> getAllCountries()
+    public Collection<ICountry> getAllCountries()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -58,7 +58,7 @@ public class PartyFacade
      * @return
      * alle Firmentypen, die vorhanden sind
      */
-    public Set<CompanyType> getAllTypes()
+    public Set<ICompanyType> getAllTypes()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -66,7 +66,7 @@ public class PartyFacade
         Criteria criteria = session.createCriteria(DBCompanyType.class);
         List<DBCompanyType> retList = criteria.list();
 
-        return (Set<CompanyType>) DynamicMapper.mapCollection(retList);
+        return (Set<ICompanyType>) DynamicMapper.mapCollection(retList);
     }
 
     /**
@@ -76,7 +76,7 @@ public class PartyFacade
      * @return Firmenobjekt
      * @throws CompanyNotFoundException firma nicht gefunden
      */
-    public Company getCompanyByName(String name)
+    public ICompany getCompanyByName(String name)
             throws CompanyNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -103,7 +103,7 @@ public class PartyFacade
      * @throws PrivateCustomerNotFoundException privatkunde nicht gefunden
      * @throws GuestNotFoundException gast nicht gefunden
      */
-    public PrivateCustomer getPrivateCustomerByName(String firstName,
+    public IPrivateCustomer getPrivateCustomerByName(String firstName,
             String lastName) throws PrivateCustomerNotFoundException,
             GuestNotFoundException
     {
@@ -118,7 +118,7 @@ public class PartyFacade
             throw new GuestNotFoundException();
         }
 
-        return (PrivateCustomer) DynamicMapper.map(cust);
+        return (IPrivateCustomer) DynamicMapper.map(cust);
     }
 
     /**
@@ -129,7 +129,7 @@ public class PartyFacade
      * @throws PrivateCustomerNotFoundException
      * @throws GuestNotFoundException
      */
-    public Set<PrivateCustomer> getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
+    public Set<IPrivateCustomer> getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
             GuestNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -146,7 +146,7 @@ public class PartyFacade
             throw new GuestNotFoundException();
         }
 
-        return (Set<PrivateCustomer>) DynamicMapper.mapCollection(cust);
+        return (Set<IPrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
 
     /**
@@ -157,7 +157,7 @@ public class PartyFacade
      * @throws PrivateCustomerNotFoundException
      * @throws GuestNotFoundException
      */
-    public Set<PrivateCustomer> getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
+    public Set<IPrivateCustomer> getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
             GuestNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -174,7 +174,7 @@ public class PartyFacade
             throw new GuestNotFoundException();
         }
 
-        return (Set<PrivateCustomer>) DynamicMapper.mapCollection(cust);
+        return (Set<IPrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
 
     /**
@@ -183,7 +183,7 @@ public class PartyFacade
      * @param reservationNumber die Reservierungsnummer nach der gesucht wird
      * @return einen Gast, der zu dieser Reservierung passt
      */
-    public Guest getGuestFromReservationNumber(String reservationNumber)
+    public IGuest getGuestFromReservationNumber(String reservationNumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -195,7 +195,7 @@ public class PartyFacade
         sqlquery.addEntity(DBGuest.class);
         DBGuest guest = (DBGuest) sqlquery.uniqueResult();
 
-        return (Guest) DynamicMapper.map(guest);
+        return (IGuest) DynamicMapper.map(guest);
     }
 
     /**
@@ -207,7 +207,7 @@ public class PartyFacade
      * @throws CompanyNotFoundException Firma nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public Set<Guest> getGuestByName(String firstName, String lastName)
+    public Set<IGuest> getGuestByName(String firstName, String lastName)
             throws CompanyNotFoundException, GuestNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -246,7 +246,7 @@ public class PartyFacade
             throw new GuestNotFoundException();
         }
 
-        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
     /**
@@ -256,7 +256,7 @@ public class PartyFacade
      * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
      * enthält.
      */
-    public Set<Guest> getGuestsByFName(String firstName)
+    public Set<IGuest> getGuestsByFName(String firstName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -271,7 +271,7 @@ public class PartyFacade
                 "fname", firstName));
         Collection<DBGuest> retList = criteria.list();
 
-        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
     /**
@@ -281,7 +281,7 @@ public class PartyFacade
      * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
      * enthält.
      */
-    public Set<Guest> getGuestsByLName(String lastName)
+    public Set<IGuest> getGuestsByLName(String lastName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -296,7 +296,7 @@ public class PartyFacade
                 "lname", lastName));
         Collection<DBGuest> retList = criteria.list();
 
-        return (Set<Guest>) DynamicMapper.mapCollection(retList);
+        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
     }
     /**
      * Diese Methode sucht nach Firmen anhand eines Namens.
@@ -304,7 +304,7 @@ public class PartyFacade
      * @param name Dies ist der Name der Firma
      * @return Eine Liste von Firmen mit ähnlichen Namen
      */
-    public Collection<Company> getCompaniesByName(String name)
+    public Collection<ICompany> getCompaniesByName(String name)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

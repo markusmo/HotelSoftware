@@ -33,6 +33,8 @@ public interface IReservationOption extends ReservationOptionData {
 
     Boolean isFulfilled();
 
+    void setId(Integer id);
+    
     void setComment(String comment);
 
     void setExpiration(Date expiration);
