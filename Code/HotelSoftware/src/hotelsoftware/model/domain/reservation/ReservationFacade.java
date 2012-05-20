@@ -27,16 +27,16 @@ public class ReservationFacade
         return ReservationFacadeHolder.INSTANCE;
     }
 
-    static int getHighestReservationId()
-    {
-        return DBReservation.getHighestId();
-    }
-
     private static class ReservationFacadeHolder
     {
         private static final ReservationFacade INSTANCE = new ReservationFacade();
     }
-
+    
+    int getHighestReservationId()
+    {
+        return DBReservation.getHighestId();
+    }
+    
     /**
      * Gibt eine Reservierung, nach der eindeutigen Reservierungsnummer aus
      *

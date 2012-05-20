@@ -117,7 +117,7 @@ public class ServiceFacade
         return (IServiceType) DynamicMapper.map(p);
     }
 
-    static int getHighestHabitationId()
+    int getHighestHabitationId()
     {
         return DBHabitation.getHighestId();
     }
@@ -224,7 +224,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(retList);
     }
     
-    public static Collection<IHabitation> getHabitationsByDate(Date date)
+    public Collection<IHabitation> getHabitationsByDate(Date date)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         
@@ -255,7 +255,7 @@ public class ServiceFacade
         return DynamicMapper.mapCollection(retList);
     }
     
-    public static Collection<IHabitation> getAllHabitations()
+    public Collection<IHabitation> getAllHabitations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
