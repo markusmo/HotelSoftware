@@ -336,7 +336,7 @@ public class PdfGenerator
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 10%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(percent10Total)));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(get10PercentTax(totalamount))));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell);
 
@@ -344,7 +344,7 @@ public class PdfGenerator
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 20%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(percent20Total)));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(get20PercentTax(totalamount))));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell);
         //add table to paragraph
@@ -503,12 +503,12 @@ public class PdfGenerator
 
     private double get20PercentTax(double total)
     {
-        return total / 0.2;
+        return total * 0.2;
     }
 
     private double get10PercentTax(double total)
     {
-        return total / 0.1;
+        return total * 0.1;
     }
 
     /**
