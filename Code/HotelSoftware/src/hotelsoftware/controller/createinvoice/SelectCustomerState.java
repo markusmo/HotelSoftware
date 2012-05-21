@@ -145,4 +145,14 @@ public class SelectCustomerState extends CreateInvoiceState
     {
         context.setState(new InterimBillState(context));
     }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return HelperFunctions.castCollectionUp(CompanyType.getAllTypes(), CompanyTypeData.class, ICompanyType.class); 
+    }
 }

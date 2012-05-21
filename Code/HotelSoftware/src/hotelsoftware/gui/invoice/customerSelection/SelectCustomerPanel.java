@@ -235,15 +235,15 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel7)
                             .addComponent(TextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(buttonSelectCustomer))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textfieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1)
+                        .addGap(37, 37, 37))))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html> <font size =+2>Create new customer</font></html>", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
@@ -317,10 +317,10 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -382,7 +382,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         {
             if (companyPanel.isFinished())
             {
-                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
+                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getCompanyType(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
             }
             else
             {
@@ -416,13 +416,13 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
                 if (pd instanceof CompanyData)
                 {
                     CompanyData cd = (CompanyData) pd;
-                     InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                    InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getTypeData(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                 }
                 else
                 {
                     if (pd instanceof PrivateCustomerData)
                     {
-                        PrivateCustomerData pcd  = (PrivateCustomerData) pd;
+                        PrivateCustomerData pcd = (PrivateCustomerData) pd;
                         InvoiceGUIControler.getInstance().createPrivateCustomer(pcd.getFname(), pcd.getLname(), pcd.getAddressData().getStreet(), pcd.getAddressData().getCity(), pcd.getAddressData().getZip(), pcd.getAddressData().getEmail(), pcd.getAddressData().getPhone(), pcd.getAddressData().getFax(), pcd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                     }
                 }

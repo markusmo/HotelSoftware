@@ -161,6 +161,16 @@ public final class InvoiceGUIControler implements ActionListener
     {
         return ctrl.getAllCountries();
     }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return ctrl.getAllCompanyTypes();
+    }
 
     public String getIntermediatInvoiceString()
     {

@@ -72,10 +72,16 @@ public class CompanyType implements ICompanyType
      *
      * @return Kollektion aus Firmentypen
      */
-    public static Set<ICompanyType> getAllTypes()
+    public static Collection<ICompanyType> getAllTypes()
     {
         PartyFacade facade = PartyFacade.getInstance();
-        Set<ICompanyType> dbct = facade.getAllTypes();
-        return (Set<ICompanyType>) DynamicMapper.mapCollection(dbct);
+        return facade.getAllTypes();
     }
+    
+    
+    public String toString()
+    {
+        return typ;
+    }
+           
 }

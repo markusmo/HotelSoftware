@@ -118,4 +118,9 @@ abstract class CreateInvoiceState
     {
         throw new IllegalStateException();
     }
+
+    Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        throw new IllegalStateException();
+    }
 }

@@ -58,7 +58,7 @@ public class PartyFacade
      * @return
      * alle Firmentypen, die vorhanden sind
      */
-    public Set<ICompanyType> getAllTypes()
+    public Collection<ICompanyType> getAllTypes()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -66,7 +66,7 @@ public class PartyFacade
         Criteria criteria = session.createCriteria(DBCompanyType.class);
         List<DBCompanyType> retList = criteria.list();
 
-        return (Set<ICompanyType>) DynamicMapper.mapCollection(retList);
+        return (Collection<ICompanyType>) DynamicMapper.mapCollection(retList);
     }
 
     /**

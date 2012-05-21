@@ -4,6 +4,7 @@
  */
 package hotelsoftware.gui.invoice.customerSelection;
 
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
@@ -27,6 +28,11 @@ public class CompanyPanel extends javax.swing.JPanel
         for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
+        }
+        comboBoxCompanyType.removeAllItems();
+        for(CompanyTypeData data : InvoiceGUIControler.getInstance().getAllCompanyTypes())
+        {
+            comboBoxCompanyType.addItem(data);
         }
     }
 
