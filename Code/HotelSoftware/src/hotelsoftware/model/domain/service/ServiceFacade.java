@@ -227,6 +227,8 @@ public class ServiceFacade
     public Collection<IHabitation> getHabitationsByDate(Date date)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
         
         Query habitationQuery = session.createQuery("from DBHabitation where :date between startDate and endDate order by startDate");
         habitationQuery.setDate("date", date);
