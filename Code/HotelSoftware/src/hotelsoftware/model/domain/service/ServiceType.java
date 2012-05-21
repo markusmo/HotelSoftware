@@ -4,8 +4,12 @@ import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
 import hotelsoftware.controller.data.service.ServiceTypeData;
+import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Set;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Diese Klasse bildet eine Serviceart ab, mit der das System arbeitet
@@ -98,5 +102,21 @@ public class ServiceType implements IServiceType
     public static IServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
     {
         return ServiceFacade.getInstance().getServiceTypeByName(name);
+    }
+    
+    /**
+     * Gibt alle Servicetypen aus
+     *
+     * @return
+     * Alle Servicetypen, die verfuegbar sind
+     */
+    public static Set<IServiceType> getAllServiceTypes()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Collection<DBServiceType> serviceType = session.createCriteria(DBServiceType.class).list();
+
+        return (Set<IServiceType>)DynamicMapper.mapCollection(serviceType);
     }
 }
