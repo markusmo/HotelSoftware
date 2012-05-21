@@ -15,8 +15,6 @@ import java.util.logging.Logger;
  */
 public class DynamicMapper
 {
-    static int counter = 0;
-
     /**
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
@@ -41,7 +39,6 @@ public class DynamicMapper
 
     private static Object map(Object urObject, HashMap mappedObjects)
     {
-        System.out.println(counter++);
         if (mappedObjects != null)
         {
             try
@@ -60,40 +57,34 @@ public class DynamicMapper
 
                         if (actuallGetterMethod != null)
                         {
-                            Method targetGetterMethod = getMethod(targetSetterMethod, returnvalue);
-
-                            if (targetGetterMethod != null)
+                            //in hashmap schauen ob urobjekt als key vorhanden ist und setter invoken
+                            Object val = actuallGetterMethod.invoke(urObject);
+                            if (mappedObjects.containsKey(val))
                             {
-                                //in hashmap schauen ob urobjekt als key vorhanden ist und setter invoken
-                                Object val = actuallGetterMethod.invoke(urObject);
-                                if (mappedObjects.containsKey(val))
+                                targetSetterMethod.invoke(returnvalue, mappedObjects.get(val));
+                            }
+                            else
+                            {
+                                if (actuallGetterMethod.getReturnType().equals(Collection.class))
                                 {
-                                    targetSetterMethod.invoke(returnvalue, mappedObjects.get(val));
+                                    targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), mappedObjects));
                                 }
                                 else
                                 {
-                                    if (actuallGetterMethod.getReturnType().equals(Collection.class))
+                                    Object o = actuallGetterMethod.invoke(urObject);
+                                    if (o != null)
                                     {
-                                        targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), mappedObjects));
-                                    }
-                                    else
-                                    {
-                                        Object o = actuallGetterMethod.invoke(urObject);
-                                        if (o != null)
+                                        if (o.getClass().getName().startsWith("hotelsoftware"))
                                         {
-                                            if (o.getClass().getName().startsWith("hotelsoftware"))
-                                            {
-                                                o = map(o, mappedObjects);
-                                            }
-                                            targetSetterMethod.invoke(returnvalue, o);
+                                            o = map(o, mappedObjects);
                                         }
+                                        targetSetterMethod.invoke(returnvalue, o);
                                     }
                                 }
                             }
                         }
                     }
                 }
-                System.out.println("-");
                 return returnvalue;
             }
             catch (Exception e)
