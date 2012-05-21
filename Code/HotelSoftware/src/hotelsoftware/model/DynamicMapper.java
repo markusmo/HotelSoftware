@@ -43,49 +43,50 @@ public class DynamicMapper
         {
             try
             {
-                Class newClass = Class.forName(convertClassName(
-                        urObject.getClass().getName()));
+                Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
 
-                for (Method setterMethod : returnvalue.getClass().getMethods())
-                {
-                    if (setterMethod.getName().startsWith("set"))
-                    {
-                        Method getterMethodNewLevel = getMethod(setterMethod,
-                                urObject);
 
-                        if (getterMethodNewLevel != null)
+                //PUT into Map
+
+
+                for (Method targetSetterMethod : returnvalue.getClass().getMethods())
+                {
+                    if (targetSetterMethod.getName().startsWith("set"))
+                    {
+                        Method actuallGetterMethod = getMethod(targetSetterMethod, urObject);
+
+                        if (actuallGetterMethod != null)
                         {
-                            Method getterMethodCurrentLevel = getMethod(
-                                    setterMethod, returnvalue);
-                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
+                            Method targetGetterMethod = getMethod(targetSetterMethod, returnvalue);
+
+                            if (targetGetterMethod != null)
                             {
-                                if (getterMethodNewLevel.getReturnType().equals(
-                                        Collection.class))
+                                //in hashmap schauen ob urobjekt als key vorhanden ist und setter invoken
+                                if (targetGetterMethod.invoke(returnvalue) == null)
                                 {
-                                    setterMethod.invoke(returnvalue,
-                                            mapCollection((Collection) getterMethodNewLevel.invoke(
-                                            urObject), counter - 1));
-                                }
-                                else
-                                {
-                                    Object o = getterMethodNewLevel.invoke(
-                                            urObject);
-                                    if (o != null)
+                                    if (actuallGetterMethod.getReturnType().equals(Collection.class))
                                     {
-                                        if (o.getClass().getName().contains(
-                                                "hotelsoftware"))
+                                        targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), counter - 1));
+                                    }
+                                    else
+                                    {
+                                        Object o = actuallGetterMethod.invoke(urObject);
+                                        if (o != null)
                                         {
-                                            o = map(o, counter - 1);
+                                            if (o.getClass().getName().startsWith("hotelsoftware"))
+                                            {
+                                                o = map(o, counter - 1);
+                                            }
+                                            targetSetterMethod.invoke(returnvalue, o);
                                         }
-                                        setterMethod.invoke(returnvalue, o);
                                     }
                                 }
                             }
                         }
                     }
                 }
-
+                System.out.println(counter);
                 return returnvalue;
             }
             catch (Exception e)
