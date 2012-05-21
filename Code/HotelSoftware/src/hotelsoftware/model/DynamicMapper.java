@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class DynamicMapper
 {
-    private static int c = 0;
     /**
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
@@ -39,7 +38,6 @@ public class DynamicMapper
 
     private static Object map(Object urObject, int counter)
     {
-        System.out.println(c++);
         assert (counter >= 0) : "counter ist zu niedrig: " + counter;
         if (counter > 0)
         {
