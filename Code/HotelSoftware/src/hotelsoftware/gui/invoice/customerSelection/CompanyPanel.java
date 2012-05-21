@@ -9,8 +9,12 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.model.domain.parties.*;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
+import java.awt.Window;
+import java.util.*;
+import javax.swing.JComponent;
 
 /**
  *
@@ -34,6 +38,7 @@ public class CompanyPanel extends javax.swing.JPanel
         {
             comboBoxCompanyType.addItem(data);
         }
+        setTabStops();
     }
 
     /**
@@ -240,4 +245,61 @@ public class CompanyPanel extends javax.swing.JPanel
     {
         return !TextFieldCompanyName.getText().trim().isEmpty();
     }
+    
+    /**
+     * Setzt die Tabstops in der richtigen Reihenfolge
+     */
+    private void setTabStops()
+    {
+
+        final ArrayList<JComponent> order = new ArrayList<JComponent>();
+        order.addAll(Arrays.asList(new JComponent[]
+                {
+                    this.TextFieldCompanyName, this.comboBoxCompanyType,
+                    this.TextFieldStreet, this.TextFieldCity, this.TextFieldZip, this.ComboBoxCountry, this.TextFieldPhoneNumber,
+                    this.TextFieldEmail, this.TextFieldFax, 
+                }));
+     
+
+        FocusTraversalPolicy policy = new FocusTraversalPolicy()
+        {
+            List<JComponent> list = order;
+
+            public Component getFirstComponent(Container focusCycleRoot)
+            {
+                return order.get(0);
+            }
+
+            public Component getLastComponent(Container focusCycleRoot)
+            {
+                return order.get(order.size() - 1);
+            }
+
+            public Component getComponentAfter(Container focusCycleRoot, Component aComponent)
+            {
+                int index = list.indexOf(aComponent);
+                return order.get((index + 1) % order.size());
+            }
+
+            public Component getComponentBefore(Container focusCycleRoot, Component aComponent)
+            {
+                int index = list.indexOf(aComponent);
+                return order.get((index - 1 + order.size()) % order.size());
+            }
+
+            public Component getDefaultComponent(
+                    java.awt.Container focusCycleRoot)
+            {
+                return order.get(0);
+            }
+
+            public Component getInitialComponent(Window window)
+            {
+                return order.get(0);
+            }
+        };
+        this.setFocusTraversalPolicy(policy);
+        this.setFocusCycleRoot(true);
+    }
+
 }

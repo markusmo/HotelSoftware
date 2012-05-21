@@ -7,6 +7,14 @@ package hotelsoftware.gui.invoice.customerSelection;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
 import hotelsoftware.model.domain.parties.Country;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
+import java.awt.Window;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JComponent;
 
 /**
  *
@@ -25,6 +33,7 @@ public class PersonPanel extends javax.swing.JPanel
         {
             ComboBoxCountry.addItem(data);
         }
+        setTabStops();
     }
 
     /**
@@ -107,14 +116,11 @@ public class PersonPanel extends javax.swing.JPanel
                         .addComponent(TextFieldZip))
                     .addComponent(TextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel15))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,5 +242,61 @@ public class PersonPanel extends javax.swing.JPanel
     boolean isFinished()
     {
        return !TextFieldFirstName.getText().trim().isEmpty() && !TextFieldLastName.getText().trim().isEmpty();
+    }
+    
+     /**
+     * Setzt die Tabstops in der richtigen Reihenfolge
+     */
+    private void setTabStops()
+    {
+
+        final ArrayList<JComponent> order = new ArrayList<JComponent>();
+        order.addAll(Arrays.asList(new JComponent[]
+                {
+                    this.TextFieldFirstName, this.TextFieldLastName,
+                    this.TextFieldStreet, this.TextFieldCity, this.TextFieldZip, this.ComboBoxCountry, this.TextFieldPhoneNumber,
+                    this.TextFieldEmail, this.TextFieldFax, this.ComboBoxGender, 
+                }));
+
+
+        FocusTraversalPolicy policy = new FocusTraversalPolicy()
+        {
+            List<JComponent> list = order;
+
+            public Component getFirstComponent(Container focusCycleRoot)
+            {
+                return order.get(0);
+            }
+
+            public Component getLastComponent(Container focusCycleRoot)
+            {
+                return order.get(order.size() - 1);
+            }
+
+            public Component getComponentAfter(Container focusCycleRoot, Component aComponent)
+            {
+                int index = list.indexOf(aComponent);
+                return order.get((index + 1) % order.size());
+            }
+
+            public Component getComponentBefore(Container focusCycleRoot, Component aComponent)
+            {
+                int index = list.indexOf(aComponent);
+                return order.get((index - 1 + order.size()) % order.size());
+            }
+
+            public Component getDefaultComponent(
+                    java.awt.Container focusCycleRoot)
+            {
+                return order.get(0);
+            }
+
+            public Component getInitialComponent(Window window)
+            {
+                return order.get(0);
+            }
+        };
+        this.setFocusTraversalPolicy(policy);
+        this.setFocusCycleRoot(true);
     }
 }
