@@ -53,7 +53,6 @@ public class DynamicMapper
                 //ein neues Objekt der Klasse von der anderen Schicht erzeugen.
                 Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
-
                 
                 //das neue und alte Objekt in die Hashmap packen
                 mappedObjects.put(urObject, returnvalue);
