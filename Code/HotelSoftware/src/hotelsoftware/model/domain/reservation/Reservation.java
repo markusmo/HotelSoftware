@@ -49,11 +49,11 @@ public class Reservation implements IReservation
         return new Reservation();
     }
 
-        public static int getHighestId()
+    public static int getHighestId()
     {
-        return ReservationFacade.getHighestReservationId();
+        return ReservationFacade.getInstance().getHighestReservationId();
     }
-    
+
     @Override
     public String getComment()
     {
@@ -101,7 +101,7 @@ public class Reservation implements IReservation
     {
         this.reservationItems = reservationItems;
     }
-    
+
     @Override
     public Collection<IGuest> getGuests()
     {
@@ -189,11 +189,11 @@ public class Reservation implements IReservation
     {
         return ReservationFacade.getInstance().getGuestAmount(this);
     }
-    
+
     public static Collection<IReservation> search(String firstName, String lastName, String companyName, String reservationNumber)
     {
         Collection<IReservation> results = new LinkedList<IReservation>();
-        
+
         if (reservationNumber.length() > 0)
         {
             IReservation r = getReservationByNumber(reservationNumber);
@@ -207,7 +207,7 @@ public class Reservation implements IReservation
         {
             results.addAll(getReservationsByCompanyNameApprox(companyName));
         }
-        
+
         return results;
     }
 
@@ -215,12 +215,12 @@ public class Reservation implements IReservation
     {
         return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
     }
-    
+
     private static Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
         return ReservationFacade.getInstance().getReservationsByCompanyNameApprox(companyName);
     }
-    
+
     public static Collection<IReservation> getReservationsByNameApprox(String firstName, String lastName)
     {
         return ReservationFacade.getInstance().getReservationsByNameApprox(
@@ -256,7 +256,7 @@ public class Reservation implements IReservation
     {
         return this.reservationNumber;
     }
-    
+
     @Override
     public IUser getUser()
     {

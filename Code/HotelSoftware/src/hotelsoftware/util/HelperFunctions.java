@@ -194,7 +194,7 @@ public class HelperFunctions<T, U extends T>
         return list;
     }
     
-    public static <T extends V, U extends Adapter<T>, V>  List<V> getOurList(Collection<U> col, Class<V> returnClass)
+    public static <V, T extends V, U extends Adapter<T>>  List<V> getOurList(Collection<U> col, Class<V> returnClass)
     {
         LinkedList<V> list = new LinkedList<V>();
         

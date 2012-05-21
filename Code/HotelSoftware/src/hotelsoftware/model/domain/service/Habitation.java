@@ -79,17 +79,17 @@ public class Habitation extends Service implements IHabitation
     
     public static Collection<IHabitation> getHabitationsByDate(Date date)
     {
-        return ServiceFacade.getHabitationsByDate(date);
+        return ServiceFacade.getInstance().getHabitationsByDate(date);
     }
     
     public static Collection<IHabitation> getAllHabitations()
     {
-        return ServiceFacade.getAllHabitations();
+        return ServiceFacade.getInstance().getAllHabitations();
     }
 
     public static int getHighestId()
     {
-        return ServiceFacade.getHighestHabitationId();
+        return ServiceFacade.getInstance().getHighestHabitationId();
     } //überfacade reservation und invoice
 
     /**
