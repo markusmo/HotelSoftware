@@ -265,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_escButtonActionPerformed
         //Esc Button
 
-        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0)
+        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure to end the current Use case?", "Change Use case", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0)
         {
             System.exit(0);
         }
@@ -471,7 +471,7 @@ public class MainFrame extends javax.swing.JFrame
         }
 
 
-        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure?\nAll data will be lost!", "Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
+        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure to end the current Use case?\nAll data will be lost!", "Change Use case", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
         {
             GuiController.getInstance().back();
             return true;
