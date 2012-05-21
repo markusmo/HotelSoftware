@@ -3,10 +3,13 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.DBRoom;
 import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.model.database.room.DBRoomOption;
 import hotelsoftware.model.database.room.DBRoomStatus;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -47,6 +50,22 @@ public class RoomFacade
 
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
         return (IRoom) DynamicMapper.map(room);
+    }
+    
+    /**
+     * Gibt alle Optionen aus
+     * @return 
+     * Gibt ein Set mit den Zimmeroptionen aus, die verfuegbar sind
+     */
+    public Set<IRoomOption> getRoomOptions()
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
+        
+        return new LinkedHashSet<IRoomOption>(DynamicMapper.mapCollection(options));
     }
 
     /**

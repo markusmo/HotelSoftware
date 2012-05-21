@@ -8,6 +8,7 @@ import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.model.domain.service.IService;
 import hotelsoftware.model.domain.users.IUser;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -18,9 +19,9 @@ public interface IInvoiceItem extends InvoiceItemData{
 
     void fullfill();
 
-    Integer getPrice();
+    BigDecimal getPrice();
 
-    void setPrice(Integer price);
+    void setPrice(BigDecimal price);
 
     IHabitation getHabitation();
 
