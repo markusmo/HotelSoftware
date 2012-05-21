@@ -366,7 +366,7 @@ public class Habitation extends Service implements IHabitation
     @Override
     public String getServiceName()
     {
-        return this.habitationNumber;
+        return "Room: " + this.rooms.getNumber();
     }
 
     @Override
