@@ -5,7 +5,6 @@
 package at.fhv.roomanizer.persistence.manager;
 
 import at.fhv.roomanizer.domain.Habitation;
-import at.fhv.roomanizer.domain.IHabitation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
