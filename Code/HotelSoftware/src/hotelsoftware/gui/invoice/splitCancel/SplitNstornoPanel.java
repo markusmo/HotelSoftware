@@ -22,10 +22,10 @@ import javax.swing.JCheckBox;
  *
  * @author Johannes
  */
-public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSetter
+public class SplitNstornoPanel extends javax.swing.JPanel implements ControlsSetter
 {
-    private HashMap<JCheckBox, splitNstornoRoom> inverseRooms = new HashMap<JCheckBox, splitNstornoRoom>();
-    private HashMap<splitNstornoRoom, JCheckBox> rooms = new HashMap<splitNstornoRoom, JCheckBox>();
+    private HashMap<JCheckBox, SplitNstornoRoom> inverseRooms = new HashMap<JCheckBox, SplitNstornoRoom>();
+    private HashMap<SplitNstornoRoom, JCheckBox> rooms = new HashMap<SplitNstornoRoom, JCheckBox>();
     private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
@@ -34,7 +34,7 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
     /**
      * Creates new form splitNstornoPanel
      */
-    public splitNstornoPanel()
+    public SplitNstornoPanel()
     {
         initComponents();
         init();
@@ -87,7 +87,7 @@ public class splitNstornoPanel extends javax.swing.JPanel implements ControlsSet
     {
         JCheckBox c = new JCheckBox();
         CheckTabComponent tabComponent = new CheckTabComponent(tabbedPane, c);
-        splitNstornoRoom snsrp = new splitNstornoRoom(data, c);
+        SplitNstornoRoom snsrp = new SplitNstornoRoom(data, c);
         rooms.put(snsrp, c);
         inverseRooms.put(c, snsrp);
 

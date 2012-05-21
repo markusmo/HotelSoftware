@@ -5,6 +5,7 @@ import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.users.DBUser;
 import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -60,8 +61,8 @@ public class DBInvoiceItem implements Serializable
     private DBService service;
     
     @Basic(optional = false)
-    @Column(name = "price", nullable = false)
-    private Integer price;
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     public DBInvoiceItem()
     {
@@ -137,12 +138,12 @@ public class DBInvoiceItem implements Serializable
         this.habitation = habitation;
     }
     
-    public Integer getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }
 
-    public void setPrice(Integer price)
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }

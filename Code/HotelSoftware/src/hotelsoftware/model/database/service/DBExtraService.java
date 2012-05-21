@@ -36,7 +36,6 @@ public class DBExtraService extends DBService implements Serializable
     {
     }
 
-
     public DBExtraService(Integer id, String name, BigDecimal price)
     {
         this.name = name;
