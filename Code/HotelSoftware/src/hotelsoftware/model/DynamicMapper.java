@@ -3,6 +3,7 @@ package hotelsoftware.model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
  */
 public class DynamicMapper
 {
+    static int counter = 0;
+
     /**
      * Mapt Objekte zwischen zwei Schichten hin und her
      *
@@ -33,21 +36,20 @@ public class DynamicMapper
      */
     public static Object map(Object urObject)
     {
-        return map(urObject, 10);
+        return map(urObject, new HashMap());
     }
 
-    private static Object map(Object urObject, int counter)
+    private static Object map(Object urObject, HashMap mappedObjects)
     {
-        assert (counter >= 0) : "counter ist zu niedrig: " + counter;
-        if (counter > 0)
+        System.out.println(counter++);
+        if (mappedObjects != null)
         {
             try
             {
                 Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
 
-
-                //PUT into Map
+                mappedObjects.put(urObject, returnvalue);
 
 
                 for (Method targetSetterMethod : returnvalue.getClass().getMethods())
@@ -63,11 +65,16 @@ public class DynamicMapper
                             if (targetGetterMethod != null)
                             {
                                 //in hashmap schauen ob urobjekt als key vorhanden ist und setter invoken
-                                if (targetGetterMethod.invoke(returnvalue) == null)
+                                Object val = actuallGetterMethod.invoke(urObject);
+                                if (mappedObjects.containsKey(val))
+                                {
+                                    targetSetterMethod.invoke(returnvalue, mappedObjects.get(val));
+                                }
+                                else
                                 {
                                     if (actuallGetterMethod.getReturnType().equals(Collection.class))
                                     {
-                                        targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), counter - 1));
+                                        targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), mappedObjects));
                                     }
                                     else
                                     {
@@ -76,7 +83,7 @@ public class DynamicMapper
                                         {
                                             if (o.getClass().getName().startsWith("hotelsoftware"))
                                             {
-                                                o = map(o, counter - 1);
+                                                o = map(o, mappedObjects);
                                             }
                                             targetSetterMethod.invoke(returnvalue, o);
                                         }
@@ -86,7 +93,7 @@ public class DynamicMapper
                         }
                     }
                 }
-                System.out.println(counter);
+                System.out.println("-");
                 return returnvalue;
             }
             catch (Exception e)
@@ -139,7 +146,7 @@ public class DynamicMapper
      */
     public static Collection mapCollection(Collection urCollection)
     {
-        return mapCollection(urCollection, 10);
+        return mapCollection(urCollection, new HashMap());
     }
 
     /**
@@ -153,9 +160,9 @@ public class DynamicMapper
      * @return
      * eine neue Collection
      */
-    private static Collection mapCollection(Collection urCollection, int counter)
+    private static Collection mapCollection(Collection urCollection, HashMap mappedObjects)
     {
-        if (counter > 0)
+        if (mappedObjects != null)
         {
             try
             {
@@ -163,8 +170,15 @@ public class DynamicMapper
 
                 for (Object obj : urCollection)
                 {
-                    Object i = map(obj, counter - 1);
-                    returnValue.add(i);
+                    if (mappedObjects.containsKey(obj))
+                    {
+                        returnValue.add(mappedObjects.get(obj));
+                    }
+                    else
+                    {
+                        Object i = map(obj, mappedObjects);
+                        returnValue.add(i);
+                    }
                 }
 
                 return returnValue;

@@ -17,6 +17,7 @@ import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -35,7 +36,7 @@ public class CreateInvoiceController implements UseCaseController
     private Collection<IInvoiceItem> selectedItems;
     private Collection<InvoiceItem> splittedItems;
 
-    private Customer customer;
+    private ICustomer customer;
     
     //Cache:
     private Collection<CountryData> countries;
@@ -440,7 +441,7 @@ public class CreateInvoiceController implements UseCaseController
         this.state = state;
     }
 
-    void setCustomer(Customer customer)
+    void setCustomer(ICustomer customer)
     {
         this.customer = customer;
     }

@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Mit Diesem Panel kann man nach Reservierungen Suchen als auch eine Reservierung auswählen
+ *
  * @author Johannes
  */
 public class CheckInMain extends javax.swing.JPanel
@@ -40,9 +41,10 @@ public class CheckInMain extends javax.swing.JPanel
         this.textBoxFname.requestFocus();
         this.textBoxFname.setCaretPosition(0);
     }
-/**
- * Diese Methode wird für die Initialisierung benötigt
- */
+
+    /**
+     * Diese Methode wird für die Initialisierung benötigt
+     */
     private void setTable()
     {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -52,15 +54,13 @@ public class CheckInMain extends javax.swing.JPanel
                     "Reservation No.", "Company Name", "Last name", "First name", "Arrival", "Departure", "Number of Persons"
                 })
         {
-           
-
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex)
             {
                 return false;
             }
         });
-        
+
         jTable1.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -118,7 +118,7 @@ public class CheckInMain extends javax.swing.JPanel
             }
             value[i++] = new Object[]
             {
-                data.getReservationNumber() + "", companyName, fName, lName,
+                data.getReservationNumber() + "", companyName, lName, fName,
                 df.format(data.getStartDate()), df.format(data.getEndDate()), data.getGuestAmount()
             };
         }
@@ -384,7 +384,7 @@ public class CheckInMain extends javax.swing.JPanel
 
     private void textFieldCompanyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldCompanyActionPerformed
     {//GEN-HEADEREND:event_textFieldCompanyActionPerformed
-        // TODO add your handling code here:
+        buttonSearchActionPerformed(evt);
     }//GEN-LAST:event_textFieldCompanyActionPerformed
 
     private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectActionPerformed
@@ -395,7 +395,7 @@ public class CheckInMain extends javax.swing.JPanel
 
     private void textBoxLnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxLnameActionPerformed
     {//GEN-HEADEREND:event_textBoxLnameActionPerformed
-        // TODO add your handling code here:
+        buttonSearchActionPerformed(evt);
     }//GEN-LAST:event_textBoxLnameActionPerformed
 
     private void buttonAbortActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonAbortActionPerformed
@@ -413,7 +413,7 @@ public class CheckInMain extends javax.swing.JPanel
 
     private void textBoxReservationNumberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textBoxReservationNumberActionPerformed
     {//GEN-HEADEREND:event_textBoxReservationNumberActionPerformed
-        // TODO add your handling code here:
+        buttonSearchActionPerformed(evt);
     }//GEN-LAST:event_textBoxReservationNumberActionPerformed
 
     private void buttonWalkInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonWalkInActionPerformed
