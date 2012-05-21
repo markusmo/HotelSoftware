@@ -7,6 +7,7 @@ import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.model.domain.service.IService;
 import hotelsoftware.model.domain.users.IUser;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class InvoiceItem implements IInvoiceItem
     private IUser user;
     private IHabitation habitation;
     private IInvoice invoice;
-    private Integer price;
+    private BigDecimal price;
 
     public InvoiceItem()
     {
@@ -231,13 +232,13 @@ public class InvoiceItem implements IInvoiceItem
     }
     
     @Override
-    public Integer getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }
 
     @Override
-    public void setPrice(Integer price)
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }

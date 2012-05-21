@@ -12,6 +12,9 @@ import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
+import hotelsoftware.model.domain.invoice.InvoiceItem;
+import hotelsoftware.model.domain.invoice.InvoiceSaver;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -208,6 +211,7 @@ public abstract class ChangeDataState extends CheckInState
         context.setHabitations(new LinkedList<IHabitation>());
         LinkedList<IGuest> guests = new LinkedList<IGuest>();
         LinkedList<IAddress> addresses = new LinkedList<IAddress>();
+        LinkedList<IInvoiceItem> items = new LinkedList<IInvoiceItem>();
 
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
@@ -239,6 +243,16 @@ public abstract class ChangeDataState extends CheckInState
             }
 
             context.getHabitations().add(h);
+            
+            InvoiceItem item = new InvoiceItem();
+            item.setAmount(1);
+            item.setCreated(new Date());
+            item.setHabitation(h);
+            item.setPrice(h.getPrice());
+            item.setService(h);
+            item.setUser(LoginController.getInstance().getCurrentUser());
+            
+            items.add(item);
         }
 
         try
@@ -248,6 +262,7 @@ public abstract class ChangeDataState extends CheckInState
             ts.begin();
             ServiceSaver.getInstance().saveOrUpdate(session, null, context.getHabitations(), null);
             PartySaver.getInstance().saveOrUpdate(session, null, null, null, null, guests);
+            InvoiceSaver.getInstance().saveOrUpdate(session, null, null, items);
             ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)
