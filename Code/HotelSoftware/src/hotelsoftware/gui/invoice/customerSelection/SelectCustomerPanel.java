@@ -352,8 +352,15 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBox1ActionPerformed
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
+
         if (jCheckBox1.isSelected())
         {
+            if (!(list.getSelectedIndex() != -1))
+            {
+                JOptionPane.showMessageDialog(jCheckBox1, "You have to select a person first!", "Error", JOptionPane.ERROR_MESSAGE);
+                jCheckBox1.setSelected(false);
+                return;
+            }
             EnableAddressInputs(true);
             EmptyAddressInputs();
         }
@@ -577,13 +584,20 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
 
     private void FillAddressInputs(PartyData d)
     {
-        TextFieldCity.setText(d.getAddressData().getCity());
-        TextFieldEmail.setText(d.getAddressData().getEmail());
-        TextFieldFax.setText(d.getAddressData().getFax());
-        TextFieldPhoneNumber.setText(d.getAddressData().getPhone());
-        TextFieldStreet.setText(d.getAddressData().getStreet());
-        TextFieldZip.setText(d.getAddressData().getZip());
-        ComboBoxCountry.setSelectedItem(d.getAddressData().getIdCountry());
+        if (d.getAddressData() != null)
+        {
+            TextFieldCity.setText((d.getAddressData().getCity() == null ? "" : d.getAddressData().getCity()));
+            TextFieldEmail.setText((d.getAddressData().getEmail() == null ? "" : d.getAddressData().getEmail()));
+            TextFieldFax.setText((d.getAddressData().getFax() == null ? "" : d.getAddressData().getFax()));
+            TextFieldPhoneNumber.setText((d.getAddressData().getPhone() == null ? "" : d.getAddressData().getPhone()));
+            TextFieldStreet.setText((d.getAddressData().getStreet() == null ? "" : d.getAddressData().getStreet()));
+            TextFieldZip.setText((d.getAddressData().getZip() == null ? "" : d.getAddressData().getZip()));
+            ComboBoxCountry.setSelectedItem((d.getAddressData().getIdCountry() == null ? ComboBoxCountry.getItemAt(0) : d.getAddressData().getIdCountry()));
+        }
+        else
+        {
+            EmptyAddressInputs();
+        }
     }
 
     private boolean isAlive()
