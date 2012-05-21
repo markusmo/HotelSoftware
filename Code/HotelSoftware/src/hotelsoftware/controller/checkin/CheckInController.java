@@ -15,6 +15,7 @@ import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.controller.data.service.ServiceData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.parties.Address;
@@ -64,6 +65,11 @@ public class CheckInController implements UseCaseController
     private Collection<ReservationItemData> reservationItems;
     private CheckInState state;
     private Collection<IHabitation> habitations;
+    
+    //Cache
+    private Collection<RoomCategoryData> categories;
+    private Collection<CountryData> countries;
+    private Collection<ExtraServiceData> services;
 
     public static CheckInController getController()
     {
@@ -74,7 +80,7 @@ public class CheckInController implements UseCaseController
     {
         CheckInController.controller = controller;
     }
-
+    
     private CheckInController()
     {
         state = new StartState(this);
@@ -504,5 +510,35 @@ public class CheckInController implements UseCaseController
     void setHabitations(Collection<IHabitation> habitations)
     {
         this.habitations = habitations;
+    }
+
+    Collection<RoomCategoryData> getCategories()
+    {
+        return categories;
+    }
+    
+    void setCategories(Collection<RoomCategoryData> categories)
+    {
+        this.categories = categories;
+    }
+    
+    Collection<CountryData> getCountries()
+    {
+        return countries;
+    }
+    
+    void setCountries(Collection<CountryData> countries)
+    {
+        this.countries = countries;
+    }
+    
+    Collection<ExtraServiceData> getHabitationServices()
+    {
+        return services;
+    }
+    
+    void setHabitationServices(Collection<ExtraServiceData> services)
+    {
+        this.services = services;
     }
 }

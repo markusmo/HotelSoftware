@@ -3,6 +3,7 @@ package hotelsoftware.model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 public class DynamicMapper
 {
     /**
-     * Mapt Objekte zwischen zwei Schichten hin und her
+     * Mapt Objekte zwischen zwei Schichten (Hibernate und Domain) hin und her
      *
      * @param urObject Das Objekt der Schicht von der gemappt werden soll
      *
@@ -33,59 +34,77 @@ public class DynamicMapper
      */
     public static Object map(Object urObject)
     {
-        return map(urObject, 10);
+        return map(urObject, new HashMap());
     }
 
-    private static Object map(Object urObject, int counter)
+    
+    /**
+     * private map Methode mit der HashMap die verwendet wird um zu schauen ob Objekte schon gemappt wurden.
+     * @param urObject
+     * @param mappedObjects
+     * @return 
+     */
+    private static Object map(Object urObject, HashMap mappedObjects)
     {
-        assert (counter >= 0) : "counter ist zu niedrig: " + counter;
-        if (counter > 0)
+        if (mappedObjects != null)
         {
             try
             {
-                Class newClass = Class.forName(convertClassName(
-                        urObject.getClass().getName()));
+                //ein neues Objekt der Klasse von der anderen Schicht erzeugen.
+                Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
 
-                for (Method setterMethod : returnvalue.getClass().getMethods())
-                {
-                    if (setterMethod.getName().startsWith("set"))
-                    {
-                        Method getterMethodNewLevel = getMethod(setterMethod,
-                                urObject);
+                
+                //das neue und alte Objekt in die Hashmap packen
+                mappedObjects.put(urObject, returnvalue);
 
-                        if (getterMethodNewLevel != null)
+                //über alle Methoden der neuen Klasse durchiterieren. Die getMethods Methode hat den Vorteil im vergleich zu getDeclaredMethods das sie auch superklassen berücksichtigt.
+                for (Method targetSetterMethod : returnvalue.getClass().getMethods())
+                {
+                    //nur Methoden die mit "set" beginnen berücksichtigen, also nur Setter
+                    if (targetSetterMethod.getName().startsWith("set"))
+                    {
+                        //Getter der aktuellen Schicht holen der zum Setter der neuen Schicht passt.
+                        Method actuallGetterMethod = getMethod(targetSetterMethod, urObject);
+
+                        if (actuallGetterMethod != null)
                         {
-                            Method getterMethodCurrentLevel = getMethod(
-                                    setterMethod, returnvalue);
-                            if (getterMethodCurrentLevel != null && getterMethodCurrentLevel.invoke(returnvalue) == null)
+                            //in hashmap schauen ob Objekt vom Getter vom Urobjekt als key vorhanden ist und setter invoken
+                            Object val = actuallGetterMethod.invoke(urObject);
+                            if (mappedObjects.containsKey(val))
                             {
-                                if (getterMethodNewLevel.getReturnType().equals(
-                                        Collection.class))
+                                targetSetterMethod.invoke(returnvalue, mappedObjects.get(val));
+                            }
+                            //falls noch nicht gemappt wurde.
+                            else
+                            {
+                                //Falls die getter methode eine Collection zurückgibt
+                                if (actuallGetterMethod.getReturnType().equals(Collection.class))
                                 {
-                                    setterMethod.invoke(returnvalue,
-                                            mapCollection((Collection) getterMethodNewLevel.invoke(
-                                            urObject), counter - 1));
+                                    //mapCollection aufrufen mit der Collection die man aus der aktuellen Getter Methode bekommt.
+                                    targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), mappedObjects));
                                 }
+                                //Falls keine Collection
                                 else
                                 {
-                                    Object o = getterMethodNewLevel.invoke(
-                                            urObject);
+                                    //Hole aktuelles zu mappendes Objekt von der Gettermethode
+                                    Object o = actuallGetterMethod.invoke(urObject);
                                     if (o != null)
                                     {
-                                        if (o.getClass().getName().contains(
-                                                "hotelsoftware"))
+                                        //Falls das Objekt eines von uns ist
+                                        if (o.getClass().getName().startsWith("hotelsoftware"))
                                         {
-                                            o = map(o, counter - 1);
+                                            //das Objekt muss gemappt werden.
+                                            o = map(o, mappedObjects);
                                         }
-                                        setterMethod.invoke(returnvalue, o);
+                                        //Via SetterMethode übergeben
+                                        targetSetterMethod.invoke(returnvalue, o);
                                     }
                                 }
                             }
                         }
                     }
                 }
-
                 return returnvalue;
             }
             catch (Exception e)
@@ -138,7 +157,7 @@ public class DynamicMapper
      */
     public static Collection mapCollection(Collection urCollection)
     {
-        return mapCollection(urCollection, 10);
+        return mapCollection(urCollection, new HashMap());
     }
 
     /**
@@ -152,9 +171,9 @@ public class DynamicMapper
      * @return
      * eine neue Collection
      */
-    private static Collection mapCollection(Collection urCollection, int counter)
+    private static Collection mapCollection(Collection urCollection, HashMap mappedObjects)
     {
-        if (counter > 0)
+        if (mappedObjects != null)
         {
             try
             {
@@ -162,8 +181,15 @@ public class DynamicMapper
 
                 for (Object obj : urCollection)
                 {
-                    Object i = map(obj, counter - 1);
-                    returnValue.add(i);
+                    if (mappedObjects.containsKey(obj))
+                    {
+                        returnValue.add(mappedObjects.get(obj));
+                    }
+                    else
+                    {
+                        Object i = map(obj, mappedObjects);
+                        returnValue.add(i);
+                    }
                 }
 
                 return returnValue;

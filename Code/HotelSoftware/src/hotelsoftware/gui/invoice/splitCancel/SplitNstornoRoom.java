@@ -74,7 +74,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
         jTable1.addMouseListener(new JTableButtonMouseListener(jTable1));
 
         jTable1.setModel(new DefaultTableModel(
-                (items == null ? new Object[50][] : getTableModel()),
+                (items == null || !(items.size() > 0) ? new Object[50][] : getTableModel()),
                 new String[]
                 {
                     "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"

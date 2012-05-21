@@ -1,6 +1,5 @@
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.controller.checkin.CouldNotSaveException;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.gui.checkin.subpanels.GuestPanel;
