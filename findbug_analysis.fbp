@@ -1,5 +1,4 @@
 <Project projectName="">
   <Jar>./Code/HotelSoftware/dist/HotelSoftware.jar</Jar>
   <SrcDir>./Code/HotelSoftware/src</SrcDir>
-  <Cloud id="edu.umd.cs.findbugs.cloud.appengine.findbugs-cloud" online="true" detailsUrl="http://findbugs-cloud.appspot.com/issues/%s?embed"></Cloud>
 </Project>
