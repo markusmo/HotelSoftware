@@ -64,39 +64,6 @@ public class DBPrivateCustomer extends DBCustomer implements Serializable
     }
 
     @Override
-    public int hashCode()
-    {
-        int hash = 0;
-        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBPrivateCustomer other = (DBPrivateCustomer) obj;
-        if ((this.fname == null) ? (other.fname != null) : !this.fname.equals(other.fname))
-        {
-            return false;
-        }
-        if ((this.lname == null) ? (other.lname != null) : !this.lname.equals(other.lname))
-        {
-            return false;
-        }
-        return true;
-    }
-    
-    
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.model.database.parties.Privatecustomer[ id=" + getIdParties() + " ]";

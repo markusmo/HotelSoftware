@@ -98,48 +98,6 @@ public class DBRole implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBRole other = (DBRole) obj;
-        if (this.users != other.users && (this.users == null || !this.users.equals(other.users)))
-        {
-            return false;
-        }
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.permissions != other.permissions && (this.permissions == null || !this.permissions.equals(other.permissions)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 3;
-        hash = 37 * hash + (this.users != null ? this.users.hashCode() : 0);
-        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 37 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 37 * hash + (this.permissions != null ? this.permissions.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Roles[ id=" + id + " ]";

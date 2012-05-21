@@ -54,38 +54,6 @@ public class DBCustomer extends DBParty implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBCustomer other = (DBCustomer) obj;
-        if (this.invoicesCollection != other.invoicesCollection && (this.invoicesCollection == null || !this.invoicesCollection.equals(other.invoicesCollection)))
-        {
-            return false;
-        }
-        if (this.invoiceAddress != other.invoiceAddress && (this.invoiceAddress == null || !this.invoiceAddress.equals(other.invoiceAddress)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 97 * hash + (this.invoicesCollection != null ? this.invoicesCollection.hashCode() : 0);
-        hash = 97 * hash + (this.invoiceAddress != null ? this.invoiceAddress.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Customers[ id=" + getIdParties() + " ]";

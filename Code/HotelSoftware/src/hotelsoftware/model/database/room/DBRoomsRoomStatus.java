@@ -73,54 +73,7 @@ public class DBRoomsRoomStatus implements Serializable
     {
         this.room = rooms;
     }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBRoomsRoomStatus other = (DBRoomsRoomStatus) obj;
-        if (this.start != other.start && (this.start == null || !this.start.equals(other.start)))
-        {
-            return false;
-        }
-        if (this.end != other.end && (this.end == null || !this.end.equals(other.end)))
-        {
-            return false;
-        }
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if (this.roomstatus != other.roomstatus && (this.roomstatus == null || !this.roomstatus.equals(other.roomstatus)))
-        {
-            return false;
-        }
-        if (this.room != other.room && (this.room == null || !this.room.equals(other.room)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 97 * hash + (this.start != null ? this.start.hashCode() : 0);
-        hash = 97 * hash + (this.end != null ? this.end.hashCode() : 0);
-        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 97 * hash + (this.roomstatus != null ? this.roomstatus.hashCode() : 0);
-        hash = 97 * hash + (this.room != null ? this.room.hashCode() : 0);
-        return hash;
-    }
-
+  
     @Override
     public String toString()
     {

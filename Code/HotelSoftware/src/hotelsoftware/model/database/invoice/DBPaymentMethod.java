@@ -144,43 +144,6 @@ public class DBPaymentMethod implements Serializable
 //        return ret;
 //    }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBPaymentMethod other = (DBPaymentMethod) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.method == null) ? (other.method != null) : !this.method.equals(other.method))
-        {
-            return false;
-        }
-        if (this.invoicesCollection != other.invoicesCollection && (this.invoicesCollection == null || !this.invoicesCollection.equals(other.invoicesCollection)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 3;
-        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 37 * hash + (this.method != null ? this.method.hashCode() : 0);
-        hash = 37 * hash + (this.invoicesCollection != null ? this.invoicesCollection.hashCode() : 0);
-        return hash;
-    }
-
 
     @Override
     public String toString()

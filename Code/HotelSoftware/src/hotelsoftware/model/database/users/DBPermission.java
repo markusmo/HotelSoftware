@@ -1,16 +1,8 @@
 package hotelsoftware.model.database.users;
 
-import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * Diese Klasse bildet die Befugnisse fuer das System auf die Datenbank ab.
@@ -74,38 +66,6 @@ public class DBPermission implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBPermission other = (DBPermission) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 47 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 47 * hash + (this.name != null ? this.name.hashCode() : 0);
-        return hash;
     }
 
     @Override

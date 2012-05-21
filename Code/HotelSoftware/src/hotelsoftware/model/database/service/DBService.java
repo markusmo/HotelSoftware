@@ -54,38 +54,6 @@ public abstract class DBService implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBService other = (DBService) obj;
-        if (this.idServices != other.idServices && (this.idServices == null || !this.idServices.equals(other.idServices)))
-        {
-            return false;
-        }
-        if (this.serviceType != other.serviceType && (this.serviceType == null || !this.serviceType.equals(other.serviceType)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 97 * hash + (this.idServices != null ? this.idServices.hashCode() : 0);
-        hash = 97 * hash + (this.serviceType != null ? this.serviceType.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Services[ id=" + idServices + " ]";

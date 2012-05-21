@@ -1,16 +1,9 @@
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.hibernate.*;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Diese Klasse bildet einen Extraservice auf die Datenbank ab.
@@ -61,39 +54,6 @@ public class DBExtraService extends DBService implements Serializable
     {
         this.price = price;
     }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBExtraService other = (DBExtraService) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 53 * hash + (this.price != null ? this.price.hashCode() : 0);
-        return hash;
-    }
-
 
 //    /**
 //     * Gibt alle Verpflegungsarten aus

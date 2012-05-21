@@ -4,28 +4,12 @@
  */
 package hotelsoftware.model.database.service;
 
-import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * Diese Klasse bildet die verschiedenen Servicetypen (Essen, Getraenke, Aufenthalte, ...) mit Steuern auf die Datenbank ab.
@@ -102,48 +86,6 @@ public class DBServiceType implements Serializable
     public void setTaxRate(BigDecimal taxRate)
     {
         this.taxRate = taxRate;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBServiceType other = (DBServiceType) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.taxRate != other.taxRate && (this.taxRate == null || !this.taxRate.equals(other.taxRate)))
-        {
-            return false;
-        }
-        if (this.dBServiceCollection != other.dBServiceCollection && (this.dBServiceCollection == null || !this.dBServiceCollection.equals(other.dBServiceCollection)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 31 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 31 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 31 * hash + (this.taxRate != null ? this.taxRate.hashCode() : 0);
-        hash = 31 * hash + (this.dBServiceCollection != null ? this.dBServiceCollection.hashCode() : 0);
-        return hash;
     }
 
     @Override

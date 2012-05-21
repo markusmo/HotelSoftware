@@ -70,44 +70,6 @@ public class DBRoomStatus implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBRoomStatus other = (DBRoomStatus) obj;
-        if (this.dBRoomsRoomStatusCollection != other.dBRoomsRoomStatusCollection && (this.dBRoomsRoomStatusCollection == null || !this.dBRoomsRoomStatusCollection.equals(other.dBRoomsRoomStatusCollection)))
-        {
-            return false;
-        }
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.statusName == null) ? (other.statusName != null) : !this.statusName.equals(other.statusName))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 5;
-        hash = 23 * hash + (this.dBRoomsRoomStatusCollection != null ? this.dBRoomsRoomStatusCollection.hashCode() : 0);
-        hash = 23 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 23 * hash + (this.statusName != null ? this.statusName.hashCode() : 0);
-        return hash;
-    }
-
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Roomstatus[ id=" + id + " ]";

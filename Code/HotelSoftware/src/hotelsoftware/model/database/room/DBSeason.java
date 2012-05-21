@@ -112,53 +112,6 @@ public class DBSeason implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBSeason other = (DBSeason) obj;
-        if (this.start != other.start && (this.start == null || !this.start.equals(other.start)))
-        {
-            return false;
-        }
-        if (this.end != other.end && (this.end == null || !this.end.equals(other.end)))
-        {
-            return false;
-        }
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.roomcategoryprices != other.roomcategoryprices && (this.roomcategoryprices == null || !this.roomcategoryprices.equals(other.roomcategoryprices)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 29 * hash + (this.start != null ? this.start.hashCode() : 0);
-        hash = 29 * hash + (this.end != null ? this.end.hashCode() : 0);
-        hash = 29 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 29 * hash + (this.roomcategoryprices != null ? this.roomcategoryprices.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Seasons[ id=" + id + " ]";

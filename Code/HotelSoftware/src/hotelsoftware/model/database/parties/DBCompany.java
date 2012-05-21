@@ -76,41 +76,6 @@ public class DBCompany extends DBCustomer implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBCompany other = (DBCompany) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.contactPersons != other.contactPersons && (this.contactPersons == null || !this.contactPersons.equals(other.contactPersons)))
-        {
-            return false;
-        }
-        if (this.companyType != other.companyType && (this.companyType == null || !this.companyType.equals(other.companyType)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-
-    @Override
     public String toString() {
         return "hotelsoftware.database.model.Companies[ id=" + getIdParties() + " ]";
     }

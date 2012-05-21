@@ -82,44 +82,7 @@ public class DBGuest extends DBParty implements Serializable
             this.reservationsCollection = new LinkedHashSet<DBReservation>(reservations);
         }
     }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 0;
-        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBGuest other = (DBGuest) obj;
-        if ((this.fname == null) ? (other.fname != null) : !this.fname.equals(other.fname))
-        {
-            return false;
-        }
-        if ((this.lname == null) ? (other.lname != null) : !this.lname.equals(other.lname))
-        {
-            return false;
-        }
-        if (this.birthday != other.birthday && (this.birthday == null || !this.birthday.equals(other.birthday)))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-
+    
     @Override
     public String toString()
     {

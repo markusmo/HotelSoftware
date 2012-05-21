@@ -134,58 +134,6 @@ public class DBRoomCategory implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBRoomCategory other = (DBRoomCategory) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
-        {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-        {
-            return false;
-        }
-        if (this.bedCount != other.bedCount && (this.bedCount == null || !this.bedCount.equals(other.bedCount)))
-        {
-            return false;
-        }
-        if (this.reservationItems != other.reservationItems && (this.reservationItems == null || !this.reservationItems.equals(other.reservationItems)))
-        {
-            return false;
-        }
-        if (this.rooms != other.rooms && (this.rooms == null || !this.rooms.equals(other.rooms)))
-        {
-            return false;
-        }
-        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 3;
-        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 89 * hash + (this.bedCount != null ? this.bedCount.hashCode() : 0);
-        hash = 89 * hash + (this.reservationItems != null ? this.reservationItems.hashCode() : 0);
-        hash = 89 * hash + (this.rooms != null ? this.rooms.hashCode() : 0);
-        hash = 89 * hash + (this.price != null ? this.price.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.Roomcategories[ id=" + id + " ]";

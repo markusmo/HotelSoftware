@@ -50,38 +50,6 @@ public class DBReservationItemPK implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBReservationItemPK other = (DBReservationItemPK) obj;
-        if (this.idReservations != other.idReservations && (this.idReservations == null || !this.idReservations.equals(other.idReservations)))
-        {
-            return false;
-        }
-        if (this.idRoomCategories != other.idRoomCategories && (this.idRoomCategories == null || !this.idRoomCategories.equals(other.idRoomCategories)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 3;
-        hash = 79 * hash + (this.idReservations != null ? this.idReservations.hashCode() : 0);
-        hash = 79 * hash + (this.idRoomCategories != null ? this.idRoomCategories.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.ReservationitemsPK[ idReservations=" + idReservations + ", idRoomCategories=" + idRoomCategories + " ]";

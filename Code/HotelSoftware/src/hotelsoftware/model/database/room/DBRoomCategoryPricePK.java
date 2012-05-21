@@ -50,38 +50,6 @@ public class DBRoomCategoryPricePK implements Serializable
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final DBRoomCategoryPricePK other = (DBRoomCategoryPricePK) obj;
-        if (this.idRoomCategories != other.idRoomCategories && (this.idRoomCategories == null || !this.idRoomCategories.equals(other.idRoomCategories)))
-        {
-            return false;
-        }
-        if (this.idSeasons != other.idSeasons && (this.idSeasons == null || !this.idSeasons.equals(other.idSeasons)))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 53 * hash + (this.idRoomCategories != null ? this.idRoomCategories.hashCode() : 0);
-        hash = 53 * hash + (this.idSeasons != null ? this.idSeasons.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
     public String toString()
     {
         return "hotelsoftware.database.model.RoomcategorypricesPK[ idRoomCategories=" + idRoomCategories + ", idSeasons=" + idSeasons + " ]";
