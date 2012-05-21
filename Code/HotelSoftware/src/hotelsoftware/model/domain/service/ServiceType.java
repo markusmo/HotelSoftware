@@ -50,18 +50,6 @@ public class ServiceType implements IServiceType
         return new ServiceType(name);
     }
 
-    /**
-     * Gibt alle Servicearten aus
-     * @return 
-     * Alle Servicearten, die vorhanden sind.
-     */
-    public static Set<IServiceType> getAllServiceTypes()
-    {
-        ServiceFacade facade = ServiceFacade.getInstance();
-        Set<IServiceType> serviceType = facade.getAllServiceTypes();
-        return serviceType;
-    }
-
     public ServiceType()
     {
     }

@@ -113,7 +113,7 @@ public class InvoiceFacade
         return (PaymentMethod)DynamicMapper.map(ret);
     }
     
-    public static Set<IInvoiceItem> getInvoiceItemsByHabitation(
+    public Set<IInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
