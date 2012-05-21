@@ -382,7 +382,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         {
             if (companyPanel.isFinished())
             {
-                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
+                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getCompanyType(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
             }
             else
             {
@@ -416,13 +416,13 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
                 if (pd instanceof CompanyData)
                 {
                     CompanyData cd = (CompanyData) pd;
-                     InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                    InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getTypeData(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                 }
                 else
                 {
                     if (pd instanceof PrivateCustomerData)
                     {
-                        PrivateCustomerData pcd  = (PrivateCustomerData) pd;
+                        PrivateCustomerData pcd = (PrivateCustomerData) pd;
                         InvoiceGUIControler.getInstance().createPrivateCustomer(pcd.getFname(), pcd.getLname(), pcd.getAddressData().getStreet(), pcd.getAddressData().getCity(), pcd.getAddressData().getZip(), pcd.getAddressData().getEmail(), pcd.getAddressData().getPhone(), pcd.getAddressData().getFax(), pcd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                     }
                 }
