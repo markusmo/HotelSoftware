@@ -6,7 +6,11 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
-import hotelsoftware.controller.data.parties.*;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
+import hotelsoftware.controller.data.parties.CountryData;
+import hotelsoftware.controller.data.parties.CustomerData;
+import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
@@ -153,6 +157,16 @@ public class CreateInvoiceController implements UseCaseController
     public Collection<CountryData> getAllCountries()
     {
         return state.getAllCountries();
+    }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return state.getAllCompanyTypes();
     }
 
     /**
