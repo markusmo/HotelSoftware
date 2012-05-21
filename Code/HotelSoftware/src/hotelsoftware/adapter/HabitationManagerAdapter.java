@@ -5,15 +5,12 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
-import at.fhv.roomanizer.domain.IHabitation;
-import at.fhv.roomanizer.persistence.manager.HabitationManager;
 import at.fhv.roomanizer.persistence.manager.IHabitationManager;
 import hotelsoftware.util.HelperFunctions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import org.hibernate.Session;
 
 /**
  *

@@ -7,7 +7,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
-import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.util.HelperFunctions;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,7 +58,7 @@ public class PdfGenerator
      * Die Schrift, mit der alle Überschriften dargestellt werden
      */
     private static final Font bigfont = new Font(Font.TIMES_ROMAN, 14, Font.BOLD);
-    private Customer customer;
+    private ICustomer customer;
     private String invoiceNumber;
     private Collection<IInvoiceItem> items;
     private Date created;
@@ -76,7 +76,7 @@ public class PdfGenerator
      */
     public PdfGenerator(CustomerData customer, String invoiceNumber, Collection<InvoiceItemData> items, Date created, Date expiration)
     {
-        this.customer = (Customer) customer;
+        this.customer = (ICustomer) customer;
         this.invoiceNumber = invoiceNumber;
         this.items = HelperFunctions.castCollectionDown(items, InvoiceItemData.class, IInvoiceItem.class);
         this.created = created;
@@ -198,7 +198,7 @@ public class PdfGenerator
      * @param customer der Kunde, der die Rechung zahlt
      * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
      */
-    private void addCustomer(Document doc, Customer customer) throws DocumentException
+    private void addCustomer(Document doc, ICustomer customer) throws DocumentException
     {
         Paragraph customerParagraph = new Paragraph();
         //TODO privatecustomer lname fname ...
