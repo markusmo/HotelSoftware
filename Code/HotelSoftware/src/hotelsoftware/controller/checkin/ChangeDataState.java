@@ -75,8 +75,13 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public GuestData addGuest(String firstName, String lastName, char gender, Date birthday, AddressData address)
     {
-        GuestData guest = Guest.create(firstName, lastName, gender, birthday, (Address) address);
+        Guest guest = new Guest();
+        guest.setFname(firstName);
+        guest.setLname(lastName);
+        guest.setBirthday(birthday);
+        guest.setAddress((Address)address);
 
+        context.getReservation().getGuests().add(guest);
         return guest;
     }
 

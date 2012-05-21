@@ -497,6 +497,7 @@ public class CheckInController implements UseCaseController
         return counter++;
     }
 
+    @Override
     public boolean isInSwitchingState()
     {
        return state instanceof StartState || state instanceof FinalState;

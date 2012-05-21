@@ -31,6 +31,8 @@ public class Guest extends Party implements IGuest
 
     public Guest()
     {
+        habitations = new LinkedList<IHabitation>();
+        reservations = new LinkedList<IReservation>();
     }
 
     @Override
@@ -109,46 +111,6 @@ public class Guest extends Party implements IGuest
     public Collection<IHabitation> getCurrentHabitations()
     {
         return habitations;
-    }
-
-    private Guest(String fname, String lname, Character gender, Date birthday,
-            IAddress address)
-    {
-        this(fname, lname, gender, birthday, address,
-                new LinkedHashSet<IHabitation>());
-    }
-
-    private Guest(String fname, String lname, Character gender, Date birthday,
-            IAddress address, Collection<IHabitation> habitations)
-    {
-        super(address);
-        this.fname = fname;
-        this.lname = lname;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.habitations = habitations;
-
-    }
-
-    /**
-     * Instanziert einen neuen Gast
-     * @param fname
-     * Der Vorname des Gastes
-     * @param lname
-     * Der Nachname des Gastes
-     * @param gender
-     * Das Geschlecht des Gastes
-     * @param birthday
-     * Der Geburtstag des Gastes
-     * @param address
-     * Die Adresse des Gastes
-     * @return
-     * Eine neue Instanz eines Gastes
-     */
-    public static IGuest create(String fname, String lname, Character gender,
-            Date birthday, Address address)
-    {
-        return new Guest(fname, lname, gender, birthday, address);
     }
 
     @Override
