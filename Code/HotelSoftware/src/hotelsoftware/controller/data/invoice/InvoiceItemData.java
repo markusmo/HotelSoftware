@@ -7,11 +7,11 @@ import java.util.Date;
 
 /**
  * Dieses Interface wird an die GUI weitergereicht.
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public interface InvoiceItemData
 {
-
     Integer getAmount();
 
     Date getCreated();
@@ -22,11 +22,18 @@ public interface InvoiceItemData
 
     /**
      * Gibt den Preis einer Rechungsposition aus
-     * @return 
+     *
+     * @return
      * Preis der Position*Amount
      */
     double getTotalPriceWithoutTax();
 
+    /**
+     * Gibt den Einzelpreis ohne Steuern aus
+     *
+     * @return Einzelpreis ohne Steuer
+     */
+    double getPriceWithoutTax();
+
     UserData getUserData();
-    
 }
