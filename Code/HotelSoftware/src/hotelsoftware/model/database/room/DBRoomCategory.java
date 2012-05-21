@@ -134,27 +134,55 @@ public class DBRoomCategory implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomCategory))
+        if (obj == null)
         {
             return false;
         }
-        DBRoomCategory other = (DBRoomCategory) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBRoomCategory other = (DBRoomCategory) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
+        {
+            return false;
+        }
+        if (this.bedCount != other.bedCount && (this.bedCount == null || !this.bedCount.equals(other.bedCount)))
+        {
+            return false;
+        }
+        if (this.reservationItems != other.reservationItems && (this.reservationItems == null || !this.reservationItems.equals(other.reservationItems)))
+        {
+            return false;
+        }
+        if (this.rooms != other.rooms && (this.rooms == null || !this.rooms.equals(other.rooms)))
+        {
+            return false;
+        }
+        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 89 * hash + (this.bedCount != null ? this.bedCount.hashCode() : 0);
+        hash = 89 * hash + (this.reservationItems != null ? this.reservationItems.hashCode() : 0);
+        hash = 89 * hash + (this.rooms != null ? this.rooms.hashCode() : 0);
+        hash = 89 * hash + (this.price != null ? this.price.hashCode() : 0);
+        return hash;
     }
 
     @Override

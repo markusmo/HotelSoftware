@@ -185,6 +185,7 @@ public class HabitationsTable extends javax.swing.JPanel
         habitations = new javax.swing.JTable();
         HabitationsLabel = new javax.swing.JLabel();
 
+        setAutoscrolls(true);
         setMaximumSize(new java.awt.Dimension(800, 800));
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("");
@@ -209,8 +210,9 @@ public class HabitationsTable extends javax.swing.JPanel
             }
         });
         habitations.setMaximumSize(new java.awt.Dimension(800, 800));
-        habitations.setMinimumSize(new java.awt.Dimension(500, 500));
-        habitations.setPreferredSize(new java.awt.Dimension(500, 500));
+        habitations.setMinimumSize(new java.awt.Dimension(500, 200));
+        habitations.setOpaque(false);
+        habitations.setPreferredSize(new java.awt.Dimension(500, 200));
         jScrollPane2.setViewportView(habitations);
 
         HabitationsLabel.setText("Habitations");
@@ -221,7 +223,7 @@ public class HabitationsTable extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(HabitationsLabel)
-                .addContainerGap(616, Short.MAX_VALUE))
+                .addContainerGap())
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -229,8 +231,8 @@ public class HabitationsTable extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addComponent(HabitationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

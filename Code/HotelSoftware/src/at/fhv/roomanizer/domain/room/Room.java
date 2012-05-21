@@ -62,8 +62,6 @@ public class Room implements IRoom {
 	}
 	
 	/**
-<<<<<<< HEAD
-=======
 	 * Sets the list of habitations, which the room belongs to
 	 * @param habitationList List of Habitations, which the room belongs to
 	 */
@@ -72,7 +70,6 @@ public class Room implements IRoom {
 	}
 	
 	/**
->>>>>>> dev
 	 * @see IRoom#getHabitations()
 	 */
 	public List<Habitation> getHabitations(){

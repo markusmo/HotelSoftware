@@ -116,27 +116,55 @@ public class DBReservationOption implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBReservationOption))
+        if (obj == null)
         {
             return false;
         }
-        DBReservationOption other = (DBReservationOption) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBReservationOption other = (DBReservationOption) obj;
+        if (this.expiration != other.expiration && (this.expiration == null || !this.expiration.equals(other.expiration)))
+        {
+            return false;
+        }
+        if ((this.comment == null) ? (other.comment != null) : !this.comment.equals(other.comment))
+        {
+            return false;
+        }
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if (this.prepayment != other.prepayment && (this.prepayment == null || !this.prepayment.equals(other.prepayment)))
+        {
+            return false;
+        }
+        if (this.fulfilled != other.fulfilled && (this.fulfilled == null || !this.fulfilled.equals(other.fulfilled)))
+        {
+            return false;
+        }
+        if (this.reservation != other.reservation && (this.reservation == null || !this.reservation.equals(other.reservation)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 17 * hash + (this.expiration != null ? this.expiration.hashCode() : 0);
+        hash = 17 * hash + (this.comment != null ? this.comment.hashCode() : 0);
+        hash = 17 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 17 * hash + (this.prepayment != null ? this.prepayment.hashCode() : 0);
+        hash = 17 * hash + (this.fulfilled != null ? this.fulfilled.hashCode() : 0);
+        hash = 17 * hash + (this.reservation != null ? this.reservation.hashCode() : 0);
+        return hash;
     }
 
     @Override

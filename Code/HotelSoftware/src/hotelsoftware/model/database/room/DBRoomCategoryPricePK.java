@@ -50,32 +50,35 @@ public class DBRoomCategoryPricePK implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (int) idRoomCategories;
-        hash += (int) idSeasons;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomCategoryPricePK))
+        if (obj == null)
         {
             return false;
         }
-        DBRoomCategoryPricePK other = (DBRoomCategoryPricePK) object;
-        if(this.idRoomCategories != other.idRoomCategories)
+        if (getClass() != obj.getClass())
         {
             return false;
         }
-        if(this.idSeasons != other.idSeasons)
+        final DBRoomCategoryPricePK other = (DBRoomCategoryPricePK) obj;
+        if (this.idRoomCategories != other.idRoomCategories && (this.idRoomCategories == null || !this.idRoomCategories.equals(other.idRoomCategories)))
+        {
+            return false;
+        }
+        if (this.idSeasons != other.idSeasons && (this.idSeasons == null || !this.idSeasons.equals(other.idSeasons)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 53 * hash + (this.idRoomCategories != null ? this.idRoomCategories.hashCode() : 0);
+        hash = 53 * hash + (this.idSeasons != null ? this.idSeasons.hashCode() : 0);
+        return hash;
     }
 
     @Override

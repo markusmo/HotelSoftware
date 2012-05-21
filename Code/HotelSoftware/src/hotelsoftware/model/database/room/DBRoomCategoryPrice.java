@@ -107,27 +107,50 @@ public class DBRoomCategoryPrice implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (roomcategorypricesPK != null ? roomcategorypricesPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBRoomCategoryPrice))
+        if (obj == null)
         {
             return false;
         }
-        DBRoomCategoryPrice other = (DBRoomCategoryPrice) object;
-        if((this.roomcategorypricesPK == null && other.roomcategorypricesPK != null) || (this.roomcategorypricesPK != null && !this.roomcategorypricesPK.equals(other.roomcategorypricesPK)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBRoomCategoryPrice other = (DBRoomCategoryPrice) obj;
+        if (this.roomcategorypricesPK != other.roomcategorypricesPK && (this.roomcategorypricesPK == null || !this.roomcategorypricesPK.equals(other.roomcategorypricesPK)))
+        {
+            return false;
+        }
+        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
+        {
+            return false;
+        }
+        if (this.priceMin != other.priceMin && (this.priceMin == null || !this.priceMin.equals(other.priceMin)))
+        {
+            return false;
+        }
+        if (this.seasons != other.seasons && (this.seasons == null || !this.seasons.equals(other.seasons)))
+        {
+            return false;
+        }
+        if (this.roomcategories != other.roomcategories && (this.roomcategories == null || !this.roomcategories.equals(other.roomcategories)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 53 * hash + (this.roomcategorypricesPK != null ? this.roomcategorypricesPK.hashCode() : 0);
+        hash = 53 * hash + (this.price != null ? this.price.hashCode() : 0);
+        hash = 53 * hash + (this.priceMin != null ? this.priceMin.hashCode() : 0);
+        hash = 53 * hash + (this.seasons != null ? this.seasons.hashCode() : 0);
+        hash = 53 * hash + (this.roomcategories != null ? this.roomcategories.hashCode() : 0);
+        return hash;
     }
 
     @Override

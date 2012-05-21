@@ -54,27 +54,35 @@ public abstract class DBService implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (idServices != null ? idServices.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBService))
+        if (obj == null)
         {
             return false;
         }
-        DBService other = (DBService) object;
-        if ((this.idServices == null && other.idServices != null) || (this.idServices != null && !this.idServices.equals(other.idServices)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBService other = (DBService) obj;
+        if (this.idServices != other.idServices && (this.idServices == null || !this.idServices.equals(other.idServices)))
+        {
+            return false;
+        }
+        if (this.serviceType != other.serviceType && (this.serviceType == null || !this.serviceType.equals(other.serviceType)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 97 * hash + (this.idServices != null ? this.idServices.hashCode() : 0);
+        hash = 97 * hash + (this.serviceType != null ? this.serviceType.hashCode() : 0);
+        return hash;
     }
 
     @Override

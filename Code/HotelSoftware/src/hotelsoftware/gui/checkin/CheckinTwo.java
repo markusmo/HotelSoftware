@@ -329,13 +329,11 @@ public class CheckinTwo extends javax.swing.JPanel
         }
         catch (NoPriceDefinedException ex)
         {
-            // TODO message Box
             JOptionPane.showConfirmDialog(this, ex.getMessage(), "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CheckinTwo.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (CouldNotSaveException ex)
         {
-            // TODO message Box
             JOptionPane.showConfirmDialog(this, "Failed to save."/*
                      * ex.getMessage()
                      */, "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -345,7 +343,7 @@ public class CheckinTwo extends javax.swing.JPanel
 
     private void buttonBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonBackActionPerformed
     {//GEN-HEADEREND:event_buttonBackActionPerformed
-        cigc.back();        // TODO add your handling code here:
+        cigc.back();
         ((CardLayout) cigc.getContentpane().getLayout()).previous(cigc.getContentpane());
     }//GEN-LAST:event_buttonBackActionPerformed
 

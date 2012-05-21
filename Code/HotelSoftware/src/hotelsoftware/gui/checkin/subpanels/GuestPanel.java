@@ -301,11 +301,11 @@ public class GuestPanel extends javax.swing.JPanel
      */
     public boolean isFinished()
     {
-        if(TextFieldFirstName.getText().isEmpty())
+        if (TextFieldFirstName.getText().isEmpty())
         {
             return false;
         }
-        if(TextFieldLastName.getText().isEmpty())
+        if (TextFieldLastName.getText().isEmpty())
         {
             return false;
         }
@@ -315,7 +315,6 @@ public class GuestPanel extends javax.swing.JPanel
 
     public void setTabIcon(ImageIcon icon)
     {
-        
     }
 
     public ButtonIconTabComponent getTabComponent()
@@ -394,8 +393,13 @@ public class GuestPanel extends javax.swing.JPanel
         this.setFocusTraversalPolicy(policy);
         this.setFocusCycleRoot(true);
     }
-/**
- * Diese Mehtode fügt die Gastinformationen zur Kontrolle hinzu * @param g  */    public void addGuest(GuestData g)
+
+    /**
+     * Diese Mehtode fügt die Gastinformationen zur Kontrolle hinzu
+     *
+     * @param g
+     */
+    public void addGuest(GuestData g)
     {
         this.TextFieldFirstName.setText(g.getFname());
         this.TextFieldLastName.setText(g.getLname());

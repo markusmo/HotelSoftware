@@ -148,41 +148,66 @@ public class DBInvoiceItem implements Serializable
         this.price = price;
     }
 
-    /**
-     * Kommuniziert mit der Datenbank und holt ein alle Rechungspositionen fuer eine Belegung ein
-     *
-     * @param habitation
-     * Die Belegung, der die Rechungsposition gehoert
-     * @return
-     * eine Set aus Rechungspositionen
-     * @throws HibernateException
-     * Dieser Fehler wird geworfen, wenn die Transaktion fehlschlaegt
-     */
-    
-
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBInvoiceItem))
+        if (obj == null)
         {
             return false;
         }
-        DBInvoiceItem other = (DBInvoiceItem) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
-                other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBInvoiceItem other = (DBInvoiceItem) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if (this.amount != other.amount && (this.amount == null || !this.amount.equals(other.amount)))
+        {
+            return false;
+        }
+        if (this.created != other.created && (this.created == null || !this.created.equals(other.created)))
+        {
+            return false;
+        }
+        if (this.user != other.user && (this.user == null || !this.user.equals(other.user)))
+        {
+            return false;
+        }
+        if (this.habitation != other.habitation && (this.habitation == null || !this.habitation.equals(other.habitation)))
+        {
+            return false;
+        }
+        if (this.invoice != other.invoice && (this.invoice == null || !this.invoice.equals(other.invoice)))
+        {
+            return false;
+        }
+        if (this.service != other.service && (this.service == null || !this.service.equals(other.service)))
+        {
+            return false;
+        }
+        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 97 * hash + (this.amount != null ? this.amount.hashCode() : 0);
+        hash = 97 * hash + (this.created != null ? this.created.hashCode() : 0);
+        hash = 97 * hash + (this.user != null ? this.user.hashCode() : 0);
+        hash = 97 * hash + (this.habitation != null ? this.habitation.hashCode() : 0);
+        hash = 97 * hash + (this.invoice != null ? this.invoice.hashCode() : 0);
+        hash = 97 * hash + (this.service != null ? this.service.hashCode() : 0);
+        hash = 97 * hash + (this.price != null ? this.price.hashCode() : 0);
+        return hash;
     }
 
     @Override

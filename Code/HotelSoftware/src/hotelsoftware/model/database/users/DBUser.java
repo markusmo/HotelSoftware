@@ -129,28 +129,67 @@ public class DBUser implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBUser))
+        if (obj == null)
         {
             return false;
         }
-        DBUser other = (DBUser) object;
-        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBUser other = (DBUser) obj;
+        if (this.roles != other.roles && (this.roles == null || !this.roles.equals(other.roles)))
+        {
+            return false;
+        }
+        if (this.habitations != other.habitations && (this.habitations == null || !this.habitations.equals(other.habitations)))
+        {
+            return false;
+        }
+        if (this.reservations != other.reservations && (this.reservations == null || !this.reservations.equals(other.reservations)))
+        {
+            return false;
+        }
+        if (this.active != other.active && (this.active == null || !this.active.equals(other.active)))
+        {
+            return false;
+        }
+        if (this.invoices != other.invoices && (this.invoices == null || !this.invoices.equals(other.invoices)))
+        {
+            return false;
+        }
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username))
+        {
+            return false;
+        }
+        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password))
         {
             return false;
         }
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 53 * hash + (this.roles != null ? this.roles.hashCode() : 0);
+        hash = 53 * hash + (this.habitations != null ? this.habitations.hashCode() : 0);
+        hash = 53 * hash + (this.reservations != null ? this.reservations.hashCode() : 0);
+        hash = 53 * hash + (this.active != null ? this.active.hashCode() : 0);
+        hash = 53 * hash + (this.invoices != null ? this.invoices.hashCode() : 0);
+        hash = 53 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 53 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 53 * hash + (this.password != null ? this.password.hashCode() : 0);
+        return hash;
+    }
+
 
     @Override
     public String toString()

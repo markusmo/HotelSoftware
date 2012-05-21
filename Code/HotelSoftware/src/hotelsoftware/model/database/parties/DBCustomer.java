@@ -54,28 +54,35 @@ public class DBCustomer extends DBParty implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (getIdParties() != null ? getIdParties().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBCustomer))
+        if (obj == null)
         {
             return false;
         }
-        DBCustomer other = (DBCustomer) object;
-        if((this.getIdParties() == null && other.getIdParties() != null) 
-                || (this.getIdParties() != null && !this.getIdParties().equals(other.getIdParties())))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBCustomer other = (DBCustomer) obj;
+        if (this.invoicesCollection != other.invoicesCollection && (this.invoicesCollection == null || !this.invoicesCollection.equals(other.invoicesCollection)))
+        {
+            return false;
+        }
+        if (this.invoiceAddress != other.invoiceAddress && (this.invoiceAddress == null || !this.invoiceAddress.equals(other.invoiceAddress)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 97 * hash + (this.invoicesCollection != null ? this.invoicesCollection.hashCode() : 0);
+        hash = 97 * hash + (this.invoiceAddress != null ? this.invoiceAddress.hashCode() : 0);
+        return hash;
     }
 
     @Override

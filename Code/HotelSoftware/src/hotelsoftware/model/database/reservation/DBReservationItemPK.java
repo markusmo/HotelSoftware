@@ -50,32 +50,35 @@ public class DBReservationItemPK implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (int) idReservations;
-        hash += (int) idRoomCategories;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBReservationItemPK))
+        if (obj == null)
         {
             return false;
         }
-        DBReservationItemPK other = (DBReservationItemPK) object;
-        if(this.idReservations != other.idReservations)
+        if (getClass() != obj.getClass())
         {
             return false;
         }
-        if(this.idRoomCategories != other.idRoomCategories)
+        final DBReservationItemPK other = (DBReservationItemPK) obj;
+        if (this.idReservations != other.idReservations && (this.idReservations == null || !this.idReservations.equals(other.idReservations)))
+        {
+            return false;
+        }
+        if (this.idRoomCategories != other.idRoomCategories && (this.idRoomCategories == null || !this.idRoomCategories.equals(other.idRoomCategories)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 79 * hash + (this.idReservations != null ? this.idReservations.hashCode() : 0);
+        hash = 79 * hash + (this.idRoomCategories != null ? this.idRoomCategories.hashCode() : 0);
+        return hash;
     }
 
     @Override

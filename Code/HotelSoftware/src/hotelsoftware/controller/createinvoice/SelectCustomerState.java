@@ -4,11 +4,11 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.parties.*;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -44,14 +44,14 @@ public class SelectCustomerState extends CreateInvoiceState
         PrivateCustomer c = new PrivateCustomer();
         c.setFname(guest.getFname());
         c.setLname(guest.getLname());
-        c.setAddress((Address)guest.getAddressData());
-        c.setInvoiceAddress((Address)guest.getAddressData());
+        c.setAddress((IAddress)guest.getAddressData());
+        c.setInvoiceAddress((IAddress)guest.getAddressData());
         
         context.setCustomer(c);
     }
     
     @Override
-    void useCustomer(Customer customer)
+    void useCustomer(ICustomer customer)
     {
         context.setCustomer(customer);
     }
@@ -104,7 +104,7 @@ public class SelectCustomerState extends CreateInvoiceState
     }
     
     @Override
-    void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
+    void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
         Address postAdr = new Address();
@@ -126,6 +126,7 @@ public class SelectCustomerState extends CreateInvoiceState
         invoiceAdr.setIdCountry((Country)invoiceCountry);
         
         Company c = new Company();
+        c.setCompanyType((ICompanyType)type);
         c.setName(companyName);
         c.setAddress(postAdr);
         c.setInvoiceAddress(invoiceAdr);
@@ -143,5 +144,15 @@ public class SelectCustomerState extends CreateInvoiceState
     void back()
     {
         context.setState(new InterimBillState(context));
+    }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return HelperFunctions.castCollectionUp(CompanyType.getAllTypes(), CompanyTypeData.class, ICompanyType.class); 
     }
 }

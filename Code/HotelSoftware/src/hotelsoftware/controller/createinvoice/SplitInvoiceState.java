@@ -62,7 +62,6 @@ public class SplitInvoiceState extends CreateInvoiceState
                 
                 oldItem.setAmount(entry.getValue());
                 
-                //TODO testen ob das gespeichert wird
                 context.addInvoiceItemToHabitation(oldItem.getHabitation(), newItem);
                 
                 col.add(oldItem);

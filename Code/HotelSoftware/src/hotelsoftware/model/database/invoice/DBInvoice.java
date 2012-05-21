@@ -218,28 +218,75 @@ public class DBInvoice implements Serializable
 //    }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBInvoice))
+        if (obj == null)
         {
             return false;
         }
-        DBInvoice other = (DBInvoice) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
-                other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBInvoice other = (DBInvoice) obj;
+        if (this.expiration != other.expiration && (this.expiration == null || !this.expiration.equals(other.expiration)))
+        {
+            return false;
+        }
+        if (this.created != other.created && (this.created == null || !this.created.equals(other.created)))
+        {
+            return false;
+        }
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.invoiceNumber == null) ? (other.invoiceNumber != null) : !this.invoiceNumber.equals(other.invoiceNumber))
+        {
+            return false;
+        }
+        if (this.discount != other.discount && (this.discount == null || !this.discount.equals(other.discount)))
+        {
+            return false;
+        }
+        if (this.fulfilled != other.fulfilled && (this.fulfilled == null || !this.fulfilled.equals(other.fulfilled)))
+        {
+            return false;
+        }
+        if (this.invoiceItems != other.invoiceItems && (this.invoiceItems == null || !this.invoiceItems.equals(other.invoiceItems)))
+        {
+            return false;
+        }
+        if (this.paymentMethod != other.paymentMethod && (this.paymentMethod == null || !this.paymentMethod.equals(other.paymentMethod)))
+        {
+            return false;
+        }
+        if (this.customer != other.customer && (this.customer == null || !this.customer.equals(other.customer)))
+        {
+            return false;
+        }
+        if (this.user != other.user && (this.user == null || !this.user.equals(other.user)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 79 * hash + (this.expiration != null ? this.expiration.hashCode() : 0);
+        hash = 79 * hash + (this.created != null ? this.created.hashCode() : 0);
+        hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 79 * hash + (this.invoiceNumber != null ? this.invoiceNumber.hashCode() : 0);
+        hash = 79 * hash + (this.discount != null ? this.discount.hashCode() : 0);
+        hash = 79 * hash + (this.fulfilled != null ? this.fulfilled.hashCode() : 0);
+        hash = 79 * hash + (this.invoiceItems != null ? this.invoiceItems.hashCode() : 0);
+        hash = 79 * hash + (this.paymentMethod != null ? this.paymentMethod.hashCode() : 0);
+        hash = 79 * hash + (this.customer != null ? this.customer.hashCode() : 0);
+        hash = 79 * hash + (this.user != null ? this.user.hashCode() : 0);
+        return hash;
     }
 
     @Override
