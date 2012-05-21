@@ -5,6 +5,7 @@
 package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
@@ -114,6 +115,11 @@ abstract class CreateInvoiceState
     }
     
     Collection<PartyData> searchParties(String text)
+    {
+        throw new IllegalStateException();
+    }
+
+    Collection<CompanyTypeData> getAllCompanyTypes()
     {
         throw new IllegalStateException();
     }

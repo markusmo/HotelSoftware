@@ -2,6 +2,7 @@ package hotelsoftware.gui.invoice;
 
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
@@ -159,6 +160,16 @@ public final class InvoiceGUIControler implements ActionListener
     public Collection<CountryData> getAllCountries()
     {
         return ctrl.getAllCountries();
+    }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return ctrl.getAllCompanyTypes();
     }
 
     public String getIntermediatInvoiceString()
