@@ -18,10 +18,7 @@ import hotelsoftware.model.domain.invoice.InvoiceSaver;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.room.IRoom;
-import hotelsoftware.model.domain.room.IRoomCategory;
-import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.room.*;
 import hotelsoftware.model.domain.service.*;
 import hotelsoftware.support.NoPriceDefinedException;
 import hotelsoftware.support.ServiceTypeNotFoundException;
@@ -212,6 +209,7 @@ public abstract class ChangeDataState extends CheckInState
         LinkedList<IGuest> guests = new LinkedList<IGuest>();
         LinkedList<IAddress> addresses = new LinkedList<IAddress>();
         LinkedList<IInvoiceItem> items = new LinkedList<IInvoiceItem>();
+        LinkedList<IRoomRoomStatus> status = new LinkedList<IRoomRoomStatus>();
 
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
@@ -253,6 +251,13 @@ public abstract class ChangeDataState extends CheckInState
             item.setUser(LoginController.getInstance().getCurrentUser());
             
             items.add(item);
+            
+            RoomsRoomStatus rrs = new RoomsRoomStatus();
+            rrs.setRoom(h.getRooms());
+            rrs.setStart(new Date());
+            rrs.setRoomstatus(RoomStatus.getRoomStatusByName("Occupied - Clean"));
+            
+            status.add(rrs);
         }
 
         try
@@ -263,6 +268,7 @@ public abstract class ChangeDataState extends CheckInState
             ServiceSaver.getInstance().saveOrUpdate(session, null, context.getHabitations(), null);
             PartySaver.getInstance().saveOrUpdate(session, null, null, null, null, guests);
             InvoiceSaver.getInstance().saveOrUpdate(session, null, null, items);
+            RoomSaver.getInstance().saveOrUpdate(session, null, null, null, status);
             ts.commit();
         }
         catch (FailedToSaveToDatabaseException ex)

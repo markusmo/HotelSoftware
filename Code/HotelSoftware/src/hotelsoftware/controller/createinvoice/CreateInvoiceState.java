@@ -57,7 +57,7 @@ abstract class CreateInvoiceState
         throw new IllegalStateException();
     }
 
-    void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
+    void createCompanyCustomer(String companyName, CompanyTypeData type,  String street, String city, String zip, String email, String phone, String fax, CountryData country, 
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
         throw new IllegalStateException();

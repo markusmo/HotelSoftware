@@ -81,7 +81,8 @@ public class RoomSaver
      * @throws FailedToSaveToDatabaseException Wirft einen Fehler, wenn das
      * sichern in die Datenbank fehllschlaegt
      */
-    public void saveOrUpdate(Session session, Set<IRoomCategory> categories, Set<IRoomOption> options, Set<IRoomStatus> status, Set<IRoomRoomStatus> roomStatus) 
+    public void saveOrUpdate(Session session, Collection<IRoomCategory> categories, Collection<IRoomOption> options, 
+            Collection<IRoomStatus> status, Collection<IRoomRoomStatus> roomStatus) 
             throws FailedToSaveToDatabaseException
     {
 
