@@ -35,12 +35,7 @@ public interface IInvoiceItem extends InvoiceItemData{
      */
     double getPriceWithTax();
 
-    /**
-     * Gibt den Einzelpreis ohne Steuern aus
-     *
-     * @return Einzelpreis ohne Steuer
-     */
-    double getPriceWithoutTax();
+    
 
     IService getService();
 
