@@ -52,7 +52,7 @@ public final class InvoiceGUIControler implements ActionListener
     private JLabel paymentLabel = new JLabel();
     // Bezeichnungen
     private static final String invoiceHome = "Invoice Home";
-    private static final String intermediatInvoice = "Intermediat Invoice";
+    private static final String intermediatInvoice = "Intermediate Invoice";
     private static final String chooseCustomer = "Customer Selection";
     private static final String splitCancel = "Split/Cancel";
     private static final String payment = "Payment";
