@@ -4,6 +4,7 @@
  */
 package hotelsoftware.controller.checkin;
 
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
@@ -102,7 +103,11 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<CountryData> getAllCountries()
     {
-        return new HelperFunctions<CountryData, ICountry>().castCollectionUp(Country.getAllCountries());
+        if (context.getCountries() == null)
+        {
+            context.setCountries(HelperFunctions.castCollectionUp(Country.getAllCountries(), CountryData.class, ICountry.class));
+        }
+        return context.getCountries();
     }
 
     @Override
@@ -139,7 +144,12 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<RoomCategoryData> getAllCategories()
     {
-        return new HelperFunctions<RoomCategoryData, IRoomCategory>().castCollectionUp(RoomCategory.getAllCategorys());
+        if (context.getCategories() == null)
+        {
+            context.setCategories(HelperFunctions.castCollectionUp(RoomCategory.getAllCategorys(), RoomCategoryData.class, IRoomCategory.class));
+        }
+        
+        return context.getCategories();
     }
 
     @Override
@@ -171,7 +181,12 @@ public abstract class ChangeDataState extends CheckInState
     @Override
     public Collection<ExtraServiceData> getAllHabitationServices()
     {
-        return new HelperFunctions<ExtraServiceData, IExtraService>().castCollectionUp(ExtraService.getAllHabitationServices());
+        if (context.getHabitationServices() == null)
+        {
+            context.setHabitationServices(HelperFunctions.castCollectionUp(ExtraService.getAllHabitationServices(), ExtraServiceData.class, IExtraService.class));
+        }
+        
+        return context.getHabitationServices();
     }
 
     @Override
@@ -211,6 +226,7 @@ public abstract class ChangeDataState extends CheckInState
         LinkedList<IInvoiceItem> items = new LinkedList<IInvoiceItem>();
         LinkedList<IRoomRoomStatus> status = new LinkedList<IRoomRoomStatus>();
 
+        int i = 0;
         for (RoomSelection roomSel : context.getRoomSelections().values())
         {
             Habitation h = new Habitation();
@@ -220,7 +236,7 @@ public abstract class ChangeDataState extends CheckInState
             h.setPrice(roomSel.getRoom().getCategory().getPriceFor(context.getStartDate()));
             h.setRooms(roomSel.getRoom());
             h.setCreated(new Date());
-            h.setHabitationNumber(HelperFunctions.getNewContinousNumber(Habitation.class));
+            h.setHabitationNumber(HelperFunctions.getNewContinousNumber(Habitation.class, i++));
 
             try
             {

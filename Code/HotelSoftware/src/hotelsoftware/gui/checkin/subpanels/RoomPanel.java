@@ -6,7 +6,7 @@ package hotelsoftware.gui.checkin.subpanels;
 
 import hotelsoftware.controller.checkin.NoRoomsAvailableException;
 import hotelsoftware.controller.checkin.NoRoomsInCategoryAvailableException;
-import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.misc.ButtonIconTabComponent;
 import hotelsoftware.gui.misc.ButtonTabComponentPlus;

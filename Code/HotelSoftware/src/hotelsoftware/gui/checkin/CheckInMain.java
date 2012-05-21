@@ -4,7 +4,6 @@
  */
 package hotelsoftware.gui.checkin;
 
-import hotelsoftware.controller.checkin.CheckInGuiControler;
 import hotelsoftware.controller.data.parties.CompanyData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.reservation.ReservationData;

@@ -126,11 +126,22 @@ public class HelperFunctions<T, U extends T>
      */
     public static String getNewContinousNumber(Class cls)
     {
+        return getNewContinousNumber(cls, 0);
+    }
+    
+    /**
+     * Liefert eine fortlaufende Nummer als String zurück, je nach Klasse
+     * @param cls die Klasse, für die eine Nummer benötigt wird
+     * @param add ein Wert der der Nummer dazuaddiert werden soll (wichtig wenn Nummern in einer Schleife erzeugt werden)
+     * @return eine fortlaufende Nummer
+     */
+    public static String getNewContinousNumber(Class cls, int add)
+    {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
         String date = sdf.format(new Date());
         Integer id = 0;
 
-        char prefix = cls.getName().toLowerCase().charAt(0);
+        char prefix = cls.getName().substring(cls.getName().lastIndexOf('.') + 1).toLowerCase().charAt(0);
         try
         {
             Method m = cls.getDeclaredMethod("getHighestId");
@@ -145,7 +156,7 @@ public class HelperFunctions<T, U extends T>
         nf.setMinimumIntegerDigits(8);
         nf.setGroupingUsed(false);
 
-        return prefix + date + nf.format(id + 1);
+        return prefix + date + nf.format(id + 1 + add);
     }
     
     /**

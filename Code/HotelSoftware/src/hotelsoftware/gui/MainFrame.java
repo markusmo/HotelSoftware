@@ -1,7 +1,7 @@
 package hotelsoftware.gui;
 
 import at.fhv.roomanizer.ui.swt.habitation.HabitationView;
-import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.InvoiceGUIControler;
