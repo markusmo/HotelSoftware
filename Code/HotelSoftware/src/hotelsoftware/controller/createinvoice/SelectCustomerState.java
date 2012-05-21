@@ -9,7 +9,6 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.model.domain.parties.*;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -45,14 +44,14 @@ public class SelectCustomerState extends CreateInvoiceState
         PrivateCustomer c = new PrivateCustomer();
         c.setFname(guest.getFname());
         c.setLname(guest.getLname());
-        c.setAddress((Address)guest.getAddressData());
-        c.setInvoiceAddress((Address)guest.getAddressData());
+        c.setAddress((IAddress)guest.getAddressData());
+        c.setInvoiceAddress((IAddress)guest.getAddressData());
         
         context.setCustomer(c);
     }
     
     @Override
-    void useCustomer(Customer customer)
+    void useCustomer(ICustomer customer)
     {
         context.setCustomer(customer);
     }

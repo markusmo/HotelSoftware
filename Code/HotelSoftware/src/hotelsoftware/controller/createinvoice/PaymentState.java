@@ -7,16 +7,13 @@ package hotelsoftware.controller.createinvoice;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.*;
-import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.parties.IAddress;
-import hotelsoftware.model.domain.parties.PartySaver;
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -35,7 +32,7 @@ public class PaymentState extends CreateInvoiceState
     {
         Invoice invoice = new Invoice();
         invoice.setCreated(new Date());
-        invoice.setCustomer((Customer) context.getCustomerData());
+        invoice.setCustomer((ICustomer) context.getCustomerData());
         invoice.setDiscount(BigDecimal.ZERO);
         invoice.setExpiration(new Date()); //Barzahlung --> sofort
         invoice.setFulfilled(Boolean.TRUE);
