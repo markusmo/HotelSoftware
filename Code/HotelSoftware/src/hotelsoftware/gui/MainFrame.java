@@ -220,8 +220,8 @@ public class MainFrame extends javax.swing.JFrame
         {
             Display display = new Display();
             Shell shell = new Shell(display);
-            shell.setLayout(new FillLayout());
-            
+            shell.setLayout(new FillLayout());            
+           
             HabitationView view = new HabitationView(shell, SWT.NONE);
             shell.open();
             
@@ -265,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_escButtonActionPerformed
         //Esc Button
 
-        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure to end the current Use case?", "Change Use case", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0)
+        if (JOptionPane.showConfirmDialog(this.jPanel1, "Are you sure to end the application?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0)
         {
             System.exit(0);
         }
