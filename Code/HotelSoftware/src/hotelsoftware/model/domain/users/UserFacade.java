@@ -9,6 +9,7 @@ import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -77,6 +78,17 @@ public class UserFacade
         List<DBPermission> retList = criteria.list();
 
         return DynamicMapper.mapCollection(retList);
+    }
+    
+    public List<IUser> getUsers() throws HibernateException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBUser.class);
+        List<DBUser> retList = criteria.list();
+
+        return (List<IUser>)DynamicMapper.mapCollection(retList);
     }
 
     /**

@@ -6,6 +6,7 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.parties.GuestData;
@@ -16,7 +17,7 @@ import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.service.Habitation;
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -34,8 +35,7 @@ public class CreateInvoiceController implements UseCaseController
     private Collection<IHabitation> habitations;
     private Collection<IInvoiceItem> selectedItems;
     private Collection<InvoiceItem> splittedItems;
-
-    private Customer customer;
+    private ICustomer customer;
 
     private CreateInvoiceController()
     {
@@ -47,19 +47,20 @@ public class CreateInvoiceController implements UseCaseController
     {
         return CreateInvoiceControllerHolder.INSTANCE;
     }
-    
+
     /**
      * Schnittstelle für die Einbindung in einen Check-Out Vorgang
+     *
      * @param habitation Der bereits gesuchte Aufenthalt der ausgecheckt werden soll
      * @return Der Controller der die Suche bereits übersprungen hat
      */
     public static CreateInvoiceController getInstance(IHabitation habitation)
     {
-        CreateInvoiceControllerHolder.INSTANCE.setState(new InterimBillState(CreateInvoiceControllerHolder.INSTANCE));
         Collection<IHabitation> habitations = new LinkedList<IHabitation>();
         habitations.add(habitation);
         CreateInvoiceControllerHolder.INSTANCE.setHabitations(habitations);
-        
+        CreateInvoiceControllerHolder.INSTANCE.setState(new InterimBillState(CreateInvoiceControllerHolder.INSTANCE));
+
         return CreateInvoiceControllerHolder.INSTANCE;
     }
 
@@ -157,6 +158,16 @@ public class CreateInvoiceController implements UseCaseController
     {
         return state.getAllCountries();
     }
+    
+    /**
+     * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
+     *
+     * @return Eine Collection mit den Typen
+     */
+    public Collection<CompanyTypeData> getAllCompanyTypes()
+    {
+        return state.getAllCompanyTypes();
+    }
 
     /**
      * Erstellt einen neuen Kunden in Form eines Unternehmens mit gleicher Rechnungs- und Postanschrift
@@ -170,9 +181,9 @@ public class CreateInvoiceController implements UseCaseController
      * @param fax Postanschrift: die Fax-Nummer
      * @param country Postanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    public void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
-        createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+        createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
     }
 
     /**
@@ -194,10 +205,10 @@ public class CreateInvoiceController implements UseCaseController
      * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
      * @param invoiceCountry Rechnungsanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+    public void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
-        state.createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
+        state.createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, invoiceStreet,
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
 
@@ -265,7 +276,7 @@ public class CreateInvoiceController implements UseCaseController
     {
         state.useGuestAsCustomer(guest);
     }
-    
+
     /**
      * Verwendet eine vorhandene Partei als Kunden
      *
@@ -277,14 +288,17 @@ public class CreateInvoiceController implements UseCaseController
         {
             state.useGuestAsCustomer((Guest) party);
         }
-        else if (party instanceof Customer)
-        {
-            state.useCustomer((Customer) party);
-        }
         else
         {
-            //Unerreichbarer Code
-            assert(true) : "Party muss instanceof Guest oder Customer sein, da darüberliegende Klassen abstrakt sind";
+            if (party instanceof Customer)
+            {
+                state.useCustomer((Customer) party);
+            }
+            else
+            {
+                //Unerreichbarer Code
+                assert (true) : "Party muss instanceof Guest oder Customer sein, da darüberliegende Klassen abstrakt sind";
+            }
         }
     }
 
@@ -364,7 +378,7 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-    
+
     /**
      * Gibt die noch offenen Posten der aktuellen Rechnung an
      *
@@ -373,8 +387,8 @@ public class CreateInvoiceController implements UseCaseController
     public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
     {
         Collection<InvoiceItemData> openItems = new LinkedList<InvoiceItemData>();
-        IHabitation h = (IHabitation)habitation;
-        
+        IHabitation h = (IHabitation) habitation;
+
         for (IInvoiceItem i : h.getInvoiceItems())
         {
             if (i.getInvoice() == null)
@@ -392,7 +406,7 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-    
+
     /**
      * ***************************************************************
      */
@@ -426,7 +440,7 @@ public class CreateInvoiceController implements UseCaseController
         this.state = state;
     }
 
-    void setCustomer(Customer customer)
+    void setCustomer(ICustomer customer)
     {
         this.customer = customer;
     }
@@ -435,17 +449,17 @@ public class CreateInvoiceController implements UseCaseController
     {
         return state.searchParties(text);
     }
-    
+
     void addSplittedItems(InvoiceItem item)
     {
         if (splittedItems == null)
         {
             splittedItems = new LinkedList<InvoiceItem>();
         }
-        
+
         splittedItems.add(item);
     }
-    
+
     void setSplittedItems(Collection<InvoiceItem> items)
     {
         splittedItems = items;
@@ -455,11 +469,11 @@ public class CreateInvoiceController implements UseCaseController
     {
         return splittedItems;
     }
-    
+
     Collection<IInvoiceItem> getAllInvoiceItems()
     {
         Collection<IInvoiceItem> col = new HashSet<IInvoiceItem>();
-        
+
         for (IHabitation h : getHabitations())
         {
             for (IInvoiceItem ii : h.getInvoiceItems())
@@ -467,7 +481,7 @@ public class CreateInvoiceController implements UseCaseController
                 col.add(ii);
             }
         }
-        
+
         return col;
     }
 }

@@ -158,24 +158,6 @@ public class DBUser implements Serializable
         return "hotelsoftware.database.model.Users[ id=" + id + " ]";
     }
     
-    /**
-     * Gibt alle Benutzer in dem System aus
-     * @return
-     * eine Liste aller User, die verfuegbar sind
-     * @throws HibernateException 
-     */
-    public static List<DBUser> getUsers() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBUser.class);
-        List<DBUser> retList = criteria.list();
-        ;
-
-        return retList;
-    }
-    
 //    /**
 //     * Ueberprueft, ob ein User mit dem Passwort und Usernamen in der
 //     * Datenbank ist und gibt diesen zurueck

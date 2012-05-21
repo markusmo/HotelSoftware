@@ -108,18 +108,44 @@ public class ServiceFacade
      */
     public IServiceType getServiceTypeByName(String name) throws ServiceTypeNotFoundException
     {
-        DBServiceType p = DBServiceType.getTypeByName(name);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        SQLQuery query = session.createSQLQuery("SELECT * FROM servicetypes WHERE name = :name");
+        query.setString("name", name);
+        query.addEntity(DBServiceType.class);
+        
+        DBServiceType serviceType = (DBServiceType) query.uniqueResult();
+        
+        ts.commit();
 
-        if (p == null)
+        if (serviceType == null)
         {
             throw new ServiceTypeNotFoundException();
         }
-        return (IServiceType) DynamicMapper.map(p);
+        return (IServiceType) DynamicMapper.map(serviceType);
     }
 
     int getHighestHabitationId()
     {
-        return DBHabitation.getHighestId();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "Select max(idServices) FROM habitations h";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+
+        if (bd != null)
+        {
+            return bd;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.service.Service;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -51,7 +52,7 @@ public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoft
     @Override
     public double getPrice()
     {
-        return invoiceItem.getPrice();
+        return invoiceItem.getPrice().doubleValue();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class InvoiceItemAdapter extends InvoiceItem implements Adapter<hotelsoft
     @Override
     public void setPrice(double price)
     {
-        invoiceItem.setPrice((int) price);
+        invoiceItem.setPrice(BigDecimal.valueOf(price));
     }
 
     @Override

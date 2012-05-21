@@ -19,8 +19,8 @@ public class DBRoomsRoomStatus implements Serializable
     @Temporal(TemporalType.DATE)
     private Date start;
     
-    @Basic(optional = false)
-    @Column(name = "endDate", nullable = false)
+    @Basic(optional = true)
+    @Column(name = "endDate", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date end;
     
