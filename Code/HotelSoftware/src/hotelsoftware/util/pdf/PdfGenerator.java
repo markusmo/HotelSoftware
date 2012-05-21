@@ -130,7 +130,7 @@ public class PdfGenerator
         addCustomer(doc, customer);
         addHotelAddress(doc);
         addInvoiceBodyWithTax(doc, invoiceNumber, items,
-                getTotalwithoutTax(items), created, expiration);
+                getTotalwithTax(items), created, expiration);
         addThankyouMessage(doc);
 
         doc.close();
@@ -152,7 +152,7 @@ public class PdfGenerator
         doc.open();
         addMetaData(doc);
         addInvoiceBodyWithoutTax(doc, invoiceNumber, items,
-                getTotalwithTax(items), created, expiration);
+                getTotalwithoutTax(items), created, expiration);
 
         doc.close();
     }

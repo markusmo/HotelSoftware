@@ -6,12 +6,12 @@ import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.gui.invoice.customerSelection.addCustomer;
+import hotelsoftware.gui.invoice.customerSelection.SelectCustomerPanel;
 import hotelsoftware.gui.invoice.intermediatInvoice.IntermediatInvoicePanel;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.invoice.labels.SeperatorLabel;
 import hotelsoftware.gui.invoice.payment.PaymentPanel;
-import hotelsoftware.gui.invoice.splitCancel.splitNstornoPanel;
+import hotelsoftware.gui.invoice.splitCancel.SplitNstornoPanel;
 import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftware.util.pdf.PdfGenerator;
@@ -52,7 +52,7 @@ public final class InvoiceGUIControler implements ActionListener
     private JLabel paymentLabel = new JLabel();
     // Bezeichnungen
     private static final String invoiceHome = "Invoice Home";
-    private static final String intermediatInvoice = "Intermediat Invoice";
+    private static final String intermediatInvoice = "Intermediate Invoice";
     private static final String chooseCustomer = "Customer Selection";
     private static final String splitCancel = "Split/Cancel";
     private static final String payment = "Payment";
@@ -116,14 +116,14 @@ public final class InvoiceGUIControler implements ActionListener
                         if (text.equals(splitCancel)) // splitCancel Button 
                         {
                             ctrl.splitInvoice();
-                            setContentPanel(new splitNstornoPanel());
+                            setContentPanel(new SplitNstornoPanel());
                         }
                         else
                         {
                             if (text.equals(chooseCustomer)) // chooseCustomer Button
                             {
                                 ctrl.next();
-                                setContentPanel(new addCustomer());
+                                setContentPanel(new SelectCustomerPanel());
                             }
                             else
                             {
@@ -310,7 +310,7 @@ public final class InvoiceGUIControler implements ActionListener
         JPanel navigation = getNavigationPanel();
         navigation.removeAll();
 
-        if (clazz.equals(splitNstornoPanel.class))
+        if (clazz.equals(SplitNstornoPanel.class))
         {
             navigation.add(invoiceHomeLabel);
             navigation.add(new SeperatorLabel());
@@ -334,7 +334,7 @@ public final class InvoiceGUIControler implements ActionListener
                 }
                 else
                 {
-                    if (clazz.equals(addCustomer.class))
+                    if (clazz.equals(SelectCustomerPanel.class))
                     {
                         navigation.add(invoiceHomeLabel);
                         navigation.add(new SeperatorLabel());

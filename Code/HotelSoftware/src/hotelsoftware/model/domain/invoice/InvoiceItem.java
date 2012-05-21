@@ -173,8 +173,7 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getTotalPriceWithTax()
     {
-        double price = getPriceWithTax() * this.amount;
-        return price;
+        return getPriceWithTax() * this.amount;
     }
 
     /**
@@ -185,10 +184,8 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getPriceWithTax()
     {
-        double temp = this.getService().getPrice().doubleValue();
         double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
-        double price = temp + (temp * tax);
-        return price;
+        return this.price + (this.price * tax);
     }
 
     /**
@@ -199,7 +196,7 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getPriceWithoutTax()
     {
-        return this.getService().getPrice().doubleValue();
+        return this.price;
     }
 
     /**
