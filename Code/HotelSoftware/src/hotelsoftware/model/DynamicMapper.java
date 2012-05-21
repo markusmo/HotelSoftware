@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class DynamicMapper
 {
     /**
-     * Mapt Objekte zwischen zwei Schichten hin und her
+     * Mapt Objekte zwischen zwei Schichten (Hibernate und Domain) hin und her
      *
      * @param urObject Das Objekt der Schicht von der gemappt werden soll
      *
@@ -37,47 +37,67 @@ public class DynamicMapper
         return map(urObject, new HashMap());
     }
 
+    
+    /**
+     * private map Methode mit der HashMap die verwendet wird um zu schauen ob Objekte schon gemappt wurden.
+     * @param urObject
+     * @param mappedObjects
+     * @return 
+     */
     private static Object map(Object urObject, HashMap mappedObjects)
     {
         if (mappedObjects != null)
         {
             try
             {
+                //ein neues Objekt der Klasse von der anderen Schicht erzeugen.
                 Class newClass = Class.forName(convertClassName(urObject.getClass().getName()));
                 Object returnvalue = newClass.newInstance();
 
+                
+                //das neue und alte Objekt in die Hashmap packen
                 mappedObjects.put(urObject, returnvalue);
 
-
+                //über alle Methoden der neuen Klasse durchiterieren. Die getMethods Methode hat den Vorteil im vergleich zu getDeclaredMethods das sie auch superklassen berücksichtigt.
                 for (Method targetSetterMethod : returnvalue.getClass().getMethods())
                 {
+                    //nur Methoden die mit "set" beginnen berücksichtigen, also nur Setter
                     if (targetSetterMethod.getName().startsWith("set"))
                     {
+                        //Getter der aktuellen Schicht holen der zum Setter der neuen Schicht passt.
                         Method actuallGetterMethod = getMethod(targetSetterMethod, urObject);
 
                         if (actuallGetterMethod != null)
                         {
-                            //in hashmap schauen ob urobjekt als key vorhanden ist und setter invoken
+                            //in hashmap schauen ob Objekt vom Getter vom Urobjekt als key vorhanden ist und setter invoken
                             Object val = actuallGetterMethod.invoke(urObject);
                             if (mappedObjects.containsKey(val))
                             {
                                 targetSetterMethod.invoke(returnvalue, mappedObjects.get(val));
                             }
+                            //falls noch nicht gemappt wurde.
                             else
                             {
+                                //Falls die getter methode eine Collection zurückgibt
                                 if (actuallGetterMethod.getReturnType().equals(Collection.class))
                                 {
+                                    //mapCollection aufrufen mit der Collection die man aus der aktuellen Getter Methode bekommt.
                                     targetSetterMethod.invoke(returnvalue, mapCollection((Collection) actuallGetterMethod.invoke(urObject), mappedObjects));
                                 }
+                                //Falls keine Collection
                                 else
                                 {
+                                    //Hole aktuelles zu mappendes Objekt von der Gettermethode
                                     Object o = actuallGetterMethod.invoke(urObject);
                                     if (o != null)
                                     {
+                                        //Falls das Objekt eines von uns ist
                                         if (o.getClass().getName().startsWith("hotelsoftware"))
                                         {
+                                            //das Objekt muss gemappt werden.
                                             o = map(o, mappedObjects);
                                         }
+                                        //Via SetterMethode übergeben
                                         targetSetterMethod.invoke(returnvalue, o);
                                     }
                                 }
