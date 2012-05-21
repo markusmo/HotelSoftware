@@ -115,13 +115,13 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         java.awt.GridBagConstraints gridBagConstraints;
 
         invoiceHomeTables = new javax.swing.JPanel();
-        availableHabitations = new hotelsoftware.gui.invoice.invoiceHome.habitations("Available Habitations");
+        availableHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Available Habitations");
         dropSelectButtons = new javax.swing.JPanel();
         chooseAll = new javax.swing.JButton();
         chooseSelection = new javax.swing.JButton();
         dropSelected = new javax.swing.JButton();
         dropAll = new javax.swing.JButton();
-        selectedHabitations = new hotelsoftware.gui.invoice.invoiceHome.habitations("Selected Habitations");
+        selectedHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Selected Habitations");
         searchPanel = new javax.swing.JPanel();
         lnameLabel = new javax.swing.JLabel();
         fnameLabel = new javax.swing.JLabel();
@@ -354,7 +354,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
    }//GEN-LAST:event_chooseAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private hotelsoftware.gui.invoice.invoiceHome.habitations availableHabitations;
+    private hotelsoftware.gui.invoice.invoiceHome.HabitationsTable availableHabitations;
     private javax.swing.JButton chooseAll;
     private javax.swing.JButton chooseSelection;
     private javax.swing.JButton dropAll;
@@ -369,7 +369,7 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
     private javax.swing.JTextField roomNrTextbox;
     private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
-    private hotelsoftware.gui.invoice.invoiceHome.habitations selectedHabitations;
+    private hotelsoftware.gui.invoice.invoiceHome.HabitationsTable selectedHabitations;
     private javax.swing.JSeparator seperator;
     // End of variables declaration//GEN-END:variables
 
