@@ -42,13 +42,13 @@ public class DBRoomCategory implements Serializable
     @Column(name = "bedCount", nullable = false)
     private Integer bedCount;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomCategory")
+    @OneToMany(mappedBy = "roomCategory")
     private Set<DBReservationItem> reservationItems;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch= FetchType.EAGER)
     private Set<DBRoom> rooms;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomcategories", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "roomcategories", fetch= FetchType.EAGER)
     private Set<DBRoomCategoryPrice> price;
 
     public DBRoomCategory()

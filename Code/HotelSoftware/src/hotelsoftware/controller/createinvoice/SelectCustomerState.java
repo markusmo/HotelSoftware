@@ -36,7 +36,12 @@ public class SelectCustomerState extends CreateInvoiceState
     @Override
     public Collection<CountryData> getAllCountries()
     {
-        return HelperFunctions.castCollectionUp(Country.getAllCountries(), CountryData.class, ICountry.class); 
+        if (context.getCountries() == null)
+        {
+            context.setCountries(HelperFunctions.castCollectionUp(Country.getAllCountries(), CountryData.class, ICountry.class));
+        }
+        
+        return context.getCountries(); 
     }
     
     @Override
@@ -152,8 +157,14 @@ public class SelectCustomerState extends CreateInvoiceState
      *
      * @return Eine Collection mit den Typen
      */
+    @Override
     public Collection<CompanyTypeData> getAllCompanyTypes()
     {
-        return HelperFunctions.castCollectionUp(CompanyType.getAllTypes(), CompanyTypeData.class, ICompanyType.class); 
+        if (context.getCompanyTypes() == null)
+        {
+            context.setCompanyTypes(HelperFunctions.castCollectionUp(CompanyType.getAllTypes(), CompanyTypeData.class, ICompanyType.class));
+        }
+        
+        return context.getCompanyTypes(); 
     }
 }

@@ -36,6 +36,10 @@ public class CreateInvoiceController implements UseCaseController
     private Collection<InvoiceItem> splittedItems;
 
     private Customer customer;
+    
+    //Cache:
+    private Collection<CountryData> countries;
+    private Collection<CompanyTypeData> types;
 
     private CreateInvoiceController()
     {
@@ -479,5 +483,25 @@ public class CreateInvoiceController implements UseCaseController
         }
         
         return col;
+    }
+    
+    Collection<CountryData> getCountries()
+    {
+        return countries;
+    }
+    
+    void setCountries(Collection<CountryData> countries)
+    {
+        this.countries = countries;
+    }
+    
+    Collection<CompanyTypeData> getCompanyTypes()
+    {
+        return types;
+    }
+    
+    void setCompanyTypes(Collection<CompanyTypeData> types)
+    {
+        this.types = types;
     }
 }

@@ -4,7 +4,7 @@
  */
 package hotelsoftware.gui.checkin.subpanels;
 
-import hotelsoftware.controller.checkin.CheckInGuiControler;
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.service.ExtraServiceData;

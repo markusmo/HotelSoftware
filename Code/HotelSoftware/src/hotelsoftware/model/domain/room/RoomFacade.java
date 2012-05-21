@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -77,7 +78,8 @@ public class RoomFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         
-        List<DBRoomCategory> cats = session.createCriteria(DBRoomCategory.class).list();
+        Query query = session.createQuery("FROM DBRoomCategory ORDER BY name");
+        List<DBRoomCategory> cats = query.list();
         return (Collection<IRoomCategory>) DynamicMapper.mapCollection(cats);
     }
     

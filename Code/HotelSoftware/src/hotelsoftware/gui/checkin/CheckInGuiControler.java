@@ -2,11 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.controller.checkin;
+package hotelsoftware.gui.checkin;
 
 import hotelsoftware.controller.checkin.CheckInController;
+import hotelsoftware.controller.checkin.CheckInController;
+import hotelsoftware.controller.checkin.CouldNotSaveException;
 import hotelsoftware.controller.checkin.CouldNotSaveException;
 import hotelsoftware.controller.checkin.NoRoomsAvailableException;
+import hotelsoftware.controller.checkin.NoRoomsAvailableException;
+import hotelsoftware.controller.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.controller.checkin.NoRoomsInCategoryAvailableException;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
@@ -37,7 +41,6 @@ public class CheckInGuiControler
     private JPanel contentpane;
     private JTabbedPane roomTabPane;
     private CheckInController cic;
-    private Collection<RoomCategoryData> roomCategories;
 
     private static class CheckInGuiControllerHolder
     {
@@ -307,15 +310,10 @@ public class CheckInGuiControler
     {
         cic.assignRoom(selectionIndex, guest);
     }
-    private Collection<CountryData> countries;
 
     public Collection<CountryData> getAllCountries()
     {
-        if (countries == null)
-        {
-            countries = cic.getAllCountries();
-        }
-        return countries;
+        return cic.getAllCountries();
     }
 
     /**
@@ -429,11 +427,7 @@ public class CheckInGuiControler
      */
     public Collection<RoomCategoryData> getAllCategories()
     {
-        if (roomCategories == null)
-        {
-            roomCategories = cic.getAllCategories();
-        }
-        return roomCategories;
+        return cic.getAllCategories();
     }
 
     /**
