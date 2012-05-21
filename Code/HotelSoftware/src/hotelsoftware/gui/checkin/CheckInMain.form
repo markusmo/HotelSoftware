@@ -58,8 +58,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonAbort" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonCheckIn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buttonSelect" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -100,7 +98,6 @@
               <Component id="jScrollPane1" min="-2" pref="284" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonCheckIn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonAbort" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonSelect" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -165,12 +162,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textBoxLnameActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonCheckIn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Check In"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonAbort">
       <Properties>

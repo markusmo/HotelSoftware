@@ -145,7 +145,6 @@ public class CheckInMain extends javax.swing.JPanel
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         textBoxLname = new javax.swing.JTextField();
-        buttonCheckIn = new javax.swing.JButton();
         buttonAbort = new javax.swing.JButton();
         textBoxReservationNumber = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -196,9 +195,6 @@ public class CheckInMain extends javax.swing.JPanel
                 textBoxLnameActionPerformed(evt);
             }
         });
-
-        buttonCheckIn.setText("Check In");
-        buttonCheckIn.setEnabled(false);
 
         buttonAbort.setText("Abort");
         buttonAbort.addActionListener(new java.awt.event.ActionListener() {
@@ -330,8 +326,6 @@ public class CheckInMain extends javax.swing.JPanel
                         .addContainerGap()
                         .addComponent(buttonAbort)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCheckIn)
-                        .addGap(18, 18, 18)
                         .addComponent(buttonSelect))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -363,7 +357,6 @@ public class CheckInMain extends javax.swing.JPanel
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCheckIn)
                     .addComponent(buttonAbort)
                     .addComponent(buttonSelect))
                 .addContainerGap())
@@ -430,7 +423,6 @@ public class CheckInMain extends javax.swing.JPanel
     }//GEN-LAST:event_buttonWalkInActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAbort;
-    private javax.swing.JButton buttonCheckIn;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonWalkIn;

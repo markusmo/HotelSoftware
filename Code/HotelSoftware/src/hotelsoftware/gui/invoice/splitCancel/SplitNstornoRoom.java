@@ -113,7 +113,11 @@ public class SplitNstornoRoom extends javax.swing.JPanel
 
         for (InvoiceItemData data : items)
         {
-            String descritpion = "Habitation";
+            String descritpion = "";
+            if (data.getServiceData() instanceof HabitationData)
+            {
+                descritpion = ((HabitationData) data.getServiceData()).getRoomsData().getNumber();
+            }
             if (data.getServiceData() instanceof ExtraServiceData)
             {
                 descritpion = ((ExtraServiceData) data.getServiceData()).getName();
