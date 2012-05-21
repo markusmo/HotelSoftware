@@ -157,17 +157,7 @@ public class DBInvoiceItem implements Serializable
      * @throws HibernateException
      * Dieser Fehler wird geworfen, wenn die Transaktion fehlschlaegt
      */
-    public static Set<DBInvoiceItem> getInvoiceItemsByHabitation(
-            DBHabitation habitation) throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
-                Restrictions.eq("idHabitations", habitation)).list();
-
-        return new LinkedHashSet<DBInvoiceItem>(retList);
-    }
+    
 
     @Override
     public int hashCode()

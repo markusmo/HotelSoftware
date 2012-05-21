@@ -57,8 +57,9 @@ public class ServiceType implements IServiceType
      */
     public static Set<IServiceType> getAllServiceTypes()
     {
-        Set<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
-        return (Set<IServiceType>) DynamicMapper.map(serviceType);
+        ServiceFacade facade = ServiceFacade.getInstance();
+        Set<IServiceType> serviceType = facade.getAllServiceTypes();
+        return serviceType;
     }
 
     public ServiceType()

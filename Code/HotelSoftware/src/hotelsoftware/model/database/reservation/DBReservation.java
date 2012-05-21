@@ -83,24 +83,6 @@ public class DBReservation implements Serializable
     {
     }
 
-    private DBReservation(Integer id)
-    {
-        this.id = id;
-    }
-
-    private DBReservation(Integer id, String reservationNumber, Date start, Date end, Date created)
-    {
-        this.id = id;
-        this.reservationNumber = reservationNumber;
-        this.startDate = start;
-        this.endDate = end;
-        this.created = created;
-    }
-
-    public static DBReservation newReservations()
-    {
-        return new DBReservation();
-    }
 
 //    /**
 //     * Sucht Reservierungen nach einem Vornamen und Nachnamen einer Person, die reserviert hat.
@@ -240,23 +222,6 @@ public class DBReservation implements Serializable
 //        return new LinkedHashSet<DBReservation>(sqlquery.list());
 //    }
     
-    public static int getHighestId()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "Select max(id) FROM reservations r";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-
-        Integer bd = (Integer) sqlquery.uniqueResult();
-        
-        if (bd != null)
-            return bd;
-        else
-            return 0;
-    }
 
 //    /**
 //     * Gibt die Anzahl der Gaeste aus die Reserviert haben
