@@ -305,20 +305,4 @@ public class ServiceFacade
 
         return (IHabitation) DynamicMapper.map(habitationQuery.uniqueResult());
     }
-    
-    /**
-     * Gibt alle Servicetypen aus
-     *
-     * @return
-     * Alle Servicetypen, die verfuegbar sind
-     */
-    public Set<IServiceType> getAllServiceTypes()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Collection<DBServiceType> serviceType = session.createCriteria(DBServiceType.class).list();
-
-        return (Set<IServiceType>)DynamicMapper.mapCollection(serviceType);
-    }
 }
