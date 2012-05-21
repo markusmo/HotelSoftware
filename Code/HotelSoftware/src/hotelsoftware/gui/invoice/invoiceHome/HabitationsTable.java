@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * Tabelle für die Aufenthalte
  * 
  */
-public class habitations extends javax.swing.JPanel
+public class HabitationsTable extends javax.swing.JPanel
 {
     private static final int columnCount = 5;
     
@@ -24,19 +24,19 @@ public class habitations extends javax.swing.JPanel
     private HabitationData[] data = new HabitationData[0];
 
     
-    public habitations(KeyListener parent)
+    public HabitationsTable(KeyListener parent)
     {
         initComponents();
         habitations.addKeyListener(parent);
     }
     
-    public habitations(String labelName)
+    public HabitationsTable(String labelName)
     {
         initComponents();
         HabitationsLabel.setText(labelName);
     }
 
-    public habitations()
+    public HabitationsTable()
     {
         initComponents();
     }

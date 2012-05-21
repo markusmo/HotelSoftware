@@ -21,7 +21,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Johannes
  */
-public class splitNstornoRoom extends javax.swing.JPanel
+public class SplitNstornoRoom extends javax.swing.JPanel
 {
     /**
      * Creates new form splitNstornoRoom
@@ -33,7 +33,7 @@ public class splitNstornoRoom extends javax.swing.JPanel
     private LinkedList<InvoiceItemData> items = new LinkedList<InvoiceItemData>();
     private final JCheckBox c;
 
-    public splitNstornoRoom(HabitationData habitation, final JCheckBox c)
+    public SplitNstornoRoom(HabitationData habitation, final JCheckBox c)
     {
         if (habitation == null)
         {

@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Johannes
  */
-public class addCustomer extends javax.swing.JPanel implements ControlsSetter
+public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsSetter
 {
     private DefaultListModel listModel = new DefaultListModel();
     private final Collection<PartyData> URcustomers;
@@ -41,7 +41,7 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
     /**
      * Creates new form addCustomer
      */
-    public addCustomer()
+    public SelectCustomerPanel()
     {
         Collection<PartyData> allCustomers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
         if (allCustomers != null)
@@ -656,12 +656,12 @@ public class addCustomer extends javax.swing.JPanel implements ControlsSetter
         @Override
         public void run()
         {
-            while (addCustomer.this.isAlive())
+            while (SelectCustomerPanel.this.isAlive())
             {
                 try
                 {
                     Thread.sleep(500);
-                    addCustomer.this.isFinished();
+                    SelectCustomerPanel.this.isFinished();
                 }
                 catch (InterruptedException ex)
                 {
