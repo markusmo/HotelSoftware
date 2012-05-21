@@ -534,12 +534,6 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         StartUpdater();
     }
 
-    private Collection<PartyData> search(String text)
-    {
-        // TODO implement!!!    
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     /**
      * Diese Methode startet den Updater
      */

@@ -87,26 +87,45 @@ public class DBParty implements Serializable
     @Override
     public int hashCode()
     {
-        int hash = 0;
-        hash += (idParties != null ? idParties.hashCode() : 0);
+        int hash = 5;
+        hash = 47 * hash + (this.idParties != null ? this.idParties.hashCode() : 0);
+        hash = 47 * hash + (this.companies != null ? this.companies.hashCode() : 0);
+        hash = 47 * hash + (this.address != null ? this.address.hashCode() : 0);
+        hash = 47 * hash + (this.reservations != null ? this.reservations.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object)
+    public boolean equals(Object obj)
     {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if(!(object instanceof DBParty))
+        if (obj == null)
         {
             return false;
         }
-        DBParty other = (DBParty) object;
-        if((this.idParties == null && other.idParties != null) || (this.idParties != null && !this.idParties.equals(other.idParties)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBParty other = (DBParty) obj;
+        if (this.idParties != other.idParties && (this.idParties == null || !this.idParties.equals(other.idParties)))
+        {
+            return false;
+        }
+        if (this.companies != other.companies && (this.companies == null || !this.companies.equals(other.companies)))
+        {
+            return false;
+        }
+        if (this.address != other.address && (this.address == null || !this.address.equals(other.address)))
+        {
+            return false;
+        }
+        if (this.reservations != other.reservations && (this.reservations == null || !this.reservations.equals(other.reservations)))
         {
             return false;
         }
         return true;
     }
+
 
     @Override
     public String toString()

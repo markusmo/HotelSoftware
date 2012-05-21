@@ -145,29 +145,42 @@ public class DBPaymentMethod implements Serializable
 //    }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBPaymentMethod))
+        if (obj == null)
         {
             return false;
         }
-        DBPaymentMethod other = (DBPaymentMethod) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
-                other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBPaymentMethod other = (DBPaymentMethod) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.method == null) ? (other.method != null) : !this.method.equals(other.method))
+        {
+            return false;
+        }
+        if (this.invoicesCollection != other.invoicesCollection && (this.invoicesCollection == null || !this.invoicesCollection.equals(other.invoicesCollection)))
         {
             return false;
         }
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 37 * hash + (this.method != null ? this.method.hashCode() : 0);
+        hash = 37 * hash + (this.invoicesCollection != null ? this.invoicesCollection.hashCode() : 0);
+        return hash;
+    }
+
 
     @Override
     public String toString()

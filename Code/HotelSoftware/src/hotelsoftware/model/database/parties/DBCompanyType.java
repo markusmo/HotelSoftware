@@ -90,29 +90,40 @@ public class DBCompanyType implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
-        if (!(object instanceof DBCompanyType))
+        if (obj == null)
         {
             return false;
         }
-        DBCompanyType other = (DBCompanyType) object;
-        if ((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBCompanyType other = (DBCompanyType) obj;
+        if (this.dBCompanyCollection != other.dBCompanyCollection && (this.dBCompanyCollection == null || !this.dBCompanyCollection.equals(other.dBCompanyCollection)))
+        {
+            return false;
+        }
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 43 * hash + (this.dBCompanyCollection != null ? this.dBCompanyCollection.hashCode() : 0);
+        hash = 43 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 43 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
     }
 
     @Override

@@ -63,28 +63,37 @@ public class DBExtraService extends DBService implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (getIdServices() != null ? getIdServices().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBExtraService))
+        if (obj == null)
         {
             return false;
         }
-        DBExtraService other = (DBExtraService) object;
-        if ((this.getIdServices() == null && other.getIdServices() != null) || (this.getIdServices() != null && !this.getIdServices().equals(other.getIdServices())))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBExtraService other = (DBExtraService) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
+        {
+            return false;
+        }
+        if (this.price != other.price && (this.price == null || !this.price.equals(other.price)))
         {
             return false;
         }
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 53 * hash + (this.price != null ? this.price.hashCode() : 0);
+        return hash;
+    }
+
 
 //    /**
 //     * Gibt alle Verpflegungsarten aus

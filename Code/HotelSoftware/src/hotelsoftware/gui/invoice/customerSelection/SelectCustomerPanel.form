@@ -47,9 +47,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="&lt;html&gt; &lt;font size =+2&gt;Choose customer&lt;/font&gt;&lt;/html&gt;">
-              <Color PropertyName="color" blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-            </TitledBorder>
+            <TitledBorder title="&lt;html&gt; &lt;font size =+2&gt;Choose customer&lt;/font&gt;&lt;/html&gt;"/>
           </Border>
         </Property>
       </Properties>
@@ -71,7 +69,6 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
                           <Component id="buttonSelectCustomer" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -117,9 +114,9 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -300,9 +297,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="&lt;html&gt; &lt;font size =+2&gt;Create new customer&lt;/font&gt;&lt;/html&gt;">
-              <Color PropertyName="color" blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-            </TitledBorder>
+            <TitledBorder title="&lt;html&gt; &lt;font size =+2&gt;Create new customer&lt;/font&gt;&lt;/html&gt;"/>
           </Border>
         </Property>
       </Properties>

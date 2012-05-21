@@ -105,27 +105,45 @@ public class DBServiceType implements Serializable
     }
 
     @Override
-    public int hashCode()
+    public boolean equals(Object obj)
     {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object)
-    {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DBServiceType))
+        if (obj == null)
         {
             return false;
         }
-        DBServiceType other = (DBServiceType) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final DBServiceType other = (DBServiceType) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id)))
+        {
+            return false;
+        }
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
+        {
+            return false;
+        }
+        if (this.taxRate != other.taxRate && (this.taxRate == null || !this.taxRate.equals(other.taxRate)))
+        {
+            return false;
+        }
+        if (this.dBServiceCollection != other.dBServiceCollection && (this.dBServiceCollection == null || !this.dBServiceCollection.equals(other.dBServiceCollection)))
         {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 31 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 31 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 31 * hash + (this.taxRate != null ? this.taxRate.hashCode() : 0);
+        hash = 31 * hash + (this.dBServiceCollection != null ? this.dBServiceCollection.hashCode() : 0);
+        return hash;
     }
 
     @Override

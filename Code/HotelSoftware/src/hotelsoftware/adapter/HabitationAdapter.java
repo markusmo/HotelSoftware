@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
@@ -10,7 +6,6 @@ import at.fhv.roomanizer.domain.person.User;
 import at.fhv.roomanizer.domain.room.Room;
 import at.fhv.roomanizer.domain.service.IType;
 import at.fhv.roomanizer.domain.service.Type;
-import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -80,7 +75,7 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     @Override
     public void addGuest(Guest guest)
     {
-        //FIXME 
+        //FIXME Gäste holen
         habitation.addGuests(null);
     }
 
@@ -93,7 +88,7 @@ public class HabitationAdapter extends Habitation implements Adapter<hotelsoftwa
     @Override
     public String getDeposit()
     {
-        //TODO
+        //FIXME Deposit holen
         return "Fixme";
     }
 
