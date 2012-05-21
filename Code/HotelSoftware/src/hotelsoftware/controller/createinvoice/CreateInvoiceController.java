@@ -6,10 +6,7 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
-import hotelsoftware.controller.data.parties.CountryData;
-import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.parties.*;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
@@ -170,9 +167,9 @@ public class CreateInvoiceController implements UseCaseController
      * @param fax Postanschrift: die Fax-Nummer
      * @param country Postanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    public void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
-        createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+        createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
     }
 
     /**
@@ -194,10 +191,10 @@ public class CreateInvoiceController implements UseCaseController
      * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
      * @param invoiceCountry Rechnungsanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+    public void createCompanyCustomer(String companyName, CompanyTypeData type,  String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
-        state.createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
+        state.createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, invoiceStreet,
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
 

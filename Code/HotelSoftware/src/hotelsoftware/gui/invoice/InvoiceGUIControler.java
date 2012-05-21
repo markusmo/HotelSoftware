@@ -2,6 +2,7 @@ package hotelsoftware.gui.invoice;
 
 import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
@@ -518,9 +519,9 @@ public final class InvoiceGUIControler implements ActionListener
      * @param fax Postanschrift: die Fax-Nummer
      * @param country Postanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country)
+    public void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country)
     {
-        createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
+        createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, street, city, zip, email, phone, fax, country);
     }
 
     /**
@@ -542,10 +543,10 @@ public final class InvoiceGUIControler implements ActionListener
      * @param invoiceFax Rechnungsanschrift: die Fax-Nummer
      * @param invoiceCountry Rechnungsanschrift: das Land
      */
-    public void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country,
+    public void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country,
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
-        CreateInvoiceController.getInstance().createCompanyCustomer(companyName, street, city, zip, email, phone, fax, country, invoiceStreet,
+        CreateInvoiceController.getInstance().createCompanyCustomer(companyName, type, street, city, zip, email, phone, fax, country, invoiceStreet,
                 invoiceCity, invoiceZip, invoiceEmail, invoicePhone, invoiceFax, invoiceCountry);
     }
 

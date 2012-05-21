@@ -4,6 +4,7 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
@@ -104,7 +105,7 @@ public class SelectCustomerState extends CreateInvoiceState
     }
     
     @Override
-    void createCompanyCustomer(String companyName, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
+    void createCompanyCustomer(String companyName, CompanyTypeData type, String street, String city, String zip, String email, String phone, String fax, CountryData country, 
             String invoiceStreet, String invoiceCity, String invoiceZip, String invoiceEmail, String invoicePhone, String invoiceFax, CountryData invoiceCountry)
     {
         Address postAdr = new Address();
@@ -126,6 +127,7 @@ public class SelectCustomerState extends CreateInvoiceState
         invoiceAdr.setIdCountry((Country)invoiceCountry);
         
         Company c = new Company();
+        c.setCompanyType((ICompanyType)type);
         c.setName(companyName);
         c.setAddress(postAdr);
         c.setInvoiceAddress(invoiceAdr);
