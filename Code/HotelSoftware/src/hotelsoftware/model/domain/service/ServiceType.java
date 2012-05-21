@@ -50,17 +50,6 @@ public class ServiceType implements IServiceType
         return new ServiceType(name);
     }
 
-    /**
-     * Gibt alle Servicearten aus
-     * @return 
-     * Alle Servicearten, die vorhanden sind.
-     */
-    public static Set<IServiceType> getAllServiceTypes()
-    {
-        Set<DBServiceType> serviceType = DBServiceType.getAllServiceTypes();
-        return (Set<IServiceType>) DynamicMapper.map(serviceType);
-    }
-
     public ServiceType()
     {
     }

@@ -132,38 +132,7 @@ public class DBServiceType implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Servicetypes[ id=" + id + " ]";
-    }
-
-    /**
-     * Gibt alle Servicetypen aus
-     *
-     * @return
-     * Alle Servicetypen, die verfuegbar sind
-     */
-    public static Set<DBServiceType> getAllServiceTypes()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Set<DBServiceType> serviceType = (Set<DBServiceType>) session.createCriteria(DBServiceType.class).list();
-
-        return serviceType;
-    }
-
-    public static DBServiceType getTypeByName(String name)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        SQLQuery query = session.createSQLQuery("SELECT * FROM servicetypes WHERE name = :name");
-        query.setString("name", name);
-        query.addEntity(DBServiceType.class);
-        
-        DBServiceType serviceType = (DBServiceType) query.uniqueResult();
-        
-        ts.commit();
-        return serviceType;
-    }
+    }    
 
     @XmlTransient
     public Set<DBService> getDBServiceCollection()

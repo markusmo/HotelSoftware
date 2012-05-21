@@ -51,12 +51,12 @@ public class SplitNstornoRoom extends javax.swing.JPanel
             {
                 if (c.isSelected())
                 {
-                    jTable1.setEnabled(true);
+                    //jTable1.setEnabled(true);
                     selectAll();
                 }
                 else
                 {
-                    jTable1.setEnabled(false);
+                    ///jTable1.setEnabled(false);
                     deselectAll();
                 }
             }
@@ -127,7 +127,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
 
             value[i] = new Object[]
             {
-                checkTextPane, data.getAmount() + "", descritpion, data.getServiceData().getPrice(), data.getServiceData().getPrice().doubleValue() * data.getAmount(), bPanel
+                checkTextPane, data.getAmount() + "", descritpion, data.getPriceWithoutTax(), data.getTotalPriceWithoutTax(), bPanel
             };
             i++;
         }

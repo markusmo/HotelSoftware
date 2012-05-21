@@ -144,59 +144,6 @@ public class DBPaymentMethod implements Serializable
 //        return ret;
 //    }
 
-    /**
-     * Speichert die Zahlungsart in der Datenbank ab
-     *
-     * @param name
-     * the new paymentmethod to be created
-     * @throws HibernateException
-     * @throws FailedToSaveToDatabaseException
-     */
-    public static void savePaymentMethod(String name) throws FailedToSaveToDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            session.save(new DBPaymentMethod(name));
-            ts.commit();
-        }
-        catch (HibernateException e)
-        {
-            ts.rollback();
-            throw new FailedToSaveToDatabaseException();
-        }
-        finally
-        {
-        }
-    }
-
-    /**
-     * Löscht Zahlungsmethoden aus der Datenbank
-     *
-     * @param name
-     * the name of the method to delete
-     * @throws FaildToDeleteFromDatabaseException
-     */
-    public static void deletePaymentMethod(String name) throws FaildToDeleteFromDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            DBPaymentMethod method = (DBPaymentMethod) session.createCriteria(
-                    DBPaymentMethod.class).add(Restrictions.like("name", name)).uniqueResult();
-            session.delete(method);
-        }
-        catch (HibernateException ex)
-        {
-            ts.rollback();
-            throw new FaildToDeleteFromDatabaseException();
-        }
-    }
-
     @Override
     public int hashCode()
     {

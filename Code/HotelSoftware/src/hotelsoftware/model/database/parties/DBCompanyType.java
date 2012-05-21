@@ -121,23 +121,6 @@ public class DBCompanyType implements Serializable
         return "hotelsoftware.database.model.Companytypes[ id=" + id + " ]";
     }
 
-    /**
-     * Diese Methode gibt alle FirmenTypen in einer Liste zurück, die bisher erstellt wurden
-     *
-     * @return gibt alle Typen in der Tabelle zurück
-     * @throws HibernateException Dieser fehler tritt auf, falls hibernate eine fehlermeldung wirft
-     */
-    public static Set<DBCompanyType> getAllTypes() throws HibernateException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompanyType.class);
-        List<DBCompanyType> retList = criteria.list();
-
-        return new LinkedHashSet<DBCompanyType>(retList);
-    }
-
     @XmlTransient
     public Set<DBCompany> getDBCompanyCollection()
     {

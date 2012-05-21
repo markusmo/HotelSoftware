@@ -31,15 +31,6 @@ public class DBRoomOption implements Serializable
     
     private static final long serialVersionUID = 1L;
 
-    public static void safeNewRoomOption(String name)
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public static void getRoomoptions()
-    {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -112,24 +103,6 @@ public class DBRoomOption implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Roomoptions[ id=" + id + " ]";
-    }
-    
-    /**
-     * Gibt alle Optionen aus
-     * @return 
-     * Gibt ein Set mit den Zimmeroptionen aus, die verfuegbar sind
-     */
-    public static Set<DBRoomOption> getRoomOptions()
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
-        
-        ;
-        
-        return new LinkedHashSet<DBRoomOption>(options);
     }
 
     @XmlTransient

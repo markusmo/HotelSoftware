@@ -34,7 +34,20 @@ public class ReservationFacade
     
     int getHighestReservationId()
     {
-        return DBReservation.getHighestId();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        String query = "Select max(id) FROM reservations r";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+
+
+        Integer bd = (Integer) sqlquery.uniqueResult();
+        
+        if (bd != null)
+            return bd;
+        else
+            return 0;
     }
     
     /**

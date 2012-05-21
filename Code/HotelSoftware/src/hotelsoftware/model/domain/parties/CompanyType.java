@@ -74,7 +74,8 @@ public class CompanyType implements ICompanyType
      */
     public static Set<ICompanyType> getAllTypes()
     {
-        Set<DBCompanyType> dbct = DBCompanyType.getAllTypes();
+        PartyFacade facade = PartyFacade.getInstance();
+        Set<ICompanyType> dbct = facade.getAllTypes();
         return (Set<ICompanyType>) DynamicMapper.mapCollection(dbct);
     }
 }

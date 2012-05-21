@@ -46,7 +46,8 @@ public class Invoice implements IInvoice
 
         public static int getHighestId()
     {
-        return InvoiceFacade.getHighestInvoiceId();
+        InvoiceFacade facade = InvoiceFacade.getInstance();
+        return facade.getHighestInvoiceId();
     }
     
     @Override

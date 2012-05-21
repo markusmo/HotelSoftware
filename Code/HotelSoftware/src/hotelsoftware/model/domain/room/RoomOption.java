@@ -19,17 +19,6 @@ public class RoomOption implements IRoomOption
     {
     }
 
-    private RoomOption(String name)
-    {
-        this.name = name;
-        DBRoomOption.safeNewRoomOption(name);
-    }
-
-    public static IRoomOption create(String name)
-    {
-        return new RoomOption(name);
-    }
-
     @Override
     public String getName()
     {
@@ -64,7 +53,8 @@ public class RoomOption implements IRoomOption
      */
     public static Set<IRoomOption> getRoomOptions()
     {
-        Set<DBRoomOption> dbro = DBRoomOption.getRoomOptions();
-        return (Set<IRoomOption>) DynamicMapper.map(dbro);
+        RoomFacade facade = RoomFacade.getInstance();
+        Set<IRoomOption> dbro = facade.getRoomOptions();
+        return dbro;
     }
 }
