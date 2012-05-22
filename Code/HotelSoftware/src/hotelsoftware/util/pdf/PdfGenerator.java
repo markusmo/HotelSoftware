@@ -151,7 +151,7 @@ public class PdfGenerator
                 invoicePath));
         doc.open();
         addMetaData(doc);
-        addInvoiceBodyWithoutTax(doc, invoiceNumber, items,
+        addInvoiceBodyWithoutTax(doc, items,
                 getTotalwithoutTax(items), created, expiration);
 
         doc.close();
@@ -204,13 +204,12 @@ public class PdfGenerator
         //TODO privatecustomer lname fname ...
         customerParagraph.add(new Paragraph("To:", normalfont));
         customerParagraph.add(new Paragraph(customer.getName(), normalfont));
-        customerParagraph.add(new Paragraph(customer.getAddress().getStreet(),
+        customerParagraph.add(new Paragraph(customer.getInvoiceAddress().getStreet(),
                 normalfont));
+        customerParagraph.add(new Paragraph(customer.getInvoiceAddress().getZip() 
+                + " " + customer.getInvoiceAddress().getCity(),normalfont));
         customerParagraph.add(new Paragraph(
-                customer.getAddress().getZip() + " " + customer.getAddress().getCity(),
-                normalfont));
-        customerParagraph.add(new Paragraph(
-                customer.getAddress().getIdCountry().getName(), normalfont));
+                customer.getInvoiceAddress().getIdCountry().getName(), normalfont));
         addEmptyLine(customerParagraph, 2);
         doc.add(customerParagraph);
     }
@@ -367,7 +366,7 @@ public class PdfGenerator
      * @param expiration das Fälligkeitsdatum der Rechnung
      * @throws DocumentException Wenn ein genereller Fehler im Document entsteht
      */
-    private void addInvoiceBodyWithoutTax(Document doc, String invoiceNumber, Collection<IInvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
+    private void addInvoiceBodyWithoutTax(Document doc, Collection<IInvoiceItem> items, double totalamount, Date created, Date expiration) throws DocumentException
     {
         Paragraph invoiceParagraph = new Paragraph();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

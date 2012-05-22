@@ -191,6 +191,9 @@ public class HabitationsTable extends javax.swing.JPanel
         setName("");
         setPreferredSize(new java.awt.Dimension(530, 500));
 
+        jScrollPane2.setAutoscrolls(true);
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(800, 800));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(500, 200));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(530, 500));
 
         habitations.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,7 +215,8 @@ public class HabitationsTable extends javax.swing.JPanel
         habitations.setMaximumSize(new java.awt.Dimension(800, 800));
         habitations.setMinimumSize(new java.awt.Dimension(500, 200));
         habitations.setOpaque(false);
-        habitations.setPreferredSize(new java.awt.Dimension(500, 200));
+        habitations.setPreferredSize(new java.awt.Dimension(530, 400));
+        habitations.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(habitations);
 
         HabitationsLabel.setText("Habitations");
