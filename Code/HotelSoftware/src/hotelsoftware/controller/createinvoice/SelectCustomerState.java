@@ -91,7 +91,7 @@ public class SelectCustomerState extends CreateInvoiceState
         postAdr.setIdCountry((Country)country);
         
         Address invoiceAdr = new Address();
-        invoiceAdr.setStreet(street);
+        invoiceAdr.setStreet(invoiceStreet);
         invoiceAdr.setCity(invoiceCity);
         invoiceAdr.setZip(invoiceZip);
         invoiceAdr.setPhone(invoicePhone);
@@ -122,7 +122,7 @@ public class SelectCustomerState extends CreateInvoiceState
         postAdr.setIdCountry((Country)country);
         
         Address invoiceAdr = new Address();
-        invoiceAdr.setStreet(street);
+        invoiceAdr.setStreet(invoiceStreet);
         invoiceAdr.setCity(invoiceCity);
         invoiceAdr.setZip(invoiceZip);
         invoiceAdr.setPhone(invoicePhone);
