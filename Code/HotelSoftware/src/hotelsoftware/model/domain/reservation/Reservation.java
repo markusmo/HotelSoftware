@@ -197,7 +197,10 @@ public class Reservation implements IReservation
         if (reservationNumber.length() > 0)
         {
             IReservation r = getReservationByNumber(reservationNumber);
-            results.add(r);
+            if (r != null)
+            {
+                results.add(r);
+            }
         }
         if (firstName.length() > 0 || lastName.length() > 0)
         {
