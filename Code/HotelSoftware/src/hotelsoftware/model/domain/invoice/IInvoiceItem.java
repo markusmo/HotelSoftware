@@ -36,7 +36,7 @@ public interface IInvoiceItem extends InvoiceItemData{
      */
     double getPriceWithTax();
 
-    
+    double getOnlyTax();
 
     IService getService();
 

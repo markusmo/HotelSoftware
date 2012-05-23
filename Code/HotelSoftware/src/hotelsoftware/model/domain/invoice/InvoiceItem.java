@@ -165,6 +165,14 @@ public class InvoiceItem implements IInvoiceItem
         this.habitation = habitation;
     }
 
+    
+    @Override
+    public double getOnlyTax()
+    {
+        double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
+        return this.price.doubleValue() * tax;
+    }
+        
     /**
      * Gibt den Preis für eine Rechungsposion aus, mit Steuern
      *
@@ -281,6 +289,4 @@ public class InvoiceItem implements IInvoiceItem
         hash = 53 * hash + (this.habitation != null ? this.habitation.hashCode() : 0);
         return hash;
     }
-    
-    
 }
