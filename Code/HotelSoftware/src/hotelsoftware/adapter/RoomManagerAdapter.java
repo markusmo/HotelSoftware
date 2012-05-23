@@ -6,17 +6,11 @@ package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.room.*;
 import at.fhv.roomanizer.persistence.manager.IRoomManager;
-import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.room.IRoomRoomStatus;
-import hotelsoftware.model.domain.room.RoomSaver;
-import hotelsoftware.model.domain.room.RoomsRoomStatus;
+import hotelsoftware.model.domain.room.RoomManager;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,8 +21,6 @@ public class RoomManagerAdapter implements IRoomManager
     private RoomManagerAdapter()
     {
     }
-    
-    
     private static RoomManagerAdapter INSTANCE;
 
     /**
@@ -56,7 +48,7 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public List<Room> getAllRooms() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-       // return HelperFunctions.getAdaptedList(hotelsoftware.model.domain.room.Room.getAllRooms(), Room.class);
+        // return HelperFunctions.getAdaptedList(hotelsoftware.model.domain.room.Room.getAllRooms(), Room.class);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -106,17 +98,7 @@ public class RoomManagerAdapter implements IRoomManager
     @Override
     public void saveRoomStatus(RoomStatus status) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        try
-        {
-            RoomsRoomStatus ourStatus = ((Adapter<RoomsRoomStatus>)status).getOurType();
-            Set<IRoomRoomStatus> statusse = new HashSet<IRoomRoomStatus>();
-            statusse.add(ourStatus);
-            RoomSaver.getInstance().saveOrUpdate(null, null, null, statusse);
-        }
-        catch (FailedToSaveToDatabaseException ex)
-        {
-            Logger.getLogger(RoomManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        IRoomRoomStatus ourStatus = ((Adapter<IRoomRoomStatus>) status).getOurType();
+        RoomManager.getInstance().saveRoomsRoomStatus(ourStatus);
     }
-    
 }

@@ -53,7 +53,7 @@ public class RoomOption implements IRoomOption
      */
     public static Set<IRoomOption> getRoomOptions()
     {
-        RoomFacade facade = RoomFacade.getInstance();
+        RoomManager facade = RoomManager.getInstance();
         Set<IRoomOption> dbro = facade.getRoomOptions();
         return dbro;
     }

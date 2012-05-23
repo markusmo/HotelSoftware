@@ -5,23 +5,16 @@
 package hotelsoftware.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
-import at.fhv.roomanizer.domain.IHabitation;
-import at.fhv.roomanizer.domain.invoice.IInvoiceItem;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
-import at.fhv.roomanizer.persistence.ObjectConverter;
-import at.fhv.roomanizer.persistence.entity.invoice.InvoiceItemEntity;
 import at.fhv.roomanizer.persistence.manager.IInvoiceItemManager;
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.invoice.DBInvoiceItem;
-import hotelsoftware.model.domain.invoice.InvoiceSaver;
+import hotelsoftware.model.domain.invoice.InvoiceManager;
 import hotelsoftware.util.HibernateUtil;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -73,7 +66,7 @@ public class InvoiceItemManagerAdapter implements IInvoiceItemManager
         Transaction t = session.beginTransaction();
         List<hotelsoftware.model.domain.invoice.IInvoiceItem> items = new LinkedList<hotelsoftware.model.domain.invoice.IInvoiceItem>();
         items.add((hotelsoftware.model.domain.invoice.IInvoiceItem)((Adapter)invoiceItem).getOurType());
-        InvoiceSaver.getInstance().saveOrUpdate(session, null, null, items);
+        InvoiceManager.getInstance().saveInvoiceItems(items, session);
         t.commit();
     }
     

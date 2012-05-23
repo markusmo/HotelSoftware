@@ -6,11 +6,9 @@ package hotelsoftware.gui.checkin;
 
 import hotelsoftware.controller.data.parties.CompanyData;
 import hotelsoftware.controller.data.parties.GuestData;
+import hotelsoftware.controller.data.parties.PrivateCustomerData;
 import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.model.domain.parties.Company;
-import hotelsoftware.model.domain.parties.Guest;
-import hotelsoftware.model.domain.parties.PrivateCustomer;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
@@ -106,15 +104,20 @@ public class CheckInMain extends javax.swing.JPanel
             String lName = null;
             String companyName = null;
 
-            if (data.getPartyData() instanceof Company)
+            if (data.getPartyData() instanceof CompanyData)
             {
                 companyName = ((CompanyData) data.getPartyData()).getCompanyname();
 
             }
-            if (data.getPartyData() instanceof Guest || data.getPartyData() instanceof PrivateCustomer)
+            if (data.getPartyData() instanceof GuestData)
             {
                 lName = ((GuestData) data.getPartyData()).getLname();
                 fName = ((GuestData) data.getPartyData()).getFname();
+            }
+            else if (data.getPartyData() instanceof PrivateCustomerData)
+            {
+                lName = ((PrivateCustomerData) data.getPartyData()).getLname();
+                fName = ((PrivateCustomerData) data.getPartyData()).getFname();
             }
             value[i++] = new Object[]
             {

@@ -10,7 +10,7 @@ import at.fhv.roomanizer.domain.service.Type;
 import at.fhv.roomanizer.persistence.manager.IServiceManager;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.service.IServiceType;
-import hotelsoftware.model.domain.service.ServiceSaver;
+import hotelsoftware.model.domain.service.ServiceManager;
 import hotelsoftware.model.domain.service.ServiceType;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.support.ServiceTypeNotFoundException;
@@ -78,7 +78,7 @@ public class ServiceManagerAdapter implements IServiceManager
         }
         return null;
     }
-    
+
     public ExtraService getExtraServiceByName(String name)
     {
         try
@@ -89,25 +89,14 @@ public class ServiceManagerAdapter implements IServiceManager
         {
             Logger.getLogger(ServiceManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
 
     @Override
     public void saveService(Service service) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
         ServiceAdapter adapter = (ServiceAdapter) service;
-        LinkedList<hotelsoftware.model.domain.service.IService> services = new LinkedList<hotelsoftware.model.domain.service.IService>();
-        services.add(adapter.getOurType());
-        try
-        {
-            ServiceSaver.getInstance().saveOrUpdate(session, null, null, null);
-        }
-        catch (FailedToSaveToDatabaseException ex)
-        {
-            Logger.getLogger(ServiceManagerAdapter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ServiceManager.getInstance().saveService(adapter.getOurType());
     }
 }

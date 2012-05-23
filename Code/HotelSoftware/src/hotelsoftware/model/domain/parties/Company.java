@@ -119,7 +119,7 @@ public class Company extends Customer implements ICompany
     public static ICompany getCompanyByName(String name)
             throws CompanyNotFoundException
     {
-        return PartyFacade.getInstance().getCompanyByName(name);
+        return PartyManager.getInstance().getCompanyByName(name);
     }
     
     /**
@@ -129,7 +129,7 @@ public class Company extends Customer implements ICompany
      */
     public static Collection<ICompany> getCompaniesByName(String name)
     {
-        return PartyFacade.getInstance().getCompaniesByName(name);
+        return PartyManager.getInstance().getCompaniesByName(name);
     }
 
     @Override

@@ -19,20 +19,20 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Dunst
  */
-public class UserFacade
+public class UserManager
 {
-    private UserFacade()
+    private UserManager()
     {
     }
 
-    public static UserFacade getInstance()
+    public static UserManager getInstance()
     {
         return UserFacadeHolder.INSTANCE;
     }
 
     private static class UserFacadeHolder
     {
-        private static final UserFacade INSTANCE = new UserFacade();
+        private static final UserManager INSTANCE = new UserManager();
     }
 
     /**
