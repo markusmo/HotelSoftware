@@ -69,7 +69,7 @@ public class Permission implements IPermission
      */
     public static Collection<IPermission> getAllPermissions()
     {
-        return UserFacade.getInstance().getAllPermissions();
+        return UserManager.getInstance().getAllPermissions();
     }
 
     /**
@@ -81,7 +81,7 @@ public class Permission implements IPermission
      */
     public static IPermission getPermissionByName(String name) throws PermissionNotFoundException
     {
-        return UserFacade.getInstance().getPermissionByName(name);
+        return UserManager.getInstance().getPermissionByName(name);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.database.room.DBRoomOption;
-import hotelsoftware.model.database.room.DBRoomStatus;
+import hotelsoftware.model.database.reservation.DBReservation;
+import hotelsoftware.model.database.reservation.DBReservationItem;
+import hotelsoftware.model.database.room.*;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -20,21 +21,21 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author mohi
  */
-public class RoomFacade
+public class RoomManager
 {
 
-    private RoomFacade()
+    private RoomManager()
     {
     }
 
-    public static RoomFacade getInstance()
+    public static RoomManager getInstance()
     {
         return RoomFacadeHolder.INSTANCE;
     }
 
     private static class RoomFacadeHolder
     {
-        private static final RoomFacade INSTANCE = new RoomFacade();
+        private static final RoomManager INSTANCE = new RoomManager();
     }
 
     /**
@@ -104,5 +105,49 @@ public class RoomFacade
         
         DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("statusName", name)).uniqueResult();
         return (IRoomStatus) DynamicMapper.map(status);
+    }
+    
+    public void saveRoomStatus(IRoomStatus roomStatus)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveRoomStatus(roomStatus, session);
+
+        t.commit();
+    }
+
+    public void saveRoomStatus(IRoomStatus roomStatus, Session session)
+    {
+        DBRoomStatus dbrs = (DBRoomStatus) DynamicMapper.map(roomStatus);
+
+        if (dbrs.getId() == null)
+        {
+            session.saveOrUpdate(dbrs);
+            roomStatus.setId(dbrs.getId());
+        }
+        else
+        {
+            session.saveOrUpdate(session.merge(dbrs));
+        }
+    }
+
+    public void saveRoomsRoomStatus(IRoomRoomStatus roomsRoomStatus)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveRoomsRoomStatus(roomsRoomStatus, session);
+
+        t.commit();
+    }
+
+    public void saveRoomsRoomStatus(IRoomRoomStatus roomsRoomStatus, Session session)
+    {
+        DBRoomsRoomStatus dbrrs = (DBRoomsRoomStatus) DynamicMapper.map(roomsRoomStatus);
+
+        session.saveOrUpdate(dbrrs);
     }
 }

@@ -140,7 +140,7 @@ public class Guest extends Party implements IGuest
     public static Collection<IGuest> getGuestByName(String fname, String lname)
             throws CompanyNotFoundException, GuestNotFoundException
     {
-        return PartyFacade.getInstance().getGuestByName(fname, lname);
+        return PartyManager.getInstance().getGuestByName(fname, lname);
     }
 
     /**
@@ -150,7 +150,7 @@ public class Guest extends Party implements IGuest
      */
     public static Collection<IGuest> getGuestByFName(String fname)
     {
-        return PartyFacade.getInstance().getGuestsByFName(fname);
+        return PartyManager.getInstance().getGuestsByFName(fname);
     }
     
     /**
@@ -160,7 +160,7 @@ public class Guest extends Party implements IGuest
      */
     public static Collection<IGuest> getGuestByLName(String lname)
     {
-        return PartyFacade.getInstance().getGuestsByLName(lname);
+        return PartyManager.getInstance().getGuestsByLName(lname);
     }
     
     @Override
@@ -190,7 +190,7 @@ public class Guest extends Party implements IGuest
      */
     public static IGuest getGuestFromReservationNumber(String reservationNumber)
     {
-        return PartyFacade.getInstance().getGuestFromReservationNumber(reservationNumber);
+        return PartyManager.getInstance().getGuestFromReservationNumber(reservationNumber);
     }
     
     @Override

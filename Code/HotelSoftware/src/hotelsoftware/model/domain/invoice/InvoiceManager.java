@@ -7,8 +7,8 @@ import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.database.service.DBHabitation;
-import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HibernateUtil;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,22 +23,22 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author mohi
  */
-public class InvoiceFacade
+public class InvoiceManager
 {
-    private InvoiceFacade()
+    private InvoiceManager()
     {
     }
 
-    public static InvoiceFacade getInstance()
+    public static InvoiceManager getInstance()
     {
         return InvoiceFacadeHolder.INSTANCE;
     }
 
     private static class InvoiceFacadeHolder
     {
-        private static final InvoiceFacade INSTANCE = new InvoiceFacade();
+        private static final InvoiceManager INSTANCE = new InvoiceManager();
     }
-    
+
     public int getHighestInvoiceId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -50,11 +50,15 @@ public class InvoiceFacade
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-        
+
         if (bd != null)
+        {
             return bd;
+        }
         else
+        {
             return 0;
+        }
     }
 
     /**
@@ -70,10 +74,8 @@ public class InvoiceFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class)
-                .add(Restrictions.eq("invoiceNumber",invoicenumber))
-                .uniqueResult();
-        
+        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq("invoiceNumber", invoicenumber)).uniqueResult();
+
         return (Invoice) DynamicMapper.map(retInvoices);
     }
 
@@ -89,7 +91,7 @@ public class InvoiceFacade
         Transaction ts = session.beginTransaction();
         ts.begin();
         List<DBPaymentMethod> retList = session.createCriteria(DBPaymentMethod.class).list();
-        
+
         return new LinkedHashSet<IPaymentMethod>(DynamicMapper.mapCollection(retList));
     }
 
@@ -106,13 +108,11 @@ public class InvoiceFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        DBPaymentMethod ret = (DBPaymentMethod) session.createCriteria(DBPaymentMethod.class)
-                .add(Restrictions.eq("method", name))
-                .uniqueResult();
-        
-        return (PaymentMethod)DynamicMapper.map(ret);
+        DBPaymentMethod ret = (DBPaymentMethod) session.createCriteria(DBPaymentMethod.class).add(Restrictions.eq("method", name)).uniqueResult();
+
+        return (PaymentMethod) DynamicMapper.map(ret);
     }
-    
+
     public Set<IInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException
     {
@@ -124,8 +124,7 @@ public class InvoiceFacade
 
         return new LinkedHashSet<IInvoiceItem>(DynamicMapper.mapCollection(retList));
     }
-    
-    
+
     /**
      * Speichert die Zahlungsart in der Datenbank ab
      *
@@ -176,6 +175,72 @@ public class InvoiceFacade
         {
             ts.rollback();
             throw new FaildToDeleteFromDatabaseException();
+        }
+    }
+
+    public void saveInvoice(IInvoice invoice)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveInvoice(invoice, session);
+
+        t.commit();
+    }
+
+    public void saveInvoice(IInvoice invoice, Session session)
+    {
+        //SO FUNKTIONIERTS!!!!!!!!!!!!!!!!!!!!!!!!!!
+        DBInvoice dbi = (DBInvoice) DynamicMapper.map(invoice);
+        Integer id = (Integer) session.save(session.merge(dbi));
+        invoice.setId(id);
+        dbi.setId(id);
+
+        for (IInvoiceItem item : invoice.getInvoiceItems())
+        {
+            DBInvoiceItem dbii = (DBInvoiceItem) DynamicMapper.map(item);
+            dbii.setInvoice(dbi);
+
+            if (dbii.getId() == null)
+            {
+                session.saveOrUpdate(dbii);
+                item.setId(dbii.getId());
+            }
+            else
+            {
+                DBInvoiceItem newii = (DBInvoiceItem) session.merge(dbii);
+                session.update(newii);
+            }
+        }
+    }
+
+    public void saveInvoiceItems(Collection<IInvoiceItem> items)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveInvoiceItems(items, session);
+
+        t.commit();
+    }
+
+    public void saveInvoiceItems(Collection<IInvoiceItem> items, Session session)
+    {
+        for (IInvoiceItem item : items)
+        {
+            DBInvoiceItem dbii = (DBInvoiceItem) DynamicMapper.map(item);
+            if (dbii.getId() == null)
+            {
+                Integer id = (Integer) session.save(session.merge(dbii));
+                item.setId(id);
+            }
+            else
+            {
+                DBInvoiceItem newii = (DBInvoiceItem) session.merge(dbii);
+                session.update(newii);
+            }
         }
     }
 }

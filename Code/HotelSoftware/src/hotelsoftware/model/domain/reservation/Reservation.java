@@ -51,7 +51,7 @@ public class Reservation implements IReservation
 
     public static int getHighestId()
     {
-        return ReservationFacade.getInstance().getHighestReservationId();
+        return ReservationManager.getInstance().getHighestReservationId();
     }
 
     @Override
@@ -187,7 +187,7 @@ public class Reservation implements IReservation
     @Override
     public Integer getGuestAmount()
     {
-        return ReservationFacade.getInstance().getGuestAmount(this);
+        return ReservationManager.getInstance().getGuestAmount(this);
     }
 
     public static Collection<IReservation> search(String firstName, String lastName, String companyName, String reservationNumber)
@@ -216,23 +216,23 @@ public class Reservation implements IReservation
 
     public static IReservation getReservationByNumber(String reservationNr)
     {
-        return ReservationFacade.getInstance().getReservationByNumber(reservationNr);
+        return ReservationManager.getInstance().getReservationByNumber(reservationNr);
     }
 
     private static Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
-        return ReservationFacade.getInstance().getReservationsByCompanyNameApprox(companyName);
+        return ReservationManager.getInstance().getReservationsByCompanyNameApprox(companyName);
     }
 
     public static Collection<IReservation> getReservationsByNameApprox(String firstName, String lastName)
     {
-        return ReservationFacade.getInstance().getReservationsByNameApprox(
+        return ReservationManager.getInstance().getReservationsByNameApprox(
                 firstName, lastName);
     }
 
     public static Collection<IReservation> getAllReservations()
     {
-        return ReservationFacade.getInstance().getAllReservations();
+        return ReservationManager.getInstance().getAllReservations();
     }
 
     @Override

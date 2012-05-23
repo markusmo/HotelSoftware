@@ -12,7 +12,7 @@ import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Company;
 import hotelsoftware.model.domain.parties.Country;
-import hotelsoftware.model.domain.parties.PartyFacade;
+import hotelsoftware.model.domain.parties.PartyManager;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
 import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.support.CompanyNotFoundException;
@@ -188,7 +188,7 @@ public class CreateInvoiceControllerTest {
         CountryData country = null;
         CreateInvoiceController instance = null;
         instance.createPrivateCustomer(firstName, lastName, street, city, zip, email, phone, fax, country);
-        PartyFacade facadeInstance = PartyFacade.getInstance();
+        PartyManager facadeInstance = PartyManager.getInstance();
         PrivateCustomer assertCustomer = facadeInstance.getPrivateCustomerByName(firstName, lastName);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -101,7 +101,7 @@ public class ServiceType implements IServiceType
      */
     public static IServiceType getTypeByName(String name) throws ServiceTypeNotFoundException
     {
-        return ServiceFacade.getInstance().getServiceTypeByName(name);
+        return ServiceManager.getInstance().getServiceTypeByName(name);
     }
     
     /**

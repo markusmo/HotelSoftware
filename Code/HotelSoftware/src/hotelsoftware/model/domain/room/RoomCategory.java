@@ -82,7 +82,7 @@ public class RoomCategory implements IRoomCategory
      */
     public static IRoomCategory getCategoryByName(String name)
     {
-        return RoomFacade.getInstance().getCategoryByName(name);
+        return RoomManager.getInstance().getCategoryByName(name);
     }
 
     /**
@@ -92,7 +92,7 @@ public class RoomCategory implements IRoomCategory
      */
     public static Collection<IRoomCategory> getAllCategorys()
     {
-        return RoomFacade.getInstance().getAllCategorys();
+        return RoomManager.getInstance().getAllCategorys();
     }
 
     /**

@@ -55,7 +55,7 @@ public class Country implements ICountry
     
     public static Collection<ICountry> getAllCountries()
     {
-        return PartyFacade.getInstance().getAllCountries();
+        return PartyManager.getInstance().getAllCountries();
     }
     
      @Override

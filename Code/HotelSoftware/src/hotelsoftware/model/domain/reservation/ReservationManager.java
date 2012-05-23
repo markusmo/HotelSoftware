@@ -1,7 +1,12 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.parties.DBAddress;
+import hotelsoftware.model.database.parties.DBParty;
 import hotelsoftware.model.database.reservation.DBReservation;
+import hotelsoftware.model.database.reservation.DBReservationItem;
+import hotelsoftware.model.domain.parties.IAddress;
+import hotelsoftware.model.domain.parties.IParty;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
@@ -16,20 +21,20 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Johannes
  */
-public class ReservationFacade
+public class ReservationManager
 {
-    private ReservationFacade()
+    private ReservationManager()
     {
     }
 
-    public static ReservationFacade getInstance()
+    public static ReservationManager getInstance()
     {
         return ReservationFacadeHolder.INSTANCE;
     }
 
     private static class ReservationFacadeHolder
     {
-        private static final ReservationFacade INSTANCE = new ReservationFacade();
+        private static final ReservationManager INSTANCE = new ReservationManager();
     }
     
     int getHighestReservationId()
@@ -183,5 +188,49 @@ public class ReservationFacade
             retValue += res.getRoomCategory().getBedCount();
         }
         return retValue;
+    }
+    
+    public void saveReservation(IReservation address)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveReservation(address, session);
+
+        t.commit();
+    }
+
+    public void saveReservation(IReservation reservation, Session session)
+    {
+        DBReservation dbr = (DBReservation) DynamicMapper.map(reservation);
+
+        if (dbr.getId() == null)
+        {
+            session.saveOrUpdate(dbr);
+            reservation.setId(dbr.getId());
+        }
+        else
+        {
+            session.saveOrUpdate(session.merge(dbr));
+        }
+    }
+
+    public void saveReservationItem(IReservationItem reservationItem)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveReservationItem(reservationItem, session);
+
+        t.commit();
+    }
+
+    public void saveReservationItem(IReservationItem reservationItem, Session session)
+    {
+        DBReservationItem dbri = (DBReservationItem) DynamicMapper.map(reservationItem);
+
+        session.saveOrUpdate(dbri);
     }
 }

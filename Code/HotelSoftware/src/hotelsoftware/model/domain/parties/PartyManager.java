@@ -2,16 +2,17 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.*;
-import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -19,20 +20,20 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Hubert
  */
-public class PartyFacade
+public class PartyManager
 {
-    private PartyFacade()
+    private PartyManager()
     {
     }
 
-    public static PartyFacade getInstance()
+    public static PartyManager getInstance()
     {
         return PartyFacadeHolder.INSTANCE;
     }
 
     private static class PartyFacadeHolder
     {
-        private static final PartyFacade INSTANCE = new PartyFacade();
+        private static final PartyManager INSTANCE = new PartyManager();
     }
 
     /**
@@ -298,6 +299,7 @@ public class PartyFacade
 
         return (Set<IGuest>) DynamicMapper.mapCollection(retList);
     }
+
     /**
      * Diese Methode sucht nach Firmen anhand eines Namens.
      *
@@ -309,10 +311,54 @@ public class PartyFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        Criteria criteria = session.createCriteria(DBCompany.class)
-                .add(Restrictions.like("name", name));
+        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.like("name", name));
         Collection<DBCompany> retList = criteria.list();
-        
+
         return DynamicMapper.mapCollection(retList);
+    }
+
+    public void saveAddress(IAddress address)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveAddress(address, session);
+
+        t.commit();
+    }
+
+    public void saveAddress(IAddress address, Session session)
+    {
+        DBAddress dbadr = (DBAddress) DynamicMapper.map(address);
+
+        if (dbadr.getId() == null)
+        {
+            session.saveOrUpdate(dbadr);
+            address.setId(dbadr.getId());
+        }
+        else
+        {
+            session.saveOrUpdate(session.merge(dbadr));
+        }
+    }
+
+    public void saveParty(IParty party)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveParty(party, session);
+
+        t.commit();
+    }
+
+    public void saveParty(IParty party, Session session)
+    {
+        DBParty dbp = (DBParty) DynamicMapper.map(party);
+
+        session.saveOrUpdate(dbp);
+        party.setIdParties(dbp.getIdParties());
     }
 }

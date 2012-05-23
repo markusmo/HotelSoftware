@@ -63,7 +63,7 @@ public class ExtraService extends Service implements IExtraService
      */
     public static Set<IExtraService> getAllExtraServices()
     {
-        Set<IExtraService> extraServices = (Set<IExtraService>) ServiceFacade.getInstance().getAllExtraServices();
+        Set<IExtraService> extraServices = (Set<IExtraService>) ServiceManager.getInstance().getAllExtraServices();
         return extraServices;
     }
 
@@ -78,7 +78,7 @@ public class ExtraService extends Service implements IExtraService
      */
     public static IExtraService getExtraServiceByName(String name) throws ServiceNotFoundException
     {
-        return ServiceFacade.getInstance().getExtraServiceByName(name);
+        return ServiceManager.getInstance().getExtraServiceByName(name);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ExtraService extends Service implements IExtraService
      */
     public static Collection<IExtraService> getAllHabitationServices()
     {
-        return ServiceFacade.getInstance().getAllHabitationServices();
+        return ServiceManager.getInstance().getAllHabitationServices();
     }
 
     @Override
