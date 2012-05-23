@@ -57,7 +57,7 @@ public class DBInvoiceItem implements Serializable
     private DBInvoice invoice;
     
     @JoinColumn(name = "idServices", referencedColumnName = "idServices")
-    @ManyToOne(optional = false, cascade= CascadeType.ALL)
+    @ManyToOne(optional = false)
     private DBService service;
     
     @Basic(optional = false)
