@@ -514,7 +514,7 @@ public class PdfGenerator
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 20.0)
             {
-                total += item.getOnlyTax();
+                total += item.getOnlyTax() * item.getAmount();
             }
         }
 
@@ -535,7 +535,7 @@ public class PdfGenerator
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 10.0)
             {
-                total += item.getOnlyTax();
+                total += item.getOnlyTax() * item.getAmount();
             }
         }
 

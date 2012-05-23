@@ -578,15 +578,35 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
 
     private void FillAddressInputs(PartyData d)
     {
-        if (d.getAddressData() != null)
+        AddressData address = null;
+        if (d instanceof GuestData)
         {
-            TextFieldCity.setText((d.getAddressData().getCity() == null ? "" : d.getAddressData().getCity()));
-            TextFieldEmail.setText((d.getAddressData().getEmail() == null ? "" : d.getAddressData().getEmail()));
-            TextFieldFax.setText((d.getAddressData().getFax() == null ? "" : d.getAddressData().getFax()));
-            TextFieldPhoneNumber.setText((d.getAddressData().getPhone() == null ? "" : d.getAddressData().getPhone()));
-            TextFieldStreet.setText((d.getAddressData().getStreet() == null ? "" : d.getAddressData().getStreet()));
-            TextFieldZip.setText((d.getAddressData().getZip() == null ? "" : d.getAddressData().getZip()));
-            ComboBoxCountry.setSelectedItem((d.getAddressData().getIdCountry() == null ? ComboBoxCountry.getItemAt(0) : d.getAddressData().getIdCountry()));
+            address = d.getAddressData();
+        }
+        else
+        {
+            if (d instanceof PrivateCustomerData)
+            {
+                address = ((PrivateCustomerData) d).getInvoiceAddressData();
+            }
+            else
+            {
+                if (d instanceof CompanyData)
+                {
+                    address = ((CompanyData) d).getInvoiceAddressData();
+                }
+            }
+        }
+
+        if (address != null)
+        {
+            TextFieldCity.setText((address.getCity() == null ? "" : address.getCity()));
+            TextFieldEmail.setText((address.getEmail() == null ? "" : address.getEmail()));
+            TextFieldFax.setText((address.getFax() == null ? "" : address.getFax()));
+            TextFieldPhoneNumber.setText((address.getPhone() == null ? "" : address.getPhone()));
+            TextFieldStreet.setText((address.getStreet() == null ? "" : address.getStreet()));
+            TextFieldZip.setText((address.getZip() == null ? "" : address.getZip()));
+            ComboBoxCountry.setSelectedItem((address.getIdCountry() == null ? ComboBoxCountry.getItemAt(0) : address.getIdCountry()));
         }
         else
         {
