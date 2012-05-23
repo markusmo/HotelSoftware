@@ -169,7 +169,7 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getOnlyTax()
     {
-        double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
+        double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100);
         return this.price.doubleValue() * tax;
     }
         
@@ -192,8 +192,7 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getPriceWithTax()
     {
-        double tax = (this.getService().getServiceType().getTaxRate().doubleValue() / 100) + 1;
-        return this.price.doubleValue() + (this.price.doubleValue() * tax);
+        return this.price.doubleValue() + (this.price.doubleValue() * getOnlyTax());
     }
 
     /**
