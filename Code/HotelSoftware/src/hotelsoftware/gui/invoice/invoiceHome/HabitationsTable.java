@@ -212,10 +212,11 @@ public class HabitationsTable extends javax.swing.JPanel
                 return canEdit [columnIndex];
             }
         });
+        habitations.setAutoscrolls(false);
         habitations.setMaximumSize(new java.awt.Dimension(800, 800));
         habitations.setMinimumSize(new java.awt.Dimension(500, 200));
         habitations.setOpaque(false);
-        habitations.setPreferredSize(new java.awt.Dimension(530, 400));
+        habitations.setPreferredSize(new java.awt.Dimension(530, 500));
         habitations.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(habitations);
 
@@ -227,16 +228,15 @@ public class HabitationsTable extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(HabitationsLabel)
-                .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(HabitationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

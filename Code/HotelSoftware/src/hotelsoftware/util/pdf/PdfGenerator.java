@@ -261,8 +261,8 @@ public class PdfGenerator
             Collection<IInvoiceItem> items, double totalamount,
             Date created, Date expiration) throws DocumentException
     {
-        double percent10Total = get10PercentTotal(items);
-        double percent20Total = get20PercentTotal(items);
+        double percent10Total = get10Percent(items);
+        double percent20Total = get20Percent(items);
         Paragraph invoiceParagraph = new Paragraph();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -335,7 +335,7 @@ public class PdfGenerator
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 10%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(get10PercentTax(totalamount))));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(get10Percent(items))));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell);
 
@@ -343,7 +343,7 @@ public class PdfGenerator
         table.addCell("");
         table.addCell("");
         table.addCell("sales tax 20%");
-        cell = new PdfPCell(new Phrase(currencyFormat.format(get20PercentTax(totalamount))));
+        cell = new PdfPCell(new Phrase(currencyFormat.format(get20Percent(items))));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell);
         //add table to paragraph
@@ -500,23 +500,13 @@ public class PdfGenerator
         return total;
     }
 
-    private double get20PercentTax(double total)
-    {
-        return total * 0.2;
-    }
-
-    private double get10PercentTax(double total)
-    {
-        return total * 0.1;
-    }
-
     /**
-     * Rechnet den Totalbetrag für alle Services mit 20% Mehrwertssteuer
+     * Rechnet den Steuerbetrag für alle Services mit 20% Mehrwertssteuer
      *
      * @param items alle Rechnungspositionen
-     * @return der Totalbetrag aller Services mit 20% Mehrwertsteuer
+     * @return der Steuerbetrag aller Services mit 20% Mehrwertsteuer
      */
-    private double get20PercentTotal(Collection<IInvoiceItem> items)
+    private double get20Percent(Collection<IInvoiceItem> items)
     {
         double total = 0;
 
@@ -524,7 +514,7 @@ public class PdfGenerator
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 20.0)
             {
-                total = total + item.getTotalPriceWithTax();
+                total += item.getOnlyTax() * item.getAmount();
             }
         }
 
@@ -532,12 +522,12 @@ public class PdfGenerator
     }
 
     /**
-     * Rechnet den Totalbetrag für alle Services mit 10% Mehrwertssteuer
+     * Rechnet den Steuerbetrag für alle Services mit 10% Mehrwertssteuer
      *
      * @param items alle Rechnungspositionen
-     * @return der Totalbetrag aller Services mit 10% Mehrwertsteuer
+     * @return der Steuerbetrag aller Services mit 10% Mehrwertsteuer
      */
-    private double get10PercentTotal(Collection<IInvoiceItem> items)
+    private double get10Percent(Collection<IInvoiceItem> items)
     {
         double total = 0;
 
@@ -545,7 +535,7 @@ public class PdfGenerator
         {
             if (item.getService().getServiceType().getTaxRate().doubleValue() == 10.0)
             {
-                total = total + item.getTotalPriceWithTax();
+                total += item.getOnlyTax() * item.getAmount();
             }
         }
 
