@@ -1,15 +1,14 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse erbt von Customer, da sie für Zimmer/Dienstleistungen bezahlt. Hierbei handelt es sich um eine Firma mit einem Namen und einem Typ.
@@ -25,37 +24,7 @@ public class Company extends Customer implements ICompany
     public Company()
     {
     }
-
-    /**
-     * Instanziert eine neue Firma/Reisebuero, abgebildet als Kunde, fuer das System
-     *
-     * @param name
-     * Der Name der Firma/Reisebuero
-     * @param typ
-     * Die Art der Firma (Reisebuero, Firma)
-     * @param address
-     * Die Adresse der Firma
-     * @param invoiceAddress
-     * Die Rechungsadresse, der Firma
-     * @return
-     * Eine neue Instanz der Klasse
-     */
-    public static Company create(String name, ICompanyType typ, IAddress address,
-            IAddress invoiceAddress)
-    {
-        return new Company(name, typ, address, invoiceAddress,
-                new LinkedHashSet<IParty>());
-    }
-
-    private Company(String name, ICompanyType type, IAddress address,
-            IAddress invoiceAddress, Collection<IParty> partys)
-    {
-        super(address, invoiceAddress);
-        this.companyname = name;
-        this.companyType = type;
-        contactPersons = partys;
-    }
-
+    
     @Override
     public String getName()
     {

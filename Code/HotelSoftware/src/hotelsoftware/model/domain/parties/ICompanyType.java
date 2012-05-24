@@ -14,8 +14,6 @@ public interface ICompanyType extends CompanyTypeData{
 
     Integer getId();
 
-    String getName();
-
     void setId(Integer id);
 
     void setName(String typ);

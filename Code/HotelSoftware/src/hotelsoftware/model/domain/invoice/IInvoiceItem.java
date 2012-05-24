@@ -48,13 +48,6 @@ public interface IInvoiceItem extends InvoiceItemData{
      */
     double getTotalPriceWithTax();
 
-    /**
-     * Gibt den Preis für eine Rechungsposition aus, ohne Steuern.
-     *
-     * @return Preis des Services * Anzahl der Konsumation, ohne Steuern
-     */
-    double getTotalPriceWithoutTax();
-
     IUser getUser();
 
     /**

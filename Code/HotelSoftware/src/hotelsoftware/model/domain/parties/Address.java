@@ -16,48 +16,8 @@ public class Address implements IAddress
     private String fax;
     private ICountry idCountry;
 
-    /**
-     * Instanziert eine neue Adresse
-     *
-     * @param street
-     * Die Strasse zu dieser Adresse
-     * @param city
-     * Die Stadt zu dieser Adresse
-     * @param zip
-     * Die Postleitzahl zu dieser Adresse
-     * @param email
-     * Die Email, zugehoerig zu dieser Adresse
-     * @param phone
-     * Der Telefonanschluss zu dieser Adresse
-     * @param fax
-     * Der Faxanschluss zu dieser Adresse
-     * @param country
-     * Das Land, in dem diese Adresse zu finden ist
-     * @return
-     * Eine neue Adresse
-     */
-    public static IAddress create(String street, String city, String zip,
-            String email, String phone, String fax, Country country)
-    {
-        return new Address(street, city, zip, email, phone, fax, country);
-    }
-
     public Address()
     {
-    }
-
-    private Address(String street, String city, String zip, String email,
-            String phone, String fax, Country country)
-    {
-
-        this.street = street;
-        this.city = city;
-        this.zip = zip;
-        this.email = email;
-        this.phone = phone;
-        this.fax = fax;
-        this.idCountry = country;
-
     }
 
     @Override
