@@ -74,7 +74,7 @@ public class CompanyType implements ICompanyType
      */
     public static Collection<ICompanyType> getAllTypes()
     {
-        PartyFacade facade = PartyFacade.getInstance();
+        PartyManager facade = PartyManager.getInstance();
         return facade.getAllTypes();
     }
     

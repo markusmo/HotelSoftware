@@ -58,7 +58,7 @@ public class PaymentMethod implements IPaymentMethod
      */
     public static Set<IPaymentMethod> getAllPaymentMethods()
     {
-        return InvoiceFacade.getInstance().getAllPaymentMethods();
+        return InvoiceManager.getInstance().getAllPaymentMethods();
     }
 
     /**
@@ -70,6 +70,6 @@ public class PaymentMethod implements IPaymentMethod
      */
     public static IPaymentMethod getPaymentMethodByName(String method)
     {
-        return InvoiceFacade.getInstance().getPaymentMethodByName(method);
+        return InvoiceManager.getInstance().getPaymentMethodByName(method);
     }
 }

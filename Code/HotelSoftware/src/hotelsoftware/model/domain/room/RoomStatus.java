@@ -37,7 +37,7 @@ public class RoomStatus implements IRoomStatus
     
     public static IRoomStatus getRoomStatusByName(String name)
     {
-        return RoomFacade.getInstance().getRoomStatusByName(name);
+        return RoomManager.getInstance().getRoomStatusByName(name);
     }
    
     

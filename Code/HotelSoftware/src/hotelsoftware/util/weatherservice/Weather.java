@@ -91,12 +91,15 @@ public class Weather
             }
             catch (MalformedURLException e)
             {
+                e.printStackTrace();
             }
             catch (IOException e)
             {
+                e.printStackTrace();
             }
             catch (Throwable t)
             {
+                t.printStackTrace();
             }
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource source = new InputSource(new StringReader(xmlBuilder.toString()));
@@ -108,14 +111,17 @@ public class Weather
         catch (SAXException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (IOException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (ParserConfigurationException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -127,9 +133,6 @@ public class Weather
      */
     public static CurrentWeather getCurrent()
     {
-
-
-
         if ((!init) || hasToUpdate())
         {
             findCity();
@@ -241,14 +244,17 @@ public class Weather
         catch (SAXException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (ParserConfigurationException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (IOException ex)
         {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (Throwable t)
         {
@@ -259,12 +265,11 @@ public class Weather
             {
                 // ipin.close();
                 cityin.close();
-
-
             }
             catch (IOException ex)
             {
                 Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
         cityName = city;

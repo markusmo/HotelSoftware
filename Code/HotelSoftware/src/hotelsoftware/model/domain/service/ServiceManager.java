@@ -5,9 +5,14 @@ import at.fhv.roomanizer.persistence.entity.HabitationEntity;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.model.DynamicMapper;
+import hotelsoftware.model.database.reservation.DBReservation;
+import hotelsoftware.model.database.reservation.DBReservationItem;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.service.DBServiceType;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.util.HibernateUtil;
 import java.util.*;
 import org.hibernate.Query;
@@ -21,20 +26,20 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Tobias
  */
-public class ServiceFacade
+public class ServiceManager
 {
-    private ServiceFacade()
+    private ServiceManager()
     {
     }
 
-    public static ServiceFacade getInstance()
+    public static ServiceManager getInstance()
     {
         return ServiceFacadeHolder.INSTANCE;
     }
 
     private static class ServiceFacadeHolder
     {
-        private static final ServiceFacade INSTANCE = new ServiceFacade();
+        private static final ServiceManager INSTANCE = new ServiceManager();
     }
 
     /**
@@ -114,9 +119,9 @@ public class ServiceFacade
         SQLQuery query = session.createSQLQuery("SELECT * FROM servicetypes WHERE name = :name");
         query.setString("name", name);
         query.addEntity(DBServiceType.class);
-        
+
         DBServiceType serviceType = (DBServiceType) query.uniqueResult();
-        
+
         ts.commit();
 
         if (serviceType == null)
@@ -249,13 +254,13 @@ public class ServiceFacade
 
         return DynamicMapper.mapCollection(retList);
     }
-    
+
     public Collection<IHabitation> getHabitationsByDate(Date date)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        
+
         Query habitationQuery = session.createQuery("from DBHabitation where :date between startDate and endDate order by startDate");
         habitationQuery.setDate("date", date);
 
@@ -279,30 +284,77 @@ public class ServiceFacade
         {
             return new LinkedHashSet();
         }
-        
+
         return DynamicMapper.mapCollection(retList);
     }
-    
+
     public Collection<IHabitation> getAllHabitations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
-        
+
         Query habitationQuery = session.createQuery("from DBHabitation order by startDate");
 
         List<DBHabitation> tmpList = habitationQuery.list();
 
         return DynamicMapper.mapCollection(tmpList);
     }
-    
+
     public IHabitation getHabitationById(int id)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
-        
+
         Query habitationQuery = session.createQuery("from DBHabitation WHERE idServices = :id");
         habitationQuery.setInteger("id", id);
 
         return (IHabitation) DynamicMapper.map(habitationQuery.uniqueResult());
+    }
+
+    public void saveService(IService service)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveService(service, session);
+
+        t.commit();
+    }
+
+    public void saveService(IService service, Session session)
+    {
+        DBService dbs = (DBService) DynamicMapper.map(service);
+
+        if (service.getIdServices() == null)
+        {
+            Integer id = (Integer)session.save(service);
+            service.setIdServices(id);
+        }
+        else
+        {
+            session.merge(dbs);
+            session.flush();
+        }
+        
+    }
+
+    public void saveHabitation(IHabitation habitation)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveHabitation(habitation, session);
+
+        t.commit();
+    }
+
+    public void saveHabitation(IHabitation habitation, Session session)
+    {
+        DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);
+
+        session.saveOrUpdate(dbp);
+        habitation.setIdServices(dbp.getIdServices());
     }
 }

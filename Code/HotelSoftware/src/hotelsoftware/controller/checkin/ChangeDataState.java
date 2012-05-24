@@ -4,7 +4,6 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
@@ -12,10 +11,10 @@ import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.login.LoginController;
-import hotelsoftware.model.database.FailedToSaveToDatabaseException;
+import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.invoice.InvoiceSaver;
+import hotelsoftware.model.domain.invoice.InvoiceManager;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;
@@ -46,7 +45,7 @@ public abstract class ChangeDataState extends CheckInState
         super(context);
         context.setRoomSelections(new HashMap<Integer, RoomSelection>());
         Reservation r = context.getReservation();
-        
+
         if (r != null)
         {
             for (IReservationItem data : context.getReservation().getReservationItems())
@@ -79,7 +78,7 @@ public abstract class ChangeDataState extends CheckInState
         guest.setFname(firstName);
         guest.setLname(lastName);
         guest.setBirthday(birthday);
-        guest.setAddress((Address)address);
+        guest.setAddress((Address) address);
 
         context.getReservation().getGuests().add(guest);
         return guest;
@@ -153,7 +152,7 @@ public abstract class ChangeDataState extends CheckInState
         {
             context.setCategories(HelperFunctions.castCollectionUp(RoomCategory.getAllCategorys(), RoomCategoryData.class, IRoomCategory.class));
         }
-        
+
         return context.getCategories();
     }
 
@@ -166,7 +165,7 @@ public abstract class ChangeDataState extends CheckInState
             for (IRoomCategory cat : RoomCategory.getAllCategorys())
             {
                 Collection<IRoom> rooms = cat.getFreeRooms(context.getStartDate(), context.getEndDate());
-                
+
                 if (rooms.size() > 0)
                 {
                     IRoom first = rooms.iterator().next();
@@ -179,7 +178,7 @@ public abstract class ChangeDataState extends CheckInState
         {
             return d;
         }
-        
+
         throw new NoRoomsAvailableException();
     }
 
@@ -190,7 +189,7 @@ public abstract class ChangeDataState extends CheckInState
         {
             context.setHabitationServices(HelperFunctions.castCollectionUp(ExtraService.getAllHabitationServices(), ExtraServiceData.class, IExtraService.class));
         }
-        
+
         return context.getHabitationServices();
     }
 
@@ -262,7 +261,7 @@ public abstract class ChangeDataState extends CheckInState
             }
 
             context.getHabitations().add(h);
-            
+
             InvoiceItem item = new InvoiceItem();
             item.setAmount(1);
             item.setCreated(new Date());
@@ -270,33 +269,39 @@ public abstract class ChangeDataState extends CheckInState
             item.setPrice(h.getPrice());
             item.setService(h);
             item.setUser(LoginController.getInstance().getCurrentUser());
-            
+
             items.add(item);
-            
+
             RoomsRoomStatus rrs = new RoomsRoomStatus();
             rrs.setRoom(h.getRooms());
             rrs.setStart(new Date());
             rrs.setRoomstatus(RoomStatus.getRoomStatusByName("Occupied - Clean"));
-            
+
             status.add(rrs);
         }
 
-        try
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+
+        for (IHabitation hab : context.getHabitations())
         {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            Transaction ts = session.beginTransaction();
-            ts.begin();
-            ServiceSaver.getInstance().saveOrUpdate(session, null, context.getHabitations(), null);
-            PartySaver.getInstance().saveOrUpdate(session, null, null, null, null, guests);
-            InvoiceSaver.getInstance().saveOrUpdate(session, null, null, items);
-            RoomSaver.getInstance().saveOrUpdate(session, null, null, null, status);
-            ts.commit();
+            ServiceManager.getInstance().saveHabitation(hab, session);
         }
-        catch (FailedToSaveToDatabaseException ex)
+
+        for (IGuest guest : guests)
         {
-            throw new CouldNotSaveException();
+            PartyManager.getInstance().saveParty(guest, session);
         }
-        
+
+        InvoiceManager.getInstance().saveInvoiceItems(items, session);
+
+        for (IRoomRoomStatus s : status)
+        {
+            RoomManager.getInstance().saveRoomsRoomStatus(s, session);
+        }
+        ts.commit();
+
         context.setState(new FinalState(context));
     }
 

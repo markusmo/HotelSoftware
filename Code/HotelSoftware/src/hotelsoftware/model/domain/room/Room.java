@@ -141,7 +141,7 @@ public class Room implements IRoom
      */
     public static IRoom getRoomByNumber(String number)
     {
-        return RoomFacade.getInstance().getRoomByNumber(number);
+        return RoomManager.getInstance().getRoomByNumber(number);
     }
 
 //    /**

@@ -1,10 +1,7 @@
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomCategory;
-import hotelsoftware.model.database.room.DBRoomOption;
-import hotelsoftware.model.database.room.DBRoomStatus;
+import hotelsoftware.model.database.room.*;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -20,21 +17,20 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author mohi
  */
-public class RoomFacade
+public class RoomManager
 {
-
-    private RoomFacade()
+    private RoomManager()
     {
     }
 
-    public static RoomFacade getInstance()
+    public static RoomManager getInstance()
     {
         return RoomFacadeHolder.INSTANCE;
     }
 
     private static class RoomFacadeHolder
     {
-        private static final RoomFacade INSTANCE = new RoomFacade();
+        private static final RoomManager INSTANCE = new RoomManager();
     }
 
     /**
@@ -52,10 +48,11 @@ public class RoomFacade
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
         return (IRoom) DynamicMapper.map(room);
     }
-    
+
     /**
      * Gibt alle Optionen aus
-     * @return 
+     *
+     * @return
      * Gibt ein Set mit den Zimmeroptionen aus, die verfuegbar sind
      */
     public Set<IRoomOption> getRoomOptions()
@@ -63,28 +60,30 @@ public class RoomFacade
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
-        
+
         List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
-        
+
         return new LinkedHashSet<IRoomOption>(DynamicMapper.mapCollection(options));
     }
 
     /**
      * Gibt alle Kategorien aus.
+     *
      * @return eine Liste von allen Kategorien
      */
     public Collection<IRoomCategory> getAllCategorys()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
-        
+
         Query query = session.createQuery("FROM DBRoomCategory ORDER BY name");
         List<DBRoomCategory> cats = query.list();
         return (Collection<IRoomCategory>) DynamicMapper.mapCollection(cats);
     }
-    
+
     /**
      * Gibt eine Kategorie nach einen Namen aus
+     *
      * @param name der Name der Kategorie
      * @return Die gefundene Kategorie mit dem angegebenen Namen
      */
@@ -92,17 +91,61 @@ public class RoomFacade
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
-        
+
         DBRoomCategory cat = (DBRoomCategory) session.createCriteria(DBRoomCategory.class).add(Restrictions.eq("name", name)).uniqueResult();
         return (RoomCategory) DynamicMapper.map(cat);
     }
-    
+
     public IRoomStatus getRoomStatusByName(String name)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
-        
+
         DBRoomStatus status = (DBRoomStatus) session.createCriteria(DBRoomStatus.class).add(Restrictions.eq("statusName", name)).uniqueResult();
         return (IRoomStatus) DynamicMapper.map(status);
+    }
+
+    public void saveRoomStatus(IRoomStatus roomStatus)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveRoomStatus(roomStatus, session);
+
+        t.commit();
+    }
+
+    public void saveRoomStatus(IRoomStatus roomStatus, Session session)
+    {
+        DBRoomStatus dbrs = (DBRoomStatus) DynamicMapper.map(roomStatus);
+
+        if (dbrs.getId() == null)
+        {
+            session.saveOrUpdate(dbrs);
+            roomStatus.setId(dbrs.getId());
+        }
+        else
+        {
+            session.saveOrUpdate(session.merge(dbrs));
+        }
+    }
+
+    public void saveRoomsRoomStatus(IRoomRoomStatus roomsRoomStatus)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveRoomsRoomStatus(roomsRoomStatus, session);
+
+        t.commit();
+    }
+
+    public void saveRoomsRoomStatus(IRoomRoomStatus roomsRoomStatus, Session session)
+    {
+        DBRoomsRoomStatus dbrrs = (DBRoomsRoomStatus) DynamicMapper.map(roomsRoomStatus);
+
+        session.saveOrUpdate(dbrrs);
     }
 }

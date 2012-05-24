@@ -53,7 +53,8 @@ public class PaymentState extends CreateInvoiceState
         Transaction ts = session.beginTransaction();
         ts.begin();
         
-        InvoiceSaver.getInstance().saveOrUpdate(session, null, invoices, HelperFunctions.castCollectionUp(context.getSplittedItems(), IInvoiceItem.class, InvoiceItem.class));
+        InvoiceManager.getInstance().saveInvoice(invoice, session);
+        InvoiceManager.getInstance().saveInvoiceItems(HelperFunctions.castCollectionUp(context.getSplittedItems(), IInvoiceItem.class, InvoiceItem.class), session);
         
         ts.commit();
         

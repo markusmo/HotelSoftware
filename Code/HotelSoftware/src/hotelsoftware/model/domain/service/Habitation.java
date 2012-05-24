@@ -79,17 +79,17 @@ public class Habitation extends Service implements IHabitation
     
     public static Collection<IHabitation> getHabitationsByDate(Date date)
     {
-        return ServiceFacade.getInstance().getHabitationsByDate(date);
+        return ServiceManager.getInstance().getHabitationsByDate(date);
     }
     
     public static Collection<IHabitation> getAllHabitations()
     {
-        return ServiceFacade.getInstance().getAllHabitations();
+        return ServiceManager.getInstance().getAllHabitations();
     }
 
     public static int getHighestId()
     {
-        return ServiceFacade.getInstance().getHighestHabitationId();
+        return ServiceManager.getInstance().getHighestHabitationId();
     } //überfacade reservation und invoice
 
     /**
@@ -339,13 +339,13 @@ public class Habitation extends Service implements IHabitation
     {
         if (roomId == null)
         {
-            return ServiceFacade.getInstance().getHabitations(fName, lName);
+            return ServiceManager.getInstance().getHabitations(fName, lName);
         }
         if (fName != null && lName != null)
         {
-            return ServiceFacade.getInstance().getHabitation(fName, lName, roomId);
+            return ServiceManager.getInstance().getHabitation(fName, lName, roomId);
         }
-        return ServiceFacade.getInstance().getHabitation(roomId);
+        return ServiceManager.getInstance().getHabitation(roomId);
     }
 
     public static IHabitation searchHabitation(String roomnr)
@@ -360,7 +360,7 @@ public class Habitation extends Service implements IHabitation
     
     public static IHabitation getHabitationById(int id)
     {
-        return ServiceFacade.getInstance().getHabitationById(id);
+        return ServiceManager.getInstance().getHabitationById(id);
     }
 
     @Override

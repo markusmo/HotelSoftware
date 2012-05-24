@@ -118,7 +118,7 @@ public class User implements IUser
     {
         System.out.println("Username: " + username);
         System.out.println("Passwort: " + password);
-        IUser user = UserFacade.getInstance().login(username, password);
+        IUser user = UserManager.getInstance().login(username, password);
 
         if (user == null)
         {

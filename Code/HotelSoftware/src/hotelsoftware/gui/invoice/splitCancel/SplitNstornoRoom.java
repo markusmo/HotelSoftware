@@ -73,8 +73,13 @@ public class SplitNstornoRoom extends javax.swing.JPanel
     {
         jTable1.addMouseListener(new JTableButtonMouseListener(jTable1));
 
-        jTable1.setModel(new DefaultTableModel(
-                (items == null || !(items.size() > 0) ? new Object[50][] : getTableModel()),
+        jTable1.setModel((items == null || !(items.size() > 0))
+                ? new DefaultTableModel(new String[]
+                {
+                    "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
+                }, 0)
+                : new DefaultTableModel(
+                getTableModel(),
                 new String[]
                 {
                     "Selection amount", "Total amount", "Description", "Single price", "Total price", "Cancellation"
@@ -516,7 +521,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
                 public void keyTyped(KeyEvent e)
                 {
                     char c = e.getKeyChar();
-                    if (!((c >= '1') && (c <= '9')
+                    if (!((c >= '0') && (c <= '9')
                             || (c == KeyEvent.VK_BACK_SPACE)
                             || (c == KeyEvent.VK_DELETE)))
                     {
