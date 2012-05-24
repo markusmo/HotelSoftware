@@ -1,10 +1,6 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.controller.data.room.RoomOptionData;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoomOption;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Diese Klasse bildet die Zimmeroptionen (Raucher, Seeblick, usw.) ab, mit der das System arbeitet
@@ -51,10 +47,8 @@ public class RoomOption implements IRoomOption
      * @return 
      * Alle Zimmeroptionen, die verfuegbar sind.
      */
-    public static Set<IRoomOption> getRoomOptions()
+    public static Collection<IRoomOption> getAllRoomOptions()
     {
-        RoomManager facade = RoomManager.getInstance();
-        Set<IRoomOption> dbro = facade.getRoomOptions();
-        return dbro;
+        return RoomManager.getInstance().getAllRoomOptions();
     }
 }

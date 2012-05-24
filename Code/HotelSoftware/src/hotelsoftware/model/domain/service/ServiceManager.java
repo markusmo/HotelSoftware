@@ -1,20 +1,17 @@
 package hotelsoftware.model.domain.service;
 
-import at.fhv.roomanizer.persistence.ObjectConverter;
-import at.fhv.roomanizer.persistence.entity.HabitationEntity;
-import hotelsoftware.support.ServiceTypeNotFoundException;
-import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.reservation.DBReservation;
-import hotelsoftware.model.database.reservation.DBReservationItem;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.service.DBServiceType;
-import hotelsoftware.model.domain.reservation.IReservation;
-import hotelsoftware.model.domain.reservation.IReservationItem;
+import hotelsoftware.support.ServiceNotFoundException;
+import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.util.HibernateUtil;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -131,7 +128,7 @@ public class ServiceManager
         return (IServiceType) DynamicMapper.map(serviceType);
     }
 
-    int getHighestHabitationId()
+    public int getHighestHabitationId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -154,78 +151,6 @@ public class ServiceManager
     }
 
     /**
-     * Sucht Aufenthalte nach einem Namen eines Gastes
-     *
-     * @param fname der Nachname eines Gastes
-     * @param lname der Vorname eines Gastes
-     * @return eine Liste von Aufenthalten, die diesen Gast enthalten
-     */
-    public Collection<IHabitation> getHabitations(String fname, String lname)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        String query;
-        if (fname == null)
-        {
-            if (lname == null)
-            {
-                // VOR UND NACHNAME SIND LEER
-                query = ""
-                        + "SELECT *"
-                        + "FROM habitations h"
-                        + "INNER JOIN allocations a ON h.id=a.idService"
-                        + "INNER JOIN guests g ON g.id=a.idGuests;";
-            }
-            else
-            {
-                // NUR VORNAME IST LEER
-                query = ""
-                        + "SELECT *"
-                        + "FROM habitations h"
-                        + "INNER JOIN allocations a ON h.id=a.idService"
-                        + "INNER JOIN guests g ON g.id=a.idGuests"
-                        + "WHERE lname =" + lname + ";";
-            }
-        }
-        else
-        {
-            if (lname == null)
-            {
-                //NUR NACHNAME IST LEER
-                query = ""
-                        + "SELECT *"
-                        + "FROM habitations h"
-                        + "INNER JOIN allocations a ON h.id=a.idService"
-                        + "INNER JOIN guests g ON g.id=a.idGuests"
-                        + "WHERE lname =" + lname + ";";
-            }
-            else
-            {
-                //NICHTS IST LEER
-                query = ""
-                        + "SELECT *"
-                        + "FROM habitations h"
-                        + "INNER JOIN allocations a ON h.id=a.idService"
-                        + "INNER JOIN guests g ON g.id=a.idGuests"
-                        + "WHERE lname =" + lname + " AND fname=" + fname + ";";
-            }
-        }
-
-
-        SQLQuery sqlquery = session.createSQLQuery(query);
-        sqlquery = sqlquery.addEntity(DBHabitation.class);
-        Collection<DBHabitation> retList = sqlquery.list();
-
-        if (retList == null)
-        {
-            return new LinkedHashSet();
-        }
-
-        return DynamicMapper.mapCollection(retList);
-    }
-
-    /**
      * Sucht Aufenthalte nach dem Namen eines Gastes und seiner Zimmernummer
      *
      * @param fname der Vorname des Gastes
@@ -233,7 +158,7 @@ public class ServiceManager
      * @param roomnumber die Zimmernummer des Gastes
      * @return
      */
-    public Collection<IHabitation> getHabitation(String fname, String lname, String roomnumber)
+    public Collection<IHabitation> searchHabitations(String fname, String lname, String roomnumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -261,7 +186,7 @@ public class ServiceManager
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        Query habitationQuery = session.createQuery("from DBHabitation where :date between startDate and endDate order by startDate");
+        Query habitationQuery = session.createQuery("FROM DBHabitation where :date between startDate and endDate order by startDate");
         habitationQuery.setDate("date", date);
 
         List<DBHabitation> tmpList = habitationQuery.list();
@@ -269,7 +194,7 @@ public class ServiceManager
         return DynamicMapper.mapCollection(tmpList);
     }
 
-    public Collection<IHabitation> getHabitation(String roomNumber)
+    public Collection<IHabitation> searchHabitationsByNumber(String roomNumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

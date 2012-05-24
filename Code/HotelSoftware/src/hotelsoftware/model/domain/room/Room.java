@@ -1,11 +1,9 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.controller.data.room.*;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoom;
-import hotelsoftware.model.database.room.DBRoomCategory;
+import hotelsoftware.controller.data.room.RoomCategoryData;
+import hotelsoftware.controller.data.room.RoomOptionData;
+import hotelsoftware.controller.data.room.RoomsRoomStatusData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
@@ -18,24 +16,12 @@ import java.util.Date;
  */
 public class Room implements IRoom
 {
-
     private String number;
     private Collection<IRoomOption> options;
     private IRoomCategory category;
     private Collection<IRoomRoomStatus> status;
     private Collection<IHabitation> habitations;
     private Integer id;
-
-    private Room(String number, IRoomCategory category)
-    {
-        this.number = number;
-        this.category = category;
-    }
-
-    public static IRoom create(String number, IRoomCategory category)
-    {
-        return new Room(number, category);
-    }
 
     public Room()
     {
@@ -52,7 +38,7 @@ public class Room implements IRoom
     {
         this.id = id;
     }
-    
+
     @Override
     public IRoomCategory getCategory()
     {
@@ -64,12 +50,6 @@ public class Room implements IRoom
     {
         this.category = category;
     }
-    /*
-     * public Collection<Habitation> getHabitations() { return habitations; }
-     *
-     * public void setHabitations(Collection<Habitation> habitations) {
-     * this.habitations = habitations; }
-     */
 
     @Override
     public String getNumber()
@@ -133,30 +113,6 @@ public class Room implements IRoom
                 getStatus());
     }
 
-    /**
-     * Gibt ein Zimmer nach der Zimmernummer aus
-     *
-     * @param number Die gewuenschte Zimmernummer
-     * @return Das Zimmer mit der gesuchten Zimmernummer
-     */
-    public static IRoom getRoomByNumber(String number)
-    {
-        return RoomManager.getInstance().getRoomByNumber(number);
-    }
-
-//    /**
-//     * Gibt alle Zimmer mit einer angegebenen Kategorie aus
-//     *
-//     * @param category Die Kategorie nach der gesucht wird
-//     * @return Alle Zimmer nach dieser Kategorie
-//     */
-//    public static Collection<IRoom> getRoomsByCategory(IRoomCategory category)
-//    {
-//        DBRoomCategory cat = (DBRoomCategory) DynamicMapper.map(category);
-//        return (Collection<IRoom>) DynamicMapper.map(DBRoom.getRoomsByCategory(
-//                cat));
-//    }
-
     @Override
     public void changeStatus(IRoomRoomStatus status)
     {
@@ -181,9 +137,28 @@ public class Room implements IRoom
         this.habitations = habitations;
     }
 
+    @Override
     public boolean isFree(Date start, Date end)
     {
-        //TODO implement - see RoomCategory
-        throw new UnsupportedOperationException("Not yet implemented");
+        for (IHabitation h : this.getHabitations())
+        {
+            if ((h.getStart().before(start) && h.getEnd().after(start)) || (h.getStart().before(end) && h.getEnd().after(end)))
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Gibt ein Zimmer nach der Zimmernummer aus
+     *
+     * @param number Die gewünschte Zimmernummer
+     * @return Das Zimmer mit der gesuchten Zimmernummer
+     */
+    public static IRoom getRoomByNumber(String number)
+    {
+        return RoomManager.getInstance().getRoomByNumber(number);
     }
 }
