@@ -179,27 +179,6 @@ public class PartyManager
     }
 
     /**
-     * Gibt einen Gast nach der Reservierungsnummer aus
-     *
-     * @param reservationNumber die Reservierungsnummer nach der gesucht wird
-     * @return einen Gast, der zu dieser Reservierung passt
-     */
-    public IGuest getGuestFromReservationNumber(String reservationNumber)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM guests r WHERE r.idParties = ( SELECT idParties FROM reservations g WHERE g.reserationNumber = '" + reservationNumber + "') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        sqlquery.addEntity(DBGuest.class);
-        DBGuest guest = (DBGuest) sqlquery.uniqueResult();
-
-        return (IGuest) DynamicMapper.map(guest);
-    }
-
-    /**
      * sucht nach einem Gast anhand eines Namens
      *
      * @param firstName vorname
@@ -208,7 +187,7 @@ public class PartyManager
      * @throws CompanyNotFoundException Firma nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public Set<IGuest> getGuestByName(String firstName, String lastName)
+    public Collection<IGuest> getGuestByName(String firstName, String lastName)
             throws CompanyNotFoundException, GuestNotFoundException
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -247,17 +226,17 @@ public class PartyManager
             throw new GuestNotFoundException();
         }
 
-        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
+        return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
     /**
      * Diese Methode sucht nach einen Gast mithilfe des Vornamens
      *
      * @param firstName dies ist der Vorname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+     * @return gibt eine Collection zurück, welche Objekte vom typ DBGuest
      * enthält.
      */
-    public Set<IGuest> getGuestsByFName(String firstName)
+    public Collection<IGuest> getGuestsByFName(String firstName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -272,17 +251,17 @@ public class PartyManager
                 "fname", firstName));
         Collection<DBGuest> retList = criteria.list();
 
-        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
+        return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
     /**
      * Diese Methode sucht nach einen Gast mithilfe des Nachnamens
      *
      * @param lastName dies ist der Nachname des Gastes.
-     * @return gibt eine Kollektion zurück, welche Objekte vom typ DBGuest
+     * @return gibt eine Collection zurück, welche Objekte vom typ DBGuest
      * enthält.
      */
-    public Set<IGuest> getGuestsByLName(String lastName)
+    public Collection<IGuest> getGuestsByLName(String lastName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -297,7 +276,7 @@ public class PartyManager
                 "lname", lastName));
         Collection<DBGuest> retList = criteria.list();
 
-        return (Set<IGuest>) DynamicMapper.mapCollection(retList);
+        return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
     /**

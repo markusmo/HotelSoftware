@@ -1,12 +1,8 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.parties.DBAddress;
-import hotelsoftware.model.database.parties.DBParty;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.reservation.DBReservationItem;
-import hotelsoftware.model.domain.parties.IAddress;
-import hotelsoftware.model.domain.parties.IParty;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
@@ -36,8 +32,8 @@ public class ReservationManager
     {
         private static final ReservationManager INSTANCE = new ReservationManager();
     }
-    
-    int getHighestReservationId()
+
+    public int getHighestReservationId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -48,13 +44,17 @@ public class ReservationManager
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-        
+
         if (bd != null)
+        {
             return bd;
+        }
         else
+        {
             return 0;
+        }
     }
-    
+
     /**
      * Gibt eine Reservierung, nach der eindeutigen Reservierungsnummer aus
      *
@@ -75,28 +75,6 @@ public class ReservationManager
         DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
 
         return (IReservation) DynamicMapper.map(reservation);
-    }
-
-    /**
-     * Gibt eine Reservierung nach dem Gast/Kunden aus, der reserviert hat
-     *
-     * @param fname Der Vorname des Gastes/Kunden
-     * @param lname Der Nachname des Gastes/Kunden
-     * @return Die gesuchte Reservierung
-     */
-    public Collection<IReservation> getReservationsByName(String fname, String lname)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        sqlquery.addEntity(DBReservation.class);
-        List<DBReservation> retList = sqlquery.list();
-
-        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     public Collection<IReservation> getReservationsByNameApprox(String fname,
@@ -142,14 +120,14 @@ public class ReservationManager
      */
     public IReservation getReservationById(int id)
     {
-                Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         Criteria criteria = session.createCriteria(DBReservation.class);
         criteria.add(Restrictions.eq("id", id));
         DBReservation retValue = (DBReservation) criteria.uniqueResult();
-        
+
         return (IReservation) DynamicMapper.map(retValue);
     }
 
@@ -160,36 +138,19 @@ public class ReservationManager
      */
     public Collection<IReservation> getAllReservations()
     {
-                Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         String query = "SELECT * FROM Reservations r";
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
-        
+
         Collection<DBReservation> retList = sqlquery.list();
-        
+
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
-    /**
-     * Gibt die Anzahl der reservierten Gaeste aus
-     *
-     * @param reservation Die Reservierung
-     * @return Die Anzahl, der Gaeste in einer Reservierung.
-     */
-    public Integer getGuestAmount(IReservation reservation)
-    {
-        Collection<IReservationItem> reservationItems = reservation.getReservationItems();
-        int retValue = 0;
-        for(IReservationItem res : reservationItems)
-        {
-            retValue += res.getRoomCategory().getBedCount();
-        }
-        return retValue;
-    }
-    
     public void saveReservation(IReservation address)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
