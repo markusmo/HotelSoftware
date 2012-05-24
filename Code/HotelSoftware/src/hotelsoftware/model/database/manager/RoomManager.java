@@ -1,7 +1,13 @@
-package hotelsoftware.model.domain.room;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.room.*;
+import hotelsoftware.model.domain.room.IRoom;
+import hotelsoftware.model.domain.room.IRoomCategory;
+import hotelsoftware.model.domain.room.IRoomOption;
+import hotelsoftware.model.domain.room.IRoomRoomStatus;
+import hotelsoftware.model.domain.room.IRoomStatus;
+import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.LinkedHashSet;

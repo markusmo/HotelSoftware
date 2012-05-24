@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.database.manager.RoomManager;
 import hotelsoftware.support.NoPriceDefinedException;
 import java.math.BigDecimal;
 import java.util.Calendar;

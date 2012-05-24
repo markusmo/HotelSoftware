@@ -7,7 +7,7 @@ package hotelsoftware.gui.invoice.splitCancel;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.ControlsSetter;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
@@ -26,7 +26,7 @@ public class SplitNstornoPanel extends javax.swing.JPanel implements ControlsSet
 {
     private HashMap<JCheckBox, SplitNstornoRoom> inverseRooms = new HashMap<JCheckBox, SplitNstornoRoom>();
     private HashMap<SplitNstornoRoom, JCheckBox> rooms = new HashMap<SplitNstornoRoom, JCheckBox>();
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;
     private BackButton bB;
@@ -77,7 +77,7 @@ public class SplitNstornoPanel extends javax.swing.JPanel implements ControlsSet
 
     private void init()
     {
-        for (HabitationData d : InvoiceGUIControler.getInstance().getSelectedHabitations())
+        for (HabitationData d : CreateInvoiceGUIController.getInstance().getSelectedHabitations())
         {
             addNewSplitNStornoRoomPanel(d);
         }

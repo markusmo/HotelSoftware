@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.model.database.reservation.DBReservation;

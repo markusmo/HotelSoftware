@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.invoice;
 
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.invoice.PaymentMethodData;
 import hotelsoftware.controller.data.parties.CustomerData;

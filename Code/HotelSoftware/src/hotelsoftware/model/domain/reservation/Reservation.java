@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.database.manager.ReservationManager;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.reservation.ReservationItemData;

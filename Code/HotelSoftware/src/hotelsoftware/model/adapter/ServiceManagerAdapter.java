@@ -10,7 +10,7 @@ import at.fhv.roomanizer.domain.service.Type;
 import at.fhv.roomanizer.persistence.manager.IServiceManager;
 import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.domain.service.IServiceType;
-import hotelsoftware.model.domain.service.ServiceManager;
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.model.domain.service.ServiceType;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.support.ServiceTypeNotFoundException;

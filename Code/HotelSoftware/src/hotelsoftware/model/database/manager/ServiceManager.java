@@ -1,10 +1,14 @@
-package hotelsoftware.model.domain.service;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBExtraService;
 import hotelsoftware.model.database.service.DBHabitation;
 import hotelsoftware.model.database.service.DBService;
 import hotelsoftware.model.database.service.DBServiceType;
+import hotelsoftware.model.domain.service.IExtraService;
+import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.model.domain.service.IService;
+import hotelsoftware.model.domain.service.IServiceType;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.util.HibernateUtil;
@@ -128,6 +132,10 @@ public class ServiceManager
         return (IServiceType) DynamicMapper.map(serviceType);
     }
 
+    /**
+     * Sucht die höchste ID aller Aufenthalte in der Datenbank
+     * @return Die aktuell höchste ID
+     */
     public int getHighestHabitationId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -180,6 +188,11 @@ public class ServiceManager
         return DynamicMapper.mapCollection(retList);
     }
 
+    /**
+     * Gibt alle Aufenthalte aus dia am angegebenen Tag aktiv sind
+     * @param date Das Datum an dem gesucht werden soll
+     * @return Alle passenden Aufenthalte
+     */
     public Collection<IHabitation> getHabitationsByDate(Date date)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -194,6 +207,11 @@ public class ServiceManager
         return DynamicMapper.mapCollection(tmpList);
     }
 
+    /**
+     * Sucht anhand der Raumnummer nach Aufenthalten
+     * @param roomNumber Die zu suchende Raumnummer
+     * @return Eine Collection aus passenden Aufenthalten
+     */
     public Collection<IHabitation> searchHabitationsByNumber(String roomNumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -213,6 +231,10 @@ public class ServiceManager
         return DynamicMapper.mapCollection(retList);
     }
 
+    /**
+     * Gibt alle Aufenthalte zurück
+     * @return Alle Aufenthalte
+     */
     public Collection<IHabitation> getAllHabitations()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -225,6 +247,11 @@ public class ServiceManager
         return DynamicMapper.mapCollection(tmpList);
     }
 
+    /**
+     * Sucht einen Aufenthalt anhand einer ID
+     * @param id Die id (in der Datenbank) des Aufenthalts
+     * @return Der entsprechende Aufenthakt oder null wenn keiner gefunden wurde
+     */
     public IHabitation getHabitationById(int id)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -236,6 +263,10 @@ public class ServiceManager
         return (IHabitation) DynamicMapper.map(habitationQuery.uniqueResult());
     }
 
+    /**
+     * Speichert einen Service ab
+     * @param service Der zu speichernde Service
+     */
     public void saveService(IService service)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -247,6 +278,11 @@ public class ServiceManager
         t.commit();
     }
 
+    /**
+     * Speichert einen Service ab
+     * @param service Der zu speichernde Service
+     * @param session Die Session in welcher gespeichert werden soll
+     */
     public void saveService(IService service, Session session)
     {
         DBService dbs = (DBService) DynamicMapper.map(service);
@@ -264,6 +300,10 @@ public class ServiceManager
         
     }
 
+    /**
+     * Speichert einen Aufenthalt ab
+     * @param habitation Der zu speichernde Aufenthalt
+     */
     public void saveHabitation(IHabitation habitation)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -275,6 +315,11 @@ public class ServiceManager
         t.commit();
     }
 
+    /**
+     * Speichert einen Aufenthalt ab
+     * @param habitation Der zu speichernde Aufenthalt
+     * @param session Die Session in welcher gespeichert werden soll
+     */
     public void saveHabitation(IHabitation habitation, Session session)
     {
         DBHabitation dbp = (DBHabitation) DynamicMapper.map(habitation);

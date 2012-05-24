@@ -1,7 +1,15 @@
-package hotelsoftware.model.domain.parties;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.*;
+import hotelsoftware.model.domain.parties.Company;
+import hotelsoftware.model.domain.parties.IAddress;
+import hotelsoftware.model.domain.parties.ICompany;
+import hotelsoftware.model.domain.parties.ICompanyType;
+import hotelsoftware.model.domain.parties.ICountry;
+import hotelsoftware.model.domain.parties.IGuest;
+import hotelsoftware.model.domain.parties.IParty;
+import hotelsoftware.model.domain.parties.IPrivateCustomer;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;

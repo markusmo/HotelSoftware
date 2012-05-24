@@ -7,7 +7,7 @@ package hotelsoftware.gui.invoice.customerSelection;
 import hotelsoftware.controller.data.parties.CompanyTypeData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.model.domain.parties.*;
 import java.awt.Component;
 import java.awt.Container;
@@ -29,12 +29,12 @@ public class CompanyPanel extends javax.swing.JPanel
     {
         initComponents();
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
+        for (CountryData data : CreateInvoiceGUIController.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }
         comboBoxCompanyType.removeAllItems();
-        for(CompanyTypeData data : InvoiceGUIControler.getInstance().getAllCompanyTypes())
+        for(CompanyTypeData data : CreateInvoiceGUIController.getInstance().getAllCompanyTypes())
         {
             comboBoxCompanyType.addItem(data);
         }

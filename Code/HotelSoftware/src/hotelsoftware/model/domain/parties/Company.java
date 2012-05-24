@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CompanyTypeData;

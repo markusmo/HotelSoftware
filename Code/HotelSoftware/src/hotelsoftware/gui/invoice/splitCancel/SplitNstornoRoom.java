@@ -8,7 +8,7 @@ import hotelsoftware.controller.createinvoice.CreateInvoiceController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -63,8 +63,8 @@ public class SplitNstornoRoom extends javax.swing.JPanel
         });
         this.c = c;
         this.habitation = habitation;
-        items = new LinkedList<InvoiceItemData>(InvoiceGUIControler.getInstance().getOpenItems(habitation));
-        selected = new Boolean[InvoiceGUIControler.getInstance().getOpenItems(habitation).size()];
+        items = new LinkedList<InvoiceItemData>(CreateInvoiceGUIController.getInstance().getOpenItems(habitation));
+        selected = new Boolean[CreateInvoiceGUIController.getInstance().getOpenItems(habitation).size()];
         initComponents();
         initTable();
     }
@@ -153,7 +153,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
                 int amount = (new StornoFrame(str, iid.getAmount(), jTable1)).getValue();
                 if (amount > 0)
                 {
-                    if (!(InvoiceGUIControler.getInstance().cancelItems(iid, amount)))
+                    if (!(CreateInvoiceGUIController.getInstance().cancelItems(iid, amount)))
                     {
                         JOptionPane.showMessageDialog(jTable1, "You don not have the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
                     }

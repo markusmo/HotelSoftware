@@ -8,7 +8,7 @@ import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import at.fhv.roomanizer.persistence.manager.IInvoiceItemManager;
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.domain.invoice.InvoiceManager;
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.util.HibernateUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;

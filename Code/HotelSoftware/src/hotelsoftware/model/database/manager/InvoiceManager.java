@@ -1,4 +1,4 @@
-package hotelsoftware.model.domain.invoice;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
@@ -7,6 +7,11 @@ import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.database.service.DBHabitation;
+import hotelsoftware.model.domain.invoice.IInvoice;
+import hotelsoftware.model.domain.invoice.IInvoiceItem;
+import hotelsoftware.model.domain.invoice.IPaymentMethod;
+import hotelsoftware.model.domain.invoice.Invoice;
+import hotelsoftware.model.domain.invoice.PaymentMethod;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.LinkedHashSet;

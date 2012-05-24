@@ -1,8 +1,10 @@
-package hotelsoftware.model.domain.reservation;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.reservation.DBReservationItem;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;

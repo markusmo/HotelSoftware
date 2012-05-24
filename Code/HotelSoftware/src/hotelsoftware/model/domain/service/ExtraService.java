@@ -1,17 +1,15 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.support.ServiceNotFoundException;
-import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.service.DBExtraService;
+import hotelsoftware.model.database.manager.ServiceManager;
+import hotelsoftware.support.ServiceNotFoundException;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Diese Klasse bildet Extraservices (Essen, Getraenke, usw.) ab, mit der das System arbeitet
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ExtraService extends Service implements IExtraService
@@ -23,7 +21,7 @@ public class ExtraService extends Service implements IExtraService
     {
         return name;
     }
-    
+
     @Override
     public void setName(String name)
     {
@@ -40,6 +38,18 @@ public class ExtraService extends Service implements IExtraService
         this.name = name;
     }
 
+    @Override
+    public ServiceTypeData getServiceTypeData()
+    {
+        return (ServiceTypeData) getServiceType();
+    }
+
+    @Override
+    public String getServiceName()
+    {
+        return getName();
+    }
+    
     /**
      * Instanziert einen neuen Extraservice
      * @param name
@@ -80,25 +90,15 @@ public class ExtraService extends Service implements IExtraService
     {
         return ServiceManager.getInstance().getExtraServiceByName(name);
     }
-
-    @Override
-    public ServiceTypeData getServiceTypeData()
-    {
-        return (ServiceTypeData) getServiceType();
-    }
-
+    
     /**
      * Gibt alle Verpflegungsarten aus
-     * @return 
+     *
+     * @return
      * Alle Verpflegungsarten, die vorhanden sind.
      */
     public static Collection<IExtraService> getAllHabitationServices()
     {
         return ServiceManager.getInstance().getAllHabitationServices();
-    }
-
-    @Override
-    public String getServiceName() {
-       return getName();
     }
 }

@@ -1,8 +1,10 @@
-package hotelsoftware.model.domain.users;
+package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.users.DBPermission;
 import hotelsoftware.model.database.users.DBUser;
+import hotelsoftware.model.domain.users.IPermission;
+import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.support.PermissionNotFoundException;
 import hotelsoftware.util.HibernateUtil;

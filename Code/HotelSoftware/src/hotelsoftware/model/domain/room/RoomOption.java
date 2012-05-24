@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.database.manager.RoomManager;
 import java.util.Collection;
 
 /**

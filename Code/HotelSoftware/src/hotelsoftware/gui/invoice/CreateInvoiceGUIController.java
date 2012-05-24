@@ -35,7 +35,7 @@ import javax.swing.JPanel;
  *
  * diese Klasse übernimmt die Abhandlung des Use cases "Rechnung erstellen" auf GUI-Ebene
  */
-public final class InvoiceGUIControler implements ActionListener
+public final class CreateInvoiceGUIController implements ActionListener
 {
     /**
      * Use case Controller auf der Controller-Ebene
@@ -62,7 +62,7 @@ public final class InvoiceGUIControler implements ActionListener
     private static final String back = "Back";
     private static final String payed = "Payed";
 
-    private InvoiceGUIControler()
+    private CreateInvoiceGUIController()
     {
         // init labels
         invoiceHomeLabel.setText(invoiceHome);
@@ -72,7 +72,7 @@ public final class InvoiceGUIControler implements ActionListener
         paymentLabel.setText(payment);
     }
 
-    public static InvoiceGUIControler getInstance()
+    public static CreateInvoiceGUIController getInstance()
     {
         return invoiceGUIControlerHolder.INSTANCE;
     }
@@ -248,7 +248,7 @@ public final class InvoiceGUIControler implements ActionListener
 
     private static class invoiceGUIControlerHolder
     {
-        private static final InvoiceGUIControler INSTANCE = new InvoiceGUIControler();
+        private static final CreateInvoiceGUIController INSTANCE = new CreateInvoiceGUIController();
     }
 
     private JPanel getContentPanel()
@@ -405,13 +405,7 @@ public final class InvoiceGUIControler implements ActionListener
             layout.previous(getContentPanel());
             JPanel current = getCurrentPanel(contentPanel);
 
-
-            // if (last instanceof PaymentPanel || last instanceof IntermediatInvoicePanel)
-            //  {
-            //layout.removeLayoutComponent(last);
             contentPanel.remove(last);
-            //}
-
 
             setNavigation(current.getClass());
 
@@ -462,9 +456,6 @@ public final class InvoiceGUIControler implements ActionListener
                 {
                     current = (JPanel) component;
                 }
-                // um JScrollPanes ebenfalls zu berücksichtigen
-//                else if (component instanceof JScrollPane)
-//                    currentPanel = (JPanel) ((JScrollPane) component).getViewport().getComponent(0);
             }
         }
 

@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.room;
 
+import hotelsoftware.model.database.manager.RoomManager;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomOptionData;
 import hotelsoftware.controller.data.room.RoomsRoomStatusData;

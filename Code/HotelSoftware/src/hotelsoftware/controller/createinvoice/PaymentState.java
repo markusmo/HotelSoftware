@@ -4,6 +4,7 @@
  */
 package hotelsoftware.controller.createinvoice;
 
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.*;
