@@ -1,15 +1,13 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.controller.data.users.UserData;
-import hotelsoftware.controller.login.LoginController;
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.parties.IGuest;
-import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.IRoom;
 import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.util.HelperFunctions;
@@ -38,45 +36,6 @@ public class Habitation extends Service implements IHabitation
     public Habitation()
     {
     }
-
-    private Habitation(Date start, Date end)
-    {
-        this();
-        this.start = start;
-        this.end = end;
-    }
-
-    /**
-     * Instanziert einen Aufenthalt fuer eine Periode (fuer Walk-In)
-     *
-     * @param start
-     * Start der Periode
-     * @param end
-     * Ende der Periode
-     * @return
-     * neuen Aufenthalt mit fuer die angegebene Periode
-     */
-    public static IHabitation createHabitation(Date start, Date end)
-    {
-        return new Habitation(start, end);
-    }
-
-    /**
-     * Instanziert einen Aufenthalt mit einer vorhandenen Reservierung
-     *
-     * @param reservation
-     * Die Reservierung, aus der ein Aufenthalt werden sollte.
-     * @return
-     * Eine neue Instanz
-     */
-    public static IHabitation createWithReservationData(Reservation reservation)
-    {
-        Habitation habitation = new Habitation();
-        habitation.setStart(reservation.getStartDate());
-        habitation.setEnd(reservation.getEndDate());
-        habitation.setUsers(LoginController.getInstance().getCurrentUser());
-        return habitation;
-    }
     
     public static Collection<IHabitation> getHabitationsByDate(Date date)
     {
@@ -91,128 +50,86 @@ public class Habitation extends Service implements IHabitation
     public static int getHighestId()
     {
         return ServiceManager.getInstance().getHighestHabitationId();
-    } //überfacade reservation und invoice
+    }
 
-    /**
-     * @return the start
-     */
     @Override
     public Date getStart()
     {
         return start;
     }
 
-    /**
-     * @param start the start to set
-     */
     @Override
     public void setStart(Date start)
     {
         this.start = start;
     }
 
-    /**
-     * @return the end
-     */
     @Override
     public Date getEnd()
     {
         return end;
     }
 
-    /**
-     * @param end the end to set
-     */
     @Override
     public void setEnd(Date end)
     {
         this.end = end;
     }
 
-    /**
-     * @return the price
-     */
     @Override
     public BigDecimal getPrice()
     {
         return price;
     }
-
-    /**
-     * @param price the price to set
-     */
+    
     @Override
     public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
 
-    /**
-     * @return the created
-     */
     @Override
     public Date getCreated()
     {
         return created;
     }
 
-    /**
-     * @param created the created to set
-     */
     @Override
     public void setCreated(Date created)
     {
         this.created = created;
     }
 
-    /**
-     * @return the guestsCollection
-     */
     @Override
     public Collection<IGuest> getGuests()
     {
         return guests;
     }
 
-    /**
-     * @param guests the guestsCollection to set
-     */
     @Override
     public void setGuests(Collection<IGuest> guests)
     {
         this.guests = guests;
     }
 
-    /**
-     * @return the idRooms
-     */
     @Override
     public IRoom getRooms()
     {
         return rooms;
     }
 
-    /**
-     * @param rooms the idRooms to set
-     */
     @Override
     public void setRooms(IRoom rooms)
     {
         this.rooms = rooms;
     }
 
-    /**
-     * @return the idUsers
-     */
     @Override
     public IUser getUsers()
     {
         return users;
     }
 
-    /**
-     * @param users the idUsers to set
-     */
     @Override
     public void setUsers(IUser users)
     {
@@ -336,17 +253,24 @@ public class Habitation extends Service implements IHabitation
         return builder.toString();
     }
 
-    public static Collection<IHabitation> searchHabitations(String fName, String lName, String roomId)
+    /**
+     * Sucht nach Aufenthalten
+     * @param fName Der Vorname eines zum Aufenthalt gehörenden Gastes
+     * @param lName Der Nachname eines zum Aufenthalten gehörenden Gastes
+     * @param roomNr Die Zimmernummer des zum Aufenthalt gehörenden Zimmers
+     * @return Die gefundenen Aufenthalte
+     */
+    public static Collection<IHabitation> searchHabitations(String fName, String lName, String roomNr)
     {
         Collection<IHabitation> habitations = new LinkedList<IHabitation>();
         
-        if (roomId != null)
+        if (roomNr != null)
         {
-           habitations.addAll(ServiceManager.getInstance().searchHabitationsByNumber(roomId));
+           habitations.addAll(ServiceManager.getInstance().searchHabitationsByNumber(roomNr));
         }
         if (fName != null && lName != null)
         {
-             habitations.addAll(ServiceManager.getInstance().searchHabitations(fName, lName, roomId));
+             habitations.addAll(ServiceManager.getInstance().searchHabitations(fName, lName, roomNr));
         }
         
         return habitations;

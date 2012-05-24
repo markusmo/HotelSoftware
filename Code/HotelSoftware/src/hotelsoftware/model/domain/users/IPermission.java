@@ -12,12 +12,7 @@ import hotelsoftware.controller.data.users.PermissionData;
  */
 public interface IPermission extends PermissionData
 {
-
     Integer getId();
-
-    String getName();
-
-    int hashCode();
 
     void setId(Integer id);
 

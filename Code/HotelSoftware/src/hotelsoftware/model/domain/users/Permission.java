@@ -1,19 +1,23 @@
 package hotelsoftware.model.domain.users;
 
 import hotelsoftware.model.database.manager.UserManager;
-import hotelsoftware.controller.data.users.PermissionData;
 import hotelsoftware.support.PermissionNotFoundException;
 import java.util.Collection;
 
 /**
  * Stellt eine Befungnis (veraendern von Daten, erstellen von Reservierugen, etc.)
  * dar, mit der das System arbeitet
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Permission implements IPermission
 {
     private Integer id;
     private String name;
+
+    public Permission()
+    {
+    }
 
     @Override
     public String getName()
@@ -26,7 +30,7 @@ public class Permission implements IPermission
     {
         this.name = permission;
     }
-    
+
     @Override
     public Integer getId()
     {
@@ -41,31 +45,11 @@ public class Permission implements IPermission
             this.id = id;
         }
     }
-    
-    public Permission()
-    {
-    }
-    
-    private Permission(String name)
-    {
-        this.name = name;
-    }
-
-    /**
-     * Instanziert eine neue Befungnis mit einem Namen
-     * @param name
-     * Name der Befugnis
-     * @return 
-     * eine neue Instanz.
-     */
-    public static IPermission create(String name)
-    {
-        return new Permission(name);
-    }
 
     /**
      * Gibt alle Befugnisse aus
-     * @return 
+     *
+     * @return
      * Alle Befugnisse, die vorhanden sind.
      */
     public static Collection<IPermission> getAllPermissions()
@@ -75,6 +59,7 @@ public class Permission implements IPermission
 
     /**
      * Gibt eine Befugnis gesucht nach Namen aus
+     *
      * @param name
      * Der Name der Befugnis
      * @return
@@ -111,6 +96,4 @@ public class Permission implements IPermission
         hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
-    
-    
 }

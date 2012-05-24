@@ -14,14 +14,9 @@ import java.util.Collection;
  */
 public interface IRole extends RoleData
 {
-
     Integer getId();
 
-    String getName();
-
     Collection<IPermission> getPermissions();
-
-    Collection<PermissionData> getPermissionsData();
 
     void setPermissions(Collection<IPermission> permissions);
     

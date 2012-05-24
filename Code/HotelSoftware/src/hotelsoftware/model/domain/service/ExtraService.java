@@ -3,7 +3,6 @@ package hotelsoftware.model.domain.service;
 import hotelsoftware.controller.data.service.ServiceTypeData;
 import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.support.ServiceNotFoundException;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Set;
 
@@ -15,6 +14,10 @@ import java.util.Set;
 public class ExtraService extends Service implements IExtraService
 {
     private String name;
+    
+    public ExtraService()
+    {
+    }
 
     @Override
     public String getName()
@@ -28,16 +31,6 @@ public class ExtraService extends Service implements IExtraService
         this.name = name;
     }
 
-    public ExtraService()
-    {
-    }
-
-    private ExtraService(String name, BigDecimal price, IServiceType type)
-    {
-        super(price, type);
-        this.name = name;
-    }
-
     @Override
     public ServiceTypeData getServiceTypeData()
     {
@@ -48,22 +41,6 @@ public class ExtraService extends Service implements IExtraService
     public String getServiceName()
     {
         return getName();
-    }
-    
-    /**
-     * Instanziert einen neuen Extraservice
-     * @param name
-     * Name des Extraservice
-     * @param price
-     * Preis des Extraservice
-     * @param type
-     * Typ des Extraservice
-     * @return 
-     * eine neue Instanz
-     */
-    public static ExtraService createExtraService(String name, BigDecimal price, IServiceType type)
-    {
-        return new ExtraService(name, price, type);
     }
 
     /**
