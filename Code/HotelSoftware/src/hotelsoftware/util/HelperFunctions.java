@@ -193,6 +193,13 @@ public class HelperFunctions<T, U extends T>
         return list;
     }
     
+    /**
+     * Konvertiert eine Liste aus Adapterklassen in eine Liste aus Klassen des inneren Typs
+     * @param <T> Der innere Typ
+     * @param <U> Der Adapter-Typ
+     * @param col Die zu konvertierende Collection
+     * @return Die konvertierte Liste
+     */
     public static <T, U extends Adapter<T>>  List<T> getOurList(Collection<U> col)
     {
         LinkedList<T> list = new LinkedList<T>();
@@ -205,6 +212,15 @@ public class HelperFunctions<T, U extends T>
         return list;
     }
     
+    /**
+     * Konvertiert eine Liste aus Adapterklassen in eine Liste aus Überklassen des inneren Typs
+     * @param <V> Der Typ der inneren Klasse die zurück kommen soll
+     * @param <T> Der innere Typ
+     * @param <U> Der Typ der zu konvertierenden Liste
+     * @param col Die zu konvertierende Collection
+     * @param returnClass Die Klasse des Typs der zurückkommen soll
+     * @return Die konvertierte Liste
+     */
     public static <V, T extends V, U extends Adapter<T>>  List<V> getOurList(Collection<U> col, Class<V> returnClass)
     {
         LinkedList<V> list = new LinkedList<V>();

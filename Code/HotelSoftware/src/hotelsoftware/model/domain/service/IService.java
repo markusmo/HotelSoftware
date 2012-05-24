@@ -11,17 +11,12 @@ import java.math.BigDecimal;
  *
  * @author Kno
  */
-public interface IService extends ServiceData{
-
+public interface IService extends ServiceData
+{
     /**
      * @return the id
      */
     Integer getIdServices();
-
-    /**
-     * @return the price
-     */
-    BigDecimal getPrice();
 
     String getServiceName();
 
@@ -44,5 +39,4 @@ public interface IService extends ServiceData{
      * @param serviceType the serviceType to set
      */
     void setServiceType(IServiceType serviceType);
-    
 }
