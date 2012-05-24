@@ -2,14 +2,7 @@ package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.parties.*;
-import hotelsoftware.model.domain.parties.Company;
-import hotelsoftware.model.domain.parties.IAddress;
-import hotelsoftware.model.domain.parties.ICompany;
-import hotelsoftware.model.domain.parties.ICompanyType;
-import hotelsoftware.model.domain.parties.ICountry;
-import hotelsoftware.model.domain.parties.IGuest;
-import hotelsoftware.model.domain.parties.IParty;
-import hotelsoftware.model.domain.parties.IPrivateCustomer;
+import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
@@ -18,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -304,6 +296,10 @@ public class PartyManager
         return DynamicMapper.mapCollection(retList);
     }
 
+    /**
+     * Speichert eine Adresse
+     * @param address die Adresse, die zu speichern ist
+     */
     public void saveAddress(IAddress address)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -315,6 +311,11 @@ public class PartyManager
         t.commit();
     }
 
+    /**
+     * Speichert eine Adresse
+     * @param address die Adresse, die zu speichern ist
+     * @param session eine Hibernate-Session zum speichern
+     */
     public void saveAddress(IAddress address, Session session)
     {
         DBAddress dbadr = (DBAddress) DynamicMapper.map(address);
@@ -330,6 +331,10 @@ public class PartyManager
         }
     }
 
+    /**
+     * Speichert eine Partei
+     * @param party die Partei, die zu speichern ist
+     */
     public void saveParty(IParty party)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -341,6 +346,11 @@ public class PartyManager
         t.commit();
     }
 
+    /**
+     * Speichert eine Partei
+     * @param party die Partei, die zu speichern ist
+     * @param session eine Hibernate-Session zum speichern
+     */
     public void saveParty(IParty party, Session session)
     {
         DBParty dbp = (DBParty) DynamicMapper.map(party);
