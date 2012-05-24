@@ -44,6 +44,10 @@ public class InvoiceManager
         private static final InvoiceManager INSTANCE = new InvoiceManager();
     }
 
+    /**
+     * Gibt die höchste ID aus der Datenbank aus
+     * @return die höchste ID aus der Datenbank
+     */
     public int getHighestInvoiceId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -118,6 +122,12 @@ public class InvoiceManager
         return (PaymentMethod) DynamicMapper.map(ret);
     }
 
+    /**
+     * Gibt alle Rechnungspositionen für einen Aufenthalt aus
+     * @param habitation der Aufenthalt, nach dem gesucht wird und auf den die Rechungspositionen zeigen
+     * @return Rechnungspostitionen für einen Aufenthalt
+     * @throws HibernateException Wenn die Transaktion fehlschlägt wird dieser Fehler geworfen.
+     */
     public Set<IInvoiceItem> getInvoiceItemsByHabitation(
             DBHabitation habitation) throws HibernateException
     {
@@ -130,6 +140,10 @@ public class InvoiceManager
         return new LinkedHashSet<IInvoiceItem>(DynamicMapper.mapCollection(retList));
     }
 
+    /**
+     * Speichert eine Rechnung in die Datenbank
+     * @param invoice Die Rechnung, die gespeichert werden soll
+     */
     public void saveInvoice(IInvoice invoice)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -141,9 +155,13 @@ public class InvoiceManager
         t.commit();
     }
 
+    /**
+     * Speichert eine Rechnung in die Datenbank
+     * @param invoice Die Rechnung, die gespeichert werden soll
+     * @param session eine Hibernate-Session zum speichern
+     */
     public void saveInvoice(IInvoice invoice, Session session)
     {
-        //SO FUNKTIONIERTS!!!!!!!!!!!!!!!!!!!!!!!!!!
         DBInvoice dbi = (DBInvoice) DynamicMapper.map(invoice);
         Integer id = (Integer) session.save(session.merge(dbi));
         invoice.setId(id);
@@ -167,6 +185,10 @@ public class InvoiceManager
         }
     }
 
+    /**
+     * Speichert Rechungspositionen
+     * @param items Rechnunspositionen, die zu speichern sind
+     */
     public void saveInvoiceItems(Collection<IInvoiceItem> items)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -178,6 +200,11 @@ public class InvoiceManager
         t.commit();
     }
 
+    /**
+     * Speicher Rechunspositionen
+     * @param items Rechnungspositionen, die zu speichern sind
+     * @param session eine Hibernate-Session zum speichern
+     */
     public void saveInvoiceItems(Collection<IInvoiceItem> items, Session session)
     {
         for (IInvoiceItem item : items)
