@@ -18,7 +18,6 @@ import java.util.Set;
  */
 public interface IReservation extends ReservationData
 {
-
     Collection<IGuest> getGuests();
 
     Integer getId();

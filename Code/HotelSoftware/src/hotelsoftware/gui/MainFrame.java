@@ -4,7 +4,7 @@ import at.fhv.roomanizer.ui.swt.habitation.HabitationView;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.gui.checkin.CheckInMain;
 import hotelsoftware.gui.home.HomePanel;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.InvoiceMain;
 import hotelsoftware.gui.invoice.invoiceHome.InvoiceHome;
 import hotelsoftware.gui.login.LoginWindow;
@@ -208,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame
             cigc.getContentpane().add(invoiceMain, BorderLayout.CENTER);
             ((CardLayout) cigc.getContentpane().getLayout()).next(cigc.getContentpane());
             InvoiceHome invoiceHome = new InvoiceHome();
-            InvoiceGUIControler.getInstance().setContentPanel(invoiceHome);
+            CreateInvoiceGUIController.getInstance().setContentPanel(invoiceHome);
             invoiceHome.setFocus();
             cigc.getContentpane().repaint();
         }

@@ -7,6 +7,7 @@ package hotelsoftware.model.domain.room;
 import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.model.domain.service.IHabitation;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +15,6 @@ import java.util.Collection;
  */
 public interface IRoom extends RoomData
 {
-
     void addOption(IRoomOption option);
 
     void changeStatus(IRoomRoomStatus status);
@@ -40,5 +40,13 @@ public interface IRoom extends RoomData
     Collection<IHabitation> getHabitations();
     
     void setHabitations(Collection<IHabitation> habitations);
+    
+    /**
+     * Überprüft ob ein Raum in einem gegebenen Zeitraum frei ist
+     * @param start Der STarttermin des gesuchten Zeitraums
+     * @param end Der Endtermin des gesuchten Zeitraums
+     * @return TRUE wenn der Raum frei ist
+     */
+    boolean isFree(Date start, Date end);
     
 }

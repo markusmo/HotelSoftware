@@ -4,6 +4,7 @@ import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.invoice.PaymentMethodData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.users.UserData;
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.users.IUser;
 import hotelsoftware.util.HelperFunctions;
@@ -194,11 +195,6 @@ public class Invoice implements IInvoice
         return total;
     }
     
-    /**
-     * gibt den Totalbetrag der Rechung aus, mit Steuern
-     * @return 
-     * Totalbetrag der Rechung mit Steuern
-     */
     @Override
     public double getTotalwithTax()
     {

@@ -4,7 +4,7 @@
  */
 package hotelsoftware.gui.invoice.labels;
 
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import javax.swing.JLabel;
 
 /**
@@ -14,6 +14,6 @@ import javax.swing.JLabel;
 public class SeperatorLabel extends JLabel
 {
     public SeperatorLabel() {
-        setText(InvoiceGUIControler.getInstance().getSeperatorString());
+        setText(CreateInvoiceGUIController.getInstance().getSeperatorString());
     }
 }

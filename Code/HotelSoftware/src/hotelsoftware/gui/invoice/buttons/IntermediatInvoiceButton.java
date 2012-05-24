@@ -4,7 +4,7 @@
  */
 package hotelsoftware.gui.invoice.buttons;
 
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import javax.swing.JButton;
 
 /**
@@ -13,7 +13,7 @@ import javax.swing.JButton;
  */
 public class IntermediatInvoiceButton extends JButton
 {
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     
     public IntermediatInvoiceButton() {
         setText(ctrl.getIntermediatInvoiceString());

@@ -1,18 +1,16 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.support.CompanyNotFoundException;
-import hotelsoftware.support.GuestNotFoundException;
-import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.controller.data.reservation.ReservationData;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.support.CompanyNotFoundException;
+import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.util.HelperFunctions;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Klasse für Personen die Gäste im Hotel sind. Sie haben ein Geschlecht, einen vor- und einen nachnamen und implementieren das GuestData interface, welches extra dafür geschrieben wrude. 
@@ -179,18 +177,6 @@ public class Guest extends Party implements IGuest
     public AddressData getAddressData()
     {
         return (AddressData) address;
-    }
-
-    /**
-     * Sucht einen Gast nach der hinterlegten eindeutigen Reservierungsnummer
-     * @param reservationNumber
-     * Die eindeutige Reservierungsnummer
-     * @return
-     * Der Gast, der zu dieser Reservierung gehoert
-     */
-    public static IGuest getGuestFromReservationNumber(String reservationNumber)
-    {
-        return PartyManager.getInstance().getGuestFromReservationNumber(reservationNumber);
     }
     
     @Override

@@ -4,6 +4,9 @@
  */
 package hotelsoftware.controller.checkin;
 
+import hotelsoftware.model.database.manager.ServiceManager;
+import hotelsoftware.model.database.manager.RoomManager;
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
@@ -14,7 +17,7 @@ import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.gui.checkin.CheckInGuiControler;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
-import hotelsoftware.model.domain.invoice.InvoiceManager;
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.Reservation;

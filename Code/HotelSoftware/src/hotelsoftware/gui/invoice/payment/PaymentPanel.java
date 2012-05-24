@@ -5,7 +5,7 @@
 package hotelsoftware.gui.invoice.payment;
 
 import hotelsoftware.gui.invoice.ControlsSetter;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.PayedButton;
@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  */
 public class PaymentPanel extends JPanel implements ControlsSetter
 {
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     private PayedButton pB;
     private AbortButton aB;
     private BackButton bB;

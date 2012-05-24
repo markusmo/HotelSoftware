@@ -4,28 +4,25 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.invoice.InvoiceData;
-import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.model.domain.invoice.IInvoice;
-import hotelsoftware.model.domain.invoice.Invoice;
 import java.util.Collection;
 
 /**
  *
  * @author Kno
  */
-public interface ICustomer extends IParty, CustomerData{
+public interface ICustomer extends IParty, CustomerData
+{
     IAddress getInvoiceAddress();
 
     Collection<IInvoice> getInvoices();
 
     void addInvoice(IInvoice i);
-    
+
     void removeInvoice(IInvoice i);
 
     void setInvoiceAddress(IAddress invoiceAddress);
 
     void setInvoices(Collection<IInvoice> invoices);
-    
 }

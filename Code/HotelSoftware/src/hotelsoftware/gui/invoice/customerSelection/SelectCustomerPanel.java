@@ -3,7 +3,7 @@ package hotelsoftware.gui.invoice.customerSelection;
 import hotelsoftware.controller.data.parties.*;
 import hotelsoftware.gui.home.HomePanel;
 import hotelsoftware.gui.invoice.ControlsSetter;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.PaymentButton;
@@ -32,7 +32,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
     private CompanyPanel companyPanel = new CompanyPanel();
     private CustomerData THEcustomer;
     private boolean isAlive = true;
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     private PaymentButton pmB;
     private AbortButton aB;
     private BackButton bB;
@@ -43,7 +43,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
      */
     public SelectCustomerPanel()
     {
-        Collection<PartyData> allCustomers = InvoiceGUIControler.getInstance().getWorkingHabitationsGuests();
+        Collection<PartyData> allCustomers = CreateInvoiceGUIController.getInstance().getWorkingHabitationsGuests();
         if (allCustomers != null)
         {
             URcustomers = allCustomers;
@@ -377,7 +377,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         {
             if (personPanel.isFinished())
             {
-                InvoiceGUIControler.getInstance().createPrivateCustomer(personPanel.getFName(), personPanel.getLName(), personPanel.getStreet(), personPanel.getCity(), personPanel.getZip(), personPanel.getEmail(), personPanel.getPhone(), personPanel.getFax(), personPanel.getIdCountry());
+                CreateInvoiceGUIController.getInstance().createPrivateCustomer(personPanel.getFName(), personPanel.getLName(), personPanel.getStreet(), personPanel.getCity(), personPanel.getZip(), personPanel.getEmail(), personPanel.getPhone(), personPanel.getFax(), personPanel.getIdCountry());
             }
             else
             {
@@ -389,7 +389,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         {
             if (companyPanel.isFinished())
             {
-                InvoiceGUIControler.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getCompanyType(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
+                CreateInvoiceGUIController.getInstance().createCompanyCustomer(companyPanel.getCompanyName(), companyPanel.getCompanyType(), companyPanel.getStreet(), companyPanel.getCity(), companyPanel.getZip(), companyPanel.getEmail(), companyPanel.getPhone(), companyPanel.getFax(), companyPanel.getIdCountry());
             }
             else
             {
@@ -398,7 +398,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
             }
         }
         isAlive = false;
-        InvoiceGUIControler.getInstance().setPaymentPanel();
+        CreateInvoiceGUIController.getInstance().setPaymentPanel();
     }//GEN-LAST:event_buttonCreateCustomerActionPerformed
 
     private void buttonSelectCustomerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonSelectCustomerActionPerformed
@@ -416,32 +416,32 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
             if (pd instanceof GuestData)
             {
                 GuestData gd = (GuestData) pd;
-                InvoiceGUIControler.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                CreateInvoiceGUIController.getInstance().createPrivateCustomer(gd.getFname(), gd.getLname(), gd.getAddressData().getStreet(), gd.getAddressData().getCity(), gd.getAddressData().getZip(), gd.getAddressData().getEmail(), gd.getAddressData().getPhone(), gd.getAddressData().getFax(), gd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
             }
             else
             {
                 if (pd instanceof CompanyData)
                 {
                     CompanyData cd = (CompanyData) pd;
-                    InvoiceGUIControler.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getTypeData(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                    CreateInvoiceGUIController.getInstance().createCompanyCustomer(cd.getCompanyname(), cd.getTypeData(), cd.getAddressData().getStreet(), cd.getAddressData().getCity(), cd.getAddressData().getZip(), cd.getAddressData().getEmail(), cd.getAddressData().getPhone(), cd.getAddressData().getFax(), cd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                 }
                 else
                 {
                     if (pd instanceof PrivateCustomerData)
                     {
                         PrivateCustomerData pcd = (PrivateCustomerData) pd;
-                        InvoiceGUIControler.getInstance().createPrivateCustomer(pcd.getFname(), pcd.getLname(), pcd.getAddressData().getStreet(), pcd.getAddressData().getCity(), pcd.getAddressData().getZip(), pcd.getAddressData().getEmail(), pcd.getAddressData().getPhone(), pcd.getAddressData().getFax(), pcd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
+                        CreateInvoiceGUIController.getInstance().createPrivateCustomer(pcd.getFname(), pcd.getLname(), pcd.getAddressData().getStreet(), pcd.getAddressData().getCity(), pcd.getAddressData().getZip(), pcd.getAddressData().getEmail(), pcd.getAddressData().getPhone(), pcd.getAddressData().getFax(), pcd.getAddressData().getIdCountry(), TextFieldStreet.getText(), TextFieldCity.getText(), TextFieldZip.getText(), TextFieldEmail.getText(), TextFieldPhoneNumber.getText(), TextFieldFax.getText(), (CountryData) ComboBoxCountry.getSelectedItem());
                     }
                 }
             }
         }
         else
         {
-            InvoiceGUIControler.getInstance().useExistingParty((PartyData) list.getSelectedValue());
+            CreateInvoiceGUIController.getInstance().useExistingParty((PartyData) list.getSelectedValue());
         }
 
         isAlive = false;
-        InvoiceGUIControler.getInstance().setPaymentPanel();
+        CreateInvoiceGUIController.getInstance().setPaymentPanel();
 
     }//GEN-LAST:event_buttonSelectCustomerActionPerformed
 
@@ -520,7 +520,7 @@ public class SelectCustomerPanel extends javax.swing.JPanel implements ControlsS
         initNewCustomer();
 
         ComboBoxCountry.removeAllItems();
-        for (CountryData data : InvoiceGUIControler.getInstance().getAllCountries())
+        for (CountryData data : CreateInvoiceGUIController.getInstance().getAllCountries())
         {
             ComboBoxCountry.addItem(data);
         }

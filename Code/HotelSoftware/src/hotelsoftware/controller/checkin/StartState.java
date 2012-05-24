@@ -4,15 +4,13 @@
  */
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.controller.data.reservation.ReservationData;
 import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.reservation.ReservationItem;
-import hotelsoftware.controller.data.reservation.ReservationData;
-import hotelsoftware.controller.data.reservation.ReservationItemData;
-import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.util.HelperFunctions;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * Dieser Status erlaubt es nach vorhandenen Reservierungen zu suchen und mit dieser dann zu arbeiten.

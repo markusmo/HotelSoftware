@@ -12,21 +12,11 @@ import hotelsoftware.controller.data.parties.PrivateCustomerData;
  */
 public interface IPrivateCustomer extends ICustomer, PrivateCustomerData{
 
-   
-    String getFname();
-
     Character getGender();
-
-    String getLname();
-
-    String getName();
 
     void setFname(String fname);
 
     void setGender(Character gender);
 
     void setLname(String lname);
-
-    String toString();
-    
 }

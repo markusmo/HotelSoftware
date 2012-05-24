@@ -4,11 +4,7 @@
  */
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.invoice.InvoiceData;
-import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CompanyData;
-import hotelsoftware.controller.data.parties.CompanyTypeData;
-import hotelsoftware.controller.data.parties.PartyData;
 import java.util.Collection;
 
 /**
@@ -21,11 +17,7 @@ public interface ICompany extends ICustomer, CompanyData{
 
     ICompanyType getCompanyType();
 
-    String getCompanyname();
-
     Collection<IParty> getContactPersons();
-
-    String getName();
 
     void removeContactPerson(IParty p);
 

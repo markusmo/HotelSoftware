@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.room.RoomData;
@@ -337,25 +338,19 @@ public class Habitation extends Service implements IHabitation
 
     public static Collection<IHabitation> searchHabitations(String fName, String lName, String roomId)
     {
-        if (roomId == null)
+        Collection<IHabitation> habitations = new LinkedList<IHabitation>();
+        
+        if (roomId != null)
         {
-            return ServiceManager.getInstance().getHabitations(fName, lName);
+           habitations.addAll(ServiceManager.getInstance().searchHabitationsByNumber(roomId));
         }
         if (fName != null && lName != null)
         {
-            return ServiceManager.getInstance().getHabitation(fName, lName, roomId);
+             habitations.addAll(ServiceManager.getInstance().searchHabitations(fName, lName, roomId));
         }
-        return ServiceManager.getInstance().getHabitation(roomId);
-    }
-
-    public static IHabitation searchHabitation(String roomnr)
-    {
-        Collection<IHabitation> temp = searchHabitations(null, null, roomnr);
-        if (temp == null)
-        {
-            return null;
-        }
-        return (Habitation) temp.iterator().next();
+        
+        return habitations;
+        
     }
     
     public static IHabitation getHabitationById(int id)

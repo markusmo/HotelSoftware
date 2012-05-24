@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
