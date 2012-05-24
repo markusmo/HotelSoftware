@@ -1,11 +1,11 @@
 package hotelsoftware.model.domain.room;
 
-import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.room.DBRoomCategory;
 import hotelsoftware.support.NoPriceDefinedException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Dies Klasse bildet die Zimmerkategorie ab, mit der das System arbeitet.
@@ -20,6 +20,10 @@ public class RoomCategory implements IRoomCategory
     private Integer bedCount;
     private Integer id;
 
+    public RoomCategory()
+    {
+    }
+    
     @Override
     public Integer getId()
     {
@@ -30,10 +34,6 @@ public class RoomCategory implements IRoomCategory
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public RoomCategory()
-    {
     }
 
     @Override
@@ -64,14 +64,6 @@ public class RoomCategory implements IRoomCategory
     public void setPrice(Collection<IRoomCategoryPrice> price)
     {
         this.price = price;
-    }
-
-    private RoomCategory(String name, Set<IRoomCategoryPrice> price,
-            int bedAmount)
-    {
-        this.name = name;
-        this.price = price;
-        this.bedCount = bedAmount;
     }
 
     /**
@@ -109,18 +101,7 @@ public class RoomCategory implements IRoomCategory
         
         for (IRoom r : this.rooms)
         {
-            boolean free = true;
-            
-            for (HabitationData h : r.getHabitationCollectionData())
-            {
-                if ((h.getStart().before(start) && h.getEnd().after(start)) || (h.getStart().before(end) && h.getEnd().after(end)))
-                {
-                    free = false;
-                    break;
-                }
-            }
-            
-            if (free)
+            if (r.isFree(start, end))
             {
                 freeRooms.add(r);
             }

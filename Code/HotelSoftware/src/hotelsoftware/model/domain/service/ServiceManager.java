@@ -160,7 +160,7 @@ public class ServiceManager
      * @param lname der Vorname eines Gastes
      * @return eine Liste von Aufenthalten, die diesen Gast enthalten
      */
-    public Collection<IHabitation> getHabitations(String fname, String lname)
+    public Collection<IHabitation> searchHabitationsByName(String fname, String lname)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -233,7 +233,7 @@ public class ServiceManager
      * @param roomnumber die Zimmernummer des Gastes
      * @return
      */
-    public Collection<IHabitation> getHabitation(String fname, String lname, String roomnumber)
+    public Collection<IHabitation> searchHabitations(String fname, String lname, String roomnumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -269,7 +269,7 @@ public class ServiceManager
         return DynamicMapper.mapCollection(tmpList);
     }
 
-    public Collection<IHabitation> getHabitation(String roomNumber)
+    public Collection<IHabitation> searchHabitationsByNumber(String roomNumber)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

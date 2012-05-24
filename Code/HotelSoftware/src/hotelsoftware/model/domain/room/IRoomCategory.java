@@ -5,8 +5,6 @@
 package hotelsoftware.model.domain.room;
 
 import hotelsoftware.controller.data.room.RoomCategoryData;
-import hotelsoftware.support.NoPriceDefinedException;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
@@ -16,11 +14,7 @@ import java.util.Date;
  */
 public interface IRoomCategory extends RoomCategoryData
 {
-    boolean equals(Object obj);
-
     Collection<IRoomCategoryPrice> getPrice();
-
-    Integer getBedCount();
 
     /**
      * sucht nach freien Räumen in einer Periode in der Datenbank
