@@ -5,7 +5,6 @@
 package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.model.database.manager.PartyManager;
-import hotelsoftware.controller.data.parties.CountryData;
 import java.util.Collection;
 
 /**
@@ -100,9 +99,4 @@ public class Country implements ICountry
         hash = 67 * hash + (this.nameShort != null ? this.nameShort.hashCode() : 0);
         return hash;
     }
-
-  
-   
-
-  
 }

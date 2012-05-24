@@ -31,29 +31,6 @@ public class InvoiceItem implements IInvoiceItem
     {
     }
 
-    private InvoiceItem(IService service, int amount, IUser user,
-            IHabitation habitation)
-    {
-        this.amount = amount;
-        this.service = service;
-        this.user = user;
-        this.habitation = habitation;
-    }
-
-    /**
-     * Erstellt eine neue Instanz einer Rechungsposition
-     *
-     * @param service Der Service, der verrechnet wird
-     * @param amount Die Menge der Services, die konsumiert wurden
-     * @param habitation Der Aufenthalt, zu dem diese Position gehoert
-     * @return Eine Rechungsposition, mit einer Anzahl von Services, zugehoerig
-     * zu einem Aufenthalt mit dem User, der sie erstellt hat.
-     */
-    public static IInvoiceItem createInvoiceItem(IService service, int amount, IHabitation habitation)
-    {
-        return new InvoiceItem(service, amount, LoginController.getInstance().getCurrentUser(), habitation);
-    }
-
     @Override
     public Integer getId()
     {
@@ -138,11 +115,6 @@ public class InvoiceItem implements IInvoiceItem
         invoice.setFulfilled(Boolean.TRUE);
     }
 
-    /**
-     * Diese Methode reduziert den RechnungsBetrag um den eingegebenen Betrag
-     *
-     * @param amount
-     */
     @Override
     public void remove(Integer amount)
     {
@@ -173,44 +145,24 @@ public class InvoiceItem implements IInvoiceItem
         return this.price.doubleValue() * tax;
     }
         
-    /**
-     * Gibt den Preis für eine Rechungsposion aus, mit Steuern
-     *
-     * @return Preis des Services * Anzahl der Konsumation + Steuern
-     */
     @Override
     public double getTotalPriceWithTax()
     {
         return getPriceWithTax() * this.amount;
     }
 
-    /**
-     * Gibt den Einzelpreis mit Steuern aus
-     *
-     * @return Einzelpreis mit Steuer
-     */
     @Override
     public double getPriceWithTax()
     {
         return this.price.doubleValue() + (this.price.doubleValue() * getOnlyTax());
     }
 
-    /**
-     * Gibt den Einzelpreis ohne Steuern aus
-     *
-     * @return Einzelpreis ohne Steuer
-     */
     @Override
     public double getPriceWithoutTax()
     {
         return this.price.doubleValue();
     }
 
-    /**
-     * Gibt den Preis für eine Rechungsposition aus, ohne Steuern.
-     *
-     * @return Preis des Services * Anzahl der Konsumation, ohne Steuern
-     */
     @Override
     public double getTotalPriceWithoutTax()
     {

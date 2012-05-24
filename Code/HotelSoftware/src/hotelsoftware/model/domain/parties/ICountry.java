@@ -12,22 +12,12 @@ import hotelsoftware.controller.data.parties.CountryData;
  */
 public interface ICountry extends CountryData{
 
-    boolean equals(Object obj);
-
-    Integer getId();
-
-    String getName();
-
     String getNameShort();
-
-    int hashCode();
 
     void setId(Integer id);
 
     void setName(String name);
 
     void setNameShort(String nameShort);
-
-    String toString();
     
 }

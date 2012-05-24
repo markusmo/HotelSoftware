@@ -1,9 +1,7 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.controller.data.invoice.InvoiceData;
+import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;

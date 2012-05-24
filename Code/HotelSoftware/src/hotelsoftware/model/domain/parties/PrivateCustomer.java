@@ -4,7 +4,6 @@ import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -24,34 +23,6 @@ public class PrivateCustomer extends Customer implements IPrivateCustomer
 
     public PrivateCustomer()
     {
-    }
-    
-
-    /**
-     * Instanziert einen neuen Privatkunden
-     *
-     * @param fname Vorname des Kunden
-     * @param lname Nachname des Kunden
-     * @param gender Geschlecht des Kunden (im Falle, das der Gast == Kunde ist)
-     * @param invoiceAddress Rechungsadresse des Kunden
-     * @param address Die Adresse des Kunden
-     * @return
-     * Eine neue Instanz
-     */
-    public static PrivateCustomer create(String fname, String lname,
-            Character gender, Address invoiceAddress, Address address)
-    {
-        return new PrivateCustomer(fname, lname, gender, invoiceAddress,
-                address);
-    }
-
-    private PrivateCustomer(String fname, String lname, Character gender,
-            Address invoiceAddress, Address address)
-    {
-        super(address, invoiceAddress);
-        this.fname = fname;
-        this.lname = lname;
-        this.gender = gender;
     }
 
     @Override

@@ -14,8 +14,6 @@ public interface IPaymentMethod extends PaymentMethodData{
 
     Integer getId();
 
-    String getMethod();
-
     void setId(Integer id);
 
     void setMethod(String method);
