@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.adapter;
+package hotelsoftware.model.adapter;
 
 import at.fhv.roomanizer.domain.room.*;
 import hotelsoftware.model.domain.room.IRoomRoomStatus;
@@ -13,7 +13,7 @@ import java.util.Date;
  * @author Tobias
  */
 public class RoomStatusAdapter extends at.fhv.roomanizer.domain.room.RoomStatus
-        implements hotelsoftware.adapter.Adapter<hotelsoftware.model.domain.room.IRoomRoomStatus>
+        implements hotelsoftware.model.adapter.Adapter<hotelsoftware.model.domain.room.IRoomRoomStatus>
 {
     private hotelsoftware.model.domain.room.IRoomRoomStatus ourRoomsRoomStatus;
     

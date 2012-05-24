@@ -125,59 +125,6 @@ public class InvoiceManager
         return new LinkedHashSet<IInvoiceItem>(DynamicMapper.mapCollection(retList));
     }
 
-    /**
-     * Speichert die Zahlungsart in der Datenbank ab
-     *
-     * @param name
-     * the new paymentmethod to be created
-     * @throws HibernateException
-     * @throws FailedToSaveToDatabaseException
-     */
-    public void savePaymentMethod(String name) throws FailedToSaveToDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            session.save(new DBPaymentMethod(name));
-            ts.commit();
-        }
-        catch (HibernateException e)
-        {
-            ts.rollback();
-            throw new FailedToSaveToDatabaseException();
-        }
-        finally
-        {
-        }
-    }
-
-    /**
-     * Löscht Zahlungsmethoden aus der Datenbank
-     *
-     * @param name
-     * the name of the method to delete
-     * @throws FaildToDeleteFromDatabaseException
-     */
-    public void deletePaymentMethod(String name) throws FaildToDeleteFromDatabaseException
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        try
-        {
-            DBPaymentMethod method = (DBPaymentMethod) session.createCriteria(
-                    DBPaymentMethod.class).add(Restrictions.like("name", name)).uniqueResult();
-            session.delete(method);
-        }
-        catch (HibernateException ex)
-        {
-            ts.rollback();
-            throw new FaildToDeleteFromDatabaseException();
-        }
-    }
-
     public void saveInvoice(IInvoice invoice)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

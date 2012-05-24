@@ -1,12 +1,12 @@
 package at.fhv.roomanizer.persistence;
 
 import at.fhv.roomanizer.persistence.manager.*;
-import hotelsoftware.adapter.HabitationManagerAdapter;
-import hotelsoftware.adapter.InvoiceItemManagerAdapter;
+import hotelsoftware.model.adapter.HabitationManagerAdapter;
+import hotelsoftware.model.adapter.InvoiceItemManagerAdapter;
 import org.hibernate.Session;
 
-import hotelsoftware.adapter.RoomManagerAdapter;
-import hotelsoftware.adapter.ServiceManagerAdapter;
+import hotelsoftware.model.adapter.RoomManagerAdapter;
+import hotelsoftware.model.adapter.ServiceManagerAdapter;
 
 /**
  * ManagerFactory is responsible for the creation of the different Hibernate-Managers

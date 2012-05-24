@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.adapter;
+package hotelsoftware.model.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.IHabitation;

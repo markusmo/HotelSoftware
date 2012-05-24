@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.adapter;
+package hotelsoftware.model.adapter;
 
 import hotelsoftware.model.domain.room.IRoomStatus;
 import hotelsoftware.model.domain.room.RoomStatus;
@@ -12,7 +12,7 @@ import hotelsoftware.model.domain.room.RoomStatus;
  * @author Tobias
  */
 public class StatusAdapter extends at.fhv.roomanizer.domain.room.Status
-        implements hotelsoftware.adapter.Adapter<hotelsoftware.model.domain.room.IRoomStatus>
+        implements hotelsoftware.model.adapter.Adapter<hotelsoftware.model.domain.room.IRoomStatus>
 {
     private hotelsoftware.model.domain.room.IRoomStatus ourRoomStatus;
 

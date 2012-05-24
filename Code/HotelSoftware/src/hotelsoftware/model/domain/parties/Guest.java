@@ -177,18 +177,6 @@ public class Guest extends Party implements IGuest
     {
         return (AddressData) address;
     }
-
-    /**
-     * Sucht einen Gast nach der hinterlegten eindeutigen Reservierungsnummer
-     * @param reservationNumber
-     * Die eindeutige Reservierungsnummer
-     * @return
-     * Der Gast, der zu dieser Reservierung gehoert
-     */
-    public static IGuest getGuestFromReservationNumber(String reservationNumber)
-    {
-        return PartyManager.getInstance().getGuestFromReservationNumber(reservationNumber);
-    }
     
     @Override
     public String toString()
