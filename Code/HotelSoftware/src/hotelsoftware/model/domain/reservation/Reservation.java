@@ -250,7 +250,6 @@ public class Reservation implements IReservation
     public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
-        setParty(Guest.getGuestFromReservationNumber(reservationNumber));
     }
 
     @Override

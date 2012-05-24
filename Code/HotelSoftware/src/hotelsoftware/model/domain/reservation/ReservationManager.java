@@ -33,7 +33,7 @@ public class ReservationManager
         private static final ReservationManager INSTANCE = new ReservationManager();
     }
 
-    int getHighestReservationId()
+    public int getHighestReservationId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
@@ -75,28 +75,6 @@ public class ReservationManager
         DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
 
         return (IReservation) DynamicMapper.map(reservation);
-    }
-
-    /**
-     * Gibt eine Reservierung nach dem Gast/Kunden aus, der reserviert hat
-     *
-     * @param fname Der Vorname des Gastes/Kunden
-     * @param lname Der Nachname des Gastes/Kunden
-     * @return Die gesuchte Reservierung
-     */
-    public Collection<IReservation> getReservationsByName(String fname, String lname)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        String query = "SELECT * FROM Reservations r WHERE r.idParties = ( SELECT idParties FROM guests g WHERE g.fname = '" + fname + "' AND g.lname = '" + lname + "') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
-        sqlquery.addEntity(DBReservation.class);
-        List<DBReservation> retList = sqlquery.list();
-
-        return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     public Collection<IReservation> getReservationsByNameApprox(String fname,

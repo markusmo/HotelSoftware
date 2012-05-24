@@ -55,15 +55,15 @@ public class RoomManager
      * @return
      * Gibt ein Set mit den Zimmeroptionen aus, die verfuegbar sind
      */
-    public Set<IRoomOption> getRoomOptions()
+    public Collection<IRoomOption> getAllRoomOptions()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        List<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
+        Collection<DBRoomOption> options = session.createCriteria(DBRoomOption.class).list();
 
-        return new LinkedHashSet<IRoomOption>(DynamicMapper.mapCollection(options));
+        return DynamicMapper.mapCollection(options);
     }
 
     /**
@@ -71,7 +71,7 @@ public class RoomManager
      *
      * @return eine Liste von allen Kategorien
      */
-    public Collection<IRoomCategory> getAllCategorys()
+    public Collection<IRoomCategory> getAllCategories()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();

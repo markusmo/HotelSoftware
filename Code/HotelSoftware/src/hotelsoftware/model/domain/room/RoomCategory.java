@@ -84,7 +84,7 @@ public class RoomCategory implements IRoomCategory
      */
     public static Collection<IRoomCategory> getAllCategorys()
     {
-        return RoomManager.getInstance().getAllCategorys();
+        return RoomManager.getInstance().getAllCategories();
     }
 
     /**
