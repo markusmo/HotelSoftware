@@ -1,5 +1,9 @@
 package at.fhv.roomanizer.application;
 
+import hotelsoftware.model.adapter.ServiceManagerAdapter;
+import hotelsoftware.model.adapter.ServiceAdapter;
+import hotelsoftware.model.adapter.InvoiceItemAdapter;
+import hotelsoftware.model.adapter.UserControllerAdapter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +15,6 @@ import at.fhv.roomanizer.domain.service.ExtraService;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
-import hotelsoftware.adapter.*;
 
 public class PrePaymentController
 {

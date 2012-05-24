@@ -11,8 +11,8 @@ import at.fhv.roomanizer.domain.room.RoomStatus;
 import at.fhv.roomanizer.domain.room.Status;
 import at.fhv.roomanizer.persistence.ManagerFactory;
 import at.fhv.roomanizer.persistence.manager.*;
-import hotelsoftware.adapter.RoomStatusAdapter;
-import hotelsoftware.adapter.UserControllerAdapter;
+import hotelsoftware.model.adapter.RoomStatusAdapter;
+import hotelsoftware.model.adapter.UserControllerAdapter;
 
 public class DayEndClosingController
 {

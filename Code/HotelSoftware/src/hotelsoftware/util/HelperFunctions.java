@@ -1,6 +1,6 @@
 package hotelsoftware.util;
 
-import hotelsoftware.adapter.Adapter;
+import hotelsoftware.model.adapter.Adapter;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

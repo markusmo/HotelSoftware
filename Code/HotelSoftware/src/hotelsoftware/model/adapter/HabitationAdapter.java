@@ -1,4 +1,4 @@
-package hotelsoftware.adapter;
+package hotelsoftware.model.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
 import at.fhv.roomanizer.domain.person.Guest;
