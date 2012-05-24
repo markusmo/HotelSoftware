@@ -15,8 +15,16 @@ import java.util.Date;
  */
 public interface IRoom extends RoomData
 {
+    /**
+     * Fügt der Option Collection eine Option hinzu
+     * @param option 
+     */
     void addOption(IRoomOption option);
 
+    /**
+     * Fügt der Status Collection einen Status hinzu
+     * @param status 
+     */
     void changeStatus(IRoomRoomStatus status);
 
     IRoomCategory getCategory();
