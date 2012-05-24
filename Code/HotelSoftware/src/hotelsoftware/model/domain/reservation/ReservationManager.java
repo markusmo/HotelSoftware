@@ -37,6 +37,9 @@ public class ReservationManager
         private static final ReservationManager INSTANCE = new ReservationManager();
     }
     
+    /**
+     * Liefert die höchste Reservations ID zurück
+     */
     int getHighestReservationId()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -99,6 +102,12 @@ public class ReservationManager
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
+    /**
+     * Suche nach einem Gast mithilfe eines ungefähren Namens
+     * @param fname Der ungefähre Vorname nach dem gesucht werden soll
+     * @param lname Der ungefähre Nachname nach dem gesucht werden soll
+     * @return Eine Liste mit Reservierungen auf welche der Vor-oder Nachname ungefähr zutrifft
+     */
     public Collection<IReservation> getReservationsByNameApprox(String fname,
             String lname)
     {
@@ -119,6 +128,7 @@ public class ReservationManager
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
+    
     public Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
