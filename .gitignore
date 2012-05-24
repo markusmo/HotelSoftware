@@ -9,3 +9,4 @@
 /Code/HotelSoftware/dist/
 /Code/HotelSoftware/nbproject/project.properties
 *.DS_Store
+/Code/OnlineReservation/build/*
