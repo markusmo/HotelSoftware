@@ -423,10 +423,10 @@ public final class CreateInvoiceGUIController implements ActionListener
     /**
      * Suche nach Aufentalten (Delegation an Controller)
      *
-     * @param firstName
-     * @param lastName
-     * @param roomNr
-     * @return
+     * @param firstName Der Vorname eines dazugehörigen Gastes
+     * @param lastName Der Nachname eines dazugehörigen Gastes
+     * @param roomNr Die Zimmernummer des dazugehörigen Zimmers
+     * @return Die gefundenen Aufenthalte
      */
     public Collection<HabitationData> search(String firstName, String lastName, String roomNr)
     {

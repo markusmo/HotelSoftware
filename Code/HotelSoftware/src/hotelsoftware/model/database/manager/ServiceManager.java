@@ -164,7 +164,7 @@ public class ServiceManager
      * @param fname der Vorname des Gastes
      * @param lname der Nachname des Gastes
      * @param roomnumber die Zimmernummer des Gastes
-     * @return
+     * @return Die gefundenen Aufenthalte
      */
     public Collection<IHabitation> searchHabitations(String fname, String lname, String roomnumber)
     {

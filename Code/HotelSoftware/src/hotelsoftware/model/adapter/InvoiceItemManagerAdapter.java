@@ -27,14 +27,8 @@ public class InvoiceItemManagerAdapter implements IInvoiceItemManager
     {
     }
     
-    
     private static InvoiceItemManagerAdapter INSTANCE;
 
-    /**
-     * Returns the singleton-instance of the HabitationManagerAdapter
-     *
-     * @return
-     */
     public static InvoiceItemManagerAdapter getInstance()
     {
         if (INSTANCE == null)
