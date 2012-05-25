@@ -23,11 +23,6 @@ public class RoomManagerAdapter implements IRoomManager
     }
     private static RoomManagerAdapter INSTANCE;
 
-    /**
-     * Returns the singleton-instance of the HabitationManagerAdapter
-     *
-     * @return
-     */
     public static RoomManagerAdapter getInstance()
     {
         if (INSTANCE == null)

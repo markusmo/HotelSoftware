@@ -1,15 +1,11 @@
 package at.fhv.roomanizer.ui.swt.habitation;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Text;
-
 import at.fhv.roomanizer.ui.swt.GuiController;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.*;
 
 /**
  * This composite contains the content of the habitation-tab in the MainShell
@@ -36,7 +32,7 @@ public class HabitationView extends Composite
 
         _habitationTable = new HabitationTable(this, SWT.NONE);
 
-        //Buttons
+//Buttons
         Composite buttons = new Composite(this, SWT.NONE);
         buttons.setLayout(mainLayout);
 
@@ -47,6 +43,7 @@ public class HabitationView extends Composite
         paymentLine.setLayout(lineLayout);
         _txtPayment = new Text(paymentLine, SWT.BORDER);
         _btnPayment = new Button(paymentLine, SWT.NONE);
+        _btnPayment.setEnabled(false);
         _btnPayment.setText("Prepayment");
         _btnPayment.addListener(SWT.Selection, new Listener()
         {
@@ -66,6 +63,14 @@ public class HabitationView extends Composite
                     msgBox.setMessage("Enter a valid number!");
                     msgBox.open();
                 }
+            }
+        });
+        _habitationTable.getTable().addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent e)
+            {
+                _btnPayment.setEnabled(true);
             }
         });
     }

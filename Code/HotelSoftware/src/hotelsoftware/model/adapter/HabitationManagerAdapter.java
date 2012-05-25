@@ -22,14 +22,8 @@ public class HabitationManagerAdapter implements IHabitationManager
     {
     }
     
-    
     private static HabitationManagerAdapter INSTANCE;
 
-    /**
-     * Returns the singleton-instance of the HabitationManagerAdapter
-     *
-     * @return
-     */
     public static HabitationManagerAdapter getInstance()
     {
         if (INSTANCE == null)
