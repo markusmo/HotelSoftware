@@ -6,7 +6,7 @@ package hotelsoftware.gui.invoice.invoiceHome;
 
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.invoice.ControlsSetter;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.IntermediatInvoiceButton;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ import javax.swing.*;
  */
 public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
 {
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     
     private IntermediatInvoiceButton iiB;
     private AbortButton aB;

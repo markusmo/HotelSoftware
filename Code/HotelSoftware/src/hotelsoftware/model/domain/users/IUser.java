@@ -4,8 +4,6 @@
  */
 package hotelsoftware.model.domain.users;
 
-import hotelsoftware.controller.data.users.PermissionData;
-import hotelsoftware.controller.data.users.RoleData;
 import hotelsoftware.controller.data.users.UserData;
 import java.util.Collection;
 
@@ -15,9 +13,9 @@ import java.util.Collection;
  */
 public interface IUser extends UserData
 {
-
     /**
      * Aendern des Passwortes des Benutzers, altes Passwort muss mit Datenbank uebereinstimmen
+     *
      * @param oldPassword
      * Altes Benutzerpasswort
      * @param newPassword
@@ -34,17 +32,11 @@ public interface IUser extends UserData
      */
     Collection<IPermission> getAllPermissions();
 
-    Collection<PermissionData> getAllPermissionsData();
-
     Integer getId();
 
     String getPassword();
 
     Collection<IRole> getRoles();
-
-    Collection<RoleData> getRolesData();
-
-    String getUsername();
 
     void setActive(Boolean active);
 
@@ -55,5 +47,4 @@ public interface IUser extends UserData
     void setRoles(Collection<IRole> roles);
 
     void setUsername(String username);
-    
 }

@@ -40,12 +40,6 @@ public abstract class Service implements ServiceData, IService
         }
     }
 
-    protected Service(BigDecimal price, IServiceType serviceType)
-    {
-        this.price = price;
-        this.serviceType = serviceType;
-    }
-
     /**
      * @return the price
      */

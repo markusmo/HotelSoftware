@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.reservation;
 
+import hotelsoftware.model.database.manager.ReservationManager;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.reservation.ReservationItemData;
@@ -187,7 +188,12 @@ public class Reservation implements IReservation
     @Override
     public Integer getGuestAmount()
     {
-        return ReservationManager.getInstance().getGuestAmount(this);
+        int retValue = 0;
+        for(IReservationItem res : this.getReservationItems())
+        {
+            retValue += res.getRoomCategory().getBedCount();
+        }
+        return retValue;
     }
 
     public static Collection<IReservation> search(String firstName, String lastName, String companyName, String reservationNumber)
@@ -245,7 +251,6 @@ public class Reservation implements IReservation
     public void setReserationNumber(String reservationNumber)
     {
         this.reservationNumber = reservationNumber;
-        setParty(Guest.getGuestFromReservationNumber(reservationNumber));
     }
 
     @Override

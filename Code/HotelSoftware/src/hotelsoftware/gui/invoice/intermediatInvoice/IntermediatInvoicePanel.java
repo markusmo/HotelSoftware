@@ -5,7 +5,7 @@
 package hotelsoftware.gui.invoice.intermediatInvoice;
 
 import hotelsoftware.gui.invoice.ControlsSetter;
-import hotelsoftware.gui.invoice.InvoiceGUIControler;
+import hotelsoftware.gui.invoice.CreateInvoiceGUIController;
 import hotelsoftware.gui.invoice.buttons.AbortButton;
 import hotelsoftware.gui.invoice.buttons.BackButton;
 import hotelsoftware.gui.invoice.buttons.ChooseCustomerButton;
@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class IntermediatInvoicePanel extends JPanel implements ControlsSetter
 {
-    private InvoiceGUIControler ctrl = InvoiceGUIControler.getInstance();
+    private CreateInvoiceGUIController ctrl = CreateInvoiceGUIController.getInstance();
     
     private SplitCancelButton sCB;
     private ChooseCustomerButton jCB;

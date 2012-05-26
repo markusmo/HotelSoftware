@@ -1,59 +1,46 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.support.ServiceNotFoundException;
-import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.ServiceTypeData;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.service.DBExtraService;
-import java.math.BigDecimal;
+import hotelsoftware.model.database.manager.ServiceManager;
+import hotelsoftware.support.ServiceNotFoundException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Diese Klasse bildet Extraservices (Essen, Getraenke, usw.) ab, mit der das System arbeitet
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class ExtraService extends Service implements IExtraService
 {
     private String name;
+    
+    public ExtraService()
+    {
+    }
 
     @Override
     public String getName()
     {
         return name;
     }
-    
+
     @Override
     public void setName(String name)
     {
         this.name = name;
     }
 
-    public ExtraService()
+    @Override
+    public ServiceTypeData getServiceTypeData()
     {
+        return (ServiceTypeData) getServiceType();
     }
 
-    private ExtraService(String name, BigDecimal price, IServiceType type)
+    @Override
+    public String getServiceName()
     {
-        super(price, type);
-        this.name = name;
-    }
-
-    /**
-     * Instanziert einen neuen Extraservice
-     * @param name
-     * Name des Extraservice
-     * @param price
-     * Preis des Extraservice
-     * @param type
-     * Typ des Extraservice
-     * @return 
-     * eine neue Instanz
-     */
-    public static ExtraService createExtraService(String name, BigDecimal price, IServiceType type)
-    {
-        return new ExtraService(name, price, type);
+        return getName();
     }
 
     /**
@@ -80,25 +67,15 @@ public class ExtraService extends Service implements IExtraService
     {
         return ServiceManager.getInstance().getExtraServiceByName(name);
     }
-
-    @Override
-    public ServiceTypeData getServiceTypeData()
-    {
-        return (ServiceTypeData) getServiceType();
-    }
-
+    
     /**
      * Gibt alle Verpflegungsarten aus
-     * @return 
+     *
+     * @return
      * Alle Verpflegungsarten, die vorhanden sind.
      */
     public static Collection<IExtraService> getAllHabitationServices()
     {
         return ServiceManager.getInstance().getAllHabitationServices();
-    }
-
-    @Override
-    public String getServiceName() {
-       return getName();
     }
 }

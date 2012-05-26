@@ -16,26 +16,22 @@ import java.util.Date;
  */
 public interface IGuest extends IParty, GuestData{
 
+    /**
+     * Fügt einen Aufenthalt zu einem Gast hinzu
+     * @param h der Aufenthalt, der hinzugefügt werden soll
+     */
     void addHabitation(IHabitation h);
-
-    @Override
-    Date getBirthday();
 
     Collection<IHabitation> getCurrentHabitations();
 
-    @Override
-    String getFname();
-
-    @Override
-    Character getGender();
-
     Collection<IHabitation> getHabitations();
-
-    @Override
-    String getLname();
 
     Collection<IReservation> getReservations();
 
+    /**
+     * Löscht einen spezifischen Aufenthalt
+     * @param h der Aufenthalt, der gelöscht werden soll
+     */
     void removeHabitation(IHabitation h);
 
     void setBirthday(Date birthday);
@@ -49,8 +45,5 @@ public interface IGuest extends IParty, GuestData{
     void setLname(String lname);
 
     void setReservations(Collection<IReservation> reservations);
-
-    @Override
-    String toString();
     
 }

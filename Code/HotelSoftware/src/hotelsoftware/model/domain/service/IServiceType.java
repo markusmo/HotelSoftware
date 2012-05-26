@@ -18,11 +18,6 @@ public interface IServiceType extends ServiceTypeData{
      */
     Integer getId();
 
-    /**
-     * @return the type
-     */
-    String getName();
-
     BigDecimal getTaxRate();
 
     /**

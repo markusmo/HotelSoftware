@@ -38,7 +38,7 @@ public class InvoiceMain extends javax.swing.JPanel
     public InvoiceMain()
     {
         initComponents();
-        InvoiceGUIControler.getInstance().setMain(this);
+        CreateInvoiceGUIController.getInstance().setMain(this);
     }
 
     

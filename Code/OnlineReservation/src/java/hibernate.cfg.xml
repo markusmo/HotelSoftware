@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://teamfoundation.hostingcenter.uclv.net:3306/roomanizer-dev</property>
+    <property name="hibernate.connection.username">hotel</property>
+    <property name="hibernate.connection.password">R00m4n153r</property>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.max_fetch_depth">4</property>
+    <mapping class="hotelsoftware.model.database.invoice.DBInvoice"/>
+    <mapping class="hotelsoftware.model.database.invoice.DBInvoiceItem"/>
+    <mapping class="hotelsoftware.model.database.invoice.DBPaymentMethod"/>
+    <mapping class="hotelsoftware.model.database.parties.DBAddress"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCompany"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCompanyType"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCountry"/>
+    <mapping class="hotelsoftware.model.database.parties.DBCustomer"/>
+    <mapping class="hotelsoftware.model.database.parties.DBGuest"/>
+    <mapping class="hotelsoftware.model.database.parties.DBParty"/>
+    <mapping class="hotelsoftware.model.database.parties.DBPrivateCustomer"/>
+    <mapping class="hotelsoftware.model.database.reservation.DBReservation"/>
+    <mapping class="hotelsoftware.model.database.reservation.DBReservationItem"/>
+    <mapping class="hotelsoftware.model.database.reservation.DBReservationItemPK"/>
+    <mapping class="hotelsoftware.model.database.reservation.DBReservationOption"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoom"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomCategory"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomCategoryPrice"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomCategoryPricePK"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomOption"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomStatus"/>
+    <mapping class="hotelsoftware.model.database.room.DBRoomsRoomStatus"/>
+    <mapping class="hotelsoftware.model.database.room.DBSeason"/>
+    <mapping class="hotelsoftware.model.database.service.DBExtraService"/>
+    <mapping class="hotelsoftware.model.database.service.DBHabitation"/>
+    <mapping class="hotelsoftware.model.database.service.DBService"/>
+    <mapping class="hotelsoftware.model.database.service.DBServiceType"/>
+    <mapping class="hotelsoftware.model.database.users.DBPermission"/>
+    <mapping class="hotelsoftware.model.database.users.DBRole"/>
+    <mapping class="hotelsoftware.model.database.users.DBUser"/>
+  </session-factory>
+</hibernate-configuration>

@@ -4,12 +4,10 @@
  */
 package hotelsoftware.controller.data.reservation;
 
-import hotelsoftware.model.domain.parties.Party;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  *Dieses Interface enthält alle wichtigen Methoden für die Klasse Reservation
@@ -35,5 +33,10 @@ public interface ReservationData
 
     public String getReservationNumber();
 
+    /**
+     * Gibt die Anzahl der reservierten Gaeste aus
+     *
+     * @return Die Anzahl, der Gaeste in einer Reservierung.
+     */
     Integer getGuestAmount();
 }

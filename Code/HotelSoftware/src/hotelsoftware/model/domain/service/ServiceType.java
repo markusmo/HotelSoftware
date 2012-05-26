@@ -1,5 +1,6 @@
 package hotelsoftware.model.domain.service;
 
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.support.ServiceTypeNotFoundException;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.service.DBServiceType;
@@ -21,6 +22,10 @@ public class ServiceType implements IServiceType
     private Integer id;
     private BigDecimal taxRate;
 
+    public ServiceType()
+    {
+    }
+    
     /**
      * @return the id
      */
@@ -40,27 +45,6 @@ public class ServiceType implements IServiceType
         {
             this.id = id;
         }
-    }
-
-    /**
-     * Instanziert eine neue Serviceart (Essen, Getraenke, etc.)
-     * @param name
-     * Name des neuen Service
-     * @return
-     * eine neue Instanz
-     */
-    public static IServiceType createServiceType(String name)
-    {
-        return new ServiceType(name);
-    }
-
-    public ServiceType()
-    {
-    }
-
-    private ServiceType(String type)
-    {
-        this.type = type;
     }
 
     /**

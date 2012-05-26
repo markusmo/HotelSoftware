@@ -5,20 +5,12 @@
 package hotelsoftware.model.domain.service;
 
 import hotelsoftware.controller.data.service.ExtraServiceData;
-import hotelsoftware.controller.data.service.ServiceTypeData;
 
 /**
  *
  * @author Kno
  */
-public interface IExtraService extends IService, ExtraServiceData {
-
-    String getName();
-
-    String getServiceName();
-
-    ServiceTypeData getServiceTypeData();
-
+public interface IExtraService extends IService, ExtraServiceData
+{
     void setName(String name);
-    
 }
