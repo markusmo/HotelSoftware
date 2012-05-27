@@ -5,13 +5,13 @@
 package hotelsoftware.model.adapter;
 
 import at.fhv.roomanizer.domain.Habitation;
-import at.fhv.roomanizer.domain.IHabitation;
 import at.fhv.roomanizer.domain.reservation.Reservation;
 import at.fhv.roomanizer.domain.room.*;
 import hotelsoftware.model.domain.room.IRoomRoomStatus;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.room.RoomsRoomStatus;
 import hotelsoftware.util.HelperFunctions;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
