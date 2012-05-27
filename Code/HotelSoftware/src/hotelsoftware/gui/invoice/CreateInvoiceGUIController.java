@@ -60,7 +60,7 @@ public final class CreateInvoiceGUIController implements ActionListener
     private static final String seperator = ">";
     private static final String abort = "Abort";
     private static final String back = "Back";
-    private static final String payed = "Payed";
+    private static final String payed = "Paid";
 
     private CreateInvoiceGUIController()
     {
