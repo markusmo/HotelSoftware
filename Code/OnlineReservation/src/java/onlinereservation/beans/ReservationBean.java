@@ -15,13 +15,13 @@ import javax.faces.bean.NoneScoped;
  */
 @ManagedBean(name = "stepone")
 @NoneScoped
-public class StepOneBean
+public class ReservationBean
 {
     private Date startDate;
     private Date endDate;
     private IRoomCategory category;
     
-    public StepOneBean()
+    public ReservationBean()
     {
     }
 
