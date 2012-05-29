@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotelsoftware.beans;
+package onlinereservation.beans;
 
 import hotelsoftware.model.domain.room.IRoomCategory;
 import java.util.Date;
