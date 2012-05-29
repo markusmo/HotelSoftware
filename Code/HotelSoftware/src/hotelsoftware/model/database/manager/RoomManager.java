@@ -54,6 +54,20 @@ public class RoomManager
         DBRoom room = (DBRoom) session.createCriteria(DBRoom.class).add(Restrictions.eq("number", number)).uniqueResult();
         return (IRoom) DynamicMapper.map(room);
     }
+    
+    /**
+     * Gibt alle Zimmer einer Kategorie aus
+     * @param roomCategory die Kategorie der die Räume angehören sollen
+     * @return die Zimmer die der Kategorie entsprechen
+     */
+    public Collection<IRoom> getRoomsByCategory(RoomCategory roomCategory){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        
+        Collection<DBRoom> rooms = (Collection<DBRoom>) session.createCriteria(DBRoom.class).add(Restrictions.eq("idRoomCategories", roomCategory.getId()));
+        return (Collection<IRoom>) DynamicMapper.mapCollection(rooms);
+    } 
 
     /**
      * Gibt alle Optionen aus
