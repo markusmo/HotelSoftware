@@ -10,3 +10,5 @@
 /Code/HotelSoftware/nbproject/project.properties
 *.DS_Store
 /Code/OnlineReservation/build/*
+/Code/OnlineReservation/nbproject/private/
+/Code/OnlineReservation/dist/
