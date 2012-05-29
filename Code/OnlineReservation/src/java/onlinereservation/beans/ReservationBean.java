@@ -4,23 +4,23 @@
  */
 package onlinereservation.beans;
 
-import hotelsoftware.model.domain.room.IRoomCategory;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.NoneScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-@ManagedBean(name = "stepone")
-@NoneScoped
+@ManagedBean(name = "reservation")
+@SessionScoped
 public class ReservationBean
 {
     private Date startDate;
     private Date endDate;
-    private IRoomCategory category;
-    
+    private ArrayList<ReservationItemBean> items;
+
     public ReservationBean()
     {
     }
@@ -45,13 +45,28 @@ public class ReservationBean
         this.startDate = startDate;
     }
 
-    public IRoomCategory getCategory()
+    public ArrayList<ReservationItemBean> getItems()
     {
-        return category;
+        return items;
     }
 
-    public void setCategory(IRoomCategory category)
+    public void setItems(ArrayList<ReservationItemBean> items)
     {
-        this.category = category;
+        this.items = items;
+    }
+
+    /**
+     * Adds a reservationitem to the current reservation
+     * For example: new double room
+     * @param item the item to be added
+     */
+    public void addReservationItem(ReservationItemBean item)
+    {
+        if (this.items == null)
+        {
+            this.items = new ArrayList<ReservationItemBean>();
+        }
+        
+        this.items.add(item);
     }
 }
