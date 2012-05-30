@@ -27,12 +27,12 @@ import hotelsoftwareonline.beans.ReservationItemBean;
 @FacesValidator("onlinereservation.validator")
 public class RoomValidator implements Validator{
     
-    Date start;
-    Date end;
-    ReservationBean bean;
-    RoomManager manager;
-    IRoomCategory category;
-    HashMap map;
+    private Date start;
+    private Date end;
+    private ReservationBean bean;
+    private RoomManager manager;
+    private IRoomCategory category;
+    private static HashMap map;
     int amountOfCurrentCategory;
     
     /**
@@ -63,6 +63,12 @@ public class RoomValidator implements Validator{
             }
             
             map.put(category.getId(), r.getAmount() + amountOfCurrentCategory);
+        }
+    }
+    
+    public static void resetCurrentReservations(){
+        if (map != null){
+            map.clear();
         }
     }
     
