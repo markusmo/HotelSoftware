@@ -15,6 +15,13 @@ public class ReservationItemBean implements Serializable
 {
     private CategoryBean category;
     private int amount;
+    
+    //TODO implement
+    /*
+     * private BoardCategory boardCategory;
+     * private List<ExtraService> extraServices;
+     */
+    
 
     public int getAmount()
     {

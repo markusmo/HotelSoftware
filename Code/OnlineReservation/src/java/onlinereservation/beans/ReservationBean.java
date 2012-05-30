@@ -6,6 +6,7 @@ package onlinereservation.beans;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -22,7 +23,19 @@ public class ReservationBean
     private ArrayList<ReservationItemBean> items;
 
     //TODO implement get all free Categorys
+    public List<String> getAllFreeRoomCategorys() {
+        return null;
+    }
     
+    //TODO implement
+    public List<String> getAllBoardCategorys() {
+        return null;
+    }
+    
+    //TODO implement
+    public List<String> getAllExtraServices() {
+        return null;
+    }
     
     public ReservationBean()
     {
