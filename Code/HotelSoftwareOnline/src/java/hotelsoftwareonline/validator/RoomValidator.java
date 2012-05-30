@@ -45,6 +45,10 @@ public class RoomValidator implements Validator{
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
+        if (value == null){
+            throw new ValidatorException(new FacesMessage("No rooms were chosen"));
+        }
+        
         bean = (ReservationBean)value;
         manager = RoomManager.getInstance();
         map = new HashMap();
