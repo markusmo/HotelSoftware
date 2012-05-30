@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import hotelsoftware.model.database.manager.RoomManager;
 import hotelsoftware.model.domain.room.IRoomCategory;
+import java.util.HashMap;
 import javax.faces.application.FacesMessage;
 import hotelsoftwareonline.beans.ReservationBean;
 import hotelsoftwareonline.beans.ReservationItemBean;
@@ -31,6 +32,8 @@ public class RoomValidator implements Validator{
     ReservationBean bean;
     RoomManager manager;
     IRoomCategory category;
+    HashMap map;
+    int amountOfCurrentCategory;
     
     /**
      * Überprüft ob genügend freie Räume in der gewünschten Kategorie verfügbar sind
@@ -44,12 +47,22 @@ public class RoomValidator implements Validator{
 
         bean = (ReservationBean)value;
         manager = RoomManager.getInstance();
+        map = new HashMap();
+        
+        for (IRoomCategory tempCategory : manager.getAllCategories()){
+            map.put(tempCategory.getId(), 0);
+        }
         
         for (ReservationItemBean r : bean.getItems()){
+            
             category = manager.getCategoryByName(r.getCategory().getName());
-            if (r.getAmount() > category.getFreeRooms(bean.getStartDate(), bean.getEndDate()).size()){
+            amountOfCurrentCategory = (Integer) map.get(category.getId());
+            
+            if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(bean.getStartDate(), bean.getEndDate()).size()){
                 throw new ValidatorException(new FacesMessage("Not enough free rooms available in category " + category.getName()));
             }
+            
+            map.put(category.getId(), r.getAmount() + amountOfCurrentCategory);
         }
     }
     
