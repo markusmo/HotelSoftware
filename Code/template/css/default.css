@@ -60,10 +60,10 @@ h1 {
 }
 
 #slideshowarea {
-	float:left;
-	width:29%;
-	border-left:solid 1px #434343;
-	min-height:100px;
+	width:750px;
+	height:300px;
+	padding:5px;
+	border:1px solid red;
 }
 
 #footer {
@@ -87,4 +87,8 @@ a:link:hover, a:visited:hover  {
   color: #33cccc;
   font-weight : bold;
   text-decoration : underline;
+}
+
+.cls {
+	clear:both;
 }
