@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                template="template.xhtml">
+                template="template.xhtml"
+                xmlns:c="http://java.sun.com/jsf/core" version="2.0">
 
     <ui:define name="title">
         Reservation
@@ -18,8 +19,10 @@
             <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="reservation.startDate"></h:inputText>
             <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="reservation.endDate"></h:inputText>
         </div>
-        <div class="reservationItems">
-            <ui:insert name="reservationItems"></ui:insert>
+        <div class="reservationItems">  
+            <c:forEach var="item" items="${reservation.items}">
+                <ui:insert name="item"></ui:insert>
+            </c:forEach>    
             <h:button id="addReservationItem" image="images/buttons/add.png" onclick="reservation.addReservationItem"></h:button>
         </div>
     </ui:define>
