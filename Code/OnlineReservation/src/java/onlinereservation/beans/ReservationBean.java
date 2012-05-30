@@ -21,6 +21,9 @@ public class ReservationBean
     private Date endDate;
     private ArrayList<ReservationItemBean> items;
 
+    //TODO implement get all free Categorys
+    
+    
     public ReservationBean()
     {
     }
