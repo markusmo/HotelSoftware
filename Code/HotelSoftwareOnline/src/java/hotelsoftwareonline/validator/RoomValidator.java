@@ -33,6 +33,7 @@ public class RoomValidator implements Validator{
     RoomManager manager;
     IRoomCategory category;
     HashMap map;
+    int amountOfCurrentCategory;
     
     /**
      * Überprüft ob genügend freie Räume in der gewünschten Kategorie verfügbar sind
@@ -53,14 +54,15 @@ public class RoomValidator implements Validator{
         }
         
         for (ReservationItemBean r : bean.getItems()){
+            
             category = manager.getCategoryByName(r.getCategory().getName());
-            int amountOfCurrentCategory = (Integer) map.get(manager.getCategoryByName(r.getCategory().getName()).getId());
+            amountOfCurrentCategory = (Integer) map.get(category.getId());
             
             if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(bean.getStartDate(), bean.getEndDate()).size()){
                 throw new ValidatorException(new FacesMessage("Not enough free rooms available in category " + category.getName()));
             }
             
-            map.put(manager.getCategoryByName(r.getCategory().getName()).getId(), r.getAmount() + amountOfCurrentCategory);
+            map.put(category.getId(), r.getAmount() + amountOfCurrentCategory);
         }
     }
     
