@@ -19,7 +19,8 @@
             <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="reservation.endDate"></h:inputText>
         </div>
         <div class="reservationItems">
-            <ui:insert name="reservationItem"></ui:insert>
+            <ui:insert name="reservationItems"></ui:insert>
+            <h:button id="addReservationItem" image="images/buttons/add.png" onclick="reservation.addReservationItem"></h:button>
         </div>
     </ui:define>
 
