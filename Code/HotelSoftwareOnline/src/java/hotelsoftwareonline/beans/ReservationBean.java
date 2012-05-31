@@ -32,11 +32,7 @@ public class ReservationBean
     }
     
     //TODO implement
-<<<<<<< HEAD
-    public List<String> getAllBoardCategories() {
-=======
     public ArrayList<String> getAllBoardCategorys() {
->>>>>>> ee623bcc6d02c333fc59bd23022fbbd42af9cfbc
         return null;
     }
     
