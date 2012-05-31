@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:component template="template.xhtml"
+              xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:form>
+        First name: 
+        <h:inputText id="fname" value="#{PrivateCustomerBean.fname}" required="true"/>
+        <br/>Last name: 
+        <h:inputText id="lanme" value="#{PrivateCustomerBean.lname}" required="true"/>
+        <br/>Street: 
+        <h:inputText id="street" value="#{PrivateCustomerBean.address.street}" required="true"/>
+        <br/>ZIP: 
+        <h:inputText id="zip" value="#{PrivateCustomerBean.address.zip}" required="true"/>
+        <br/>City: 
+        <h:inputText id="city" value="#{PrivateCustomerBean.address.city}" required="true"/>
+        <br/>Email: 
+        <h:inputText id="email" value="#{PrivateCustomerBean.address.email}" required="true"/>
+        <br/>Phone: 
+        <h:inputText id="phone" value="#{PrivateCustomerBean.address.phone}" required="true"/>
+        <br/>Fax: 
+        <h:inputText id="fax" value="#{PrivateCustomerBean.address.fax}" required="true"/>
+        <br/>Country: 
+        <h:selectOneMenu id="country" value="#{PrivateCustomerBean.address.country}" required="true">
+            <f:selectItems value="#{PrivateCustomerBean.address.countries}" />
+        </h:selectOneMenu>
+
+        <div class="collapsed">
+            <br/>Invoice Address:
+            <br/>
+            <br/>Street: 
+            <h:inputText id="istreet" value="#{PrivateCustomerBean.invoiceAddress.street}" required="true"/>
+            <br/>ZIP: 
+            <h:inputText id="izip" value="#{PrivateCustomerBean.invoiceAddress.zip}" required="true"/>
+            <br/>City: 
+            <h:inputText id="icity" value="#{PrivateCustomerBean.invoiceAddress.city}" required="true"/>
+            <br/>Email: 
+            <h:inputText id="iemail" value="#{PrivateCustomerBean.invoiceAddress.email}" required="true"/>
+            <br/>Phone: 
+            <h:inputText id="iphone" value="#{PrivateCustomerBean.invoiceAddress.phone}" required="true"/>
+            <br/>Fax: 
+            <h:inputText id="ifax" value="#{PrivateCustomerBean.invoiceAddress.fax}" required="true"/>
+            <br/>Country: 
+            <h:selectOneMenu id="icountry" value="#{PrivateCustomerBean.invoiceAddress.country}" required="true">
+                <f:selectItems value="#{PrivateCustomerBean.invoiceAddress.countries}" />
+            </h:selectOneMenu>
+        </div>
+        <h:commandButton id="button1" value="Submit" onclick="submit()" />
+        <h:commandButton id="button1" value="Abort" onclick="" />
+    </h:form>
+
+</ui:component>

@@ -9,7 +9,7 @@ $(function()
 		animationStart: function(current){
 			$('.caption').animate({
 				bottom:-35
-			},100);
+			},100); 
 		},
 		animationComplete: function(current){
 			$('.caption').animate({
@@ -22,4 +22,8 @@ $(function()
 			},200);
 		}
 	});
+});
+
+$(document).ready(function(e) {
+    $(".datepicker").datepicker();
 });

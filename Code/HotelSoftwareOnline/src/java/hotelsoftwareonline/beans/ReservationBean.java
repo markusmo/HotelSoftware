@@ -21,10 +21,26 @@ public class ReservationBean
     private Date endDate;
     private ArrayList<ReservationItemBean> items;
     
-    public ReservationBean()
-    {
+    public ReservationBean() {
+        items = new ArrayList<ReservationItemBean>();
+        items.add(new ReservationItemBean());
     }
 
+    //TODO implement get all free Categorys
+    public ArrayList<String> getAllFreeRoomCategories() {
+        return null;
+    }
+    
+    //TODO implement
+    public ArrayList<String> getAllBoardCategorys() {
+        return null;
+    }
+    
+    //TODO implement
+    public ArrayList<String> getAllExtraServices() {
+        return null;
+    }
+    
     public Date getEndDate()
     {
         return endDate;
@@ -68,21 +84,6 @@ public class ReservationBean
         }
         
         this.items.add(item);
-    }
-    
-    //TODO implement get all free Categorys
-    public ArrayList<String> getAllFreeRoomCategorys() {
-        return null;
-    }
-    
-    //TODO implement
-    public ArrayList<String> getAllBoardCategorys() {
-        return null;
-    }
-    
-    //TODO implement
-    public ArrayList<String> getAllExtraServices() {
-        return null;
     }
     
     /**
