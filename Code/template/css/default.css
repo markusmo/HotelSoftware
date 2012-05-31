@@ -101,7 +101,7 @@ a:link:hover, a:visited:hover  {
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.33, rgb(14,173,173)), color-stop(0.67, rgb(0,255,255)));
 	background-image: -moz-linear-gradient(left bottom, #fff 0%, #777 30%, #454545 50%, #777 70%, #fff 100% );
 	padding: 1px;
-	
+	margin-bottom:15px;
 }
 
 .cls {
