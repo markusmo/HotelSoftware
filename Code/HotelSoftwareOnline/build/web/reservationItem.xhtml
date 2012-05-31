@@ -11,23 +11,23 @@
     <ui:define name="reservationItem">
         
         <div class="roomCategory">
-            <h2>Select the wanted room-category"</h2>           
+            <h2>Select the wanted room-category</h2>           
             <h:selectOneMenu id="roomCategory" value="#{reservationItem.category}" required="true" requiredMessage="Please select a room-category!">     
-                <f:selectItems value="#{reservation.getAllFreeRoomCategories}"/>
+                <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
                 <h:message for="roomCategory" class="error"/>
             </h:selectOneMenu>   
         </div>
         <div class="boardCategory">
-            <h2>Select the wanted board-category"</h2>
+            <h2>Select the wanted board-category</h2>
             <h:selectOneRadio id="boardCategory" value="#{reservationItem.boardCategory}" required="true" requiredMessage="Please select a board-category!">
-                <f:selectItems value="#{reservation.getAllBoardCategorys}"/>
+                <f:selectItems value="#{reservation.getAllBoardCategories()}"/>
                 <h:message for="roomCategory" class="error"/>
             </h:selectOneRadio>
         </div>
         <div class="extraServices">
-            <h2>Select additional extra-services"</h2>
+            <h2>Select additional extra-services</h2>
             <h:selectManyCheckbox id="extraServices" value="#{reservationItem.extraServices}" required="false">
-                <f:selectItems value="#{reservation.getAllExtraServices}"></f:selectItems>
+                <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
             </h:selectManyCheckbox>
         </div>
         <div class="minMaxRemove">

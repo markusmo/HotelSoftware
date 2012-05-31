@@ -33,7 +33,7 @@ public class ReservationBean
     }
     
     //TODO implement
-    public List<String> getAllBoardCategorys() {
+    public List<String> getAllBoardCategories() {
         return null;
     }
     
