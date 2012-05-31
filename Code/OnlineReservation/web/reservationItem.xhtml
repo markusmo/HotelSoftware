@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="template.xhtml">
+
+    <ui:define name="title">
+        Reservation Item
+    </ui:define>
+
+    <ui:define name="reservationItems">
+        
+        <div class="roomCategory">
+            <h:outputLabel>Room-Category</h:outputLabel>                         
+            <h:selectOneMenu id="roomCategory" value="#{reservationItem.category}" required="true" requiredMessage="Please select a room-category!">     
+                <f:selectItems value="#{reservation.getAllFreeRoomCategorys}"/>
+                <h:message for="roomCategory" class="error"/>
+            </h:selectOneMenu>   
+        </div>
+        <div class="boardCategory">
+            <h:selectOneRadio id="boardCategory" value="#{reservationItem.boardCategory}" required="true" requiredMessage="Please select a board-category!">
+                <f:selectItems value="#{reservation.getAllBoardCategorys}"/>
+                <h:message for="roomCategory" class="error"/>
+            </h:selectOneRadio>
+        </div>
+        <div class="extraServices">
+            <h:selectManyCheckbox id="extraServices" value="#{reservationItem.extraServices}" required="false">
+                <f:selectItems value="reservation.getAllExtraServices"></f:selectItems>
+            </h:selectManyCheckbox>
+        </div>
+        <div class="minMaxRemove">
+            <h:button id="minimize">Min-Max</h:button> <!-- symbol -->
+            <h:button id="remove">Remove</h:button>
+        </div>
+    </ui:define>
+
+</ui:composition>
