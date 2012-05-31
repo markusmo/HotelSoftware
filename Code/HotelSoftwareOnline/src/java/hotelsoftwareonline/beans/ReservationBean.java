@@ -28,7 +28,7 @@ public class ReservationBean
     }
 
     //TODO implement get all free Categorys
-    public List<String> getAllFreeRoomCategorys() {
+    public List<String> getAllFreeRoomCategories() {
         return null;
     }
     
