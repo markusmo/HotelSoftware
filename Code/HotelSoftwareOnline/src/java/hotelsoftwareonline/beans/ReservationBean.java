@@ -21,6 +21,11 @@ public class ReservationBean
     private Date startDate;
     private Date endDate;
     private ArrayList<ReservationItemBean> items;
+    
+    public ReservationBean() {
+        items = new ArrayList<ReservationItemBean>();
+        items.add(new ReservationItemBean());
+    }
 
     //TODO implement get all free Categorys
     public List<String> getAllFreeRoomCategorys() {
@@ -37,10 +42,6 @@ public class ReservationBean
         return null;
     }
     
-    public ReservationBean()
-    {
-    }
-
     public Date getEndDate()
     {
         return endDate;
