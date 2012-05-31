@@ -6,7 +6,6 @@ package hotelsoftwareonline.beans;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -28,17 +27,21 @@ public class ReservationBean
     }
 
     //TODO implement get all free Categorys
-    public List<String> getAllFreeRoomCategories() {
+    public ArrayList<String> getAllFreeRoomCategories() {
         return null;
     }
     
     //TODO implement
+<<<<<<< HEAD
     public List<String> getAllBoardCategories() {
+=======
+    public ArrayList<String> getAllBoardCategorys() {
+>>>>>>> ee623bcc6d02c333fc59bd23022fbbd42af9cfbc
         return null;
     }
     
     //TODO implement
-    public List<String> getAllExtraServices() {
+    public ArrayList<String> getAllExtraServices() {
         return null;
     }
     
@@ -85,5 +88,15 @@ public class ReservationBean
         }
         
         this.items.add(item);
+    }
+    
+    /**
+     * Speichert 
+     * @return 
+     */
+    public String safeReservation()
+    {
+        
+        return "reservationsuccess";
     }
 }
