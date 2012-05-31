@@ -4,10 +4,8 @@
  */
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.controller.data.reservation.ReservationItemData;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.model.domain.room.IRoomCategory;
-import hotelsoftware.model.domain.room.RoomCategory;
 
 /**
  *Diese Klasse beinhaltet die Items in einer Reservierung

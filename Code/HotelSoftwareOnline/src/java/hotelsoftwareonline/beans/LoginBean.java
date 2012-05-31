@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftwareonline.controller.CustomerLoginController;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -42,8 +43,25 @@ public class LoginBean
         this.username = username;
     }
     
-    private String login()
+    /**
+     * Logt einen User ein
+     * @return "loginfailed" wenn der Login fehlschlägt, anderfalls "loggedin"
+     */
+    public String login()
     {
+        CustomerLoginController controller = new CustomerLoginController();
+        controller.login(username, password);
         return "loggedin";
+    }
+    
+    /**
+     * Logt einen User aus
+     * @return "notloggedin" bei erfolgreichem Logout
+     */
+    public String logout()
+    {
+        CustomerLoginController controller = new CustomerLoginController();
+        controller.logout(username);
+        return "notloggedin";
     }
 }
