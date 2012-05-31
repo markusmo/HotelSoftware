@@ -16,20 +16,26 @@
         <div id="reservation">
             <h1>Reservation</h1>
             <br/>  
-            <h2>Select the wanted period</h2>
+            <h3>Select the wanted period</h3>
             <div id="periode">  
-                <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.startDate}"></h:inputText>
-                <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.endDate}"></h:inputText>
+                <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate" onchange="checkPeriod()"></h:inputText>
+                <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate" onchange="checkPeriod()"></h:inputText>
+                
             </div>
             <br/><br/>
-            <div id="reservationItems">    
-                <ui:insert name="reservationItem" class="reservationItem">reservation items</ui:insert> 
+            <div id="reservationContent" style="display: none">
+                <div id="reservationItems">    
+                <ui:include src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                </div>
+                <br/><br/>
+                <!-- add function to append item -->
+                <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
+            
             </div>
-            <br/><br/>
-            <!-- add function to append item -->
-            <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
         </div>
         
     </ui:define>
+    
+    
 
 </ui:composition>

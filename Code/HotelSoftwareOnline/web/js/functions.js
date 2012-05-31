@@ -27,3 +27,9 @@ $(function()
 $(document).ready(function(e) {
     $(".datepicker").datepicker();
 });
+
+function checkPeriod() {
+    if ($("#startDate").val() != "" && $("#endDate").val() != "") {
+        $("#reservationContent").css("display", "block");
+    }
+}
