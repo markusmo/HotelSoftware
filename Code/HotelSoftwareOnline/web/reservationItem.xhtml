@@ -1,40 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                >
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              >
 
-    <c:if test="${reservation.getAllFreeRoomCategories() != null}">
-        <div class="roomCategory">
-            <h3>Select the wanted room-category</h3>           
-            <h:selectOneMenu id="roomCategory" value="#{reservationItem.category}" required="true" requiredMessage="Please select a room-category!">     
-                <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
-                <h:message for="roomCategory" class="error"/>
-            </h:selectOneMenu>   
-        </div>
-        <div class="boardCategory">
-            <h3>Select the wanted board-category</h3>
-            <h:selectOneRadio id="boardCategory" value="#{reservationItem.boardCategory}" required="true" requiredMessage="Please select a board-category!">
-                <f:selectItems value="#{reservation.getAllBoardCategories()}"/>
-                <h:message for="roomCategory" class="error"/>
-            </h:selectOneRadio>
-        </div>
-        <div class="extraServices">
-            <h3>Select additional extra-services</h3>
-            <h:selectManyCheckbox id="extraServices" value="#{reservationItem.extraServices}" required="false">
-                <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
-            </h:selectManyCheckbox>
-        </div>
-        <div class="minMaxRemove">
-             <!-- <h:button id="minimize" image="">Min-Max</h:button> symbol -->
-            <h:button id="remove" image="images/buttons/delete.png"></h:button>
-        </div>
-    </c:if>
-    <c:otherwise>
-        <h:outputText value="There are no free rooms in this period!" class="error"></h:outputText>
-    </c:otherwise>    
+    <c:choose>
+        <c:when test="${(reservation.startDate == '' or reservation.endDate == '')}">
+            <h:outputText value="Please select a period!" class="error"></h:outputText>
+        </c:when>
+        <c:otherwise>
+            <c:when test="${reservation.getAllFreeRoomCategories() != null}">
+                <div class="roomCategory">
+                    <h3>Select the wanted room-category</h3>           
+                    <h:selectOneMenu id="roomCategory" value="#{reservationItem.category}" required="true" requiredMessage="Please select a room-category!">     
+                        <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
+                        <h:message for="roomCategory" class="error"/>
+                    </h:selectOneMenu>   
+                </div>
+                <div class="boardCategory">
+                    <h3>Select the wanted board-category</h3>
+                    <h:selectOneRadio id="boardCategory" value="#{reservationItem.boardCategory}" required="true" requiredMessage="Please select a board-category!">
+                        <f:selectItems value="#{reservation.getAllBoardCategories()}"/>
+                        <h:message for="roomCategory" class="error"/>
+                    </h:selectOneRadio>
+                </div>
+                <div class="extraServices">
+                    <h3>Select additional extra-services</h3>
+                    <h:selectManyCheckbox id="extraServices" value="#{reservationItem.extraServices}" required="false">
+                        <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
+                    </h:selectManyCheckbox>
+                </div>
+                <div class="minMaxRemove">
+                    <!-- <h:button id="minimize" image="">Min-Max</h:button> symbol -->
+                    <h:button id="remove" image="images/buttons/delete.png"></h:button>
+                </div>
+            </c:when>
 
+        </c:otherwise>
+        <c:otherwise>
+            <h:outputText value="There are no free rooms in this period!" class="error"></h:outputText>
+        </c:otherwise>    
+    </c:choose>
 </ui:component>

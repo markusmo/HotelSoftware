@@ -13,29 +13,42 @@
     </ui:define>
 
     <ui:define name="content">
-        <div id="reservation">
-            <h1>Reservation</h1>
-            <br/>  
-            <h3>Select the wanted period</h3>
-            <div id="periode">  
-                <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate" onchange="checkPeriod()"></h:inputText>
-                <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate" onchange="checkPeriod()"></h:inputText>
-                
-            </div>
-            <br/><br/>
-            <div id="reservationContent" style="display: none">
-                <div id="reservationItems">    
-                <ui:include src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+        <h:form>
+            <div id="reservation">
+                <h1>Reservation</h1>
+                <br/>  
+                <h3>Select the wanted period</h3>
+                <div id="periode">  
+                    <h:outputLabel>Start Date: </h:outputLabel> 
+
+                    <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
+                        <f:ajax render="render"/>
+                    </h:inputText>
+
+                    <h:outputLabel>End Date: </h:outputLabel> 
+
+                    <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate">
+                        <f:ajax render="render"/>
+                    </h:inputText>
+
+
                 </div>
-                <br/><br/>
-                <!-- add function to append item -->
-                <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
-            
+                <br/><br/> 
+                <h:panelGroup id="render" layout="block">
+                    <div id="reservationContent">
+                        <div id="reservationItems">    
+                            <ui:include  src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                        </div>
+                        <br/><br/>
+                        <!-- add function to append item -->
+                        <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
+
+                    </div>  
+                </h:panelGroup>
             </div>
-        </div>
-        
+
+        </h:form>
     </ui:define>
-    
-    
+
 
 </ui:composition>
