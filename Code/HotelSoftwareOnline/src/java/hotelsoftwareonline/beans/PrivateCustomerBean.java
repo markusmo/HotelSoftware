@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "privatecustomer")
 @SessionScoped
-public class PrivateCustomerBean
+public class PrivateCustomerBean extends CustomerBean
 {
     private AddressBean address;
     private AddressBean invoiceAddress;
@@ -26,6 +26,18 @@ public class PrivateCustomerBean
         return address;
     }
 
+    @Override
+    public String getUsername()
+    {
+        return super.getUsername();
+    }
+
+    @Override
+    public void setUsername(String username)
+    {
+        super.setUsername(username);
+    }
+    
     public void setAddress(AddressBean address)
     {
         this.address = address;
@@ -73,5 +85,10 @@ public class PrivateCustomerBean
     
     public PrivateCustomerBean()
     {
+    }
+    
+    public String save()
+    {
+        return "customerSaved";
     }
 }

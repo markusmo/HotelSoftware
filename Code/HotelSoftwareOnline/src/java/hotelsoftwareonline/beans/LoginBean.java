@@ -16,41 +16,30 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class LoginBean
 {
-    private String username;
-    private String password;
+    private CustomerBean customer;
     
     public LoginBean()
     {
     }
 
-    public String getPassword()
+    public void setUsername(String username)
     {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
+        customer.setUsername(username);
     }
 
     public String getUsername()
     {
-        return username;
+        return customer.getUsername();
     }
 
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-    
     /**
      * Logt einen User ein
      * @return "loginfailed" wenn der Login fehlschlägt, anderfalls "loggedin"
      */
-    public String login()
+    public String login(String password)
     {
         CustomerLoginController controller = new CustomerLoginController();
-        controller.login(username, password);
+        controller.login(getUsername(), password);
         return "loggedin";
     }
     
@@ -61,7 +50,7 @@ public class LoginBean
     public String logout()
     {
         CustomerLoginController controller = new CustomerLoginController();
-        controller.logout(username);
+        controller.logout(getUsername());
         return "notloggedin";
     }
 }
