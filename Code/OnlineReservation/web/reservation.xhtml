@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="template.xhtml"
+                xmlns:c="http://java.sun.com/jsf/core" version="2.0">
+
+    <ui:define name="title">
+        Reservation
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Reservation</h1>
+                  
+        <h:outputText value="Please select the wanted period and room-category"/>
+        <div id="periode">  
+            <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="reservation.startDate"></h:inputText>
+            <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="reservation.endDate"></h:inputText>
+        </div>
+        <div class="reservationItems">  
+            <c:forEach var="item" items="${reservation.items}">
+                <ui:insert name="item"></ui:insert>
+            </c:forEach>    
+            <h:button id="addReservationItem" image="images/buttons/add.png" onclick="reservation.addReservationItem"></h:button>
+        </div>
+    </ui:define>
+
+</ui:composition>
