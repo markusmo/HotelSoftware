@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
@@ -15,10 +16,26 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "reservation")
 @SessionScoped
-public class ReservationBean
+public class ReservationBean implements Serializable
 {
     private Date startDate;
     private Date endDate;
+    private String commentary;
+
+    public String getCommentary()
+    {
+        return commentary;
+    }
+
+    public void setCommentary(String commentary)
+    {
+        this.commentary = commentary;
+    }
+    
+    public void next() {
+        //TODO next screen/step
+    }
+    
     private ArrayList<ReservationItemBean> items;
     
     public ReservationBean() {
@@ -32,11 +49,8 @@ public class ReservationBean
     }
     
     //TODO implement
-<<<<<<< HEAD
-    public List<String> getAllBoardCategories() {
-=======
-    public ArrayList<String> getAllBoardCategorys() {
->>>>>>> ee623bcc6d02c333fc59bd23022fbbd42af9cfbc
+
+    public ArrayList<String> getAllBoardCategories() {
         return null;
     }
     

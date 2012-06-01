@@ -19,17 +19,24 @@
             <h3>Select the wanted period</h3>
             <div id="periode">  
                 <h:outputLabel>Start Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate" onchange="checkPeriod()"></h:inputText>
-                <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate" onchange="checkPeriod()"></h:inputText>
-                
-            </div>
-            <br/><br/>
+                <h:outputLabel>End Date: </h:outputLabel> <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate" onchange="checkPeriod()"></h:inputText>                
+            </div>            
+            <br/>
             <div id="reservationContent" style="display: none">
-                <div id="reservationItems">    
-                <ui:include src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                <div id="commentary">
+                    <h:outputLabel>Reservation commentary: </h:outputLabel>
+                    <br/>
+                    <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
                 </div>
+                <div id="reservationItems">    
+                    <!-- einfügen, erst wenn die Periode ausgewählt wurde!-->
+                    <ui:include src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                </div>
+                <br/>
+                <!-- function to append item -->
+                <h:button id="addReservationItem" image="images/buttons/add.png" title="add a reservation item" onclick="addReservationItem()"></h:button>
                 <br/><br/>
-                <!-- add function to append item -->
-                <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
+                <h:button id="reservationNext" value="Next Step" onclick="reservation.next()"></h:button>
             
             </div>
         </div>
