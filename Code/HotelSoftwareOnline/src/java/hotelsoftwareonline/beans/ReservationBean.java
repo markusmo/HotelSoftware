@@ -20,6 +20,8 @@ public class ReservationBean
     private Date startDate;
     private Date endDate;
     private ArrayList<ReservationItemBean> items;
+    private CompanyBean company;
+    private PrivateCustomerBean privateCustomer;
     
     public ReservationBean() {
         items = new ArrayList<ReservationItemBean>();
@@ -71,6 +73,26 @@ public class ReservationBean
         this.items = items;
     }
 
+    public CompanyBean getCompany()
+    {
+        return company;
+    }
+
+    public void setCompany(CompanyBean company)
+    {
+        this.company = company;
+    }
+
+    public PrivateCustomerBean getPrivateCustomer()
+    {
+        return privateCustomer;
+    }
+
+    public void setPrivateCustomer(PrivateCustomerBean privateCustomer)
+    {
+        this.privateCustomer = privateCustomer;
+    }
+    
     /**
      * Adds a reservationitem to the current reservation
      * For example: new double room
@@ -87,7 +109,7 @@ public class ReservationBean
     }
     
     /**
-     * Speichert 
+     * Speichert eine Reservierung
      * @return 
      */
     public String safeReservation()

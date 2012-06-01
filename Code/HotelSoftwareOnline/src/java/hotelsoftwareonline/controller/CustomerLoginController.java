@@ -5,7 +5,7 @@
 package hotelsoftwareonline.controller;
 
 import hotelsoftware.model.domain.parties.Customer;
-import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.HashSet;
  */
 public class CustomerLoginController
 {
-    private static HashSet<String> loggedInUsers = new HashSet<String>();
+    private static HashMap<String,Customer> loggedInUsers = new HashMap<String,Customer>();
     
     /**
      * Logt einen Kunden ein
@@ -22,8 +22,8 @@ public class CustomerLoginController
      */
     public void login(String username, String password)
     {
-        //TODO implement, still missing function in HotelSoftware
-        loggedInUsers.add(username);
+        //TODO implement, still missing function in HotelSoftware, return the customer...
+        loggedInUsers.put(username,null);
     }
     
     /**
@@ -37,6 +37,6 @@ public class CustomerLoginController
     
     public Customer getCustomerByUsername(String username)
     {
-        return null;
+        return loggedInUsers.get(username);
     }
 }
