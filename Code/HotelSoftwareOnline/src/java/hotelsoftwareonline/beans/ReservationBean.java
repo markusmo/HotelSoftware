@@ -4,8 +4,14 @@
  */
 package hotelsoftwareonline.beans;
 
+<<<<<<< HEAD
 import java.io.Serializable;
+=======
+import hotelsoftware.model.domain.room.IRoomCategory;
+import hotelsoftwareonline.controller.ReservationController;
+>>>>>>> c1a94359808b8b2fd6230ceced0092a333e136bf
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,6 +24,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
+<<<<<<< HEAD
     private Date startDate;
     private Date endDate;
     private String commentary;
@@ -36,46 +43,70 @@ public class ReservationBean implements Serializable
         //TODO next screen/step
     }
     
+=======
+    private String startDate = "";
+    private String endDate = "";
+>>>>>>> c1a94359808b8b2fd6230ceced0092a333e136bf
     private ArrayList<ReservationItemBean> items;
-    
-    public ReservationBean() {
+    private ReservationController rc = new ReservationController();
+
+    public ReservationBean()
+    {
         items = new ArrayList<ReservationItemBean>();
         items.add(new ReservationItemBean());
     }
 
     //TODO implement get all free Categorys
-    public ArrayList<String> getAllFreeRoomCategories() {
-        return null;
+    public ArrayList<String> getAllFreeRoomCategories()
+    {
+        if (startDate.equals("") || endDate.equals(""))
+        {
+            return null;
+        }
+        ArrayList<String> list = new ArrayList<String>();
+        for (IRoomCategory cat : ReservationController.getFreeCategories(convertToDate(startDate), convertToDate(endDate)))
+        {
+            list.add(cat.getName());
+        }
+        return list;
     }
-    
+
     //TODO implement
+<<<<<<< HEAD
 
     public ArrayList<String> getAllBoardCategories() {
+=======
+    public ArrayList<String> getAllBoardCategorys()
+    {
+>>>>>>> c1a94359808b8b2fd6230ceced0092a333e136bf
         return null;
     }
-    
+
     //TODO implement
-    public ArrayList<String> getAllExtraServices() {
+    public ArrayList<String> getAllExtraServices()
+    {
         return null;
     }
-    
-    public Date getEndDate()
+
+    public String getEndDate()
     {
         return endDate;
     }
 
-    public void setEndDate(Date endDate)
+    public void setEndDate(String endDate)
     {
+        System.out.println(endDate.toString());
         this.endDate = endDate;
     }
 
-    public Date getStartDate()
+    public String getStartDate()
     {
         return startDate;
     }
 
-    public void setStartDate(Date startDate)
+    public void setStartDate(String startDate)
     {
+        System.out.println(startDate.toString());
         this.startDate = startDate;
     }
 
@@ -92,6 +123,7 @@ public class ReservationBean implements Serializable
     /**
      * Adds a reservationitem to the current reservation
      * For example: new double room
+     *
      * @param item the item to be added
      */
     public void addReservationItem(ReservationItemBean item)
@@ -100,17 +132,28 @@ public class ReservationBean implements Serializable
         {
             this.items = new ArrayList<ReservationItemBean>();
         }
-        
+
         this.items.add(item);
     }
-    
+
     /**
-     * Speichert 
-     * @return 
+     * Speichert
+     *
+     * @return
      */
     public String safeReservation()
     {
-        
+
         return "reservationsuccess";
+    }
+
+    private Date convertToDate(String date)
+    {
+        String[] dates = date.split("/");
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
+        d.setTime(c.getTimeInMillis());
+        return d;
     }
 }

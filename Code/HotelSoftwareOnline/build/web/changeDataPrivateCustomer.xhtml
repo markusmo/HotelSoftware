@@ -31,6 +31,7 @@ and open the template in the editor.
               xmlns:f="http://java.sun.com/jsf/core">
 
     <h:form>
+<<<<<<< HEAD
         First name: 
         <h:inputText id="fname" value="#{PrivateCustomerBean.fname}" required="true"/>
         <br/>Last name: 
@@ -96,6 +97,164 @@ and open the template in the editor.
         </div>
         <h:commandButton id="button1" value="Submit" onclick="submit()" />
         <h:commandButton id="button1" value="Abort" onclick="" />
+=======
+        <table class="addresstable">
+            <tbody>
+                <tr>
+                    <td>
+                        First name: 
+                    </td>
+                    <td>
+                        <h:inputText id="fname" value="#{PrivateCustomerBean.fname}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Last name: 
+                    </td>
+                    <td>
+                        <h:inputText id="lanme" value="#{PrivateCustomerBean.lname}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>
+                </tr>
+                <tr>        
+                    <td>Street: 
+                    </td>
+                    <td>
+                        <h:inputText id="street" value="#{PrivateCustomerBean.address.street}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>
+                </tr>
+                <tr>       
+                    <td>
+                        ZIP: 
+                    </td>
+                    <td>
+                        <h:inputText id="zip" value="#{PrivateCustomerBean.address.zip}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>         
+                </tr>
+                <tr>        
+                    <td>
+                        City: 
+                    </td>
+                    <td>
+                        <h:inputText id="city" value="#{PrivateCustomerBean.address.city}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>   
+                </tr>
+                <tr>       
+                    <td>
+                        Email: 
+                    </td>
+                    <td>
+                        <h:inputText id="email" value="#{PrivateCustomerBean.address.email}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>     
+                </tr>
+                <tr>   
+                    <td>
+                        Phone: 
+                    </td>
+                    <td>
+                        <h:inputText id="phone" value="#{PrivateCustomerBean.address.phone}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>      
+                </tr>
+                <tr>            
+                    <td>
+                        Fax:
+                    </td>
+                    <td> 
+                        <h:inputText id="fax" value="#{PrivateCustomerBean.address.fax}" required="true"/>
+                        <br/><h:message for="kurse" style="color: red" />
+                    </td>    
+                </tr>
+                <tr>     
+                    <td>
+                        Country: 
+                    </td>
+                    <td>
+                        <h:selectOneMenu id="country" value="#{PrivateCustomerBean.address.country}" required="true">
+                            <f:selectItems value="#{PrivateCustomerBean.address.countries}" />
+                        </h:selectOneMenu>
+                    </td>       
+                </tr>
+                <div class="collapsed invoiceaddress">
+                    <tr>      
+                        <td class="invpiceaddresstitle">
+                            Invoice Address:
+                        </td>    
+                    </tr>
+                    <tr>   
+                        <td>
+                            Street: 
+                        </td>
+                        <td>
+                            <h:inputText id="istreet" value="#{PrivateCustomerBean.invoiceAddress.street}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />
+                        </td>   
+                    </tr>
+                    <tr>     
+                        <td>
+                            ZIP: 
+                        </td>
+                        <td>
+                            <h:inputText id="izip" value="#{PrivateCustomerBean.invoiceAddress.zip}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />
+                        </td>     
+                    </tr>
+                    <tr>      
+                        <td>
+                            City: 
+                        </td>
+                        <td>
+                            <h:inputText id="icity" value="#{PrivateCustomerBean.invoiceAddress.city}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />                            
+                        </td>               
+                    </tr>
+                    <tr>    
+                        <td>
+                            Email: 
+                        </td>
+                        <td>
+                            <h:inputText id="iemail" value="#{PrivateCustomerBean.invoiceAddress.email}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />
+                        </td>       
+                    </tr>
+                    <tr>         
+                        <td>Phone: 
+                        </td>
+                        <td>
+                            <h:inputText id="iphone" value="#{PrivateCustomerBean.invoiceAddress.phone}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />
+                        </td>      
+                    </tr>
+                    <tr>     
+                        <td>
+                            Fax: 
+                        </td>
+                        <td>
+                            <h:inputText id="ifax" value="#{PrivateCustomerBean.invoiceAddress.fax}" required="true"/>
+                            <br/><h:message for="kurse" style="color: red" />
+                        </td>      
+                    </tr>
+                    <tr>       
+                        <td>
+                            Country: 
+                        </td>
+                        <td>
+                            <h:selectOneMenu id="icountry" value="#{PrivateCustomerBean.invoiceAddress.country}" required="true">
+                                <f:selectItems value="#{PrivateCustomerBean.invoiceAddress.countries}" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+        <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
+>>>>>>> c1a94359808b8b2fd6230ceced0092a333e136bf
     </h:form>
 
 </ui:component>

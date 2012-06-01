@@ -12,7 +12,7 @@ import java.util.LinkedList;
  */
 public class ReservationController
 {
-    public Collection<IRoomCategory> getFreeCategories(Date start, Date end)
+    public static Collection<IRoomCategory> getFreeCategories(Date start, Date end)
     {
         Collection<IRoomCategory> categories = new LinkedList<IRoomCategory>();
         for (IRoomCategory cat : RoomCategory.getAllCategorys())

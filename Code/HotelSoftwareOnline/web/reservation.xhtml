@@ -13,6 +13,7 @@
     </ui:define>
 
     <ui:define name="content">
+<<<<<<< HEAD
         <div id="reservation">
             <h1>Reservation</h1>
             <br/>  
@@ -38,11 +39,44 @@
                 <br/><br/>
                 <h:button id="reservationNext" value="Next Step" onclick="reservation.next()"></h:button>
             
+=======
+        <h:form>
+            <div id="reservation">
+                <h1>Reservation</h1>
+                <br/>  
+                <h3>Select the wanted period</h3>
+                <div id="periode">  
+                    <h:outputLabel>Start Date: </h:outputLabel> 
+
+                    <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
+                        <f:ajax render="render"/>
+                    </h:inputText>
+
+                    <h:outputLabel>End Date: </h:outputLabel> 
+
+                    <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate">
+                        <f:ajax render="render"/>
+                    </h:inputText>
+
+
+                </div>
+                <br/><br/> 
+                <h:panelGroup id="render" layout="block">
+                    <div id="reservationContent">
+                        <div id="reservationItems">    
+                            <ui:include  src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                        </div>
+                        <br/><br/>
+                        <!-- add function to append item -->
+                        <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
+
+                    </div>  
+                </h:panelGroup>
+>>>>>>> c1a94359808b8b2fd6230ceced0092a333e136bf
             </div>
-        </div>
-        
+
+        </h:form>
     </ui:define>
-    
-    
+
 
 </ui:composition>
