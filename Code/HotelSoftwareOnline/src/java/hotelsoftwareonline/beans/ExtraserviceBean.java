@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 /**
  *
- * @author Markus Mohanty <markus.mo at gmx.net>
+ * @author mohi
  */
-public class CategoryBean implements Serializable
+public class ExtraserviceBean implements Serializable
 {
     private String name;
     private double price;

@@ -155,7 +155,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
                 {
                     if (!(CreateInvoiceGUIController.getInstance().cancelItems(iid, amount)))
                     {
-                        JOptionPane.showMessageDialog(jTable1, "You don not have the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(jTable1, "You do not have the permission to cancel items", "Permission invalid", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else
                     {
@@ -331,7 +331,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
             public SpinnerPane(String description, int max)
             {
                 setLayout(new GridLayout(0, 1));
-                label = new JLabel("How many " + description + " you want to cancel?");
+                label = new JLabel("How many " + description + " do you want to cancel?");
                 spinner.setModel(new SpinnerNumberModel(0, 0, max, 1));
                 add(label);
                 add(spinner);
@@ -511,7 +511,7 @@ public class SplitNstornoRoom extends javax.swing.JPanel
                     {
                         return true;
                     }
-                    JOptionPane.showMessageDialog(input, "Invalit input", "Invalid input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(input, "Invalid input", "Invalid input", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             });

@@ -13,13 +13,32 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name="company")
 @SessionScoped
-public class CompanyBean
+public class CompanyBean extends CustomerBean
 {
-
     private AddressBean address;
     private AddressBean invoiceAddress;
     private String name;
     private CompanyTypeBean type;
+
+    @Override
+    public String getUsername()
+    {
+        return super.getUsername();
+    }
+
+    @Override
+    public void setUsername(String username)
+    {
+        super.setUsername(username);
+    }
+    
+    public CompanyTypeBean getType() {
+        return type;
+    }
+
+    public void setType(CompanyTypeBean type) {
+        this.type = type;
+    }
 
     public AddressBean getAddress()
     {
@@ -53,5 +72,10 @@ public class CompanyBean
     
     public CompanyBean()
     {
+    }
+    
+    public String save()
+    {
+        return "companySaved";
     }
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:component template="template.xhtml"
+              xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:form>
+        <table class="addresstable">
+            <tbody>
+                <tr>
+                    <td>
+                        Company Name
+                    </td>
+                    <td>
+                        <h:inputText id="lanme" value="#{CompanyBean.lname}" required="true"/>
+                    </td>
+                </tr>
+                <tr>        
+                    <td>Street: 
+                    </td>
+                    <td>
+                        <h:inputText id="street" value="#{CompanyBean.address.street}" required="true"/>
+
+                    </td>
+                </tr>
+                <tr>       
+                    <td>
+                        ZIP: 
+                    </td>
+                    <td>
+                        <h:inputText id="zip" value="#{CompanyBean.address.zip}" required="true"/>
+                    </td>         
+                </tr>
+                <tr>        
+                    <td>
+                        City: 
+                    </td>
+                    <td>
+                        <h:inputText id="city" value="#{CompanyBean.address.city}" required="true"/>
+                    </td>   
+                </tr>
+                <tr>       
+                    <td>
+                        Email: 
+                    </td>
+                    <td>
+                        <h:inputText id="email" value="#{CompanyBean.address.email}" required="true"/>
+                    </td>     
+                </tr>
+                <tr>   
+                    <td>
+                        Phone: 
+                    </td>
+                    <td>
+                        <h:inputText id="phone" value="#{CompanyBean.address.phone}" required="true"/>
+                    </td>      
+                </tr>
+                <tr>            
+                    <td>
+                        Fax:
+                    </td>
+                    <td> 
+                        <h:inputText id="fax" value="#{CompanyBean.address.fax}" required="true"/>
+                    </td>    
+                </tr>
+                <tr>     
+                    <td>
+                        Country: 
+                    </td>
+                    <td>
+                        <h:selectOneMenu id="country" value="#{CompanyBean.address.country}" required="true">
+                            <f:selectItems value="#{CompanyBean.address.countries}" />
+                        </h:selectOneMenu>
+                    </td>       
+                </tr>               
+            </tbody>
+        </table>
+        <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
+    </h:form>
+
+</ui:component>

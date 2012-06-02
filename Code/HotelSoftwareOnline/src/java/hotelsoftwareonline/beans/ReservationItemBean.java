@@ -4,8 +4,8 @@
  */
 package hotelsoftwareonline.beans;
 
-import java.beans.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,14 +15,25 @@ public class ReservationItemBean implements Serializable
 {
     private CategoryBean category;
     private int amount;
-    
-    //TODO implement
+    private ArrayList<ExtraserviceBean> extraServices;
+
     /*
-     * private BoardCategory boardCategory;
-     * private List<ExtraService> extraServices;
+     * TODO BoardCategory --> ist auch ein ExtraService in DB...
+     *                        Ausgemacht ist das Zimmer mit oder ohne
+     *                        VP, HP oder Frühstück ist. BoardCategory
+     *                        nicht nötig ...
      */
     
+    public ArrayList<ExtraserviceBean> getExtraServices()
+    {
+        return extraServices;
+    }
 
+    public void setExtraServices(ArrayList<ExtraserviceBean> extraServices)
+    {
+        this.extraServices = extraServices;
+    }
+    
     public int getAmount()
     {
         return amount;
