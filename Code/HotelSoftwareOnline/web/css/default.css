@@ -95,6 +95,11 @@ a:link:hover, a:visited:hover  {
   text-decoration : underline;
 }
 
+.error {
+	font-style:italic;
+	color:#f00;	
+}
+
 .sepparator {
 	width:100%;
 	height:0px;
