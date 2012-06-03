@@ -51,7 +51,7 @@ public class ReservationBean implements Serializable
     //TODO implement get all free Categorys
     public ArrayList<String> getAllFreeRoomCategories()
     {
-        if (startDate.equals("") || endDate.equals(""))
+        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
         {
             return null;
         }
@@ -64,7 +64,7 @@ public class ReservationBean implements Serializable
     }
 
     //TODO implement
-    public ArrayList<String> getAllBoardCategorys()
+    public ArrayList<String> getAllBoardCategories()
     {
         return null;
     }
