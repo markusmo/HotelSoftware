@@ -94,6 +94,7 @@ public class RoomPanel extends javax.swing.JPanel
 
             ComboBoxCategories.addActionListener(new ActionListener()
             {
+                @Override
                 public void actionPerformed(ActionEvent e)
                 {
                     updateComboBoxRooms(ComboBoxCategories.getSelectedItem().toString());
@@ -101,6 +102,7 @@ public class RoomPanel extends javax.swing.JPanel
             });
             ComboBoxFreeRooms.addActionListener(new ActionListener()
             {
+                @Override
                 public void actionPerformed(ActionEvent e)
                 {
                     if (ComboBoxFreeRooms.getItemCount() > 0)

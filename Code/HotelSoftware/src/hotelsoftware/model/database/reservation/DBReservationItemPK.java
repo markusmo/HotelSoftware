@@ -23,12 +23,6 @@ public class DBReservationItemPK implements Serializable
     {
     }
 
-    public DBReservationItemPK(int idReservations, int idRoomCategories)
-    {
-        this.idReservations = idReservations;
-        this.idRoomCategories = idRoomCategories;
-    }
-
     public Integer getIdReservations()
     {
         return idReservations;

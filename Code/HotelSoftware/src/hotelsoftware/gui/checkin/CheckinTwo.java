@@ -143,7 +143,7 @@ public class CheckinTwo extends javax.swing.JPanel
         //################### Create Panel
 
         addNewRoomPanel();
-        cigc.addRoomSelection();
+        //cigc.addRoomSelection();
 
         JPanel pPanel = new JPanel();
         TabbedPaneRooms.add("", pPanel);

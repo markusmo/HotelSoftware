@@ -15,13 +15,12 @@ import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
 import hotelsoftware.controller.data.service.ExtraServiceData;
 import hotelsoftware.controller.data.service.HabitationData;
-import hotelsoftware.controller.data.service.ServiceData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.domain.parties.Address;
 import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.model.domain.parties.IGuest;
 import hotelsoftware.model.domain.reservation.Reservation;
-import hotelsoftware.model.domain.service.Habitation;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.model.domain.users.IPermission;
 import hotelsoftware.model.domain.users.Permission;
@@ -65,7 +64,8 @@ public class CheckInController implements UseCaseController
     private Collection<ReservationItemData> reservationItems;
     private CheckInState state;
     private Collection<IHabitation> habitations;
-    
+    private Collection<IGuest> guests;
+
     //Cache
     private Collection<RoomCategoryData> categories;
     private Collection<CountryData> countries;
@@ -389,6 +389,7 @@ public class CheckInController implements UseCaseController
         return habitations;
     }
     
+    @Override
     public void clear()
     {
         startDate = null;
@@ -454,6 +455,20 @@ public class CheckInController implements UseCaseController
             return categories.toArray(new RoomCategoryData[0]);
         }
         else return new RoomCategoryData[0];
+    }
+    
+    public Collection<IGuest> getAddedGuests()
+    {
+        if (guests == null)
+        {
+            guests = new LinkedList<IGuest>();
+        }
+        return guests;
+    }
+
+    public void setAddedGuests(Collection<IGuest> guests)
+    {
+        this.guests = guests;
     }
 
     Map<Integer, RoomSelection> getRoomSelections()

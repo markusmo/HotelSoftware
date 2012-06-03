@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author mohi
  */
 @Entity
-@Table(name = "roomsroomstatus", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "roomsroomstatus", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 public class DBRoomsRoomStatus implements Serializable
 {

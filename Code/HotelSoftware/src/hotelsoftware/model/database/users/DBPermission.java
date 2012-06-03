@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author mohi
  */
 @Entity
-@Table(name = "permissions", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
+@Table(name = "permissions", catalog = "`roomanizer`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

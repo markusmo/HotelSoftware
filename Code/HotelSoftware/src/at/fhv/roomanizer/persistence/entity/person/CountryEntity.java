@@ -1,9 +1,9 @@
 package at.fhv.roomanizer.persistence.entity.person;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import hotelsoftware.model.database.parties.DBAddress;
+import java.util.Set;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -11,6 +11,8 @@ import org.hibernate.annotations.GenerationTime;
 @Entity
 @Table(name="countries")
 public class CountryEntity {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCountries")
+    private Set<DBAddress> dBAddressSet;
 	
 	/**
 	 * Id of the country
@@ -81,5 +83,20 @@ public class CountryEntity {
 	}
 		
 	//TODO Country-Object missing in Domain-Layer, afterwards Conversion-functions
+
+    public CountryEntity()
+    {
+    }
+
+    @XmlTransient
+    public Set<DBAddress> getDBAddressSet()
+    {
+        return dBAddressSet;
+    }
+
+    public void setDBAddressSet(Set<DBAddress> dBAddressSet)
+    {
+        this.dBAddressSet = dBAddressSet;
+    }
 
 }

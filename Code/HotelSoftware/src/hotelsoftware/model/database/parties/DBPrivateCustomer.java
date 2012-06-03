@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "privatePersons", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "privatePersons", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 @PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
 public class DBPrivateCustomer extends DBCustomer implements Serializable

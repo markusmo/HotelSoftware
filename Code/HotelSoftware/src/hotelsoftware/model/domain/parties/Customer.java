@@ -5,7 +5,6 @@ import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse ist eine unterklasse der Klasse Party. Sie symbolisiert die Personen oder Gruppierungen, die für die Bezahlung derZimmer und/oder Extraleistungen zuständig sind.
@@ -16,6 +15,8 @@ public abstract class Customer extends Party implements ICustomer
 {
     protected IAddress invoiceAddress;
     protected Collection<IInvoice> invoices;
+    protected String username;
+    protected String password;
 
     public Customer()
     {
@@ -31,19 +32,6 @@ public abstract class Customer extends Party implements ICustomer
     public void setInvoiceAddress(IAddress invoiceAddress)
     {
         this.invoiceAddress = invoiceAddress;
-    }
-
-    protected Customer(IAddress address, IAddress invoiceAddress)
-    {
-        this(address, invoiceAddress, new LinkedHashSet<IInvoice>());
-    }
-
-    protected Customer(IAddress address, IAddress invoiceAddress, Collection<IInvoice> invoices)
-    {
-        super(address);
-
-        this.invoiceAddress = invoiceAddress;
-        this.invoices = invoices;
     }
 
     @Override
@@ -80,5 +68,29 @@ public abstract class Customer extends Party implements ICustomer
     public Collection<InvoiceData> getInvoicesData()
     {
         return new HelperFunctions<InvoiceData, IInvoice>().castCollectionUp(invoices);
+    }
+    
+    @Override
+    public String getUsername()
+    {
+        return username;
+    }
+
+    @Override
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+    
+    @Override
+    public String getPassword()
+    {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }

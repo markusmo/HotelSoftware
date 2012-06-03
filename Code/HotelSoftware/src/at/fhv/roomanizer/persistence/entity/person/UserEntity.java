@@ -1,9 +1,9 @@
 package at.fhv.roomanizer.persistence.entity.person;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import at.fhv.roomanizer.persistence.entity.reservation.ReservationEntity;
+import java.util.Set;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -11,6 +11,8 @@ import org.hibernate.annotations.GenerationTime;
 @Entity
 @Table(name="users")
 public class UserEntity {
+    @OneToMany(mappedBy = "idUsers")
+    private Set<ReservationEntity> reservationEntitySet;
 	
 	/**
 	 * Id of the user
@@ -101,4 +103,19 @@ public class UserEntity {
 	public void setActive(boolean active) {
 		this._active = active;
 	}
+
+    public UserEntity()
+    {
+    }
+
+    @XmlTransient
+    public Set<ReservationEntity> getReservationEntitySet()
+    {
+        return reservationEntitySet;
+    }
+
+    public void setReservationEntitySet(Set<ReservationEntity> reservationEntitySet)
+    {
+        this.reservationEntitySet = reservationEntitySet;
+    }
 }

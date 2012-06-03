@@ -83,7 +83,7 @@ public abstract class ChangeDataState extends CheckInState
         guest.setBirthday(birthday);
         guest.setAddress((Address) address);
 
-        context.getReservation().getGuests().add(guest);
+        context.getAddedGuests().add(guest);
         return guest;
     }
 

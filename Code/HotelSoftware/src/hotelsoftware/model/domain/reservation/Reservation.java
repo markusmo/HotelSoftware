@@ -106,6 +106,10 @@ public class Reservation implements IReservation
     @Override
     public Collection<IGuest> getGuests()
     {
+        if (guests == null)
+        {
+            guests = new LinkedList<IGuest>();
+        }
         return guests;
     }
 

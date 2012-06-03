@@ -1,20 +1,10 @@
 package hotelsoftware.model.database.parties;
 
-import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Dies ist die Klasse für die Tabelle "companies". Hier werden alle Firmen
@@ -23,63 +13,73 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "companies", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "companies", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 @PrimaryKeyJoinColumn(name = "idParties", referencedColumnName = "idParties")
-public class DBCompany extends DBCustomer implements Serializable {
-
+public class DBCompany extends DBCustomer implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @JoinTable(name = "companieparties", joinColumns = {
+    @JoinTable(name = "companieparties", joinColumns =
+    {
         @JoinColumn(name = "idCompanies", referencedColumnName = "idParties", nullable = false)
-    }, inverseJoinColumns = {
+    }, inverseJoinColumns =
+    {
         @JoinColumn(name = "idParties", referencedColumnName = "idParties", nullable = false)
     })
-    @ManyToMany (fetch= FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<DBParty> contactPersons;
     @JoinColumn(name = "idCompanyTypes", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private DBCompanyType companyType;
 
-    public DBCompany() {
+    public DBCompany()
+    {
     }
 
-    public DBCompany(Integer id, String name) {
+    public DBCompany(Integer id, String name)
+    {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
     @XmlTransient
-    public Set<DBParty> getContactPersons() {
+    public Set<DBParty> getContactPersons()
+    {
         return contactPersons;
     }
 
-    public void setContactPersons(Set<DBParty> contactPersons) {
+    public void setContactPersons(Set<DBParty> contactPersons)
+    {
         this.contactPersons = contactPersons;
     }
 
-    public DBCompanyType getCompanyType() {
+    public DBCompanyType getCompanyType()
+    {
         return companyType;
     }
 
-    public void setCompanyType(DBCompanyType companyType) {
+    public void setCompanyType(DBCompanyType companyType)
+    {
         this.companyType = companyType;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "hotelsoftware.database.model.Companies[ id=" + getIdParties() + " ]";
     }
-
 //    /**
 //     * Diese Methode sucht nach einer Firma anhand eines Namens.
 //     *
@@ -97,7 +97,6 @@ public class DBCompany extends DBCustomer implements Serializable {
 //                "name", name));
 //        return (DBCompany) criteria.uniqueResult();
 //    }
-
 //    /**
 //     * Diese Methode sucht nach einer Firma anhand eines Namens.
 //     *
