@@ -4,14 +4,15 @@
  */
 package hotelsoftwareonline.beans;
 
-import java.io.Serializable;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftwareonline.controller.ReservationController;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -21,10 +22,20 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
+
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
+    private ArrayList<ReservationItemBean> items;
+    private ReservationController rc = new ReservationController();
+    private String nextStep;
 
+    public ReservationBean()
+    {
+        items = new ArrayList<ReservationItemBean>();
+        items.add(new ReservationItemBean());
+    }
+    
     public String getCommentary()
     {
         return commentary;
@@ -35,20 +46,24 @@ public class ReservationBean implements Serializable
         this.commentary = commentary;
     }
     
-    public void next() {
-        //TODO next screen/step
+    /**
+     * Actionlistener für nächsten Schritt
+     * @param event 
+     */
+    public void nextStepListener(ActionEvent event)
+    {
+        this.nextStep = event.getComponent().getClientId();
     }
     
-    private ArrayList<ReservationItemBean> items;
-    private ReservationController rc = new ReservationController();
-
-    public ReservationBean()
+    /**
+     * Nächster Schritt
+     * @return 
+     */
+    public String next()
     {
-        items = new ArrayList<ReservationItemBean>();
-        items.add(new ReservationItemBean());
+        return "toSomewhere";
     }
-
-    //TODO implement get all free Categorys
+    
     public ArrayList<String> getAllFreeRoomCategories()
     {
         if (startDate.equals("") || endDate.equals(""))
@@ -108,8 +123,8 @@ public class ReservationBean implements Serializable
     }
 
     /**
-     * Adds a reservationitem to the current reservation
-     * For example: new double room
+     * Adds a reservationitem to the current reservation For example: new double
+     * room
      *
      * @param item the item to be added
      */

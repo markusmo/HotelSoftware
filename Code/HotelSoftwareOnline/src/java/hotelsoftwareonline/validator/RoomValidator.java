@@ -8,22 +8,19 @@ package hotelsoftwareonline.validator;
  *
  * @author Tobias
  */
-import hotelsoftware.model.domain.room.IRoom;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.ValidatorException;
-import hotelsoftware.model.domain.room.RoomCategory;
-import java.util.Collection;
-import java.util.Date;
 import hotelsoftware.model.database.manager.RoomManager;
 import hotelsoftware.model.domain.room.IRoomCategory;
-import java.util.HashMap;
-import javax.faces.application.FacesMessage;
 import hotelsoftwareonline.beans.ReservationBean;
 import hotelsoftwareonline.beans.ReservationItemBean;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 @FacesValidator("onlinereservation.validator")
 public class RoomValidator implements Validator{

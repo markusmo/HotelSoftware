@@ -4,8 +4,11 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.database.manager.ServiceManager;
+import hotelsoftware.model.domain.service.IExtraService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -16,13 +19,6 @@ public class ReservationItemBean implements Serializable
     private CategoryBean category;
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
-
-    /*
-     * TODO BoardCategory --> ist auch ein ExtraService in DB...
-     *                        Ausgemacht ist das Zimmer mit oder ohne
-     *                        VP, HP oder Frühstück ist. BoardCategory
-     *                        nicht nötig ...
-     */
     
     public ArrayList<ExtraserviceBean> getExtraServices()
     {
@@ -52,5 +48,24 @@ public class ReservationItemBean implements Serializable
     public void setCategory(CategoryBean category)
     {
         this.category = category;
+    }
+    
+    /**
+     * gibt die Verpflegungsarten aus
+     * @return eine Arraylist aller Verplegungsarten
+     */
+    public ArrayList<String> getBoardCategories()
+    {
+        Collection<IExtraService> allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        ArrayList<String> boardCategories = new ArrayList<String>();
+        for (IExtraService extraservice : allExtraServices)
+        {
+            if(extraservice.getServiceType().getName().equals("Food"))
+            {
+                boardCategories.add(extraservice.getName());
+            }
+        }
+        
+        return boardCategories;
     }
 }
