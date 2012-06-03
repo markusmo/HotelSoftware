@@ -50,22 +50,5 @@ public class ReservationItemBean implements Serializable
         this.category = category;
     }
     
-    /**
-     * gibt die Verpflegungsarten aus
-     * @return eine Arraylist aller Verplegungsarten
-     */
-    public ArrayList<String> getBoardCategories()
-    {
-        Collection<IExtraService> allExtraServices = ServiceManager.getInstance().getAllExtraServices();
-        ArrayList<String> boardCategories = new ArrayList<String>();
-        for (IExtraService extraservice : allExtraServices)
-        {
-            if(extraservice.getServiceType().getName().equals("Food"))
-            {
-                boardCategories.add(extraservice.getName());
-            }
-        }
-        
-        return boardCategories;
-    }
+   
 }
