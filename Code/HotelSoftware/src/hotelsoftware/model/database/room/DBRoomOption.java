@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
  * @author mohi
  */
 @Entity
-@Table(name = "roomoptions", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
+@Table(name = "roomoptions", catalog = "`roomanizer`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

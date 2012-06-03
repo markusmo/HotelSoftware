@@ -2,26 +2,29 @@ package hotelsoftware.model.database.reservation;
 
 import hotelsoftware.model.database.room.DBRoomCategory;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Die Klasse bildet alle Reservierungspositionen auf der Datenbank auf.
  * @author mohi
  */
 @Entity
-@Table(name = "reservationitems", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "reservationitems", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 public class DBReservationItem implements Serializable
 {
+    @Basic(optional = false)
+    @Column(name = "amount")
+    private int amount;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBReservationItem")
+    private Set<DBReservedExtraServices> reservedextraservicesSet;
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
     protected DBReservationItemPK reservationitemsPK;
-    
-    @Basic(optional = false)
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
     
     @JoinColumn(name = "idRoomCategories", referencedColumnName = "id", updatable=false, insertable=false)
     @ManyToOne(optional = false, fetch= FetchType.EAGER)
@@ -45,11 +48,6 @@ public class DBReservationItem implements Serializable
         this.amount = amount;
     }
 
-    public DBReservationItem(int idReservations, int idRoomCategories)
-    {
-        this.reservationitemsPK = new DBReservationItemPK(idReservations, idRoomCategories);
-    }
-
     public DBReservationItemPK getReservationitemsPK()
     {
         return reservationitemsPK;
@@ -58,16 +56,6 @@ public class DBReservationItem implements Serializable
     public void setReservationitemsPK(DBReservationItemPK reservationitemsPK)
     {
         this.reservationitemsPK = reservationitemsPK;
-    }
-
-    public Integer getAmount()
-    {
-        return amount;
-    }
-
-    public void setAmount(int amount)
-    {
-        this.amount = amount;
     }
 
     public DBRoomCategory getRoomCategory()
@@ -94,6 +82,27 @@ public class DBReservationItem implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Reservationitems[ reservationitemsPK=" + reservationitemsPK + " ]";
+    }
+
+    public int getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(int amount)
+    {
+        this.amount = amount;
+    }
+
+    @XmlTransient
+    public Set<DBReservedExtraServices> getReservedextraservicesSet()
+    {
+        return reservedextraservicesSet;
+    }
+
+    public void setReservedextraservicesSet(Set<DBReservedExtraServices> reservedextraservicesSet)
+    {
+        this.reservedextraservicesSet = reservedextraservicesSet;
     }
     
 }

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "habitations", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "habitations", catalog = "`roomanizer`", schema = "")
 @PrimaryKeyJoinColumn(name = "idServices", referencedColumnName = "idServices")
 public class DBHabitation extends DBService implements Serializable
 {

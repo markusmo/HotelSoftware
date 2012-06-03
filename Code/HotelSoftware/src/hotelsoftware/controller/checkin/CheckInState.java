@@ -1,22 +1,21 @@
 package hotelsoftware.controller.checkin;
 
-import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.controller.data.parties.AddressData;
 import hotelsoftware.controller.data.parties.CountryData;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.reservation.ReservationData;
-import hotelsoftware.support.NoPriceDefinedException;
-import hotelsoftware.model.domain.room.Room;
-import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.controller.data.room.RoomData;
-import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.controller.data.service.ExtraServiceData;
-import hotelsoftware.controller.data.service.HabitationData;
+import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.IGuest;
 import hotelsoftware.model.domain.room.IRoom;
-import hotelsoftware.util.HelperFunctions;
-import java.util.*;
+import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.service.IHabitation;
+import hotelsoftware.support.NoPriceDefinedException;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  * Diese Klasse ist die abstrakte Klasse, die alle Status und dessen Funktionen abbilded.

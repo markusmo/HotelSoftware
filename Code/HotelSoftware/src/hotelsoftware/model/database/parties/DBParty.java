@@ -6,14 +6,13 @@ import java.util.Collection;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *Dies ist die Klasse für die Tabelle "persons". Hier werden alle Personen gespeichert.
  * @author mohi
  */
 @Entity
-@Table(name = "parties", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "parties", catalog = "`roomanizer`", schema = "")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class DBParty implements Serializable
@@ -59,11 +58,6 @@ public class DBParty implements Serializable
         this.reservations = reservations;
     }
 
-    public DBParty(Integer id)
-    {
-        this.idParties = id;
-    }
-
     public Integer getIdParties()
     {
         return idParties;
@@ -87,7 +81,7 @@ public class DBParty implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.database.model.Persons[ id=" + idParties + " ]";
+        return "hotelsoftware.model.database.parties.DBParty[ id=" + idParties + " ]";
     }
     
 }

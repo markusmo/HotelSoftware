@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "roomcategories", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
+@Table(name = "roomcategories", catalog = "`roomanizer`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {
@@ -27,6 +27,9 @@ import org.hibernate.criterion.Restrictions;
 @XmlRootElement
 public class DBRoomCategory implements Serializable
 {
+    @Basic(optional = false)
+    @Column(name = "bedCount")
+    private int bedCount;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +40,6 @@ public class DBRoomCategory implements Serializable
     @Basic(optional = false)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    
-    @Basic(optional = false)
-    @Column(name = "bedCount", nullable = false)
-    private Integer bedCount;
     
     @OneToMany(mappedBy = "roomCategory")
     private Set<DBReservationItem> reservationItems;
@@ -85,16 +84,6 @@ public class DBRoomCategory implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public Integer getBedCount()
-    {
-        return bedCount;
-    }
-
-    public void setBedCount(int bedCount)
-    {
-        this.bedCount = bedCount;
     }
 
     @XmlTransient
@@ -191,5 +180,15 @@ public class DBRoomCategory implements Serializable
 //        
 //        return new LinkedHashSet<DBRoom>(rooms);
 //    }
+
+    public int getBedCount()
+    {
+        return bedCount;
+    }
+
+    public void setBedCount(int bedCount)
+    {
+        this.bedCount = bedCount;
+    }
     
 }

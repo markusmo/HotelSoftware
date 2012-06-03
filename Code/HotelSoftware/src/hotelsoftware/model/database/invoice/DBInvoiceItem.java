@@ -23,7 +23,7 @@ import org.hibernate.criterion.Restrictions;
  * @author mohi
  */
 @Entity
-@Table(name = "invoiceitems", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "invoiceitems", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 public class DBInvoiceItem implements Serializable
 {

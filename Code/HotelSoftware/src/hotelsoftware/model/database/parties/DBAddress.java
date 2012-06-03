@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "addresses", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "addresses", catalog = "`roomanizer`", schema = "")
 @XmlRootElement
 public class DBAddress implements Serializable
 {

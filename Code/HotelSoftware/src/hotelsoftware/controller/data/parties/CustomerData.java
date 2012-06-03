@@ -16,4 +16,8 @@ public interface CustomerData extends PartyData
 
     String getName();
     
+    String getUsername();
+
+    String getPassword();
+    
 }

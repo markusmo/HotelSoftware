@@ -1,11 +1,6 @@
 package hotelsoftware.model.domain.parties;
 
-import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.parties.AddressData;
-import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.parties.DBCompany;
-import hotelsoftware.model.database.parties.DBGuest;
-import hotelsoftware.model.database.parties.DBPrivateCustomer;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;

@@ -25,4 +25,8 @@ public interface ICustomer extends IParty, CustomerData
     void setInvoiceAddress(IAddress invoiceAddress);
 
     void setInvoices(Collection<IInvoice> invoices);
+    
+    void setUsername(String username);
+
+    void setPassword(String password);
 }

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "servicetypes", catalog = "`roomanizer-dev`", schema = "", uniqueConstraints =
+@Table(name = "servicetypes", catalog = "`roomanizer`", schema = "", uniqueConstraints =
 {
     @UniqueConstraint(columnNames =
     {

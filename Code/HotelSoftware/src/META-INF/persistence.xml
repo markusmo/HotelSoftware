@@ -30,6 +30,7 @@
     <class>hotelsoftware.model.database.reservation.DBReservationItem</class>
     <class>hotelsoftware.model.database.reservation.DBReservationOption</class>
     <class>hotelsoftware.model.database.parties.DBParty</class>
+    <class>hotelsoftware.model.database.reservation.DBReservedExtraServices</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>

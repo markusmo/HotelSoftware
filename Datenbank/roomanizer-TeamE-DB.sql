@@ -8,6 +8,8 @@ USE `roomanizer` ;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomCategories`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomCategories` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomCategories` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -20,6 +22,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`rooms`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`rooms` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`rooms` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `roomNumber` VARCHAR(255) NOT NULL ,
@@ -38,6 +42,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomOptions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomOptions` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomOptions` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -49,6 +55,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomsRoomOptions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomsRoomOptions` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomsRoomOptions` (
   `idRooms` INT NOT NULL ,
   `idOptions` INT NOT NULL ,
@@ -71,6 +79,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomStatus`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomStatus` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomStatus` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -82,6 +92,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomsRoomStatus`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomsRoomStatus` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomsRoomStatus` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idRooms` INT NOT NULL ,
@@ -109,6 +121,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`seasons`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`seasons` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`seasons` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -124,6 +138,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roomCategoryPrices`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roomCategoryPrices` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roomCategoryPrices` (
   `idRoomCategories` INT NOT NULL ,
   `idSeasons` INT NOT NULL ,
@@ -148,6 +164,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`countries`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`countries` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`countries` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -161,6 +179,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`addresses`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`addresses` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`addresses` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `street` VARCHAR(255) NULL ,
@@ -183,10 +203,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`parties`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`parties` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`parties` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `idParties` INT NOT NULL AUTO_INCREMENT ,
   `idAddresses` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
+  PRIMARY KEY (`idParties`) ,
   INDEX `fk_persons_addresses1` (`idAddresses` ASC) ,
   CONSTRAINT `fk_persons_addresses1`
     FOREIGN KEY (`idAddresses` )
@@ -199,6 +221,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`users`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`users` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(255) NOT NULL ,
@@ -213,6 +237,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`roles`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`roles` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -224,6 +250,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`userRoles`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`userRoles` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`userRoles` (
   `idRoles` INT NOT NULL ,
   `idUsers` INT NOT NULL ,
@@ -246,6 +274,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`permissions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`permissions` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`permissions` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -257,6 +287,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`rolePermissions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`rolePermissions` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`rolePermissions` (
   `idPermissions` INT NOT NULL ,
   `idRoles` INT NOT NULL ,
@@ -279,9 +311,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`customers`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`customers` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`customers` (
   `idParties` INT NOT NULL ,
   `idAddresses` INT NOT NULL ,
+  `username` VARCHAR(255) NULL ,
+  `password` CHAR(32) NULL ,
   INDEX `fk_customers_addresses1` (`idAddresses` ASC) ,
   INDEX `fk_customers_persons1` (`idParties` ASC) ,
   PRIMARY KEY (`idParties`) ,
@@ -292,7 +328,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`customers` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_customers_persons1`
     FOREIGN KEY (`idParties` )
-    REFERENCES `roomanizer`.`parties` (`id` )
+    REFERENCES `roomanizer`.`parties` (`idParties` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -301,6 +337,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`guests`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`guests` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`guests` (
   `idParties` INT NOT NULL ,
   `fname` VARCHAR(255) NOT NULL ,
@@ -311,7 +349,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`guests` (
   PRIMARY KEY (`idParties`) ,
   CONSTRAINT `fk_guest_persons1`
     FOREIGN KEY (`idParties` )
-    REFERENCES `roomanizer`.`parties` (`id` )
+    REFERENCES `roomanizer`.`parties` (`idParties` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -320,6 +358,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`serviceTypes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`serviceTypes` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`serviceTypes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -332,10 +372,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`services`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`services` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`services` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `idServices` INT NOT NULL AUTO_INCREMENT ,
   `idServiceTypes` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
+  PRIMARY KEY (`idServices`) ,
   INDEX `fk_services_serviceTypes1` (`idServiceTypes` ASC) ,
   CONSTRAINT `fk_services_serviceTypes1`
     FOREIGN KEY (`idServiceTypes` )
@@ -348,6 +390,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`habitations`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`habitations` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`habitations` (
   `idServices` INT NOT NULL ,
   `habitationNr` VARCHAR(255) NOT NULL ,
@@ -372,7 +416,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`habitations` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_habitations_services1`
     FOREIGN KEY (`idServices` )
-    REFERENCES `roomanizer`.`services` (`id` )
+    REFERENCES `roomanizer`.`services` (`idServices` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_habitations_users1`
@@ -386,6 +430,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`reservations`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`reservations` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservations` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `reservationNumber` VARCHAR(255) NOT NULL ,
@@ -404,7 +450,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservations` (
   INDEX `fk_reservations_users1` (`idUsers` ASC) ,
   CONSTRAINT `fk_reservations_persons1`
     FOREIGN KEY (`idParties` )
-    REFERENCES `roomanizer`.`parties` (`id` )
+    REFERENCES `roomanizer`.`parties` (`idParties` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_reservations_users1`
@@ -418,6 +464,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`reservationItems`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`reservationItems` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservationItems` (
   `idReservations` INT NOT NULL ,
   `idRoomCategories` INT NOT NULL ,
@@ -441,6 +489,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`reservationOptions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`reservationOptions` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservationOptions` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `expiration` DATE NOT NULL ,
@@ -462,6 +512,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`extraServices`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`extraServices` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`extraServices` (
   `idServices` INT NOT NULL ,
   `name` VARCHAR(255) NOT NULL ,
@@ -472,7 +524,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`extraServices` (
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_extraServices_services1`
     FOREIGN KEY (`idServices` )
-    REFERENCES `roomanizer`.`services` (`id` )
+    REFERENCES `roomanizer`.`services` (`idServices` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -481,6 +533,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`allocations`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`allocations` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`allocations` (
   `idHabitations` INT NOT NULL ,
   `idGuests` INT NOT NULL ,
@@ -503,6 +557,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`paymentMethods`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`paymentMethods` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`paymentMethods` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -514,6 +570,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`invoices`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`invoices` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoices` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `invoiceNumber` VARCHAR(255) NOT NULL ,
@@ -552,6 +610,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`invoiceItems`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`invoiceItems` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoiceItems` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `amount` INT NOT NULL ,
@@ -568,7 +628,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`invoiceItems` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_services_has_invoice_services1`
     FOREIGN KEY (`idServices` )
-    REFERENCES `roomanizer`.`services` (`id` )
+    REFERENCES `roomanizer`.`services` (`idServices` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_services_has_invoice_invoice1`
@@ -592,6 +652,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`companyTypes`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`companyTypes` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`companyTypes` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
@@ -603,6 +665,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`companies`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`companies` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`companies` (
   `idParties` INT NOT NULL ,
   `name` VARCHAR(255) NOT NULL ,
@@ -627,6 +691,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`companieParties`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`companieParties` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`companieParties` (
   `idParties` INT NOT NULL ,
   `idCompanies` INT NOT NULL ,
@@ -635,7 +701,7 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`companieParties` (
   INDEX `fk_companiesPersons_companies1` (`idCompanies` ASC) ,
   CONSTRAINT `fk_companies_has_persons_persons1`
     FOREIGN KEY (`idParties` )
-    REFERENCES `roomanizer`.`parties` (`id` )
+    REFERENCES `roomanizer`.`parties` (`idParties` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_companiesPersons_companies1`
@@ -649,6 +715,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`reservationsGuests`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`reservationsGuests` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservationsGuests` (
   `idReservations` INT NOT NULL ,
   `idGuests` INT NOT NULL ,
@@ -671,6 +739,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `roomanizer`.`privatePersons`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`privatePersons` ;
+
 CREATE  TABLE IF NOT EXISTS `roomanizer`.`privatePersons` (
   `idParties` INT NOT NULL ,
   `fname` VARCHAR(255) NOT NULL ,
@@ -680,6 +750,32 @@ CREATE  TABLE IF NOT EXISTS `roomanizer`.`privatePersons` (
   CONSTRAINT `fk_privatePerson_customers1`
     FOREIGN KEY (`idParties` )
     REFERENCES `roomanizer`.`customers` (`idParties` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `roomanizer`.`reservedExtraServices`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roomanizer`.`reservedExtraServices` ;
+
+CREATE  TABLE IF NOT EXISTS `roomanizer`.`reservedExtraServices` (
+  `idServices` INT NOT NULL ,
+  `idReservations` INT NOT NULL ,
+  `idRoomCategories` INT NOT NULL ,
+  `amount` INT NOT NULL ,
+  PRIMARY KEY (`idServices`, `idReservations`, `idRoomCategories`) ,
+  INDEX `fk_extraServices_has_reservationItems_reservationItems1` (`idReservations` ASC, `idRoomCategories` ASC) ,
+  INDEX `fk_extraServices_has_reservationItems_extraServices1` (`idServices` ASC) ,
+  CONSTRAINT `fk_extraServices_has_reservationItems_extraServices1`
+    FOREIGN KEY (`idServices` )
+    REFERENCES `roomanizer`.`extraServices` (`idServices` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_extraServices_has_reservationItems_reservationItems1`
+    FOREIGN KEY (`idReservations` , `idRoomCategories` )
+    REFERENCES `roomanizer`.`reservationItems` (`idReservations` , `idRoomCategories` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -710,6 +806,45 @@ INSERT INTO `roomanizer`.`roomStatus` (`id`, `name`) VALUES (NULL, 'Occupied - D
 INSERT INTO `roomanizer`.`roomStatus` (`id`, `name`) VALUES (NULL, 'Free - Clean');
 INSERT INTO `roomanizer`.`roomStatus` (`id`, `name`) VALUES (NULL, 'Free - Dirty');
 INSERT INTO `roomanizer`.`roomStatus` (`id`, `name`) VALUES (NULL, 'Out of order');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `roomanizer`.`seasons`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `roomanizer`;
+INSERT INTO `roomanizer`.`seasons` (`id`, `name`, `startDate`, `endDate`) VALUES (NULL, 'Summer', '1.5.2010', '31.10.2012');
+INSERT INTO `roomanizer`.`seasons` (`id`, `name`, `startDate`, `endDate`) VALUES (NULL, 'Winter', '1.11.2012', '30.4.2012');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `roomanizer`.`users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `roomanizer`;
+INSERT INTO `roomanizer`.`users` (`id`, `username`, `password`, `active`) VALUES (NULL, 'user', 'asdf', 1);
+INSERT INTO `roomanizer`.`users` (`id`, `username`, `password`, `active`) VALUES (NULL, 'vollbrecht', 'vollbrecht', 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `roomanizer`.`roles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `roomanizer`;
+INSERT INTO `roomanizer`.`roles` (`id`, `name`) VALUES (NULL, 'admin');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `roomanizer`.`permissions`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `roomanizer`;
+INSERT INTO `roomanizer`.`permissions` (`id`, `name`) VALUES (1, 'Check-In');
+INSERT INTO `roomanizer`.`permissions` (`id`, `name`) VALUES (2, 'CancelItems');
 
 COMMIT;
 

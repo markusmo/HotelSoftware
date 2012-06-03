@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mohi
  */
 @Entity
-@Table(name = "customers", catalog = "`roomanizer-dev`", schema = "")
+@Table(name = "customers", catalog = "`roomanizer`", schema = "")
 @PrimaryKeyJoinColumn(name="idParties", referencedColumnName="idParties")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
@@ -27,6 +27,12 @@ public class DBCustomer extends DBParty implements Serializable
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBAddress invoiceAddress;
+    
+    @Column(name = "username", length = 255)
+    private String username;
+    
+    @Column(name = "password", length = 32)
+    private String password;
 
     public DBCustomer()
     {
@@ -51,6 +57,26 @@ public class DBCustomer extends DBParty implements Serializable
     public void setInvoiceAddress(DBAddress address)
     {
         this.invoiceAddress = address;
+    }
+    
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+    
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 
     @Override
