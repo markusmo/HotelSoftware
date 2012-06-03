@@ -77,12 +77,11 @@ public class ReservationBean implements Serializable
         }
         return list;
     }
-
-    //TODO implement
-    public ArrayList<String> getAllBoardCategories()
-    {
-        return null;
-    }
+    
+     public ArrayList<String> getAllBoardCategories()
+     {
+         return ReservationController.getBoardCategories();
+     }
 
     //TODO implement
     public ArrayList<String> getAllExtraServices()

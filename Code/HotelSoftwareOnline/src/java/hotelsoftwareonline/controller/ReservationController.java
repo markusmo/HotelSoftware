@@ -1,7 +1,10 @@
 package hotelsoftwareonline.controller;
 
+import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.RoomCategory;
+import hotelsoftware.model.domain.service.IExtraService;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -23,5 +26,24 @@ public class ReservationController
             }
         }
         return categories;
+    }
+    
+     /**
+     * gibt die Verpflegungsarten aus
+     * @return eine Arraylist aller Verplegungsarten
+     */
+    public static ArrayList<String> getBoardCategories()
+    {
+        Collection<IExtraService> allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        ArrayList<String> boardCategories = new ArrayList<String>();
+        for (IExtraService extraservice : allExtraServices)
+        {
+            if(extraservice.getServiceType().getName().equals("Food"))
+            {
+                boardCategories.add(extraservice.getName());
+            }
+        }
+        
+        return boardCategories;
     }
 }
