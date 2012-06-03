@@ -13,8 +13,8 @@ import javax.faces.bean.SessionScoped;
  * @author Johannes
  */
 @SessionScoped
-@ManagedBean
-public class timeBean
+@ManagedBean(name="time")
+public class TimeBean
 {
     public String getTime()
     {

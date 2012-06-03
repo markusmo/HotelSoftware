@@ -8,21 +8,19 @@ package hotelsoftwareonline.validator;
  *
  * @author Tobias
  */
-import hotelsoftware.model.domain.room.IRoom;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.ValidatorException;
-import hotelsoftware.model.domain.room.RoomCategory;
-import java.util.Collection;
-import java.util.Date;
 import hotelsoftware.model.database.manager.RoomManager;
 import hotelsoftware.model.domain.room.IRoomCategory;
-import java.util.HashMap;
-import javax.faces.application.FacesMessage;
 import hotelsoftwareonline.beans.ReservationBean;
 import hotelsoftwareonline.beans.ReservationItemBean;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 @FacesValidator("onlinereservation.validator")
 public class RoomValidator implements Validator{
@@ -53,6 +51,9 @@ public class RoomValidator implements Validator{
         manager = RoomManager.getInstance();
         map = new HashMap();
         
+        start = convertToDate(bean.getStartDate());
+        end = convertToDate(bean.getEndDate());
+        
         for (IRoomCategory tempCategory : manager.getAllCategories()){
             map.put(tempCategory.getId(), 0);
         }
@@ -62,7 +63,7 @@ public class RoomValidator implements Validator{
             category = manager.getCategoryByName(r.getCategory().getName());
             amountOfCurrentCategory = (Integer) map.get(category.getId());
             
-            if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(bean.getStartDate(), bean.getEndDate()).size()){
+            if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(start, end).size()){
                 throw new ValidatorException(new FacesMessage("Not enough free rooms available in category " + category.getName()));
             }
             
@@ -74,6 +75,16 @@ public class RoomValidator implements Validator{
         if (map != null){
             map.clear();
         }
+    }
+    
+    private Date convertToDate(String date)
+    {
+        String[] dates = date.split("/");
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
+        d.setTime(c.getTimeInMillis());
+        return d;
     }
     
 }

@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
+
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:f="http://java.sun.com/jsf/core"
@@ -24,7 +25,7 @@
                     <h3>Select the wanted board-category</h3>
                     <h:selectOneRadio id="boardCategory" value="#{reservationItem.boardCategory}" required="true" requiredMessage="Please select a board-category!">
                         <f:selectItems value="#{reservation.getAllBoardCategories()}"/>
-                        <h:message for="roomCategory" class="error"/>
+                        <h:message for="boardCategory" class="error"/>
                     </h:selectOneRadio>
                 </div>
                 <div class="extraServices">
@@ -34,7 +35,6 @@
                     </h:selectManyCheckbox>
                 </div>
                 <div class="minMaxRemove">
-                    <!-- <h:button id="minimize" image="">Min-Max</h:button> symbol -->
                     <h:button id="remove" image="images/buttons/delete.png"></h:button>
                 </div>
             </c:when>
