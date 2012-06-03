@@ -21,9 +21,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-    private String startDate;
-    private String endDate;
-    private String commentary;
+    private String startDate = "";
+    private String endDate = "";
+    private String commentary = "";
 
     public String getCommentary()
     {
@@ -64,7 +64,7 @@ public class ReservationBean implements Serializable
     }
 
     //TODO implement
-    public ArrayList<String> getAllBoardCategorys()
+    public ArrayList<String> getAllBoardCategories()
     {
         return null;
     }

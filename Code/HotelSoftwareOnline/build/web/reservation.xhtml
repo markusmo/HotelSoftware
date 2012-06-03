@@ -36,15 +36,21 @@
                 <br/><br/> 
                 <h:panelGroup id="render" layout="block">
                     <div id="reservationContent">
+                        <div id="commentary">
+                            <h:outputLabel>Reservation commentary: </h:outputLabel>
+                            <br/>
+                            <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
+                        </div>
                         <div id="reservationItems">    
                             <ui:include  src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
                         </div>
                         <br/><br/>
                         <!-- add function to append item -->
                         <h:button id="addReservationItem" image="images/buttons/add.png" onclick="addReservationItem()"></h:button>
-
                     </div>  
                 </h:panelGroup>
+                <br/><br/>
+                <h:button id="reservationNext" value="Next Step" onclick="reservation.next()"></h:button>
             </div>
 
         </h:form>
