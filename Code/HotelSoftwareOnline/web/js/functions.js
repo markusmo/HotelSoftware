@@ -26,6 +26,8 @@ $(function()
 
 $(document).ready(function(e) {
     $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
+    $("#startDate").change(checkPeriod);
+    $("#endDate").change(checkPeriod);
 });
 
 function checkPeriod() {
@@ -37,5 +39,5 @@ function checkPeriod() {
 // Klassen usw. die mit JS manipuliert werden sollen: error (rot,...), periode, 
 // reservationContent, commentary, reservationItems, reservationItem
 // collapse, addReservationItem(button), reservationNext (button), remove (button)
-// include des reservation item erst, wenn die periode ausgewählt wurde (ajax, js)!
+// include des reservation item erst, wenn die periode ausgewï¿½hlt wurde (ajax, js)!
 // beim Laden von reservation.xml checkPeriod() aufrufen!

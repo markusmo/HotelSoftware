@@ -50,7 +50,11 @@
                     </div>  
                 </h:panelGroup>
                 <br/><br/>
-                <h:button id="reservationNext" value="Next Step" onclick="reservation.next()"></h:button>
+                <h:commandButton id="reservationNext" 
+                                 value="Next Step" 
+                                 action="#{reservation.next}"
+                                 actionListener="#{reservation.nextStepListener}">
+                </h:commandButton>
             </div>
 
         </h:form>
