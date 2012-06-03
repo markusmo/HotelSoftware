@@ -25,5 +25,5 @@ $(function()
 });
 
 $(document).ready(function(e) {
-    $(".datepicker").datepicker();
+    $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
 });

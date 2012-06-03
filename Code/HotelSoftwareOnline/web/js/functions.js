@@ -25,7 +25,7 @@ $(function()
 });
 
 $(document).ready(function(e) {
-    $(".datepicker").datepicker();
+    $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
 });
 
 function checkPeriod() {
@@ -33,3 +33,9 @@ function checkPeriod() {
         $("#reservationContent").css("display", "block");
     }
 }
+
+// Klassen usw. die mit JS manipuliert werden sollen: error (rot,...), periode, 
+// reservationContent, commentary, reservationItems, reservationItem
+// collapse, addReservationItem(button), reservationNext (button), remove (button)
+// include des reservation item erst, wenn die periode ausgewählt wurde (ajax, js)!
+// beim Laden von reservation.xml checkPeriod() aufrufen!

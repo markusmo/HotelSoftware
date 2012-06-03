@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import java.io.Serializable;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftwareonline.controller.ReservationController;
 import java.util.ArrayList;
@@ -18,10 +19,26 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "reservation")
 @SessionScoped
-public class ReservationBean
+public class ReservationBean implements Serializable
 {
-    private String startDate = "";
-    private String endDate = "";
+    private String startDate;
+    private String endDate;
+    private String commentary;
+
+    public String getCommentary()
+    {
+        return commentary;
+    }
+
+    public void setCommentary(String commentary)
+    {
+        this.commentary = commentary;
+    }
+    
+    public void next() {
+        //TODO next screen/step
+    }
+    
     private ArrayList<ReservationItemBean> items;
     private ReservationController rc = new ReservationController();
 
