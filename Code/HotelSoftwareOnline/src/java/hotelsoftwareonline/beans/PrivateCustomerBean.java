@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -13,7 +14,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "privatecustomer")
 @SessionScoped
-public class PrivateCustomerBean extends CustomerBean
+public class PrivateCustomerBean extends CustomerBean implements Serializable
 {
     private AddressBean address;
     private AddressBean invoiceAddress;

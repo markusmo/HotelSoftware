@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
@@ -22,20 +23,22 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
     private ArrayList<ReservationItemBean> items;
     private ReservationController rc = new ReservationController();
+    private HashMap<Integer, ReservationItemBean> map = new HashMap<Integer, ReservationItemBean>();
     private String nextStep;
 
     public ReservationBean()
     {
         items = new ArrayList<ReservationItemBean>();
-        items.add(new ReservationItemBean());
+        ReservationItemBean item = new ReservationItemBean();
+        map.put(item.getNr(), item);
+        items.add(item);
     }
-    
+
     public String getCommentary()
     {
         return commentary;
@@ -45,25 +48,27 @@ public class ReservationBean implements Serializable
     {
         this.commentary = commentary;
     }
-    
+
     /**
      * Actionlistener für nächsten Schritt
-     * @param event 
+     *
+     * @param event
      */
     public void nextStepListener(ActionEvent event)
     {
         this.nextStep = event.getComponent().getClientId();
     }
-    
+
     /**
      * Nächster Schritt
-     * @return 
+     *
+     * @return
      */
     public String next()
     {
         return "toSomewhere";
     }
-    
+
     public ArrayList<String> getAllFreeRoomCategories()
     {
         if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
@@ -77,11 +82,11 @@ public class ReservationBean implements Serializable
         }
         return list;
     }
-    
-     public ArrayList<String> getAllBoardCategories()
-     {
-         return ReservationController.getBoardCategories();
-     }
+
+    public ArrayList<String> getAllBoardCategories()
+    {
+        return ReservationController.getBoardCategories();
+    }
 
     //TODO implement
     public ArrayList<String> getAllExtraServices()
@@ -135,6 +140,34 @@ public class ReservationBean implements Serializable
         }
 
         this.items.add(item);
+    }
+
+    public void removeReservationItem(int nummer)
+    {
+        if (this.items == null)
+        {
+            return;
+        }
+        items.remove(map.get(nummer));
+        map.remove(nummer);
+       
+    }
+
+    /**
+     * Adds a reservationitem to the current reservation For example: new double
+     * room
+     *
+     * @param item the item to be added
+     */
+    public void addReservationItem()
+    {
+        if (this.items == null)
+        {
+            this.items = new ArrayList<ReservationItemBean>();
+        }
+        ReservationItemBean item = new ReservationItemBean();
+        map.put(item.getNr(), item);
+        items.add(item);
     }
 
     /**
