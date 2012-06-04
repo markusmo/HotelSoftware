@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <ui:component template="template.xhtml"
               xmlns="http://www.w3.org/1999/xhtml"
@@ -20,6 +16,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="lanme" value="#{company.name}" required="true"/>
+                         <br/><h:message for="lname" class="error" />
                     </td>
                 </tr>
                 <tr>        
@@ -27,7 +24,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="street" value="#{company.address.street}" required="true"/>
-
+                         <br/><h:message for="street" class="error" />
                     </td>
                 </tr>
                 <tr>       
@@ -36,6 +33,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="zip" value="#{company.address.zip}" required="true"/>
+                         <br/><h:message for="zip" class="error" />
                     </td>         
                 </tr>
                 <tr>        
@@ -44,6 +42,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="city" value="#{company.address.city}" required="true"/>
+                         <br/><h:message for="city" class="error" />
                     </td>   
                 </tr>
                 <tr>       
@@ -52,7 +51,8 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="email" value="#{company.address.email}" required="true"/>
-                    </td>     
+                         <br/><h:message for="email" class="error" />
+                    </td>
                 </tr>
                 <tr>   
                     <td>
@@ -60,6 +60,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="phone" value="#{company.address.phone}" required="true"/>
+                         <br/><h:message for="phone" class="error" />
                     </td>      
                 </tr>
                 <tr>            
@@ -68,6 +69,7 @@ and open the template in the editor.
                     </td>
                     <td> 
                         <h:inputText id="fax" value="#{company.address.fax}" required="true"/>
+                         <br/><h:message for="fax" class="error" />
                     </td>    
                 </tr>
                 <tr>     
