@@ -4,11 +4,8 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.database.manager.ServiceManager;
-import hotelsoftware.model.domain.service.IExtraService;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  *
@@ -16,9 +13,11 @@ import java.util.Collection;
  */
 public class ReservationItemBean implements Serializable
 {
-    private CategoryBean category;
+    private CategoryBean category = null;
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
+    private int nr;
+    private static int nummer = 0;
     
     public ArrayList<ExtraserviceBean> getExtraServices()
     {
@@ -48,6 +47,21 @@ public class ReservationItemBean implements Serializable
     public void setCategory(CategoryBean category)
     {
         this.category = category;
+    }
+
+    public int getNr()
+    {
+        return nr;
+    }
+
+    public void setNr(int nr)
+    {
+        this.nr = nr;
+    }
+    
+    public ReservationItemBean()
+    {
+        nr = nummer++;
     }
     
    

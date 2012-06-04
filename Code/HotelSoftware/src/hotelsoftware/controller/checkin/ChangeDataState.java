@@ -186,11 +186,11 @@ public abstract class ChangeDataState extends CheckInState
     }
 
     @Override
-    public Collection<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllBoardCategoriesServices()
     {
         if (context.getHabitationServices() == null)
         {
-            context.setHabitationServices(HelperFunctions.castCollectionUp(ExtraService.getAllHabitationServices(), ExtraServiceData.class, IExtraService.class));
+            context.setHabitationServices(HelperFunctions.castCollectionUp(ExtraService.getAllBoardCategoriesServices(), ExtraServiceData.class, IExtraService.class));
         }
 
         return context.getHabitationServices();

@@ -22,7 +22,6 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
@@ -33,9 +32,10 @@ public class ReservationBean implements Serializable
     public ReservationBean()
     {
         items = new ArrayList<ReservationItemBean>();
-        items.add(new ReservationItemBean());
+        ReservationItemBean item = new ReservationItemBean();
+        items.add(item);
     }
-    
+
     public String getCommentary()
     {
         return commentary;
@@ -45,25 +45,27 @@ public class ReservationBean implements Serializable
     {
         this.commentary = commentary;
     }
-    
+
     /**
      * Actionlistener für nächsten Schritt
-     * @param event 
+     *
+     * @param event
      */
     public void nextStepListener(ActionEvent event)
     {
         this.nextStep = event.getComponent().getClientId();
     }
-    
+
     /**
-     * Nächster Schritt
-     * @return 
+     * Zum nächsten Schritt -> Rechungsadresse ändern
+     *
+     * @return
      */
     public String next()
     {
-        return "toSomewhere";
+        return "changeInvoiceAddress";
     }
-    
+
     public ArrayList<String> getAllFreeRoomCategories()
     {
         if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
@@ -77,11 +79,11 @@ public class ReservationBean implements Serializable
         }
         return list;
     }
-    
-     public ArrayList<String> getAllBoardCategories()
-     {
-         return ReservationController.getBoardCategories();
-     }
+
+    public ArrayList<String> getAllBoardCategories()
+    {
+        return ReservationController.getBoardCategories();
+    }
 
     //TODO implement
     public ArrayList<String> getAllExtraServices()
@@ -137,6 +139,31 @@ public class ReservationBean implements Serializable
         this.items.add(item);
     }
 
+    public void removeReservationItem(ReservationItemBean item)
+    {
+        if (this.items == null)
+        {
+            return;
+        }
+        items.remove(item);
+    }
+
+    /**
+     * Adds a reservationitem to the current reservation For example: new double
+     * room
+     *
+     * @param item the item to be added
+     */
+    public void addReservationItem()
+    {
+        if (this.items == null)
+        {
+            this.items = new ArrayList<ReservationItemBean>();
+        }
+        ReservationItemBean item = new ReservationItemBean();
+        items.add(item);
+    }
+
     /**
      * Speichert
      *
@@ -144,7 +171,6 @@ public class ReservationBean implements Serializable
      */
     public String safeReservation()
     {
-
         return "reservationsuccess";
     }
 

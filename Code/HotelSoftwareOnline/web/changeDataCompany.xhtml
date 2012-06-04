@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<ui:component template="template.xhtml"
+<ui:composition template="template.xhtml"
               xmlns="http://www.w3.org/1999/xhtml"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:f="http://java.sun.com/jsf/core">
 
+    <ui:define name="title">Change your companies data</ui:define>
+    <ui:define name="content">
     <h:form>
         <table class="addresstable">
             <tbody>
@@ -19,15 +17,16 @@ and open the template in the editor.
                         Company Name
                     </td>
                     <td>
-                        <h:inputText id="lanme" value="#{CompanyBean.lname}" required="true"/>
+                        <h:inputText id="lanme" value="#{company.name}" required="true"/>
+                         <br/><h:message for="lname" class="error" />
                     </td>
                 </tr>
                 <tr>        
                     <td>Street: 
                     </td>
                     <td>
-                        <h:inputText id="street" value="#{CompanyBean.address.street}" required="true"/>
-
+                        <h:inputText id="street" value="#{company.address.street}" required="true"/>
+                         <br/><h:message for="street" class="error" />
                     </td>
                 </tr>
                 <tr>       
@@ -35,7 +34,8 @@ and open the template in the editor.
                         ZIP: 
                     </td>
                     <td>
-                        <h:inputText id="zip" value="#{CompanyBean.address.zip}" required="true"/>
+                        <h:inputText id="zip" value="#{company.address.zip}" required="true"/>
+                         <br/><h:message for="zip" class="error" />
                     </td>         
                 </tr>
                 <tr>        
@@ -43,7 +43,8 @@ and open the template in the editor.
                         City: 
                     </td>
                     <td>
-                        <h:inputText id="city" value="#{CompanyBean.address.city}" required="true"/>
+                        <h:inputText id="city" value="#{company.address.city}" required="true"/>
+                         <br/><h:message for="city" class="error" />
                     </td>   
                 </tr>
                 <tr>       
@@ -51,15 +52,17 @@ and open the template in the editor.
                         Email: 
                     </td>
                     <td>
-                        <h:inputText id="email" value="#{CompanyBean.address.email}" required="true"/>
-                    </td>     
+                        <h:inputText id="email" value="#{company.address.email}" required="true"/>
+                         <br/><h:message for="email" class="error" />
+                    </td>
                 </tr>
                 <tr>   
                     <td>
                         Phone: 
                     </td>
                     <td>
-                        <h:inputText id="phone" value="#{CompanyBean.address.phone}" required="true"/>
+                        <h:inputText id="phone" value="#{company.address.phone}" required="true"/>
+                         <br/><h:message for="phone" class="error" />
                     </td>      
                 </tr>
                 <tr>            
@@ -67,7 +70,8 @@ and open the template in the editor.
                         Fax:
                     </td>
                     <td> 
-                        <h:inputText id="fax" value="#{CompanyBean.address.fax}" required="true"/>
+                        <h:inputText id="fax" value="#{company.address.fax}" required="true"/>
+                         <br/><h:message for="fax" class="error" />
                     </td>    
                 </tr>
                 <tr>     
@@ -75,8 +79,8 @@ and open the template in the editor.
                         Country: 
                     </td>
                     <td>
-                        <h:selectOneMenu id="country" value="#{CompanyBean.address.country}" required="true">
-                            <f:selectItems value="#{CompanyBean.address.countries}" />
+                        <h:selectOneMenu id="country" value="#{company.address.country}" required="true">
+                            <f:selectItems value="#{company.address.getCountries()}" />
                         </h:selectOneMenu>
                     </td>       
                 </tr>               
@@ -84,5 +88,5 @@ and open the template in the editor.
         </table>
         <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
     </h:form>
-
-</ui:component>
+    </ui:define>
+</ui:composition>

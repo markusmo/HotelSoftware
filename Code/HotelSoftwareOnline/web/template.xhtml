@@ -3,11 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="css/default.css" rel="stylesheet" type="text/css" />
+        <link href="css/collapse.css" rel="stylesheet" type="text/css" />
         <link href="css/cssLayout.css" rel="stylesheet" type="text/css" />
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,6 +20,9 @@
         <script src="js/slides.min.jquery.js" type="text/javascript"></script>
         <script src="js/jquery-ui-1.8.20.custom.min.js" type="text/javascript"></script>
         <script src="js/functions.js" type="text/javascript"></script>
+
+        <script type="text/javascript" src="javascript/jquery.cookie.min.js"></script>
+        <script type="text/javascript" src="javascript/jquery.collapsible.min.js"></script>
         <title>
             <ui:insert name="title">
                 Online Reservation
@@ -29,7 +34,12 @@
         <div id="contentarea">
             <div id="header"><img src="images/logo.png" alt="hotellogo" /><div class="cls"></div></div>
             <div class="innercontent">
-                <div id="logoutbox"><span><a href="#">logout</a> | <a href="#">change userdata</a></span><div class="cls"></div></div>
+
+                <c:if test="#{login.loggedin()}">
+                    <!-- only displayed when user is logged in -->
+                    <div id="logoutbox">
+                        <span><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"></h:commandLink> <!--<a href="#">logout</a> --> | <h:commandLink value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:commandLink> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
+                </c:if>
                 <div id="slideshowarea">
                     <div id="slides">
                         <div class="slides_container">
@@ -65,11 +75,7 @@
                     <ui:insert name="content"></ui:insert>
                 </div>
             </div>
-            <div id="footer"><a href="#">Impress</a></div>
+            <div id="footer"><a href="#">Legal notice</a></div>
         </div>
-
-
     </h:body>
-
-
 </html>
