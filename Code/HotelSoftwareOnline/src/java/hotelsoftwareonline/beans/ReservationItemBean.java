@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ReservationItemBean implements Serializable
 {
-    private CategoryBean category;
+    private CategoryBean category = null;
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
     private int nr;
