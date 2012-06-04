@@ -54,6 +54,7 @@
                                                     <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
                                                         <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
                                                         <h:message for="roomCategory${item.nr}" class="error"/>
+                                                        <f:validator validatorId="onlinereservation.validator"/>
                                                     </h:selectOneMenu>   
                                                 </div>
                                                 <div class="extraServices">

@@ -4,7 +4,6 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.support.LoginFailureException;
 import hotelsoftwareonline.controller.CustomerLoginController;
 import java.io.Serializable;
