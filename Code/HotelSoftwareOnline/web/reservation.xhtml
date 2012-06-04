@@ -63,7 +63,7 @@
                                                     </h:selectManyCheckbox>
                                                 </div>
                                                 <div class="minMaxRemove">                                               
-                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item.nr)}">
+                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
                                                         <f:ajax render="render"/>
                                                     </h:commandButton>
                                                 </div>
@@ -71,7 +71,7 @@
                                         </div>
                                     </c:forEach>
                                     <!-- add function to append item -->
-                                    <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}">
+                                    <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}" title="add a reservation item">
                                         <f:ajax render="render"/>
                                     </h:commandButton>
                                 </c:otherwise>
@@ -82,10 +82,7 @@
 
                         </div>
                         <br/><br/>
-                        <!-- add function to append item -->
-                        <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}" title="add a reservation item">
-                            <f:ajax render="render"/>
-                        </h:commandButton>
+
                     </div>  
                 </h:panelGroup>
                 <br/><br/>
