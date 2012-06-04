@@ -2,7 +2,9 @@ package hotelsoftware.model.domain.parties;
 
 import hotelsoftware.controller.data.invoice.InvoiceData;
 import hotelsoftware.controller.data.parties.AddressData;
+import hotelsoftware.model.database.manager.PartyManager;
 import hotelsoftware.model.domain.invoice.IInvoice;
+import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.util.HelperFunctions;
 import java.util.Collection;
 
@@ -13,6 +15,7 @@ import java.util.Collection;
  */
 public abstract class Customer extends Party implements ICustomer
 {
+
     protected IAddress invoiceAddress;
     protected Collection<IInvoice> invoices;
     protected String username;
@@ -92,5 +95,10 @@ public abstract class Customer extends Party implements ICustomer
     public void setPassword(String password)
     {
         this.password = password;
+    }
+    
+    public static ICustomer login(String username, String password) throws LoginFailureException
+    {
+        return PartyManager.getInstance().login(username, password);
     }
 }

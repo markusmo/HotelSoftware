@@ -5,6 +5,7 @@ import hotelsoftware.model.database.parties.*;
 import hotelsoftware.model.domain.parties.*;
 import hotelsoftware.support.CompanyNotFoundException;
 import hotelsoftware.support.GuestNotFoundException;
+import hotelsoftware.support.LoginFailureException;
 import hotelsoftware.support.PrivateCustomerNotFoundException;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
@@ -298,6 +299,7 @@ public class PartyManager
 
     /**
      * Speichert eine Adresse
+     *
      * @param address die Adresse, die zu speichern ist
      */
     public void saveAddress(IAddress address)
@@ -313,6 +315,7 @@ public class PartyManager
 
     /**
      * Speichert eine Adresse
+     *
      * @param address die Adresse, die zu speichern ist
      * @param session eine Hibernate-Session zum speichern
      */
@@ -333,6 +336,7 @@ public class PartyManager
 
     /**
      * Speichert eine Partei
+     *
      * @param party die Partei, die zu speichern ist
      */
     public void saveParty(IParty party)
@@ -348,6 +352,7 @@ public class PartyManager
 
     /**
      * Speichert eine Partei
+     *
      * @param party die Partei, die zu speichern ist
      * @param session eine Hibernate-Session zum speichern
      */
@@ -357,5 +362,27 @@ public class PartyManager
 
         session.saveOrUpdate(dbp);
         party.setIdParties(dbp.getIdParties());
+    }
+
+    /**
+     * Logt einen Kunden in das OnlineReservierungssystem ein.
+     *
+     * @param username der Username des Kunden
+     * @param password das Passwort des Kunden
+     */
+    public ICustomer login(String username, String password) throws LoginFailureException
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        DBCustomer cust = (DBCustomer) session.createCriteria(DBCustomer.class).add(Restrictions.and(
+                Restrictions.eq("username", username), Restrictions.eq("password", password))).uniqueResult();
+        if (cust == null)
+        {
+            throw new LoginFailureException();
+        }
+        
+        return (ICustomer) DynamicMapper.map(cust);
     }
 }
