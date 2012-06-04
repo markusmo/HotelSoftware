@@ -31,7 +31,7 @@
                         <f:ajax render="render"/>
                     </h:inputText>
 
-
+                    <!--http://www.snyderplace.com/demos/collapsible.html-->
                 </div>
                 <br/><br/> 
                 <h:panelGroup id="render" layout="block">
@@ -41,12 +41,48 @@
                             <br/>
                             <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
                         </div>
-                        <div id="reservationItems">    
-                            <ui:include  src="reservationItem.xhtml" class="reservationItem collapse">reservation items</ui:include> 
+                        <div class="reservationItems"> 
+                            <c:choose>
+                                <c:when test="${(reservation.startDate == '' or reservation.endDate == '')}">
+                                    <h:outputText value="Please select a period!" class="error"></h:outputText>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${reservation.items}" var="item" >
+                                        <div id="reservationItem${item.nr}">  
+                                            <c:when test="${reservation.getAllFreeRoomCategories() != null}">
+                                                <div class="roomCategory">
+                                                    <h3>Select the wanted room-category</h3>           
+                                                    <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
+                                                        <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
+                                                        <h:message for="roomCategory${item.nr}" class="error"/>
+                                                    </h:selectOneMenu>   
+                                                </div>
+                                                <div class="extraServices">
+                                                    <h3>Select additional extra-services</h3>
+                                                    <h:selectManyCheckbox id="extraServices${item.nr}" value="#{item.extraServices}" required="false">
+                                                        <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
+                                                    </h:selectManyCheckbox>
+                                                </div>
+                                                <div class="minMaxRemove">                                               
+                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" action="#{reservation.removeReservationItem(item.nr)}">
+                                                        <f:ajax render="render"/>
+                                                    </h:commandButton>
+                                                </div>
+                                            </c:when>  
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                                <c:otherwise>
+                                    <h:outputText value="There are no free rooms in this period!" class="error"></h:outputText>
+                                </c:otherwise>    
+                            </c:choose>
+
                         </div>
                         <br/><br/>
                         <!-- add function to append item -->
-                        <h:button id="addReservationItem" image="images/buttons/add.png" title="add a reservation item" onclick="addReservationItem()"></h:button>
+                        <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}">
+                            <f:ajax render="render"/>
+                        </h:commandButton>
                     </div>  
                 </h:panelGroup>
                 <br/><br/>

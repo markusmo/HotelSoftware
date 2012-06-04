@@ -19,14 +19,14 @@ and open the template in the editor.
                         Company Name
                     </td>
                     <td>
-                        <h:inputText id="lanme" value="#{CompanyBean.lname}" required="true"/>
+                        <h:inputText id="lanme" value="#{company.name}" required="true"/>
                     </td>
                 </tr>
                 <tr>        
                     <td>Street: 
                     </td>
                     <td>
-                        <h:inputText id="street" value="#{CompanyBean.address.street}" required="true"/>
+                        <h:inputText id="street" value="#{company.address.street}" required="true"/>
 
                     </td>
                 </tr>
@@ -35,7 +35,7 @@ and open the template in the editor.
                         ZIP: 
                     </td>
                     <td>
-                        <h:inputText id="zip" value="#{CompanyBean.address.zip}" required="true"/>
+                        <h:inputText id="zip" value="#{company.address.zip}" required="true"/>
                     </td>         
                 </tr>
                 <tr>        
@@ -43,7 +43,7 @@ and open the template in the editor.
                         City: 
                     </td>
                     <td>
-                        <h:inputText id="city" value="#{CompanyBean.address.city}" required="true"/>
+                        <h:inputText id="city" value="#{company.address.city}" required="true"/>
                     </td>   
                 </tr>
                 <tr>       
@@ -51,7 +51,7 @@ and open the template in the editor.
                         Email: 
                     </td>
                     <td>
-                        <h:inputText id="email" value="#{CompanyBean.address.email}" required="true"/>
+                        <h:inputText id="email" value="#{company.address.email}" required="true"/>
                     </td>     
                 </tr>
                 <tr>   
@@ -59,7 +59,7 @@ and open the template in the editor.
                         Phone: 
                     </td>
                     <td>
-                        <h:inputText id="phone" value="#{CompanyBean.address.phone}" required="true"/>
+                        <h:inputText id="phone" value="#{company.address.phone}" required="true"/>
                     </td>      
                 </tr>
                 <tr>            
@@ -67,7 +67,7 @@ and open the template in the editor.
                         Fax:
                     </td>
                     <td> 
-                        <h:inputText id="fax" value="#{CompanyBean.address.fax}" required="true"/>
+                        <h:inputText id="fax" value="#{company.address.fax}" required="true"/>
                     </td>    
                 </tr>
                 <tr>     
@@ -75,8 +75,8 @@ and open the template in the editor.
                         Country: 
                     </td>
                     <td>
-                        <h:selectOneMenu id="country" value="#{CompanyBean.address.country}" required="true">
-                            <f:selectItems value="#{CompanyBean.address.countries}" />
+                        <h:selectOneMenu id="country" value="#{company.address.country}" required="true">
+                            <f:selectItems value="#{company.address.getCountries()}" />
                         </h:selectOneMenu>
                     </td>       
                 </tr>               
