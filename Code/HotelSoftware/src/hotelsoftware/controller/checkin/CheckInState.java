@@ -238,7 +238,7 @@ abstract class CheckInState
         throw new IllegalStateException();
     }
 
-    Collection<ExtraServiceData> getAllHabitationServices()
+    Collection<ExtraServiceData> getAllBoardCategoriesServices()
     {
         throw new IllegalStateException();
     }

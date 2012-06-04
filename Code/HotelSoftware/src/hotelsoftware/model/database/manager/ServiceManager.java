@@ -89,14 +89,14 @@ public class ServiceManager
      * @return
      * Alle Verpflegungsarten, die vorhanden sind.
      */
-    public Collection<IExtraService> getAllHabitationServices()
+    public Collection<IExtraService> getAllBoardCategoriesServices()
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
         ts.begin();
 
         SQLQuery query = session.createSQLQuery("SELECT * from extraservices es INNER JOIN services s ON es.idServices = s.idServices "
-                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Habitation'");
+                + "INNER JOIN servicetypes st ON s.idServiceTypes = st.id WHERE st.name = 'Board category'");
 
         query.addEntity(DBExtraService.class);
         Collection<DBExtraService> retList = query.list();

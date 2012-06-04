@@ -57,13 +57,13 @@ public class ReservationBean implements Serializable
     }
 
     /**
-     * Nächster Schritt
+     * Zum nächsten Schritt -> Rechungsadresse ändern
      *
      * @return
      */
     public String next()
     {
-        return "toSomewhere";
+        return "changeInvoiceAddress";
     }
 
     public ArrayList<String> getAllFreeRoomCategories()

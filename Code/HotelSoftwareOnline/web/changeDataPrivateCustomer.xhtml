@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<ui:component template="template.xhtml"
+<ui:composition template="template.xhtml"
               xmlns="http://www.w3.org/1999/xhtml"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:c="http://java.sun.com/jsp/jstl/core"
               xmlns:f="http://java.sun.com/jsf/core">
-
+    <ui:define name ="title">Change your personal data</ui:define>
+    
+    <ui:define name="content">
     <h:form>
         <table class="addresstable">
             <tbody>
@@ -19,8 +17,8 @@ and open the template in the editor.
                         First name: 
                     </td>
                     <td>
-                        <h:inputText id="fname" value="#{PrivateCustomerBean.fname}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="fname" value="#{privatecustomer.fname}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>
                 </tr>
                 <tr>
@@ -28,16 +26,16 @@ and open the template in the editor.
                         Last name: 
                     </td>
                     <td>
-                        <h:inputText id="lanme" value="#{PrivateCustomerBean.lname}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="lanme" value="#{privatecustomer.lname}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>
                 </tr>
                 <tr>        
                     <td>Street: 
                     </td>
                     <td>
-                        <h:inputText id="street" value="#{PrivateCustomerBean.address.street}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="street" value="#{privatecustomer.address.street}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>
                 </tr>
                 <tr>       
@@ -45,8 +43,8 @@ and open the template in the editor.
                         ZIP: 
                     </td>
                     <td>
-                        <h:inputText id="zip" value="#{PrivateCustomerBean.address.zip}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="zip" value="#{privatecustomer.address.zip}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>         
                 </tr>
                 <tr>        
@@ -54,8 +52,8 @@ and open the template in the editor.
                         City: 
                     </td>
                     <td>
-                        <h:inputText id="city" value="#{PrivateCustomerBean.address.city}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="city" value="#{privatecustomer.address.city}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>   
                 </tr>
                 <tr>       
@@ -63,8 +61,8 @@ and open the template in the editor.
                         Email: 
                     </td>
                     <td>
-                        <h:inputText id="email" value="#{PrivateCustomerBean.address.email}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="email" value="#{privatecustomer.address.email}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>     
                 </tr>
                 <tr>   
@@ -72,8 +70,8 @@ and open the template in the editor.
                         Phone: 
                     </td>
                     <td>
-                        <h:inputText id="phone" value="#{PrivateCustomerBean.address.phone}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="phone" value="#{privatecustomer.address.phone}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>      
                 </tr>
                 <tr>            
@@ -81,8 +79,8 @@ and open the template in the editor.
                         Fax:
                     </td>
                     <td> 
-                        <h:inputText id="fax" value="#{PrivateCustomerBean.address.fax}" required="true"/>
-                        <br/><h:message for="kurse" style="color: red" />
+                        <h:inputText id="fax" value="#{privatecustomer.address.fax}" required="true"/>
+                        <br/><h:message for="kurse" class="error" />
                     </td>    
                 </tr>
                 <tr>     
@@ -90,8 +88,8 @@ and open the template in the editor.
                         Country: 
                     </td>
                     <td>
-                        <h:selectOneMenu id="country" value="#{PrivateCustomerBean.address.country}" required="true">
-                            <f:selectItems value="#{PrivateCustomerBean.address.countries}" />
+                        <h:selectOneMenu id="country" value="#{privatecustomer.address.country}" required="true">
+                            <f:selectItems value="#{privatecustomer.address.countries}" />
                         </h:selectOneMenu>
                     </td>       
                 </tr>
@@ -106,8 +104,8 @@ and open the template in the editor.
                             Street: 
                         </td>
                         <td>
-                            <h:inputText id="istreet" value="#{PrivateCustomerBean.invoiceAddress.street}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />
+                            <h:inputText id="istreet" value="#{privatecustomer.invoiceAddress.street}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
                         </td>   
                     </tr>
                     <tr>     
@@ -115,8 +113,8 @@ and open the template in the editor.
                             ZIP: 
                         </td>
                         <td>
-                            <h:inputText id="izip" value="#{PrivateCustomerBean.invoiceAddress.zip}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />
+                            <h:inputText id="izip" value="#{privatecustomer.invoiceAddress.zip}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
                         </td>     
                     </tr>
                     <tr>      
@@ -124,8 +122,8 @@ and open the template in the editor.
                             City: 
                         </td>
                         <td>
-                            <h:inputText id="icity" value="#{PrivateCustomerBean.invoiceAddress.city}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />                            
+                            <h:inputText id="icity" value="#{privatecustomer.invoiceAddress.city}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />                            
                         </td>               
                     </tr>
                     <tr>    
@@ -133,16 +131,16 @@ and open the template in the editor.
                             Email: 
                         </td>
                         <td>
-                            <h:inputText id="iemail" value="#{PrivateCustomerBean.invoiceAddress.email}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />
+                            <h:inputText id="iemail" value="#{privatecustomer.invoiceAddress.email}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
                         </td>       
                     </tr>
                     <tr>         
                         <td>Phone: 
                         </td>
                         <td>
-                            <h:inputText id="iphone" value="#{PrivateCustomerBean.invoiceAddress.phone}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />
+                            <h:inputText id="iphone" value="#{privatecustomer.invoiceAddress.phone}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
                         </td>      
                     </tr>
                     <tr>     
@@ -150,8 +148,8 @@ and open the template in the editor.
                             Fax: 
                         </td>
                         <td>
-                            <h:inputText id="ifax" value="#{PrivateCustomerBean.invoiceAddress.fax}" required="true"/>
-                            <br/><h:message for="kurse" style="color: red" />
+                            <h:inputText id="ifax" value="#{privatecustomer.invoiceAddress.fax}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
                         </td>      
                     </tr>
                     <tr>       
@@ -159,8 +157,8 @@ and open the template in the editor.
                             Country: 
                         </td>
                         <td>
-                            <h:selectOneMenu id="icountry" value="#{PrivateCustomerBean.invoiceAddress.country}" required="true">
-                                <f:selectItems value="#{PrivateCustomerBean.invoiceAddress.countries}" />
+                            <h:selectOneMenu id="icountry" value="#{privatecustomer.invoiceAddress.country}" required="true">
+                                <f:selectItems value="#{privatecustomer.invoiceAddress.countries}" />
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -169,5 +167,5 @@ and open the template in the editor.
         </table>
         <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
     </h:form>
-
-</ui:component>
+    </ui:define>
+</ui:composition>
