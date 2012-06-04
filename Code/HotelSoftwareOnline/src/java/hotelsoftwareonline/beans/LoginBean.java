@@ -81,7 +81,7 @@ public class LoginBean implements Serializable
     }
 
     /**
-     * Logt einen User ein
+     * Logt einen Kunden ein
      *
      * @return "loginfailed" wenn der Login fehlschlägt, anderfalls "loggedin"
      */
@@ -90,7 +90,14 @@ public class LoginBean implements Serializable
         try
         {
             CustomerLoginController controller = new CustomerLoginController();
-            controller.login(getUsername(), this.password);
+            CustomerBean temp = controller.login(getUsername(), this.password);
+            
+            if(temp instanceof PrivateCustomerBean)
+            {
+                customer = (PrivateCustomerBean) temp;
+            }
+            customer = (CompanyBean) temp;
+            
             return "loggedin";
         }
         catch (LoginFailureException ex)
@@ -100,32 +107,42 @@ public class LoginBean implements Serializable
         }
     }
 
+    /**
+     * Überprüft ob ein Kunde eingeloggt ist oder nicht.
+     * @return <code>true</code> wenn eingeloggt <code>false</code> wenn nicht eingeloggt
+     */
     public boolean loggedin()
     {
-        CustomerLoginController controller = new CustomerLoginController();
-        ICustomer customerByUsername = controller.getCustomerByUsername(customer.getUsername());
-
-        if (customerByUsername == null)
-        {
-            return false;
-        }
-        return true;
+       if(customer instanceof PrivateCustomerBean || customer instanceof CompanyBean)
+       {
+           return true;
+       } 
+       
+       return false;
     }
 
     /**
      * Logt einen User aus
      *
-     * @return "notloggedin" bei erfolgreichem Logout
+     * @return "loggedout" bei erfolgreichem Logout
      */
     public String logout()
     {
-        CustomerLoginController controller = new CustomerLoginController();
-        controller.logout(getUsername());
-        return "notloggedin";
+        customer = new CustomerBean() {};
+        return "loggedout";
     }
     
+    /**
+     * Je nach dem, wenn eine Firma eingeloggt ist, wird "changeCompanyData" ausgegeben,
+     * sonst wird "changePrivateCustomerData" ausgegeben
+     * @return 
+     */
     public String changeUserData()
     {
-        return "changeUserData";
+        if(customer instanceof PrivateCustomerBean)
+        {
+            return "changePrivateCustomerData";
+        }
+        return "changeCompanyData";
     }
 }
