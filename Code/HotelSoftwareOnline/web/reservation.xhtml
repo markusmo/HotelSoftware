@@ -38,7 +38,6 @@
                     <div id="reservationContent">
                         <div id="commentary">
                             <h:outputLabel>Reservation commentary: </h:outputLabel>
-                            <br/>
                             <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
                         </div>
                         <div class="reservationItems"> 
@@ -64,7 +63,7 @@
                                                     </h:selectManyCheckbox>
                                                 </div>
                                                 <div class="minMaxRemove">                                               
-                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" action="#{reservation.removeReservationItem(item)}">
+                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item.nr)}">
                                                         <f:ajax render="render"/>
                                                     </h:commandButton>
                                                 </div>
@@ -83,7 +82,10 @@
 
                         </div>
                         <br/><br/>
-
+                        <!-- add function to append item -->
+                        <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}" title="add a reservation item">
+                            <f:ajax render="render"/>
+                        </h:commandButton>
                     </div>  
                 </h:panelGroup>
                 <br/><br/>
