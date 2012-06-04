@@ -95,7 +95,10 @@ public class LoginBean implements Serializable
             {
                 customer = (PrivateCustomerBean) temp;
             }
-            customer = (CompanyBean) temp;
+            else
+            {
+                customer = (CompanyBean) temp;
+            }
             
             return "loggedin";
         }
