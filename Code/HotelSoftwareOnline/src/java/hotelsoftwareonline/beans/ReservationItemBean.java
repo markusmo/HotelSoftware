@@ -16,7 +16,7 @@ import java.util.Collection;
  */
 public class ReservationItemBean implements Serializable
 {
-    private CategoryBean category;
+    private CategoryBean category = null;
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
     
