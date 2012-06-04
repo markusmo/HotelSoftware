@@ -303,10 +303,12 @@ public class GuestPanel extends javax.swing.JPanel
     {
         if (TextFieldFirstName.getText().isEmpty())
         {
+            tabComponent.setUnFinished();
             return false;
         }
         if (TextFieldLastName.getText().isEmpty())
         {
+            tabComponent.setUnFinished();
             return false;
         }
         tabComponent.setFinished();
