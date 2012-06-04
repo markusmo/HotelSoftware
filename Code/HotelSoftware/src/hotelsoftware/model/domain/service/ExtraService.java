@@ -74,8 +74,8 @@ public class ExtraService extends Service implements IExtraService
      * @return
      * Alle Verpflegungsarten, die vorhanden sind.
      */
-    public static Collection<IExtraService> getAllHabitationServices()
+    public static Collection<IExtraService> getAllBoardCategoriesServices()
     {
-        return ServiceManager.getInstance().getAllHabitationServices();
+        return ServiceManager.getInstance().getAllBoardCategoriesServices();
     }
 }

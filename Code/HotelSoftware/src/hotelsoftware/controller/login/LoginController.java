@@ -1,7 +1,7 @@
 package hotelsoftware.controller.login;
 
-import hotelsoftware.model.domain.users.User;
 import hotelsoftware.model.domain.users.IUser;
+import hotelsoftware.model.domain.users.User;
 import hotelsoftware.support.LoginFailureException;
 
 /**

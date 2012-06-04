@@ -28,7 +28,7 @@ public class ExtraServicesPanel extends javax.swing.JPanel
         init();
     }
     List<JCheckBox> checkboxes = new LinkedList<JCheckBox>();
-    Collection<ExtraServiceData> services = CheckInGuiControler.getInstance().getAllHabitationServices();
+    Collection<ExtraServiceData> services = CheckInGuiControler.getInstance().getAllBoardCategoriesServices();
     HashMap<String, ExtraServiceData> nameToService = new HashMap<String, ExtraServiceData>();
 
     private void init()
@@ -41,11 +41,12 @@ public class ExtraServicesPanel extends javax.swing.JPanel
         {
             nameToService.put(data.getName(), data);
             JCheckBox checki = new JCheckBox(data.getName());
-
+          
             checkboxes.add(checki);
 
             add(checki);
         }
+        
     }
 
     /**
@@ -62,7 +63,7 @@ public class ExtraServicesPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -17,15 +17,17 @@
                 <h:panelGrid columns="2">
 
                     <h:outputText value="Username" />
-                    <h:inputText id="user" />
-
-                    <h:inputSecret id="password" />
+                    <h:inputText id="user" value="#{login.username}"/>
+                    
                     <h:outputText value="Password" />
+                    <h:inputSecret id="password" value="#{login.password}"/>
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <h:commandButton value="Login" />
+                    <h:commandButton value="Login" 
+                                     action = "#{login.login}"
+                                     actionListener="#{login.loginButtonListener}"/>
                     <h:commandButton value="Register" />
                 </h:panelGrid>
 

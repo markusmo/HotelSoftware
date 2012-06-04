@@ -1,19 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                template="template.xhtml"
-                >
-    <ui:define name="title">
-        Invoice Address
-    </ui:define>
-
-    <ui:define name="content">
+<!DOCTYPE component PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component template="template.xhtml"
+              xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:c="http://java.sun.com/jsp/jstl/core"
+              xmlns:f="http://java.sun.com/jsf/core">
         <h:form id="invoiceAddressData">
-            <h:panelGrid columns="1">
                 <h:panelGrid columns="3">
 
                     <h:outputText value="Lastname" />
@@ -58,8 +51,5 @@
                     <h:commandButton value="Back" />
                     <h:commandButton value="Continue" />
                 </h:panelGrid>
-
-            </h:panelGrid>
         </h:form>
-    </ui:define>
-</ui:composition>
+</ui:component>

@@ -6,6 +6,45 @@
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-
-
+    
+     <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>loggedout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+             <from-outcome>changePrivateCustomerData</from-outcome>
+             <to-view-id>/changeDataPrivateCustomer.xhtml</to-view-id>
+         </navigation-case>
+         <navigation-case>
+             <from-outcome>changeCompanyData</from-outcome>
+             <to-view-id>/changeDataCompany.xhtml</to-view-id>
+         </navigation-case>
+     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>loggedin</from-outcome>
+            <to-view-id>/reservation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loginfailed</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/reservation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>changeInvoiceAddress</from-outcome>
+            <to-view-id>/changeInvoiceAddress.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/changeInvoiceAddress.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/reservationOverview.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

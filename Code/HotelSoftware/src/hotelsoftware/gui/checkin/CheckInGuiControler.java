@@ -267,11 +267,11 @@ public class CheckInGuiControler
      *
      * @return Gibt alle Extraservieces vom Typ Habitation zurück. (ZB Halbpension)
      */
-    public Collection<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllBoardCategoriesServices()
     {
         if (habitationServices == null)
         {
-            habitationServices = (Collection<ExtraServiceData>) cic.getAllHabitationServices();
+            habitationServices = (Collection<ExtraServiceData>) cic.getAllBoardCategoriesServices();
         }
         return habitationServices;
     }
