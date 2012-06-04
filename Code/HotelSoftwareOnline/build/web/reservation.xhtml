@@ -64,13 +64,17 @@
                                                     </h:selectManyCheckbox>
                                                 </div>
                                                 <div class="minMaxRemove">                                               
-                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" action="#{reservation.removeReservationItem(item.nr)}">
+                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" action="#{reservation.removeReservationItem(item)}">
                                                         <f:ajax render="render"/>
                                                     </h:commandButton>
                                                 </div>
                                             </c:when>  
                                         </div>
                                     </c:forEach>
+                                    <!-- add function to append item -->
+                                    <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}">
+                                        <f:ajax render="render"/>
+                                    </h:commandButton>
                                 </c:otherwise>
                                 <c:otherwise>
                                     <h:outputText value="There are no free rooms in this period!" class="error"></h:outputText>
@@ -79,10 +83,7 @@
 
                         </div>
                         <br/><br/>
-                        <!-- add function to append item -->
-                        <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}">
-                            <f:ajax render="render"/>
-                        </h:commandButton>
+
                     </div>  
                 </h:panelGroup>
                 <br/><br/>

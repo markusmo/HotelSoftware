@@ -17,7 +17,7 @@ public class ReservationItemBean implements Serializable
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
     private int nr;
-    private static int nummer;
+    private static int nummer = 0;
     
     public ArrayList<ExtraserviceBean> getExtraServices()
     {

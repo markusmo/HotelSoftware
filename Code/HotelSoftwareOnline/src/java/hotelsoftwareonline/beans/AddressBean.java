@@ -6,6 +6,7 @@ package hotelsoftwareonline.beans;
 
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.ICountry;
+import hotelsoftwareonline.controller.ReservationController;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -85,12 +86,6 @@ public class AddressBean implements Serializable
 
     public Collection<String> getCountries()
     {
-        LinkedList<String> list = new LinkedList<String>();
-
-        for (ICountry c : Country.getAllCountries())
-        {
-            list.add(c.getName());
-        }
-        return list;
+        return ReservationController.getCountries();
     }
 }
