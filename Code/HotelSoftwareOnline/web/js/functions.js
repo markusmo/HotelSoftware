@@ -3,23 +3,24 @@ $(function()
         $("#slides").slides({
             preload: true,
             play: 5000,
-            pause: 2500,
+            pause: 5000,
             hoverPause: true,
             effect: "fade",
+			fadeSpeed: 700,
             animationStart: function(current){
                 $('.caption').animate({
                     bottom:-35
-                },100); 
+                },300); 
             },
             animationComplete: function(current){
                 $('.caption').animate({
                     bottom:0
-                },200);
+                },300);
             },
             slidesLoaded: function() {
                 $('.caption').animate({
                     bottom:0
-                },200);
+                },300);
             }
         });
     });
