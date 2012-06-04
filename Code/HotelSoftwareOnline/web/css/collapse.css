@@ -3,12 +3,14 @@
     .accordion  {
         margin: 0;
         padding:10px;
+		background: #daffff;
+		cursor:pointer;
     }
     
     .accordion-open,
     .collapse-open {
-        background:#000;
-        color: #fff;
+        background:#33cccc;
+        color: #000;
     }
     
     .accordion-open span,

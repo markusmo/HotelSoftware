@@ -46,9 +46,12 @@
                                     <h:outputText value="Please select a period!" class="error"></h:outputText>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${reservation.items}" var="item" >
-                                        <div id="reservationItem${item.nr}">  
+                                    <c:set var="counter" value="1" />
+                                    <c:forEach items="${reservation.items}" var="item">
+                                        <div class="reservationItem" id="reservationItem${item.nr}">
                                             <c:when test="${reservation.getAllFreeRoomCategories() != null}">
+                                            <h3 class="collapsible">Room ${counter}<span></span></h3>
+                                            <div class="container">
                                                 <div class="roomCategory">
                                                     <h3>Select the wanted room-category</h3>           
                                                     <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
@@ -62,13 +65,15 @@
                                                         <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
                                                     </h:selectManyCheckbox>
                                                 </div>
-                                                <div class="minMaxRemove">                                               
-                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
+                                                <div class="minMaxRemove">
+                                                    <h:commandButton id="remove${item.nr}" class="removeButton" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
                                                         <f:ajax render="render"/>
                                                     </h:commandButton>
                                                 </div>
-                                            </c:when>  
+                                            </div>
+                                            </c:when>
                                         </div>
+                                        <c:set var="counter" value="${counter+1}" />
                                     </c:forEach>
                                     <!-- add function to append item -->
                                     <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}" title="add a reservation item">
@@ -83,7 +88,8 @@
                         </div>
                         <br/><br/>
 
-                    </div>  
+                    </div>
+                    <script>$('.collapsible').collapsible();$('.collapsible').last().collapsible("open");</script>
                 </h:panelGroup>
                 <br/><br/>
                 <h:commandButton id="reservationNext" 
