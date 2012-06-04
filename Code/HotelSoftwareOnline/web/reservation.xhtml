@@ -31,14 +31,13 @@
                         <f:ajax render="render"/>
                     </h:inputText>
 
-<!--http://www.snyderplace.com/demos/collapsible.html-->
+                    <!--http://www.snyderplace.com/demos/collapsible.html-->
                 </div>
                 <br/><br/> 
                 <h:panelGroup id="render" layout="block">
                     <div id="reservationContent">
                         <div id="commentary">
                             <h:outputLabel>Reservation commentary: </h:outputLabel>
-                            <br/>
                             <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
                         </div>
                         <div class="reservationItems"> 
@@ -49,33 +48,32 @@
                                 <c:otherwise>
                                     <c:forEach items="${reservation.items}" var="item" >
                                         <div id="reservationItem${item.nr}">  
-                                            <h3  class="collapsible" id="section${item.nr}" onclick="toggle(reservationItem${item.nr})">Toogle <span></span></h3>
-                                            <div class="container">
-                                                <div class="content">
-                                                    <c:when test="${reservation.getAllFreeRoomCategories() != null}">
-                                                        <div class="roomCategory">
-                                                            <h3>Select the wanted room-category</h3>           
-                                                            <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
-                                                                <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
-                                                                <h:message for="roomCategory${item.nr}" class="error"/>
-                                                            </h:selectOneMenu>   
-                                                        </div>
-                                                        <div class="extraServices">
-                                                            <h3>Select additional extra-services</h3>
-                                                            <h:selectManyCheckbox id="extraServices${item.nr}" value="#{item.extraServices}" required="false">
-                                                                <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
-                                                            </h:selectManyCheckbox>
-                                                        </div>
-                                                        <div class="minMaxRemove">                                               
-                                                            <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" action="#{reservation.removeReservationItem(item.nr)}">
-                                                                <f:ajax render="render"/>
-                                                            </h:commandButton>
-                                                        </div>
-                                                    </c:when>  
+                                            <c:when test="${reservation.getAllFreeRoomCategories() != null}">
+                                                <div class="roomCategory">
+                                                    <h3>Select the wanted room-category</h3>           
+                                                    <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
+                                                        <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
+                                                        <h:message for="roomCategory${item.nr}" class="error"/>
+                                                    </h:selectOneMenu>   
                                                 </div>
-                                            </div>
+                                                <div class="extraServices">
+                                                    <h3>Select additional extra-services</h3>
+                                                    <h:selectManyCheckbox id="extraServices${item.nr}" value="#{item.extraServices}" required="false">
+                                                        <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
+                                                    </h:selectManyCheckbox>
+                                                </div>
+                                                <div class="minMaxRemove">                                               
+                                                    <h:commandButton id="remove${item.nr}" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
+                                                        <f:ajax render="render"/>
+                                                    </h:commandButton>
+                                                </div>
+                                            </c:when>  
                                         </div>
                                     </c:forEach>
+                                    <!-- add function to append item -->
+                                    <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}" title="add a reservation item">
+                                        <f:ajax render="render"/>
+                                    </h:commandButton>
                                 </c:otherwise>
                                 <c:otherwise>
                                     <h:outputText value="There are no free rooms in this period!" class="error"></h:outputText>
@@ -84,10 +82,7 @@
 
                         </div>
                         <br/><br/>
-                        <!-- add function to append item -->
-                        <h:commandButton id="addReservationItem" image="images/buttons/add.png"  action="#{reservation.addReservationItem()}">
-                            <f:ajax render="render"/>
-                        </h:commandButton>
+
                     </div>  
                 </h:panelGroup>
                 <br/><br/>

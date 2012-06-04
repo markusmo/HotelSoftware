@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
@@ -28,14 +27,12 @@ public class ReservationBean implements Serializable
     private String commentary = "";
     private ArrayList<ReservationItemBean> items;
     private ReservationController rc = new ReservationController();
-    private HashMap<Integer, ReservationItemBean> map = new HashMap<Integer, ReservationItemBean>();
     private String nextStep;
 
     public ReservationBean()
     {
         items = new ArrayList<ReservationItemBean>();
         ReservationItemBean item = new ReservationItemBean();
-        map.put(item.getNr(), item);
         items.add(item);
     }
 
@@ -142,15 +139,13 @@ public class ReservationBean implements Serializable
         this.items.add(item);
     }
 
-    public void removeReservationItem(int nummer)
+    public void removeReservationItem(ReservationItemBean item)
     {
         if (this.items == null)
         {
             return;
         }
-        items.remove(map.get(nummer));
-        map.remove(nummer);
-       
+        items.remove(item);
     }
 
     /**
@@ -166,7 +161,6 @@ public class ReservationBean implements Serializable
             this.items = new ArrayList<ReservationItemBean>();
         }
         ReservationItemBean item = new ReservationItemBean();
-        map.put(item.getNr(), item);
         items.add(item);
     }
 
@@ -177,7 +171,6 @@ public class ReservationBean implements Serializable
      */
     public String safeReservation()
     {
-
         return "reservationsuccess";
     }
 

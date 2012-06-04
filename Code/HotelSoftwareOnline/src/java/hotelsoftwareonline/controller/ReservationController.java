@@ -1,6 +1,8 @@
 package hotelsoftwareonline.controller;
 
 import hotelsoftware.model.database.manager.ServiceManager;
+import hotelsoftware.model.domain.parties.Country;
+import hotelsoftware.model.domain.parties.ICountry;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.service.IExtraService;
@@ -45,5 +47,21 @@ public class ReservationController
         }
         
         return boardCategories;
+    }
+    
+     /**
+     * gibt die Länder aus
+     * @return eine Arraylist aller Länder
+     */
+    public static ArrayList<String> getCountries()
+    {
+        Collection<ICountry> allCountries = Country.getAllCountries();
+        ArrayList<String> countries = new ArrayList<String>();
+        for (ICountry c : allCountries)
+        {
+           countries.add(c.getName());
+        }
+        
+        return countries;
     }
 }
