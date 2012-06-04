@@ -5,13 +5,14 @@
 package hotelsoftwareonline.controller;
 
 import hotelsoftware.model.domain.parties.Customer;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class CustomerLoginController
+public class CustomerLoginController implements Serializable
 {
     private static HashMap<String,Customer> loggedInUsers = new HashMap<String,Customer>();
     
