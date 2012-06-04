@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -33,7 +34,15 @@
         <div id="contentarea">
             <div id="header"><img src="images/logo.png" alt="hotellogo" /><div class="cls"></div></div>
             <div class="innercontent">
-                <div id="logoutbox"><span><a href="#">logout</a> | <a href="#">change userdata</a></span><div class="cls"></div></div>
+
+                <c:if test="#{login.loggedin()}">
+                    <!-- only displayed when user is logged in -->
+                    <div id="logoutbox">
+                        <span><h:commandLink value="Logout"
+                                             action="#{login.logout()}" 
+                                             actionListener="#{login.logoutButtonListener}">
+                            </h:commandLink> <!--<a href="#">logout</a> --> | <h:commandLink value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:commandLink> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
+                </c:if>
                 <div id="slideshowarea">
                     <div id="slides">
                         <div class="slides_container">

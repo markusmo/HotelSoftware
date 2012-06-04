@@ -4,7 +4,9 @@
  */
 package hotelsoftwareonline.controller;
 
-import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.controller.login.LoginCustomerController;
+import hotelsoftware.model.domain.parties.ICustomer;
+import hotelsoftware.support.LoginFailureException;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -14,17 +16,17 @@ import java.util.HashMap;
  */
 public class CustomerLoginController implements Serializable
 {
-    private static HashMap<String,Customer> loggedInUsers = new HashMap<String,Customer>();
+    private static HashMap<String,ICustomer> loggedInUsers = new HashMap<String,ICustomer>();
     
     /**
      * Logt einen Kunden ein
      * @param username der Username des Kunden
      * @param password das Passwort des Kunden
      */
-    public void login(String username, String password)
+    public void login(String username, String password) throws LoginFailureException
     {
-        //TODO implement, still missing function in HotelSoftware, return the customer...
-        loggedInUsers.put(username,null);
+        ICustomer customer = LoginCustomerController.getInstance().login(username, password);
+        loggedInUsers.put(username,customer);
     }
     
     /**
@@ -36,7 +38,7 @@ public class CustomerLoginController implements Serializable
         loggedInUsers.remove(username);
     }
     
-    public Customer getCustomerByUsername(String username)
+    public ICustomer getCustomerByUsername(String username)
     {
         return loggedInUsers.get(username);
     }
