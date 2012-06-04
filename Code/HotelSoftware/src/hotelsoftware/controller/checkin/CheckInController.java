@@ -364,9 +364,9 @@ public class CheckInController implements UseCaseController
      * @return
      * Die verfuegbaren Verpflegunsarten
      */
-    public Collection<ExtraServiceData> getAllHabitationServices()
+    public Collection<ExtraServiceData> getAllBoardCategoriesServices()
     {
-        return state.getAllHabitationServices();
+        return state.getAllBoardCategoriesServices();
     }
     
     public void saveData() throws NoPriceDefinedException, CouldNotSaveException
