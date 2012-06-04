@@ -38,10 +38,7 @@
                 <c:if test="#{login.loggedin()}">
                     <!-- only displayed when user is logged in -->
                     <div id="logoutbox">
-                        <span><h:commandLink value="Logout"
-                                             action="#{login.logout()}" 
-                                             actionListener="#{login.logoutButtonListener}">
-                            </h:commandLink> <!--<a href="#">logout</a> --> | <h:commandLink value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:commandLink> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
+                        <span><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"></h:commandLink> <!--<a href="#">logout</a> --> | <h:commandLink value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:commandLink> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
                 </c:if>
                 <div id="slideshowarea">
                     <div id="slides">
@@ -78,11 +75,7 @@
                     <ui:insert name="content"></ui:insert>
                 </div>
             </div>
-            <div id="footer"><a href="#">Impress</a></div>
+            <div id="footer"><a href="#">Legal notice</a></div>
         </div>
-
-
     </h:body>
-
-
 </html>
