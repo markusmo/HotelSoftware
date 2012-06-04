@@ -10,7 +10,6 @@
 /Code/HotelSoftware/nbproject/project.properties
 *.DS_Store
 
-/Code/HotelSoftwareOnline/nbproject/private/private.properties
-/Code/HotelSoftwareOnline/nbproject/private/
+/Code/HotelSoftwareOnline/nbproject/private/*
 /Code/HotelSoftwareOnline/build/*
 /Code/HotelSoftwareOnline/dist/*
