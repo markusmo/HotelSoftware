@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 /**
@@ -52,6 +53,16 @@ public class LoginBean implements Serializable
         return customer.getUsername();
     }
 
+    public CustomerBean getCustomer()
+    {
+        return customer;
+    }
+
+    public void setCustomer(CustomerBean customer)
+    {
+        this.customer = customer;
+    }
+
     /**
      * Eventlistener zum ändern der Userdaten
      * @param event das Event vom JSF
@@ -91,15 +102,21 @@ public class LoginBean implements Serializable
             CustomerLoginController controller = new CustomerLoginController();
             CustomerBean temp = controller.login(getUsername(), this.password);
             
+            /*
+             * Bean in die Session stecken :-D
+             * http://www.javabeat.net/qna/115-how-to-get-or-set-the-jsf-managed-bean-in-the/
+             */
             if(temp instanceof PrivateCustomerBean)
             {
-                customer = (PrivateCustomerBean) temp;
+                PrivateCustomerBean pcb = (PrivateCustomerBean) temp;
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("privatecustomer",pcb);
             }
             else
             {
-                customer = (CompanyBean) temp;
+                CompanyBean cb = (CompanyBean) temp;
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("company", cb);
             }
-            
+            this.customer = temp;
             return "loggedin";
         }
         catch (LoginFailureException ex)

@@ -43,7 +43,7 @@
     <navigation-rule>
         <from-view-id>/changeInvoiceAddress.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>case1</from-outcome>
+            <from-outcome>toOverview</from-outcome>
             <to-view-id>/reservationOverview.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
