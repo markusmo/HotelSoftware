@@ -20,49 +20,33 @@ public class DBReservedExtraServices implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected DBReservedExtraServicesPK reservedextraservicesPK;
+    protected DBReservedExtraServicesPK reservedExtraServicesPK;
     @Basic(optional = false)
     @Column(name = "amount")
     private int amount;
     @JoinColumns(
     {
-        @JoinColumn(name = "reservationItems_idReservations", referencedColumnName = "idReservations", insertable = false, updatable = false),
-        @JoinColumn(name = "reservationItems_idRoomCategories", referencedColumnName = "idRoomCategories", insertable = false, updatable = false)
+        @JoinColumn(name = "idReservations", referencedColumnName = "idReservations", insertable = false, updatable = false),
+        @JoinColumn(name = "idRoomCategories", referencedColumnName = "idRoomCategories", insertable = false, updatable = false)
     })
     @ManyToOne(optional = false)
-    private DBReservationItem dBReservationItem;
-    @JoinColumn(name = "extraServices_idServices", referencedColumnName = "idServices", insertable = false, updatable = false)
+    private DBReservationItem reservationItem;
+    @JoinColumn(name = "idServices", referencedColumnName = "idServices", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private DBExtraService dBExtraService;
+    private DBExtraService extraService;
 
     public DBReservedExtraServices()
     {
     }
 
-    public DBReservedExtraServices(DBReservedExtraServicesPK reservedextraservicesPK)
+    public DBReservedExtraServicesPK getReservedExtraServicesPK()
     {
-        this.reservedextraservicesPK = reservedextraservicesPK;
+        return reservedExtraServicesPK;
     }
 
-    public DBReservedExtraServices(DBReservedExtraServicesPK reservedextraservicesPK, int amount)
+    public void setReservedExtraServicesPK(DBReservedExtraServicesPK reservedextraservicesPK)
     {
-        this.reservedextraservicesPK = reservedextraservicesPK;
-        this.amount = amount;
-    }
-
-    public DBReservedExtraServices(int extraServicesidServices, int reservationItemsidReservations, int reservationItemsidRoomCategories)
-    {
-        this.reservedextraservicesPK = new DBReservedExtraServicesPK(extraServicesidServices, reservationItemsidReservations, reservationItemsidRoomCategories);
-    }
-
-    public DBReservedExtraServicesPK getReservedextraservicesPK()
-    {
-        return reservedextraservicesPK;
-    }
-
-    public void setReservedextraservicesPK(DBReservedExtraServicesPK reservedextraservicesPK)
-    {
-        this.reservedextraservicesPK = reservedextraservicesPK;
+        this.reservedExtraServicesPK = reservedextraservicesPK;
     }
 
     public int getAmount()
@@ -75,31 +59,31 @@ public class DBReservedExtraServices implements Serializable
         this.amount = amount;
     }
 
-    public DBReservationItem getDBReservationItem()
+    public DBReservationItem getReservationItem()
     {
-        return dBReservationItem;
+        return reservationItem;
     }
 
-    public void setDBReservationItem(DBReservationItem dBReservationItem)
+    public void setReservationItem(DBReservationItem dBReservationItem)
     {
-        this.dBReservationItem = dBReservationItem;
+        this.reservationItem = dBReservationItem;
     }
 
-    public DBExtraService getDBExtraService()
+    public DBExtraService getExtraService()
     {
-        return dBExtraService;
+        return extraService;
     }
 
-    public void setDBExtraService(DBExtraService dBExtraService)
+    public void setExtraService(DBExtraService dBExtraService)
     {
-        this.dBExtraService = dBExtraService;
+        this.extraService = dBExtraService;
     }
 
     @Override
     public int hashCode()
     {
         int hash = 0;
-        hash += (reservedextraservicesPK != null ? reservedextraservicesPK.hashCode() : 0);
+        hash += (reservedExtraServicesPK != null ? reservedExtraServicesPK.hashCode() : 0);
         return hash;
     }
 
@@ -112,7 +96,7 @@ public class DBReservedExtraServices implements Serializable
             return false;
         }
         DBReservedExtraServices other = (DBReservedExtraServices) object;
-        if ((this.reservedextraservicesPK == null && other.reservedextraservicesPK != null) || (this.reservedextraservicesPK != null && !this.reservedextraservicesPK.equals(other.reservedextraservicesPK)))
+        if ((this.reservedExtraServicesPK == null && other.reservedExtraServicesPK != null) || (this.reservedExtraServicesPK != null && !this.reservedExtraServicesPK.equals(other.reservedExtraServicesPK)))
         {
             return false;
         }
@@ -122,7 +106,7 @@ public class DBReservedExtraServices implements Serializable
     @Override
     public String toString()
     {
-        return "hotelsoftware.model.database.reservation.Reservedextraservices[ reservedextraservicesPK=" + reservedextraservicesPK + " ]";
+        return "hotelsoftware.model.database.reservation.Reservedextraservices[ reservedextraservicesPK=" + reservedExtraServicesPK + " ]";
     }
     
 }

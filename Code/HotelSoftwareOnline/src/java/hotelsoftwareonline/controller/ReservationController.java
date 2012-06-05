@@ -1,16 +1,24 @@
 package hotelsoftwareonline.controller;
 
+import hotelsoftware.model.database.manager.ReservationManager;
 import hotelsoftware.model.database.manager.ServiceManager;
 import hotelsoftware.model.domain.parties.Country;
 import hotelsoftware.model.domain.parties.ICountry;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.IReservationItem;
+import hotelsoftware.model.domain.reservation.ReservedExtraServices;
+import hotelsoftware.model.domain.reservation.ReservedExtraServicesPK;
 import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.model.domain.room.RoomCategory;
 import hotelsoftware.model.domain.service.IExtraService;
+import hotelsoftware.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -79,5 +87,30 @@ public class ReservationController implements Serializable
         }
         
         return services;
+    }
+
+    public static void saveReservation(IReservation reservation)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+        ReservationManager.getInstance().saveReservation(reservation, session);
+        for (IReservationItem item : reservation.getReservationItems())
+        {
+            item.getReservationitemsPK().setIdReservations(reservation.getId());
+            ReservationManager.getInstance().saveReservationItem(item, session);
+            for (ReservedExtraServices service : item.getReservedExtraServices())
+            {
+                service.setReservationItem(item);
+                
+                service.setReservedExtraServicesPK(new ReservedExtraServicesPK());
+                service.getReservedExtraServicesPK().setExtraServicesidServices(service.getExtraService().getIdServices());
+                service.getReservedExtraServicesPK().setReservationItemsidReservations(service.getReservationItem().getReservationitemsPK().getIdReservations());
+                service.getReservedExtraServicesPK().setReservationItemsidRoomCategories(service.getReservationItem().getReservationitemsPK().getIdRoomCategories());
+                
+                ReservationManager.getInstance().saveReservedExtraService(service, session);
+            }
+        }
+        t.commit();
     }
 }

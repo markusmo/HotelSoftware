@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DBExtraService extends DBService implements Serializable
 {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBExtraService")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "extraService", fetch= FetchType.EAGER)
     private Set<DBReservedExtraServices> reservedextraservicesSet;
     private static final long serialVersionUID = 1L;
     

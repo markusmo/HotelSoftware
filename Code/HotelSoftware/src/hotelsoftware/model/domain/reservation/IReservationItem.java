@@ -5,18 +5,15 @@
 package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.controller.data.reservation.ReservationItemData;
-import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.model.domain.room.IRoomCategory;
-import hotelsoftware.model.domain.room.RoomCategory;
+import java.util.Collection;
 
 /**
  *
  * @author Kno
  */
-public interface IReservationItem extends ReservationItemData{
-
-    Integer getAmount();
-
+public interface IReservationItem extends ReservationItemData
+{
     IReservation getReservation();
 
     IReservationItemPK getReservationitemsPK();
@@ -31,4 +28,5 @@ public interface IReservationItem extends ReservationItemData{
 
     void setRoomCategory(IRoomCategory reservedCategory);
     
+    void setReservedExtraServices(Collection<ReservedExtraServices> reservedExtraServices);
 }

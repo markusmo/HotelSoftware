@@ -19,8 +19,8 @@ public class DBReservationItem implements Serializable
     @Basic(optional = false)
     @Column(name = "amount")
     private int amount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBReservationItem")
-    private Set<DBReservedExtraServices> reservedextraservicesSet;
+    @OneToMany(mappedBy = "reservationItem", fetch= FetchType.EAGER)
+    private Set<DBReservedExtraServices> reservedExtraServices;
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
@@ -95,14 +95,14 @@ public class DBReservationItem implements Serializable
     }
 
     @XmlTransient
-    public Set<DBReservedExtraServices> getReservedextraservicesSet()
+    public Set<DBReservedExtraServices> getReservedExtraServices()
     {
-        return reservedextraservicesSet;
+        return reservedExtraServices;
     }
 
-    public void setReservedextraservicesSet(Set<DBReservedExtraServices> reservedextraservicesSet)
+    public void setReservedExtraServices(Set<DBReservedExtraServices> reservedExtraServices)
     {
-        this.reservedextraservicesSet = reservedextraservicesSet;
+        this.reservedExtraServices = reservedExtraServices;
     }
     
 }

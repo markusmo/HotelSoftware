@@ -96,6 +96,18 @@ public class PartyManager
         return (Company) DynamicMapper.map(c);
     }
 
+    public ICustomer getCustomerById(Integer id)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction ts = session.beginTransaction();
+        ts.begin();
+        Criteria criteria = session.createCriteria(DBCustomer.class).add(Restrictions.eq(
+                "idParties", id));
+        DBCustomer c = (DBCustomer) criteria.uniqueResult();
+
+        return (ICustomer) DynamicMapper.map(c);
+    }
+
     /**
      * sucht einen PrivateCustomer mit entsprechendem Namen
      *
@@ -382,7 +394,7 @@ public class PartyManager
         {
             throw new LoginFailureException();
         }
-        
+
         return (ICustomer) DynamicMapper.map(cust);
     }
 }

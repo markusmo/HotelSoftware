@@ -56,6 +56,7 @@ public class CustomerLoginController implements Serializable
             IPrivateCustomer privateCustomer = (IPrivateCustomer) customer;
             PrivateCustomerBean privateCustomerBean = new PrivateCustomerBean();
 
+            privateCustomerBean.setId(privateCustomer.getIdParties());
             privateCustomerBean.setFname(privateCustomer.getFname());
             privateCustomerBean.setLname(privateCustomer.getLname());
             privateCustomerBean.setGender(privateCustomer.getGender());
@@ -65,19 +66,22 @@ public class CustomerLoginController implements Serializable
             
             return privateCustomerBean;
         }
+        else
+        {
+            ICompany company = (ICompany) customer;
+            CompanyBean companyBean = new CompanyBean();
+            CompanyTypeBean type = new CompanyTypeBean();
 
-        ICompany company = (ICompany) customer;
-        CompanyBean companyBean = new CompanyBean();
-        CompanyTypeBean type = new CompanyTypeBean();
+            type.setName(company.getCompanyType().getName());
 
-        type.setName(company.getCompanyType().getName());
+            companyBean.setId(company.getIdParties());
+            companyBean.setName(company.getName());
+            companyBean.setType(type);
+            companyBean.setUsername(company.getUsername());
+            companyBean.setInvoiceAddress(invoiceAddressBean);
+            companyBean.setAddress(addressBean);
 
-        companyBean.setName(company.getName());
-        companyBean.setType(type);
-        companyBean.setUsername(company.getUsername());
-        companyBean.setInvoiceAddress(invoiceAddressBean);
-        companyBean.setAddress(addressBean);
-
-        return companyBean;
+            return companyBean;
+        }
     }
 }
