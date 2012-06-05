@@ -7,7 +7,9 @@ Dynamic Mapper:
 State Pattern:
 - create invoice diagramm anpassen (sehr klein)
 
-JSF with Ajax fehlt noch
+JSF with Ajax:
+- eventuell Vorteile für uns
+- unser Einsatzgebiet (web-reservation)
 
 Project Trend
 - Developement, trend, improvements?
