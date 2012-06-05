@@ -52,6 +52,7 @@
                 <h:inputText id="fax" value="#{login.customer.address.fax}"/>
                 <h:message for="fax" class="error" />
 
+                <h:outputText value="Country"/>
                 <h:selectOneMenu id="country" value="#{login.customer.address.country}">
                             <f:selectItems value="#{login.customer.address.getCountries()}" />
                 </h:selectOneMenu>
