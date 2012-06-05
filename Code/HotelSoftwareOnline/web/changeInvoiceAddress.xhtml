@@ -53,7 +53,7 @@
                 <h:message for="fax" class="error" />
 
                 <h:outputText value="Country" />
-                <h:inputText id="country" value="Country not in Address"/>
+                <h:inputText id="country" value="#{login.customer.address.country}"/>
                 <h:message for="country" class="error" />
 
             </h:panelGrid>

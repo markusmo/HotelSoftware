@@ -4,12 +4,9 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.domain.parties.Country;
-import hotelsoftware.model.domain.parties.ICountry;
 import hotelsoftwareonline.controller.ReservationController;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  *
@@ -23,6 +20,17 @@ public class AddressBean implements Serializable
     private String email;
     private String phone;
     private String fax;
+    private String country;
+
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
+    }
 
     public String getCity()
     {
