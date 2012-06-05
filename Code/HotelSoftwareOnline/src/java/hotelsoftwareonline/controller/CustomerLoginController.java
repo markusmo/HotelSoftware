@@ -41,6 +41,7 @@ public class CustomerLoginController implements Serializable
         invoiceAddressBean.setPhone(invoiceAddress.getPhone());
         invoiceAddressBean.setStreet(invoiceAddress.getStreet());
         invoiceAddressBean.setZip(invoiceAddress.getZip());
+        invoiceAddressBean.setCountry(invoiceAddress.getIdCountry().getName());
 
         addressBean.setCity(address.getCity());
         addressBean.setEmail(address.getEmail());
@@ -48,6 +49,7 @@ public class CustomerLoginController implements Serializable
         addressBean.setPhone(address.getPhone());
         addressBean.setStreet(address.getStreet());
         addressBean.setZip(address.getZip());
+        addressBean.setCountry(address.getIdCountry().getName());
 
         if (customer instanceof IPrivateCustomer)
         {
