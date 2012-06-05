@@ -1,0 +1,16 @@
+Introduction
+What is all about?
+
+Dynamic Mapper:
+- Schaut unübersichtlich aus! Eventuell nur ein Pfeil anstatt den vielen.
+
+State Pattern:
+- create invoice diagramm anpassen (sehr klein)
+
+JSF with Ajax fehlt noch
+
+Project Trend
+- Developement, trend, improvements?
+
+Outlook
+- What would be done?
