@@ -16,14 +16,29 @@
             <h:panelGrid columns="1">
                 <h:panelGrid columns="1">
 
-                    <h:outputText value="Vorname (wo der auch ist)"/>
-                    <h:outputText value="Nachname (wo der auch ist)"/>
-                    <h:outputText value="#{AddressBean.street}"/>
-                    <h:outputText value="#{AddressBean.zip}"/>
-                    <h:outputText value="#{AddressBean.city}"/>
-                    <h:outputText value="#{AddressBean.email}"/>
-                    <h:outputText value="#{AddressBean.phone}"/>
-                    <h:outputText value="#{AddressBean.fax}"/>
+                    <c:choose>
+                    <c:when test="${login.isPrivateCustomer()}">
+                        
+                        <h:outputText value="Lastname" />
+                        <h:inputText id="lastname" value="#{privatecustomer.lname}"/>
+                        <h:message for="lastname" class="error" />
+
+                        <h:outputText value="Firstname" />
+                        <h:inputText id="firstname" value="#{privatecustomer.fname}"/>
+                        <h:message for="firstname" class="error" />
+                    </c:when>
+                    <c:otherwise>
+                         <h:outputText value="Name" />
+                         <h:inputText id="name" value="#{company.name}}"/>
+                        <h:message for="name" class="error" />
+                    </c:otherwise>
+                </c:choose>
+                    <h:outputText value="#{login.customer.address.street}"/>
+                    <h:outputText value="#{login.customer.address.zip}"/>
+                    <h:outputText value="#{login.customer.address.city}"/>
+                    <h:outputText value="#{login.customer.address.email}"/>
+                    <h:outputText value="#{login.customer.address.phone}"/>
+                    <h:outputText value="#{login.customer.address.fax}"/>
                 </h:panelGrid>
                 <h:outputText value="-------------------------"/>
 
@@ -93,13 +108,15 @@
                 <h:outputText value="-------------------------"/>
                 <h:panelGrid columns="2">
                     <h:outputText value="Comment:"/>
-                    <h:outputText value="#{ReservationBean.commentary}"/>
+                    <h:outputText value="#{reservation.commentary}"/>
                 </h:panelGrid>
                 <h:outputText value="-------------------------"/>
 
                 <h:panelGrid columns="2">
                     <h:commandButton value="Back"/>
-                    <h:commandButton value="Finish"/>
+                    <h:commandButton value="Finish"
+                                     action="#{reservation.finishReservation}"
+                                     actionListener="#{reservation.finishListener}"/>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>

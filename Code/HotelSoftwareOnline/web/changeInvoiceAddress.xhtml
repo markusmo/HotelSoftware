@@ -12,7 +12,7 @@
         <h:form id="invoiceAddressData">
             <h:panelGrid columns="3">
                 <c:choose>
-                    <c:when test="${login.customer.class.name =='PrivateCustomerBean'}">
+                    <c:when test="${login.isPrivateCustomer()}">
                         
                         <h:outputText value="Lastname" />
                         <h:inputText id="lastname" value="#{privatecustomer.lname}"/>
@@ -52,8 +52,9 @@
                 <h:inputText id="fax" value="#{login.customer.address.fax}"/>
                 <h:message for="fax" class="error" />
 
-                <h:outputText value="Country" />
-                <h:inputText id="country" value="#{login.customer.address.country}"/>
+                <h:selectOneMenu id="country" value="#{login.customer.address.country}">
+                            <f:selectItems value="#{AddressBean.getCountries()}" />
+                </h:selectOneMenu>
                 <h:message for="country" class="error" />
 
             </h:panelGrid>

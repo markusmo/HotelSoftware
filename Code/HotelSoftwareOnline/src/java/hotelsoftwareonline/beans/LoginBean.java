@@ -140,15 +140,15 @@ public class LoginBean implements Serializable
        return false;
     }
     
-    public PrivateCustomerBean getPrivateCustomerBean()
+    /**
+     * Überprüft ob es ein PrivateCustomer ist oder nicht...
+     * @return True wenn PrivateCustomer
+     */
+    public boolean isPrivateCustomer()
     {
-        return (PrivateCustomerBean) customer;
+        return customer instanceof PrivateCustomerBean;
     }
     
-    public CompanyBean getCompanyBean()
-    {
-        return (CompanyBean) customer;
-    }
 
     /**
      * Logt einen User aus
