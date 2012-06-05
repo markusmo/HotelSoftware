@@ -21,13 +21,13 @@
              <from-outcome>changeCompanyData</from-outcome>
              <to-view-id>/changeDataCompany.xhtml</to-view-id>
          </navigation-case>
+         <navigation-case>
+             <from-outcome>loggedin</from-outcome>
+             <to-view-id>/reservation.xhtml</to-view-id>
+         </navigation-case>
      </navigation-rule>
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>loggedin</from-outcome>
-            <to-view-id>/reservation.xhtml</to-view-id>
-        </navigation-case>
         <navigation-case>
             <from-outcome>loginfailed</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
