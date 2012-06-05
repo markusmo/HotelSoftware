@@ -13,4 +13,6 @@ import hotelsoftware.controller.data.service.ExtraServiceData;
 public interface IExtraService extends IService, ExtraServiceData
 {
     void setName(String name);
+
+    void setReservable(Boolean reservable);
 }

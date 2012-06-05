@@ -14,8 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public abstract class DBService implements Serializable
 {
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dBService")
-    private DBExtraService dBExtraService;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,15 +57,5 @@ public abstract class DBService implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Services[ id=" + idServices + " ]";
-    }
-
-    public DBExtraService getDBExtraService()
-    {
-        return dBExtraService;
-    }
-
-    public void setDBExtraService(DBExtraService dBExtraService)
-    {
-        this.dBExtraService = dBExtraService;
     }
 }

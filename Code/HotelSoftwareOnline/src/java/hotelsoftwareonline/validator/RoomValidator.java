@@ -23,8 +23,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 @FacesValidator("onlinereservation.validator")
-public class RoomValidator implements Validator{
-    
+public class RoomValidator implements Validator
+{
     private Date start;
     private Date end;
     private ReservationBean bean;
@@ -32,51 +32,57 @@ public class RoomValidator implements Validator{
     private IRoomCategory category;
     private static HashMap map;
     int amountOfCurrentCategory;
-    
+
     /**
      * Überprüft ob genügend freie Räume in der gewünschten Kategorie verfügbar sind
+     *
      * @param context nicht benutzt
      * @param component nicht benutzt
      * @param value Die Reservation Bean, enthält die nötigen Informationen über die Reservierung
-     * @throws ValidatorException 
+     * @throws ValidatorException
      */
     @Override
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-
-        if (value == null){
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException
+    {
+        if (value == null)
+        {
             throw new ValidatorException(new FacesMessage("No rooms were chosen"));
         }
-        
-        bean = (ReservationBean)value;
+        bean = (ReservationBean)context.getApplication().evaluateExpressionGet(context, "#{reservation}", ReservationBean.class);
+        //bean = (ReservationBean) value;
         manager = RoomManager.getInstance();
         map = new HashMap();
-        
+
         start = convertToDate(bean.getStartDate());
         end = convertToDate(bean.getEndDate());
-        
-        for (IRoomCategory tempCategory : manager.getAllCategories()){
+
+        for (IRoomCategory tempCategory : manager.getAllCategories())
+        {
             map.put(tempCategory.getId(), 0);
         }
-        
-        for (ReservationItemBean r : bean.getItems()){
-            
-            category = manager.getCategoryByName(r.getCategory().getName());
+
+        for (ReservationItemBean r : bean.getItems())
+        {
+            category = manager.getCategoryByName(r.getCategory());
             amountOfCurrentCategory = (Integer) map.get(category.getId());
-            
-            if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(start, end).size()){
+
+            if ((r.getAmount() + amountOfCurrentCategory) > category.getFreeRooms(start, end).size())
+            {
                 throw new ValidatorException(new FacesMessage("Not enough free rooms available in category " + category.getName()));
             }
-            
+
             map.put(category.getId(), r.getAmount() + amountOfCurrentCategory);
         }
     }
-    
-    public static void resetCurrentReservations(){
-        if (map != null){
+
+    public static void resetCurrentReservations()
+    {
+        if (map != null)
+        {
             map.clear();
         }
     }
-    
+
     private Date convertToDate(String date)
     {
         String[] dates = date.split("/");
@@ -86,5 +92,4 @@ public class RoomValidator implements Validator{
         d.setTime(c.getTimeInMillis());
         return d;
     }
-    
 }

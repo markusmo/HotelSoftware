@@ -10,7 +10,7 @@ package hotelsoftware.controller.data.service;
  */
 public interface ExtraServiceData extends ServiceData
 {
-
     String getName();
     
+    Boolean getReservable();
 }

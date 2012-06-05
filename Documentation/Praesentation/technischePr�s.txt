@@ -1,0 +1,24 @@
+Technische Präsentation:
+Unformatierte Folien erstellen (Können ruhig mehr wie eine sein), mit Diagrammen (wenn vorhanden aus Doku) befüllen, Stichworte dazu auf der Folie
+Was dazu gesagt wird und wie es präsentiert wird
+
+Hubert:
+Integration
+
+Tobias:
+Schichtenübersicht
+
+Stefan:
+State Pattern
+
+Johannes:
+Mapper
+--> Trennung zwischen DB - Domain
+JSF mit AJAX
+
+Christian:
+SWING GUI
+
+Markus:
+Hibernate
+--> Transaktionen
