@@ -53,7 +53,7 @@
                 <h:message for="fax" class="error" />
 
                 <h:selectOneMenu id="country" value="#{login.customer.address.country}">
-                            <f:selectItems value="#{AddressBean.getCountries()}" />
+                            <f:selectItems value="#{login.customer.address.getCountries()}" />
                 </h:selectOneMenu>
                 <h:message for="country" class="error" />
 
