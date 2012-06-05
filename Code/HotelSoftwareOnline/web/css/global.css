@@ -9,6 +9,10 @@
 	z-index:0;
 }
 
+.container {
+	position:relative;	
+}
+
 #example {
 	width:750px;
 	height:300px;

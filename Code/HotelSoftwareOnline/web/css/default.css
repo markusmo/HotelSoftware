@@ -20,6 +20,17 @@ h1 {
     color: #D20005;
 }
 
+h4 {
+	font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size:  14px;
+    font-weight: bold;
+    margin: 8px;
+    padding: 0px;
+    color: #000;
+	display:inline-block;
+	width:300px;
+}
+
 #header {
 	text-align:center;
 	height:150px;
@@ -58,7 +69,6 @@ h1 {
 #pagecontent {
 	margin-top:50px;
 	margin-bottom:20px;
-	width:95%;
 	min-height:100px;
 }
 
@@ -82,16 +92,36 @@ h1 {
 	text-align:right;
 }
 
+#commentary {
+	margin-bottom:10px;	
+}
+
 a:link, a:visited {
-  color: #33cccc;
-  font-weight : bold;
-  text-decoration: none;
+	color: #33cccc;
+	font-weight : bold;
+	text-decoration: none;
 }
 
 a:link:hover, a:visited:hover  {
-  color: #33cccc;
-  font-weight : bold;
-  text-decoration : underline;
+	color: #33cccc;
+	font-weight : bold;
+	text-decoration : underline;
+}
+
+.addReservationItemBox {
+	text-align:center;
+}
+
+.addReservationItemBox input {
+	vertical-align:middle;
+	padding:0;
+	margin:0;
+}
+
+.minMaxRemove {
+	position:absolute;
+	top:5px;
+	right:5px;
 }
 
 .error {
