@@ -13,19 +13,17 @@ import java.util.ArrayList;
  */
 public class ReservationItemBean implements Serializable
 {
-    private CategoryBean category = null;
+    private String category;
     private int amount;
-    private ArrayList<ExtraserviceBean> extraServices;
-    private ExtraserviceBean boardCategory;
-    private int nr;
-    private static int nummer = 0;
+    private ArrayList<String> extraServices;
+    private String boardCategory;
     
-    public ArrayList<ExtraserviceBean> getExtraServices()
+    public ArrayList<String> getExtraServices()
     {
         return extraServices;
     }
 
-    public void setExtraServices(ArrayList<ExtraserviceBean> extraServices)
+    public void setExtraServices(ArrayList<String> extraServices)
     {
         this.extraServices = extraServices;
     }
@@ -40,40 +38,23 @@ public class ReservationItemBean implements Serializable
         this.amount = amount;
     }
     
-    public ExtraserviceBean getBoardCategory()
+    public String getBoardCategory()
     {
         return boardCategory;
     }
 
-    public void setBoardCategory(ExtraserviceBean boardCategory)
+    public void setBoardCategory(String boardCategory)
     {
         this.boardCategory = boardCategory;
     }
 
-    public CategoryBean getCategory()
+    public String getCategory()
     {
         return category;
     }
 
-    public void setCategory(CategoryBean category)
+    public void setCategory(String category)
     {
         this.category = category;
     }
-
-    public int getNr()
-    {
-        return nr;
-    }
-
-    public void setNr(int nr)
-    {
-        this.nr = nr;
-    }
-    
-    public ReservationItemBean()
-    {
-        nr = nummer++;
-    }
-    
-   
 }

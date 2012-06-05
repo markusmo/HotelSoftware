@@ -42,36 +42,36 @@
                                 <c:otherwise>
                                     <c:set var="counter" value="1" />
                                     <c:forEach items="${reservation.items}" var="item">
-                                        <div class="reservationItem" id="reservationItem${item.nr}">
+                                        <div class="reservationItem" id="reservationItem${counter}">
                                             <c:when test="${reservation.getAllFreeRoomCategories() != null}">
                                                 <h3 class="collapsible">Room ${counter}<span></span></h3>
                                                 <div class="container">
                                                     <div class="roomCategory">
                                                         <h4>Select the wanted room-category</h4>           
-                                                        <h:selectOneRadio id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
+                                                        <h:selectOneRadio id="roomCategory${counter}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
                                                             <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
-                                                            <h:message for="roomCategory${item.nr}" class="error"/>
-                                                            <f:validator validatorId="onlinereservation.validator"/>
+                                                            <h:message for="roomCategory${counter}" class="error"/>
+                                                            <!--<f:validator validatorId="onlinereservation.validator"/>-->
                                                         </h:selectOneRadio>   
                                                     </div>
                                                     <div class="boardCategory">
                                                         <h4>Select your board category</h4>
-                                                        <h:selectOneRadio id="boardCategory${item.nr}" value="#{item.boardCategory}" required="false">
+                                                        <h:selectOneRadio id="boardCategory${counter}" value="#{item.boardCategory}" required="true">
                                                             <f:selectItems value="#{reservation.getAllBoardCategories()}"></f:selectItems>
-                                                            <h:message for="boardCategory${item.nr}" class="error"/>
+                                                            <h:message for="boardCategory${counter}" class="error"/>
                                                         </h:selectOneRadio>
                                                     </div>
                                                     <div class="extraServices">
                                                         <h4>Select your extra services</h4>
-                                                        <h:selectManyCheckbox id="extraServices${item.nr}" value="#{item.extraServices}" required="false">
+                                                        <h:selectManyCheckbox id="extraServices${counter}" value="#{item.extraServices}" required="false">
                                                             <f:selectItems value="#{reservation.getReservableExtraServices()}"></f:selectItems>
-                                                            <h:message for="extraServices${item.nr}" class="error"/>
+                                                            <h:message for="extraServices${counter}" class="error"/>
                                                         </h:selectManyCheckbox>
                                                     </div>
 
                                                     <div class="minMaxRemove">
                                                         <strong>Remove this room: </strong>
-                                                        <h:commandButton id="remove${item.nr}" class="removeButton" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
+                                                        <h:commandButton id="remove${counter}" class="removeButton" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
                                                             <f:ajax render="render"/>
                                                         </h:commandButton>
                                                     </div>
