@@ -13,6 +13,8 @@ import java.io.Serializable;
 public abstract class CustomerBean implements Serializable
 {
     private String username;
+    private AddressBean address;
+    private AddressBean invoiceAddress;
     
     public String getUsername()
     {
@@ -22,5 +24,25 @@ public abstract class CustomerBean implements Serializable
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    public AddressBean getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(AddressBean address)
+    {
+        this.address = address;
+    }
+
+    public AddressBean getInvoiceAddress()
+    {
+        return invoiceAddress;
+    }
+
+    public void setInvoiceAddress(AddressBean invoiceAddress)
+    {
+        this.invoiceAddress = invoiceAddress;
     }
 }

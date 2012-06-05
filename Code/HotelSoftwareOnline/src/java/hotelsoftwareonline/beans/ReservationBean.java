@@ -27,7 +27,8 @@ public class ReservationBean implements Serializable
     private String commentary = "";
     private ArrayList<ReservationItemBean> items;
     private ReservationController rc = new ReservationController();
-    private String nextStep;
+    private String changeInvoiceAddress;
+    private String overview;
 
     public ReservationBean()
     {
@@ -53,17 +54,31 @@ public class ReservationBean implements Serializable
      */
     public void nextStepListener(ActionEvent event)
     {
-        this.nextStep = event.getComponent().getClientId();
+        this.changeInvoiceAddress = event.getComponent().getClientId();
     }
 
     /**
      * Zum nächsten Schritt -> Rechungsadresse ändern
      *
-     * @return
+     * @return <code>"changeInvoiceAddress"</code>
      */
     public String next()
     {
         return "changeInvoiceAddress";
+    }
+    
+    public void overviewListener(ActionEvent event)
+    {
+        this.overview = event.getComponent().getClientId();
+    }
+    
+    /**
+     * Zum nächsten Schritt -> zum Overview
+     * @return <code>"toOverview"</code>
+     */
+    public String toOverview()
+    {
+        return "toOverview";
     }
 
     public ArrayList<String> getAllFreeRoomCategories()

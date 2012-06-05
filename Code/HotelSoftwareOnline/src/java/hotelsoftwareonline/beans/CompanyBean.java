@@ -16,8 +16,6 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CompanyBean extends CustomerBean implements Serializable
 {
-    private AddressBean address;
-    private AddressBean invoiceAddress;
     private String name;
     private CompanyTypeBean type;
 
@@ -41,24 +39,28 @@ public class CompanyBean extends CustomerBean implements Serializable
         this.type = type;
     }
 
+    @Override
     public AddressBean getAddress()
     {
-        return address;
+        return super.getAddress();
     }
 
+    @Override
     public void setAddress(AddressBean address)
     {
-        this.address = address;
+        super.setAddress(address);
     }
 
+    @Override
     public AddressBean getInvoiceAddress()
     {
-        return invoiceAddress;
+        return super.getInvoiceAddress();
     }
 
+    @Override
     public void setInvoiceAddress(AddressBean invoiceAddress)
     {
-        this.invoiceAddress = invoiceAddress;
+        super.setInvoiceAddress(invoiceAddress);
     }
 
     public String getName()
