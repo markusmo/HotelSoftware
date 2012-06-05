@@ -29,13 +29,13 @@
 
 
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{ReservationBean.startDate}"/>
-                    <h:outputText value="#{ReservationBean.endDate}"/>
+                    <h:outputText value="#{reservation.startDate}"/>
+                    <h:outputText value="#{reservation.endDate}"/>
                 </h:panelGrid>
 
                 <h:outputText value="-------------------------"/>
 
-                <h:dataTable id="Ausgabeform" value="#{ReservationBean.items}">
+                <h:dataTable id="Ausgabeform" value="#{reservation.items}">
 
                     <h:column>
                         <f:facet name="categoryname">

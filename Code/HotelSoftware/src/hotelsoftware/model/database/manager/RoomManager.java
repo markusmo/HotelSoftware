@@ -95,9 +95,11 @@ public class RoomManager
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction ts = session.beginTransaction();
-
+        ts.begin();
         Query query = session.createQuery("FROM DBRoomCategory ORDER BY name");
         List<DBRoomCategory> cats = query.list();
+        ts.commit();
+        
         return (Collection<IRoomCategory>) DynamicMapper.mapCollection(cats);
     }
 
