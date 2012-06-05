@@ -48,21 +48,29 @@
                                                 <div class="container">
                                                     <div class="roomCategory">
                                                         <h4>Select the wanted room-category</h4>           
-                                                        <h:selectOneMenu id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
+                                                        <h:selectOneRadio id="roomCategory${item.nr}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
                                                             <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
                                                             <h:message for="roomCategory${item.nr}" class="error"/>
                                                             <f:validator validatorId="onlinereservation.validator"/>
-                                                        </h:selectOneMenu>   
+                                                        </h:selectOneRadio>   
+                                                    </div>
+                                                    <div class="boardCategory">
+                                                        <h4>Select your board category</h4>
+                                                        <h:selectOneRadio id="boardCategory${item.nr}" value="#{item.boardCategory}" required="false">
+                                                            <f:selectItems value="#{reservation.getAllBoardCategories()}"></f:selectItems>
+                                                            <h:message for="boardCategory${item.nr}" class="error"/>
+                                                        </h:selectOneRadio>
                                                     </div>
                                                     <div class="extraServices">
-                                                        <h4>Select additional extra-services</h4>
+                                                        <h4>Select your extra services</h4>
                                                         <h:selectManyCheckbox id="extraServices${item.nr}" value="#{item.extraServices}" required="false">
-                                                            <f:selectItems value="#{reservation.getAllExtraServices()}"></f:selectItems>
+                                                            <f:selectItems value="#{reservation.getReservableExtraServices()}"></f:selectItems>
+                                                            <h:message for="extraServices${item.nr}" class="error"/>
                                                         </h:selectManyCheckbox>
                                                     </div>
 
                                                     <div class="minMaxRemove">
-                                                        <strong>Remove room: </strong>
+                                                        <strong>Remove this room: </strong>
                                                         <h:commandButton id="remove${item.nr}" class="removeButton" image="images/buttons/delete.png" title="remove this reservation item" action="#{reservation.removeReservationItem(item)}">
                                                             <f:ajax render="render"/>
                                                         </h:commandButton>

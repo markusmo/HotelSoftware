@@ -86,9 +86,9 @@ public class ReservationBean implements Serializable
     }
 
     //TODO implement
-    public ArrayList<String> getAllExtraServices()
+    public ArrayList<String> getReservableExtraServices()
     {
-        return null;
+        return ReservationController.getReservableExtraServices();
     }
 
     public String getEndDate()

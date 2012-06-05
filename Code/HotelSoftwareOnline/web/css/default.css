@@ -96,6 +96,10 @@ h4 {
 	margin-bottom:10px;	
 }
 
+#commentary textarea{
+	vertical-align:middle;
+}
+
 a:link, a:visited {
 	color: #33cccc;
 	font-weight : bold;
@@ -114,14 +118,20 @@ a:link:hover, a:visited:hover  {
 
 .addReservationItemBox input {
 	vertical-align:middle;
-	padding:0;
-	margin:0;
+	width:20px;
+	height:auto;
 }
 
 .minMaxRemove {
 	position:absolute;
 	top:5px;
 	right:5px;
+}
+
+.minMaxRemove input {
+	vertical-align:middle;
+	width:20px;
+	height:auto;
 }
 
 .error {

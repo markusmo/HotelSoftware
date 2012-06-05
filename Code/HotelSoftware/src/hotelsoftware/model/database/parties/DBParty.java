@@ -31,7 +31,7 @@ public class DBParty implements Serializable
     @ManyToOne(optional = false, cascade= CascadeType.ALL)
     private DBAddress address;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "party")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "party", fetch= FetchType.EAGER)
     private Set<DBReservation> reservations;
 
     public DBParty()

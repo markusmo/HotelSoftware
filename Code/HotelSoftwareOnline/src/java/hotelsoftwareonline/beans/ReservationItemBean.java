@@ -16,6 +16,7 @@ public class ReservationItemBean implements Serializable
     private CategoryBean category = null;
     private int amount;
     private ArrayList<ExtraserviceBean> extraServices;
+    private ExtraserviceBean boardCategory;
     private int nr;
     private static int nummer = 0;
     
@@ -37,6 +38,16 @@ public class ReservationItemBean implements Serializable
     public void setAmount(int amount)
     {
         this.amount = amount;
+    }
+    
+    public ExtraserviceBean getBoardCategory()
+    {
+        return boardCategory;
+    }
+
+    public void setBoardCategory(ExtraserviceBean boardCategory)
+    {
+        this.boardCategory = boardCategory;
     }
 
     public CategoryBean getCategory()
