@@ -18,19 +18,11 @@
 
                     <c:choose>
                     <c:when test="${login.isPrivateCustomer()}">
-                        
-                        <h:outputText value="Lastname" />
-                        <h:inputText id="lastname" value="#{privatecustomer.lname}"/>
-                        <h:message for="lastname" class="error" />
-
-                        <h:outputText value="Firstname" />
-                        <h:inputText id="firstname" value="#{privatecustomer.fname}"/>
-                        <h:message for="firstname" class="error" />
+                        <h:outputText value="#{privatecustomer.lname}" />
+                        <h:outputText value="#{privatecustomer.fname}" />
                     </c:when>
                     <c:otherwise>
-                         <h:outputText value="Name" />
-                         <h:inputText id="name" value="#{company.name}}"/>
-                        <h:message for="name" class="error" />
+                         <h:outputText value="#{company.name}" />
                     </c:otherwise>
                 </c:choose>
                     <h:outputText value="#{login.customer.address.street}"/>
