@@ -139,6 +139,16 @@ public class LoginBean implements Serializable
        
        return false;
     }
+    
+    public PrivateCustomerBean getPrivateCustomerBean()
+    {
+        return (PrivateCustomerBean) customer;
+    }
+    
+    public CompanyBean getCompanyBean()
+    {
+        return (CompanyBean) customer;
+    }
 
     /**
      * Logt einen User aus

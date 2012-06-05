@@ -11,15 +11,23 @@
     <ui:define name="content">
         <h:form id="invoiceAddressData">
             <h:panelGrid columns="3">
-<!--
-                <h:outputText value="Lastname" />
-                <h:inputText id="lastname" />
-                <h:message for="lastname" class="error" />
+                <c:choose>
+                    <c:when test="${login.customer.class.name =='PrivateCustomerBean'}">
+                        
+                        <h:outputText value="Lastname" />
+                        <h:inputText id="lastname" value="#{privatecustomer.lname}"/>
+                        <h:message for="lastname" class="error" />
 
-                <h:outputText value="Firstname" />
-                <h:inputText id="firstname" />
-                <h:message for="firstname" class="error" />
--->
+                        <h:outputText value="Firstname" />
+                        <h:inputText id="firstname" value="#{privatecustomer.fname}"/>
+                        <h:message for="firstname" class="error" />
+                    </c:when>
+                    <c:otherwise>
+                         <h:outputText value="Name" />
+                         <h:inputText id="name" value="#{company.name}}"/>
+                        <h:message for="name" class="error" />
+                    </c:otherwise>
+                </c:choose>
                 <h:outputText value="Street" />
                 <h:inputText id="street" value="#{login.customer.address.street}"/>
                 <h:message for="street" class="error" />
