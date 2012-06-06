@@ -41,6 +41,7 @@ public class CustomerLoginController implements Serializable
         invoiceAddressBean.setPhone(invoiceAddress.getPhone());
         invoiceAddressBean.setStreet(invoiceAddress.getStreet());
         invoiceAddressBean.setZip(invoiceAddress.getZip());
+        invoiceAddressBean.setCountry(invoiceAddress.getIdCountry().getName());
 
         addressBean.setCity(address.getCity());
         addressBean.setEmail(address.getEmail());
@@ -48,12 +49,14 @@ public class CustomerLoginController implements Serializable
         addressBean.setPhone(address.getPhone());
         addressBean.setStreet(address.getStreet());
         addressBean.setZip(address.getZip());
+        addressBean.setCountry(address.getIdCountry().getName());
 
         if (customer instanceof IPrivateCustomer)
         {
             IPrivateCustomer privateCustomer = (IPrivateCustomer) customer;
             PrivateCustomerBean privateCustomerBean = new PrivateCustomerBean();
 
+            privateCustomerBean.setId(privateCustomer.getIdParties());
             privateCustomerBean.setFname(privateCustomer.getFname());
             privateCustomerBean.setLname(privateCustomer.getLname());
             privateCustomerBean.setGender(privateCustomer.getGender());
@@ -63,19 +66,22 @@ public class CustomerLoginController implements Serializable
             
             return privateCustomerBean;
         }
+        else
+        {
+            ICompany company = (ICompany) customer;
+            CompanyBean companyBean = new CompanyBean();
+            CompanyTypeBean type = new CompanyTypeBean();
 
-        ICompany company = (ICompany) customer;
-        CompanyBean companyBean = new CompanyBean();
-        CompanyTypeBean type = new CompanyTypeBean();
+            type.setName(company.getCompanyType().getName());
 
-        type.setName(company.getCompanyType().getName());
+            companyBean.setId(company.getIdParties());
+            companyBean.setName(company.getName());
+            companyBean.setType(type);
+            companyBean.setUsername(company.getUsername());
+            companyBean.setInvoiceAddress(invoiceAddressBean);
+            companyBean.setAddress(addressBean);
 
-        companyBean.setName(company.getName());
-        companyBean.setType(type);
-        companyBean.setUsername(company.getUsername());
-        companyBean.setInvoiceAddress(invoiceAddressBean);
-        companyBean.setAddress(addressBean);
-
-        return companyBean;
+            return companyBean;
+        }
     }
 }

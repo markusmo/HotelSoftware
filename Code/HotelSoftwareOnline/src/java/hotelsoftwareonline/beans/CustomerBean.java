@@ -12,7 +12,11 @@ import java.io.Serializable;
  */
 public abstract class CustomerBean implements Serializable
 {
+    private Integer id;
     private String username;
+    private String password;
+    private AddressBean address;
+    private AddressBean invoiceAddress;
     
     public String getUsername()
     {
@@ -22,5 +26,45 @@ public abstract class CustomerBean implements Serializable
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    public AddressBean getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(AddressBean address)
+    {
+        this.address = address;
+    }
+
+    public AddressBean getInvoiceAddress()
+    {
+        return invoiceAddress;
+    }
+
+    public void setInvoiceAddress(AddressBean invoiceAddress)
+    {
+        this.invoiceAddress = invoiceAddress;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }
