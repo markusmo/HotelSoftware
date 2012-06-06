@@ -130,7 +130,7 @@ public class LoginBean implements Serializable
      * Überprüft ob ein Kunde eingeloggt ist oder nicht.
      * @return <code>true</code> wenn eingeloggt <code>false</code> wenn nicht eingeloggt
      */
-    public boolean loggedin()
+    public boolean isLoggedin()
     {
        if(customer instanceof PrivateCustomerBean || customer instanceof CompanyBean)
        {
