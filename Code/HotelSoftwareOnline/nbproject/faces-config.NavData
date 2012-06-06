@@ -9,10 +9,10 @@
         <Node id="template.xhtml" x="461" y="-1" zoom="true"/>
         <Node id="changeDataPrivateCustomer.xhtml" x="77" y="531" zoom="true"/>
         <Node id="changeInvoiceAddress.xhtml" x="529" y="118" zoom="true"/>
-        <Node id="*" x="242" y="316" zoom="true"/>
         <Node id="reservationItem.xhtml" x="671" y="-1" zoom="true"/>
-        <Node id="template.html" x="257" y="-3" zoom="true"/>
+        <Node id="*" x="242" y="316" zoom="true"/>
         <Node id="reservationOverview.xhtml" x="536" y="292" zoom="true"/>
+        <Node id="template.html" x="257" y="-3" zoom="true"/>
         <Node id="TesterJSF.xhtml" x="35" y="-3" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
