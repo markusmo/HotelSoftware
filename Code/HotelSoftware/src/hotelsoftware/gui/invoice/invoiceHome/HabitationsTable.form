@@ -98,7 +98,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="HabitationsLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habitations"/>
+        <Property name="text" type="java.lang.String" value="Accommodation"/>
       </Properties>
     </Component>
   </SubComponents>

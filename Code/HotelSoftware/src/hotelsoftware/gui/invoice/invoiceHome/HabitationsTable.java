@@ -220,7 +220,7 @@ public class HabitationsTable extends javax.swing.JPanel
         habitations.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(habitations);
 
-        HabitationsLabel.setText("Habitations");
+        HabitationsLabel.setText("Accommodation");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

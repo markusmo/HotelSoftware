@@ -115,13 +115,13 @@ public class InvoiceHome extends javax.swing.JPanel implements ControlsSetter
         java.awt.GridBagConstraints gridBagConstraints;
 
         invoiceHomeTables = new javax.swing.JPanel();
-        availableHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Available Habitations");
+        availableHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Available accommodations");
         dropSelectButtons = new javax.swing.JPanel();
         chooseAll = new javax.swing.JButton();
         chooseSelection = new javax.swing.JButton();
         dropSelected = new javax.swing.JButton();
         dropAll = new javax.swing.JButton();
-        selectedHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Selected Habitations");
+        selectedHabitations = new hotelsoftware.gui.invoice.invoiceHome.HabitationsTable("Selected accommodations");
         searchPanel = new javax.swing.JPanel();
         lnameLabel = new javax.swing.JLabel();
         fnameLabel = new javax.swing.JLabel();
