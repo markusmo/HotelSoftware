@@ -9,8 +9,12 @@
         <Node id="changeInvoiceAddress.xhtml" x="529" y="118" zoom="true"/>
         <Node id="changeDataPrivateCustomer.xhtml" x="77" y="531" zoom="true"/>
         <Node id="template.xhtml" x="461" y="-1" zoom="true"/>
+<<<<<<< HEAD
         <Node id="*" x="242" y="316" zoom="true"/>
+=======
+>>>>>>> 52b6f19ec52d1c714c67e7d76d0dba4888f3c86d
         <Node id="reservationItem.xhtml" x="671" y="-1" zoom="true"/>
+        <Node id="*" x="242" y="316" zoom="true"/>
         <Node id="template.html" x="257" y="-3" zoom="true"/>
         <Node id="reservationOverview.xhtml" x="491" y="350" zoom="true"/>
         <Node id="TesterJSF.xhtml" x="35" y="-3" zoom="true"/>

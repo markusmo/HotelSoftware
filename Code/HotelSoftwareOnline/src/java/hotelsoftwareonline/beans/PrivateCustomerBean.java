@@ -4,6 +4,10 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.ICustomer;
+import hotelsoftware.model.domain.parties.IPrivateCustomer;
+import hotelsoftware.model.domain.parties.PrivateCustomer;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

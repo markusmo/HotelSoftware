@@ -12,7 +12,9 @@ import java.io.Serializable;
  */
 public abstract class CustomerBean implements Serializable
 {
+    private Integer id;
     private String username;
+    private String password;
     private AddressBean address;
     private AddressBean invoiceAddress;
     
@@ -44,5 +46,25 @@ public abstract class CustomerBean implements Serializable
     public void setInvoiceAddress(AddressBean invoiceAddress)
     {
         this.invoiceAddress = invoiceAddress;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }

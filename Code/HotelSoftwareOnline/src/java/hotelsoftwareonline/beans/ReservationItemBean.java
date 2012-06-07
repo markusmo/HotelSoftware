@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ReservationItemBean implements Serializable
 {
     private String category;
-    private int amount;
+    private int amount = 1;
     private ArrayList<String> extraServices;
     private String boardCategory;
     
