@@ -35,11 +35,12 @@
             <div id="header"><img src="images/logo.png" alt="hotellogo" /><div class="cls"></div></div>
             <div class="innercontent">
 
-                <c:if test="#{login.loggedin()}">
-                    <!-- only displayed when user is logged in -->
-                    <div id="logoutbox">
-                        <span><h:link value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"></h:link> <!--<a href="#">logout</a> --> | <h:link value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:link> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
-                </c:if>
+                <div id="logoutbox">
+                    <c:if test="#{login.loggedin}">
+                        <span><h:form><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"/> <h:outputText value=" | "/> <h:commandLink value="Change your information" action="#{login.changeUserData()}" actionListener="#{login.changeUserDataListener}"/></h:form></span><div class="cls"> </div>
+                    </c:if>
+                </div>
+
                 <div id="slideshowarea">
                     <div id="slides">
                         <div class="slides_container">
@@ -73,7 +74,7 @@
                 <div id="pagecontent">
                     <div class="sepparator"></div>
                     <c:choose>
-                        <c:when test="#{login.loggedin()}">
+                        <c:when test="#{login.loggedin}">
                             <ui:insert name="content"></ui:insert>
                         </c:when>
                         <c:otherwise>
