@@ -26,12 +26,15 @@ public class DBGuest extends DBParty implements Serializable
     @Basic(optional = false)
     @Column(name = "fname", nullable = false, length = 255)
     private String fname;
+    
     @Basic(optional = false)
     @Column(name = "lname", nullable = false, length = 255)
     private String lname;
+    
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
+    
     private static final long serialVersionUID = 1;
     @JoinTable(name = "allocations", joinColumns =
     {
