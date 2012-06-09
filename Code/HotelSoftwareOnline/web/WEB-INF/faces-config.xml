@@ -41,17 +41,17 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/reservationOverview.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>finishedReservation</from-outcome>
+            <to-view-id>/reservationFinished.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/changeInvoiceAddress.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toOverview</from-outcome>
             <to-view-id>/reservationOverview.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/reservationOverview.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>finishedReservation</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

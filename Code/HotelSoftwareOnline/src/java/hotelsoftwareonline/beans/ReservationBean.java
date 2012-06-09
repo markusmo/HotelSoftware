@@ -13,10 +13,10 @@ import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftwareonline.controller.ReservationController;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -204,8 +204,30 @@ public class ReservationBean implements Serializable
     {
         return ReservationController.getBoardCategories();
     }
-
-    //TODO implement
+    
+    /**
+     * Gibt den totalen Preis für eine Reservierung aus.
+     * @return der Preis der Reservierung als String.
+     */
+    public String getTotalPrice()
+    {
+        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.GERMANY);
+        DecimalFormatSymbols symbols = currencyFormat.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator(' ');
+        symbols.setDecimalSeparator(',');
+        currencyFormat.setMinimumFractionDigits(2);
+        currencyFormat.setDecimalFormatSymbols(symbols);
+        
+        double price = 0;
+        
+        for(ReservationItemBean item : this.items)
+        {
+            price += item.getPriceOfReservationItem();
+        }
+        
+        return currencyFormat.format(price);
+    }
+    
     public ArrayList<String> getReservableExtraServices()
     {
         return ReservationController.getReservableExtraServices();
@@ -282,16 +304,6 @@ public class ReservationBean implements Serializable
         }
         ReservationItemBean item = new ReservationItemBean();
         items.add(item);
-    }
-
-    /**
-     * Speichert
-     *
-     * @return
-     */
-    public String safeReservation()
-    {
-        return "reservationsuccess";
     }
 
     private Date convertToDate(String date)
