@@ -21,7 +21,7 @@ public class DBCustomer extends DBParty implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch= FetchType.EAGER)
     private Set<DBInvoice> invoicesCollection;
     
     @JoinColumn(name = "idAddresses", referencedColumnName = "id", nullable = false)
