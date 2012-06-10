@@ -14,95 +14,99 @@
     <ui:define name="content">
         <h:form id="rechnungsansicht">
             <h:panelGrid columns="1">
-                <h:panelGrid columns="1">
-
+                <h:panelGrid columns="2">
                     <c:choose>
-                    <c:when test="${login.isPrivateCustomer()}">
-                        <h:outputText value="#{privatecustomer.lname}" />
-                        <h:outputText value="#{privatecustomer.fname}" />
-                    </c:when>
-                    <c:otherwise>
-                         <h:outputText value="#{company.name}" />
-                    </c:otherwise>
-                </c:choose>
+                        <c:when test="${login.privateCustomer}">
+                            <h:outputText value="Lastname: "/>
+                            <h:outputText value="#{privatecustomer.lname}" />
+                            <h:outputText value="Firstname: "/>
+                            <h:outputText value="#{privatecustomer.fname}" />
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputText value="Companies name: "/>
+                            <h:outputText value="#{company.name}" />
+                        </c:otherwise>
+                    </c:choose>
+                    <h:outputText value="Street: "/>
                     <h:outputText value="#{login.customer.address.street}"/>
+                    <h:outputText value="Zip: "/>
                     <h:outputText value="#{login.customer.address.zip}"/>
+                    <h:outputText value="City: "/>
                     <h:outputText value="#{login.customer.address.city}"/>
+                    <h:outputText value="Email: "/>
                     <h:outputText value="#{login.customer.address.email}"/>
+                    <h:outputText value="Phone: "/>
                     <h:outputText value="#{login.customer.address.phone}"/>
+                    <h:outputText value="Fax: "/>
                     <h:outputText value="#{login.customer.address.fax}"/>
                 </h:panelGrid>
-                <h:outputText value="-------------------------"/>
+                <hr style="float:left;width:100%"/><div style="clear:both"></div>
 
 
                 <h:panelGrid columns="2">
+                    <h:outputText value="Check-in date: "/>
                     <h:outputText value="#{reservation.startDate}"/>
+                    <h:outputText value="Check-out date: "/>
                     <h:outputText value="#{reservation.endDate}"/>
                 </h:panelGrid>
 
-                <h:outputText value="-------------------------"/>
+                <hr style="float:left;width:100%"/><div style="clear:both"></div>
 
-                <h:dataTable id="Ausgabeform" value="#{reservation.items}">
+                <h:dataTable id="Ausgabeform" value="#{reservation.items}" var="item"
+                             styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
 
                     <h:column>
-                        <f:facet name="categoryname">
-                            <h:outputText value="Category" />
+                        <f:facet name="header">
+                            Category
                         </f:facet> 
-                        <h:outputText value="#{items.category.name}"></h:outputText>
+                        <h:outputText value="#{item.category}"></h:outputText>
                     </h:column>
 
 
                     <h:column>
-                        <f:facet name="number">
-                            <h:outputText value="Number" />
+                        <f:facet name="header">
+                            Board category
                         </f:facet> 
-                        <h:outputText value="#{items.nummer}"></h:outputText>
+                        <h:outputText value="#{item.boardCategory}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="amount">
-                            <h:outputText value="Amount" />
+                        <f:facet name="header">
+                            Amount
                         </f:facet> 
-                        <h:outputText value="#{items.amount}"></h:outputText>
+                        <h:outputText value="#{item.amount}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="extraService">
-                            <h:outputText value="ExtraServices" />
+                        <f:facet name="header">
+                            Extra services assigned
                         </f:facet> 
 
-                        <h:dataTable id="Extraservices" value="#{items.extraServices}">
-
-                            <h:column>
-                                <f:facet name="extraName">
-                                    <h:outputText value="Name" />
-                                </f:facet> 
-                                <h:outputText value="#{extraServices.name}"></h:outputText>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="extraPrice">
-                                    <h:outputText value="Price" />
-                                </f:facet> 
-                                <h:outputText value="#{extraServices.price}"></h:outputText>
-                            </h:column>
-
-                        </h:dataTable>
+                        <ui:repeat value="#{item.extraServices}" var="es">
+                            <h:outputText value="#{es}"/>
+                        </ui:repeat>
 
                     </h:column>
 
                 </h:dataTable>
-                <h:outputText value="-------------------------"/>
+                <hr style="float:left;width:100%"/><div style="clear:both"></div>
+
                 <h:panelGrid columns="2">
-                    <h:outputText value="Total:" />
-                    <h:outputText value="GESAMMTBTRAG funktion bitte du ausf¸hren" />
+                    <h:outputText value="Total amount in Euros:" />
+                    <h:outputText value="#{reservation.totalPrice}" />
                 </h:panelGrid>
-                <h:outputText value="-------------------------"/>
-                <h:panelGrid columns="2">
-                    <h:outputText value="Comment:"/>
-                    <h:outputText value="#{reservation.commentary}"/>
-                </h:panelGrid>
-                <h:outputText value="-------------------------"/>
+                <hr style="float:left;width:100%"/><div style="clear:both"></div>
+                <c:if test="${not empty reservation.commentary}">
+
+                    <hr style="float:left;width:100%"/><div style="clear:both"></div>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Commentary:"/>
+                        <h:outputText value="#{reservation.commentary}"/>
+                    </h:panelGrid>
+                    <hr style="float:left;width:100%"/><div style="clear:both"></div>
+                </c:if>
 
                 <h:panelGrid columns="2">
                     <h:commandButton value="Back"/>
