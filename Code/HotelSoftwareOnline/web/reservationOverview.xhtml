@@ -84,12 +84,9 @@
                             Extra services assigned
                         </f:facet> 
 
-                        <h:panelGrid id="extraservicetable" columns="2">
-                            <c:forEach items="#{item.extraServices}" var="es">
-                                <h:outputLabel value="${es}"/>
-                                <h:outputLabel value="#{item.priceForExtraService(es)}"/>
-                            </c:forEach>
-                        </h:panelGrid>
+                        <ui:repeat value="#{item.extraServices}" var="es">
+                            <h:outputText value="#{es}"/>
+                        </ui:repeat>
 
                     </h:column>
 
@@ -110,7 +107,7 @@
                     </h:panelGrid>
                     <hr style="float:left;width:100%"/><div style="clear:both"></div>
                 </c:if>
-                
+
                 <h:panelGrid columns="2">
                     <h:commandButton value="Back"/>
                     <h:commandButton value="Finish"

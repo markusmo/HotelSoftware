@@ -23,6 +23,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -183,6 +186,12 @@ public class ReservationBean implements Serializable
 
         ReservationController.saveReservation(reservation);
 
+        /*
+         * Emailverschicken
+         */
+        
+        //sendmail();
+        
         return "finishedReservation";
     }
 
@@ -314,5 +323,56 @@ public class ReservationBean implements Serializable
         c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
         d.setTime(c.getTimeInMillis());
         return d;
+    }
+    
+    /**
+     * sendmail schickt via ssl
+     */
+    private void sendmail()
+    {
+        //Vielleicht neuer mailserver :-D
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator()
+                {
+
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication()
+                    {
+                        //hier noch username und password aus config lesen o.O
+                        return new PasswordAuthentication("username", "password");
+                    }
+                });
+
+        try
+        {
+
+            Message message = new MimeMessage(session);
+            //Email von Hotel hier :-D
+            message.setFrom(new InternetAddress("hotel_de_la_fleur@roomanizer.com"));
+            //Empfänger hier
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse("markus.mohanty@students.fhv.at"+","+"markus.mo@gmx.net"));
+            //Betreff hier
+            message.setSubject("Reservierungsbestätigung");
+            /*
+             * Nachricht hier 
+             */
+            message.setText("password"
+                    + "\n\n" );
+
+            Transport.send(message);
+
+        } catch (MessagingException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
