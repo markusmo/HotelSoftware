@@ -37,7 +37,7 @@
 
                 <div id="logoutbox">
                     <c:if test="#{login.loggedin}">
-                        <span><h:form><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"/> <h:outputText value=" | "/> <h:commandLink value="Change your information" action="#{login.changeUserData()}" actionListener="#{login.changeUserDataListener}"/></h:form></span><div class="cls"> </div>
+                        <span><h:link value="Logout" outcome="#{login.logout()}"/> <h:outputText value=" | "/> <h:link value="Change your information" outcome="#{login.changeUserData()}"/></span><div class="cls"> </div>
                     </c:if>
                 </div>
 

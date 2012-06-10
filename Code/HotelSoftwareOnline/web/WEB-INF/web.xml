@@ -4,12 +4,12 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <!-- insert start: speichert den ganzen status einer seite -->
+    <!-- insert start: speichert den ganzen status einer seite 
     <context-param>
         <param-name>javax.faces.FULL_STATE_SAVING_VIEW_IDS</param-name>
         <param-value>reservation.xhtml</param-value>
     </context-param>
-    <!--insert end -->
+    insert end -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
