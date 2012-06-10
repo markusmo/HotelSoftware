@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,6 +23,7 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class LoginBean implements Serializable
 {
+
     private CustomerBean customer;
     private String password;
     private String loginButton;
@@ -30,7 +32,9 @@ public class LoginBean implements Serializable
 
     public LoginBean()
     {
-        customer = new CustomerBean() {};
+        customer = new CustomerBean()
+        {
+        };
     }
 
     public String getPassword()
@@ -65,24 +69,27 @@ public class LoginBean implements Serializable
 
     /**
      * Eventlistener zum ändern der Userdaten
+     *
      * @param event das Event vom JSF
      */
     public void changeUserDataListener(ActionEvent event)
     {
         this.changeUserData = event.getComponent().getClientId();
     }
-    
+
     /**
      * Eventlistener für Loginbutton
+     *
      * @param event das Event vom JSF
      */
     public void loginButtonListener(ActionEvent event)
     {
         this.loginButton = event.getComponent().getClientId();
     }
-    
+
     /**
      * Eventlistener für Logout-Link
+     *
      * @param event das Event vom JSF
      */
     public void logoutButtonListener(ActionEvent event)
@@ -101,25 +108,23 @@ public class LoginBean implements Serializable
         {
             CustomerLoginController controller = new CustomerLoginController();
             CustomerBean temp = controller.login(getUsername(), this.password);
-            
+
             /*
              * Bean in die Session stecken :-D
              * http://www.javabeat.net/qna/115-how-to-get-or-set-the-jsf-managed-bean-in-the/
              */
-            if(temp instanceof PrivateCustomerBean)
+            if (temp instanceof PrivateCustomerBean)
             {
                 PrivateCustomerBean pcb = (PrivateCustomerBean) temp;
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("privatecustomer",pcb);
-            }
-            else
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("privatecustomer", pcb);
+            } else
             {
                 CompanyBean cb = (CompanyBean) temp;
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("company", cb);
             }
             this.customer = temp;
             return "loggedin";
-        }
-        catch (LoginFailureException ex)
+        } catch (LoginFailureException ex)
         {
             Logger.getLogger(LoginBean.class.getName()).log(Level.INFO, null, ex);
             return "loginfailed";
@@ -128,27 +133,30 @@ public class LoginBean implements Serializable
 
     /**
      * Überprüft ob ein Kunde eingeloggt ist oder nicht.
-     * @return <code>true</code> wenn eingeloggt <code>false</code> wenn nicht eingeloggt
+     *
+     * @return
+     * <code>true</code> wenn eingeloggt
+     * <code>false</code> wenn nicht eingeloggt
      */
     public boolean isLoggedin()
     {
-       if(customer instanceof PrivateCustomerBean || customer instanceof CompanyBean)
-       {
-           return true;
-       } 
-       
-       return false;
+        if (customer instanceof PrivateCustomerBean || customer instanceof CompanyBean)
+        {
+            return true;
+        }
+
+        return false;
     }
-    
+
     /**
      * Überprüft ob es ein PrivateCustomer ist oder nicht...
+     *
      * @return True wenn PrivateCustomer
      */
     public boolean isPrivateCustomer()
     {
         return customer instanceof PrivateCustomerBean;
     }
-    
 
     /**
      * Logt einen User aus
@@ -157,18 +165,23 @@ public class LoginBean implements Serializable
      */
     public String logout()
     {
-        customer = new CustomerBean() {};
+        customer = new CustomerBean()
+        {
+        };
+        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        httpSession.invalidate();
         return "loggedout";
     }
-    
+
     /**
-     * Je nach dem, wenn eine Firma eingeloggt ist, wird "changeCompanyData" ausgegeben,
-     * sonst wird "changePrivateCustomerData" ausgegeben
-     * @return 
+     * Je nach dem, wenn eine Firma eingeloggt ist, wird "changeCompanyData"
+     * ausgegeben, sonst wird "changePrivateCustomerData" ausgegeben
+     *
+     * @return
      */
     public String changeUserData()
     {
-        if(customer instanceof PrivateCustomerBean)
+        if (customer instanceof PrivateCustomerBean)
         {
             return "changePrivateCustomerData";
         }

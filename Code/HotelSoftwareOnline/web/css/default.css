@@ -100,6 +100,31 @@ h4 {
 	vertical-align:middle;
 }
 
+#login, #invoiceAddressData, #rechnungsansicht {
+	text-align:center;
+}
+
+#login table, #invoiceAddressData table, #rechnungsansicht table {
+	margin:0 auto;
+	text-align:left;	
+}
+
+input[type=submit], input[type=button] {
+	border:2px solid;
+	border-color: #ebffff #ebffff #33cccc #33cccc;
+	font-weight:bold;
+	background:#daffff;
+}
+
+input[type=submit]:hover, input[type=button]:hover {
+	/*border-color: #33cccc #33cccc #ebffff #ebffff;*/
+	background:#aaffff;
+}
+
+input[type=text], input[type=email], input[type=password], select {
+	width:225px;
+}
+
 a:link, a:visited {
 	color: #33cccc;
 	font-weight : bold;
