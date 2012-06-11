@@ -1,14 +1,6 @@
-Introduction
-What is all about?
+Markus Bilder
+Schichtenmodell
 
-Dynamic Mapper:
-
-JSF with Ajax:
-- eventuell Vorteile für uns
-- unser Einsatzgebiet (web-reservation)
-
-Project Trend
-- Developement, trend, improvements?
-
-Outlook
-- What would be done?
+Johannes Bilder
+Integration/Adapter
+JSF/AJAX (sowohl einzeln, als auch im Zusammenspiel)
