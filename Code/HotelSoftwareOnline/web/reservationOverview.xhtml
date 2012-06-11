@@ -109,7 +109,9 @@
                 </c:if>
 
                 <h:panelGrid columns="2">
-                    <h:commandButton value="Back"/>
+                    <h:commandButton value="Back"
+                                     action="#{reservation.backToChangeInvoiceAddress}"
+                                     actionListener="#{reservation.backToChangeInvoiceAddressListener}"/>
                     <h:commandButton value="Finish"
                                      action="#{reservation.finishReservation}"
                                      actionListener="#{reservation.finishListener}"/>
