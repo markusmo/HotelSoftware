@@ -46,12 +46,20 @@
             <from-outcome>finishedReservation</from-outcome>
             <to-view-id>/reservationFinished.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>backtochangeinvoiceaddress</from-outcome>
+            <to-view-id>/changeInvoiceAddress.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/changeInvoiceAddress.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>toOverview</from-outcome>
             <to-view-id>/reservationOverview.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>backtoreservation</from-outcome>
+            <to-view-id>/reservation.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
