@@ -23,7 +23,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -381,19 +384,10 @@ public class ReservationBean implements Serializable
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.auth", "false");
         props.put("mail.smtp.port", "465");
 
-        Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator()
-                {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication()
-                    {
-                        //hier noch username und password aus config lesen o.O
-                        return new PasswordAuthentication("username", "password");
-                    }
-                });
+        Session session = Session.getDefaultInstance(props);
 
         try
         {
@@ -409,8 +403,9 @@ public class ReservationBean implements Serializable
             /*
              * Nachricht hier
              */
-            message.setText("password"
-                    + "\n\n");
+            String mail = "This is a test mail.";
+            
+            message.setText(mail);
 
             Transport.send(message);
 
