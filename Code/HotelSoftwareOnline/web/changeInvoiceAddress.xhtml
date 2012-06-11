@@ -61,7 +61,9 @@
             </h:panelGrid>
 
             <h:panelGrid columns="2">
-                <h:commandButton value="Back" />
+                <h:commandButton value="Back" 
+                                 action="#{reservation.backToReservation}"
+                                 actionListener="#{reservation.backToReservationListener}"/>
                 <h:commandButton value="Next step" 
                                  action="#{reservation.toOverview}"
                                  actionListener="#{reservation.overviewListener}"/>

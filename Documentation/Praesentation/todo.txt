@@ -1,15 +1,21 @@
 Markus Bilder
 Schichtenmodell
 
-Johannes Bilder
+Johannes Bilder, ajax (warum, wie bei uns)+ Doku
 Integration/Adapter
 JSF/AJAX (sowohl einzeln, als auch im Zusammenspiel)
 
 Hubert fehlt
-Introduction (Team, Projekt,...)
+Introduction (Team, Projekt,...) --> Requirements/Pflichtenheft kurz Zusammenfassen, Erweiterung erwähnen
 Technical Overview
 
 Tobias: etwas wenig
 Projektmanagement (Zeitplan, Qualitätssicherung,...)
 Outlook
-Summary
+Summary (über Kundenpräsentation, Technischer Part)
+eventuell eigenes Summary für Kundenteil
+--> rein raus fliegen der Bilder Projektmanagement
+
+Christian
+- GUI etwas wenig
+- StatePattern (bild: hintergrund neu)

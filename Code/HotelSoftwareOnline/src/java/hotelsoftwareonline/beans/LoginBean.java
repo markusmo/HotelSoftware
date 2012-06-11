@@ -13,7 +13,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -168,8 +167,7 @@ public class LoginBean implements Serializable
         customer = new CustomerBean()
         {
         };
-        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        httpSession.invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "loggedout";
     }
 

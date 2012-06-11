@@ -43,6 +43,8 @@ public class ReservationBean implements Serializable
     private String changeInvoiceAddress;
     private String overview;
     private String finish;
+    private String backToChangeInvoiceAddress;
+    private String backToReservation;
 
     public ReservationBean()
     {
@@ -62,9 +64,51 @@ public class ReservationBean implements Serializable
     }
 
     /**
+     * Listener für den Knopf zurück zum vorherigen Schritt -> Reservierung ändern.
+     *
+     * @param event das Event vom JSF
+     */
+    public void backToReservationListener(ActionEvent event)
+    {
+        this.backToReservation = event.getComponent().getClientId();
+    }
+
+    /**
+     * Zum vorherigen Schritt -> Rechnungsaddresse ändern
+     *
+     * @return
+     * <code>"backtoreservation"</code>
+     */
+    public String backToReservation()
+    {
+        return "backtoreservation";
+    }
+
+    /**
+     * Listener für den Knopf zurück zum vorherigen Schritt -> Rechnungsaddresse ändern.
+     *
+     * @param event das Event vom JSF
+     */
+    public void backToChangeInvoiceAddressListener(ActionEvent event)
+    {
+        this.backToChangeInvoiceAddress = event.getComponent().getClientId();
+    }
+
+    /**
+     * Zum vorherigen Schritt -> Rechnungsaddresse ändern
+     *
+     * @return
+     * <code>"backtochangeinvoiceaddress"</code>
+     */
+    public String backToChangeInvoiceAddress()
+    {
+        return "backtochangeinvoiceaddress";
+    }
+
+    /**
      * Actionlistener für nächsten Schritt -> Rechnungsadresse ändern
      *
-     * @param event
+     * @param event das Event vom JSF
      */
     public void addressChangeListener(ActionEvent event)
     {
@@ -85,7 +129,7 @@ public class ReservationBean implements Serializable
     /**
      * Actionlistener für nächsten Schritt -> zum Überblick
      *
-     * @param event
+     * @param event das Event vom JSF
      */
     public void overviewListener(ActionEvent event)
     {
@@ -106,7 +150,7 @@ public class ReservationBean implements Serializable
     /**
      * Actionlistener für nächsten Schritt -> zum index.html
      *
-     * @param event
+     * @param event das Event vom JSF
      */
     public void finishListener(ActionEvent event)
     {
@@ -174,10 +218,10 @@ public class ReservationBean implements Serializable
 
             services.add(boardCategory);
             resItem.setReservedExtraServices(services);
-            
+
             resItem.setReservationitemsPK(new ReservationItemPK());
             resItem.getReservationitemsPK().setIdRoomCategories(resItem.getRoomCategory().getId());
-            
+
             resItems.add(resItem);
         }
 
@@ -189,9 +233,9 @@ public class ReservationBean implements Serializable
         /*
          * Emailverschicken
          */
-        
+
         //sendmail();
-        
+
         return "finishedReservation";
     }
 
@@ -213,9 +257,10 @@ public class ReservationBean implements Serializable
     {
         return ReservationController.getBoardCategories();
     }
-    
+
     /**
      * Gibt den totalen Preis für eine Reservierung aus.
+     *
      * @return der Preis der Reservierung als String.
      */
     public String getTotalPrice()
@@ -226,17 +271,17 @@ public class ReservationBean implements Serializable
         symbols.setDecimalSeparator(',');
         currencyFormat.setMinimumFractionDigits(2);
         currencyFormat.setDecimalFormatSymbols(symbols);
-        
+
         double price = 0;
-        
-        for(ReservationItemBean item : this.items)
+
+        for (ReservationItemBean item : this.items)
         {
             price += item.getPriceOfReservationItem();
         }
-        
+
         return currencyFormat.format(price);
     }
-    
+
     public ArrayList<String> getReservableExtraServices()
     {
         return ReservationController.getReservableExtraServices();
@@ -324,7 +369,7 @@ public class ReservationBean implements Serializable
         d.setTime(c.getTimeInMillis());
         return d;
     }
-    
+
     /**
      * sendmail schickt via ssl
      */
@@ -342,7 +387,6 @@ public class ReservationBean implements Serializable
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator()
                 {
-
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication()
                     {
@@ -359,18 +403,19 @@ public class ReservationBean implements Serializable
             message.setFrom(new InternetAddress("hotel_de_la_fleur@roomanizer.com"));
             //Empfänger hier
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("markus.mohanty@students.fhv.at"+","+"markus.mo@gmx.net"));
+                    InternetAddress.parse("markus.mohanty@students.fhv.at" + "," + "markus.mo@gmx.net"));
             //Betreff hier
             message.setSubject("Reservierungsbestätigung");
             /*
-             * Nachricht hier 
+             * Nachricht hier
              */
             message.setText("password"
-                    + "\n\n" );
+                    + "\n\n");
 
             Transport.send(message);
 
-        } catch (MessagingException e)
+        }
+        catch (MessagingException e)
         {
             throw new RuntimeException(e);
         }
