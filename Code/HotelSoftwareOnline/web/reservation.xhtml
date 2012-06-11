@@ -11,25 +11,25 @@
         Reservation
     </ui:define>
     <ui:define name="content">
-        <h:form id="reservationForm">
+        <h:form>
             <div id="reservation">
                 <h1>Reservation</h1>
                 <br/>  
                 <h3>Select the wanted period</h3>
                 <div id="periode">  
                     <h:outputLabel>Start Date: </h:outputLabel> 
-                    <h:inputText class="datepicker startDate" id="startDate" value="#{reservation.startDate}">
-                        <f:ajax render="reservationForm:render"/>
+                    <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
+                        <f:ajax render="render"/>
                     </h:inputText>
                     <h:outputLabel>End Date: </h:outputLabel> 
-                    <h:inputText class="datepicker endDate" id="endDate" value="#{reservation.endDate}">
-                        <f:ajax render="reservationForm:render"/>
+                    <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate">
+                        <f:ajax render="render"/>
                     </h:inputText>
                     <!--http://www.snyderplace.com/demos/collapsible.html-->
                 </div>
                 <br/><br/> 
                 <h:panelGroup id="render" layout="block">
-                    <div class="reservationContent">
+                    <div id="reservationContent">
                         <div id="commentary">
                             <h:outputLabel>Reservation commentary: </h:outputLabel>
                             <h:inputTextarea value="#{reservation.commentary}"></h:inputTextarea>
@@ -84,7 +84,7 @@
                                     <div class="addReservationItemBox">
                                     <strong>Add another room: </strong>
                                     <h:commandButton id="addReservationItem" image="images/buttons/add.png" action="#{reservation.addReservationItem()}" title="add a reservation item">
-                                        <f:ajax render="form:render"/>
+                                        <f:ajax render="render"/>
                                     </h:commandButton>
                                     </div>
                                 </c:otherwise>
@@ -96,11 +96,11 @@
                         </div>
                         <br/><br/>
                     </div>
-                    <!--<script>$('.collapsible').collapsible();$('.collapsible').last().collapsible("open");</script>-->
+                    <script>$('.collapsible').collapsible();$('.collapsible').last().collapsible("open");</script>
                 </h:panelGroup>
                 <br/><br/>
                 <h:commandButton id="reservationNext" 
-                                 value="Next step" 
+                                 value="Next Step" 
                                  action="#{reservation.addressChange}"
                                  class="nextButton"
                                  actionListener="#{reservation.addressChangeListener}">

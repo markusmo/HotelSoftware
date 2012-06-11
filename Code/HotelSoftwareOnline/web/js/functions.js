@@ -28,16 +28,16 @@ $(function()
 
 $(document).ready(function(e) {
     $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
-    $(".startDate").change(checkPeriod);
-    $(".endDate").change(checkPeriod);
+    $("#startDate").change(checkPeriod);
+    $("#endDate").change(checkPeriod);
 	
 	//collapsible management
 	//$('.collapsible').collapsible();
 });
 
 function checkPeriod() {
-    if ($(".startDate").val() != "" && $(".endDate").val() != "") {
-        $(".reservationContent").css("display", "block");
+    if ($("#startDate").val() != "" && $("#endDate").val() != "") {
+        $("#reservationContent").css("display", "block");
     }
 }
 
