@@ -4,3 +4,12 @@ Schichtenmodell
 Johannes Bilder
 Integration/Adapter
 JSF/AJAX (sowohl einzeln, als auch im Zusammenspiel)
+
+Hubert fehlt
+Introduction (Team, Projekt,...)
+Technical Overview
+
+Tobias: etwas wenig
+Projektmanagement (Zeitplan, Qualitätssicherung,...)
+Outlook
+Summary
