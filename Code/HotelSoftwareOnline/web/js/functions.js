@@ -25,21 +25,20 @@ $(function()
         });
     });
 
+
 $(document).ready(function(e) {
     $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
     $("#startDate").change(checkPeriod);
     $("#endDate").change(checkPeriod);
+	
+	//collapsible management
+	//$('.collapsible').collapsible();
 });
 
 function checkPeriod() {
     if ($("#startDate").val() != "" && $("#endDate").val() != "") {
         $("#reservationContent").css("display", "block");
     }
-}
-
-function toggle(id)
-{
-    $("#"+id).toggle();
 }
 
 // Klassen usw. die mit JS manipuliert werden sollen: error (rot,...), periode, 

@@ -18,10 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DBExtraService extends DBService implements Serializable
 {
-    @JoinColumn(name = "idServices", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private DBService dBService;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dBExtraService")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "extraService", fetch= FetchType.EAGER)
     private Set<DBReservedExtraServices> reservedextraservicesSet;
     private static final long serialVersionUID = 1L;
     
@@ -32,15 +29,13 @@ public class DBExtraService extends DBService implements Serializable
     @Basic(optional = false)
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+    
+    @Basic(optional = false)
+    @Column(name = "reservable", nullable = false)
+    private Boolean reservable;
 
     public DBExtraService()
     {
-    }
-
-    public DBExtraService(Integer id, String name, BigDecimal price)
-    {
-        this.name = name;
-        this.price = price;
     }
 
     public String getName()
@@ -51,6 +46,16 @@ public class DBExtraService extends DBService implements Serializable
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public Boolean getReservable()
+    {
+        return reservable;
+    }
+
+    public void setReservable(Boolean reservable)
+    {
+        this.reservable = reservable;
     }
 
     public BigDecimal getPrice()
@@ -67,16 +72,6 @@ public class DBExtraService extends DBService implements Serializable
     public String toString()
     {
         return "hotelsoftware.database.model.Extraservices[ id=" + getIdServices() + " ]";
-    }
-
-    public DBService getDBService()
-    {
-        return dBService;
-    }
-
-    public void setDBService(DBService dBService)
-    {
-        this.dBService = dBService;
     }
 
     @XmlTransient

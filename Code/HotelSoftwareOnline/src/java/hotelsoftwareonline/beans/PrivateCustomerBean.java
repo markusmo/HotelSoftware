@@ -4,6 +4,10 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.Customer;
+import hotelsoftware.model.domain.parties.ICustomer;
+import hotelsoftware.model.domain.parties.IPrivateCustomer;
+import hotelsoftware.model.domain.parties.PrivateCustomer;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,15 +20,14 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PrivateCustomerBean extends CustomerBean implements Serializable
 {
-    private AddressBean address;
-    private AddressBean invoiceAddress;
     private String lname;
     private String fname;
     private Character gender;
 
+    @Override
     public AddressBean getAddress()
     {
-        return address;
+        return super.getAddress();
     }
 
     @Override
@@ -39,9 +42,10 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
         super.setUsername(username);
     }
     
+    @Override
     public void setAddress(AddressBean address)
     {
-        this.address = address;
+        super.setAddress(address);
     }
 
     public String getFname()
@@ -64,14 +68,16 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
         this.gender = gender;
     }
 
+    @Override
     public AddressBean getInvoiceAddress()
     {
-        return invoiceAddress;
+        return super.getInvoiceAddress();
     }
 
+    @Override
     public void setInvoiceAddress(AddressBean invoiceAddress)
     {
-        this.invoiceAddress = invoiceAddress;
+        super.setInvoiceAddress(invoiceAddress);
     }
 
     public String getLname()

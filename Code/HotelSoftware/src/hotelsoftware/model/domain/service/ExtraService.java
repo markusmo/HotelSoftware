@@ -14,6 +14,7 @@ import java.util.Set;
 public class ExtraService extends Service implements IExtraService
 {
     private String name;
+    private Boolean reservable;
     
     public ExtraService()
     {
@@ -29,6 +30,18 @@ public class ExtraService extends Service implements IExtraService
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    @Override
+    public Boolean getReservable()
+    {
+        return reservable;
+    }
+
+    @Override
+    public void setReservable(Boolean reservable)
+    {
+        this.reservable = reservable;
     }
 
     @Override

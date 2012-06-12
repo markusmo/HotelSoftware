@@ -8,21 +8,18 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="css/default.css" rel="stylesheet" type="text/css" />
         <link href="css/collapse.css" rel="stylesheet" type="text/css" />
         <link href="css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="css/default.css" type="text/css" rel="stylesheet" />
         <link href="css/global.css" type="text/css" rel="stylesheet" />
         <link href="css/jquery-ui-1.8.20.custom.css" type="text/css" rel="stylesheet" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <script src="js/slides.min.jquery.js" type="text/javascript"></script>
         <script src="js/jquery-ui-1.8.20.custom.min.js" type="text/javascript"></script>
-        <script src="js/functions.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery.cookie.min.js"></script>
+        <script type="text/javascript" src="js/jquery.collapsible.min.js"></script>
 
-        <script type="text/javascript" src="javascript/jquery.cookie.min.js"></script>
-        <script type="text/javascript" src="javascript/jquery.collapsible.min.js"></script>
+        <script src="js/functions.js" type="text/javascript"></script>        
         <title>
             <ui:insert name="title">
                 Online Reservation
@@ -35,11 +32,12 @@
             <div id="header"><img src="images/logo.png" alt="hotellogo" /><div class="cls"></div></div>
             <div class="innercontent">
 
-                <c:if test="#{login.loggedin()}">
-                    <!-- only displayed when user is logged in -->
-                    <div id="logoutbox">
-                        <span><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"></h:commandLink> <!--<a href="#">logout</a> --> | <h:commandLink value="change userdata" action="#{login.changeUserData}" actionListener="#{login.changeUserDataListener}"></h:commandLink> <!--<a href="#">change userdata</a>--></span><div class="cls"> </div></div>
-                </c:if>
+                <div id="logoutbox">
+                    <c:if test="#{login.loggedin}">
+                        <span><h:form><h:commandLink value="Logout" action="#{login.logout()}" actionListener="#{login.logoutButtonListener}"/> <h:outputText value=" | "/> <h:commandLink value="Change your information" action="#{login.changeUserData()}" actionListener="#{login.changeUserDataListener}"/></h:form></span><div class="cls"> </div>
+                    </c:if>
+                </div>
+
                 <div id="slideshowarea">
                     <div id="slides">
                         <div class="slides_container">
@@ -72,7 +70,33 @@
                 </div>
                 <div id="pagecontent">
                     <div class="sepparator"></div>
-                    <ui:insert name="content"></ui:insert>
+                    <c:choose>
+                        <c:when test="#{login.loggedin}">
+                            <ui:insert name="content"></ui:insert>
+                        </c:when>
+                        <c:otherwise>
+                            <h:form id="login">
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="2">
+
+                                        <h:outputText value="Username" />
+                                        <h:inputText id="user" value="#{login.username}"/>
+
+                                        <h:outputText value="Password" />
+                                        <h:inputSecret id="password" value="#{login.password}"/>
+
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2">
+                                        <h:commandButton value="Login" 
+                                                         action = "#{login.login}"
+                                                         actionListener="#{login.loginButtonListener}"/>
+                                        <h:commandButton value="Register" />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:form>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div id="footer"><a href="#">Legal notice</a></div>

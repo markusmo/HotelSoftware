@@ -3,8 +3,10 @@ package hotelsoftware.model.database.manager;
 import hotelsoftware.model.DynamicMapper;
 import hotelsoftware.model.database.reservation.DBReservation;
 import hotelsoftware.model.database.reservation.DBReservationItem;
+import hotelsoftware.model.database.reservation.DBReservedExtraServices;
 import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.reservation.IReservationItem;
+import hotelsoftware.model.domain.reservation.ReservedExtraServices;
 import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
@@ -153,13 +155,13 @@ public class ReservationManager
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
-    public void saveReservation(IReservation address)
+    public void saveReservation(IReservation reservation)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         t.begin();
 
-        saveReservation(address, session);
+        saveReservation(reservation, session);
 
         t.commit();
     }
@@ -167,11 +169,12 @@ public class ReservationManager
     public void saveReservation(IReservation reservation, Session session)
     {
         DBReservation dbr = (DBReservation) DynamicMapper.map(reservation);
+        Integer id;
 
         if (dbr.getId() == null)
         {
-            session.saveOrUpdate(dbr);
-            reservation.setId(dbr.getId());
+            id = (Integer) session.save(dbr);
+            reservation.setId(id);
         }
         else
         {
@@ -179,6 +182,23 @@ public class ReservationManager
         }
     }
 
+    public void saveReservedExtraService(ReservedExtraServices extraService)
+    {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        t.begin();
+
+        saveReservedExtraService(extraService, session);
+
+        t.commit();
+    }
+
+    public void saveReservedExtraService(ReservedExtraServices reservationItem, Session session)
+    {
+        DBReservedExtraServices dbres = (DBReservedExtraServices) DynamicMapper.map(reservationItem);
+        session.saveOrUpdate(dbres);
+    }
+    
     public void saveReservationItem(IReservationItem reservationItem)
     {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -193,7 +213,6 @@ public class ReservationManager
     public void saveReservationItem(IReservationItem reservationItem, Session session)
     {
         DBReservationItem dbri = (DBReservationItem) DynamicMapper.map(reservationItem);
-
         session.saveOrUpdate(dbri);
     }
 }

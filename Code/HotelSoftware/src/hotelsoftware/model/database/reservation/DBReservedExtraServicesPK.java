@@ -17,24 +17,17 @@ import javax.persistence.Embeddable;
 public class DBReservedExtraServicesPK implements Serializable
 {
     @Basic(optional = false)
-    @Column(name = "extraServices_idServices")
+    @Column(name = "idServices")
     private int extraServicesidServices;
     @Basic(optional = false)
-    @Column(name = "reservationItems_idReservations")
+    @Column(name = "idReservations")
     private int reservationItemsidReservations;
     @Basic(optional = false)
-    @Column(name = "reservationItems_idRoomCategories")
+    @Column(name = "idRoomCategories")
     private int reservationItemsidRoomCategories;
 
     public DBReservedExtraServicesPK()
     {
-    }
-
-    public DBReservedExtraServicesPK(int extraServicesidServices, int reservationItemsidReservations, int reservationItemsidRoomCategories)
-    {
-        this.extraServicesidServices = extraServicesidServices;
-        this.reservationItemsidReservations = reservationItemsidReservations;
-        this.reservationItemsidRoomCategories = reservationItemsidRoomCategories;
     }
 
     public int getExtraServicesidServices()

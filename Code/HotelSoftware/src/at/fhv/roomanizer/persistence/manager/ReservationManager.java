@@ -1,5 +1,6 @@
 package at.fhv.roomanizer.persistence.manager;
 
+import at.fhv.roomanizer.domain.reservation.IReservation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,7 +81,7 @@ public class ReservationManager extends Manager {
 	 * @param reservation, which will be stored/updated in the database
 	 * @throws Exception
 	 */
-	public void saveReservation(Reservation reservation) throws Exception {
+	public void saveReservation(IReservation reservation) throws Exception {
 		Transaction tx = _session.beginTransaction();
 		_session.merge(ObjectConverter.ConvertDomainToHibernate(reservation, new HashMap<Object, Object>()));
 		_session.flush();

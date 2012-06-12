@@ -6,6 +6,7 @@ package hotelsoftware.model.domain.reservation;
 
 import hotelsoftware.controller.data.room.RoomCategoryData;
 import hotelsoftware.model.domain.room.IRoomCategory;
+import java.util.Collection;
 
 /**
  *Diese Klasse beinhaltet die Items in einer Reservierung
@@ -17,6 +18,7 @@ public class ReservationItem implements IReservationItem
     private IRoomCategory reservedCategory;
     private IReservationItemPK reservationItemPK;
     private IReservation reservation;
+    private Collection<ReservedExtraServices> reservedExtraServices;
 
     public ReservationItem()
     {
@@ -84,5 +86,17 @@ public class ReservationItem implements IReservationItem
     public RoomCategoryData getReservedCategoryData()
     {
         return getRoomCategory();
+    }
+    
+    @Override
+    public Collection<ReservedExtraServices> getReservedExtraServices()
+    {
+        return reservedExtraServices;
+    }
+
+    @Override
+    public void setReservedExtraServices(Collection<ReservedExtraServices> reservedExtraServices)
+    {
+        this.reservedExtraServices = reservedExtraServices;
     }
 }

@@ -1,0 +1,47 @@
+I will show you some of the project management techniques we used in our project
+
+-Project management
+	*Kick-off Meeting
+	-Define basic parameters of the project
+	-such as documentation, code management
+
+	*PSP
+	-Get a basic overview over the different milestones of the project
+	
+	*Gantt-Chart
+	-Estimate of duration of different units
+	-Shows relationships of units
+
+	*Bottom-Up
+	-method used to create timeplan
+	-every member of the team rates work units in regards to risk, architectural relevance
+	userrelevance, developmentrelevance
+	-not anonymous
+	-result, especially votes that stray far from it are discussed
+
+	*Weekly report
+	-every week we had to fill out a weekly report, detailing our progress
+	-showed the issues we were working on including spent time
+
+	*Project risks
+	-summarized the project risks, such as a teammember getting sick
+	-not that necessary for our project, since only limited risks existed
+
+	*Closely working together
+	-Team met each other nearly daily
+	-programmed together in a room
+
+-Outlook
+	*Replacing
+	-Layersystem makes it easy to replace or upgrade single components
+	
+	*Integration of social media 
+	-would be an option worth thinking about
+	
+	*current website is rather basic
+	-introduction of reviews or vouchers could enhance it
+
+-Summary
+	*We hope this presentation was successful in explaining the various design decisions
+	our team made, and why we made them
+

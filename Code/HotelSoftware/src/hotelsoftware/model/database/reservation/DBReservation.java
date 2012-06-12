@@ -62,14 +62,14 @@ public class DBReservation implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
-    @JoinColumn(name = "idUsers", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch= FetchType.EAGER)
+    @JoinColumn(name = "idUsers", referencedColumnName = "id", nullable=true)
+    @ManyToOne(optional = true, fetch= FetchType.EAGER)
     private DBUser user;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "reservation", fetch= FetchType.EAGER)
     private Set<DBReservationItem> reservationItems;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "reservation", fetch= FetchType.EAGER)
     private Set<DBReservationOption> reservationOptions;
 
     @ManyToMany(mappedBy = "reservationsCollection", fetch= FetchType.EAGER)
@@ -138,7 +138,10 @@ public class DBReservation implements Serializable
 
     public void setReservationOptions(Collection<DBReservationOption> reservationOptions)
     {
-        this.reservationOptions = new LinkedHashSet<DBReservationOption>(reservationOptions);
+        if (reservationOptions != null)
+        {
+            this.reservationOptions = new LinkedHashSet<DBReservationOption>(reservationOptions);
+        }
     }
 
     public DBUser getUser()
