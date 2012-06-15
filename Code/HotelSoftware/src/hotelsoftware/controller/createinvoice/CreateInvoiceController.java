@@ -13,17 +13,22 @@ import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
+import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
+import hotelsoftware.model.domain.invoice.Invoice;
 import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.service.IHabitation;
 import hotelsoftware.util.HelperFunctions;
+import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -37,7 +42,7 @@ public class CreateInvoiceController implements UseCaseController
     private Collection<InvoiceItem> splittedItems;
 
     private ICustomer customer;
-    
+        
     //Cache:
     private Collection<CountryData> countries;
     private Collection<CompanyTypeData> types;
@@ -504,5 +509,21 @@ public class CreateInvoiceController implements UseCaseController
     void setCompanyTypes(Collection<CompanyTypeData> types)
     {
         this.types = types;
+    }
+    
+    /**
+     * saves an invoice and their items (splitted items)
+     *  
+     * @param invoice 
+     */
+    protected void saveInvoice(Invoice invoice) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        transaction.begin();
+        
+        InvoiceManager.getInstance().saveInvoice(invoice, session);
+        InvoiceManager.getInstance().saveInvoiceItems(HelperFunctions.castCollectionUp(getSplittedItems(), IInvoiceItem.class, InvoiceItem.class), session);
+        
+        transaction.commit();
     }
 }
