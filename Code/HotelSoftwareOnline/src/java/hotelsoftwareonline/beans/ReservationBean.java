@@ -12,6 +12,7 @@ import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftwareonline.controller.ReservationController;
+import hotelsoftwareonline.util.MailSender;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -23,10 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -233,11 +231,8 @@ public class ReservationBean implements Serializable
 
         ReservationController.saveReservation(reservation);
 
-        /*
-         * Emailverschicken
-         */
-
-        //sendmail();
+        MailSender sender = new MailSender();
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), commentary);
 
         return "finishedReservation";
     }
@@ -371,48 +366,5 @@ public class ReservationBean implements Serializable
         c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
         d.setTime(c.getTimeInMillis());
         return d;
-    }
-
-    /**
-     * sendmail schickt via ssl
-     */
-    private void sendmail()
-    {
-        //Vielleicht neuer mailserver :-D
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "false");
-        props.put("mail.smtp.port", "465");
-
-        Session session = Session.getDefaultInstance(props);
-
-        try
-        {
-
-            Message message = new MimeMessage(session);
-            //Email von Hotel hier :-D
-            message.setFrom(new InternetAddress("hotel_de_la_fleur@roomanizer.com"));
-            //Empfänger hier
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("markus.mohanty@students.fhv.at" + "," + "markus.mo@gmx.net"));
-            //Betreff hier
-            message.setSubject("Reservierungsbestätigung");
-            /*
-             * Nachricht hier
-             */
-            String mail = "This is a test mail.";
-            
-            message.setText(mail);
-
-            Transport.send(message);
-
-        }
-        catch (MessagingException e)
-        {
-            throw new RuntimeException(e);
-        }
     }
 }
