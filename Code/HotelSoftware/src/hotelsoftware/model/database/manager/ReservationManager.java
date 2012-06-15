@@ -146,7 +146,7 @@ public class ReservationManager
         Transaction ts = session.beginTransaction();
         ts.begin();
 
-        String query = "SELECT * FROM Reservations r";
+        String query = "SELECT * FROM Reservations r ORDER BY startDate";
         SQLQuery sqlquery = session.createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
 

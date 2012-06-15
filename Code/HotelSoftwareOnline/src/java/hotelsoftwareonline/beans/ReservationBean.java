@@ -12,6 +12,7 @@ import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftwareonline.controller.ReservationController;
+import hotelsoftwareonline.util.MailSender;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -23,10 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -233,11 +231,9 @@ public class ReservationBean implements Serializable
 
         ReservationController.saveReservation(reservation);
 
-        /*
-         * Emailverschicken
-         */
-
-        //sendmail();
+        //Send mail
+        MailSender sender = new MailSender();
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), createMailMessage());
 
         return "finishedReservation";
     }
@@ -373,46 +369,49 @@ public class ReservationBean implements Serializable
         return d;
     }
 
-    /**
-     * sendmail schickt via ssl
-     */
-    private void sendmail()
+    private String createMailMessage()
     {
-        //Vielleicht neuer mailserver :-D
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "false");
-        props.put("mail.smtp.port", "465");
-
-        Session session = Session.getDefaultInstance(props);
-
-        try
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
+        CustomerBean customer = bean.getCustomer();
+        
+        StringBuilder builder = new StringBuilder();
+        String newline = "\n";
+        
+        if(bean.isPrivateCustomer())
         {
-
-            Message message = new MimeMessage(session);
-            //Email von Hotel hier :-D
-            message.setFrom(new InternetAddress("hotel_de_la_fleur@roomanizer.com"));
-            //Empfänger hier
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("markus.mohanty@students.fhv.at" + "," + "markus.mo@gmx.net"));
-            //Betreff hier
-            message.setSubject("Reservierungsbestätigung");
-            /*
-             * Nachricht hier
-             */
-            String mail = "This is a test mail.";
-            
-            message.setText(mail);
-
-            Transport.send(message);
-
+            builder.append("Dear Mr./Mrs ");
+            PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
+            builder.append(privatecustomer.getLname());
         }
-        catch (MessagingException e)
+        else
         {
-            throw new RuntimeException(e);
+            builder.append("Dear ");
+            CompanyBean companyBean = (CompanyBean) customer;
+            builder.append(companyBean.getName());
         }
+        
+        builder.append(newline);
+        
+        builder.append("You successfully submitted a reservation for our hotel.");
+        builder.append(newline);
+        
+        builder.append("Checkin: ");
+        builder.append(this.startDate);
+        builder.append(newline);
+        
+        builder.append("Checkout: ");
+        builder.append(this.endDate);
+        builder.append(newline);
+        
+        builder.append("Your contact information:");
+        builder.append(newline);
+        builder.append("Invoice address:");
+        builder.append(newline);
+        builder.append(customer.getInvoiceAddress().toString());
+        builder.append(newline);
+        builder.append(newline);
+        
+        
+        return builder.toString();
     }
 }

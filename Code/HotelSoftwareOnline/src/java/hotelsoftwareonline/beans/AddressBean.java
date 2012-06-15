@@ -96,4 +96,34 @@ public class AddressBean implements Serializable
     {
         return ReservationController.getCountries();
     }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder returnstring = new StringBuilder();
+        String newline = "\n";
+        
+        returnstring.append(street);
+        returnstring.append(newline);
+        
+        returnstring.append(zip);
+        returnstring.append(" ");
+        returnstring.append(city);
+        returnstring.append(newline);
+        
+        returnstring.append(country);
+        returnstring.append(newline);
+        
+        returnstring.append("Phone: ");
+        returnstring.append(phone);
+        returnstring.append(newline);
+        
+        returnstring.append("Fax: ");
+        returnstring.append(fax);
+        returnstring.append(newline);
+        
+        returnstring.append(email);
+        
+        return returnstring.toString();
+    }
 }
