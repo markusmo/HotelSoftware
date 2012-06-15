@@ -1,0 +1,3 @@
+GUI Controller in richtige Schicht verschieben (vl ist auch irgendwo noch ein fehlerhaftes Diagramm?)
+--> in den Designentscheidungen der Timeboxen 1 und 2 ist im Kapiter Controller unter Abschnitt Allgemein ein Packagediagramm-Ausschnitt mit dem GUI-Controller in der Controller-Schicht!!! In den Packagediagrammen unter */MagicDraw sind die upgedateten Diagramme (richtig)!
+
