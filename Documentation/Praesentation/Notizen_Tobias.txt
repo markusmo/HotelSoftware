@@ -6,9 +6,14 @@ I will show you some of the project management techniques we used in our project
 	-such as documentation, code management
 
 	*PSP
+	-break every 
+	-includes every work package of the project
 	-Get a basic overview over the different milestones of the project
+	-provides framework for cost estimation and guidance for schedule development and control
 	
 	*Gantt-Chart
+	-illustrates start and finish dates of elements of a project
+	-easily understood by wide audience
 	-Estimate of duration of different units
 	-Shows relationships of units
 
@@ -26,17 +31,22 @@ I will show you some of the project management techniques we used in our project
 	*Project risks
 	-summarized the project risks, such as a teammember getting sick
 	-not that necessary for our project, since only limited risks existed
+	-+einzelner risiken durchgehen+
 
 	*Closely working together
 	-Team met each other nearly daily
 	-programmed together in a room
+	-open issues written on blackboard, crossed out once someone finished it -> motivation
 
 -Outlook
 	*Replacing
 	-Layersystem makes it easy to replace or upgrade single components
+	-makes it possible to use the base system for a long time while still being up to date
 	
-	*Integration of social media 
-	-would be an option worth thinking about
+	*Integration remaining sections
+	-There still are many sections of the hotel that act independently
+	-It would be wise to embed them into our existing system
+	-Easier to react to events from different sections
 	
 	*current website is rather basic
 	-introduction of reviews or vouchers could enhance it
