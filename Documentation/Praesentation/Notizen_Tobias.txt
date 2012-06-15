@@ -2,9 +2,11 @@ I will show you some of the project management techniques we used in our project
 
 -Project management
 	*Kick-off Meeting
-	-Define basic parameters of the project
-	-such as documentation, code management
+	-We started the Project with a Kick-off Meeting, during which we defined the 
+	basic parameters of the project, such as how the program has to be documented
+	or what code management tool we were going to use.
 
+<<<<<<< HEAD
 	*PSP
 	-break every 
 	-includes every work package of the project
@@ -16,19 +18,35 @@ I will show you some of the project management techniques we used in our project
 	-easily understood by wide audience
 	-Estimate of duration of different units
 	-Shows relationships of units
+=======
+	*WBS
+	-One of the first actions of the project consisted of creating a work breakdown 
+	structure. It is used to get a basic overview over the different work packages
+	and milestones of the project. In our diagram, the milestones are represented by 
+	yellow hexagons
+	
+	*Gantt-Chart
+	-We also created a so called Gantt-Chart, which represents the different work 
+	packages, as well as an estimate of their duration and the relationship they have
+	amongst each other
 
-	*Bottom-Up
-	-method used to create timeplan
-	-every member of the team rates work units in regards to risk, architectural relevance
-	userrelevance, developmentrelevance
-	-not anonymous
-	-result, especially votes that stray far from it are discussed
+	*Evaluating work packages
+	-We used the bottom-Up method to evaluate certain aspects of the work
+	packages.
+	Every member rated the different work packages in regards to risk,
+	architectural relevance, userrelevance and developmentrelevance on a scale from
+	one to ten. The vote was not anonymous, so that the result and especially the votes 
+	that deviated too far from it could be openly discussed.
+>>>>>>> 953ba980dadf1cf7bd7e97b59a5cfa92ed75f80c
+
 
 	*Weekly report
-	-every week we had to fill out a weekly report, detailing our progress
-	-showed the issues we were working on including spent time
+	-Every week we had to fill out a weekly report, which detailed our progress, 
+	showed the issues we were working on and how much time we spent on them. This made
+	it easier to discuss our progress with non-team members such as coaches. 
 
 	*Project risks
+<<<<<<< HEAD
 	-summarized the project risks, such as a teammember getting sick
 	-not that necessary for our project, since only limited risks existed
 	-+einzelner risiken durchgehen+
@@ -47,9 +65,47 @@ I will show you some of the project management techniques we used in our project
 	-There still are many sections of the hotel that act independently
 	-It would be wise to embed them into our existing system
 	-Easier to react to events from different sections
+=======
+	-Our project risk chart summarizes our project risks. Every risk consists of a 
+	description, a probability rating, the expected effects should the event described
+	really take place, and possible countermeasures. One of our risks for example was 
+	that the hibernate framework was harder to work with then we expected, we gave it a 
+	75% probability rating since we had never worked with hibernate before, and therefore
+	were not familiar with the technology. The expected effects were a delayed completion
+	of the project, and our countermeasure was that a teammember had to sacrifice
+	additional time to learn hibernate.
+
+	*Closely working together
+	-Especially towards the end of the timeboxes we met each other nearly daily to 
+	continue working on the program. We used to write the unsolved issues on the 
+	blackboard, and as soon as someone solved one, he was allowed to cross it through,
+	a process which kept us motivated. It was also very easy to ask the other members
+	for help and coordinate ourselves since everyone was in the same room
+
+-Outlook
+	*Replacing
+	-Our layersystem makes it very easy to replace or upgrade single parts of the program
+	which means the base program can be used for a very long time provided it receives
+	some upgrades
+
+	*Integration of remaining services
+	-There are still some parts of the hotel which act independently of our management
+	software such as the kitchen. Implementing these services into our program would 
+	make it easier to keep all the information in one place and synchronize the units
+
+	*Integration of remaining use cases
+	-Some use cases didn't make it beyond the analysation phase, however they could be
+	implemented as well.
+	
+	*Integration of social media 
+	-Since social platforms have a huge userbase, this would be an option worth thinking 
+	about. If used correctly it can mean practically free advertisement.
+>>>>>>> 953ba980dadf1cf7bd7e97b59a5cfa92ed75f80c
 	
 	*current website is rather basic
-	-introduction of reviews or vouchers could enhance it
+	-The current website is rather basic, and only allows to issue a reservation and 
+	edit ones guest data. It would be wise to extend the website with functions
+	such as reviews or vouchers
 
 -Summary
 	*We hope this presentation was successful in explaining the various design decisions
