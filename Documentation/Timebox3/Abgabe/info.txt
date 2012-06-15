@@ -1,3 +1,7 @@
 GUI Controller in richtige Schicht verschieben (vl ist auch irgendwo noch ein fehlerhaftes Diagramm?)
 --> in den Designentscheidungen der Timeboxen 1 und 2 ist im Kapiter Controller unter Abschnitt Allgemein ein Packagediagramm-Ausschnitt mit dem GUI-Controller in der Controller-Schicht!!! In den Packagediagrammen unter */MagicDraw sind die upgedateten Diagramme (richtig)!
 
+
+Texte auf Seite 9 und 12 etwas erweitern/überarbeiten (siehe Feedback)
+--> auf Seite 9 ist das State-Diagramm von CreateInvoice, beschrieben ist aber der Check-in!
+Auf Seite 12 ist das Model-Packagediagramm mit einem Habitation-Beispiel; beschrieben ist aber die Reservation.
