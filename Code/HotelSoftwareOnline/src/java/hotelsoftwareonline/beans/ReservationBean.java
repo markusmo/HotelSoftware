@@ -231,8 +231,9 @@ public class ReservationBean implements Serializable
 
         ReservationController.saveReservation(reservation);
 
+        //Send mail
         MailSender sender = new MailSender();
-        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), commentary);
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), createMailMessage());
 
         return "finishedReservation";
     }
@@ -366,5 +367,51 @@ public class ReservationBean implements Serializable
         c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
         d.setTime(c.getTimeInMillis());
         return d;
+    }
+
+    private String createMailMessage()
+    {
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
+        CustomerBean customer = bean.getCustomer();
+        
+        StringBuilder builder = new StringBuilder();
+        String newline = "\n";
+        
+        if(bean.isPrivateCustomer())
+        {
+            builder.append("Dear Mr./Mrs ");
+            PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
+            builder.append(privatecustomer.getLname());
+        }
+        else
+        {
+            builder.append("Dear ");
+            CompanyBean companyBean = (CompanyBean) customer;
+            builder.append(companyBean.getName());
+        }
+        
+        builder.append(newline);
+        
+        builder.append("You successfully submitted a reservation for our hotel.");
+        builder.append(newline);
+        
+        builder.append("Checkin: ");
+        builder.append(this.startDate);
+        builder.append(newline);
+        
+        builder.append("Checkout: ");
+        builder.append(this.endDate);
+        builder.append(newline);
+        
+        builder.append("Your contact information:");
+        builder.append(newline);
+        builder.append("Invoice address:");
+        builder.append(newline);
+        builder.append(customer.getInvoiceAddress().toString());
+        builder.append(newline);
+        builder.append(newline);
+        
+        
+        return builder.toString();
     }
 }
