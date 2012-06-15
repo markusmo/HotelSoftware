@@ -154,7 +154,7 @@ public class InvoiceItem implements IInvoiceItem
     @Override
     public double getPriceWithTax()
     {
-        return this.price.doubleValue() + (this.price.doubleValue() * getOnlyTax());
+        return this.price.doubleValue() +  getOnlyTax();
     }
 
     @Override
