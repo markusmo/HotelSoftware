@@ -4,9 +4,8 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.domain.parties.Company;
-import hotelsoftware.model.domain.parties.ICompany;
-import hotelsoftware.model.domain.parties.ICustomer;
+import hotelsoftware.model.database.manager.PartyManager;
+import hotelsoftware.model.domain.parties.*;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -82,6 +81,40 @@ public class CompanyBean extends CustomerBean implements Serializable
     
     public String save()
     {
+        Company company = new Company();
+        
+        company.setCompanyType(this.getType().getType());
+        company.setName(this.getName());
+        company.setIdParties(this.getId());
+        
+        IAddress address = new Address();
+        IAddress invoiceAddress = new Address();
+        AddressBean addressBean = this.getAddress();
+        AddressBean invoiceAddressBean = this.getInvoiceAddress();
+        
+        address.setId(addressBean.getId());
+        address.setCity(addressBean.getCity());
+        address.setEmail(addressBean.getEmail());
+        address.setFax(addressBean.getFax());
+        address.setIdCountry(addressBean.getDomainCountry());
+        address.setPhone(addressBean.getPhone());
+        address.setStreet(addressBean.getStreet());
+        address.setZip(addressBean.getZip());
+        
+        invoiceAddress.setId(invoiceAddressBean.getId());
+        invoiceAddress.setCity(invoiceAddressBean.getCity());
+        invoiceAddress.setEmail(invoiceAddressBean.getEmail());
+        invoiceAddress.setFax(invoiceAddressBean.getFax());
+        invoiceAddress.setIdCountry(invoiceAddressBean.getDomainCountry());
+        invoiceAddress.setPhone(invoiceAddressBean.getPhone());
+        invoiceAddress.setStreet(invoiceAddressBean.getStreet());
+        invoiceAddress.setZip(invoiceAddressBean.getZip());
+        
+        company.setAddress(address);
+        company.setInvoiceAddress(invoiceAddress);
+        
+        PartyManager.getInstance().saveParty(company);
+        
         return "companySaved";
     }
 }

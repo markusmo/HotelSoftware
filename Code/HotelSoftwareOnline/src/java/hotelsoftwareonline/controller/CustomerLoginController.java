@@ -35,21 +35,23 @@ public class CustomerLoginController implements Serializable
         AddressBean invoiceAddressBean = new AddressBean();
         AddressBean addressBean = new AddressBean();
 
+        invoiceAddressBean.setId(invoiceAddress.getId());
         invoiceAddressBean.setCity(invoiceAddress.getCity());
         invoiceAddressBean.setEmail(invoiceAddress.getEmail());
         invoiceAddressBean.setFax(invoiceAddress.getFax());
         invoiceAddressBean.setPhone(invoiceAddress.getPhone());
         invoiceAddressBean.setStreet(invoiceAddress.getStreet());
         invoiceAddressBean.setZip(invoiceAddress.getZip());
-        invoiceAddressBean.setCountry(invoiceAddress.getIdCountry().getName());
+        invoiceAddressBean.setDomainCountry(invoiceAddress.getIdCountry());
 
+        addressBean.setId(address.getId());
         addressBean.setCity(address.getCity());
         addressBean.setEmail(address.getEmail());
         addressBean.setFax(address.getFax());
         addressBean.setPhone(address.getPhone());
         addressBean.setStreet(address.getStreet());
         addressBean.setZip(address.getZip());
-        addressBean.setCountry(address.getIdCountry().getName());
+        addressBean.setDomainCountry(address.getIdCountry());
 
         if (customer instanceof IPrivateCustomer)
         {
@@ -72,7 +74,7 @@ public class CustomerLoginController implements Serializable
             CompanyBean companyBean = new CompanyBean();
             CompanyTypeBean type = new CompanyTypeBean();
 
-            type.setName(company.getCompanyType().getName());
+            type.setType(company.getCompanyType());
 
             companyBean.setId(company.getIdParties());
             companyBean.setName(company.getName());
