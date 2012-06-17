@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.ICompanyType;
 import java.io.Serializable;
 
 /**
@@ -12,15 +13,25 @@ import java.io.Serializable;
  */
 public class CompanyTypeBean implements Serializable
 {
-    private String name;
+    private ICompanyType type;
 
     public String getName()
     {
-        return name;
+        return type.getName();
     }
 
     public void setName(String name)
     {
-        this.name = name;
+        this.type.setName(name);
+    }
+
+    public ICompanyType getType()
+    {
+        return type;
+    }
+
+    public void setType(ICompanyType type)
+    {
+        this.type = type;
     }
 }

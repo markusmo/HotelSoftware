@@ -4,9 +4,9 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.domain.parties.Customer;
-import hotelsoftware.model.domain.parties.ICustomer;
-import hotelsoftware.model.domain.parties.IPrivateCustomer;
+import hotelsoftware.model.database.manager.PartyManager;
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.IAddress;
 import hotelsoftware.model.domain.parties.PrivateCustomer;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -96,6 +96,39 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
     
     public String save()
     {
+        PrivateCustomer customer = new PrivateCustomer();
+        
+        customer.setIdParties(this.getId());
+        customer.setFname(this.getFname());
+        customer.setLname(this.getLname());
+        customer.setUsername(this.getUsername());
+        customer.setPassword(this.getPassword());
+        
+        IAddress address = new Address();
+        IAddress invoiceAddress = new Address();
+        AddressBean addressBean = this.getAddress();
+        AddressBean invoiceAddressBean = this.getInvoiceAddress();
+        
+        address.setId(addressBean.getId());
+        address.setCity(addressBean.getCity());
+        address.setEmail(addressBean.getEmail());
+        address.setFax(addressBean.getFax());
+        address.setIdCountry(addressBean.getDomainCountry());
+        address.setPhone(addressBean.getPhone());
+        address.setStreet(addressBean.getStreet());
+        address.setZip(addressBean.getZip());
+        
+        invoiceAddress.setId(invoiceAddressBean.getId());
+        invoiceAddress.setCity(invoiceAddressBean.getCity());
+        invoiceAddress.setEmail(invoiceAddressBean.getEmail());
+        invoiceAddress.setFax(invoiceAddressBean.getFax());
+        invoiceAddress.setIdCountry(invoiceAddressBean.getDomainCountry());
+        invoiceAddress.setPhone(invoiceAddressBean.getPhone());
+        invoiceAddress.setStreet(invoiceAddressBean.getStreet());
+        invoiceAddress.setZip(invoiceAddressBean.getZip());
+        
+        PartyManager.getInstance().saveParty(customer);
+        
         return "customerSaved";
     }
 }
