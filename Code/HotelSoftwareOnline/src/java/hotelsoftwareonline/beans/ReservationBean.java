@@ -4,12 +4,10 @@
  */
 package hotelsoftwareonline.beans;
 
-import hotelsoftware.model.database.manager.PartyManager;
-import hotelsoftware.model.database.manager.RoomManager;
-import hotelsoftware.model.database.manager.ServiceManager;
-import hotelsoftware.model.domain.reservation.*;
+import hotelsoftware.model.domain.reservation.IReservation;
+import hotelsoftware.model.domain.reservation.IReservationItem;
+import hotelsoftware.model.domain.reservation.Reservation;
 import hotelsoftware.model.domain.room.IRoomCategory;
-import hotelsoftware.support.ServiceNotFoundException;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftwareonline.controller.ReservationController;
 import hotelsoftwareonline.util.MailSender;
@@ -18,8 +16,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -43,12 +39,15 @@ public class ReservationBean implements Serializable
     private String finish;
     private String backToChangeInvoiceAddress;
     private String backToReservation;
+    private ReservationController controller;
 
     public ReservationBean()
     {
         items = new ArrayList<ReservationItemBean>();
         ReservationItemBean item = new ReservationItemBean();
         items.add(item);
+
+        controller = new ReservationController();
     }
 
     public String getCommentary()
@@ -237,27 +236,25 @@ public class ReservationBean implements Serializable
 //        reservation.setReservationItems(resItems);
 //        reservation.setStartDate(convertToDate(startDate));
 
-        ReservationController.saveReservation(getReservation());
+        controller.saveReservation(getReservation());
         LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
                 FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
         //Send mail
         MailSender sender = new MailSender();
-        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(),
-                createMailMessage());
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), createMailMessage());
 
         return "finishedReservation";
     }
 
     public ArrayList<String> getAllFreeRoomCategories()
     {
-        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(
-                ""))
+        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
         {
             return null;
         }
+
         ArrayList<String> list = new ArrayList<String>();
-        for (IRoomCategory cat : ReservationController.getFreeCategories(convertToDate(
-                startDate), convertToDate(endDate)))
+        for (IRoomCategory cat : controller.getFreeCategories(convertToDate(startDate), convertToDate(endDate)))
         {
             list.add(cat.getName());
         }
@@ -266,7 +263,7 @@ public class ReservationBean implements Serializable
 
     public ArrayList<String> getAllBoardCategories()
     {
-        return ReservationController.getBoardCategories();
+        return controller.getBoardCategories();
     }
 
     /**
@@ -296,7 +293,7 @@ public class ReservationBean implements Serializable
 
     public ArrayList<String> getReservableExtraServices()
     {
-        return ReservationController.getReservableExtraServices();
+        return controller.getReservableExtraServices();
     }
 
     public String getEndDate()
@@ -377,8 +374,8 @@ public class ReservationBean implements Serializable
         String[] dates = date.split("/");
         Date d = new Date();
         Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]),
-                Integer.parseInt(dates[1]));
+        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[1]),
+                Integer.parseInt(dates[0]));
         d.setTime(c.getTimeInMillis());
         return d;
     }

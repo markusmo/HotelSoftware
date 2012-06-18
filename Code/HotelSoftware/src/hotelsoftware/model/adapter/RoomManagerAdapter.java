@@ -6,8 +6,8 @@ package hotelsoftware.model.adapter;
 
 import at.fhv.roomanizer.domain.room.*;
 import at.fhv.roomanizer.persistence.manager.IRoomManager;
-import hotelsoftware.model.domain.room.IRoomRoomStatus;
 import hotelsoftware.model.database.manager.RoomManager;
+import hotelsoftware.model.domain.room.IRoomRoomStatus;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;

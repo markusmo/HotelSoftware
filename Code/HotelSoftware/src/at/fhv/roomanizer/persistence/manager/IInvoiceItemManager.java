@@ -5,8 +5,6 @@
 package at.fhv.roomanizer.persistence.manager;
 
 import at.fhv.roomanizer.domain.Habitation;
-import at.fhv.roomanizer.domain.IHabitation;
-import at.fhv.roomanizer.domain.invoice.IInvoiceItem;
 import at.fhv.roomanizer.domain.invoice.InvoiceItem;
 import java.lang.reflect.InvocationTargetException;
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Faces Configuration Only" version="2">
     <Scope Scope="Faces Configuration Only">
-        <Node id="changeDataCompany.xhtml" x="-134" y="300" zoom="true"/>
+        <Node id="changeDataCompany.xhtml" x="-142" y="344" zoom="true"/>
         <Node id="reservationFinished.xhtml" x="209" y="166" zoom="true"/>
         <Node id="reservation.xhtml" x="-21" y="145" zoom="true"/>
         <Node id="login.xhtml" x="340" y="417" zoom="true"/>
         <Node id="index.xhtml" x="352" y="256" zoom="true"/>
-        <Node id="changeDataPrivateCustomer.xhtml" x="-5" y="398" zoom="true"/>
         <Node id="changeInvoiceAddress.xhtml" x="521" y="52" zoom="true"/>
-        <Node id="*" x="242" y="316" zoom="true"/>
+        <Node id="changeDataPrivateCustomer.xhtml" x="-23" y="495" zoom="true"/>
+        <Node id="*" x="224" y="357" zoom="true"/>
         <Node id="reservationOverview.xhtml" x="522" y="375" zoom="true"/>
     </Scope>
     <Scope Scope="Project">

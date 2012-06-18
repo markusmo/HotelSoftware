@@ -1,26 +1,17 @@
 package hotelsoftware.model.database.manager;
 
 import hotelsoftware.model.DynamicMapper;
-import hotelsoftware.model.database.FaildToDeleteFromDatabaseException;
-import hotelsoftware.model.database.FailedToSaveToDatabaseException;
 import hotelsoftware.model.database.invoice.DBInvoice;
 import hotelsoftware.model.database.invoice.DBInvoiceItem;
 import hotelsoftware.model.database.invoice.DBPaymentMethod;
 import hotelsoftware.model.database.service.DBHabitation;
-import hotelsoftware.model.domain.invoice.IInvoice;
-import hotelsoftware.model.domain.invoice.IInvoiceItem;
-import hotelsoftware.model.domain.invoice.IPaymentMethod;
-import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.invoice.PaymentMethod;
-import hotelsoftware.util.HibernateUtil;
+import hotelsoftware.model.domain.invoice.*;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -28,7 +19,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author mohi
  */
-public class InvoiceManager
+public class InvoiceManager extends Manager
 {
     private InvoiceManager()
     {
@@ -46,19 +37,19 @@ public class InvoiceManager
 
     /**
      * Gibt die höchste ID aus der Datenbank aus
+     *
      * @return die höchste ID aus der Datenbank
      */
     public int getHighestInvoiceId()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "Select max(id) FROM invoices i";
-        SQLQuery sqlquery = session.createSQLQuery(query);
-
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
 
         Integer bd = (Integer) sqlquery.uniqueResult();
+
+        commit();
 
         if (bd != null)
         {
@@ -80,10 +71,9 @@ public class InvoiceManager
      */
     public IInvoice getInvoiceByInvoiceNumber(String invoicenumber)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBInvoice retInvoices = (DBInvoice) session.createCriteria(DBInvoice.class).add(Restrictions.eq("invoiceNumber", invoicenumber)).uniqueResult();
+        startTransaction();
+        DBInvoice retInvoices = (DBInvoice) getSession().createCriteria(DBInvoice.class).add(Restrictions.eq("invoiceNumber", invoicenumber)).uniqueResult();
+        commit();
 
         return (Invoice) DynamicMapper.map(retInvoices);
     }
@@ -96,10 +86,9 @@ public class InvoiceManager
      */
     public Set<IPaymentMethod> getAllPaymentMethods()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        List<DBPaymentMethod> retList = session.createCriteria(DBPaymentMethod.class).list();
+        startTransaction();
+        List<DBPaymentMethod> retList = getSession().createCriteria(DBPaymentMethod.class).list();
+        commit();
 
         return new LinkedHashSet<IPaymentMethod>(DynamicMapper.mapCollection(retList));
     }
@@ -114,56 +103,39 @@ public class InvoiceManager
      */
     public IPaymentMethod getPaymentMethodByName(String name)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBPaymentMethod ret = (DBPaymentMethod) session.createCriteria(DBPaymentMethod.class).add(Restrictions.eq("method", name)).uniqueResult();
+        startTransaction();
+        DBPaymentMethod ret = (DBPaymentMethod) getSession().createCriteria(DBPaymentMethod.class).add(Restrictions.eq("method", name)).uniqueResult();
+        commit();
 
         return (PaymentMethod) DynamicMapper.map(ret);
     }
 
     /**
      * Gibt alle Rechnungspositionen für einen Aufenthalt aus
+     *
      * @param habitation der Aufenthalt, nach dem gesucht wird und auf den die Rechungspositionen zeigen
      * @return Rechnungspostitionen für einen Aufenthalt
      * @throws HibernateException Wenn die Transaktion fehlschlägt wird dieser Fehler geworfen.
      */
-    public Set<IInvoiceItem> getInvoiceItemsByHabitation(
-            DBHabitation habitation) throws HibernateException
+    public Set<IInvoiceItem> getInvoiceItemsByHabitation(DBHabitation habitation) throws HibernateException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        List<DBInvoiceItem> retList = session.createCriteria(DBInvoiceItem.class).add(
+        startTransaction();
+        List<DBInvoiceItem> retList = getSession().createCriteria(DBInvoiceItem.class).add(
                 Restrictions.eq("idHabitations", habitation)).list();
+        commit();
 
         return new LinkedHashSet<IInvoiceItem>(DynamicMapper.mapCollection(retList));
     }
 
     /**
      * Speichert eine Rechnung in die Datenbank
+     *
      * @param invoice Die Rechnung, die gespeichert werden soll
      */
     public void saveInvoice(IInvoice invoice)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveInvoice(invoice, session);
-
-        t.commit();
-    }
-
-    /**
-     * Speichert eine Rechnung in die Datenbank
-     * @param invoice Die Rechnung, die gespeichert werden soll
-     * @param session eine Hibernate-Session zum speichern
-     */
-    public void saveInvoice(IInvoice invoice, Session session)
-    {
         DBInvoice dbi = (DBInvoice) DynamicMapper.map(invoice);
-        Integer id = (Integer) session.save(session.merge(dbi));
+        Integer id = (Integer) getSession().save(getSession().merge(dbi));
         invoice.setId(id);
         dbi.setId(id);
 
@@ -174,51 +146,36 @@ public class InvoiceManager
 
             if (dbii.getId() == null)
             {
-                session.saveOrUpdate(dbii);
+                getSession().saveOrUpdate(dbii);
                 item.setId(dbii.getId());
             }
             else
             {
-                DBInvoiceItem newii = (DBInvoiceItem) session.merge(dbii);
-                session.update(newii);
+                DBInvoiceItem newii = (DBInvoiceItem) getSession().merge(dbii);
+                getSession().update(newii);
             }
         }
     }
 
     /**
-     * Speichert Rechungspositionen
-     * @param items Rechnunspositionen, die zu speichern sind
+     * Speicher Rechunspositionen
+     *
+     * @param items Rechnungspositionen, die zu speichern sind
      */
     public void saveInvoiceItems(Collection<IInvoiceItem> items)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveInvoiceItems(items, session);
-
-        t.commit();
-    }
-
-    /**
-     * Speicher Rechunspositionen
-     * @param items Rechnungspositionen, die zu speichern sind
-     * @param session eine Hibernate-Session zum speichern
-     */
-    public void saveInvoiceItems(Collection<IInvoiceItem> items, Session session)
     {
         for (IInvoiceItem item : items)
         {
             DBInvoiceItem dbii = (DBInvoiceItem) DynamicMapper.map(item);
             if (dbii.getId() == null)
             {
-                Integer id = (Integer) session.save(session.merge(dbii));
+                Integer id = (Integer) getSession().save(getSession().merge(dbii));
                 item.setId(id);
             }
             else
             {
-                DBInvoiceItem newii = (DBInvoiceItem) session.merge(dbii);
-                session.update(newii);
+                DBInvoiceItem newii = (DBInvoiceItem) getSession().merge(dbii);
+                getSession().update(newii);
             }
         }
     }

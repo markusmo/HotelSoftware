@@ -21,7 +21,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Hubert
  */
-public class PartyManager
+public class PartyManager extends Manager
 {
     private PartyManager()
     {
@@ -45,12 +45,11 @@ public class PartyManager
      */
     public Collection<ICountry> getAllCountries()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-
-        Criteria criteria = session.createCriteria(DBCountry.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBCountry.class);
         Collection<DBCountry> countries = criteria.list();
+        commit();
+        
         return DynamicMapper.mapCollection(countries);
     }
 
@@ -62,11 +61,11 @@ public class PartyManager
      */
     public Collection<ICompanyType> getAllTypes()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompanyType.class);
+        startTransaction();
+        
+        Criteria criteria = getSession().createCriteria(DBCompanyType.class);
         List<DBCompanyType> retList = criteria.list();
+        commit();
 
         return (Collection<ICompanyType>) DynamicMapper.mapCollection(retList);
     }
@@ -78,33 +77,30 @@ public class PartyManager
      * @return Firmenobjekt
      * @throws CompanyNotFoundException firma nicht gefunden
      */
-    public ICompany getCompanyByName(String name)
-            throws CompanyNotFoundException
+    public ICompany getCompanyByName(String name) throws CompanyNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.eq(
-                "name", name));
+        startTransaction();
+        
+        Criteria criteria = getSession().createCriteria(DBCompany.class).add(Restrictions.eq("name", name));
         DBCompany c = (DBCompany) criteria.uniqueResult();
 
         if (c == null)
         {
             throw new CompanyNotFoundException();
         }
+        
+        commit();
 
         return (Company) DynamicMapper.map(c);
     }
 
     public ICustomer getCustomerById(Integer id)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCustomer.class).add(Restrictions.eq(
-                "idParties", id));
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBCustomer.class).add(Restrictions.eq("idParties", id));
         DBCustomer c = (DBCustomer) criteria.uniqueResult();
-
+        commit();
+        
         return (ICustomer) DynamicMapper.map(c);
     }
 
@@ -117,21 +113,18 @@ public class PartyManager
      * @throws PrivateCustomerNotFoundException privatkunde nicht gefunden
      * @throws GuestNotFoundException gast nicht gefunden
      */
-    public IPrivateCustomer getPrivateCustomerByName(String firstName,
-            String lastName) throws PrivateCustomerNotFoundException,
-            GuestNotFoundException
+    public IPrivateCustomer getPrivateCustomerByName(String firstName, String lastName) throws PrivateCustomerNotFoundException, GuestNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
-        DBPrivateCustomer cust = (DBPrivateCustomer) session.createCriteria(DBPrivateCustomer.class).add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName))).uniqueResult();
+        DBPrivateCustomer cust = (DBPrivateCustomer) getSession().createCriteria(DBPrivateCustomer.class).add(Restrictions.and(Restrictions.eq("fname", firstName), Restrictions.eq("lname", lastName))).uniqueResult();
 
         if (cust == null)
         {
             throw new GuestNotFoundException();
         }
-
+        commit();
+        
         return (IPrivateCustomer) DynamicMapper.map(cust);
     }
 
@@ -146,19 +139,17 @@ public class PartyManager
     public Set<IPrivateCustomer> getPrivateCustomerByFName(String firstName) throws PrivateCustomerNotFoundException,
             GuestNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
-        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
-        criteria = criteria.add(Restrictions.eq(
-                "fname", firstName));
+        Criteria criteria = getSession().createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq("fname", firstName));
         Collection<DBPrivateCustomer> cust = criteria.list();
 
         if (cust == null)
         {
             throw new GuestNotFoundException();
         }
+        commit();
 
         return (Set<IPrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
@@ -174,19 +165,17 @@ public class PartyManager
     public Set<IPrivateCustomer> getPrivateCustomerByLName(String lastName) throws PrivateCustomerNotFoundException,
             GuestNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
-        Criteria criteria = session.createCriteria(DBPrivateCustomer.class);
-        criteria = criteria.add(Restrictions.eq(
-                "lname", lastName));
+        Criteria criteria = getSession().createCriteria(DBPrivateCustomer.class);
+        criteria = criteria.add(Restrictions.eq("lname", lastName));
         Collection<DBPrivateCustomer> cust = criteria.list();
 
         if (cust == null)
         {
             throw new GuestNotFoundException();
         }
+        commit();
 
         return (Set<IPrivateCustomer>) DynamicMapper.mapCollection(cust);
     }
@@ -200,13 +189,10 @@ public class PartyManager
      * @throws CompanyNotFoundException Firma nicht gefunden
      * @throws GuestNotFoundException Gast nicht gefunden
      */
-    public Collection<IGuest> getGuestByName(String firstName, String lastName)
-            throws CompanyNotFoundException, GuestNotFoundException
+    public Collection<IGuest> getGuestByName(String firstName, String lastName) throws CompanyNotFoundException, GuestNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBGuest.class);
 
         if (firstName.isEmpty() && lastName.isEmpty())
         {
@@ -238,6 +224,8 @@ public class PartyManager
         {
             throw new GuestNotFoundException();
         }
+        
+        commit();
 
         return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
@@ -251,19 +239,18 @@ public class PartyManager
      */
     public Collection<IGuest> getGuestsByFName(String firstName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBGuest.class);
 
         if (firstName.isEmpty())
         {
             return null;
         }
-        criteria = criteria.add(Restrictions.eq(
-                "fname", firstName));
+        criteria = criteria.add(Restrictions.eq("fname", firstName));
         Collection<DBGuest> retList = criteria.list();
-
+        
+        commit();
+        
         return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
 
@@ -276,10 +263,8 @@ public class PartyManager
      */
     public Collection<IGuest> getGuestsByLName(String lastName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBGuest.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBGuest.class);
 
         if (lastName.isEmpty())
         {
@@ -288,6 +273,8 @@ public class PartyManager
         criteria = criteria.add(Restrictions.eq(
                 "lname", lastName));
         Collection<DBGuest> retList = criteria.list();
+        
+        commit();
 
         return (Collection<IGuest>) DynamicMapper.mapCollection(retList);
     }
@@ -300,29 +287,12 @@ public class PartyManager
      */
     public Collection<ICompany> getCompaniesByName(String name)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBCompany.class).add(Restrictions.like("name", name));
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBCompany.class).add(Restrictions.like("name", name));
         Collection<DBCompany> retList = criteria.list();
-
+        commit();
+        
         return DynamicMapper.mapCollection(retList);
-    }
-
-    /**
-     * Speichert eine Adresse
-     *
-     * @param address die Adresse, die zu speichern ist
-     */
-    public void saveAddress(IAddress address)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveAddress(address, session);
-
-        t.commit();
     }
 
     /**
@@ -331,18 +301,18 @@ public class PartyManager
      * @param address die Adresse, die zu speichern ist
      * @param session eine Hibernate-Session zum speichern
      */
-    public void saveAddress(IAddress address, Session session)
+    public void saveAddress(IAddress address)
     {
         DBAddress dbadr = (DBAddress) DynamicMapper.map(address);
 
         if (dbadr.getId() == null)
         {
-            session.saveOrUpdate(dbadr);
+            getSession().saveOrUpdate(dbadr);
             address.setId(dbadr.getId());
         }
         else
         {
-            session.saveOrUpdate(session.merge(dbadr));
+            getSession().saveOrUpdate(getSession().merge(dbadr));
         }
     }
 
@@ -353,26 +323,9 @@ public class PartyManager
      */
     public void saveParty(IParty party)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveParty(party, session);
-
-        t.commit();
-    }
-
-    /**
-     * Speichert eine Partei
-     *
-     * @param party die Partei, die zu speichern ist
-     * @param session eine Hibernate-Session zum speichern
-     */
-    public void saveParty(IParty party, Session session)
-    {
         DBParty dbp = (DBParty) DynamicMapper.map(party);
 
-        session.saveOrUpdate(dbp);
+        getSession().saveOrUpdate(dbp);
         party.setIdParties(dbp.getIdParties());
     }
 
@@ -384,12 +337,11 @@ public class PartyManager
      */
     public ICustomer login(String username, String password) throws LoginFailureException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
+        startTransaction();
 
-        DBCustomer cust = (DBCustomer) session.createCriteria(DBCustomer.class).add(Restrictions.and(
+        DBCustomer cust = (DBCustomer) getSession().createCriteria(DBCustomer.class).add(Restrictions.and(
                 Restrictions.eq("username", username), Restrictions.eq("password", password))).uniqueResult();
+        
         if (cust == null)
         {
             throw new LoginFailureException();

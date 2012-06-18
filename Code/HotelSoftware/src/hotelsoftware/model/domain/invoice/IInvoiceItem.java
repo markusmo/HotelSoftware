@@ -40,18 +40,24 @@ public interface IInvoiceItem extends InvoiceItemData{
 
     IService getService();
 
-
     /**
      * Gibt den Preis für eine Rechungsposion aus, mit Steuern
      *
      * @return Preis des Services * Anzahl der Konsumation + Steuern
      */
     double getTotalPriceWithTax();
+    
+    /**
+     * Splittet die Rechnungsposition auf
+     * @param amount Die für die Rechnung relevante Anzahl von Positionen
+     * @return Die dadurch neu entstandene Rechnungsposition
+     */
+    IInvoiceItem split(Integer amount);
 
     IUser getUser();
 
     /**
-     * Diese Methode reduziert den RechnungsBetrag um den eingegebenen Betrag
+     * Diese Methode reduziert die Anzahl der Rechnungspositionen
      *
      * @param amount
      */
@@ -70,5 +76,5 @@ public interface IInvoiceItem extends InvoiceItemData{
     void setService(IService service);
 
     void setUser(IUser user);
-    
+
 }

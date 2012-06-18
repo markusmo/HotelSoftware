@@ -39,4 +39,11 @@ public interface IService extends ServiceData
      * @param serviceType the serviceType to set
      */
     void setServiceType(IServiceType serviceType);
+    
+    /**
+     * Gibt den Preis mit den dazugehörigen Steuern aus
+     * @return Der Preis mit Steuern
+     */
+    double getPriceWithTax();
+
 }

@@ -11,9 +11,11 @@ import hotelsoftware.util.HelperFunctions;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Diese Klasse stellt eine Rechung dar, mit der das System arbeitet.
+ *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class Invoice implements IInvoice
@@ -45,12 +47,12 @@ public class Invoice implements IInvoice
         return discount;
     }
 
-        public static int getHighestId()
+    public static int getHighestId()
     {
         InvoiceManager facade = InvoiceManager.getInstance();
         return facade.getHighestInvoiceId();
     }
-    
+
     @Override
     public Date getExpiration()
     {
@@ -116,7 +118,7 @@ public class Invoice implements IInvoice
     {
         this.expiration = expiration;
     }
-    
+
     @Override
     public void setFulfilled(Boolean fulfilled)
     {
@@ -156,6 +158,11 @@ public class Invoice implements IInvoice
     @Override
     public void setInvoiceItems(Collection<IInvoiceItem> invoiceitemsCollection)
     {
+        if (this.invoiceItems == null)
+        {
+            this.invoiceItems = new LinkedList<IInvoiceItem>();
+        }
+        
         this.invoiceItems = invoiceitemsCollection;
     }
 
@@ -167,9 +174,10 @@ public class Invoice implements IInvoice
 
     /**
      * Sucht eine Rechung nach der Rechungsnummer und gibt diese zurück
+     *
      * @param invoicenumber
      * eine eindeutige Rechungsnummer
-     * @return 
+     * @return
      * die Rechung mit der Rechungsnummer
      */
     public static IInvoice getInvoiceByInvoiceNumber(String invoicenumber)
@@ -179,35 +187,36 @@ public class Invoice implements IInvoice
 
     /**
      * Gibt den Totalbetrag der Rechung aus, ohne Steuern
-     * @return 
+     *
+     * @return
      * Totalbetrag der Rechung ohne Steuern
      */
     @Override
     public double getTotalwithoutTax()
     {
         double total = 0;
-        
-        for(IInvoiceItem i : invoiceItems)
+
+        for (IInvoiceItem i : invoiceItems)
         {
             total = total + i.getTotalPriceWithoutTax();
         }
-        
+
         return total;
     }
-    
+
     @Override
     public double getTotalwithTax()
     {
         double total = 0;
-        
-        for(IInvoiceItem i : invoiceItems)
+
+        for (IInvoiceItem i : invoiceItems)
         {
             total = total + i.getTotalPriceWithTax();
         }
-        
+
         return total;
     }
-    
+
     @Override
     public CustomerData getCustomerData()
     {
@@ -229,6 +238,69 @@ public class Invoice implements IInvoice
     @Override
     public Collection<InvoiceItemData> getInvoiceItemsData()
     {
-        return new HelperFunctions<InvoiceItemData, IInvoiceItem>().castCollectionUp(getInvoiceItems());
+        return HelperFunctions.castCollectionUp(getInvoiceItems(), InvoiceItemData.class, IInvoiceItem.class);
+    }
+
+    @Override
+    public void cancelInvoiceItem(IInvoiceItem item, int amount)
+    {
+        for (IInvoiceItem ii : invoiceItems)
+        {
+            if (ii.equals(item) && ii.getAmount() <= amount)
+            {
+                ii.remove(amount);
+            }
+        }
+    }
+
+    @Override
+    public void addInvoiceItem(IInvoiceItem item)
+    {
+        if (this.invoiceItems == null)
+        {
+            this.invoiceItems = new LinkedList<IInvoiceItem>();
+        }
+
+        this.invoiceItems.add(item);
+    }
+    
+    @Override
+    public void addInvoiceItems(Collection<IInvoiceItem> items)
+    {
+        if (this.invoiceItems == null)
+        {
+            this.invoiceItems = new LinkedList<IInvoiceItem>();
+        }
+
+        this.invoiceItems.addAll(items);
+    }
+
+    @Override
+    public IInvoiceItem splitItem(IInvoiceItem item, Integer amount)
+    {
+        for (IInvoiceItem ii : invoiceItems)
+        {
+            if (ii.equals(item))
+            {
+                IInvoiceItem newItem = ii.split(amount);
+                ii.getHabitation().addInvoiceItems(newItem);
+                
+                return newItem;
+            }
+        }
+        
+        return null;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+        return (invoiceItems == null || invoiceItems.isEmpty());
+    }
+
+    @Override
+    public void clear()
+    {
+        this.invoiceItems.clear();
     }
 }

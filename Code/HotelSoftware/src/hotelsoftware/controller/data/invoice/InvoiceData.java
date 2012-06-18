@@ -4,7 +4,6 @@ import hotelsoftware.controller.data.parties.CustomerData;
 import hotelsoftware.controller.data.users.UserData;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Dieses Interface wird and die GUI weitergereicht, um eine Rechung abzubilden.

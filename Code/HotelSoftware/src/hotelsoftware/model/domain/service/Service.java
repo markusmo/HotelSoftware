@@ -1,6 +1,5 @@
 package hotelsoftware.model.domain.service;
 
-import hotelsoftware.controller.data.service.ServiceData;
 import java.math.BigDecimal;
 
 /**
@@ -9,7 +8,7 @@ import java.math.BigDecimal;
  *
  * @author Lins Christian (christian.lins87@gmail.com)
  */
-public abstract class Service implements ServiceData, IService
+public abstract class Service implements IService
 {
     private Integer idServices;
     protected BigDecimal price;
@@ -74,5 +73,21 @@ public abstract class Service implements ServiceData, IService
     public void setServiceType(IServiceType serviceType)
     {
         this.serviceType = serviceType;
+    }
+    
+    @Override
+    public double getPriceWithTax()
+    {
+        return this.getPrice().doubleValue() +  getOnlyTax();
+    }
+
+    /**
+     * Gibt nur die Steuern aus
+     * @return Die Steuern des Services
+     */
+    private double getOnlyTax()
+    {
+        double tax = (this.getServiceType().getTaxRate().doubleValue() / 100);
+        return this.getPrice().doubleValue() * tax;
     }
 }

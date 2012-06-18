@@ -40,37 +40,19 @@ public class SplitInvoiceState extends CreateInvoiceState
     @Override
     void selectItems(Map<InvoiceItemData, Integer> items)
     {
-        Collection<IInvoiceItem> col = new LinkedList<IInvoiceItem>();
+        context.getCurrentInvoice().clear();
         
         for (Entry<InvoiceItemData, Integer> entry : items.entrySet())
         {
-            if (entry.getValue().equals(entry.getKey().getAmount()))
+            IInvoiceItem oldItem = (InvoiceItem) entry.getKey();
+            context.getCurrentInvoice().addInvoiceItem(oldItem);
+            
+            if (!entry.getValue().equals(entry.getKey().getAmount()))
             {
-                col.add((IInvoiceItem) entry.getKey());
-            }
-            else
-            {
-                InvoiceItem oldItem = (InvoiceItem) entry.getKey();
-                
-                InvoiceItem newItem = new InvoiceItem();
-                newItem.setAmount(oldItem.getAmount() - entry.getValue());
-                newItem.setCreated(oldItem.getCreated());
-                newItem.setService(oldItem.getService());
-                newItem.setUser(LoginController.getInstance().getCurrentUser());
-                newItem.setHabitation(oldItem.getHabitation());
-                newItem.setPrice(oldItem.getPrice());
-                
-                oldItem.setAmount(entry.getValue());
-                
-                context.addInvoiceItemToHabitation(oldItem.getHabitation(), newItem);
-                
-                col.add(oldItem);
-                
+                IInvoiceItem newItem = context.getCurrentInvoice().splitItem(oldItem, entry.getValue());
                 context.addSplittedItems(newItem);
             }
         }
-        
-        context.setSelectedItems(col);
     }
 
     @Override
@@ -88,7 +70,7 @@ public class SplitInvoiceState extends CreateInvoiceState
         }
         catch (PermissionNotFoundException ex)
         {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             Logger.getLogger(SplitInvoiceState.class.getName()).log(Level.SEVERE, null, ex);
         }
         

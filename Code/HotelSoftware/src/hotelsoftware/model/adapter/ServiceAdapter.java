@@ -8,6 +8,7 @@ import at.fhv.roomanizer.domain.service.IType;
 import at.fhv.roomanizer.domain.service.Service;
 import at.fhv.roomanizer.domain.service.Type;
 import hotelsoftware.model.domain.service.ExtraService;
+import hotelsoftware.model.domain.service.IExtraService;
 import java.math.BigDecimal;
 
 /**
@@ -31,13 +32,21 @@ public class ServiceAdapter extends Service implements Adapter<hotelsoftware.mod
         this.ourService.setPrice(BigDecimal.ZERO);
         this.ourService.setIdServices(service.getId());
         this.ourService.setServiceType(((TypeAdapter)service.getType()).getOurType());
-        //TODO muss wegen unneinigkeiten in der Domänenschicht manuell gesetzt werden -.-
+        //muss wegen unneinigkeiten in der Domänenschicht manuell gesetzt werden -.-
         ((ExtraService)this.ourService).setName("PrePayment");
+        if (service instanceof ExtraServiceAdapter)
+        {
+            //Muss so umständlich gesetzt werden da DB Modell nicht mehr übereinstimmt
+            ((IExtraService)this.ourService).setReservable(((ExtraServiceAdapter)service).getOurType().getReservable());
+        }
+        else
+        {
+            ((IExtraService)this.ourService).setReservable(Boolean.FALSE);
+        }
     }
     
     public ServiceAdapter()
     {
-        //TODO instanceof Abfrage?
         this.ourService = new ExtraService();
     }
 

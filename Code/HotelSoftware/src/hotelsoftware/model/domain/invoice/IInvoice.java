@@ -40,6 +40,32 @@ public interface IInvoice extends InvoiceData{
      * Totalbetrag der Rechung ohne Steuern
      */
     double getTotalwithoutTax();
+    
+    /**
+     * Storniert eine gegebene Anzahl von Rechnungspositionen einer Rechnung
+     * @param item Die zu stornierende Rechnungsposition
+     * @param amount Die anzahl an zu stornierenden Positionen
+     */
+    void cancelInvoiceItem(IInvoiceItem item, int amount);
+    
+    /**
+     * Fügt der Rechnung eine weitere Rechnungsposition hinzu
+     * @param item Die Position die hinzugefügt werden soll
+     */
+    void addInvoiceItem(IInvoiceItem item);
+    
+    /**
+     * Fügt der Rechnung weitere Rechnungspositionen hinzu
+     * @param items Die Positionen die hinzugefügt werden sollen
+     */
+    void addInvoiceItems(Collection<IInvoiceItem> items);
+    
+    /**
+     * Ändert die Anzahl einer Rechnungsposition und gibt die dadurch neu entstandene Position zurück
+     * @param item Das zu splittende InvoiceItem
+     * @param amount Die Anzahl die beibehalten werden soll
+     */
+    IInvoiceItem splitItem(IInvoiceItem item, Integer amount);
 
     IUser getUser();
 
@@ -62,5 +88,16 @@ public interface IInvoice extends InvoiceData{
     void setPaymentMethod(IPaymentMethod paymentMethod);
 
     void setUser(IUser user);
-    
+
+    /**
+     * Überprüft ob die Rechnung leer ist
+     * @return TRUE wenn die Rechnung keine Positionen enthält
+     */
+    boolean isEmpty();
+
+    /**
+     * Entfernt alle Positionen von der Rechnung
+     */
+    void clear();
+
 }

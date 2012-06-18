@@ -13,9 +13,9 @@ public class InterimBillState extends CreateInvoiceState
     public InterimBillState(CreateInvoiceController context)
     {
         super(context);
-        if (context.getSelectedItems() == null)
+        if (context.getCurrentInvoice().isEmpty())
         {
-            context.setSelectedItems(context.getOpenItems());
+            context.getCurrentInvoice().setInvoiceItems(context.getOpenItems());
         }
     }
     
