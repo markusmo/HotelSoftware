@@ -19,7 +19,7 @@
                 <div id="periode">
                     <h:outputLabel>Start Date: </h:outputLabel> 
                     <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
-                        <f:validator validatorId="onlinereservation.datevalidator"/>
+                        <!--<f:validator validatorId="onlinereservation.datevalidator"/>-->
                         <f:attribute name="startdate" value="#{startdate}" />
                         <f:ajax render="render"/>
                     </h:inputText>
