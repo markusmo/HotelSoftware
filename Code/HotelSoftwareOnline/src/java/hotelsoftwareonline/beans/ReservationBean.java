@@ -24,9 +24,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -36,6 +33,7 @@ import javax.mail.internet.MimeMessage;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
+
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
@@ -65,7 +63,8 @@ public class ReservationBean implements Serializable
     }
 
     /**
-     * Listener für den Knopf zurück zum vorherigen Schritt -> Reservierung ändern.
+     * Listener für den Knopf zurück zum vorherigen Schritt -> Reservierung
+     * ändern.
      *
      * @param event das Event vom JSF
      */
@@ -86,7 +85,8 @@ public class ReservationBean implements Serializable
     }
 
     /**
-     * Listener für den Knopf zurück zum vorherigen Schritt -> Rechnungsaddresse ändern.
+     * Listener für den Knopf zurück zum vorherigen Schritt -> Rechnungsaddresse
+     * ändern.
      *
      * @param event das Event vom JSF
      */
@@ -171,10 +171,13 @@ public class ReservationBean implements Serializable
         reservation.setEndDate(convertToDate(endDate));
 
         FacesContext context = FacesContext.getCurrentInstance();
-        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(context, "#{login}", LoginBean.class);
+        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(
+                context, "#{login}", LoginBean.class);
 
-        reservation.setParty(PartyManager.getInstance().getCustomerById(bean.getCustomer().getId()));
-        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(Reservation.class));
+        reservation.setParty(PartyManager.getInstance().getCustomerById(
+                bean.getCustomer().getId()));
+        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(
+                Reservation.class));
 
         LinkedList<IReservationItem> resItems = new LinkedList<IReservationItem>();
         for (ReservationItemBean item : this.getItems())
@@ -182,7 +185,8 @@ public class ReservationBean implements Serializable
             IReservationItem resItem = new ReservationItem();
             resItem.setAmount(item.getAmount());
             resItem.setReservation(reservation);
-            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(item.getCategory()));
+            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(
+                    item.getCategory()));
 
             LinkedList<ReservedExtraServices> services = new LinkedList<ReservedExtraServices>();
 
@@ -193,12 +197,13 @@ public class ReservationBean implements Serializable
                 resService.setReservationItem(resItem);
                 try
                 {
-                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(service));
-                }
-                catch (ServiceNotFoundException ex)
+                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
+                            service));
+                } catch (ServiceNotFoundException ex)
                 {
                     //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                    Logger.getLogger(ReservationBean.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ReservationBean.class.getName()).log(
+                            Level.SEVERE, null, ex);
                 }
 
                 services.add(resService);
@@ -209,19 +214,21 @@ public class ReservationBean implements Serializable
             boardCategory.setReservationItem(resItem);
             try
             {
-                boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(item.getBoardCategory()));
-            }
-            catch (ServiceNotFoundException ex)
+                boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
+                        item.getBoardCategory()));
+            } catch (ServiceNotFoundException ex)
             {
                 //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                Logger.getLogger(ReservationBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReservationBean.class.getName()).log(
+                        Level.SEVERE, null, ex);
             }
 
             services.add(boardCategory);
             resItem.setReservedExtraServices(services);
 
             resItem.setReservationitemsPK(new ReservationItemPK());
-            resItem.getReservationitemsPK().setIdRoomCategories(resItem.getRoomCategory().getId());
+            resItem.getReservationitemsPK().setIdRoomCategories(
+                    resItem.getRoomCategory().getId());
 
             resItems.add(resItem);
         }
@@ -231,20 +238,24 @@ public class ReservationBean implements Serializable
 
         ReservationController.saveReservation(reservation);
 
+        //Send mail
         MailSender sender = new MailSender();
-        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), commentary);
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(),
+                createMailMessage());
 
         return "finishedReservation";
     }
 
     public ArrayList<String> getAllFreeRoomCategories()
     {
-        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
+        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(
+                ""))
         {
             return null;
         }
         ArrayList<String> list = new ArrayList<String>();
-        for (IRoomCategory cat : ReservationController.getFreeCategories(convertToDate(startDate), convertToDate(endDate)))
+        for (IRoomCategory cat : ReservationController.getFreeCategories(convertToDate(
+                startDate), convertToDate(endDate)))
         {
             list.add(cat.getName());
         }
@@ -263,7 +274,8 @@ public class ReservationBean implements Serializable
      */
     public String getTotalPrice()
     {
-        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.GERMANY);
+        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(
+                Locale.GERMANY);
         DecimalFormatSymbols symbols = currencyFormat.getDecimalFormatSymbols();
         symbols.setGroupingSeparator(' ');
         symbols.setDecimalSeparator(',');
@@ -363,8 +375,93 @@ public class ReservationBean implements Serializable
         String[] dates = date.split("/");
         Date d = new Date();
         Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]), Integer.parseInt(dates[1]));
+        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]),
+                Integer.parseInt(dates[1]));
         d.setTime(c.getTimeInMillis());
         return d;
+    }
+
+    private String createMailMessage()
+    {
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
+                FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
+        CustomerBean customer = bean.getCustomer();
+
+        StringBuilder builder = new StringBuilder();
+        String newline = "\n";
+        String line = "_____________________________________";
+
+        if (bean.isPrivateCustomer())
+        {
+            builder.append("Dear Mr./Mrs ");
+            PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
+            builder.append(privatecustomer.getLname());
+        } else
+        {
+            builder.append("Dear ");
+            CompanyBean companyBean = (CompanyBean) customer;
+            builder.append(companyBean.getName());
+        }
+
+        builder.append(newline);
+
+        builder.append("You successfully submitted a reservation for our hotel.");
+        builder.append(newline);
+
+        builder.append("Checkin: ");
+        builder.append(this.startDate);
+        builder.append(newline);
+
+        builder.append("Checkout: ");
+        builder.append(this.endDate);
+        builder.append(newline);
+
+        builder.append("Your contact information:");
+        builder.append(newline);
+        builder.append("Invoice address:");
+        builder.append(newline);
+        builder.append(customer.getInvoiceAddress().toString());
+        builder.append(newline);
+        builder.append(newline);
+
+        builder.append("Your reservation in detail: ");
+        builder.append(newline);
+
+        for (ReservationItemBean item : this.items)
+        {
+            builder.append("Category: ");
+            builder.append(item.getCategory());
+            builder.append(" ");
+            builder.append(item.getPriceForCategory());
+            builder.append(newline);
+            
+            if (item.getExtraServices() != null || !item.getExtraServices().isEmpty())
+            {
+                builder.append("Extraservices choosen: ");
+                builder.append(newline);
+                for (String es : item.getExtraServices())
+                {
+                    builder.append(es);
+                    builder.append(" ");
+                    builder.append(item.getPriceForExtraService(es));
+                    builder.append(newline);
+                }
+            }
+            builder.append("Board category ");
+            builder.append(item.getBoardCategory());
+            builder.append(line);
+            builder.append(newline);
+            
+            builder.append("Total for reservation item: ");
+            builder.append(item.getPriceOfReservationItem());
+            builder.append(newline);
+        }
+        builder.append(line);
+        builder.append(newline);
+        builder.append("Totel price of reservation");
+        builder.append(newline);
+        builder.append(this.getTotalPrice());
+
+        return builder.toString();
     }
 }

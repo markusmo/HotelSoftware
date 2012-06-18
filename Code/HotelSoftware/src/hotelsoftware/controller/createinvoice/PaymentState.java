@@ -50,14 +50,7 @@ public class PaymentState extends CreateInvoiceState
         LinkedList<IInvoice> invoices = new LinkedList<IInvoice>();
         invoices.add(invoice);
         
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        
-        InvoiceManager.getInstance().saveInvoice(invoice, session);
-        InvoiceManager.getInstance().saveInvoiceItems(HelperFunctions.castCollectionUp(context.getSplittedItems(), IInvoiceItem.class, InvoiceItem.class), session);
-        
-        ts.commit();
+        context.saveInvoice(invoice);
         
         context.setSplittedItems(new LinkedList<InvoiceItem>());
         

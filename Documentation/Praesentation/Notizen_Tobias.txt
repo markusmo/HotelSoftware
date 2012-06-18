@@ -6,6 +6,19 @@ I will show you some of the project management techniques we used in our project
 	basic parameters of the project, such as how the program has to be documented
 	or what code management tool we were going to use.
 
+<<<<<<< HEAD
+	*PSP
+	-break every 
+	-includes every work package of the project
+	-Get a basic overview over the different milestones of the project
+	-provides framework for cost estimation and guidance for schedule development and control
+	
+	*Gantt-Chart
+	-illustrates start and finish dates of elements of a project
+	-easily understood by wide audience
+	-Estimate of duration of different units
+	-Shows relationships of units
+=======
 	*WBS
 	-One of the first actions of the project consisted of creating a work breakdown 
 	structure. It is used to get a basic overview over the different work packages
@@ -24,6 +37,7 @@ I will show you some of the project management techniques we used in our project
 	architectural relevance, userrelevance and developmentrelevance on a scale from
 	one to ten. The vote was not anonymous, so that the result and especially the votes 
 	that deviated too far from it could be openly discussed.
+>>>>>>> 953ba980dadf1cf7bd7e97b59a5cfa92ed75f80c
 
 
 	*Weekly report
@@ -32,6 +46,26 @@ I will show you some of the project management techniques we used in our project
 	it easier to discuss our progress with non-team members such as coaches. 
 
 	*Project risks
+<<<<<<< HEAD
+	-summarized the project risks, such as a teammember getting sick
+	-not that necessary for our project, since only limited risks existed
+	-+einzelner risiken durchgehen+
+
+	*Closely working together
+	-Team met each other nearly daily
+	-programmed together in a room
+	-open issues written on blackboard, crossed out once someone finished it -> motivation
+
+-Outlook
+	*Replacing
+	-Layersystem makes it easy to replace or upgrade single components
+	-makes it possible to use the base system for a long time while still being up to date
+	
+	*Integration remaining sections
+	-There still are many sections of the hotel that act independently
+	-It would be wise to embed them into our existing system
+	-Easier to react to events from different sections
+=======
 	-Our project risk chart summarizes our project risks. Every risk consists of a 
 	description, a probability rating, the expected effects should the event described
 	really take place, and possible countermeasures. One of our risks for example was 
@@ -66,6 +100,7 @@ I will show you some of the project management techniques we used in our project
 	*Integration of social media 
 	-Since social platforms have a huge userbase, this would be an option worth thinking 
 	about. If used correctly it can mean practically free advertisement.
+>>>>>>> 953ba980dadf1cf7bd7e97b59a5cfa92ed75f80c
 	
 	*current website is rather basic
 	-The current website is rather basic, and only allows to issue a reservation and 
