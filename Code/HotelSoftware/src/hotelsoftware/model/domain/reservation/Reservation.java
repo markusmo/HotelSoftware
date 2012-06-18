@@ -1,11 +1,10 @@
 package hotelsoftware.model.domain.reservation;
 
-import hotelsoftware.model.database.manager.ReservationManager;
 import hotelsoftware.controller.data.parties.GuestData;
 import hotelsoftware.controller.data.parties.PartyData;
 import hotelsoftware.controller.data.reservation.ReservationItemData;
 import hotelsoftware.controller.data.reservation.ReservationOptionData;
-import hotelsoftware.model.domain.parties.Guest;
+import hotelsoftware.model.database.manager.ReservationManager;
 import hotelsoftware.model.domain.parties.IGuest;
 import hotelsoftware.model.domain.parties.IParty;
 import hotelsoftware.model.domain.users.IUser;
@@ -252,19 +251,7 @@ public class Reservation implements IReservation
     }
 
     @Override
-    public void setReserationNumber(String reservationNumber)
-    {
-        this.reservationNumber = reservationNumber;
-    }
-
-    @Override
     public String getReservationNumber()
-    {
-        return this.reservationNumber;
-    }
-
-    @Override
-    public String getReserationNumber()
     {
         return this.reservationNumber;
     }

@@ -25,6 +25,11 @@ public class CompanyTypeBean implements Serializable
         this.type.setName(name);
     }
 
+    
+    /**
+     * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
+     * @return 
+     */
     public ICompanyType getType()
     {
         return type;
