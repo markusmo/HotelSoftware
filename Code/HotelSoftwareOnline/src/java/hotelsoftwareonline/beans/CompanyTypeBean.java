@@ -28,7 +28,7 @@ public class CompanyTypeBean implements Serializable
     
     /**
      * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
-     * @return 
+     * @return Das zugehörige Domänenobjekt
      */
     public ICompanyType getType()
     {

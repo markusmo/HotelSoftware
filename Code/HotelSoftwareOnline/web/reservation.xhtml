@@ -48,7 +48,7 @@
                                                 <div class="container">
                                                     <div class="roomCategory">
                                                         <h4>Select the wanted room-category</h4>           
-                                                        <h:selectOneRadio id="roomCategory${counter}" value="#{item.category}" required="true" requiredMessage="Please select a room-category!">     
+                                                        <h:selectOneRadio id="roomCategory${counter}" value="#{item.category}" required="true" requiredMessage="Please select a room category!">     
                                                             <f:selectItems value="#{reservation.getAllFreeRoomCategories()}"/>
                                                             <h:message for="roomCategory${counter}" class="error"/>
                                                             <!--<f:validator validatorId="onlinereservation.validator"/>-->
@@ -56,7 +56,7 @@
                                                     </div>
                                                     <div class="boardCategory">
                                                         <h4>Select your board category</h4>
-                                                        <h:selectOneRadio id="boardCategory${counter}" value="#{item.boardCategory}" required="true">
+                                                        <h:selectOneRadio id="boardCategory${counter}" value="#{item.boardCategory}" required="true" requiredMessage="Please select a board category">
                                                             <f:selectItems value="#{reservation.getAllBoardCategories()}"></f:selectItems>
                                                             <h:message for="boardCategory${counter}" class="error"/>
                                                         </h:selectOneRadio>

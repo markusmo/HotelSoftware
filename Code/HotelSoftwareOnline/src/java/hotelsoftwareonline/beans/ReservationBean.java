@@ -162,7 +162,7 @@ public class ReservationBean implements Serializable
     /**
      * Zum nächsten Schritt -> fertig, zurück zu index.html
      *
-     * @return
+     * @return <code>"finishedReservation"</code> wenn speichern erfolgreich
      */
     public String finishReservation()
     {
@@ -358,8 +358,6 @@ public class ReservationBean implements Serializable
     /**
      * Adds a reservationitem to the current reservation For example: new double
      * room
-     *
-     * @param item the item to be added
      */
     public void addReservationItem()
     {
