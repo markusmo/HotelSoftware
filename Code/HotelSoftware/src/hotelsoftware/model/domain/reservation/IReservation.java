@@ -24,8 +24,6 @@ public interface IReservation extends ReservationData
 
     IParty getParty();
 
-    String getReserationNumber();
-
     Collection<IReservationItem> getReservationItems();
 
     Collection<IReservationOption> getReservationOptions();
@@ -43,8 +41,6 @@ public interface IReservation extends ReservationData
     void setId(Integer id);
 
     void setParty(IParty party);
-
-    void setReserationNumber(String reservationNumber);
 
     void setReservationItems(Collection<IReservationItem> reservationItems);
 

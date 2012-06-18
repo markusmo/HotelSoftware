@@ -33,7 +33,6 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
@@ -199,7 +198,8 @@ public class ReservationBean implements Serializable
                 {
                     resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
                             service));
-                } catch (ServiceNotFoundException ex)
+                }
+                catch (ServiceNotFoundException ex)
                 {
                     //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
                     Logger.getLogger(ReservationBean.class.getName()).log(
@@ -216,7 +216,8 @@ public class ReservationBean implements Serializable
             {
                 boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
                         item.getBoardCategory()));
-            } catch (ServiceNotFoundException ex)
+            }
+            catch (ServiceNotFoundException ex)
             {
                 //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
                 Logger.getLogger(ReservationBean.class.getName()).log(
@@ -396,7 +397,8 @@ public class ReservationBean implements Serializable
             builder.append("Dear Mr./Mrs ");
             PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
             builder.append(privatecustomer.getLname());
-        } else
+        }
+        else
         {
             builder.append("Dear ");
             CompanyBean companyBean = (CompanyBean) customer;
@@ -434,7 +436,7 @@ public class ReservationBean implements Serializable
             builder.append(" ");
             builder.append(item.getPriceForCategory());
             builder.append(newline);
-            
+
             if (item.getExtraServices() != null || !item.getExtraServices().isEmpty())
             {
                 builder.append("Extraservices choosen: ");
@@ -451,7 +453,7 @@ public class ReservationBean implements Serializable
             builder.append(item.getBoardCategory());
             builder.append(line);
             builder.append(newline);
-            
+
             builder.append("Total for reservation item: ");
             builder.append(item.getPriceOfReservationItem());
             builder.append(newline);
@@ -463,5 +465,32 @@ public class ReservationBean implements Serializable
         builder.append(this.getTotalPrice());
 
         return builder.toString();
+    }
+
+    public IReservation getReservation()
+    {
+        IReservation reservation = new Reservation();
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
+                FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
+        CustomerBean customer = bean.getCustomer();
+
+
+        reservation.setComment(this.commentary);
+        reservation.setCreated(new Date());
+        reservation.setEndDate(convertToDate(this.endDate));
+        //reservation.setParty(customer);
+        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(Reservation.class));
+
+
+        reservation.setStartDate(convertToDate(this.startDate));
+        
+        Collection<IReservationItem> reservationitems = new LinkedList<IReservationItem>();
+        for (ReservationItemBean item : this.items)
+        {
+            reservationitems.add(item.getReservationItem(reservation));
+        }
+        reservation.setReservationItems(reservationitems);
+
+        return reservation;
     }
 }
