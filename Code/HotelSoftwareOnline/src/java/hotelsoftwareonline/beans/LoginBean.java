@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.support.LoginFailureException;
 import hotelsoftwareonline.controller.CustomerLoginController;
 import java.io.Serializable;
@@ -33,6 +34,11 @@ public class LoginBean implements Serializable
     {
         customer = new CustomerBean()
         {
+            @Override
+            public ICustomer getCustomer()
+            {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
         };
     }
 
@@ -166,6 +172,11 @@ public class LoginBean implements Serializable
     {
         customer = new CustomerBean()
         {
+            @Override
+            public ICustomer getCustomer()
+            {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
         };
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "loggedout";

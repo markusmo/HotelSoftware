@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.ICustomer;
 import java.io.Serializable;
 
 /**
@@ -17,12 +18,12 @@ public abstract class CustomerBean implements Serializable
     private String password;
     private AddressBean address;
     private AddressBean invoiceAddress;
-    
+
     public String getUsername()
     {
         return username;
     }
-    
+
     public void setUsername(String username)
     {
         this.username = username;
@@ -67,4 +68,6 @@ public abstract class CustomerBean implements Serializable
     {
         this.password = password;
     }
+
+    public abstract ICustomer getCustomer();
 }
