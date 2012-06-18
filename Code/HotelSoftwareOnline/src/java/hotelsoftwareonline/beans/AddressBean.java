@@ -124,6 +124,11 @@ public class AddressBean implements Serializable
         }
     }
 
+    
+    /**
+     * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
+     * @return 
+     */
     public IAddress getAddress()
     {
         IAddress address = new Address();

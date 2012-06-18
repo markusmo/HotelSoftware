@@ -92,6 +92,7 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
     {
     }
 
+   
     @Override
     public ICustomer getCustomer()
     {

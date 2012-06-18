@@ -69,5 +69,10 @@ public abstract class CustomerBean implements Serializable
         this.password = password;
     }
 
+    
+    /**
+     * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
+     * @return 
+     */
     public abstract ICustomer getCustomer();
 }

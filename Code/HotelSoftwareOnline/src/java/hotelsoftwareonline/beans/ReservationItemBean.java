@@ -221,19 +221,20 @@ public class ReservationItemBean implements Serializable
 
     /**
      * Gibt ein Domänen Objekt aus
+     *
      * @param reservation die Referenz auf die Reservierung auf die sich die Reservierunsposition bezieht
      * @return eine Reservierungsposition mit allen Feldern gefüllt
      */
     public IReservationItem getReservationItem(IReservation reservation)
     {
         IReservationItem reservationItem = new ReservationItem();
-        
+
         reservationItem.setAmount(this.amount);
         reservationItem.setReservation(reservation);
         reservationItem.setReservationitemsPK(new ReservationItemPK());
-
         IRoomCategory roomcategory = RoomManager.getInstance().getCategoryByName(category);
         reservationItem.setRoomCategory(roomcategory);
+        reservationItem.getReservationitemsPK().setIdRoomCategories(reservationItem.getRoomCategory().getId());
 
         LinkedList<ReservedExtraServices> services = new LinkedList<ReservedExtraServices>();
 
