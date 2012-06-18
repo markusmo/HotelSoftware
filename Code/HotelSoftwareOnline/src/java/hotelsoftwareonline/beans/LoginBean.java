@@ -186,7 +186,7 @@ public class LoginBean implements Serializable
      * Je nach dem, wenn eine Firma eingeloggt ist, wird "changeCompanyData"
      * ausgegeben, sonst wird "changePrivateCustomerData" ausgegeben
      *
-     * @return
+     * @return <code>"changeCompanyData"</code> wenn Kunde eine Firma ist, sonst <code>"changePrivateCustomerData</code>
      */
     public String changeUserData()
     {

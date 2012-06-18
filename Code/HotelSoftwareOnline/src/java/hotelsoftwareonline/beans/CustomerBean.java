@@ -72,7 +72,7 @@ public abstract class CustomerBean implements Serializable
     
     /**
      * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
-     * @return 
+     * @return  Das zugehörige Domänenobjekt
      */
     public abstract ICustomer getCustomer();
 }
