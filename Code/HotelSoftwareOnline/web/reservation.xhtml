@@ -16,15 +16,19 @@
                 <h1>Reservation</h1>
                 <br/>  
                 <h3>Select the wanted period</h3>
-                <div id="periode">  
+                <div id="periode">
                     <h:outputLabel>Start Date: </h:outputLabel> 
                     <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
+                        <f:validator validatorId="onlinereservation.datevalidator"/>
+                        <f:attribute name="startdate" value="#{startdate}" />
                         <f:ajax render="render"/>
                     </h:inputText>
+                    <h:message for="startdate" class="error" />
                     <h:outputLabel>End Date: </h:outputLabel> 
-                    <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate">
+                    <h:inputText class="datepicker" value="#{reservation.endDate}" binding ="#{startdate}" required="true" id="endDate">
                         <f:ajax render="render"/>
                     </h:inputText>
+                    <h:message for="enddate" class="error" />
                     <!--http://www.snyderplace.com/demos/collapsible.html-->
                 </div>
                 <br/><br/> 
