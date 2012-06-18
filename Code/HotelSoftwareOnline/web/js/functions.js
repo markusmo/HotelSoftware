@@ -28,6 +28,9 @@ $(function()
 
 $(document).ready(function(e) {
     $(".datepicker").datepicker($.datepicker.regional["en-GB"]);
+    $(".datepicker").datepicker("option", "minDate", 1);
+
+    
     $("#startDate").change(checkPeriod);
     $("#endDate").change(checkPeriod);
 	

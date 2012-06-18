@@ -147,12 +147,10 @@ public class PdfGenerator
         Random rand = new Random();
         this.invoicePath = path + intermediate + rand.nextInt() + "_intermediate" + ".pdf";
         intermediate++;
-        PdfWriter.getInstance(doc, new FileOutputStream(
-                invoicePath));
+        PdfWriter.getInstance(doc, new FileOutputStream(invoicePath));
         doc.open();
         addMetaData(doc);
-        addInvoiceBodyWithoutTax(doc, items,
-                getTotalwithoutTax(items), created, expiration);
+        addInvoiceBodyWithoutTax(doc, items, getTotalwithoutTax(items), created, expiration);
 
         doc.close();
     }
@@ -181,8 +179,7 @@ public class PdfGenerator
      */
     private void addLogo(Document doc) throws BadElementException, MalformedURLException, IOException, DocumentException
     {
-        URL url = PdfGenerator.class.getClassLoader().getResource(
-                "resources/images/logo_pdf.jpg");
+        URL url = PdfGenerator.class.getClassLoader().getResource("resources/images/logo_pdf.jpg");
         Image image = Image.getInstance(url);
         image.scalePercent(15);
         doc.add(image);
@@ -206,8 +203,8 @@ public class PdfGenerator
         customerParagraph.add(new Paragraph(customer.getName(), normalfont));
         customerParagraph.add(new Paragraph(customer.getInvoiceAddress().getStreet(),
                 normalfont));
-        customerParagraph.add(new Paragraph(customer.getInvoiceAddress().getZip() 
-                + " " + customer.getInvoiceAddress().getCity(),normalfont));
+        customerParagraph.add(new Paragraph(customer.getInvoiceAddress().getZip()
+                + " " + customer.getInvoiceAddress().getCity(), normalfont));
         customerParagraph.add(new Paragraph(
                 customer.getInvoiceAddress().getIdCountry().getName(), normalfont));
         addEmptyLine(customerParagraph, 2);
@@ -555,7 +552,7 @@ public class PdfGenerator
         {
             generateInvoicePDFwithTax();
             SwingController controller = new SwingController();
-            SwingViewBuilder factory = new SwingViewBuilder(controller);            
+            SwingViewBuilder factory = new SwingViewBuilder(controller);
             viewerComponentPanel = factory.buildViewerPanel();
             controller.openDocument(this.invoicePath);
             return viewerComponentPanel;

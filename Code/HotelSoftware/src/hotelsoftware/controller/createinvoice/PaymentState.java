@@ -4,18 +4,14 @@
  */
 package hotelsoftware.controller.createinvoice;
 
-import hotelsoftware.model.database.manager.InvoiceManager;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
 import hotelsoftware.controller.login.LoginController;
 import hotelsoftware.model.domain.invoice.*;
 import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.util.HelperFunctions;
-import hotelsoftware.util.HibernateUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -31,7 +27,7 @@ public class PaymentState extends CreateInvoiceState
     @Override
     void pay()
     {
-        Invoice invoice = new Invoice();
+        IInvoice invoice = context.getCurrentInvoice();
         invoice.setCreated(new Date());
         invoice.setCustomer((ICustomer) context.getCustomerData());
         invoice.setDiscount(BigDecimal.ZERO);
@@ -52,11 +48,12 @@ public class PaymentState extends CreateInvoiceState
         
         context.saveInvoice(invoice);
         
-        context.setSplittedItems(new LinkedList<InvoiceItem>());
+        context.setSplittedItems(new LinkedList<IInvoiceItem>());
         
         if (context.getOpenItems().size() > 0)
         {
-            context.setSelectedItems(context.getOpenItems());
+            context.setCurrentInvoice(new Invoice());
+            context.getCurrentInvoice().setInvoiceItems(context.getOpenItems());
             context.setState(new InterimBillState(context));
         }
         else

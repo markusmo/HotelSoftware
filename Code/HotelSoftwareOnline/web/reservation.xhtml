@@ -11,18 +11,18 @@
         Reservation
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="reservationForm">
             <div id="reservation">
                 <h1>Reservation</h1>
                 <br/>  
                 <h3>Select the wanted period</h3>
                 <div id="periode">  
                     <h:outputLabel>Start Date: </h:outputLabel> 
-                    <h:inputText class="datepicker" value="#{reservation.startDate}" id="startDate">
+                    <h:inputText class="datepicker startDate" value="#{reservation.startDate}" id="startDate">
                         <f:ajax render="render"/>
                     </h:inputText>
                     <h:outputLabel>End Date: </h:outputLabel> 
-                    <h:inputText class="datepicker" value="#{reservation.endDate}" id="endDate">
+                    <h:inputText class="datepicker endDate" value="#{reservation.endDate}" id="endDate">
                         <f:ajax render="render"/>
                     </h:inputText>
                     <!--http://www.snyderplace.com/demos/collapsible.html-->

@@ -283,27 +283,25 @@ public abstract class ChangeDataState extends CheckInState
             status.add(rrs);
         }
 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        ServiceManager.getInstance().startTransaction();
 
         for (IHabitation hab : context.getHabitations())
         {
-            ServiceManager.getInstance().saveHabitation(hab, session);
+            ServiceManager.getInstance().saveHabitation(hab);
         }
 
         for (IGuest guest : guests)
         {
-            PartyManager.getInstance().saveParty(guest, session);
+            PartyManager.getInstance().saveParty(guest);
         }
 
-        InvoiceManager.getInstance().saveInvoiceItems(items, session);
+        InvoiceManager.getInstance().saveInvoiceItems(items);
 
         for (IRoomRoomStatus s : status)
         {
-            RoomManager.getInstance().saveRoomsRoomStatus(s, session);
+            RoomManager.getInstance().saveRoomsRoomStatus(s);
         }
-        ts.commit();
+        ServiceManager.getInstance().commit();
 
         context.setState(new FinalState(context));
     }

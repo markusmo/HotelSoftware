@@ -6,29 +6,21 @@ package hotelsoftware.controller.createinvoice;
 
 import hotelsoftware.controller.UseCaseController;
 import hotelsoftware.controller.data.invoice.InvoiceItemData;
-import hotelsoftware.controller.data.parties.CompanyTypeData;
-import hotelsoftware.controller.data.parties.CountryData;
-import hotelsoftware.controller.data.parties.CustomerData;
-import hotelsoftware.controller.data.parties.GuestData;
-import hotelsoftware.controller.data.parties.PartyData;
+import hotelsoftware.controller.data.parties.*;
 import hotelsoftware.controller.data.service.HabitationData;
 import hotelsoftware.gui.GuiController;
 import hotelsoftware.model.database.manager.InvoiceManager;
+import hotelsoftware.model.domain.invoice.IInvoice;
 import hotelsoftware.model.domain.invoice.IInvoiceItem;
 import hotelsoftware.model.domain.invoice.Invoice;
-import hotelsoftware.model.domain.invoice.InvoiceItem;
 import hotelsoftware.model.domain.parties.Customer;
 import hotelsoftware.model.domain.parties.Guest;
 import hotelsoftware.model.domain.parties.ICustomer;
 import hotelsoftware.model.domain.service.IHabitation;
-import hotelsoftware.util.HelperFunctions;
-import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -38,17 +30,16 @@ public class CreateInvoiceController implements UseCaseController
 {
     private CreateInvoiceState state;
     private Collection<IHabitation> habitations;
-    private Collection<IInvoiceItem> selectedItems;
-    private Collection<InvoiceItem> splittedItems;
-
+    private IInvoice invoice;
+    private Collection<IInvoiceItem> splittedItems;
     private ICustomer customer;
-        
     //Cache:
     private Collection<CountryData> countries;
     private Collection<CompanyTypeData> types;
 
     private CreateInvoiceController()
     {
+        invoice = new Invoice();
         state = new SearchState(this);
         GuiController.getInstance().addUseCaseController(this);
     }
@@ -57,9 +48,10 @@ public class CreateInvoiceController implements UseCaseController
     {
         return CreateInvoiceControllerHolder.INSTANCE;
     }
-    
+
     /**
      * Schnittstelle für die Einbindung in einen Check-Out Vorgang
+     *
      * @param habitation Der bereits gesuchte Aufenthalt der ausgecheckt werden soll
      * @return Der Controller der die Suche bereits übersprungen hat
      */
@@ -69,7 +61,7 @@ public class CreateInvoiceController implements UseCaseController
         Collection<IHabitation> habitations = new LinkedList<IHabitation>();
         habitations.add(habitation);
         CreateInvoiceControllerHolder.INSTANCE.setHabitations(habitations);
-        
+
         return CreateInvoiceControllerHolder.INSTANCE;
     }
 
@@ -88,19 +80,8 @@ public class CreateInvoiceController implements UseCaseController
     {
         state = new SearchState(this);
         habitations = null;
-        selectedItems = null;
+        invoice = new Invoice();
         customer = null;
-    }
-
-    void addInvoiceItemToHabitation(IHabitation habitation, IInvoiceItem item)
-    {
-        for (IHabitation h : habitations)
-        {
-            if (h.equals(habitation))
-            {
-                h.addInvoiceItems(item);
-            }
-        }
     }
 
     private static class CreateInvoiceControllerHolder
@@ -167,7 +148,7 @@ public class CreateInvoiceController implements UseCaseController
     {
         return state.getAllCountries();
     }
-    
+
     /**
      * Gibt alle in der Datenbank vorhandenen CompanyTypes zurück
      *
@@ -285,7 +266,7 @@ public class CreateInvoiceController implements UseCaseController
     {
         state.useGuestAsCustomer(guest);
     }
-    
+
     /**
      * Verwendet eine vorhandene Partei als Kunden
      *
@@ -297,14 +278,17 @@ public class CreateInvoiceController implements UseCaseController
         {
             state.useGuestAsCustomer((Guest) party);
         }
-        else if (party instanceof Customer)
-        {
-            state.useCustomer((Customer) party);
-        }
         else
         {
-            //Unerreichbarer Code
-            assert(true) : "Party muss instanceof Guest oder Customer sein, da darüberliegende Klassen abstrakt sind";
+            if (party instanceof Customer)
+            {
+                state.useCustomer((Customer) party);
+            }
+            else
+            {
+                //Unerreichbarer Code
+                assert (true) : "Party muss instanceof Guest oder Customer sein, da darüberliegende Klassen abstrakt sind";
+            }
         }
     }
 
@@ -315,7 +299,7 @@ public class CreateInvoiceController implements UseCaseController
      */
     public Collection<InvoiceItemData> getChosenItems()
     {
-        return HelperFunctions.castCollectionUp(selectedItems, InvoiceItemData.class, IInvoiceItem.class);
+        return invoice.getInvoiceItemsData();
     }
 
     /**
@@ -384,7 +368,7 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-    
+
     /**
      * Gibt die noch offenen Posten der aktuellen Rechnung an
      *
@@ -393,8 +377,8 @@ public class CreateInvoiceController implements UseCaseController
     public Collection<InvoiceItemData> getOpenItems(HabitationData habitation)
     {
         Collection<InvoiceItemData> openItems = new LinkedList<InvoiceItemData>();
-        IHabitation h = (IHabitation)habitation;
-        
+        IHabitation h = (IHabitation) habitation;
+
         for (IInvoiceItem i : h.getInvoiceItems())
         {
             if (i.getInvoice() == null)
@@ -412,7 +396,7 @@ public class CreateInvoiceController implements UseCaseController
 
         return openItems;
     }
-    
+
     /**
      * ***************************************************************
      */
@@ -426,14 +410,14 @@ public class CreateInvoiceController implements UseCaseController
         this.habitations = habitations;
     }
 
-    Collection<IInvoiceItem> getSelectedItems()
+    IInvoice getCurrentInvoice()
     {
-        return selectedItems;
+        return invoice;
     }
 
-    void setSelectedItems(Collection<IInvoiceItem> selectedItems)
+    void setCurrentInvoice(IInvoice invoice)
     {
-        this.selectedItems = selectedItems;
+        this.invoice = invoice;
     }
 
     CreateInvoiceState getState()
@@ -455,31 +439,31 @@ public class CreateInvoiceController implements UseCaseController
     {
         return state.searchParties(text);
     }
-    
-    void addSplittedItems(InvoiceItem item)
+
+    void addSplittedItems(IInvoiceItem item)
     {
         if (splittedItems == null)
         {
-            splittedItems = new LinkedList<InvoiceItem>();
+            splittedItems = new LinkedList<IInvoiceItem>();
         }
-        
+
         splittedItems.add(item);
     }
-    
-    void setSplittedItems(Collection<InvoiceItem> items)
+
+    void setSplittedItems(Collection<IInvoiceItem> items)
     {
         splittedItems = items;
     }
 
-    Collection<InvoiceItem> getSplittedItems()
+    Collection<IInvoiceItem> getSplittedItems()
     {
         return splittedItems;
     }
-    
+
     Collection<IInvoiceItem> getAllInvoiceItems()
     {
         Collection<IInvoiceItem> col = new HashSet<IInvoiceItem>();
-        
+
         for (IHabitation h : getHabitations())
         {
             for (IInvoiceItem ii : h.getInvoiceItems())
@@ -487,43 +471,47 @@ public class CreateInvoiceController implements UseCaseController
                 col.add(ii);
             }
         }
-        
+
         return col;
     }
-    
+
     Collection<CountryData> getCountries()
     {
         return countries;
     }
-    
+
     void setCountries(Collection<CountryData> countries)
     {
         this.countries = countries;
     }
-    
+
     Collection<CompanyTypeData> getCompanyTypes()
     {
         return types;
     }
-    
+
     void setCompanyTypes(Collection<CompanyTypeData> types)
     {
         this.types = types;
     }
-    
+
     /**
      * saves an invoice and their items (splitted items)
-     *  
-     * @param invoice 
+     *
+     * @param invoice
      */
-    protected void saveInvoice(Invoice invoice) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        transaction.begin();
+    protected void saveInvoice(IInvoice invoice)
+    {
+        InvoiceManager.getInstance().startTransaction();
+
+        InvoiceManager.getInstance().saveInvoice(invoice);
         
-        InvoiceManager.getInstance().saveInvoice(invoice, session);
-        InvoiceManager.getInstance().saveInvoiceItems(HelperFunctions.castCollectionUp(getSplittedItems(), IInvoiceItem.class, InvoiceItem.class), session);
-        
-        transaction.commit();
+        Collection<IInvoiceItem> splitted = getSplittedItems();
+        if (splitted != null)
+        {
+            InvoiceManager.getInstance().saveInvoiceItems(getSplittedItems());
+        }
+
+        InvoiceManager.getInstance().commit();
     }
 }

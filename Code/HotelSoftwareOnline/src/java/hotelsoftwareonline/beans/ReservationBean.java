@@ -33,7 +33,6 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
@@ -44,12 +43,15 @@ public class ReservationBean implements Serializable
     private String finish;
     private String backToChangeInvoiceAddress;
     private String backToReservation;
+    private ReservationController controller;
 
     public ReservationBean()
     {
         items = new ArrayList<ReservationItemBean>();
         ReservationItemBean item = new ReservationItemBean();
         items.add(item);
+
+        controller = new ReservationController();
     }
 
     public String getCommentary()
@@ -171,13 +173,10 @@ public class ReservationBean implements Serializable
         reservation.setEndDate(convertToDate(endDate));
 
         FacesContext context = FacesContext.getCurrentInstance();
-        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(
-                context, "#{login}", LoginBean.class);
+        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(context, "#{login}", LoginBean.class);
 
-        reservation.setParty(PartyManager.getInstance().getCustomerById(
-                bean.getCustomer().getId()));
-        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(
-                Reservation.class));
+        reservation.setParty(PartyManager.getInstance().getCustomerById(bean.getCustomer().getId()));
+        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(Reservation.class));
 
         LinkedList<IReservationItem> resItems = new LinkedList<IReservationItem>();
         for (ReservationItemBean item : this.getItems())
@@ -185,8 +184,7 @@ public class ReservationBean implements Serializable
             IReservationItem resItem = new ReservationItem();
             resItem.setAmount(item.getAmount());
             resItem.setReservation(reservation);
-            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(
-                    item.getCategory()));
+            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(item.getCategory()));
 
             LinkedList<ReservedExtraServices> services = new LinkedList<ReservedExtraServices>();
 
@@ -197,13 +195,12 @@ public class ReservationBean implements Serializable
                 resService.setReservationItem(resItem);
                 try
                 {
-                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
-                            service));
-                } catch (ServiceNotFoundException ex)
+                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(service));
+                }
+                catch (ServiceNotFoundException ex)
                 {
                     //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                    Logger.getLogger(ReservationBean.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                    Logger.getLogger(ReservationBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 services.add(resService);
@@ -216,19 +213,18 @@ public class ReservationBean implements Serializable
             {
                 boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
                         item.getBoardCategory()));
-            } catch (ServiceNotFoundException ex)
+            }
+            catch (ServiceNotFoundException ex)
             {
                 //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                Logger.getLogger(ReservationBean.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                Logger.getLogger(ReservationBean.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             services.add(boardCategory);
             resItem.setReservedExtraServices(services);
 
             resItem.setReservationitemsPK(new ReservationItemPK());
-            resItem.getReservationitemsPK().setIdRoomCategories(
-                    resItem.getRoomCategory().getId());
+            resItem.getReservationitemsPK().setIdRoomCategories(resItem.getRoomCategory().getId());
 
             resItems.add(resItem);
         }
@@ -236,26 +232,24 @@ public class ReservationBean implements Serializable
         reservation.setReservationItems(resItems);
         reservation.setStartDate(convertToDate(startDate));
 
-        ReservationController.saveReservation(reservation);
+        controller.saveReservation(reservation);
 
         //Send mail
         MailSender sender = new MailSender();
-        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(),
-                createMailMessage());
+        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), createMailMessage());
 
         return "finishedReservation";
     }
 
     public ArrayList<String> getAllFreeRoomCategories()
     {
-        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(
-                ""))
+        if (startDate == null || endDate == null || startDate.equals("") || endDate.equals(""))
         {
             return null;
         }
+
         ArrayList<String> list = new ArrayList<String>();
-        for (IRoomCategory cat : ReservationController.getFreeCategories(convertToDate(
-                startDate), convertToDate(endDate)))
+        for (IRoomCategory cat : controller.getFreeCategories(convertToDate(startDate), convertToDate(endDate)))
         {
             list.add(cat.getName());
         }
@@ -264,7 +258,7 @@ public class ReservationBean implements Serializable
 
     public ArrayList<String> getAllBoardCategories()
     {
-        return ReservationController.getBoardCategories();
+        return controller.getBoardCategories();
     }
 
     /**
@@ -294,7 +288,7 @@ public class ReservationBean implements Serializable
 
     public ArrayList<String> getReservableExtraServices()
     {
-        return ReservationController.getReservableExtraServices();
+        return controller.getReservableExtraServices();
     }
 
     public String getEndDate()
@@ -375,8 +369,8 @@ public class ReservationBean implements Serializable
         String[] dates = date.split("/");
         Date d = new Date();
         Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[0]),
-                Integer.parseInt(dates[1]));
+        c.set(Integer.parseInt(dates[2]), Integer.parseInt(dates[1]),
+                Integer.parseInt(dates[0]));
         d.setTime(c.getTimeInMillis());
         return d;
     }
@@ -396,7 +390,8 @@ public class ReservationBean implements Serializable
             builder.append("Dear Mr./Mrs ");
             PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
             builder.append(privatecustomer.getLname());
-        } else
+        }
+        else
         {
             builder.append("Dear ");
             CompanyBean companyBean = (CompanyBean) customer;
@@ -434,7 +429,7 @@ public class ReservationBean implements Serializable
             builder.append(" ");
             builder.append(item.getPriceForCategory());
             builder.append(newline);
-            
+
             if (item.getExtraServices() != null || !item.getExtraServices().isEmpty())
             {
                 builder.append("Extraservices choosen: ");
@@ -451,7 +446,7 @@ public class ReservationBean implements Serializable
             builder.append(item.getBoardCategory());
             builder.append(line);
             builder.append(newline);
-            
+
             builder.append("Total for reservation item: ");
             builder.append(item.getPriceOfReservationItem());
             builder.append(newline);

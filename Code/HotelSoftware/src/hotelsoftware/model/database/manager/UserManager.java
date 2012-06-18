@@ -21,7 +21,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Dunst
  */
-public class UserManager
+public class UserManager extends Manager
 {
     private UserManager()
     {
@@ -51,16 +51,17 @@ public class UserManager
      */
     public IUser login(String username, String password) throws LoginFailureException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        DBUser retUser = (DBUser) session.createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username),
+        startTransaction();
+        
+        DBUser retUser = (DBUser) getSession().createCriteria(DBUser.class).add(Restrictions.and(Restrictions.eq("username", username),
                 Restrictions.eq("password", password))).uniqueResult();
 
         if (retUser == null)
         {
             throw new LoginFailureException();
         }
+        
+        commit();
 
         return (IUser) DynamicMapper.map(retUser);
     }
@@ -73,23 +74,21 @@ public class UserManager
      */
     public Collection<IPermission> getAllPermissions()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPermission.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBPermission.class);
         List<DBPermission> retList = criteria.list();
-
+        commit();
+        
         return DynamicMapper.mapCollection(retList);
     }
     
     public List<IUser> getUsers() throws HibernateException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBUser.class);
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBUser.class);
         List<DBUser> retList = criteria.list();
-
+        commit();
+        
         return (List<IUser>)DynamicMapper.mapCollection(retList);
     }
 
@@ -105,16 +104,16 @@ public class UserManager
      */
     public IPermission getPermissionByName(String name) throws PermissionNotFoundException
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
-        Criteria criteria = session.createCriteria(DBPermission.class).add(Restrictions.eq("name", name));
+        startTransaction();
+        Criteria criteria = getSession().createCriteria(DBPermission.class).add(Restrictions.eq("name", name));
         DBPermission retValue = (DBPermission)criteria.uniqueResult();
 
         if (retValue == null)
         {
             throw new PermissionNotFoundException(name);
         }
+        
+        commit();
 
         return (IPermission) DynamicMapper.map(retValue);
     }

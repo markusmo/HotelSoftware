@@ -7,13 +7,10 @@ import hotelsoftware.model.database.reservation.DBReservedExtraServices;
 import hotelsoftware.model.domain.reservation.IReservation;
 import hotelsoftware.model.domain.reservation.IReservationItem;
 import hotelsoftware.model.domain.reservation.ReservedExtraServices;
-import hotelsoftware.util.HibernateUtil;
 import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -21,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author Johannes
  */
-public class ReservationManager
+public class ReservationManager extends Manager
 {
     private ReservationManager()
     {
@@ -39,16 +36,15 @@ public class ReservationManager
 
     public int getHighestReservationId()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "Select max(id) FROM reservations r";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
 
 
         Integer bd = (Integer) sqlquery.uniqueResult();
-
+        commit();
+        
         if (bd != null)
         {
             return bd;
@@ -67,52 +63,49 @@ public class ReservationManager
      */
     public IReservation getReservationByNumber(String reservationNr)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "SELECT * FROM Reservations r WHERE reservationNumber = :resNr";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
         sqlquery.setString("resNr", reservationNr);
         sqlquery.addEntity(DBReservation.class);
 
         DBReservation reservation = (DBReservation) sqlquery.uniqueResult();
-
+        commit();
+        
         return (IReservation) DynamicMapper.map(reservation);
     }
 
     public Collection<IReservation> getReservationsByNameApprox(String fname,
             String lname)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM guests g WHERE g.fname like '"
                 + fname + "%' AND g.lname like '" + lname + "%') OR r.idParties IN ( SELECT idParties FROM privatepersons p WHERE p.fname like '"
                 + fname + "%' AND p.lname like '" + lname + "%')";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
 
 
         //addEntity gibt den rueckgabewert an...
         sqlquery = sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
-
+        commit();
+        
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     public Collection<IReservation> getReservationsByCompanyNameApprox(String companyName)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "SELECT * FROM Reservations r WHERE r.idParties IN ( SELECT idParties FROM companies WHERE name like '" + companyName + "%') ";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
 
         sqlquery.addEntity(DBReservation.class);
         List<DBReservation> retList = sqlquery.list();
-
+        commit();
+        
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
@@ -124,14 +117,13 @@ public class ReservationManager
      */
     public IReservation getReservationById(int id)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
-        Criteria criteria = session.createCriteria(DBReservation.class);
+        Criteria criteria = getSession().createCriteria(DBReservation.class);
         criteria.add(Restrictions.eq("id", id));
         DBReservation retValue = (DBReservation) criteria.uniqueResult();
-
+        commit();
+        
         return (IReservation) DynamicMapper.map(retValue);
     }
 
@@ -142,77 +134,44 @@ public class ReservationManager
      */
     public Collection<IReservation> getAllReservations()
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction ts = session.beginTransaction();
-        ts.begin();
+        startTransaction();
 
         String query = "SELECT * FROM Reservations r ORDER BY startDate";
-        SQLQuery sqlquery = session.createSQLQuery(query);
+        SQLQuery sqlquery = getSession().createSQLQuery(query);
         sqlquery.addEntity(DBReservation.class);
 
         Collection<DBReservation> retList = sqlquery.list();
-
+        commit();
+        
         return (Collection<IReservation>) DynamicMapper.mapCollection(retList);
     }
 
     public void saveReservation(IReservation reservation)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveReservation(reservation, session);
-
-        t.commit();
-    }
-
-    public void saveReservation(IReservation reservation, Session session)
     {
         DBReservation dbr = (DBReservation) DynamicMapper.map(reservation);
         Integer id;
 
         if (dbr.getId() == null)
         {
-            id = (Integer) session.save(dbr);
+            id = (Integer) getSession().save(dbr);
             reservation.setId(id);
         }
         else
         {
-            session.saveOrUpdate(session.merge(dbr));
+            getSession().saveOrUpdate(getSession().merge(dbr));
         }
     }
 
-    public void saveReservedExtraService(ReservedExtraServices extraService)
-    {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveReservedExtraService(extraService, session);
-
-        t.commit();
-    }
-
-    public void saveReservedExtraService(ReservedExtraServices reservationItem, Session session)
+    public void saveReservedExtraService(ReservedExtraServices reservationItem)
     {
         DBReservedExtraServices dbres = (DBReservedExtraServices) DynamicMapper.map(reservationItem);
-        session.saveOrUpdate(dbres);
+        getSession().saveOrUpdate(dbres);
     }
     
+
     public void saveReservationItem(IReservationItem reservationItem)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-
-        saveReservationItem(reservationItem, session);
-
-        t.commit();
-    }
-
-    public void saveReservationItem(IReservationItem reservationItem, Session session)
-    {
         DBReservationItem dbri = (DBReservationItem) DynamicMapper.map(reservationItem);
-        session.saveOrUpdate(dbri);
+        getSession().saveOrUpdate(dbri);
     }
 }

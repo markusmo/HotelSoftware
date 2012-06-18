@@ -37,8 +37,8 @@ public class PrePaymentController
         Service service = new ServiceAdapter(((ServiceManagerAdapter)serviceManager).getExtraServiceByName("PrePayment"));
         //service.setType(serviceManager.getTypeByName("PrePayment"));
         prePaymentItem.setService(service);
+        
         serviceManager.saveService(service);
-
         iiManager.saveInvoiceItem(prePaymentItem);
     }
 }

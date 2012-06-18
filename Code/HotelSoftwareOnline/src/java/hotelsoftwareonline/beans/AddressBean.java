@@ -15,7 +15,6 @@ import java.util.Collection;
  */
 public class AddressBean implements Serializable
 {
-
     private Integer id;
     private String street;
     private String city;
@@ -107,7 +106,7 @@ public class AddressBean implements Serializable
 
     public Collection<String> getCountries()
     {
-        return ReservationController.getCountries();
+        return new ReservationController().getCountries();
     }
 
     public Integer getId()

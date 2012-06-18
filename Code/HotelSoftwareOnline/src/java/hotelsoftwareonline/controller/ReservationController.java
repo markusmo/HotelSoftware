@@ -29,18 +29,28 @@ import org.hibernate.Transaction;
  */
 public class ReservationController implements Serializable
 {
+    private Collection<IRoomCategory> allCategories;
+    private Collection<IExtraService> allExtraServices;
+    private Collection<ICountry> allCountries;
 
-    public static Collection<IRoomCategory> getFreeCategories(Date start, Date end)
+    public Collection<IRoomCategory> getFreeCategories(Date start, Date end)
     {
-        Collection<IRoomCategory> categories = new LinkedList<IRoomCategory>();
-        for (IRoomCategory cat : RoomCategory.getAllCategorys())
+        if (allCategories == null)
+        {
+            allCategories = RoomCategory.getAllCategorys();
+        }
+
+        Collection<IRoomCategory> freeCategories = new LinkedList<IRoomCategory>();
+        
+        for (IRoomCategory cat : allCategories)
         {
             if (!cat.getFreeRooms(start, end).isEmpty())
             {
-                categories.add(cat);
+                freeCategories.add(cat);
             }
         }
-        return categories;
+
+        return freeCategories;
     }
 
     /**
@@ -48,9 +58,13 @@ public class ReservationController implements Serializable
      *
      * @return eine Arraylist aller Verplegungsarten
      */
-    public static ArrayList<String> getBoardCategories()
+    public ArrayList<String> getBoardCategories()
     {
-        Collection<IExtraService> allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        if (allExtraServices == null)
+        {
+            allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        }
+
         ArrayList<String> boardCategories = new ArrayList<String>();
         for (IExtraService extraservice : allExtraServices)
         {
@@ -68,9 +82,13 @@ public class ReservationController implements Serializable
      *
      * @return eine Arraylist aller Länder
      */
-    public static ArrayList<String> getCountries()
+    public ArrayList<String> getCountries()
     {
-        Collection<ICountry> allCountries = Country.getAllCountries();
+        if (allCountries == null)
+        {
+            allCountries = Country.getAllCountries();
+        }
+        
         ArrayList<String> countries = new ArrayList<String>();
         for (ICountry c : allCountries)
         {
@@ -80,9 +98,13 @@ public class ReservationController implements Serializable
         return countries;
     }
 
-    public static ArrayList<String> getReservableExtraServices()
+    public ArrayList<String> getReservableExtraServices()
     {
-        Collection<IExtraService> allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        if (allExtraServices == null)
+        {
+            allExtraServices = ServiceManager.getInstance().getAllExtraServices();
+        }
+
         ArrayList<String> services = new ArrayList<String>();
         for (IExtraService extraservice : allExtraServices)
         {
@@ -95,16 +117,14 @@ public class ReservationController implements Serializable
         return services;
     }
 
-    public static void saveReservation(IReservation reservation)
+    public void saveReservation(IReservation reservation)
     {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        t.begin();
-        ReservationManager.getInstance().saveReservation(reservation, session);
+        ReservationManager.getInstance().startTransaction();
+        ReservationManager.getInstance().saveReservation(reservation);
         for (IReservationItem item : reservation.getReservationItems())
         {
             item.getReservationitemsPK().setIdReservations(reservation.getId());
-            ReservationManager.getInstance().saveReservationItem(item, session);
+            ReservationManager.getInstance().saveReservationItem(item);
             for (ReservedExtraServices service : item.getReservedExtraServices())
             {
                 service.setReservationItem(item);
@@ -114,10 +134,10 @@ public class ReservationController implements Serializable
                 service.getReservedExtraServicesPK().setReservationItemsidReservations(service.getReservationItem().getReservationitemsPK().getIdReservations());
                 service.getReservedExtraServicesPK().setReservationItemsidRoomCategories(service.getReservationItem().getReservationitemsPK().getIdRoomCategories());
 
-                ReservationManager.getInstance().saveReservedExtraService(service, session);
+                ReservationManager.getInstance().saveReservedExtraService(service);
             }
         }
-        t.commit();
+        ReservationManager.getInstance().commit();
     }
 
     /**
@@ -134,7 +154,7 @@ public class ReservationController implements Serializable
 
         for (String item : items)
         {
-           price +=getTotalPriceForExtraService(item);
+            price += getTotalPriceForExtraService(item);
         }
 
         return price;
@@ -151,9 +171,7 @@ public class ReservationController implements Serializable
     public double getTotalPriceForExtraService(String item) throws ServiceNotFoundException
     {
         IExtraService extraService = ServiceManager.getInstance().getExtraServiceByName(item);
-        double withouttax = extraService.getPrice().doubleValue();
-        double tax = (extraService.getServiceType().getTaxRate().doubleValue() / 100) * withouttax;
-        return withouttax + tax;
+        return extraService.getPriceWithTax();
     }
 
     public double getPriceForCategory(String category) throws NoPriceDefinedException
