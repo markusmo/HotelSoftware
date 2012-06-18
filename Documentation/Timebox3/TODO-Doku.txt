@@ -1,0 +1,16 @@
+Änderungsverzeichnis aktualisieren
+
+Package-Diagramm mit web-projekt
+	und text anpassen
+
+Controller um Controller-Klassendiagramm erweitern
+	und kleiner Text dazu
+
+Web-Reservierung --> detailliertes Packagediagramm mit Erklärung
+
+pdf
+
+Feedback -Aufarbeitung
+
+Email
+
