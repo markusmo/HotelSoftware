@@ -11,11 +11,14 @@ import hotelsoftware.model.domain.room.IRoomCategory;
 import hotelsoftware.util.HelperFunctions;
 import hotelsoftwareonline.controller.ReservationController;
 import hotelsoftwareonline.util.MailSender;
+import hotelsoftwareonline.util.MailingException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -240,8 +243,7 @@ public class ReservationBean implements Serializable
         LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
                 FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
         //Send mail
-        MailSender sender = new MailSender();
-        sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(), createMailMessage());
+        new Thread(new MailSender(createMailMessage(), bean.getCustomer().getInvoiceAddress().getEmail())).start();
 
         return "finishedReservation";
     }

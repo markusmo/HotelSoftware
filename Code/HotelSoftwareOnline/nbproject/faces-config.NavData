@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Faces Configuration Only" version="2">
     <Scope Scope="Faces Configuration Only">
-        <Node id="changeDataCompany.xhtml" x="-142" y="344" zoom="true"/>
+        <Node id="changeDataCompany.xhtml" x="-200" y="376" zoom="true"/>
         <Node id="reservationFinished.xhtml" x="209" y="166" zoom="true"/>
-        <Node id="reservation.xhtml" x="-21" y="145" zoom="true"/>
-        <Node id="login.xhtml" x="340" y="417" zoom="true"/>
+        <Node id="reservation.xhtml" x="-106" y="176" zoom="true"/>
+        <Node id="login.xhtml" x="293" y="512" zoom="true"/>
         <Node id="index.xhtml" x="352" y="256" zoom="true"/>
+        <Node id="changeDataPrivateCustomer.xhtml" x="-131" y="546" zoom="true"/>
         <Node id="changeInvoiceAddress.xhtml" x="521" y="52" zoom="true"/>
-        <Node id="changeDataPrivateCustomer.xhtml" x="-23" y="495" zoom="true"/>
-        <Node id="*" x="224" y="357" zoom="true"/>
-        <Node id="reservationOverview.xhtml" x="522" y="375" zoom="true"/>
+        <Node id="*" x="167" y="297" zoom="true"/>
+        <Node id="reservationOverview.xhtml" x="534" y="447" zoom="true"/>
     </Scope>
     <Scope Scope="Project">
         <Node id="changeDataCompany.xhtml" x="267" y="477" zoom="true"/>
         <Node id="reservation.xhtml" x="188" y="44" zoom="true"/>
         <Node id="login.xhtml" x="-1" y="449" zoom="true"/>
-        <Node id="changeDataPrivateCustomer.xhtml" x="55" y="525" zoom="true"/>
         <Node id="template.xhtml" x="461" y="-1" zoom="true"/>
-        <Node id="*" x="188" y="291" zoom="true"/>
+        <Node id="changeDataPrivateCustomer.xhtml" x="55" y="525" zoom="true"/>
         <Node id="reservationItem.xhtml" x="671" y="-1" zoom="true"/>
+        <Node id="*" x="188" y="291" zoom="true"/>
         <Node id="reservationOverview.xhtml" x="430" y="251" zoom="true"/>
         <Node id="index.xhtml" x="18" y="227" zoom="true"/>
-        <Node id="changeInvoiceAddress.xhtml" x="531" y="97" zoom="true"/>
         <Node id="reservationFinished.html" x="633" y="351" zoom="true"/>
+        <Node id="changeInvoiceAddress.xhtml" x="531" y="97" zoom="true"/>
         <Node id="template.html" x="257" y="-3" zoom="true"/>
         <Node id="TesterJSF.xhtml" x="35" y="-3" zoom="true"/>
     </Scope>
