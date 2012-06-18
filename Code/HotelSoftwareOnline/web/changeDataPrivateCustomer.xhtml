@@ -1,171 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <ui:composition template="template.xhtml"
-              xmlns="http://www.w3.org/1999/xhtml"
-              xmlns:h="http://java.sun.com/jsf/html"
-              xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:c="http://java.sun.com/jsp/jstl/core"
-              xmlns:f="http://java.sun.com/jsf/core">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name ="title">Change your personal data</ui:define>
-    
+
     <ui:define name="content">
-    <h:form>
-        <table class="addresstable">
-            <tbody>
-                <tr>
-                    <td>
-                        First name: 
-                    </td>
-                    <td>
-                        <h:inputText id="fname" value="#{privatecustomer.fname}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Last name: 
-                    </td>
-                    <td>
-                        <h:inputText id="lanme" value="#{privatecustomer.lname}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>
-                </tr>
-                <tr>        
-                    <td>Street: 
-                    </td>
-                    <td>
-                        <h:inputText id="street" value="#{privatecustomer.address.street}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>
-                </tr>
-                <tr>       
-                    <td>
-                        ZIP: 
-                    </td>
-                    <td>
-                        <h:inputText id="zip" value="#{privatecustomer.address.zip}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>         
-                </tr>
-                <tr>        
-                    <td>
-                        City: 
-                    </td>
-                    <td>
-                        <h:inputText id="city" value="#{privatecustomer.address.city}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>   
-                </tr>
-                <tr>       
-                    <td>
-                        Email: 
-                    </td>
-                    <td>
-                        <h:inputText id="email" value="#{privatecustomer.address.email}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>     
-                </tr>
-                <tr>   
-                    <td>
-                        Phone: 
-                    </td>
-                    <td>
-                        <h:inputText id="phone" value="#{privatecustomer.address.phone}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>      
-                </tr>
-                <tr>            
-                    <td>
-                        Fax:
-                    </td>
-                    <td> 
-                        <h:inputText id="fax" value="#{privatecustomer.address.fax}" required="true"/>
-                        <br/><h:message for="kurse" class="error" />
-                    </td>    
-                </tr>
-                <tr>     
-                    <td>
-                        Country: 
-                    </td>
-                    <td>
-                        <h:selectOneMenu id="country" value="#{privatecustomer.address.country}" required="true">
-                            <f:selectItems value="#{privatecustomer.address.countries}" />
-                        </h:selectOneMenu>
-                    </td>       
-                </tr>
-                <div class="collapsed invoiceaddress">
-                    <tr>      
-                        <td class="invpiceaddresstitle">
-                            Invoice Address:
-                        </td>    
-                    </tr>
-                    <tr>   
+        <h1>Change your personal data</h1>
+        <h:form>
+            <table class="addresstable">
+                <tbody>
+                    <tr>
                         <td>
-                            Street: 
+                            First name: 
                         </td>
                         <td>
-                            <h:inputText id="istreet" value="#{privatecustomer.invoiceAddress.street}" required="true"/>
+                            <h:inputText id="fname" value="#{privatecustomer.fname}" required="true"/>
                             <br/><h:message for="kurse" class="error" />
-                        </td>   
+                        </td>
                     </tr>
-                    <tr>     
+                    <tr>
+                        <td>
+                            Last name: 
+                        </td>
+                        <td>
+                            <h:inputText id="lanme" value="#{privatecustomer.lname}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
+                        </td>
+                    </tr>
+                    <tr>        
+                        <td>Street: 
+                        </td>
+                        <td>
+                            <h:inputText id="street" value="#{privatecustomer.address.street}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
+                        </td>
+                    </tr>
+                    <tr>       
                         <td>
                             ZIP: 
                         </td>
                         <td>
-                            <h:inputText id="izip" value="#{privatecustomer.invoiceAddress.zip}" required="true"/>
+                            <h:inputText id="zip" value="#{privatecustomer.address.zip}" required="true"/>
                             <br/><h:message for="kurse" class="error" />
-                        </td>     
+                        </td>         
                     </tr>
-                    <tr>      
+                    <tr>        
                         <td>
                             City: 
                         </td>
                         <td>
-                            <h:inputText id="icity" value="#{privatecustomer.invoiceAddress.city}" required="true"/>
-                            <br/><h:message for="kurse" class="error" />                            
-                        </td>               
+                            <h:inputText id="city" value="#{privatecustomer.address.city}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
+                        </td>   
                     </tr>
-                    <tr>    
+                    <tr>       
                         <td>
                             Email: 
                         </td>
                         <td>
-                            <h:inputText id="iemail" value="#{privatecustomer.invoiceAddress.email}" required="true"/>
+                            <h:inputText id="email" value="#{privatecustomer.address.email}" required="true"/>
                             <br/><h:message for="kurse" class="error" />
-                        </td>       
+                        </td>     
                     </tr>
-                    <tr>         
-                        <td>Phone: 
+                    <tr>   
+                        <td>
+                            Phone: 
                         </td>
                         <td>
-                            <h:inputText id="iphone" value="#{privatecustomer.invoiceAddress.phone}" required="true"/>
+                            <h:inputText id="phone" value="#{privatecustomer.address.phone}" required="true"/>
                             <br/><h:message for="kurse" class="error" />
                         </td>      
+                    </tr>
+                    <tr>            
+                        <td>
+                            Fax:
+                        </td>
+                        <td> 
+                            <h:inputText id="fax" value="#{privatecustomer.address.fax}" required="true"/>
+                            <br/><h:message for="kurse" class="error" />
+                        </td>    
                     </tr>
                     <tr>     
-                        <td>
-                            Fax: 
-                        </td>
-                        <td>
-                            <h:inputText id="ifax" value="#{privatecustomer.invoiceAddress.fax}" required="true"/>
-                            <br/><h:message for="kurse" class="error" />
-                        </td>      
-                    </tr>
-                    <tr>       
                         <td>
                             Country: 
                         </td>
                         <td>
-                            <h:selectOneMenu id="icountry" value="#{privatecustomer.invoiceAddress.country}" required="true">
-                                <f:selectItems value="#{privatecustomer.invoiceAddress.countries}" />
+                            <h:selectOneMenu id="country" value="#{privatecustomer.address.country}" required="true">
+                                <f:selectItems value="#{privatecustomer.address.countries}" />
                             </h:selectOneMenu>
-                        </td>
+                        </td>       
                     </tr>
-                </div>
-            </tbody>
-        </table>
-        <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
-    </h:form>
+                    <div class="collapsed invoiceaddress">
+                        <tr>      
+                            <td class="invpiceaddresstitle">
+                                Invoice Address:
+                            </td>    
+                        </tr>
+                        <tr>   
+                            <td>
+                                Street: 
+                            </td>
+                            <td>
+                                <h:inputText id="istreet" value="#{privatecustomer.invoiceAddress.street}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />
+                            </td>   
+                        </tr>
+                        <tr>     
+                            <td>
+                                ZIP: 
+                            </td>
+                            <td>
+                                <h:inputText id="izip" value="#{privatecustomer.invoiceAddress.zip}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />
+                            </td>     
+                        </tr>
+                        <tr>      
+                            <td>
+                                City: 
+                            </td>
+                            <td>
+                                <h:inputText id="icity" value="#{privatecustomer.invoiceAddress.city}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />                            
+                            </td>               
+                        </tr>
+                        <tr>    
+                            <td>
+                                Email: 
+                            </td>
+                            <td>
+                                <h:inputText id="iemail" value="#{privatecustomer.invoiceAddress.email}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />
+                            </td>       
+                        </tr>
+                        <tr>         
+                            <td>Phone: 
+                            </td>
+                            <td>
+                                <h:inputText id="iphone" value="#{privatecustomer.invoiceAddress.phone}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />
+                            </td>      
+                        </tr>
+                        <tr>     
+                            <td>
+                                Fax: 
+                            </td>
+                            <td>
+                                <h:inputText id="ifax" value="#{privatecustomer.invoiceAddress.fax}" required="true"/>
+                                <br/><h:message for="kurse" class="error" />
+                            </td>      
+                        </tr>
+                        <tr>       
+                            <td>
+                                Country: 
+                            </td>
+                            <td>
+                                <h:selectOneMenu id="icountry" value="#{privatecustomer.invoiceAddress.country}" required="true">
+                                    <f:selectItems value="#{privatecustomer.invoiceAddress.countries}" />
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+            <h:commandButton id="buttonSubmit" value="Save" onclick="submit()" />
+        </h:form>
     </ui:define>
 </ui:composition>
