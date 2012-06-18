@@ -4,6 +4,7 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.ICountry;
 import hotelsoftwareonline.controller.ReservationController;
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,22 +15,34 @@ import java.util.Collection;
  */
 public class AddressBean implements Serializable
 {
+
+    private Integer id;
     private String street;
     private String city;
     private String zip;
     private String email;
     private String phone;
     private String fax;
-    private String country;
+    private ICountry domainCountry;
 
+    public ICountry getDomainCountry()
+    {
+        return domainCountry;
+    }
+
+    public void setDomainCountry(ICountry domainCountry)
+    {
+        this.domainCountry = domainCountry;
+    }
+    
     public String getCountry()
     {
-        return country;
+        return domainCountry.getName();
     }
 
     public void setCountry(String country)
     {
-        this.country = country;
+        this.domainCountry.setName(country);
     }
 
     public String getCity()
@@ -96,34 +109,47 @@ public class AddressBean implements Serializable
     {
         return ReservationController.getCountries();
     }
-    
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        if (id == null)
+        {
+            this.id = id;
+        }
+    }
+
     @Override
     public String toString()
     {
         StringBuilder returnstring = new StringBuilder();
         String newline = "\n";
-        
+
         returnstring.append(street);
         returnstring.append(newline);
-        
+
         returnstring.append(zip);
         returnstring.append(" ");
         returnstring.append(city);
         returnstring.append(newline);
-        
-        returnstring.append(country);
+
+        returnstring.append(this.getCountry());
         returnstring.append(newline);
-        
+
         returnstring.append("Phone: ");
         returnstring.append(phone);
         returnstring.append(newline);
-        
+
         returnstring.append("Fax: ");
         returnstring.append(fax);
         returnstring.append(newline);
-        
+
         returnstring.append(email);
-        
+
         return returnstring.toString();
     }
 }
