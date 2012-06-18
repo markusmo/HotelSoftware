@@ -5,9 +5,7 @@
 package hotelsoftwareonline.beans;
 
 import hotelsoftware.model.database.manager.PartyManager;
-import hotelsoftware.model.domain.parties.Address;
-import hotelsoftware.model.domain.parties.IAddress;
-import hotelsoftware.model.domain.parties.PrivateCustomer;
+import hotelsoftware.model.domain.parties.*;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -41,7 +39,7 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
     {
         super.setUsername(username);
     }
-    
+
     @Override
     public void setAddress(AddressBean address)
     {
@@ -89,26 +87,41 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
     {
         this.lname = lname;
     }
-    
+
     public PrivateCustomerBean()
     {
     }
-    
+
+    @Override
+    public ICustomer getCustomer()
+    {
+        IPrivateCustomer customer = new PrivateCustomer();
+        customer.setFname(fname);
+        customer.setGender(gender);
+        customer.setLname(lname);
+        customer.setAddress(getAddress().getAddress());
+        customer.setIdParties(getId());
+        customer.setInvoiceAddress(getInvoiceAddress().getAddress());
+        customer.setPassword(getPassword());
+        customer.setUsername(getUsername());
+        return customer;
+    }
+
     public String save()
     {
         PrivateCustomer customer = new PrivateCustomer();
-        
+
         customer.setIdParties(this.getId());
         customer.setFname(this.getFname());
         customer.setLname(this.getLname());
         customer.setUsername(this.getUsername());
         customer.setPassword(this.getPassword());
-        
+
         IAddress address = new Address();
         IAddress invoiceAddress = new Address();
         AddressBean addressBean = this.getAddress();
         AddressBean invoiceAddressBean = this.getInvoiceAddress();
-        
+
         address.setId(addressBean.getId());
         address.setCity(addressBean.getCity());
         address.setEmail(addressBean.getEmail());
@@ -117,7 +130,7 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
         address.setPhone(addressBean.getPhone());
         address.setStreet(addressBean.getStreet());
         address.setZip(addressBean.getZip());
-        
+
         invoiceAddress.setId(invoiceAddressBean.getId());
         invoiceAddress.setCity(invoiceAddressBean.getCity());
         invoiceAddress.setEmail(invoiceAddressBean.getEmail());
@@ -126,9 +139,9 @@ public class PrivateCustomerBean extends CustomerBean implements Serializable
         invoiceAddress.setPhone(invoiceAddressBean.getPhone());
         invoiceAddress.setStreet(invoiceAddressBean.getStreet());
         invoiceAddress.setZip(invoiceAddressBean.getZip());
-        
+
         PartyManager.getInstance().saveParty(customer);
-        
+
         return "customerSaved";
     }
 }

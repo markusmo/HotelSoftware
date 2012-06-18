@@ -14,7 +14,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-@ManagedBean(name="company")
+@ManagedBean(name = "company")
 @SessionScoped
 public class CompanyBean extends CustomerBean implements Serializable
 {
@@ -32,12 +32,14 @@ public class CompanyBean extends CustomerBean implements Serializable
     {
         super.setUsername(username);
     }
-    
-    public CompanyTypeBean getType() {
+
+    public CompanyTypeBean getType()
+    {
         return type;
     }
 
-    public void setType(CompanyTypeBean type) {
+    public void setType(CompanyTypeBean type)
+    {
         this.type = type;
     }
 
@@ -74,24 +76,24 @@ public class CompanyBean extends CustomerBean implements Serializable
     {
         this.name = name;
     }
-    
+
     public CompanyBean()
     {
     }
-    
+
     public String save()
     {
         Company company = new Company();
-        
+
         company.setCompanyType(this.getType().getType());
         company.setName(this.getName());
         company.setIdParties(this.getId());
-        
+
         IAddress address = new Address();
         IAddress invoiceAddress = new Address();
         AddressBean addressBean = this.getAddress();
         AddressBean invoiceAddressBean = this.getInvoiceAddress();
-        
+
         address.setId(addressBean.getId());
         address.setCity(addressBean.getCity());
         address.setEmail(addressBean.getEmail());
@@ -100,7 +102,7 @@ public class CompanyBean extends CustomerBean implements Serializable
         address.setPhone(addressBean.getPhone());
         address.setStreet(addressBean.getStreet());
         address.setZip(addressBean.getZip());
-        
+
         invoiceAddress.setId(invoiceAddressBean.getId());
         invoiceAddress.setCity(invoiceAddressBean.getCity());
         invoiceAddress.setEmail(invoiceAddressBean.getEmail());
@@ -109,12 +111,26 @@ public class CompanyBean extends CustomerBean implements Serializable
         invoiceAddress.setPhone(invoiceAddressBean.getPhone());
         invoiceAddress.setStreet(invoiceAddressBean.getStreet());
         invoiceAddress.setZip(invoiceAddressBean.getZip());
-        
+
         company.setAddress(address);
         company.setInvoiceAddress(invoiceAddress);
-        
+
         PartyManager.getInstance().saveParty(company);
-        
+
         return "companySaved";
+    }
+
+    @Override
+    public ICustomer getCustomer()
+    {
+        ICompany company = new Company();
+        company.setAddress(getAddress().getAddress());
+        company.setCompanyType(type.getType());
+        company.setIdParties(getId());
+        company.setInvoiceAddress(getInvoiceAddress().getAddress());
+        company.setName(name);
+        company.setPassword(getPassword());
+        company.setUsername(getUsername());
+        return company;
     }
 }
