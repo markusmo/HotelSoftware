@@ -4,6 +4,8 @@
  */
 package hotelsoftwareonline.beans;
 
+import hotelsoftware.model.domain.parties.Address;
+import hotelsoftware.model.domain.parties.IAddress;
 import hotelsoftware.model.domain.parties.ICountry;
 import hotelsoftwareonline.controller.ReservationController;
 import java.io.Serializable;
@@ -33,7 +35,7 @@ public class AddressBean implements Serializable
     {
         this.domainCountry = domainCountry;
     }
-    
+
     public String getCountry()
     {
         return domainCountry.getName();
@@ -120,6 +122,25 @@ public class AddressBean implements Serializable
         {
             this.id = id;
         }
+    }
+
+    
+    /**
+     * Gibt das Domänenobjekt zurück das von der Bean abgebildet wird
+     * @return 
+     */
+    public IAddress getAddress()
+    {
+        IAddress address = new Address();
+        address.setCity(city);
+        address.setEmail(email);
+        address.setFax(fax);
+        address.setId(id);
+        address.setIdCountry(domainCountry);
+        address.setPhone(phone);
+        address.setStreet(street);
+        address.setZip(zip);
+        return address;
     }
 
     @Override
