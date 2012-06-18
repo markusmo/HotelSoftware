@@ -33,7 +33,6 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class ReservationBean implements Serializable
 {
-
     private String startDate = "";
     private String endDate = "";
     private String commentary = "";
@@ -165,79 +164,82 @@ public class ReservationBean implements Serializable
      */
     public String finishReservation()
     {
-        IReservation reservation = new Reservation();
-        reservation.setComment(commentary);
-        reservation.setCreated(new Date());
-        reservation.setEndDate(convertToDate(endDate));
+//        IReservation reservation = new Reservation();
+//        reservation.setComment(commentary);
+//        reservation.setCreated(new Date());
+//        reservation.setEndDate(convertToDate(endDate));
+//
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(
+//                context, "#{login}", LoginBean.class);
+//
+//        reservation.setParty(PartyManager.getInstance().getCustomerById(
+//                bean.getCustomer().getId()));
+//        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(
+//                Reservation.class));
+//
+//        LinkedList<IReservationItem> resItems = new LinkedList<IReservationItem>();
+//        for (ReservationItemBean item : this.getItems())
+//        {
+//            IReservationItem resItem = new ReservationItem();
+//            resItem.setAmount(item.getAmount());
+//            resItem.setReservation(reservation);
+//            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(
+//                    item.getCategory()));
+//
+//            LinkedList<ReservedExtraServices> services = new LinkedList<ReservedExtraServices>();
+//
+//            for (String service : item.getExtraServices())
+//            {
+//                ReservedExtraServices resService = new ReservedExtraServices();
+//                resService.setAmount(1); //TODO eventuell Dauer?
+//                resService.setReservationItem(resItem);
+//                try
+//                {
+//                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
+//                            service));
+//                }
+//                catch (ServiceNotFoundException ex)
+//                {
+//                    //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
+//                    Logger.getLogger(ReservationBean.class.getName()).log(
+//                            Level.SEVERE, null, ex);
+//                }
+//
+//                services.add(resService);
+//            }
+//
+//            ReservedExtraServices boardCategory = new ReservedExtraServices();
+//            boardCategory.setAmount(1); //TODO eventuell Dauer?
+//            boardCategory.setReservationItem(resItem);
+//            try
+//            {
+//                boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
+//                        item.getBoardCategory()));
+//            }
+//            catch (ServiceNotFoundException ex)
+//            {
+//                //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
+//                Logger.getLogger(ReservationBean.class.getName()).log(
+//                        Level.SEVERE, null, ex);
+//            }
+//
+//            services.add(boardCategory);
+//            resItem.setReservedExtraServices(services);
+//
+//            resItem.setReservationitemsPK(new ReservationItemPK());
+//            resItem.getReservationitemsPK().setIdRoomCategories(
+//                    resItem.getRoomCategory().getId());
+//
+//            resItems.add(resItem);
+//        }
+//
+//        reservation.setReservationItems(resItems);
+//        reservation.setStartDate(convertToDate(startDate));
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        LoginBean bean = (LoginBean) context.getApplication().evaluateExpressionGet(
-                context, "#{login}", LoginBean.class);
-
-        reservation.setParty(PartyManager.getInstance().getCustomerById(
-                bean.getCustomer().getId()));
-        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(
-                Reservation.class));
-
-        LinkedList<IReservationItem> resItems = new LinkedList<IReservationItem>();
-        for (ReservationItemBean item : this.getItems())
-        {
-            IReservationItem resItem = new ReservationItem();
-            resItem.setAmount(item.getAmount());
-            resItem.setReservation(reservation);
-            resItem.setRoomCategory(RoomManager.getInstance().getCategoryByName(
-                    item.getCategory()));
-
-            LinkedList<ReservedExtraServices> services = new LinkedList<ReservedExtraServices>();
-
-            for (String service : item.getExtraServices())
-            {
-                ReservedExtraServices resService = new ReservedExtraServices();
-                resService.setAmount(1); //TODO eventuell Dauer?
-                resService.setReservationItem(resItem);
-                try
-                {
-                    resService.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
-                            service));
-                } catch (ServiceNotFoundException ex)
-                {
-                    //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                    Logger.getLogger(ReservationBean.class.getName()).log(
-                            Level.SEVERE, null, ex);
-                }
-
-                services.add(resService);
-            }
-
-            ReservedExtraServices boardCategory = new ReservedExtraServices();
-            boardCategory.setAmount(1); //TODO eventuell Dauer?
-            boardCategory.setReservationItem(resItem);
-            try
-            {
-                boardCategory.setExtraService(ServiceManager.getInstance().getExtraServiceByName(
-                        item.getBoardCategory()));
-            } catch (ServiceNotFoundException ex)
-            {
-                //Ignorieren, wurde zuerst aus der DB gelesen, muss also eigentlich vorhanden sein
-                Logger.getLogger(ReservationBean.class.getName()).log(
-                        Level.SEVERE, null, ex);
-            }
-
-            services.add(boardCategory);
-            resItem.setReservedExtraServices(services);
-
-            resItem.setReservationitemsPK(new ReservationItemPK());
-            resItem.getReservationitemsPK().setIdRoomCategories(
-                    resItem.getRoomCategory().getId());
-
-            resItems.add(resItem);
-        }
-
-        reservation.setReservationItems(resItems);
-        reservation.setStartDate(convertToDate(startDate));
-
-        ReservationController.saveReservation(reservation);
-
+        ReservationController.saveReservation(getReservation());
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
+                FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
         //Send mail
         MailSender sender = new MailSender();
         sender.sendmail(bean.getCustomer().getInvoiceAddress().getEmail(),
@@ -396,7 +398,8 @@ public class ReservationBean implements Serializable
             builder.append("Dear Mr./Mrs ");
             PrivateCustomerBean privatecustomer = (PrivateCustomerBean) customer;
             builder.append(privatecustomer.getLname());
-        } else
+        }
+        else
         {
             builder.append("Dear ");
             CompanyBean companyBean = (CompanyBean) customer;
@@ -434,7 +437,7 @@ public class ReservationBean implements Serializable
             builder.append(" ");
             builder.append(item.getPriceForCategory());
             builder.append(newline);
-            
+
             if (item.getExtraServices() != null || !item.getExtraServices().isEmpty())
             {
                 builder.append("Extraservices choosen: ");
@@ -451,7 +454,7 @@ public class ReservationBean implements Serializable
             builder.append(item.getBoardCategory());
             builder.append(line);
             builder.append(newline);
-            
+
             builder.append("Total for reservation item: ");
             builder.append(item.getPriceOfReservationItem());
             builder.append(newline);
@@ -463,5 +466,32 @@ public class ReservationBean implements Serializable
         builder.append(this.getTotalPrice());
 
         return builder.toString();
+    }
+
+    public IReservation getReservation()
+    {
+        IReservation reservation = new Reservation();
+        LoginBean bean = (LoginBean) FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
+                FacesContext.getCurrentInstance(), "#{login}", LoginBean.class);
+        CustomerBean customer = bean.getCustomer();
+
+
+        reservation.setComment(this.commentary);
+        reservation.setCreated(new Date());
+        reservation.setEndDate(convertToDate(this.endDate));
+        reservation.setParty(customer.getCustomer());
+        reservation.setReservationNumber(HelperFunctions.getNewContinousNumber(Reservation.class));
+
+
+        reservation.setStartDate(convertToDate(this.startDate));
+
+        Collection<IReservationItem> reservationitems = new LinkedList<IReservationItem>();
+        for (ReservationItemBean item : this.items)
+        {
+            reservationitems.add(item.getReservationItem(reservation));
+        }
+        reservation.setReservationItems(reservationitems);
+
+        return reservation;
     }
 }
